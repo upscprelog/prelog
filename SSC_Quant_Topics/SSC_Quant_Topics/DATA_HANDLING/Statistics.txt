@@ -1,0 +1,13 @@
+Statistics
+==========
+
+Mean of Ungrouped Data
+Median of Ungrouped Data
+Mode of Ungrouped Data
+Mean of Grouped Data
+Range & Variance Basics
+Standard Deviation Basics
+Cumulative Frequency Problems
+Statistics Word Problems
+Data Comparison Problems
+Statistics-based PYQ Patterns

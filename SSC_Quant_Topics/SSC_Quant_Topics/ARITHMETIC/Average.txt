@@ -1,0 +1,13 @@
+Average
+=======
+
+Average Basics
+Weighted Average
+Average of Consecutive Numbers
+Change in Average on Replacement
+Average Speed Problems
+Average Age Problems
+Average in Cricket/Runs Problems
+Combined Average of Groups
+Average with Exclusion/Inclusion
+Average-based Data Interpretation
