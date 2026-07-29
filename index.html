@@ -327,8 +327,8 @@
   <section class="brand">
     <div>
       <div class="eyebrow">UPSC · LoG Prelims Booster</div>
-      <h1>Sign in to<br/>PreLog Test Batch 2027</h1>
-      <p class="lede">One register, 100 sectional tests<br>History ; Geography<br>Environment ; Economy<br>Polity ; Science & Tech<br>and Current Affaris (2026-2027)</p>
+      <h1>Sign in to<br/>enter the hall.</h1>
+      <p class="lede">One register, every sectional test. Your scores, streak and rank are tied to your account — sign in once, attempt as many papers as you like.</p>
     </div>
     <div>
       <div class="stat-row">
@@ -337,15 +337,15 @@
           <div class="label">Batch cycle</div>
         </div>
         <div class="stat">
-          <div class="num">@99</div>
+          <div class="num">Free</div>
           <div class="label">To register</div>
         </div>
         <div class="stat">
-          <div class="num">100</div>
-          <div class="label">Sectional Tests</div>
+          <div class="num">Daily</div>
+          <div class="label">New sectionals</div>
         </div>
       </div>
-      <div class="brand-footer" style="margin-top:28px;">~UPSC  LoG Team</div>
+      <div class="brand-footer" style="margin-top:28px;">upscprelog.github.io/prelog</div>
     </div>
   </section>
 
@@ -438,7 +438,7 @@
   };
 
   // ---- 2. WHERE TO SEND SIGNED-IN USERS ----
-  const REDIRECT_URL = "https://upscprelog.github.io/prelog";
+  const REDIRECT_URL = "https://upscprelog.github.io/prelog/prelog_sectional/PreLoG-2027-01.html";
   // If you want a dashboard/index page instead, point this there,
   // and let that page list the individual test links.
 
@@ -602,11 +602,18 @@
     return "Something went wrong: " + (err.message || "please try again.");
   }
 
-  // If already signed in, skip the form entirely
+  // If already signed in, skip the form entirely.
+  // The authReady flag stops this from firing repeatedly during
+  // Firebase's internal token refresh/iframe handshake.
+  let authReady = false;
   onAuthStateChanged(auth, (user) => {
+    if(authReady) return;
+    authReady = true;
+
     if(user){
       window.location.href = REDIRECT_URL;
     }
+    // if no user, do nothing — just let them see the sign-in form
   });
 </script>
 

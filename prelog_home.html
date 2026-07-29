@@ -392,11 +392,15 @@
     window.location.href = "https://upscprelog.github.io/prelog/index.html";
   }
 };
-  onAuthStateChanged(auth, (user) => {
-    if (!user) {
-      window.location.href = "https://upscprelog.github.io/prelog/index.html";
-    }
-  });
+  let authReady = false;
+onAuthStateChanged(auth, (user) => {
+  if (authReady) return;
+  authReady = true;
+
+  if (!user) {
+    window.location.href = "https://upscprelog.github.io/prelog/index.html";
+  }
+});
 </script>
 <script>
 const BOXES = [
