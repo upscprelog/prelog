@@ -185,6 +185,36 @@
 
   .field{ margin-bottom:18px; }
 
+  .password-wrap{
+    position:relative;
+  }
+  .password-wrap input{
+    padding-right:44px;
+  }
+  .eye-toggle{
+    position:absolute;
+    top:50%;
+    right:10px;
+    transform:translateY(-50%);
+    width:28px;
+    height:28px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:none;
+    border:none;
+    padding:0;
+    cursor:pointer;
+    color:var(--slate);
+    transition:color .15s ease;
+  }
+  .eye-toggle:hover{ color:var(--navy); }
+  .eye-toggle:focus-visible{ outline:2px solid var(--navy); outline-offset:2px; border-radius:4px; }
+  .eye-toggle svg{ width:19px; height:19px; }
+  .eye-toggle .eye-off{ display:none; }
+  .eye-toggle.is-visible .eye{ display:none; }
+  .eye-toggle.is-visible .eye-off{ display:block; }
+
   input[type="email"], input[type="password"], input[type="text"]{
     width:100%;
     padding:12px 14px;
@@ -297,8 +327,8 @@
   <section class="brand">
     <div>
       <div class="eyebrow">UPSC · LoG Prelims Booster</div>
-      <h1>Sign in to<br/>enter the hall.</h1>
-      <p class="lede">One register, every sectional test. Your scores, streak and rank are tied to your account — sign in once, attempt as many papers as you like.</p>
+      <h1>Sign in to<br/>PreLog Test Batch 2027</h1>
+      <p class="lede">One register, 100 sectional tests<br>History ; Geography<br>Environment ; Economy<br>Polity ; Science & Tech<br>and Current Affaris (2026-2027)</p>
     </div>
     <div>
       <div class="stat-row">
@@ -307,15 +337,15 @@
           <div class="label">Batch cycle</div>
         </div>
         <div class="stat">
-          <div class="num">Free</div>
+          <div class="num">@99</div>
           <div class="label">To register</div>
         </div>
         <div class="stat">
-          <div class="num">Daily</div>
-          <div class="label">New sectionals</div>
+          <div class="num">100</div>
+          <div class="label">Sectional Tests</div>
         </div>
       </div>
-      <div class="brand-footer" style="margin-top:28px;">upscprelog.github.io/prelog</div>
+      <div class="brand-footer" style="margin-top:28px;">~UPSC  LoG Team</div>
     </div>
   </section>
 
@@ -337,7 +367,19 @@
           </div>
           <div class="field">
             <label for="password">Password</label>
-            <input type="password" id="password" autocomplete="current-password" required minlength="6" />
+            <div class="password-wrap">
+              <input type="password" id="password" autocomplete="current-password" required minlength="6" />
+              <button type="button" class="eye-toggle" id="eyeToggle" aria-label="Show password" aria-pressed="false">
+                <svg class="eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M1.5 12S5 5 12 5s10.5 7 10.5 7-3.5 7-10.5 7S1.5 12 1.5 12Z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+                <svg class="eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17.94 17.94A10.94 10.94 0 0 1 12 19.5C5 19.5 1.5 12 1.5 12a19.6 19.6 0 0 1 4.22-5.6M9.9 4.66A10.6 10.6 0 0 1 12 4.5c7 0 10.5 7.5 10.5 7.5a19.7 19.7 0 0 1-2.16 3.19M14.12 14.12a3 3 0 1 1-4.24-4.24"/>
+                  <path d="M1.5 1.5l21 21"/>
+                </svg>
+              </button>
+            </div>
           </div>
 
           <div class="field" id="codeField" style="display:none;">
@@ -396,7 +438,7 @@
   };
 
   // ---- 2. WHERE TO SEND SIGNED-IN USERS ----
-  const REDIRECT_URL = "https://upscprelog.github.io/prelog/prelog_home.html";
+  const REDIRECT_URL = "https://upscprelog.github.io/prelog";
   // If you want a dashboard/index page instead, point this there,
   // and let that page list the individual test links.
 
@@ -420,6 +462,15 @@
   const codeInput    = document.getElementById("regCode");
   const nameField    = document.getElementById("nameField");
   const nameInput    = document.getElementById("regName");
+  const eyeToggle    = document.getElementById("eyeToggle");
+
+  eyeToggle.addEventListener("click", () => {
+    const isVisible = passInput.type === "text";
+    passInput.type = isVisible ? "password" : "text";
+    eyeToggle.classList.toggle("is-visible", !isVisible);
+    eyeToggle.setAttribute("aria-label", isVisible ? "Show password" : "Hide password");
+    eyeToggle.setAttribute("aria-pressed", String(!isVisible));
+  });
 
   function setStatus(message, type){
     statusBox.textContent = message;

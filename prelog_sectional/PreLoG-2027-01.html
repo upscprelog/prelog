@@ -748,6 +748,28 @@
   </div>
 </div>
 
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
 <script>
 const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
 
