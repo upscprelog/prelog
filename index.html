@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SSC LoG SSC Test Series</title>
+<title>UPSC LoG Prelims Test Series</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -261,7 +261,7 @@
   footer a{ color:var(--paper-dim); }
 
   /* back button — sits in normal document flow, not fixed/absolute */
-/*  .back-btn{
+  .back-btn{
     display:inline-flex;
     align-items:center;
     gap:8px;
@@ -281,7 +281,7 @@
   .back-btn:hover{ border-color:rgba(233,231,222,0.4); background:#191D27; }
   .back-btn:active{ transform:scale(0.96); }
   .back-btn:focus-visible{ outline:2px solid var(--paper); outline-offset:2px; }
-  .back-btn svg{ width:15px; height:15px; flex:0 0 auto; }*/
+  .back-btn svg{ width:15px; height:15px; flex:0 0 auto; }
 
   @media (min-width:641px){
     .pyq-list{
@@ -314,7 +314,7 @@
 
   @media (max-width:640px){
     header{ padding-top:20px; padding-bottom:0px; }
-/*    .back-btn{ margin:16px 6vw 0; padding:8px 13px; font-size:12.5px; }*/
+    .back-btn{ margin:16px 6vw 0; padding:8px 13px; font-size:12.5px; }
 
     .pyq-section{ padding:36px 6vw 64px; }
     .pyq-spine{ left:22px; }
@@ -346,14 +346,14 @@
 
 <div class="grid-veil"></div>
 
-<!-- <button class="back-btn" onclick="location.href='index.html'" aria-label="Go back">
+<button class="back-btn" onclick="location.href='index.html'" aria-label="Go back">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-  SSC LoG
-</button> -->
+  UPSC LoG
+</button>
 
 <div class="wrap">
   <header>
-    <h1>SSC LoG - <br><em>SSC Booster Test</em></h1>
+    <h1>UPSC LoG - <br><em>Prelims Booster Test</em></h1>
     <p>Test your knowledge and
       <a href="ranks_tests/daily_rankings.html" target="_blank" style="display:inline-block;margin:0 2px;padding:4px 12px;border:1px solid rgba(200,166,70,.35);border-radius:999px;background:rgba(200,166,70,.10);color:#B58D2E;font-weight:800;font-size:.92em;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;transition:all .2s ease;">
       SEE YOUR RANK [click me]</a><br>to compete with aspirants all over India.</p>
@@ -372,21 +372,18 @@
 
 <script>
 const BOXES = [
-  // { seal:"O", tint:"gs2",  title:"SSC SSC PYQs", sub:"Sit for CSE PYQs and see where do you stand", href:"SSC_pyq/pyq_navigator.html" },
+  // { seal:"O", tint:"gs2",  title:"UPSC PRELIMS PYQs", sub:"Sit for CSE PYQs and see where do you stand", href:"prelims_pyq/pyq_navigator.html" },
 
-  { seal:"PDF", tint:"ph",  title:"SSCLoG Schedule 2027<br>[CLICK ME]", sub:"", href:"SSC_LoG_Schedule.pdf", img:"pdf_img.png" },
-  { seal:"1",  tint:"gs3", title:"SSCLoG-2027-01", sub:"<b><u>NUMBER SYSTEM<br></u></b><br>TEST-1 : Q-25", href:"ssc_tests/SSC-LoG-2027-01.html" },
+  { seal:"PDF", tint:"ph",  title:"PreLoG Schedule 2027<br>[CLICK ME]", sub:"", href:"UPSC_LoG_Prelims_Booster_Schedule.pdf", img:"pdf_img.png" },
 
-  { seal:"2",  tint:"gs1", title:"SSCLoG-2027-02", sub:"<b><u>COMMING SOON<br></u></b><br>TEST-2 : Q-25",   href:"ssc_tests/waiting_page.html" },
-  { seal:"3",  tint:"gs1", title:"SSCLoG-2027-02", sub:"<b><u>COMMING SOON<br></u></b><br>TEST-3 : Q-25",   href:"ssc_tests/waiting_page.html" },
-  { seal:"4",  tint:"gs1", title:"SSCLoG-2027-02", sub:"<b><u>COMMING SOON<br></u></b><br>TEST-4 : Q-25",   href:"ssc_tests/waiting_page.html" },
-  { seal:"5",  tint:"gs1", title:"SSCLoG-2027-02", sub:"<b><u>COMMING SOON<br></u></b><br>TEST-5 : Q-25",   href:"ssc_tests/waiting_page.html" },
-  { seal:"6",  tint:"gs1", title:"SSCLoG-2027-02", sub:"<b><u>COMMING SOON<br></u></b><br>TEST-6 : Q-25",   href:"ssc_tests/waiting_page.html" },
-  { seal:"7",  tint:"gs1", title:"SSCLoG-2027-02", sub:"<b><u>COMMING SOON<br></u></b><br>TEST-7 : Q-25",   href:"ssc_tests/waiting_page.html" },
-  { seal:"8",  tint:"gs1", title:"SSCLoG-2027-02", sub:"<b><u>COMMING SOON<br></u></b><br>TEST-8 : Q-25",   href:"ssc_tests/waiting_page.html" },
-  { seal:"9",  tint:"gs1", title:"SSCLoG-2027-02", sub:"<b><u>COMMING SOON<br></u></b><br>TEST-9 : Q-25",   href:"ssc_tests/waiting_page.html" },
-  { seal:"10",  tint:"gs1", title:"SSCLoG-2027-02", sub:"<b><u>COMMING SOON</u><br></b><br>TEST-10 : Q-25",   href:"ssc_tests/waiting_page.html" },
-  { seal:"11",  tint:"gs1", title:"SSCLoG-2027-02", sub:"<b><u>COMMING SOON</u><br></b><br>TEST-11 : Q-25",   href:"ssc_tests/waiting_page.html" },
+  { seal:"2",  tint:"gs1", title:"PreLoG-2027-01", sub:"<b><u>Ancient Medieval<br>Art  Culture</u></b><br><br>TEST-1 : Q-25", href:"prelog_sectional/PreLoG-2027-01.html" },
+  { seal:"2",  tint:"gs2", title:"PreLoG-2027-02", sub:"<b><u>Ancient Medieval<br>Art  Culture</u></b><br><br>TEST-2 : Q-25", href:"prelog_sectional/PreLoG-2027-02.html" },
+  { seal:"3",  tint:"gs3", title:"PreLoG-2027-03", sub:"<b><u>Current Affairs<br>[POLITY]</u></b><br><br>TEST-3      : Q-25", href:"prelog_sectional/PreLoG-2027-03.html" },
+  { seal:"4",  tint:"gs4", title:"PreLoG-2027-04", sub:"<b><u>Current Affairs<br>[ECONOMY]</u></b><br><br>TEST-4     : Q-25", href:"prelog_sectional/PreLoG-2027-04.html" },
+  { seal:"5",  tint:"gs4", title:"PreLoG-2027-05", sub:"<b><u>Economy<br>[BASIC ECONOMICS]</u></b><br><br>TEST-5     : Q-25", href:"prelog_sectional/PreLoG-2027-05.html" },
+  { seal:"6",  tint:"gs4", title:"PreLoG-2027-06", sub:"<b><u>Economy<br>[BANKING SYSTEM]</u></b><br><br>TEST-6             : Q-25", href:"prelog_sectional/PreLoG-2027-06.html" },
+  { seal:"7",  tint:"gs4", title:"PreLoG-2027-07", sub:"<b><u>Environment<br>[ECOLOGY BASICS]</u></b><br><br>TEST-7         : Q-25", href:"prelog_sectional/waiting_page.html" },
+
 ];
 
 const list = document.getElementById('pyqList');
