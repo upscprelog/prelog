@@ -327,8 +327,8 @@
   <section class="brand">
     <div>
       <div class="eyebrow">UPSC · LoG Prelims Booster</div>
-      <h1>Sign in to<br/>enter the hall.</h1>
-      <p class="lede">One register, 100 sectional tests.<br>History , Polity<br>Geography, Env-Ecology and many more<br>Current Affairs included <p>
+      <h1>Sign in to avail<br/>PreLog Sectionals 2027.</h1>
+      <p class="lede">100 sectional tests - History , Polity, Geography, Env-Ecology and many more<br>[Current Affairs included]<p>
     </div>
     <div>
       <div class="stat-row">
@@ -353,12 +353,12 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="mark">LoG</div>
-        <div class="id-tag">ADMIT&nbsp;/&nbsp;REGISTER</div>
+        <div class="id-tag">contact - t.me/upsclogger</div>
       </div>
 
       <div class="ticket-body">
         <h2 class="mode-heading" id="modeHeading">Sign in</h2>
-        <p class="mode-sub" id="modeSub">Use the email you registered with.</p>
+        <p class="mode-sub" id="modeSub">Use a valid email address</p>
 
         <form id="authForm">
           <div class="field">
@@ -383,13 +383,13 @@
           </div>
 
           <div class="field" id="codeField" style="display:none;">
-            <label for="regCode">Registration code</label>
+            <label for="regCode">Phone Number</label>
             <input type="text" id="regCode" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" placeholder="10-digit code" autocomplete="off" />
           </div>
 
           <div class="field" id="nameField" style="display:none;">
             <label for="regName">Your registered name</label>
-            <input type="text" id="regName" placeholder="Exactly as given to you" autocomplete="off" />
+            <input type="text" id="regName" placeholder="Exactly as given by you" autocomplete="off" />
           </div>
 
           <div class="forgot">
@@ -438,7 +438,7 @@
   };
 
   // ---- 2. WHERE TO SEND SIGNED-IN USERS ----
-  const REDIRECT_URL = "https://upscprelog.github.io/prelog/prelog_sectional/prelog_home.html";
+  const REDIRECT_URL = "https://upscprelog.github.io/prelog/prelog_home.html";
   // If you want a dashboard/index page instead, point this there,
   // and let that page list the individual test links.
 
@@ -496,7 +496,7 @@
       nameInput.required = false;
     } else {
       modeHeading.textContent = "Create account";
-      modeSub.textContent = "Enter the code and name you were registered under.";
+      modeSub.textContent = "Enter Phone No. and Your name";
       submitBtn.textContent = "Create account";
       switchPrompt.textContent = "Already registered?";
       switchBtn.textContent = "Sign in instead";
@@ -542,7 +542,7 @@
         const enteredName = nameInput.value.trim();
 
         if(!/^\d{10}$/.test(code)){
-          setStatus("Registration code must be exactly 10 digits.", "error");
+          setStatus("Phone Number must be exactly 10 digits.", "error");
           submitBtn.disabled = false;
           return;
         }
@@ -590,8 +590,8 @@
   function friendlyError(err){
     const code = err.code || "";
     const msg = err.message || "";
-    if(msg.includes("code/not-found")) return "That registration code isn't recognized. Double-check it and try again.";
-    if(msg.includes("code/already-used")) return "That registration code has already been used. Each code works once only.";
+    if(msg.includes("code/not-found")) return "That Phone Number isn't recognized. Double-check it and try again.";
+    if(msg.includes("code/already-used")) return "That Phone Number has already been used. Each code works once only.";
     if(msg.includes("code/name-mismatch")) return "That name doesn't match the name registered against this code.";
     if(code.includes("invalid-email")) return "That email address doesn't look right.";
     if(code.includes("user-not-found") || code.includes("invalid-credential")) return "No account found with that email and password.";
