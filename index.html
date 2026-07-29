@@ -1,421 +1,562 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UPSC LoG Prelims Test Series</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>UPSC LoG — Sign In</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=Fragment+Mono&display=swap" rel="stylesheet" />
+
 <style>
   :root{
-    --ink:#0B0D12;
-    --ink-2:#12151C;
-    --card:#151922;
-    --card-border:rgba(233,231,222,0.10);
-    --paper:#E9E7DE;
-    --paper-dim:#9A9C9C;
-    --paper-faint:rgba(233,231,222,0.55);
-
-    --gs1: #B8834A;   /* history / geography / society — clay, terrain */
-    --gs1-soft: rgba(184,131,74,0.14);
-    --gs2: #4B5FBF;   /* polity / constitution — indigo of authority */
-    --gs2-soft: rgba(75,95,191,0.14);
-    --gs3: #4C8558;   /* economy / agri / infra — cultivated green */
-    --gs3-soft: rgba(76,133,88,0.14);
-    --gs4: #8A3B4C;   /* ethics — considered, weighted maroon */
-    --gs4-soft: rgba(138,59,76,0.14);
-    --ph:  #3E7FA6;   /* physics — cold, precise cyan-blue */
-    --ph-soft: rgba(62,127,166,0.14);
+    --navy: #16233F;
+    --navy-deep: #0E1830;
+    --paper: #F7F4EC;
+    --paper-line: #E4DFCF;
+    --gold: #C9A227;
+    --gold-soft: #E4C669;
+    --slate: #5B6472;
+    --error: #B3432B;
+    --ok: #3C6E47;
   }
 
-  *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;}
+  *{ box-sizing:border-box; }
+  html,body{ height:100%; margin:0; }
+
   body{
-    background:var(--ink);
-    color:var(--paper);
-    font-family:'IBM Plex Sans', sans-serif;
-    -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
+    font-family:"Inter", sans-serif;
+    background:var(--navy-deep);
+    color:var(--navy);
+    display:flex;
     min-height:100vh;
   }
 
-  /* faint dossier grid texture */
-  .grid-veil{
-    position:fixed; inset:0; pointer-events:none; z-index:0;
-    background-image:
-      linear-gradient(rgba(233,231,222,0.035) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(233,231,222,0.035) 1px, transparent 1px);
-    background-size:44px 44px;
-    mask-image:radial-gradient(ellipse 90% 70% at 50% 0%, black 40%, transparent 85%);
-  }
-
-  .wrap{position:relative; z-index:1; max-width:1400px; margin:0 auto; padding:0 6vw;}
-
-  header{
-    padding:20px 6vw 0px;
-    max-width:900px;
-  }
-  .eyebrow{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12px;
-    letter-spacing:0.16em;
-    text-transform:uppercase;
-    color:var(--paper-dim);
-    display:flex; align-items:center; gap:10px;
-    margin-bottom:22px;
-  }
-  .eyebrow::before{
-    content:"";
-    width:22px; height:1px;
-    background:var(--paper-dim);
-  }
-  h1{
-    font-family:'Fraunces', serif;
-    font-weight:500;
-    font-size:clamp(2.4rem, 6vw, 4.4rem);
-    line-height:1.03;
-    letter-spacing:-0.01em;
-    margin:0 0 20px;
-  }
-  h1 em{
-    font-style:italic;
-    font-weight:500;
-    color:transparent;
-    background:linear-gradient(90deg, var(--gs1), var(--gs2) 30%, var(--gs3) 55%, var(--gs4) 75%, var(--ph));
-    -webkit-background-clip:text;
-    background-clip:text;
-  }
-  header p{
-    font-size:16px;
-    line-height:1.65;
-    color:var(--paper-faint);
-    max-width:560px;
-    margin:0;
-  }
-
-  /* ===== PYQ boxes ===== */
-  .pyq-section{
-    position:relative;
-    padding:56px 6vw min(11vw,96px);
-  }
-  .pyq-spine{
-    position:absolute;
-    left:50%;
-    top:20px;
-    bottom:60px;
-    width:1px;
-    background:repeating-linear-gradient(
-      to bottom,
-      rgba(233,231,222,0.14) 0px,
-      rgba(233,231,222,0.14) 6px,
-      transparent 6px,
-      transparent 14px
-    );
-    transform:translateX(-0.5px);
-  }
-  .pyq-list{
-    position:relative;
-    z-index:1;
-    max-width:980px;
-    margin:0 auto;
+  /* ---------- Left: brand / context panel ---------- */
+  .brand{
+    flex:1 1 46%;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(201,162,39,0.10), transparent 40%),
+      linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#EFE9D8;
+    padding:56px 56px;
     display:flex;
     flex-direction:column;
-    gap:22px;
-  }
-  .pyq-row{
-    display:flex;
-  }
-  .pyq-row.start{ justify-content:flex-start; }
-  .pyq-row.end{ justify-content:flex-end; }
-
-  .pyq-box{
-    --tint: var(--gs1);
-    --tint-soft: var(--gs1-soft);
-    width:min(400px, 62%);
-    display:flex;
-    align-items:center;
     justify-content:space-between;
-    gap:16px;
-    padding:14px 18px;
-    border-radius:14px;
-    background:
-      radial-gradient(120% 160% at 0% 0%, var(--tint-soft), transparent 65%),
-      var(--card);
-    border:1px solid var(--card-border);
-    text-decoration:none;
-    color:var(--paper);
-    box-shadow:0 18px 34px -26px rgba(0,0,0,0.7);
-    transition:transform .22s ease, border-color .22s ease, box-shadow .22s ease, background .22s ease;
+    position:relative;
+    overflow:hidden;
   }
-  .pyq-row.end .pyq-box{ flex-direction:row-reverse; text-align:right; }
-
-  .pyq-box:hover{
-    transform:translateY(-3px);
-    border-color:color-mix(in srgb, var(--tint) 55%, transparent);
-    box-shadow:0 24px 44px -22px rgba(0,0,0,0.8);
+  .brand::before{
+    content:"";
+    position:absolute;
+    inset:18px;
+    border:1px solid rgba(228,198,105,0.28);
+    pointer-events:none;
   }
-  .pyq-box:active{ transform:translateY(-1px) scale(0.985); }
-
-  .pyq-main{
-    display:flex;
-    align-items:center;
-    gap:14px;
-    min-width:0;
-  }
-  .pyq-row.end .pyq-main{ flex-direction:row-reverse; }
-
-  .pyq-seal{
-    flex:0 0 auto;
-    width:38px; height:38px;
-    border-radius:50%;
-    border:1px solid color-mix(in srgb, var(--tint) 55%, transparent);
-    display:flex; align-items:center; justify-content:center;
-    font-family:'Fraunces', serif;
-    font-style:italic;
-    font-size:13px;
-    color:var(--tint);
-    background:var(--tint-soft);
+  .brand::after{
+    content:"";
+    position:absolute;
+    inset:24px;
+    border:1px solid rgba(228,198,105,0.14);
+    pointer-events:none;
   }
 
-  .pyq-divider{
-    flex:0 0 auto;
-    width:1px;
-    height:28px;
-    background:linear-gradient(to bottom, transparent, color-mix(in srgb, var(--tint) 55%, transparent), transparent);
+  .eyebrow{
+    font-family:"Fragment Mono", monospace;
+    font-size:12px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--gold-soft);
+    margin-bottom:18px;
   }
 
-  .pyq-text{ min-width:0; }
-  .pyq-title{
-    font-family:'IBM Plex Sans', sans-serif;
-    font-weight:600;
-    font-size:14.5px;
-    line-height:1.3;
-    margin:0 0 3px;
-    color:var(--paper);
+  .brand h1{
+    font-family:"Source Serif 4", serif;
+    font-weight:700;
+    font-size:clamp(34px, 4vw, 50px);
+    line-height:1.08;
+    margin:0 0 20px;
   }
-  .pyq-sub{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:11px;
-    letter-spacing:0.04em;
-    color:var(--tint);
+
+  .brand p.lede{
+    font-size:16px;
+    line-height:1.65;
+    color:#C7C2AE;
+    max-width:38ch;
     margin:0;
   }
 
-  /* ===== Featured (faded image) box — first box only ===== */
-  .pyq-box.featured{
-    position:relative;
-    min-height:120px;
-    background:
-      linear-gradient(rgba(11,13,18,0.68), rgba(11,13,18,0.72)),
-      var(--featured-img) center/cover no-repeat,
-      var(--card);
-  }
-  .pyq-box.featured .pyq-seal,
-  .pyq-box.featured .pyq-divider{ display:none; }
-  .pyq-box.featured .pyq-title{
-    font-size:16px;
-    letter-spacing:0.02em;
-    text-transform:uppercase;
-    text-shadow:0 2px 10px rgba(0,0,0,0.6);
-  }
-  .pyq-box.featured .pyq-sub{
-    color:var(--paper-faint);
-    text-shadow:0 2px 8px rgba(0,0,0,0.6);
-  }
-  .pyq-box.featured .pdf-tag{
-    position:absolute;
-    top:10px;
-    right:12px;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:10px;
-    letter-spacing:0.08em;
-    padding:3px 8px;
-    border-radius:100px;
-    border:1px solid rgba(233,231,222,0.25);
-    background:rgba(11,13,18,0.55);
-    color:var(--paper-faint);
-  }
-  .pyq-row.end .pyq-box.featured .pdf-tag{ right:auto; left:12px; }
-
-  .pyq-arrow{
-    flex:0 0 auto;
-    width:15px; height:15px;
-    color:var(--tint);
-    opacity:0.55;
-    transition:transform .22s ease, opacity .22s ease;
-  }
-  .pyq-box:hover .pyq-arrow{ opacity:1; transform:translateX(3px); }
-  .pyq-row.end .pyq-arrow{ transform:scaleX(-1); }
-  .pyq-row.end .pyq-box:hover .pyq-arrow{ transform:scaleX(-1) translateX(3px); }
-
-  footer{
-    padding:0 6vw 70px;
-    color:var(--paper-dim);
-    font-size:13px;
+  .stat-row{
     display:flex;
-    justify-content:space-between;
-    flex-wrap:wrap;
-    gap:10px;
+    gap:36px;
+    margin-top:44px;
+    padding-top:28px;
+    border-top:1px solid rgba(239,233,216,0.15);
   }
-  footer a{ color:var(--paper-dim); }
+  .stat .num{
+    font-family:"Source Serif 4", serif;
+    font-size:26px;
+    color:var(--gold-soft);
+  }
+  .stat .label{
+    font-family:"Fragment Mono", monospace;
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:#9AA0A8;
+    margin-top:4px;
+  }
 
-  /* back button — sits in normal document flow, not fixed/absolute */
-  .back-btn{
-    display:inline-flex;
+  .brand-footer{
+    font-family:"Fragment Mono", monospace;
+    font-size:12px;
+    color:#8890A0;
+    letter-spacing:.02em;
+  }
+
+  /* ---------- Right: auth panel ---------- */
+  .auth-wrap{
+    flex:1 1 54%;
+    background:var(--paper);
+    display:flex;
     align-items:center;
-    gap:8px;
-    margin:60px 6vw 0;
-    padding:9px 15px;
-    border-radius:100px;
-    border:1px solid var(--card-border);
-    background:var(--ink-2);
-    color:var(--paper);
-    font-family:'IBM Plex Sans', sans-serif;
-    font-weight:500;
-    font-size:13px;
-    text-decoration:none;
+    justify-content:center;
+    padding:40px 24px;
+  }
+
+  .ticket{
+    width:100%;
+    max-width:420px;
+    background:#FFFDF8;
+    border:1px solid var(--paper-line);
+    box-shadow: 0 1px 0 var(--paper-line), 0 24px 48px -24px rgba(14,24,48,0.35);
+    position:relative;
+  }
+
+  .ticket-header{
+    padding:28px 32px 22px;
+    border-bottom:1px dashed var(--paper-line);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .ticket-header .mark{
+    width:38px; height:38px;
+    border:1.5px solid var(--navy);
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-family:"Source Serif 4", serif;
+    font-weight:700;
+    font-size:15px;
+    color:var(--navy);
+  }
+  .ticket-header .id-tag{
+    font-family:"Fragment Mono", monospace;
+    font-size:11px;
+    letter-spacing:.08em;
+    color:var(--slate);
+    text-align:right;
+  }
+
+  .ticket-body{ padding:30px 32px 34px; }
+
+  .mode-heading{
+    font-family:"Source Serif 4", serif;
+    font-weight:600;
+    font-size:24px;
+    margin:0 0 6px;
+  }
+  .mode-sub{
+    font-size:14px;
+    color:var(--slate);
+    margin:0 0 26px;
+  }
+
+  label{
+    display:block;
+    font-family:"Fragment Mono", monospace;
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--slate);
+    margin-bottom:7px;
+  }
+
+  .field{ margin-bottom:18px; }
+
+  input[type="email"], input[type="password"], input[type="text"]{
+    width:100%;
+    padding:12px 14px;
+    font-family:"Inter", sans-serif;
+    font-size:15px;
+    color:var(--navy);
+    background:#fff;
+    border:1px solid #D8D2BE;
+    outline:none;
+    transition: border-color .15s ease, box-shadow .15s ease;
+  }
+  input:focus{
+    border-color:var(--navy);
+    box-shadow:0 0 0 3px rgba(22,35,63,0.10);
+  }
+
+  .submit-btn{
+    width:100%;
+    padding:13px 16px;
+    margin-top:6px;
+    background:var(--navy);
+    color:#F5F1E4;
+    border:none;
+    font-family:"Inter", sans-serif;
+    font-weight:600;
+    font-size:15px;
+    letter-spacing:.01em;
     cursor:pointer;
-    transition:border-color .25s, background .25s, transform .15s;
+    transition: background .15s ease;
   }
-  .back-btn:hover{ border-color:rgba(233,231,222,0.4); background:#191D27; }
-  .back-btn:active{ transform:scale(0.96); }
-  .back-btn:focus-visible{ outline:2px solid var(--paper); outline-offset:2px; }
-  .back-btn svg{ width:15px; height:15px; flex:0 0 auto; }
+  .submit-btn:hover{ background:var(--navy-deep); }
+  .submit-btn:disabled{ opacity:.55; cursor:not-allowed; }
 
-  @media (min-width:641px){
-    .pyq-list{
-      display:grid;
-      grid-template-columns:repeat(2, 1fr);
-      max-width:980px;
-    }
-    .pyq-spine{ display:none; }
-    .pyq-row.start, .pyq-row.end{
-      display:block;
-      justify-content:unset;
-    }
-    .pyq-row.end .pyq-box{ flex-direction:row; text-align:left; }
-    .pyq-row.end .pyq-main{ flex-direction:row; }
-    .pyq-row.end .pyq-arrow{ transform:none; }
-    .pyq-row.end .pyq-box:hover .pyq-arrow{ transform:translateX(3px); }
-    .pyq-box{
-      width:100%;
-      max-width:none;
-    }
+  .divider{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin:22px 0;
+    color:#B9B29A;
+    font-family:"Fragment Mono", monospace;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+  }
+  .divider::before, .divider::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:var(--paper-line);
   }
 
-  @media (min-width:900px){
-    .pyq-list{ grid-template-columns:repeat(3, 1fr); max-width:1300px; }
+  .switch-row{
+    text-align:center;
+    font-size:13.5px;
+    color:var(--slate);
+    margin-top:22px;
+  }
+  .switch-row button{
+    background:none;
+    border:none;
+    color:var(--navy);
+    font-weight:600;
+    text-decoration:underline;
+    text-underline-offset:3px;
+    cursor:pointer;
+    font-size:13.5px;
+    font-family:inherit;
+    padding:0;
   }
 
-  @media (min-width:1240px){
-    .pyq-list{ grid-template-columns:repeat(4, 1fr); max-width:1400px; }
+  .forgot{
+    text-align:right;
+    margin:-10px 0 18px;
+  }
+  .forgot button{
+    background:none; border:none; padding:0; cursor:pointer;
+    font-family:"Inter", sans-serif;
+    font-size:12.5px;
+    color:var(--slate);
+    text-decoration:underline;
+    text-underline-offset:3px;
   }
 
-  @media (max-width:640px){
-    header{ padding-top:20px; padding-bottom:0px; }
-    .back-btn{ margin:16px 6vw 0; padding:8px 13px; font-size:12.5px; }
+  .status{
+    margin-top:16px;
+    font-size:13px;
+    padding:10px 12px;
+    border-left:3px solid transparent;
+    display:none;
+    line-height:1.5;
+  }
+  .status.show{ display:block; }
+  .status.error{ background:#FBEDE8; border-color:var(--error); color:#7E2E1B; }
+  .status.ok{ background:#EBF3EC; border-color:var(--ok); color:#26492D; }
 
-    .pyq-section{ padding:36px 6vw 64px; }
-    .pyq-spine{ left:22px; }
-    .pyq-list{ gap:16px; }
-    .pyq-row.start, .pyq-row.end{ justify-content:flex-start; }
-    .pyq-box{
-      width:100%;
-      max-width:400px;
-      margin-left:40px;
-      padding:12px 16px;
-      gap:11px;
-    }
-    .pyq-row.end .pyq-box{ flex-direction:row; text-align:left; }
-    .pyq-row.end .pyq-main{ flex-direction:row; }
-    .pyq-row.end .pyq-arrow{ transform:none; }
-    .pyq-row.end .pyq-box:hover .pyq-arrow{ transform:translateX(3px); }
-    .pyq-seal{ width:32px; height:32px; font-size:11.5px; }
-    .pyq-divider{ height:24px; }
-    .pyq-title{ font-size:13.5px; }
-    .pyq-sub{ font-size:10px; }
+  @media (max-width: 860px){
+    body{ flex-direction:column; }
+    .brand{ padding:40px 28px; }
+    .brand::before, .brand::after{ inset:12px; }
+    .stat-row{ margin-top:28px; padding-top:20px; }
   }
 
   @media (prefers-reduced-motion: reduce){
-    *{ scroll-behavior:auto !important; transition:none !important; }
+    *{ transition:none !important; }
   }
 </style>
 </head>
 <body>
 
-<div class="grid-veil"></div>
+  <section class="brand">
+    <div>
+      <div class="eyebrow">UPSC · LoG Prelims Booster</div>
+      <h1>Sign in to<br/>enter the hall.</h1>
+      <p class="lede">One register, every sectional test. Your scores, streak and rank are tied to your account — sign in once, attempt as many papers as you like.</p>
+    </div>
+    <div>
+      <div class="stat-row">
+        <div class="stat">
+          <div class="num">2027</div>
+          <div class="label">Batch cycle</div>
+        </div>
+        <div class="stat">
+          <div class="num">Free</div>
+          <div class="label">To register</div>
+        </div>
+        <div class="stat">
+          <div class="num">Daily</div>
+          <div class="label">New sectionals</div>
+        </div>
+      </div>
+      <div class="brand-footer" style="margin-top:28px;">upscprelog.github.io/prelog</div>
+    </div>
+  </section>
 
-<button class="back-btn" onclick="location.href='index.html'" aria-label="Go back">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-  UPSC LoG
-</button>
+  <section class="auth-wrap">
+    <div class="ticket">
+      <div class="ticket-header">
+        <div class="mark">LoG</div>
+        <div class="id-tag">ADMIT&nbsp;/&nbsp;REGISTER</div>
+      </div>
 
-<div class="wrap">
-  <header>
-    <h1>UPSC LoG - <br><em>Prelims Booster Test</em></h1>
-    <p>Test your knowledge and
-      <a href="ranks_tests/daily_rankings.html" target="_blank" style="display:inline-block;margin:0 2px;padding:4px 12px;border:1px solid rgba(200,166,70,.35);border-radius:999px;background:rgba(200,166,70,.10);color:#B58D2E;font-weight:800;font-size:.92em;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;transition:all .2s ease;">
-      SEE YOUR RANK [click me]</a><br>to compete with aspirants all over India.</p>
-  </header>
-</div>
+      <div class="ticket-body">
+        <h2 class="mode-heading" id="modeHeading">Sign in</h2>
+        <p class="mode-sub" id="modeSub">Use the email you registered with.</p>
 
-<section class="pyq-section">
-  <div class="pyq-spine"></div>
-  <div class="pyq-list" id="pyqList"></div>
-</section>
+        <form id="authForm">
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" autocomplete="email" required />
+          </div>
+          <div class="field">
+            <label for="password">Password</label>
+            <input type="password" id="password" autocomplete="current-password" required minlength="6" />
+          </div>
 
-<div class="wrap">
-  <footer>
-  </footer>
-</div>
+          <div class="field" id="codeField" style="display:none;">
+            <label for="regCode">Registration code</label>
+            <input type="text" id="regCode" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" placeholder="10-digit code" autocomplete="off" />
+          </div>
 
-<script>
-const BOXES = [
-  // { seal:"O", tint:"gs2",  title:"UPSC PRELIMS PYQs", sub:"Sit for CSE PYQs and see where do you stand", href:"prelims_pyq/pyq_navigator.html" },
+          <div class="field" id="nameField" style="display:none;">
+            <label for="regName">Your registered name</label>
+            <input type="text" id="regName" placeholder="Exactly as given to you" autocomplete="off" />
+          </div>
 
-  { seal:"PDF", tint:"ph",  title:"PreLoG Schedule 2027<br>[CLICK ME]", sub:"", href:"UPSC_LoG_Prelims_Booster_Schedule.pdf", img:"pdf_img.png" },
+          <div class="forgot">
+            <button type="button" id="forgotBtn">Forgot password?</button>
+          </div>
 
-  { seal:"2",  tint:"gs1", title:"PreLoG-2027-01", sub:"<b><u>Ancient Medieval<br>Art  Culture</u></b><br><br>TEST-1 : Q-25", href:"prelog_sectional/PreLoG-2027-01.html" },
-  { seal:"2",  tint:"gs2", title:"PreLoG-2027-02", sub:"<b><u>Ancient Medieval<br>Art  Culture</u></b><br><br>TEST-2 : Q-25", href:"prelog_sectional/PreLoG-2027-02.html" },
-  { seal:"3",  tint:"gs3", title:"PreLoG-2027-03", sub:"<b><u>Current Affairs<br>[POLITY]</u></b><br><br>TEST-3      : Q-25", href:"prelog_sectional/PreLoG-2027-03.html" },
-  { seal:"4",  tint:"gs4", title:"PreLoG-2027-04", sub:"<b><u>Current Affairs<br>[ECONOMY]</u></b><br><br>TEST-4     : Q-25", href:"prelog_sectional/PreLoG-2027-04.html" },
-  { seal:"5",  tint:"gs4", title:"PreLoG-2027-05", sub:"<b><u>Economy<br>[BASIC ECONOMICS]</u></b><br><br>TEST-5     : Q-25", href:"prelog_sectional/PreLoG-2027-05.html" },
-  { seal:"6",  tint:"gs4", title:"PreLoG-2027-06", sub:"<b><u>Economy<br>[BANKING SYSTEM]</u></b><br><br>TEST-6             : Q-25", href:"prelog_sectional/PreLoG-2027-06.html" },
-  { seal:"7",  tint:"gs4", title:"PreLoG-2027-07", sub:"<b><u>Environment<br>[ECOLOGY BASICS]</u></b><br><br>TEST-7         : Q-25", href:"prelog_sectional/waiting_page.html" },
+          <button type="submit" class="submit-btn" id="submitBtn">Sign in</button>
+        </form>
 
-];
+        <div class="status" id="statusBox"></div>
 
-const list = document.getElementById('pyqList');
+        <div class="switch-row">
+          <span id="switchPrompt">New here?</span>
+          <button type="button" id="switchBtn">Create an account</button>
+        </div>
+      </div>
+    </div>
+  </section>
 
-BOXES.forEach((b, i) => {
-  const row = document.createElement('div');
-  row.className = 'pyq-row ' + (i % 2 === 0 ? 'start' : 'end');
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import {
+    getAuth,
+    onAuthStateChanged,
+    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
+    sendPasswordResetEmail
+  } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+  import {
+    getFirestore,
+    doc,
+    runTransaction,
+    setDoc
+  } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 
-  const a = document.createElement('a');
-  a.className = 'pyq-box' + (b.img ? ' featured' : '');
-  a.href = b.href;
-  a.target = '_blank';
-  a.rel = 'noopener noreferrer';
-  a.style.setProperty('--tint', `var(--${b.tint})`);
-  a.style.setProperty('--tint-soft', `var(--${b.tint}-soft)`);
-  if (b.img) a.style.setProperty('--featured-img', `url('${b.img}')`);
-  a.innerHTML = `
-    <span class="pyq-main">
-      <span class="pyq-seal">${b.seal}</span>
-      <span class="pyq-divider"></span>
-      <span class="pyq-text">
-        <p class="pyq-title">${b.title}</p>
-        <p class="pyq-sub">${b.sub}</p>
-      </span>
-    </span>
-    ${b.img ? '<span class="pdf-tag">PDF</span>' : ''}
-    <svg class="pyq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
-  `;
+  // ---- 1. PASTE YOUR FIREBASE CONFIG HERE ----
+  // Get this from: Firebase Console -> Project settings -> General -> Your apps -> SDK setup and configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"
+  };
 
-  row.appendChild(a);
-  list.appendChild(row);
-});
+  // ---- 2. WHERE TO SEND SIGNED-IN USERS ----
+  const REDIRECT_URL = "https://upscprelog.github.io/prelog/prelog_home.html";
+  // If you want a dashboard/index page instead, point this there,
+  // and let that page list the individual test links.
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  let mode = "signin"; // or "signup"
+
+  const form         = document.getElementById("authForm");
+  const emailInput   = document.getElementById("email");
+  const passInput    = document.getElementById("password");
+  const submitBtn    = document.getElementById("submitBtn");
+  const statusBox    = document.getElementById("statusBox");
+  const switchBtn    = document.getElementById("switchBtn");
+  const switchPrompt = document.getElementById("switchPrompt");
+  const modeHeading  = document.getElementById("modeHeading");
+  const modeSub      = document.getElementById("modeSub");
+  const forgotBtn    = document.getElementById("forgotBtn");
+  const codeField    = document.getElementById("codeField");
+  const codeInput    = document.getElementById("regCode");
+  const nameField    = document.getElementById("nameField");
+  const nameInput    = document.getElementById("regName");
+
+  function setStatus(message, type){
+    statusBox.textContent = message;
+    statusBox.className = "status show " + type;
+  }
+  function clearStatus(){
+    statusBox.className = "status";
+  }
+
+  function setMode(next){
+    mode = next;
+    clearStatus();
+    if(mode === "signin"){
+      modeHeading.textContent = "Sign in";
+      modeSub.textContent = "Use the email you registered with.";
+      submitBtn.textContent = "Sign in";
+      switchPrompt.textContent = "New here?";
+      switchBtn.textContent = "Create an account";
+      passInput.autocomplete = "current-password";
+      codeField.style.display = "none";
+      codeInput.required = false;
+      nameField.style.display = "none";
+      nameInput.required = false;
+    } else {
+      modeHeading.textContent = "Create account";
+      modeSub.textContent = "Enter the code and name you were registered under.";
+      submitBtn.textContent = "Create account";
+      switchPrompt.textContent = "Already registered?";
+      switchBtn.textContent = "Sign in instead";
+      passInput.autocomplete = "new-password";
+      codeField.style.display = "block";
+      codeInput.required = true;
+      nameField.style.display = "block";
+      nameInput.required = true;
+    }
+  }
+
+  switchBtn.addEventListener("click", () => {
+    setMode(mode === "signin" ? "signup" : "signin");
+  });
+
+  forgotBtn.addEventListener("click", async () => {
+    const email = emailInput.value.trim();
+    if(!email){
+      setStatus("Enter your email above first, then tap Forgot password.", "error");
+      return;
+    }
+    try{
+      await sendPasswordResetEmail(auth, email);
+      setStatus("Password reset email sent. Check your inbox.", "ok");
+    }catch(err){
+      setStatus(friendlyError(err), "error");
+    }
+  });
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    clearStatus();
+    submitBtn.disabled = true;
+
+    const email = emailInput.value.trim();
+    const password = passInput.value;
+
+    try{
+      if(mode === "signin"){
+        await signInWithEmailAndPassword(auth, email, password);
+      } else {
+        const code = codeInput.value.trim();
+        const enteredName = nameInput.value.trim();
+
+        if(!/^\d{10}$/.test(code)){
+          setStatus("Registration code must be exactly 10 digits.", "error");
+          submitBtn.disabled = false;
+          return;
+        }
+        if(!enteredName){
+          setStatus("Enter the name your code was registered under.", "error");
+          submitBtn.disabled = false;
+          return;
+        }
+
+        // Step 1: atomically reserve the code. Fails if it doesn't exist,
+        // is already used, or the name doesn't match the pre-approved record —
+        // before any account is created.
+        const codeRef = doc(db, "inviteCodes", code);
+        await runTransaction(db, async (tx) => {
+          const snap = await tx.get(codeRef);
+          if(!snap.exists()){
+            throw new Error("code/not-found");
+          }
+          const data = snap.data();
+          if(data.used === true){
+            throw new Error("code/already-used");
+          }
+          const onFile = (data.name || "").trim().toLowerCase();
+          if(onFile !== enteredName.toLowerCase()){
+            throw new Error("code/name-mismatch");
+          }
+          tx.update(codeRef, {
+            used: true,
+            boundEmail: email,
+            usedAt: new Date().toISOString()
+          });
+        });
+
+        // Step 2: code is reserved, now create the actual account
+        await createUserWithEmailAndPassword(auth, email, password);
+      }
+      setStatus("Success — redirecting…", "ok");
+      // onAuthStateChanged below handles the redirect
+    }catch(err){
+      setStatus(friendlyError(err), "error");
+      submitBtn.disabled = false;
+    }
+  });
+
+  function friendlyError(err){
+    const code = err.code || "";
+    const msg = err.message || "";
+    if(msg.includes("code/not-found")) return "That registration code isn't recognized. Double-check it and try again.";
+    if(msg.includes("code/already-used")) return "That registration code has already been used. Each code works once only.";
+    if(msg.includes("code/name-mismatch")) return "That name doesn't match the name registered against this code.";
+    if(code.includes("invalid-email")) return "That email address doesn't look right.";
+    if(code.includes("user-not-found") || code.includes("invalid-credential")) return "No account found with that email and password.";
+    if(code.includes("wrong-password")) return "Incorrect password. Try again or reset it.";
+    if(code.includes("email-already-in-use")) return "An account already exists with that email — try signing in instead.";
+    if(code.includes("weak-password")) return "Password should be at least 6 characters.";
+    if(code.includes("too-many-requests")) return "Too many attempts. Please wait a moment and try again.";
+    return "Something went wrong: " + (err.message || "please try again.");
+  }
+
+  // If already signed in, skip the form entirely
+  onAuthStateChanged(auth, (user) => {
+    if(user){
+      window.location.href = REDIRECT_URL;
+    }
+  });
 </script>
 
 </body>
