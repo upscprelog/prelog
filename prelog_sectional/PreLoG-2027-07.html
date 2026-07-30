@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .name-bar{
+  max-width:1280px; margin:20px auto 0;
+  padding:0 28px;
+  display:flex; align-items:center; gap:12px;
+}
+.name-bar label{
+  font-family:var(--mono); font-size:20px;
+  color:var(--ink-soft); white-space:nowrap;
+}
+.name-bar input{
+  flex:1; max-width:320px;
+  font-family:var(--sans); font-size:14px;
+  padding:9px 14px;
+  border:1px solid var(--rule); border-radius:7px;
+  background:var(--paper); color:var(--ink);
+}
+.name-bar input:focus{ outline:none; border-color:var(--navy); }
+[data-theme="dark"] .name-bar input:focus{ border-color:var(--gold); }
+
+@media (max-width: 430px){
+  .name-bar{ padding:0 12px; margin-top:14px; flex-wrap:wrap; }
+  .name-bar input{ max-width:100%; }
+}
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-07</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">30:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="name-bar">
+  <label for="userName">Add name for rank</label>
+  <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+</div>
+
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+{
+    q: "With reference to the Forest (Conservation) Amendment Act, 2023, consider the following statements: <br> 1. It renamed the original Forest (Conservation) Act, 1980 as the Van (Sanrakshan Evam Samvardhan) Adhiniyam, 1980.<br>2. It restricts the applicability of the Act mainly to land officially notified as forest or recorded as forest in government records, thereby narrowing the scope of the 'deemed forest' doctrine laid down in the Godavarman case.<br>3. It does not provide any exemption to forest land situated near India's international borders from the Act's provisions.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "The 2023 Act renamed the law and clarified its applicability chiefly to notified/recorded forest land, which critics say dilutes the wider 'deemed forest' interpretation from the Godavarman judgment. However, it explicitly exempts forest land within 100 km of international borders/LoC/LAC for strategic security projects, so Statement 3 is incorrect."
+},
+{
+    q: "With reference to food chains in an ecosystem, consider the following statements: <br> 1. A grazing food chain begins with green plants and proceeds through herbivores to carnivores.<br>2. In most terrestrial ecosystems, a larger proportion of energy flows through the detritus food chain than through the grazing food chain.<br>3. The grazing and detritus food chains function in complete isolation, with no exchange of matter or energy between them.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "1 and 2 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 1,
+    exp: "The grazing food chain starts with producers and moves to herbivores and then carnivores, while in most terrestrial ecosystems (like forests) the bulk of net primary production is processed via the detritus pathway rather than the grazing pathway. The two chains are interlinked through decomposers and detritivores, so Statement 3 is incorrect."
+},
+{
+    q: "Consider the following statements: <br> Assertion (A): The concentration of non-biodegradable pollutants such as DDT tends to increase progressively at successive trophic levels of a food chain.<br>Reason (R): Only about ten percent of the energy available at one trophic level is transferred to the next, whereas such pollutants are not metabolised or excreted and instead accumulate in body tissues.<br>Which one of the following is correct in respect of the above Assertion (A) and Reason (R)?",
+    opts: [
+        "A is true but R is false",
+        "A is false but R is true",
+        "Both A and R are true and R is the correct explanation of A",
+        "Both A and R are true but R is not the correct explanation of A"
+    ],
+    ans: 2,
+    exp: "This describes biological magnification: since energy transfer between trophic levels is inefficient (roughly 10%, per the ten percent law), organisms at higher trophic levels must consume large quantities of biomass, and because pollutants like DDT are fat-soluble and non-biodegradable, they accumulate rather than get eliminated. Hence R correctly explains why A occurs."
+},
+{
+    q: "Recent global fisheries assessments (2025–26) have flagged declining phytoplankton biomass in oceans as a concern for marine food webs. In this context, consider the following statements regarding ecological pyramids: <br> 1. In most terrestrial ecosystems, the pyramid of biomass is upright, as producer biomass exceeds that of herbivores.<br>2. In many marine/oceanic ecosystems, the pyramid of biomass can be inverted, since small, short-lived phytoplankton support a proportionately much larger standing biomass of zooplankton and fish.<br>3. Unlike pyramids of number and biomass, the pyramid of energy is never inverted, because energy transferred to a higher trophic level is always less than that received, owing to loss as heat.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 3,
+    exp: "Terrestrial pyramids of biomass are typically upright, but oceanic pyramids of biomass can be inverted because phytoplankton, despite low standing biomass, have very high productivity/turnover rates that sustain larger consumer biomass. The pyramid of energy is always upright, since energy loss as heat at each trophic transfer follows the laws of thermodynamics, so all three statements are correct."
+},
+{
+    q: "With reference to constitutional and legal provisions relevant to ecosystem and environmental protection in India, consider the following statements: <br> 1. Article 48A, placed under Fundamental Rights, obligates the State to protect wildlife and forests.<br>2. Article 51A(g), under Fundamental Duties, casts a duty on every citizen to protect and improve the natural environment, including forests, lakes, rivers and wildlife.<br>3. The Supreme Court has interpreted the right to a healthy and pollution-free environment as implicit in the right to life guaranteed under Article 21.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "1, 2 and 3",
+        "2 and 3 only",
+        "1 and 3 only"
+    ],
+    ans: 2,
+    exp: "Article 48A is a Directive Principle of State Policy, not a Fundamental Right, making Statement 1 incorrect. Article 51A(g) is indeed a Fundamental Duty on citizens, and the Supreme Court, notably in Subhash Kumar v. State of Bihar, has read the right to a wholesome environment into Article 21's right to life."
+},
+{
+    q: "With reference to the nitrogen cycle, one of the key biogeochemical cycles, consider the following statements: <br> 1. Atmospheric nitrogen (N2) can be directly absorbed and utilised by most green plants without any prior conversion.<br>2. Symbiotic bacteria such as Rhizobium, present in the root nodules of leguminous plants, convert atmospheric nitrogen into ammonia through biological nitrogen fixation.<br>3. Denitrifying bacteria convert soil nitrates back into atmospheric nitrogen, thereby completing the cycle.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 2,
+    exp: "Atmospheric nitrogen is chemically inert and cannot be used directly by most plants; it must first be 'fixed' into usable forms such as ammonia by bacteria like Rhizobium or through lightning and industrial processes. Denitrifying bacteria (e.g., Pseudomonas, Thiobacillus denitrificans) then convert soil nitrates back to atmospheric N2, completing the cycle, making Statements 2 and 3 correct."
+},
+{
+    q: "With reference to the concept of 'carrying capacity' and its legal/judicial treatment in India, consider the following statements: <br> 1. In June 2024, the Supreme Court directed all 13 Himalayan States and Union Territories to scientifically assess the carrying capacity of their ecologically fragile regions.<br>2. The Environment (Protection) Act, 1986 explicitly defines 'carrying capacity' as a statutory term and prescribes a uniform national carrying capacity limit for all hill states.<br>3. Carrying capacity assessments for hill stations such as Mussoorie and McLeodganj had earlier been directed pursuant to cases before the National Green Tribunal.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "1 and 2 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "The Supreme Court, hearing a PIL on Himalayan ecology, directed in June 2024 that all 13 Himalayan States/UTs assess carrying capacity scientifically, building on earlier NGT-directed studies for places like Mussoorie and McLeodganj. However, 'carrying capacity' is not a statutorily defined term with a fixed uniform limit under the Environment (Protection) Act, 1986; it has evolved mainly through judicial directions and expert studies, making Statement 2 incorrect."
+},
+{
+    q: "The sharp decline in India's vulture population is often cited as an example of the impact of chemical pollutants on food chains. Consider the following statements in this regard: <br> 1. The decline was primarily caused by the veterinary use of the drug diclofenac, which causes fatal kidney failure in vultures that feed on treated cattle carcasses.<br>2. As vultures occupy a unique scavenging niche at the end of the food chain, their decline disrupted natural carcass disposal and contributed to a rise in feral dog populations.<br>3. Vultures function as primary consumers in the food chain, feeding directly on plant material.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "2 and 3 only",
+        "1 and 2 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 1,
+    exp: "Diclofenac residues in cattle carcasses caused mass kidney failure in vultures, and since vultures are scavengers occupying a critical position near the top of the food chain, their loss disrupted natural carcass disposal, contributing to a surge in feral dogs and disease risk. Vultures are scavenging carnivores, not primary consumers, so Statement 3 is incorrect."
+},
+{
+    q: "With reference to the ecological functioning of a food web, consider the following statements: <br> 1. A food web, being a network of interconnected food chains, provides greater ecosystem stability than a single food chain by offering alternative pathways for energy flow if one species population declines.<br>2. Species that feed at more than one trophic level in different food chains within a food web are generally referred to as omnivores.<br>3. Greater species diversity within a food web always results in decreased resilience of the ecosystem to disturbances.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "A food web's interlinked pathways allow energy to be rerouted if a species population declines, making ecosystems more stable than a simple linear food chain, and organisms feeding across multiple trophic levels are termed omnivores. Higher species diversity generally enhances, rather than decreases, an ecosystem's resilience to disturbances, so Statement 3 is incorrect."
+},
+{
+    q: "With reference to the Wildlife (Protection) Amendment Act, 2022, which has significant implications for the protection of species within India's food webs, consider the following statements: <br> 1. It reduced the number of schedules under the Wildlife (Protection) Act, 1972 from six to four.<br>2. It empowers the Central Government to designate a Management Authority and a Scientific Authority to implement India's obligations under CITES.<br>3. It retained a separate schedule for 'vermin' species, allowing state governments to independently declare any wild animal as vermin without central notification.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3",
+        "1 and 2 only"
+    ],
+    ans: 3,
+    exp: "The 2022 amendment consolidated the Act's schedules from six to four and introduced provisions to implement CITES, including designation of Management and Scientific Authorities. It abolished the separate vermin schedule; a species can now be declared vermin only through central notification under Section 62, not independently by states, so Statement 3 is incorrect."
+},
+{
+    q: "With reference to ecological succession and its treatment in Indian environmental law and policy, consider the following statements: <br> 1. The Compensatory Afforestation Fund Act, 2016 mandates that funds collected for diversion of forest land be used for compensatory afforestation, thereby facilitating secondary ecological succession on new sites.<br>2. Primary succession, which begins on bare, lifeless substrates such as rock outcrops, is legally required to be completed within a fixed statutory period under the CAF Act, 2016.<br>3. The National Forest Policy, 1988 emphasizes restoration of ecological balance through afforestation and social forestry programmes, which rely on the natural process of succession.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1, 2 and 3",
+        "1 and 3 only"
+    ],
+    ans: 3,
+    exp: "The CAF Act, 2016 channels compensatory levies into afforestation on non-forest or degraded forest land, which then undergoes secondary succession, while the National Forest Policy, 1988 similarly relies on natural succession to restore ecological balance through afforestation. Succession is a natural ecological process and no law prescribes a fixed statutory timeline for its completion, making Statement 2 incorrect."
+},
+{
+    q: "'Keystone species' is a recurring theme in UPSC Prelims questions on ecosystems. With reference to this concept, consider the following statements: <br> 1. A keystone species is one that has a disproportionately large effect on its ecosystem relative to its abundance.<br>2. The removal of a keystone species from an ecosystem can trigger a trophic cascade, causing significant restructuring of the community.<br>3. Keystone species are always the most abundant species, in terms of biomass, within their ecosystem.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "A keystone species exerts an outsized influence on ecosystem structure and function even though it may be present in low numbers, and its loss can trigger a cascading restructuring of the food web. Keystone status is defined by ecological impact, not abundance or biomass, so Statement 3 is incorrect."
+},
+{
+    q: "With reference to the functional aspects of 'carrying capacity' as a concept in resource and environmental management, consider the following statements: <br> 1. Ecological carrying capacity refers to the maximum population size of a species that a given habitat can support indefinitely without degrading its resource base.<br>2. Distinct types of carrying capacity — such as ecological, physical/infrastructural, and social or tourism carrying capacity — may yield different threshold values for the same area.<br>3. Carrying capacity is not static; it can change over time due to variations in resource availability, technological interventions, and climate change.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 3,
+    exp: "Carrying capacity is fundamentally about sustainable population/use limits, but different dimensions of an area's capacity (ecological, physical, social) can produce different threshold values, and these thresholds themselves shift with changing resources, technology, and climate. All three statements accurately describe the concept's functional nature."
+},
+{
+    q: "With reference to limitations and issues associated with ecological pyramids, consider the following statements: <br> 1. In a parasitic food chain, the pyramid of numbers is typically inverted, since numerous parasites are supported by a single host organism.<br>2. In a forest ecosystem, where a few large trees support a much greater number of insects, birds and other consumers, the pyramid of numbers can also be inverted.<br>3. The pyramid of energy, like the pyramids of numbers and biomass, can also be inverted in certain aquatic ecosystems.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "1 and 2 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 1,
+    exp: "The pyramid of numbers can be inverted both in parasitic food chains and in forest ecosystems where a few producers support numerous smaller consumers, illustrating a key limitation of this model. The pyramid of energy, however, is always upright since energy loss as heat at each trophic transfer follows the laws of thermodynamics, making Statement 3 incorrect."
+},
+{
+    q: "With reference to the historical development of the 'ecological niche' concept, consider the following statements: <br> 1. Joseph Grinnell (1917) and Charles Elton (1927) offered early formulations of the niche concept, with Elton emphasizing an organism's functional role or 'profession' within its community.<br>2. G. Evelyn Hutchinson (1957) advanced the niche concept as an 'n-dimensional hypervolume', defined by the range of environmental conditions and resources an organism requires to survive and reproduce.<br>3. Gause's Competitive Exclusion Principle holds that two species occupying identical ecological niches can coexist indefinitely in the same habitat without competitive displacement.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "2 and 3 only",
+        "1 and 3 only",
+        "1 and 2 only",
+        "1, 2 and 3"
+    ],
+    ans: 2,
+    exp: "Grinnell and Elton provided foundational habitat- and function-based niche concepts, later formalised mathematically by Hutchinson as an n-dimensional hypervolume. Gause's Competitive Exclusion Principle actually states the opposite of Statement 3 — two species with identical niches cannot coexist indefinitely, as one will eventually outcompete the other."
+},
+{
+    q: "With reference to recent (2025–26) developments concerning carrying capacity in India's Himalayan region, consider the following statements: <br> 1. A 2025 study involving institutions such as the GB Pant National Institute of Himalayan Environment estimated sustainable daily visitor limits for the Char Dham shrines based on indices like elevation, slope and vegetation cover.<br>2. In June 2024, the Supreme Court directed all 13 Himalayan States and Union Territories to scientifically assess the carrying capacity of their ecologically fragile regions.<br>3. Once notified, daily visitor limits for the Char Dham pilgrimage sites have been consistently enforced by the Uttarakhand government without interruption since 2019.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "A 2025 scientific study worked out sustainable visitor limits for the four Char Dham shrines using geological and ecological indices, following the Supreme Court's June 2024 direction to Himalayan states to assess carrying capacity. However, Uttarakhand has repeatedly issued and then withdrawn such visitor-limit directives rather than enforcing them consistently, making Statement 3 incorrect."
+},
+{
+    q: "With reference to the functional classification of biogeochemical cycles, consider the following statements: <br> 1. Gaseous biogeochemical cycles, such as those of carbon, nitrogen and water, have the atmosphere or hydrosphere as their principal reservoir, allowing relatively rapid global circulation.<br>2. Sedimentary biogeochemical cycles, such as that of phosphorus, have the earth's crust as their main reservoir and tend to cycle more slowly, often described as comparatively 'less perfect' cycles.<br>3. Gaseous and sedimentary biogeochemical cycles function entirely independently of one another and do not influence each other's operation.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3",
+        "1 and 2 only"
+    ],
+    ans: 3,
+    exp: "Gaseous cycles draw mainly on the atmosphere/hydrosphere and circulate relatively quickly, while sedimentary cycles like phosphorus rely on rock and soil reservoirs and cycle more slowly. In reality, these cycles are interlinked — for example, carbon and phosphorus cycles both interact with the biosphere and each other through living organisms — so Statement 3 is incorrect."
+},
+{
+    q: "With reference to the concept of 'carrying capacity' (K) as understood in population ecology, a recurring theme in UPSC Prelims, consider the following statements: <br> 1. In the logistic model of population growth, carrying capacity (K) represents the maximum population size an environment can sustain, and population growth slows as the population approaches K.<br>2. The logistic growth curve is typically S-shaped (sigmoid), in contrast to the J-shaped curve associated with exponential growth under unlimited resources.<br>3. At a population size equal to K, the per capita growth rate of the population is at its maximum.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "2 and 3 only",
+        "1 and 2 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 1,
+    exp: "Under the logistic model, growth slows as population size nears the carrying capacity K, producing a characteristic S-shaped curve rather than the unchecked J-shaped exponential curve. At population size K, growth rate falls to zero (not its maximum), since resource limitations exactly balance births and deaths, making Statement 3 incorrect."
+},
+{
+    q: "With reference to the functional stages of ecological succession, consider the following statements: <br> 1. Primary succession occurs on newly exposed, lifeless substrates such as bare rock or volcanic lava, where pioneer species like lichens play a crucial role in initiating soil formation.<br>2. Secondary succession occurs on sites that previously supported vegetation but were disturbed, such as abandoned agricultural land, and generally proceeds faster than primary succession because soil is already present.<br>3. A climax community, once established, remains permanently free from any further species turnover or environmental disturbance.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "2 and 3 only",
+        "1 and 2 only",
+        "1, 2 and 3"
+    ],
+    ans: 2,
+    exp: "Primary succession begins with pioneer species like lichens breaking down rock to form soil, while secondary succession, starting with existing soil, proceeds faster. The notion of a permanently static climax community is now considered an oversimplification, since climax communities can still experience species turnover and disturbance, making Statement 3 incorrect."
+},
+{
+    q: "With reference to challenges in operationalising carrying-capacity-based planning in India, consider the following statements: <br> 1. A recurring challenge in India's Himalayan region has been the repeated withdrawal of visitor-limit directives by state governments despite scientific recommendations.<br>2. Simultaneous execution of multiple infrastructure projects, such as road widening and hydropower tunnelling in narrow mountain valleys, can cumulatively exceed a terrain's carrying capacity even if each project is individually assessed as sustainable.<br>3. Carrying capacity assessments in India are governed by a single, legally binding central statute that all states are required to strictly enforce.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "In practice, state governments have repeatedly rolled back visitor caps despite scientific advice, and cumulative pressure from multiple simultaneous projects can overwhelm a fragile terrain's capacity even when individually cleared. There is no single comprehensive central statute mandating carrying-capacity limits; the approach has evolved mainly through judicial directions and expert studies, making Statement 3 incorrect."
+},
+{
+    q: "With reference to the functional utility of ecological pyramids in the study of ecosystems, consider the following statements: <br> 1. Ecological pyramids serve as a tool to visually represent the trophic structure and the relative distribution of numbers, biomass, or energy across different trophic levels.<br>2. The pyramid of energy is considered the most functionally reliable of the three types, as it accounts for the rate of energy flow rather than merely the standing stock at a given time.<br>3. Ecological pyramids can depict only the producer level of an ecosystem and provide no information regarding consumer or decomposer levels.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3",
+        "1 and 2 only"
+    ],
+    ans: 3,
+    exp: "Ecological pyramids graphically represent trophic organisation across producers and successive consumer levels, and the pyramid of energy is regarded as the most robust since it reflects actual energy flow rates rather than a momentary standing stock. Pyramids depict multiple trophic levels, not just producers, so Statement 3 is incorrect."
+},
+{
+    q: "With reference to the historical development of the 'ecosystem' concept, consider the following statements: <br> 1. The term 'ecosystem' was first coined by British botanist Arthur Tansley in 1935 to describe the integrated system formed by living organisms and their physical environment.<br>2. Raymond Lindeman's 1942 work on the 'trophic-dynamic aspect of ecology' laid the foundation for the modern understanding of energy flow through ecosystems.<br>3. Tansley's original ecosystem concept excluded abiotic components such as soil, water and climate, focusing solely on interactions among living organisms.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "1 and 2 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 1,
+    exp: "Tansley coined 'ecosystem' in 1935 to capture the interaction of organisms with their physical environment, and Lindeman's 1942 trophic-dynamic framework later became central to understanding energy flow. Tansley's concept explicitly incorporated abiotic factors as an integral part of the system rather than excluding them, making Statement 3 incorrect."
+},
+{
+    q: "With reference to the essential features and characteristics of 'carrying capacity', consider the following statements: <br> 1. Carrying capacity is species- and habitat-specific, varying with the resource requirements of a species and the productivity of its environment.<br>2. Carrying capacity is a static, one-time-determined value that does not require periodic reassessment.<br>3. Human carrying capacity assessments often incorporate not just ecological limits but also socio-economic and infrastructural factors, distinguishing them from purely biological carrying capacity.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 2,
+    exp: "Carrying capacity varies with the species involved and the resource base of a given habitat, and human-oriented assessments typically go beyond biological limits to include infrastructure and socio-economic factors. It is not a fixed, one-time value — it requires periodic reassessment as conditions change, making Statement 2 incorrect."
+},
+{
+    q: "With reference to recommendations concerning the ecological niche concept in conservation practice, consider the following statements: <br> 1. Conservation guidelines, including those of the IUCN, recommend assessing habitat and niche suitability before reintroducing a species into an area to reduce the risk of competitive exclusion or ecological mismatch.<br>2. Two species with broadly overlapping ecological niches are recommended to be introduced together in the same habitat, since niche overlap enhances ecosystem stability.<br>3. Invasive alien species often succeed by occupying a vacant ecological niche or by outcompeting native species with overlapping niche requirements, which is why niche assessment is recommended before introducing non-native species.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "2 and 3 only",
+        "1 and 2 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "Sound conservation practice recommends assessing niche and habitat suitability before species reintroduction, and recognises that invasive species often thrive by exploiting vacant niches or outcompeting natives with overlapping requirements. Introducing species with heavily overlapping niches together is generally discouraged, not recommended, since it tends to intensify competition rather than enhance stability, making Statement 2 incorrect."
+},
+{
+    q: "With reference to the essential features of 'energy flow' in an ecosystem, consider the following statements: <br> 1. Energy flow in an ecosystem is unidirectional, moving from producers to successive trophic levels, unlike nutrients which are cyclically reused.<br>2. As per the 'ten percent law', only about ten percent of the energy available at one trophic level is transferred to the next, with most of the remainder lost as heat during respiration.<br>3. Because energy is recycled within an ecosystem, the total energy available at each successive trophic level increases as one moves up the food chain.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3",
+        "1 and 2 only"
+    ],
+    ans: 3,
+    exp: "Energy flows one way through an ecosystem, from producers upward, and only about ten percent of the energy at one trophic level is transferred to the next, most being lost as metabolic heat. Unlike nutrients, energy is not recycled — it decreases progressively at higher trophic levels rather than increasing, making Statement 3 incorrect."
+},
+{
+    q: "With reference to the historical origins of the ecological pyramid concept, consider the following statements: <br> 1. The concept of the ecological pyramid, particularly the pyramid of numbers, was first proposed by Charles Elton in 1927, and is often referred to as the 'Eltonian pyramid'.<br>2. The pyramid of energy concept developed later, building on Raymond Lindeman's 1942 work on trophic-dynamic energy transfer in ecosystems.<br>3. G. Evelyn Hutchinson first proposed the concept of ecological pyramids in 1957 as part of his work on the ecological niche.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "1 and 2 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 1,
+    exp: "Charles Elton's 1927 work gave rise to the pyramid of numbers, often termed the 'Eltonian pyramid', while the pyramid of energy emerged later from Lindeman's 1942 trophic-dynamic framework. Hutchinson is primarily associated with the n-dimensional hypervolume niche concept (1957), not the origin of ecological pyramids, making Statement 3 incorrect."
+},
+];
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+  confirmModal.classList.remove('hidden');
+}
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('userName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-07 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer
+let seconds = 30 * 60;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>
