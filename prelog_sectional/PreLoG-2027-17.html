@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-17</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+{
+    q: "With reference to the economy of the Early and Later Vedic periods, consider the following statements: <br> 1. In the Early Vedic period, cattle (especially cows) served as a standard unit of value and exchange, while land was not yet a significant form of private property.<br>2. The use of iron technology, evidenced by literary references to 'shyama ayas' or 'krishna ayas', became widespread only in the Later Vedic period, facilitating the clearance of forests in the Gangetic plains.<br>3. Agriculture had already surpassed cattle-rearing as the primary economic activity in the Early Vedic period itself.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "2 and 3 only",
+        "1 and 2 only",
+        "1, 2 and 3"
+    ],
+    ans: 2,
+    exp: "The Early Vedic (Rigvedic) economy was predominantly pastoral, with cattle as the chief measure of wealth and land yet to become significant private property; agriculture became the dominant activity only in the Later Vedic period, aided by the spread of iron tools for clearing the Gangetic forests. Statement 3 is incorrect as pastoralism, not agriculture, dominated the Early Vedic economy."
+},
+{
+    q: "With reference to the institutions and system of education during the Vedic period, consider the following statements: <br> 1. The Upanayana ceremony marked the formal beginning of a student's education and was performed for boys of the three upper varnas.<br>2. During the Brahmacharya stage, the student resided at the guru's ashram and education was imparted mainly through oral transmission and memorisation of Vedic hymns.<br>3. Vedic literature makes no mention of women scholars or seers, indicating complete exclusion of women from education.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "The Upanayana initiated formal schooling for boys of the Brahmana, Kshatriya and Vaishya varnas, after which the student lived with the guru and learned the Vedas through oral recitation and memorisation. Statement 3 is incorrect, as the Rigveda mentions women seers (rishikas) such as Gargi, Maitreyi, and Lopamudra."
+},
+{
+    q: "With reference to the functions of the Vedic education system, consider the following statements: <br> 1. Its primary function was to preserve and transmit the Vedas through oral tradition using precise mnemonic techniques such as Pada-patha and Krama-patha.<br>2. Besides religious learning, it imparted training in subjects such as grammar (Vyakarana), phonetics (Shiksha) and astronomy (Jyotisha), which formed part of the Vedangas.<br>3. Guru Dakshina was a compulsory tuition fee collected from the student at the commencement of his education.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3",
+        "1 and 2 only"
+    ],
+    ans: 3,
+    exp: "Vedic education emphasised exact oral preservation of the Vedas through mnemonic devices and also covered auxiliary disciplines (Vedangas) like grammar, phonetics and astronomy. Statement 3 is incorrect because Guru Dakshina was a token of gratitude offered voluntarily by the student on completion of education, not a fee charged in advance."
+},
+{
+    q: "With reference to the political institutions of the Early Vedic period, consider the following statements: <br> 1. The Sabha and Samiti were tribal assemblies that could exercise a check on the powers of the king (rajan), and the Rigveda refers to them as 'twin daughters of Prajapati'.<br>2. The Vidatha was the most ancient of the popular assemblies and performed religious, military, economic and social functions.<br>3. Kingship in this period was strictly hereditary, and the king possessed the power to levy regular, compulsory taxes on his subjects.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1, 2 and 3",
+        "1 and 2 only",
+        "1 and 3 only",
+        "2 and 3 only"
+    ],
+    ans: 1,
+    exp: "The Sabha and Samiti acted as checks on royal authority and are described in the Rigveda as daughters of Prajapati, while the Vidatha, the oldest assembly, combined religious, military and economic functions. Statement 3 is incorrect since succession was not strictly hereditary at this stage, and the king had no regular right of taxation, subsisting instead on voluntary offerings (bali) from his subjects."
+},
+{
+    q: "With reference to recent archaeogenetic findings relevant to the Harappan-Vedic transition, consider the following statements: <br> 1. Ancient DNA analysis of skeletal remains from Rakhigarhi has revealed a significant proportion of Steppe pastoralist ancestry, confirming a large-scale Aryan invasion around 1500 BCE.<br>2. The findings indicate genetic continuity between the Indus Valley Civilisation population and present-day South Asians, without evidence of large-scale genetic disruption from external Steppe populations at that site.<br>3. Genetic studies suggest that Steppe-related ancestry, associated with the spread of Indo-European languages, appears in South Asia mainly after the mature Harappan phase.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "1, 2 and 3",
+        "2 and 3 only",
+        "1 and 3 only"
+    ],
+    ans: 2,
+    exp: "Studies of ancient DNA from Rakhigarhi found little to no detectable Steppe pastoralist ancestry in the mature Harappan-period individual, pointing to genetic continuity with later South Asian populations rather than replacement, while Steppe-related ancestry linked to Indo-Aryan language spread is dated to after the IVC's mature phase. Statement 1 is therefore incorrect, as no significant Steppe ancestry was detected at that site during that period."
+},
+{
+    q: "With reference to the evolution of the Vedic education system, consider the following statements: <br> 1. In the Early Vedic period, education was largely oral and centred on memorisation of Rigvedic hymns for correct pronunciation in yajnas.<br>2. The Later Vedic period saw the emergence of philosophical inquiry embodied in the Upanishads, marking a shift from ritual-centric learning toward speculative and metaphysical questions.<br>3. Formal, state-funded gurukuls administered directly by the king were established throughout the Vedic period to standardise education across all varnas.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "2 and 3 only",
+        "1 and 2 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 1,
+    exp: "Early Vedic education relied on precise oral transmission of hymns for ritual accuracy, while the Later Vedic period saw the rise of Upanishadic thought, turning attention from external sacrifice to speculative questions about the self and reality. Statement 3 is incorrect since education was imparted through a personal guru-student relationship in individual ashrams, not through a standardised, state-funded system."
+},
+{
+    q: "With reference to social and political developments within the Early Vedic period, consider the following statements: <br> 1. Society was organised primarily on the basis of kinship and tribe (jana), with varna at this stage being relatively fluid and based more on occupation than birth.<br>2. The institution of Rajan (chief) was largely military in character, and his authority was checked by tribal assemblies such as the Sabha and Samiti.<br>3. The Purusha Sukta, which describes the origin of the four varnas from the body of a cosmic being, belongs to one of the earliest layers of the Rigveda.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3",
+        "1 and 2 only"
+    ],
+    ans: 3,
+    exp: "Early Vedic tribal society was kinship-based with a relatively fluid occupational varna system, and the Rajan's power, chiefly military, was balanced by assemblies like the Sabha and Samiti. Statement 3 is incorrect because the Purusha Sukta occurs in the tenth Mandala, widely regarded as one of the latest additions to the Rigveda, not an early one."
+},
+{
+    q: "With reference to recent (2025-2026) developments in the integration of Vedic and traditional learning into higher education in India, consider the following statements: <br> 1. As part of NEP 2020 implementation, the UGC has mandated that students in undergraduate and postgraduate programmes complete Indian Knowledge Systems (IKS) credit courses amounting to at least 5% of total programme credits.<br>2. Under a recent initiative, students trained in the traditional gurukul system, even without formal academic qualifications, have been made eligible to apply for research fellowships at institutions such as the IITs.<br>3. The Ministry of Education's IKS guidelines exclude subjects such as Vedic mathematics, Ayurveda, and Sanskrit from higher education curricula, restricting IKS content to classical literature alone.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "The UGC has mandated a 5% IKS credit requirement in university curricula under NEP 2020, and a scheme now allows students from the gurukul system, including those without formal qualifications, to apply for research fellowships at IITs. Statement 3 is incorrect as MoE guidelines explicitly include subjects like Vedic mathematics, Ayurveda, yoga, and Sanskrit within IKS curricula."
+},
+{
+    q: "With reference to challenges associated with religious practice in the Later Vedic period, consider the following statements: <br> 1. The growing complexity and cost of Later Vedic sacrifices such as the Ashvamedha and Rajasuya strengthened the dominance of the priestly class (Brahmanas) over society.<br>2. This growing ritualism went unchallenged throughout ancient India, and the Upanishads themselves reinforced the centrality of external sacrifice over philosophical inquiry.<br>3. The reaction against Brahmanical ritualism contributed to the rise of heterodox (nastika) schools such as Buddhism and Jainism in the sixth century BCE.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 2,
+    exp: "Elaborate and costly Later Vedic sacrifices increased Brahmanical dominance, and the resulting discontent contributed to the emergence of heterodox movements like Buddhism and Jainism in the sixth century BCE. Statement 2 is incorrect because the Upanishads moved away from ritual sacrifice toward inner philosophical inquiry into atman and brahman, rather than reinforcing sacrificial ritualism."
+},
+{
+    q: "With reference to constitutional provisions relevant to religious instruction in educational institutions in India, consider the following statements: <br> 1. Article 28 of the Constitution prohibits religious instruction in any educational institution wholly maintained out of State funds, which has implications for the teaching of religious texts, including Vedic scriptures, in such government institutions.<br>2. Article 28 imposes an absolute bar on religious instruction in every educational institution in India, irrespective of whether it is state-funded, state-aided, or privately run and unaided.<br>3. Educational institutions administered by the State but established under an endowment or trust that requires religious instruction to be imparted are, subject to certain conditions, exempted from the general prohibition under Article 28.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 1,
+    exp: "Article 28(1) bars religious instruction only in institutions wholly maintained out of State funds, and Article 28(2) exempts institutions administered by the State but established under an endowment or trust requiring such instruction. Statement 2 is incorrect since the bar is not absolute across all institutions; privately run, unaided institutions may impart religious instruction, and state-aided (not wholly state-funded) institutions may do so with adequate safeguards under Article 28(3)."
+},
+{
+    q: "With reference to the nature of Vedic religion, a recurring theme in UPSC Prelims, consider the following statements: <br> 1. The phrase 'Ekam Sad Vipra Bahudha Vadanti' (Truth is one, the wise call it by many names) found in the Rigveda is often cited to describe the Early Vedic religious outlook as henotheistic rather than strictly polytheistic.<br>2. The Nasadiya Sukta (Hymn of Creation) in the tenth Mandala of the Rigveda reflects philosophical speculation and scepticism about the origin of the universe, even questioning whether the gods themselves know the answer.<br>3. Vedic religion in the Rigvedic period was centred on elaborate temple worship and idol installation, similar to later Puranic Hinduism.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "2 and 3 only",
+        "1 and 2 only",
+        "1, 2 and 3"
+    ],
+    ans: 2,
+    exp: "The Rigvedic idea that a single truth is addressed by many names supports the description of early Vedic religion as henotheistic, and the Nasadiya Sukta is a well-known example of early philosophical scepticism about creation. Statement 3 is incorrect since Rigvedic worship centred on yajna (fire sacrifice) to nature deities, with temple and idol worship becoming prominent only in later Puranic Hinduism."
+},
+{
+    q: "With reference to the background of the Early Vedic period, consider the following statements: <br> 1. The Rigveda, the principal source for reconstructing Early Vedic history, describes a region known as Sapta-Sindhu (land of seven rivers), broadly corresponding to parts of present-day Punjab and adjoining areas.<br>2. Archaeologically, the Early Vedic phase is often correlated by some scholars with the Ochre Coloured Pottery (OCP) and early Painted Grey Ware (PGW) cultures of the upper Indus-Gangetic divide.<br>3. The Rigveda was composed and compiled as a single, unified text within a short span of a few decades by one author.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "The Rigveda locates Early Vedic settlement in the Sapta-Sindhu region, and scholars often link this phase archaeologically with the OCP and early PGW cultures of the region. Statement 3 is incorrect as the Rigveda was composed over several centuries by multiple rishis and families across generations, and was compiled gradually rather than by a single author in a short period."
+},
+{
+    q: "With reference to political and economic changes in the Later Vedic period, consider the following statements: <br> 1. The Sabha and Samiti declined in importance relative to the Early Vedic period, as royal power increased and larger territorial kingdoms (rashtras) emerged.<br>2. Elaborate royal rituals such as the Rajasuya (consecration), Vajapeya (chariot race), and Ashvamedha (horse sacrifice) were performed to enhance and legitimise the authority of the king.<br>3. Bali, originally a voluntary offering to the king in the Early Vedic period, tended to become a more regular and expected due from the peasantry in the Later Vedic period.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 3,
+    exp: "The Later Vedic period saw a decline in the power of popular assemblies alongside rising royal authority, expressed through elaborate legitimising rituals like the Rajasuya, Vajapeya, and Ashvamedha, while bali evolved from a voluntary tribute into a more regularised due from subjects. All three statements accurately reflect the strengthening of monarchical power over the period."
+},
+{
+    q: "With reference to terms and concepts related to the Vedic economy, a recurring theme in UPSC Prelims, consider the following statements: <br> 1. Terms such as 'Nishka' and 'Krishnala' in Vedic literature are understood by historians to refer to units of value or ornament/currency-like objects rather than modern coined money.<br>2. Regular metallic punch-marked coinage is attested in the archaeological record from the Vedic period itself, contradicting the view that Vedic exchange was largely non-monetised.<br>3. Terms like 'Vrihi' (rice) and 'Yava' (barley) found in Vedic texts indicate the significance of agricultural produce, particularly in the Later Vedic economy.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 1,
+    exp: "Nishka and Krishnala functioned as units of value or weight rather than coined currency, and terms like Vrihi and Yava point to the growing importance of agricultural produce, especially in the Later Vedic economy. Statement 2 is incorrect because regular metallic punch-marked coinage appears later, associated with the Mahajanapada period from around the sixth century BCE, not the Vedic period itself."
+},
+{
+    q: "With reference to the background and evolution of the education system in the Vedic period, consider the following statements: <br> 1. In the Early Vedic period, education was largely oral and informal, whereas the Later Vedic period saw the emergence of more formal centres of learning associated with the guru's household (Gurukula).<br>2. The Later Vedic period witnessed the compilation of the Brahmanas and Upanishads, which expanded the scope of education beyond hymnology to ritual exegesis and philosophical speculation.<br>3. The Vedangas, comprising auxiliary disciplines like phonetics and astronomy, were composed prior to the Rigveda to aid in its correct pronunciation.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "Vedic education evolved from informal oral learning in the Early Vedic period to more structured Gurukula-based instruction, with the Later Vedic Brahmanas and Upanishads widening its scope to ritual interpretation and philosophy. Statement 3 is incorrect because the Vedangas were composed after the Rigveda, specifically to aid its correct recitation and comprehension, not before it."
+},
+{
+    q: "With reference to theories proposed by scholars regarding the original homeland of the Aryans, consider the following statements: <br> 1. Bal Gangadhar Tilak proposed the Arctic Region theory, based on astronomical references in the Vedas and Avesta, as the original homeland of the Aryans.<br>2. Max Muller favoured Central Asia as the original home of the Aryans, based primarily on comparative philological evidence.<br>3. Mainstream scholars are unanimous that the Aryans were indigenous to India and did not migrate from any external region.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3",
+        "1 and 2 only"
+    ],
+    ans: 3,
+    exp: "Tilak, in 'The Arctic Home in the Vedas', argued for an Arctic origin based on references to long periods of light and darkness, while Max Muller relied on comparative linguistics to propose a Central Asian homeland. Statement 3 is incorrect since the question of Aryan origins remains debated among scholars, with indigenous, Central Asian and Steppe migration theories all being discussed."
+},
+{
+    q: "With reference to recent developments (2025-2026) concerning the integration of Vedic learning into modern Indian education, consider the following statements: <br> 1. The National Education Policy (NEP) 2020, as implemented through UGC guidelines, mandates that at least 5% of a student's total credits at the undergraduate and postgraduate levels be earned through Indian Knowledge System (IKS) courses, which draw upon Vedic literature.<br>2. The Ministry of Education has established a dedicated IKS Division and issued guidelines for incorporating traditions such as Vedic mathematics and Sanskrit studies into higher education curricula.<br>3. The National Curriculum Framework (NCF) 2023 has excluded all references to Vedic mathematics from school textbooks to maintain purely modern pedagogical content.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1, 2 and 3",
+        "1 and 2 only",
+        "1 and 3 only",
+        "2 and 3 only"
+    ],
+    ans: 1,
+    exp: "Under NEP 2020, UGC guidelines require a minimum 5% IKS credit component in university curricula, and the Ministry of Education's IKS Division has issued guidelines covering Vedic mathematics, Sanskrit and related traditions. Statement 3 is incorrect, as several states, in line with NCF 2023, are actively incorporating Vedic mathematics techniques into school textbooks rather than excluding them."
+},
+{
+    q: "With reference to challenges and issues associated with the practice of Vedic religion, consider the following statements: <br> 1. The proliferation of complex and expensive Yajnas (sacrifices) in the Later Vedic period enhanced the socio-economic dominance of the priestly class (Brahmanas) over society.<br>2. The concept of henotheism, wherein a particular deity is elevated to supremacy in a given hymn without denying the existence of other gods, is used by scholars to describe the character of Rigvedic polytheism.<br>3. The rise of ritual complexity in the Later Vedic period led to intellectual dissent, exemplified by the Upanishadic emphasis on knowledge (jnana) over ritual action (karma-kanda).<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1, 2 and 3",
+        "1 and 3 only"
+    ],
+    ans: 2,
+    exp: "Elaborate Later Vedic sacrifices strengthened Brahmanical authority, Rigvedic polytheism has often been characterised by scholars as henotheistic, and this very ritual complexity provoked an internal philosophical reaction in the form of the Upanishads, which prioritised knowledge over ritualism. All three statements are therefore correct."
+},
+{
+    q: "With reference to the concept underlying religious and moral order in the Vedic period, consider the following statements: <br> 1. The concept of 'Rta' in the Rigveda referred to the cosmic and moral order governing the universe, which later evolved into the broader concept of 'Dharma'.<br>2. The Vedic god Varuna was regarded as the guardian and upholder of Rta and was believed to punish transgressions against this cosmic-moral order.<br>3. The term 'Dharma' as used in the Indian Constitution today is derived directly and exclusively from the Vedic concept of Rta, without any subsequent evolution through other traditions.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "Rta denoted the cosmic-moral order in the Rigveda and is considered a conceptual precursor to Dharma, with Varuna venerated as its principal guardian who punished violations. Statement 3 is incorrect because the modern concept of Dharma evolved through multiple later traditions, including Dharmashastra literature, Buddhist and Jain thought, and colonial and constitutional reinterpretation, not solely from Rta."
+},
+{
+    q: "With reference to the deities of the Rigveda, consider the following statements: <br> 1. Indra was a comparatively minor deity in the Rigveda, with very few hymns dedicated to him, most hymns instead being devoted to Vishnu.<br>2. Agni was regarded as an intermediary between gods and men, as oblations offered to him in the sacrificial fire were believed to be carried to the gods.<br>3. Soma was worshipped purely as an abstract moral force and had no association with any ritual plant or drink.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 only",
+        "3 only",
+        "2 only",
+        "1 and 2 only"
+    ],
+    ans: 2,
+    exp: "Agni served as the sacrificial intermediary between men and gods, carrying oblations through fire. Statement 1 is incorrect because Indra, not Vishnu, received the largest number of hymns in the Rigveda; Vishnu was a relatively minor deity at this stage and rose to prominence only later. Statement 3 is incorrect as an entire book (Mandala 9) of the Rigveda is devoted to Soma, both as a deity and as a ritual plant/drink."
+},
+{
+    q: "With reference to the background and evolution of the Early Vedic period, consider the following statements: <br> 1. The Rigveda, the earliest of the four Vedas, is the principal source for reconstructing the history of the Early Vedic period and is generally dated between approximately 1500 and 1000 BCE.<br>2. The geographical area of Early Vedic settlement, referred to as 'Sapta Sindhu' (land of seven rivers), was centred on the Ganga-Yamuna doab.<br>3. Early Vedic society was organised into tribes (jana), and the Rigveda records inter-tribal conflicts, such as the 'Battle of Ten Kings' (Dasarajna) fought on the banks of the river Parushni (Ravi).<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 1,
+    exp: "The Rigveda is the key source for the Early Vedic period, and the Dasarajna battle between the Bharata king Sudas and a confederacy of ten tribes on the Parushni is a well-documented event. Statement 2 is incorrect because 'Sapta Sindhu' referred to the Indus and its tributaries in the Punjab region; the Ganga-Yamuna doab gained significance only in the Later Vedic period."
+},
+{
+    q: "With reference to reforms and changes recommended or witnessed in the Later Vedic period, consider the following statements: <br> 1. The Upanishads represented a philosophical movement that critiqued excessive ritualism and recommended the pursuit of knowledge (jnana) of Atman and Brahman as the path to liberation.<br>2. Elaborate royal sacrifices such as the Rajasuya and Ashvamedha were performed in the Later Vedic period to legitimise and consolidate the political authority of kings.<br>3. The Later Vedic period saw increasing centralisation of royal power, with kings assuming titles like 'Samrat' and 'Ekrat', while the influence of the Sabha and Samiti declined.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 3,
+    exp: "The Upanishads marked a philosophical shift toward knowledge over ritual, while Later Vedic kings used elaborate sacrifices like the Rajasuya and Ashvamedha to legitimise growing royal authority, adopting titles such as Samrat and Ekrat as the tribal assemblies of Sabha and Samiti lost their earlier significance. All three statements are therefore correct."
+},
+{
+    q: "With reference to the economic history of the Vedic period, consider the following statements: <br> 1. In the Later Vedic period, the originally voluntary offering called 'Bali' tended to become a regular tribute collected from the peasantry, alongside the emergence of terms like 'Bhaga' denoting the king's share of produce.<br>2. The Rigveda contains no reference to usury (lending money at interest), indicating its complete absence in the Early Vedic economy.<br>3. Organised merchant guilds (shrenis) with codified rules were a well-established feature of the Early Vedic economy, as attested by multiple Rigvedic hymns.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 only",
+        "2 only",
+        "3 only",
+        "1 and 2 only"
+    ],
+    ans: 0,
+    exp: "In the Later Vedic period, 'Bali' increasingly acquired the character of a compulsory levy, and terms like 'Bhaga' appear denoting the king's share of agricultural produce. Statement 2 is incorrect, as the Rigveda mentions a usurer ('kusidin'), showing lending at interest was known even in Early Vedic times; statement 3 is incorrect because organised guilds (shrenis) became a well-established economic institution only in later periods, not the Early Vedic age."
+},
+{
+    q: "With reference to terms associated with the Early Vedic economy and society, consider the following statements: <br> 1. The term 'Nishka' in the Rigveda referred to a gold ornament that is believed by some scholars to have also functioned as a medium of exchange.<br>2. The term 'Duhitri', used for 'daughter', is derived from a root meaning 'one who milks (the cow)', reflecting the importance of cattle in the pastoral economy.<br>3. The term 'Vrihi' (rice) is frequently mentioned in the Rigveda, indicating that rice cultivation was central to the Early Vedic economy.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "2 and 3 only",
+        "1 and 2 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 1,
+    exp: "'Nishka' is attested as a gold ornament possibly used in exchange, and 'Duhitri' reflects the centrality of cattle in Vedic society. Statement 3 is incorrect because rice ('Vrihi') is only sparingly mentioned in the Rigveda; it becomes prominent only in Later Vedic texts as agriculture expanded into the Gangetic plains."
+},
+{
+    q: "With reference to challenges in reconstructing the economic history of the Vedic period, consider the following statements: <br> 1. A major challenge is that the Rigveda, being primarily a religious text, provides indirect and scattered economic references rather than systematic economic data.<br>2. The absence of large-scale excavated urban settlements datable to the Early Vedic period poses a challenge in correlating literary and archaeological evidence for that phase.<br>3. Scholars face no interpretive disagreement regarding whether land was privately owned or communally held in the Early Vedic period, as the Rigveda provides an unambiguous, universally accepted answer.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3",
+        "1 and 2 only"
+    ],
+    ans: 3,
+    exp: "Reconstructing Vedic economic history is challenging because the Rigveda's primary concern is religious and ritual, offering only incidental economic references, and archaeological correlation for the Early Vedic phase remains thin. Statement 3 is incorrect, as historians genuinely disagree over the extent and nature of land ownership in this period."
+},
+{
+    q: "With reference to the structure and composition of women's roles in Vedic society, consider the following statements: <br> 1. Some women composed hymns of the Rigveda and were designated as 'rishikas', such as Lopamudra, Apala, and Ghosha.<br>2. The practice of 'Sati' (widow immolation) is explicitly and unambiguously prescribed as a mandatory ritual in the Rigveda.<br>3. Women could undergo the Upanayana ceremony and pursue Vedic studies in the Early Vedic period, though such access declined with growing restrictions in the Later Vedic period.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "1 and 2 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "The Rigveda credits several women as composers of hymns (rishikas), and women in the Early Vedic period had greater access to education and ritual participation than in later times. Statement 2 is incorrect, as the Rigvedic verse historically cited for Sati has been shown by scholars, including Max Muller, to have been misread, and no explicit mandatory injunction for Sati exists in the Rigveda."
+},
+{
+    q: "With reference to significant institutions and practices of the Vedic economy, consider the following statements: <br> 1. In the Later Vedic period, the office of 'Sangrahitri' was associated with the collection of taxes and tribute on behalf of the king.<br>2. The 'Vish' referred to a clan-based sub-division of the tribe (jana) that also functioned as an economic unit engaged in cattle-rearing and later agriculture.<br>3. Land grants to Brahmanas and religious institutions, recorded through copper-plate inscriptions, were a common and well-attested practice throughout the Vedic period.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "2 and 3 only",
+        "1 and 2 only",
+        "1, 2 and 3"
+    ],
+    ans: 2,
+    exp: "The Sangrahitri was a Later Vedic royal official associated with revenue collection, and the Vish functioned as both a clan and economic sub-unit of the tribe. Statement 3 is incorrect, as epigraphically recorded copper-plate land grants are a feature attested from the Gupta period onward, not the Vedic period."
+},
+{
+    q: "With reference to recent (2025-2026) developments concerning the recognition of ancient Indian literary heritage, consider the following statements: <br> 1. In 2025, manuscripts of the Bhagavad Gita and the Natyashastra, both preserved at the Bhandarkar Oriental Research Institute, Pune, were inscribed on UNESCO's Memory of the World Register.<br>2. The manuscripts of the Rigveda, also preserved at the Bhandarkar Oriental Research Institute, Pune, were inscribed on the UNESCO Memory of the World Register for the first time in 2025.<br>3. The traditional practice of Vedic chanting has been recognised by UNESCO as an element of the Intangible Cultural Heritage of Humanity.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 1,
+    exp: "The Bhagavad Gita and Natyashastra manuscripts were added to UNESCO's Memory of the World Register in 2025, and Vedic chanting has separately been recognised as Intangible Cultural Heritage. Statement 2 is incorrect because the Rigveda manuscripts at the same institute were inscribed much earlier, in 2007, not in 2025."
+},
+{
+    q: "With reference to the background and evolution of political organisation in the Vedic period, consider the following statements: <br> 1. In the Early Vedic period, the king (rajan) was primarily a tribal chief chosen or accepted by the tribe, with power circumscribed by assemblies like the Sabha and Samiti.<br>2. In the Later Vedic period, the territorial idea of 'Rashtra' gained currency, and the king's authority became less dependent on tribal consent as compared to the Early Vedic period.<br>3. Kingship in the Vedic period was, from the very beginning, based on strict primogeniture with no role for popular assemblies in succession.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3",
+        "1 and 2 only"
+    ],
+    ans: 3,
+    exp: "Vedic polity evolved from a tribe-based, assembly-checked chieftainship in the Early Vedic period toward a more territorially grounded and less consent-dependent kingship in the Later Vedic period. Statement 3 is incorrect since succession was not strictly hereditary from the outset, and assemblies did play a role in the Early Vedic period."
+},
+{
+    q: "With reference to the background and evolution of the status of women in the Vedic period, consider the following statements: <br> 1. The relatively higher status enjoyed by women, including participation in philosophical debate, is illustrated by the dialogue between the sage Yajnavalkya and his wife Maitreyi.<br>2. Practices such as child marriage and restrictions on women's access to Vedic education became more pronounced in the Later Vedic period compared to the Early Vedic period.<br>3. Vedic texts mention the practice of 'Niyoga', permitting a widow to bear a child through her deceased husband's brother, indicating some flexibility in marital norms.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1, 2 and 3",
+        "1 and 2 only",
+        "1 and 3 only",
+        "2 and 3 only"
+    ],
+    ans: 0,
+    exp: "The Maitreyi-Yajnavalkya dialogue reflects women's intellectual participation, restrictions on women deepened in the Later Vedic period compared to earlier times, and Niyoga is attested as a recognised practice in Vedic society. All three statements are therefore correct."
+},
+{
+    q: "With reference to the features and characteristics of the Vedic education system, consider the following statements: <br> 1. Vedic education was characterised by an emphasis on oral transmission, with the teacher-student relationship (guru-shishya parampara) forming its core.<br>2. Education in the Vedic period was entirely secular in content and had no connection with religious or ritual training.<br>3. The Gurukul system typically did not charge fixed fees, but the student rendered service to the guru and offered Guru Dakshina at the end of studies.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 2,
+    exp: "Vedic education rested on oral transmission through the guru-shishya relationship, and students typically served the guru and offered Guru Dakshina only upon completion rather than paying fixed fees. Statement 2 is incorrect, as Vedic education was deeply interwoven with religious and ritual training, not secular."
+},
+{
+    q: "With reference to the functions and powers of social institutions in the Vedic period, consider the following statements: <br> 1. In the Early Vedic period, the varna system was relatively fluid and based more on occupation than birth, whereas it became more rigid and hereditary in the Later Vedic period.<br>2. The institution of 'Gotra', denoting descent from a common ancestor and used to regulate marriage alliances, gained importance in the Later Vedic period.<br>3. The Later Vedic period saw a decline in varna-based restrictions, with intermarriage across varnas actively encouraged by religious texts.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "2 and 3 only",
+        "1 and 2 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 1,
+    exp: "The varna system hardened into a birth-based, hereditary hierarchy in the Later Vedic period, alongside the growing importance of Gotra in regulating marriage. Statement 3 is incorrect as it states the opposite of what occurred; varna-based restrictions intensified rather than declined in the Later Vedic period."
+},
+{
+    q: "With reference to the functions of different layers of Vedic literature, consider the following statements: <br> 1. The Brahmana texts primarily functioned as ritual manuals, explaining the procedures and significance of Vedic sacrifices.<br>2. The Aranyakas, composed for forest-dwelling hermits, marked a transition from ritualistic to philosophical/mystical interpretation of sacrifices.<br>3. The Upanishads functioned mainly as compilations of hymns in praise of nature-deities, similar in content and purpose to the Samhitas.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3",
+        "1 and 2 only"
+    ],
+    ans: 3,
+    exp: "The Brahmanas explained ritual procedure, while the Aranyakas represented a shift toward philosophical reflection suited to forest hermits. Statement 3 is incorrect because the Upanishads are philosophical texts exploring concepts like Atman and Brahman, quite distinct in purpose from the hymn-collections of the Samhitas."
+},
+{
+    q: "With reference to the recent (2025-2026) 'Bharat: The Mother of Democracy' initiative of the Ministry of Culture, consider the following statements: <br> 1. The initiative, curated by the Indira Gandhi National Centre for the Arts (IGNCA), cites the Sabha and Samiti mentioned in the Vedas as early evidence of participatory governance in India.<br>2. The initiative highlights that, in certain ancient textual instances, the authority to govern was earned through merit or consensus rather than being strictly hereditary.<br>3. The initiative asserts that the Vedic-era Sabha and Samiti operated as fully universal-suffrage democratic bodies, structurally identical to the modern Indian Parliament.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "The 'Bharat: The Mother of Democracy' exhibition, curated by IGNCA, showcases the Sabha and Samiti of Vedic texts as evidence of participatory traditions and highlights instances where governance authority rested on merit or consensus. Statement 3 overstates the case, as the initiative does not claim structural identity between Vedic assemblies and the modern Parliament."
+},
+{
+    q: "With reference to the background and evolution of Vedic literature, consider the following statements: <br> 1. Each of the four Vedas (Rigveda, Samaveda, Yajurveda, Atharvaveda) is traditionally structured into four layers: Samhita, Brahmana, Aranyaka, and Upanishad.<br>2. The Samaveda is essentially a collection of melodies (Saman) meant for chanting during sacrificial rituals, with most of its verses borrowed from the Rigveda.<br>3. The Atharvaveda, unlike the other three Vedas, deals mainly with spells, charms, and magical rituals and was composed before the Rigveda.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "2 and 3 only",
+        "1 and 2 only",
+        "1, 2 and 3"
+    ],
+    ans: 2,
+    exp: "Each Veda is traditionally layered into Samhita, Brahmana, Aranyaka, and Upanishad, and the Samaveda largely draws its verses from the Rigveda, set to musical chant. Statement 3 is incorrect because although the Atharvaveda does focus on spells and charms, it is generally regarded as the latest of the four Vedas, not composed before the Rigveda."
+},
+{
+    q: "With reference to the transition from the Vedic period to the age of the Mahajanapadas, consider the following statements: <br> 1. This transition was facilitated by the increasing use of iron technology for agriculture and warfare.<br>2. Later Vedic sacrifices like Rajasuya and Ashvamedha, by emphasising the king's supremacy over a defined territory, contributed to the ideological shift toward larger territorial kingdoms.<br>3. All sixteen Mahajanapadas that emerged were governed by the same uniform monarchical system, with no republics (ganasanghas) among them.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "2 and 3 only",
+        "1 and 2 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 1,
+    exp: "The spread of iron technology aided forest clearance and warfare, while Later Vedic royal sacrifices ideologically prepared the ground for larger territorial states, together enabling the transition to the Mahajanapadas. Statement 3 is incorrect, as the Mahajanapadas included both monarchies and republics (ganasanghas) such as the Vajji and Malla confederacies."
+},
+{
+    q: "With reference to the features and characteristics of Vedic religion, consider the following statements: <br> 1. Early Vedic religion was characterised by the worship of personified natural forces such as Agni, Indra, Varuna and Surya, along with the absence of temple or idol worship.<br>2. The central mode of worship in the Vedic period was the performance of Yajna (sacrifice), involving oblations poured into the sacrificial fire.<br>3. The Vedic pantheon exhibited a clear and rigid monotheism from the very beginning, recognising only a single deity throughout the Rigveda.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "Early Vedic religion centred on the worship of personified nature deities without temples or idols, and Yajna was the principal mode of worship. Statement 3 is incorrect, as Rigvedic religion is generally characterised as polytheistic/henotheistic, not as a rigid monotheism recognising a single deity."
+},
+{
+    q: "With reference to reforms in the Vedic education tradition, consider the following statements: <br> 1. The Upanishadic phase recommended a shift in educational emphasis from ritual memorisation toward philosophical inquiry into the nature of Atman and Brahman.<br>2. Assemblies convened by rulers such as Janaka of Videha, where scholars debated philosophical questions, reflect a reform in the Later Vedic educational tradition toward open intellectual discourse.<br>3. This reform completely abolished the earlier emphasis on oral transmission and precise recitation of the Vedas, replacing it entirely with written textual study.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "2 and 3 only",
+        "1 and 2 only",
+        "1, 2 and 3"
+    ],
+    ans: 2,
+    exp: "The Upanishadic movement shifted educational focus toward philosophical inquiry, and royal assemblies such as those of Janaka fostered open debate among scholars. Statement 3 is incorrect because oral transmission and precise recitation of the Vedas remained central throughout, and were not replaced by written study."
+},
+{
+    q: "With reference to important institutions and practices of the Early Vedic period, consider the following statements: <br> 1. 'Bali' in the Early Vedic period was a voluntary offering made by the tribe to the king, rather than a compulsory, regularly assessed tax.<br>2. Frequent cattle raids, referred to as 'Gavishti' (literally 'search for cows'), were a significant feature of inter-tribal conflict and a driver of Early Vedic warfare.<br>3. The Early Vedic king maintained a standing, salaried bureaucracy that collected land revenue through a formal administrative structure similar to that of the Mauryan empire.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "2 and 3 only",
+        "1 and 2 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 1,
+    exp: "Bali was voluntary in character in the Early Vedic period, and cattle raids (Gavishti) were a recurring source of inter-tribal conflict. Statement 3 is incorrect and anachronistic, as no standing salaried bureaucracy or formal land-revenue administration comparable to the Mauryan empire existed in the Early Vedic period."
+},
+{
+    q: "With reference to the position of women in the Vedic age, consider the following statements: <br> 1. The Rigveda mentions women such as Ghosha, Apala and Vishvavara as composers ('rishikas') of Vedic hymns.<br>2. Women in the Vedic period could inherit and independently own property called 'Stridhana' in all circumstances without any restriction.<br>3. The remarriage of widows finds some mention in Vedic texts, suggesting greater flexibility in marital norms compared to later periods.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1, 2 and 3",
+        "1 and 3 only"
+    ],
+    ans: 3,
+    exp: "Vedic literature credits women such as Ghosha and Apala as composers of hymns, and references to widow remarriage suggest relatively greater flexibility in marital norms during this period. Statement 2 overstates the position, as Stridhana in the Vedic period was not an unrestricted right applicable 'in all circumstances' but existed within customary limits."
+},
+{
+    q: "With reference to challenges in the study of Vedic literature, consider the following statements: <br> 1. A major challenge is the uncertainty in precisely dating various texts, as the Vedas were transmitted orally for centuries before being committed to writing.<br>2. The existence of multiple 'Shakhas' (recensions/branches) of each Veda, most of which are now lost, complicates the reconstruction of the complete original textual corpus.<br>3. Since the Vedas were transmitted with negligible variation in interpretation over centuries, there is no scholarly disagreement in interpreting their content.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "Long oral transmission makes precise dating difficult, and the loss of most Shakhas of each Veda hampers full textual reconstruction. Statement 3 is incorrect, as considerable scholarly disagreement exists over the interpretation, chronology, and meaning of Vedic hymns."
+},
+{
+    q: "With reference to important compilations and codifications associated with Vedic literature, consider the following statements: <br> 1. According to tradition, the sage Vyasa (Krishna Dvaipayana) is credited with compiling and arranging the Vedic hymns into the four Samhitas.<br>2. The 'Vedangas', comprising auxiliary disciplines such as Shiksha (phonetics), Kalpa (rituals) and Vyakarana (grammar), were developed to aid correct understanding and preservation of the Vedas.<br>3. Panini's grammatical treatise 'Ashtadhyayi' was composed well within the Rigvedic period itself and is directly referenced within the Rigveda.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "2 and 3 only",
+        "1 and 2 only",
+        "1, 2 and 3"
+    ],
+    ans: 2,
+    exp: "Tradition attributes the compilation of the Samhitas to Vyasa, and the Vedangas were developed as auxiliary disciplines to aid correct study of the Vedas. Statement 3 is incorrect and anachronistic, as Panini's Ashtadhyayi dates to around the 5th century BCE, considerably later than the Rigveda, and is not referenced within it."
+},
+{
+    q: "With reference to evolving notions of authority and obligation in the Later Vedic period, consider the following statements: <br> 1. The concept of 'Danda' (coercive authority/punishment) associated with kingship gained greater emphasis compared to the Early Vedic period.<br>2. The Later Vedic period saw the king begin to collect a more regularised share of agricultural produce, referred to by terms such as 'Bhaga', reflecting an evolving framework of obligations.<br>3. A written, codified legal code equivalent to the later Manusmriti was already in force and enforced uniformly across all Later Vedic kingdoms.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "2 and 3 only",
+        "1 and 2 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 1,
+    exp: "Later Vedic kingship saw a strengthening of coercive authority (Danda) and a more regularised claim on agricultural produce (Bhaga). Statement 3 is incorrect and anachronistic, as the Manusmriti is a much later, post-Vedic text, and no such uniformly enforced codified legal code existed in the Later Vedic period."
+},
+{
+    q: "With reference to the structure and composition of society, polity and economy in the Later Vedic period, consider the following statements: <br> 1. The geographical centre of Vedic civilisation shifted eastward from the Punjab region toward the Gangetic doab, associated with the Kuru-Panchala kingdoms.<br>2. The four-fold varna structure (Brahmana, Kshatriya, Vaishya, Shudra) became more clearly defined and hierarchically rigid compared to the Early Vedic period.<br>3. The Later Vedic economy remained exclusively pastoral, with agriculture playing an insignificant role compared to the Early Vedic period.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3",
+        "1 and 2 only"
+    ],
+    ans: 3,
+    exp: "The Kuru-Panchala kingdoms mark the eastward shift of Vedic civilisation into the Gangetic doab, and the varna system became more rigid in this period. Statement 3 is incorrect and states the opposite of what occurred, as agriculture became considerably more significant in the Later Vedic economy compared to the Early Vedic period."
+},
+{
+    q: "With reference to the classification of Vedic literature, consider the following statements: <br> 1. The four Vedas, along with the Brahmanas, Aranyakas and Upanishads attached to them, are classified as 'Shruti' literature, believed to be divinely revealed and heard by ancient sages.<br>2. 'Smriti' literature, including texts like the Dharmashastras and epics, is considered to be of human authorship and secondary in authority to 'Shruti'.<br>3. The Vedangas are classified as 'Shruti' literature since they form an intrinsic part of the four Vedas.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "The Vedas and their attached Brahmanas, Aranyakas and Upanishads constitute 'Shruti', held to be revealed knowledge, while texts like the Dharmashastras and epics form the human-authored 'Smriti' corpus. Statement 3 is incorrect, as the Vedangas are classified as Smriti, being later auxiliary compositions to aid understanding of the Vedas, not Shruti themselves."
+},
+{
+    q: "With reference to the education system and stages of life in the Vedic period, consider the following statements: <br> 1. The 'Brahmacharya' ashrama, the first of the four stages of life (ashramas), was primarily devoted to education and celibate studentship under a guru.<br>2. The concept of the four ashramas (Brahmacharya, Grihastha, Vanaprastha, Sannyasa) was fully elaborated and textually attested already in the Rigveda Samhita itself.<br>3. The 'Upanayana' ceremony, marking initiation into formal Vedic education, was traditionally not open to Shudras.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 2,
+    exp: "Brahmacharya was the studentship stage centred on education under a guru, and the Upanayana ceremony was traditionally restricted to the three upper varnas, excluding Shudras. Statement 2 is incorrect, as the fully developed four-ashrama scheme is a Later Vedic/post-Vedic elaboration and is not attested in developed form in the Rigveda Samhita itself."
+},
+{
+    q: "With reference to internal reform tendencies within Vedic society, consider the following statements: <br> 1. The story of Satyakama Jabala in the Chandogya Upanishad, where he is accepted as a student despite uncertain parentage, is cited by scholars as reflecting an emphasis on truthfulness over rigid birth-based exclusion in accessing education.<br>2. The Upanishads, as a form of internal reform within the Vedic tradition, recommended direct realisation of Brahman as more important than mere ritual correctness.<br>3. The rigidification of the varna system in the Later Vedic period was universally welcomed, without any internal tension or critique from within Vedic religious thought itself.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "2 and 3 only",
+        "1 and 2 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 1,
+    exp: "The Satyakama Jabala episode is often cited as an instance valuing truthfulness over birth-based exclusion, and the Upanishads represented an internal philosophical reform emphasising knowledge of Brahman over ritualism. Statement 3 is incorrect, as the very emergence of the Upanishadic critique shows internal tension with, rather than universal acceptance of, growing varna rigidity."
+},
+{
+    q: "With reference to the functions and powers of political institutions and officials in the Later Vedic period, consider the following statements: <br> 1. The 'Ratnins' were a group of high officials and dignitaries, including the Purohita (chief priest) and Senani (military commander), whose support was considered important for royal authority.<br>2. The Purohita functioned as the king's chief priest and advisor, playing a crucial role in legitimising royal power through the performance of sacrifices.<br>3. The Samiti in the Later Vedic period expanded its powers relative to the Early Vedic period, becoming the dominant policy-making body that superseded the king's authority.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3",
+        "1 and 2 only"
+    ],
+    ans: 3,
+    exp: "The Ratnins, including the Purohita and Senani, formed a body of key officials whose backing bolstered royal authority, and the Purohita's ritual role helped legitimise kingship. Statement 3 is incorrect and states the opposite of the actual trend, as the Samiti's power and significance declined relative to the growing authority of the king in the Later Vedic period."
+},
+{
+    q: "With reference to the difference in culture between the Rigvedic Aryans and the people of the Indus Valley Civilisation, consider the following statements: <br> 1. Rigvedic Aryans are known to have used coats of mail and helmets in warfare, for which no clear evidence exists at Indus Valley Civilisation sites.<br>2. Both the Rigvedic Aryans and the Indus Valley people were familiar with iron, though the Indus people used it more extensively for tools.<br>3. The horse features prominently in the Rigveda and is closely associated with Rigvedic Aryan culture, whereas clear evidence of horse domestication is lacking at Indus Valley sites.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "2 and 3 only",
+        "1 and 2 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 2,
+    exp: "This is based on an actual UPSC Prelims 2017 question. Rigvedic Aryans are associated with armour such as coats of mail and helmets, and the horse holds a central place in Rigvedic culture, with no comparable evidence at Indus Valley sites. Statement 2 is incorrect because the Indus Valley Civilisation was a Bronze Age culture that knew gold, silver and copper but was not aware of iron, which appeared in the subcontinent only in the Later Vedic period."
+},
+{
+    q: "The concepts of 'Dharma' and 'Rita' are central to the ancient Vedic worldview of India. In this context, consider the following statements: <br> 1. 'Rita' represented the fundamental cosmic and moral order believed to govern the functioning of the universe and all natural phenomena.<br>2. 'Dharma' encompassed the idea of obligations and duties that an individual owed to oneself, one's family, and society.<br>3. 'Rita' and 'Dharma' were entirely unrelated concepts, with no conceptual connection between cosmic order and human moral duty.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "This question is modelled on an actual UPSC Prelims question testing the Dharma-Rita relationship. Rita denoted the cosmic-moral order of the universe, while Dharma referred to the obligations and duties of the individual toward self and society. Statement 3 is incorrect, as Dharma is widely understood by scholars as the human enactment of conduct in harmony with the cosmic order of Rita, making the two conceptually linked rather than unrelated."
+}
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-17 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

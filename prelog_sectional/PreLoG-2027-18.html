@@ -1,0 +1,1573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-18</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+{
+    q: "With reference to recent government policies concerning the spread and preservation of Jainism, consider the following statements:<br>1. The Union Cabinet conferred 'Classical Language' status on Pali and Prakrit in October 2024.<br>2. Under the Gyan Bharatam Mission, efforts are underway to digitise ancient Jain manuscripts.<br>3. The Ministry of Minority Affairs approved funding for a Centre for Jain Studies at Devi Ahilya Vishwavidyalaya (DAVV), Indore.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1, 2 and 3",
+        "1 and 3 only"
+    ],
+    ans: 2,
+    exp: "In October 2024, the Union Cabinet conferred Classical Language status on Marathi, Pali, Prakrit, Assamese and Bengali, correctly reflecting statement 1. The Gyan Bharatam Mission is digitising India's manuscript heritage, including Jain texts composed in Prakrit and Pali, making statement 2 correct. In March 2024, the Ministry of Minority Affairs approved ₹25 crore for a Centre for Jain Studies at DAVV, Indore, confirming statement 3."
+},
+{
+    q: "With reference to the Jain Councils and related developments, consider the following statements:<br>1. The First Jain Council, held at Pataliputra in the 3rd century BCE, resulted in the compilation of the twelve Angas.<br>2. On the occasion of Navkar Mahamantra Divas 2025, the Prime Minister highlighted government efforts to preserve Jain literature composed in Prakrit and Pali.<br>3. The Second Jain Council, held at Valabhi and presided over by Devardhi Kshamasramana, led to the written compilation of the Jain Agamas.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1, 2 and 3",
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only"
+    ],
+    ans: 0,
+    exp: "The First Jain Council at Pataliputra (3rd century BCE) compiled the twelve Angas, making statement 1 correct. At Navkar Mahamantra Divas on 9 April 2025, the Prime Minister spoke of preserving Jain literature in Prakrit and Pali, confirming statement 2. The Second Jain Council at Valabhi (5th-6th century CE), presided over by Devardhi Kshamasramana, produced the written Jain Agamas, making statement 3 correct as well."
+},
+{
+    q: "With reference to the background and evolution of Jainism in ancient and early medieval India, consider the following statements:<br>1. The schism between the Digambara and Svetambara sects became formalised around the time of the Second Jain Council at Valabhi.<br>2. Emperor Kharavela of Kalinga was a notable patron of Jainism, as evidenced by the Hathigumpha inscription.<br>3. Jainism received no royal patronage in South India during the early medieval period.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3",
+        "1 and 2 only"
+    ],
+    ans: 3,
+    exp: "The Digambara-Svetambara split had crystallised by the time of the Second Jain Council at Valabhi, making statement 1 correct. Kharavela's patronage of Jainism is well attested by the Hathigumpha inscription, confirming statement 2. However, Jainism received substantial royal patronage in South India, notably from the Western Ganga and Rashtrakuta dynasties (e.g., Amoghavarsha I), so statement 3 is incorrect."
+},
+{
+    q: "With reference to the Buddhist Councils, a recurring theme in UPSC Prelims, consider the following statements:<br>1. The First Buddhist Council was held at Rajagriha shortly after the death of the Buddha, under the patronage of King Ajatashatru.<br>2. The Fourth Buddhist Council, held under Kanishka, is associated with the formal division of Buddhism into Hinayana and Mahayana sects.<br>3. The Third Buddhist Council, held during Ashoka's reign, was presided over by Moggaliputta Tissa.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "1, 2 and 3",
+        "1 and 3 only",
+        "2 and 3 only"
+    ],
+    ans: 1,
+    exp: "The First Buddhist Council was convened at Rajagriha under Ajatashatru's patronage soon after the Buddha's death, making statement 1 correct. The Fourth Council, held under Kanishka (traditionally at Kundalvana, Kashmir), is linked with the Hinayana-Mahayana split, confirming statement 2. The Third Council, held at Pataliputra under Ashoka, was presided over by Moggaliputta Tissa, making statement 3 correct too - this exact combination of facts has repeatedly featured in UPSC Prelims."
+},
+{
+    q: "With reference to the spread of Jainism as reflected in recent (2025-2026) developments, consider the following statements:<br>1. Mahavir Jayanti 2026 marked the 2,624th birth anniversary of Lord Mahavir.<br>2. In 2025, the Jain Minority Development Economic Corporation announced a project to compile a Marathi-language encyclopedia on Jain heritage.<br>3. The Jain temples situated inside Jaisalmer Fort are inscribed as a UNESCO World Heritage Site under the 'Hill Forts of Rajasthan'.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 3,
+    exp: "Mahavir Jayanti 2026, observed on 31 March, was marked as the 2,624th birth anniversary of Lord Mahavir, confirming statement 1. In 2025, the Jain Minority Development Economic Corporation announced the 'Jain Marathi Vishwakosh' encyclopedia project to chronicle Jain heritage, making statement 2 correct. The Jaisalmer Fort's Jain temple complex is indeed part of the UNESCO-inscribed 'Hill Forts of Rajasthan', so statement 3 is also correct."
+},
+{
+    q: "With reference to the challenges in preserving India's ancient religious literature, consider the following statements:<br>1. A major challenge is that a large number of manuscripts in Pali and Prakrit remain undigitised and vulnerable to physical decay.<br>2. Conferring 'Classical Language' status on a language guarantees automatic translation of its religious texts into all Indian languages.<br>3. The Gyan Bharatam Mission aims to create a National Digital Repository covering manuscripts, including religious and philosophical texts.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "1 and 2 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "Undigitised, decaying Pali and Prakrit manuscripts remain a genuine preservation challenge, making statement 1 correct. Classical Language status confers academic recognition, research support, and promotional benefits, but it does not guarantee automatic translation into all Indian languages, so statement 2 is incorrect. The Gyan Bharatam Mission was launched precisely to build a National Digital Repository covering over a crore manuscripts, including religious texts, confirming statement 3."
+},
+{
+    q: "With reference to the structure and composition of the Ajivika sect of ancient India, consider the following statements:<br>1. It was founded by Makkhali Gosala, a contemporary of both Gautama Buddha and Mahavira.<br>2. Ajivika ascetics went about naked, similar to the Digambara sect of Jainism.<br>3. The Ajivikas rejected the doctrine of karma and asserted that all events are governed by 'Niyati' or absolute destiny.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "1, 2 and 3",
+        "2 and 3 only",
+        "1 and 3 only"
+    ],
+    ans: 1,
+    exp: "Makkhali Gosala, a contemporary of the Buddha and Mahavira, founded the Ajivika sect, making statement 1 correct. Ajivika ascetics practised nudity, much like Digambara Jain monks, confirming statement 2. The core Ajivika doctrine of 'Niyati' held that all events, including liberation, are governed by absolute destiny rather than individual karma, making statement 3 correct as well."
+},
+{
+    q: "With reference to important policies and notifications concerning the Jain community in India, consider the following statements:<br>1. The Jain community was notified as a minority community under Section 2(c) of the National Commission for Minorities Act, 1992, in 2014.<br>2. Notification as a minority community automatically confers reservation in government jobs and educational institutions to the Jain community.<br>3. The Ministry of Environment's 2019 notification declaring Sammed Shikharji an eco-sensitive zone triggered concerns among sections of the Jain community.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "1 and 2 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "The Central Government notified Jains as a minority community under Section 2(c) of the NCM Act, 1992, through a notification dated 27 January 2014, making statement 1 correct. Minority status primarily enables self-administration of religious/educational institutions and access to minority welfare schemes; it does not automatically confer job or education reservations, so statement 2 is incorrect. The 2019 eco-sensitive zone notification for the Sammed Shikharji hill (a sacred Jain pilgrimage site in Jharkhand) did raise concerns among the Jain community over tourism and sanctity, confirming statement 3."
+},
+{
+    q: "With reference to saints of the Bhakti tradition in the news during 2025-2026, consider the following statements:<br>1. The year 2025 marked the 556th birth anniversary (Prakash Parv) of Guru Nanak Dev, observed on Kartik Purnima.<br>2. Guru Nanak's hymns form part of the Guru Granth Sahib, the scripture compiled during the period of the Sikh Gurus.<br>3. The Kartarpur Corridor, which provides visa-free access for Indian pilgrims to Gurdwara Darbar Sahib in Pakistan, was inaugurated in 2019.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 3,
+    exp: "Guru Nanak Jayanti 2025, observed on 5 November 2025 (Kartik Purnima), marked the 556th Prakash Parv, confirming statement 1. Guru Nanak composed hymns that were later incorporated into the Guru Granth Sahib, making statement 2 correct. The Kartarpur Corridor, offering visa-free pilgrim access to Gurdwara Darbar Sahib, was inaugurated in November 2019, so statement 3 is also correct."
+},
+{
+    q: "With reference to challenges associated with the Jain Councils and the compilation of Jain canonical literature, consider the following statements:<br>1. The Digambara sect does not accept the canonical validity of the Angas compiled at the Jain Councils, unlike the Svetambara sect.<br>2. The twelfth Anga, compiled at the First Jain Council, was reported lost by the time of the Second Jain Council at Valabhi.<br>3. There is complete and unanimous consensus among historians on the exact date of the First Jain Council.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1, 2 and 3",
+        "1 and 3 only",
+        "1 and 2 only",
+        "2 and 3 only"
+    ],
+    ans: 2,
+    exp: "The Digambara sect holds that the original Anga literature was lost and does not accept the Svetambara-preserved Angas as authentic canon, making statement 1 correct. Tradition records that the twelfth Anga (Drishtivada) was already lost by the time of the Second Jain Council at Valabhi, confirming statement 2. However, historians differ on the exact dating of the First Jain Council, so there is no complete consensus, making statement 3 incorrect."
+},
+{
+    q: "With reference to the features and characteristics of the spread of Buddhism, consider the following statements:<br>1. Emperor Ashoka's 'Dhamma Mahamatras' were officials appointed to propagate and oversee the practice of Dhamma.<br>2. Buddhism spread to Sri Lanka during Ashoka's reign through the efforts of his son, Mahinda.<br>3. Sanskrit, rather than Pali or Prakrit, was the primary medium through which early Buddhist teachings spread among the common people.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "Ashoka appointed Dhamma Mahamatras to propagate and monitor adherence to Dhamma across his empire, making statement 1 correct. His son Mahinda is credited with introducing Buddhism to Sri Lanka during Ashoka's reign, confirming statement 2. However, early Buddhist teachings spread through Pali and Prakrit, the languages of the common people, rather than Sanskrit, so statement 3 is incorrect."
+},
+{
+    q: "With reference to the doctrine and social role of the Ajivikas in ancient India, consider the following statements:<br>1. The Barabar Caves, excavated during Ashoka's reign, were donated for use by Ajivika ascetics.<br>2. The Ajivikas believed that individual effort (purushartha) could alter one's predetermined fate.<br>3. Emperor Bindusara is traditionally associated with patronage of the Ajivika sect.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1, 2 and 3",
+        "1 and 3 only"
+    ],
+    ans: 3,
+    exp: "The Barabar Caves in Bihar, excavated under Ashoka, bear inscriptions recording their donation to Ajivika ascetics, confirming statement 1. However, the Ajivika doctrine of Niyati held fate to be absolutely predetermined and denied that individual effort could alter it, making statement 2 incorrect. Tradition associates Emperor Bindusara, Ashoka's father, with patronage of the Ajivikas, so statement 3 is correct."
+},
+{
+    q: "With reference to the Sufi movement in medieval India, a recurring theme in UPSC Prelims, consider the following statements:<br>1. The concept of 'Wahdat-ul-Wujud' (Unity of Being) holds that all existence is a manifestation of a single divine reality.<br>2. The Chishti order generally emphasised austerity and avoided close association with the ruling establishment.<br>3. Khanqahs served as hospices where Sufi saints and their disciples lived and interacted with visitors.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "1, 2 and 3",
+        "1 and 3 only",
+        "2 and 3 only"
+    ],
+    ans: 1,
+    exp: "'Wahdat-ul-Wujud', propounded by Ibn-al-Arabi and influential among Indian Sufis, holds that all creation manifests a single divine reality, confirming statement 1. The Chishti order, prominent in India, stressed austerity and largely kept a distance from state power, making statement 2 correct. Khanqahs functioned as hospices/centres where Sufi masters and disciples resided and engaged with the public, so statement 3 is also correct - this trio of facts frequently recurs in UPSC Prelims questions on Sufism."
+},
+{
+    q: "With reference to constitutional and legal provisions concerning Jainism in India, consider the following statements:<br>1. Article 25 of the Constitution guarantees freedom of conscience and the right to freely profess, practise, and propagate religion, applicable to Jains as well.<br>2. The Jain community was notified as a religious minority at the national level only in 2014, despite being recognised as a minority in several states earlier.<br>3. The Constitution explicitly and unambiguously lists Jainism as a religion entirely separate from Hinduism for all purposes under Article 25.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "2 and 3 only",
+        "1 and 2 only",
+        "1, 2 and 3"
+    ],
+    ans: 2,
+    exp: "Article 25 guarantees freedom of conscience and religious practice to all persons, including Jains, making statement 1 correct. Although several states had earlier granted Jains minority status, national-level notification under the NCM Act came only in 2014, confirming statement 2. However, Explanation II to Article 25 states that, for the limited purposes of that Article, a reference to Hindus includes persons professing the Sikh, Jain or Buddhist religion - so the Constitution does not treat Jainism as wholly separate for that Article's purposes, making statement 3 incorrect."
+},
+{
+    q: "With reference to the background and evolution of the Jain Councils, consider the following statements:<br>1. The First Jain Council was convened partly because a severe famine in Magadha led to the migration of Jain monks under Bhadrabahu to South India.<br>2. The compilation of the Jain canon at Pataliputra was undertaken because the purely oral transmission of the Agamas risked being lost.<br>3. The Second Jain Council at Valabhi was convened after another famine further threatened the memorised textual tradition.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1, 2 and 3",
+        "1 and 3 only"
+    ],
+    ans: 2,
+    exp: "A severe famine in Magadha is traditionally linked to Bhadrabahu leading a group of monks to South India, eventually contributing to the Digambara-Svetambara divide, confirming statement 1. The Pataliputra council sought to compile scriptures precisely because oral transmission risked losing parts of the canon, making statement 2 correct. A subsequent famine before the Valabhi council further eroded memorised textual knowledge, prompting its written compilation, so statement 3 is correct as well."
+},
+{
+    q: "With reference to the constitutional and legal standing of the Ajivika sect in present-day India, consider the following statements:<br>1. The Ajivika sect does not exist today as an organised religious community and has no distinct legal or constitutional recognition.<br>2. The Barabar Hill cave inscriptions of Ashoka record the donation of caves to the Ajivikas, representing early epigraphic evidence of royal patronage to a religious sect.<br>3. The Ajivikas are listed as a notified minority community under the National Commission for Minorities Act, 1992.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "The Ajivika sect became extinct centuries ago and has no organised presence or legal recognition today, making statement 1 correct. Ashoka's Barabar Hill caves carry inscriptions recording their donation to Ajivika ascetics, an early instance of state patronage to a sect, confirming statement 2. However, only Muslims, Christians, Sikhs, Buddhists, Parsis, and Jains are notified minorities under the NCM Act, 1992 - the Ajivikas are not, making statement 3 incorrect."
+},
+{
+    q: "With reference to current affairs (2025-2026) concerning the preservation of India's religious literature, consider the following statements:<br>1. The Gyan Bharatam Mission, announced in the Union Budget 2025-26, aims to survey, document, and digitise India's manuscript heritage, including religious texts.<br>2. The National Digital Repository being created under this Mission will remain accessible only to registered research scholars and will not be open to the general public.<br>3. The Mission functions under the umbrella of the Ministry of Culture as part of a broader push to preserve and digitise India's textual heritage.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1, 2 and 3",
+        "1 and 3 only"
+    ],
+    ans: 3,
+    exp: "The Gyan Bharatam Mission, announced in Budget 2025-26, aims to survey and digitise over one crore manuscripts, including religious and philosophical texts, confirming statement 1. However, the National Digital Repository is intended to be made publicly accessible, not restricted to registered scholars alone, making statement 2 incorrect. The Mission operates under the Ministry of Culture's broader manuscript preservation framework, so statement 3 is correct."
+},
+{
+    q: "With reference to the structure and composition of ancient Indian religious literature, consider the following statements:<br>1. The Buddhist Tripitaka is composed of three baskets: Vinaya Pitaka, Sutta Pitaka, and Grihya Pitaka.<br>2. The Jain canon, as preserved by the Svetambara tradition, includes texts known as Angas and Upangas.<br>3. The Puranas are classified as Smriti literature, composed later than the Shruti (Vedic) corpus.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 1,
+    exp: "The three baskets of the Tripitaka are the Vinaya Pitaka, Sutta Pitaka, and Abhidhamma Pitaka - not 'Grihya Pitaka', which is not a Buddhist canonical category, making statement 1 incorrect. The Svetambara Jain canon indeed includes Angas and Upangas among its texts, confirming statement 2. The Puranas are Smriti (remembered/composed) literature, distinct from and later than the directly 'revealed' Shruti or Vedic corpus, making statement 3 correct."
+},
+{
+    q: "With reference to constitutional and legal provisions relevant to the Bhakti tradition in India, consider the following statements:<br>1. Explanation I to Article 25 of the Constitution states that the wearing and carrying of kirpans shall be deemed to be included in the profession of the Sikh religion.<br>2. The Sikh Gurdwaras Act, 1925, provides for the management of historical Gurdwaras through the Shiromani Gurdwara Parbandhak Committee (SGPC).<br>3. The Anand Marriage Act, 1909, gives legal recognition to marriages solemnised according to Sikh rites.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 3,
+    exp: "Explanation I to Article 25 specifically protects the wearing and carrying of kirpans as part of professing the Sikh religion, confirming statement 1. The Sikh Gurdwaras Act, 1925, established the SGPC to manage historical Gurdwaras in Punjab, making statement 2 correct. The Anand Marriage Act, 1909, legally recognises marriages performed under Sikh Anand Karaj rites, so statement 3 is also correct."
+},
+{
+    q: "With reference to reforms and recommendations concerning the preservation of Jain Council-era canonical heritage, consider the following statements:<br>1. Scholars have recommended cross-referencing Digambara and Svetambara textual traditions to reconstruct a fuller picture of early Jain canonical literature.<br>2. Digitisation and cataloguing of manuscripts preserved at Jain 'bhandaras' (traditional repositories) has been recommended to prevent further loss of textual heritage.<br>3. A formal, government-mandated 'Third Jain Council' is currently in session to standardise the Jain canon across all sects.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "2 and 3 only",
+        "1 and 3 only",
+        "1 and 2 only",
+        "1, 2 and 3"
+    ],
+    ans: 2,
+    exp: "Since the Digambara and Svetambara traditions preserve different portions of the ancient canon, scholars have recommended cross-referencing both to build a fuller picture, making statement 1 correct. Cataloguing and digitising manuscripts stored in traditional Jain bhandaras is a widely recommended conservation measure, confirming statement 2. However, no formal or government-mandated 'Third Jain Council' is currently in session; canon standardisation remains an academic and community-level effort, making statement 3 incorrect."
+},
+{
+    q: "With reference to the structure and composition of the Bhakti movement, consider the following statements:<br>1. The Bhakti movement is broadly classified into two streams: Saguna (devotion to God with form/attributes) and Nirguna (devotion to a formless, attributeless God).<br>2. Saints like Tulsidas and Surdas belonged to the Saguna tradition, composing devotional poetry centred on Rama and Krishna respectively.<br>3. Nirguna Bhakti saints, such as Kabir, generally rejected idol worship and emphasised a formless divine reality.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1, 2 and 3",
+        "1 and 2 only",
+        "1 and 3 only",
+        "2 and 3 only"
+    ],
+    ans: 0,
+    exp: "The Bhakti movement's core division into Saguna and Nirguna streams is a foundational and frequently tested concept, confirming statement 1. Tulsidas (devoted to Rama) and Surdas (devoted to Krishna) are classic Saguna poet-saints, making statement 2 correct. Nirguna saints like Kabir rejected idol worship in favour of a formless divine, so statement 3 is correct as well."
+},
+{
+    q: "With reference to constitutional and legal issues connected with Jain religious practices, consider the following statements:<br>1. In 2015, the Rajasthan High Court declared the Jain practice of Santhara (Sallekhana) illegal, equating it with an offence under Section 309 of the Indian Penal Code.<br>2. The Supreme Court subsequently stayed the Rajasthan High Court's order, allowing the practice to continue pending further hearing.<br>3. The Rajasthan High Court, in its judgment, held that Santhara was an essential religious practice protected under Article 25 of the Constitution.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "2 and 3 only",
+        "1 and 2 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 1,
+    exp: "In August 2015, the Rajasthan High Court declared Santhara illegal, treating it as attempted suicide under Section 309 IPC, confirming statement 1. The Supreme Court stayed this order later that month, permitting the practice to continue while the matter remained sub judice, making statement 2 correct. However, the High Court had explicitly held that Santhara was NOT an essential religious practice of Jainism, which is precisely why it declined Article 25 protection - so statement 3 is incorrect."
+},
+{
+    q: "With reference to recent recommendations concerning the Jain community, consider the following statements:<br>1. The National Commission for Minorities has held 'Sarv Dharm Samvad' meetings to discuss issues concerning the Jain community, including protection of sites like Sammed Shikharji and Girnar.<br>2. These consultations resulted in a binding legislative amendment enacted by Parliament specifically exempting all Jain pilgrimage sites from environmental regulation.<br>3. Concerns regarding the safety and security of Jain monks during their traditional foot pilgrimages ('Viharas') have been raised in these consultations.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 2,
+    exp: "The National Commission for Minorities has indeed conducted Sarv Dharm Samvad meetings addressing Jain community concerns over Sammed Shikharji and Girnar, confirming statement 1. However, these are consultative discussions, not binding legislative amendments exempting sites from environmental law, making statement 2 incorrect. Safety of Jain monks during Viharas has been a genuine subject raised in these meetings, so statement 3 is correct."
+},
+{
+    q: "With reference to important Acts and policies concerning Buddhism in India, consider the following statements:<br>1. The Bodh Gaya Temple Act, 1949, established a Management Committee for the Mahabodhi Temple, with the District Magistrate of Gaya as its ex-officio Chairman.<br>2. As originally enacted, the Act mandated equal Hindu-Buddhist representation on the Committee with no scope for future amendment.<br>3. A 2013 amendment to the Act removed the earlier mandatory requirement that a Hindu be nominated as Chairman whenever the District Magistrate was not a Hindu.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "1 and 2 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "The Bodh Gaya Temple Act, 1949, created a Management Committee headed ex-officio by the District Magistrate of Gaya, confirming statement 1. The Act did provide for equal Hindu-Buddhist representation, but it was not immune to change - it was in fact amended in 2013, making statement 2 incorrect. That 2013 amendment removed the requirement that a Hindu be appointed Chairman when the DM was non-Hindu, so statement 3 is correct."
+},
+{
+    q: "With reference to the features and characteristics of the Buddhist Councils, consider the following statements:<br>1. The Second Buddhist Council was held at Vaishali primarily to resolve disputes over certain relaxations in monastic discipline (Vinaya) claimed by the Vajjian monks.<br>2. The Second Buddhist Council led to a formal schism between the Sthaviravadins and the Mahasanghikas.<br>3. The Second Council, like the Third, was convened under the direct royal patronage of Emperor Ashoka.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3",
+        "1 and 2 only"
+    ],
+    ans: 3,
+    exp: "The Second Buddhist Council at Vaishali dealt with disputed relaxations of Vinaya rules claimed by the Vajjian monks, confirming statement 1. This dispute is traditionally linked to the formal split between the Sthaviravadins and Mahasanghikas, making statement 2 correct. However, the Second Council predated Ashoka by roughly a century and was not held under his patronage - it was the Third Council that enjoyed Ashoka's sponsorship - so statement 3 is incorrect."
+},
+{
+    q: "With reference to challenges and issues concerning the Jain community, consider the following statements:<br>1. In 2023, protests by the Jain community arose after the Jharkhand government's tourism policy sought to develop the Parasnath Hills (site of Sammed Shikharji) as an eco-tourism destination.<br>2. Sammed Shikharji is held sacred because it is believed that all 24 Jain Tirthankaras attained moksha (liberation) there.<br>3. Following the protests, the Central Government directed that tourism and eco-tourism activities on the Parasnath Hills be halted to preserve the site's sanctity.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1, 2 and 3",
+        "1 and 3 only"
+    ],
+    ans: 3,
+    exp: "In 2023, the Jharkhand government's move to develop Parasnath Hills as an eco-tourism spot triggered nationwide Jain protests, confirming statement 1. However, tradition holds that only 20 of the 24 Tirthankaras attained moksha at Sammed Shikharji (Mahavira attained nirvana at Pawapuri), making statement 2 incorrect. Amid the protests, the Union Environment Ministry halted tourism and eco-tourism activity on the hills to protect the site's sanctity, so statement 3 is correct."
+},
+{
+    q: "With reference to developments concerning Buddhism during 2025-2026, consider the following statements:<br>1. The 2nd Global Buddhist Summit was held in New Delhi in January 2026, involving the International Buddhist Confederation.<br>2. In November 2025, India organised an exposition of the Holy Piprahwa Relics of the Buddha's chief disciples in Bhutan.<br>3. The Global Buddhist Summit series was first held in 2019, coinciding with the birth centenary of the 14th Dalai Lama.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "The 2nd Global Buddhist Summit was held in New Delhi in January 2026 with the International Buddhist Confederation's involvement, confirming statement 1. India, along with the Ministry of Culture and IBC, organised an exposition of the Holy Piprahwa Relics in Bhutan in November 2025, making statement 2 correct. However, the Global Buddhist Summit series was first held in 2023, not 2019, and was not linked to the Dalai Lama's birth centenary, so statement 3 is incorrect."
+},
+{
+    q: "With reference to reforms associated with the spread of Buddhism in modern India, consider the following statements:<br>1. Dr. B.R. Ambedkar embraced Buddhism along with lakhs of followers at Nagpur on 14 October 1956, an event commemorated as Dhamma Chakra Pravartan Din.<br>2. Ambedkar's 22 vows taken during the conversion explicitly retained his followers' faith in the Hindu deities Brahma, Vishnu, and Mahesh.<br>3. Ambedkar's conversion movement is often described as giving rise to 'Navayana' or Neo-Buddhism in India.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 2,
+    exp: "Ambedkar's mass conversion at Nagpur on 14 October 1956 is annually commemorated as Dhamma Chakra Pravartan Din, confirming statement 1. His 22 vows explicitly rejected belief in Brahma, Vishnu, and Mahesh as part of severing ties with Hindu ritualism, making statement 2 incorrect. The distinct, socially engaged form of Buddhism that emerged from this movement is commonly termed 'Navayana' or Neo-Buddhism, so statement 3 is correct."
+},
+{
+    q: "With reference to reforms brought about by the Bhakti movement in medieval Indian society, consider the following statements:<br>1. Bhakti saints such as Kabir and Ravidas upheld the traditional caste hierarchy while promoting devotional worship.<br>2. The Bhakti movement encouraged the use of vernacular/regional languages instead of Sanskrit for religious expression.<br>3. The Guru-shishya (preceptor-disciple) relationship remained central to many Bhakti traditions, including the Sant tradition of Kabir and Guru Nanak.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 1,
+    exp: "Bhakti saints like Kabir and Ravidas actually challenged and critiqued the caste hierarchy, asserting spiritual equality irrespective of birth, so statement 1 is incorrect. The movement's use of vernacular languages such as Hindi, Marathi, and Tamil, rather than Sanskrit, made devotion accessible to ordinary people, confirming statement 2. The Guru-shishya relationship remained central to Sant traditions, including those of Kabir and Guru Nanak, making statement 3 correct."
+},
+{
+    q: "With reference to important Acts and amendments concerning Sikh religious institutions, associated with the Bhakti/Sant tradition, consider the following statements:<br>1. The Sikh Gurdwaras (Amendment) Act, 2016, expanded voting rights in SGPC elections to include all Sehajdhari Sikhs, regardless of religious practice.<br>2. The Haryana Sikh Gurdwara Management Act, 2014, providing for a separate gurdwara management body in Haryana, was upheld as constitutionally valid since management of religious institutions falls under the State List.<br>3. The 2016 Amendment Act was given retrospective effect from 8 October 2003.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "1 and 3 only",
+        "1, 2 and 3",
+        "2 and 3 only"
+    ],
+    ans: 3,
+    exp: "The Sikh Gurdwaras (Amendment) Act, 2016, actually restricted rather than expanded voting rights - it barred those who trim or shave their hair/beard, effectively disentitling Sehajdhari Sikhs, so statement 1 is incorrect. The Haryana Sikh Gurdwara Management Act, 2014, was upheld as valid since religious institution management falls under Entry 32 of the State List, confirming statement 2. The 2016 Amendment was deemed to operate retrospectively from 8 October 2003, in line with an earlier government notification, making statement 3 correct."
+},
+{
+    q: "With reference to the structure and composition of ancient Indian religious literature, a recurring theme in UPSC Prelims, consider the following statements:<br>1. The Vedas, including the Samhitas, Brahmanas, Aranyakas, and Upanishads, are classified as Shruti literature.<br>2. The Manusmriti and the Puranas belong to the category of Smriti literature.<br>3. The Upanishads are primarily concerned with elaborate descriptions of Vedic sacrificial rituals rather than philosophical speculation.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "2 and 3 only",
+        "1 and 2 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 1,
+    exp: "The fourfold Vedic corpus - Samhitas, Brahmanas, Aranyakas, and Upanishads - is classified as Shruti ('that which is heard'/directly revealed), confirming statement 1. The Manusmriti and Puranas, being composed rather than revealed, fall under Smriti literature, making statement 2 correct. However, the Upanishads are primarily philosophical texts exploring concepts like Brahman and Atman, not ritual manuals (that role belongs more to the Brahmanas), so statement 3 is incorrect - this Shruti-Smriti-Upanishad combination is a frequently tested UPSC pattern."
+},
+{
+    q: "With reference to reforms and recommendations concerning the spread of Jainism, consider the following statements:<br>1. In January 2023, the National Commission for Minorities recommended that Parasnath Hill (Sammed Shikharji) be denotified as an eco-tourism centre and declared solely a place of pilgrimage.<br>2. The Jharkhand government retained exclusive and unilateral authority to alter the site's tourism status in future, without any central government involvement.<br>3. Following the protests, the Central Government stayed the implementation of the tourism-related clause of the 2019 Eco-Sensitive Zone notification for the area.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "1 and 2 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "The NCM formally recommended denotifying Parasnath Hill as an eco-tourism centre and treating it solely as a pilgrimage site, confirming statement 1. In reality, the resolution involved active central government intervention, not unilateral state authority, making statement 2 incorrect. The Centre stayed the tourism-enabling clause of the 2019 Eco-Sensitive Zone notification following the protests, so statement 3 is correct."
+},
+{
+    q: "With reference to reforms and recommendations associated with the Buddhist Councils, consider the following statements:<br>1. The Sixth Buddhist Council was held in Yangon (Rangoon), Myanmar, between 1954 and 1956.<br>2. The Council coincided with the 2,500th anniversary of the Buddha's parinirvana, popularly observed as Buddha Jayanti.<br>3. The Sixth Council, unlike earlier ones, was attended exclusively by monks from Myanmar, with no international participation.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "2 and 3 only",
+        "1 and 2 only",
+        "1, 2 and 3"
+    ],
+    ans: 2,
+    exp: "The Sixth Buddhist Council, aimed at producing a critically edited Pali Tipitaka, was held in Yangon between 1954 and 1956, confirming statement 1. It was timed to coincide with the 2,500th anniversary of the Buddha's parinirvana (Buddha Jayanti), making statement 2 correct. However, the Council was attended by monks from several Theravada countries, including Sri Lanka, Thailand, Cambodia, Laos, and India, not exclusively Myanmar, so statement 3 is incorrect."
+},
+{
+    q: "With reference to reforms and recommendations concerning the Sufi movement in contemporary India, consider the following statements:<br>1. The All India Sufi Sajjadanashin Council has recommended setting up a dedicated 'Dargah Board' for managing dargah properties, distinct from existing Waqf Boards.<br>2. The Council welcomed certain provisions of the Waqf Amendment Bill/Act, citing concerns over alleged mismanagement in existing Waqf Boards.<br>3. This recommendation for a separate Dargah Board has already been fully implemented through specific central legislation enacted in 2025.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3",
+        "1 and 2 only"
+    ],
+    ans: 3,
+    exp: "The All India Sufi Sajjadanashin Council has indeed called for a dedicated Dargah Board to manage dargah properties separately from Waqf Boards, confirming statement 1. Its chairman also publicly welcomed aspects of the Waqf Amendment Bill, citing concerns over mismanagement in existing Waqf Boards, making statement 2 correct. However, no specific central legislation has yet created a separate Dargah Board - the demand remains a recommendation rather than an implemented policy, so statement 3 is incorrect."
+},
+{
+    q: "With reference to important Acts and policies concerning the Sufi movement in India, consider the following statements:<br>1. The Waqf (Amendment) Act, 2025, received Presidential assent and came into force in April 2025, amending the Waqf Act, 1995.<br>2. Waqf properties in India include only mosques and madrasas; shrines (dargahs) and graveyards are excluded from the definition of waqf property.<br>3. The Waqf Amendment Act, 2025, faced significant opposition from various Muslim organisations and was legally challenged, including before the Supreme Court.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 1,
+    exp: "The Waqf (Amendment) Act, 2025, received Presidential assent and was notified in April 2025, amending the earlier Waqf Act, 1995, confirming statement 1. Waqf properties in India actually encompass a wide range of religious and charitable assets, including dargahs (Sufi shrines), imambaras, and graveyards, not just mosques and madrasas, making statement 2 incorrect. The Act faced strong opposition from several Muslim organisations and was challenged before the Supreme Court, so statement 3 is correct."
+},
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-18 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>
