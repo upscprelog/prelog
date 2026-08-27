@@ -1,0 +1,1888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-19</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+{
+    q: "With reference to Pravasi Bharatiya Divas (PBD), consider the following statements: <br> 1. It is celebrated on 9th January every year to commemorate Mahatma Gandhi's return to India from South Africa in 1915.<br>2. Since 2015, PBD conventions have been held every year without exception.<br>3. The 18th PBD Convention was held in Bhubaneswar (2025) with the theme 'Diaspora Contribution to a Viksit Bharat'.<br>Which of the statements given above is/are correct?",
+
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+
+    ans: 2,
+
+    exp: "Pravasi Bharatiya Divas is observed on 9 January to mark Gandhi's 1915 return from South Africa, and the 18th convention was indeed held in Bhubaneswar in January 2025 with the stated theme. However, since 2015 the main conventions have been organised biennially, not annually, so statement 2 is incorrect."
+},
+{
+    q: "Consider the following statements regarding reform of the United Nations Security Council (UNSC): <br> 1. The G4 grouping comprises India, Brazil, Germany and Japan, which mutually support each other's bid for permanent UNSC membership.<br>2. The Inter-Governmental Negotiations (IGN) on Security Council reform are held at the United Nations Headquarters in New York.<br>3. The African Union's common position on UNSC reform is known as the Ezulwini Consensus.<br>Which of the statements given above is/are correct?",
+
+    opts: [
+        "1, 2 and 3",
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only"
+    ],
+
+    ans: 0,
+
+    exp: "The G4 (India, Brazil, Germany, Japan) has recently pushed for early UNSC reform through the IGN process held at UN Headquarters, New York, and has sought to align its position with the African Union's Ezulwini Consensus to build a two-thirds majority in the General Assembly. All three statements are therefore correct."
+},
+{
+    q: "With reference to global conflict trends in 2025-26 as reported by data-tracking bodies such as the Uppsala Conflict Data Program (UCDP), consider the following statements: <br> 1. 2025 recorded the highest number of direct interstate conflicts since UCDP began collecting data in 1946.<br>2. The Russia-Ukraine war accounted for the largest share of battle-related deaths among ongoing conflicts in 2025.<br>3. The Gaza ceasefire led to a complete cessation of all fatalities in the Gaza Strip after it was signed.<br>Which of the statements given above is/are correct?",
+
+    opts: [
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3",
+        "1 and 2 only"
+    ],
+
+    ans: 3,
+
+    exp: "UCDP data shows direct interstate conflicts doubled to eight in 2025, the highest since records began, with the Russia-Ukraine war remaining the deadliest in terms of battle-related deaths. Statement 3 is incorrect since reports indicate fatalities continued in Gaza even after the ceasefire was signed."
+},
+{
+    q: "Consider the following statements regarding India's recent bilateral trade agreements: <br> 1. The India-UK Comprehensive Economic and Trade Agreement (CETA) came into effect on 15 July 2026.<br>2. The India-Oman Comprehensive Economic Partnership Agreement (CEPA) came into force before the India-UK CETA.<br>3. Under the India-UK CETA, the UK has granted zero-duty market access on nearly 99% of India's export lines.<br>Which of the statements given above is/are correct?",
+
+    opts: [
+        "1 and 2 only",
+        "1, 2 and 3",
+        "1 and 3 only",
+        "2 and 3 only"
+    ],
+
+    ans: 1,
+
+    exp: "The India-UK CETA came into effect on 15 July 2026, offering zero-duty access on nearly 99% of India's export lines, while the India-Oman CEPA had already entered into force earlier, on 1 June 2026. All three statements are therefore correct."
+},
+{
+    q: "With reference to India's BRICS Presidency in 2026, consider the following statements: <br> 1. India assumed the BRICS Presidency for 2026 under the theme 'Building for Resilience, Innovation, Cooperation and Sustainability'.<br>2. The BRICS Foreign Ministers' Meeting held in New Delhi in 2026 called for reforms of the WTO, IMF and World Bank.<br>3. Indonesia became a full BRICS member before the UAE.<br>Which of the statements given above is/are correct?",
+
+    opts: [
+        "1 and 3 only",
+        "2 and 3 only",
+        "1 and 2 only",
+        "1, 2 and 3"
+    ],
+
+    ans: 2,
+
+    exp: "India's 2026 BRICS Presidency carries the theme on resilience, innovation, cooperation and sustainability, and the New Delhi Foreign Ministers' Meeting explicitly called for reform of the WTO, IMF and World Bank. Statement 3 is incorrect because the UAE joined BRICS in January 2024, before Indonesia's accession in 2025."
+},
+{
+    q: "Consider the following statements: <br> 1. The Countering America's Adversaries Through Sanctions Act (CAATSA), enacted in 2017, empowers the US President to impose sanctions related to Russia, Iran and North Korea.<br>2. The proposed 'Sanctioning Russia and Iran Act of 2026' seeks to codify existing Russia-related sanctions into law, limiting the President's ability to waive them unilaterally.<br>3. India has been granted a permanent and unconditional waiver from CAATSA for all its defence purchases from Russia.<br>Which of the statements given above is/are correct?",
+
+    opts: [
+        "1 and 2 only",
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+
+    ans: 0,
+
+    exp: "CAATSA (2017) authorises sanctions tied to Russia, Iran and North Korea, and the 2026 bill aims to codify Russia sanctions into statute to curb presidential waiver power. Statement 3 is incorrect, as India has not received a blanket, unconditional CAATSA waiver; exemptions like the one considered for the S-400 deal have been case-specific and politically contested rather than permanent."
+},
+{
+    q: "Consider the following statements regarding features and characteristics of the Indian diaspora: <br> 1. As per the World Migration Report 2026, India ranks first globally in remittance inflows.<br>2. The Mexico-United States corridor remained the largest international migration corridor in the world in 2024.<br>3. As per the RBI's remittances survey, Gulf countries have overtaken advanced economies as India's primary source of remittances.<br>Which of the statements given above is/are correct?",
+
+    opts: [
+        "2 and 3 only",
+        "1 and 2 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+
+    ans: 1,
+
+    exp: "The World Migration Report 2026 confirms India's continued dominance in global remittance inflows, and the Mexico-US corridor remained the world's largest migration corridor in 2024. Statement 3 is incorrect, as RBI data actually shows the reverse trend, with advanced economies like the US and UK overtaking Gulf countries as India's leading remittance source due to a rising share of high-skilled migrants."
+},
+{
+    q: "With reference to the structure and composition of India's bilateral partnership with France, consider the following statements: <br> 1. The India-France partnership does not include any dedicated mechanism for cooperation in outer space.<br>2. In February 2026, India and France elevated their bilateral ties to a 'Special Global Strategic Partnership'.<br>3. The India-France Strategic Dialogue is traditionally co-chaired at the level of the National Security Adviser from the Indian side.<br>Which of the statements given above is/are correct?",
+
+    opts: [
+        "1 and 2 only",
+        "1 and 3 only",
+        "1, 2 and 3",
+        "2 and 3 only"
+    ],
+
+    ans: 3,
+
+    exp: "During President Macron's February 2026 visit, India and France elevated their ties to a Special Global Strategic Partnership, and the annual India-France Strategic Dialogue has traditionally been co-chaired by India's National Security Adviser. Statement 1 is incorrect since the partnership includes a dedicated India-France Strategic Space Dialogue, reflecting cooperation between ISRO and CNES."
+},
+{
+    q: "The I2U2 grouping, comprising India, Israel, the UAE and the United States and often called the 'West Asian Quad', is a distinctive feature of contemporary multilateral engagement. Which one of the following best describes what distinguishes I2U2 from security-oriented groupings such as AUKUS?",
+
+    opts: [
+        "It focuses on joint investments in areas like water, energy, food security and technology, without a formal military dimension",
+        "It is primarily a military alliance involving joint naval exercises in the Persian Gulf",
+        "It functions as a formal customs union among its four member states",
+        "It was established under the direct aegis of the United Nations Security Council"
+    ],
+
+    ans: 0,
+
+    exp: "I2U2, formed after the Abraham Accords, is centred on mobilising private capital and joint investment in six areas — water, energy, transportation, space, health and food security — with an explicitly non-military character. This distinguishes it from AUKUS, which is a defence and technology-sharing pact; I2U2 has no customs union or UN Security Council origin."
+},
+{
+    q: "With reference to recent developments and reform debates in India's neighbourhood relations, consider the following statements: <br> 1. The 1950 India-Nepal Treaty of Peace and Friendship has faced calls for revision from sections of Nepal's political class, who view it as an unequal arrangement.<br>2. The India-Bangladesh Ganga Water Treaty of 1996 is due to expire in December 2026, necessitating renewed negotiations.<br>3. India and Nepal have operationalised a Long-Term Power Trade Agreement targeting the export of 10,000 MW of Nepalese electricity to India over a decade.<br>Which of the statements given above is/are correct?",
+
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1, 2 and 3",
+        "1 and 3 only"
+    ],
+
+    ans: 2,
+
+    exp: "Nepal's younger political class has increasingly questioned the 1950 Treaty as a colonial-era relic needing revision, the 1996 Ganga Water Treaty with Bangladesh is indeed set to expire in December 2026, and the 2024 India-Nepal Long-Term Power Trade Agreement targets 10,000 MW of hydropower exports over the next decade. All three statements are therefore correct."
+},
+{
+    q: "With reference to the WHO Pandemic Agreement, consider the following statements: <br> 1. It will enter into force immediately upon adoption, without requiring ratification by member states.<br>2. It was adopted at the 78th World Health Assembly in May 2025.<br>3. It is the second international legal instrument adopted under Article 19 of the WHO Constitution, after the Framework Convention on Tobacco Control.<br>Which of the statements given above is/are correct?",
+
+    opts: [
+        "2 and 3 only",
+        "1 and 2 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+
+    ans: 0,
+
+    exp: "The WHO Pandemic Agreement was adopted without opposition at the 78th World Health Assembly in May 2025, and it is only the second legal instrument adopted under Article 19 of the WHO Constitution, after the 2003 Framework Convention on Tobacco Control. Statement 1 is incorrect, as the agreement requires ratification by at least 60 countries before it can enter into force."
+},
+{
+    q: "With reference to the functions and powers of the World Trade Organization's dispute settlement mechanism, which one of the following statements is correct?",
+
+    opts: [
+        "The Appellate Body has functioned without interruption since its creation in 1995, hearing all pending appeals",
+        "Panel reports, once issued, are final and cannot be appealed by either disputing party",
+        "The Appellate Body has been non-functional since December 2019 due to the blocking of new member appointments, primarily by the United States",
+        "The WTO's Dispute Settlement Body is an organ entirely separate from the General Council and meets independently of it"
+    ],
+
+    ans: 2,
+
+    exp: "The Appellate Body, a standing seven-member body established in 1995 to hear appeals against panel rulings, has been unable to function since December 2019 because the US blocked new appointments and reappointments, effectively paralysing binding dispute resolution. In reality, the General Council itself convenes as the Dispute Settlement Body, and panel reports can be appealed before the Appellate Body."
+},
+{
+    q: "With reference to the outcomes of COP30 held in Belém, Brazil, consider the following statements: <br> 1. COP30 resulted in a binding, time-bound global roadmap for phasing out fossil fuels.<br>2. COP30 was concluded with the adoption of the 'Global Mutirão' political package.<br>3. The Tropical Forests Forever Facility (TFFF) launched at COP30 rewards countries based on verified, satellite-monitored forest conservation performance.<br>Which of the statements given above is/are correct?",
+
+    opts: [
+        "1 and 3 only",
+        "2 and 3 only",
+        "1 and 2 only",
+        "1, 2 and 3"
+    ],
+
+    ans: 1,
+
+    exp: "COP30 concluded with the 'Global Mutirão' political package, and Brazil's Tropical Forests Forever Facility uses satellite-based monitoring to make performance-based payments to countries that conserve their standing forests. Statement 1 is incorrect since COP30 did not deliver a binding, time-bound fossil fuel phase-out roadmap; this remained a voluntary, non-binding commitment amid opposition from several developing nations."
+},
+{
+    q: "With reference to the structure and composition of BIMSTEC, consider the following statements: <br> 1. Pakistan is a member of BIMSTEC but not of SAARC.<br>2. BIMSTEC comprises seven member states, five from South Asia and two from Southeast Asia.<br>3. The permanent Secretariat of BIMSTEC is located in Dhaka, Bangladesh.<br>Which of the statements given above is/are correct?",
+
+    opts: [
+        "1 and 2 only",
+        "1 and 3 only",
+        "1, 2 and 3",
+        "2 and 3 only"
+    ],
+
+    ans: 3,
+
+    exp: "BIMSTEC comprises seven members — Bangladesh, Bhutan, India, Nepal and Sri Lanka from South Asia, and Myanmar and Thailand from Southeast Asia — with its permanent Secretariat located in Dhaka since 2014. Statement 1 is incorrect because Pakistan is a founding member of SAARC but is not a member of BIMSTEC."
+},
+{
+    q: "With reference to the 23rd India-Russia Annual Summit, consider the following statements: <br> 1. The summit was held in New Delhi in December 2025, marking 25 years of the India-Russia Strategic Partnership.<br>2. India and Russia signed a new bilateral Free Trade Agreement during the summit, replacing the earlier trade framework.<br>3. The summit reaffirmed cooperation on the Kudankulam Nuclear Power Plant and consultations on Arctic issues.<br>Which of the statements given above is/are correct?",
+
+    opts: [
+        "1 and 2 only",
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+
+    ans: 1,
+
+    exp: "The 23rd India-Russia Annual Summit was held in New Delhi in December 2025, marking the 25th anniversary of the 2000 Strategic Partnership Declaration, and it reaffirmed cooperation on the Kudankulam plant and Arctic consultations. Statement 2 is incorrect, as no bilateral Free Trade Agreement was signed; discussions instead focused on trade diversification and a target of raising bilateral trade to $100 billion."
+},
+{
+    q: "With reference to the Tianjin Declaration adopted at the 25th SCO Summit (2025), consider the following statements: <br> 1. The declaration was adopted at the 25th SCO Summit held in Tianjin, China in 2025.<br>2. The declaration explicitly named Pakistan as a sponsor of cross-border terrorism.<br>3. The summit approved a Cooperation Programme (2026-2030) to counter extremist ideology and decided to establish an SCO Development Bank.<br>Which of the statements given above is/are correct?",
+
+    opts: [
+        "2 and 3 only",
+        "1 and 2 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+
+    ans: 2,
+
+    exp: "The Tianjin Declaration was indeed adopted at the 25th SCO Summit in China in 2025, and it approved a Cooperation Programme (2026-2030) against extremism along with a decision to establish an SCO Development Bank. Statement 2 is incorrect, as while the declaration condemned the Pahalgam terror attack, it stopped short of explicitly naming Pakistan as a sponsor of terrorism."
+},
+{
+    q: "Assertion (A): The United Nations Security Council can authorise binding sanctions and the use of military force against a state under Chapter VII of the UN Charter.<br>Reason (R): UN peacekeeping operations are explicitly and exclusively provided for under Chapter VI of the UN Charter.<br>Which one of the following is correct in respect of the above Assertion (A) and Reason (R)?",
+
+    opts: [
+        "Both A and R are true, and R is the correct explanation of A",
+        "Both A and R are true, but R is not the correct explanation of A",
+        "A is true, but R is false",
+        "A is false, but R is true"
+    ],
+
+    ans: 2,
+
+    exp: "Assertion A is correct, as Chapter VII empowers the Security Council to determine threats to peace and authorise coercive measures, including sanctions and military force. Reason R is false because UN peacekeeping operations are not explicitly provided for in any single chapter of the Charter; they are informally described as falling under 'Chapter Six and a Half', blending elements of peaceful dispute settlement and enforcement."
+},
+{
+    q: "With reference to the background and evolution of India-US technology and defence cooperation, consider the following statements: <br> 1. The Initiative on Critical and Emerging Technologies (iCET) was announced in May 2022 and formally launched in January 2023.<br>2. In February 2025, iCET was rebranded as the US-India TRUST initiative, building upon the progress achieved under iCET.<br>3. The India-US COMPACT initiative includes a 10-year Framework for the US-India Major Defence Partnership (2025-2035).<br>Which of the statements given above is/are correct?",
+
+    opts: [
+        "1, 2 and 3",
+        "1 and 2 only",
+        "1 and 3 only",
+        "2 and 3 only"
+    ],
+
+    ans: 0,
+
+    exp: "iCET was announced in May 2022 and launched in January 2023; it was subsequently rebranded as the TRUST initiative in February 2025 to deepen cooperation on semiconductors, AI and quantum technology, and the COMPACT initiative later introduced a 10-year Major Defence Partnership Framework (2025-2035). All three statements are therefore correct, reflecting the incremental evolution of the strategic technology and defence partnership."
+},
+{
+    q: "With reference to the background and evolution of the Artemis Accords, consider the following statements: <br> 1. The Accords were first signed in October 2020 by eight founding countries, including the US, Australia, Canada, Japan and the UK.<br>2. India signed the Artemis Accords in June 2023, becoming one of its signatories.<br>3. The Artemis Accords constitute a legally binding treaty that supersedes the 1967 Outer Space Treaty for all signatory nations.<br>Which of the statements given above is/are correct?",
+
+    opts: [
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3",
+        "1 and 2 only"
+    ],
+
+    ans: 3,
+
+    exp: "The Artemis Accords were first signed in October 2020 by eight founding nations, and India joined as a signatory in June 2023. Statement 3 is incorrect because the Accords are a non-binding set of principles grounded in and consistent with the 1967 Outer Space Treaty, not a legally binding treaty that supersedes it."
+},
+{
+    q: "With reference to the Houthi-led disruption of Red Sea shipping, a recurring theme in UPSC current affairs, consider the following statements: <br> 1. The Houthi rebels, also known as Ansar Allah, belong to Yemen's Zaidi Shia community and captured the capital Sana'a in 2014.<br>2. The Bab-el-Mandeb Strait, a key global maritime chokepoint affected by Houthi attacks, connects the Red Sea with the Gulf of Aden.<br>3. The US-led naval coalition formed in response to Houthi attacks on Red Sea shipping is called Operation Decisive Storm.<br>Which of the statements given above is/are correct?",
+
+    opts: [
+        "2 and 3 only",
+        "1 and 2 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+
+    ans: 1,
+
+    exp: "The Houthis, drawn from Yemen's Zaidi Shia community, captured Sana'a in 2014, and the Bab-el-Mandeb Strait linking the Red Sea to the Gulf of Aden has been central to disruptions in global shipping. Statement 3 is incorrect, as the US-led coalition protecting Red Sea shipping is called Operation Prosperity Guardian; Operation Decisive Storm refers to the 2015 Saudi-led military intervention in Yemen's civil war."
+},
+{
+    q: "Which one of the following is a key characteristic of the World Happiness Report's ranking methodology?",
+
+    opts: [
+        "It ranks countries exclusively by per-capita GDP growth rates over the preceding five years",
+        "It excludes all countries with a population below ten million from its rankings",
+        "It ranks countries based on subjective life evaluations collected through the Gallup World Poll, using the Cantril Ladder scale",
+        "It is published by the World Bank as part of its annual Human Development Index"
+    ],
+
+    ans: 2,
+
+    exp: "The World Happiness Report, published by Oxford's Wellbeing Research Centre with Gallup and the UN Sustainable Development Solutions Network, ranks countries using self-reported life evaluations on the 0-10 Cantril Ladder from the Gallup World Poll. GDP per capita is only one of six explanatory factors used to understand variation in scores, not the sole ranking criterion, and the report is unrelated to the World Bank's Human Development Index."
+},
+{
+    q: "With reference to recent India-Oman and India-UK trade agreements, consider the following statements: <br> 1. Both the India-Oman CEPA and the India-UK CETA entered into force simultaneously on 1 June 2026.<br>2. The India-Oman CEPA was signed in Muscat in December 2025 and was ratified by Oman through a Royal Decree in February 2026.<br>3. The India-UK CETA required parliamentary scrutiny in the UK under the Constitutional Reform and Governance Act, 2010, before ratification.<br>Which of the statements given above is/are correct?",
+
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+
+    ans: 1,
+
+    exp: "The India-Oman CEPA was signed in Muscat in December 2025 and ratified by Oman via Royal Decree in February 2026, while the India-UK CETA underwent mandatory scrutiny under the UK's CRaG Act, 2010 before ratification. Statement 1 is incorrect, as the two agreements did not enter into force on the same date — the Oman CEPA took effect on 1 June 2026, while the UK CETA came into force separately in mid-July 2026."
+},
+{
+    q: "Assertion (A): The IMF's 16th General Review of Quotas, approved in 2023, sought to double the Fund's permanent capital base without changing the relative distribution of voting shares among major shareholders.<br>Reason (R): Any change in IMF quotas requires the approval of at least 85% of the total voting power, effectively giving the largest shareholder a veto over major reforms.<br>Which one of the following is correct in respect of the above Assertion (A) and Reason (R)?",
+
+    opts: [
+        "Both A and R are true, and R is the correct explanation of A",
+        "Both A and R are true, but R is not the correct explanation of A",
+        "A is true, but R is false",
+        "A is false, but R is true"
+    ],
+
+    ans: 0,
+
+    exp: "The 16th General Review indeed proposed an equiproportional quota increase that left existing voting shares unchanged, and this outcome is directly explained by the 85% voting-power threshold required for quota changes, which allows the largest shareholder, holding over 15% of votes, to block any redistribution it opposes. This explains why politically sensitive realignments were avoided in favour of a simple across-the-board increase."
+},
+{
+    q: "With reference to the ongoing civil war in Sudan, consider the following statements: <br> 1. The conflict is primarily a power struggle between the Sudanese Armed Forces (SAF), led by General Abdel Fattah al-Burhan, and the Rapid Support Forces (RSF), led by General Mohamed Hamdan Dagalo.<br>2. The RSF is a formally constituted wing of the Sudanese national army, operating under a unified command structure with the SAF.<br>3. In February 2025, RSF leadership and its allies signed a charter in Nairobi outlining a parallel government structure.<br>Which of the statements given above is/are correct?",
+
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1, 2 and 3",
+        "1 and 3 only"
+    ],
+
+    ans: 3,
+
+    exp: "The Sudanese civil war stems from a rivalry between the SAF under General al-Burhan and the paramilitary RSF under General Hemedti, and in February 2025 RSF leaders and allies signed a Nairobi charter for a parallel government. Statement 2 is incorrect, as the RSF is a rival paramilitary force operating outside the SAF's chain of command — this institutional rivalry is precisely what triggered the war in April 2023."
+},
+{
+    q: "Consider the following pairs of international organisations and their headquarters: <br> Organisation — Headquarters <br> 1. International Atomic Energy Agency — Vienna <br> 2. World Trade Organization — Vienna <br> 3. International Court of Justice — The Hague <br> How many of the above pairs are correctly matched?",
+
+    opts: [
+        "Only one pair",
+        "Only two pairs",
+        "All three pairs",
+        "None of the pairs"
+    ],
+
+    ans: 1,
+
+    exp: "The International Atomic Energy Agency is headquartered in Vienna, and the International Court of Justice sits at The Hague, making both pairs correct. The World Trade Organization is headquartered in Geneva, not Vienna, making pair 2 incorrect — a classic 'match the pairs' format frequently used in UPSC Prelims for international organisations."
+},
+{
+    q: "With reference to features and characteristics of the India-Japan strategic partnership, consider the following statements: <br> 1. India-Japan relations were elevated to a 'Special Strategic and Global Partnership' in 2014.<br>2. The partnership includes a 2+2 Ministerial Dialogue involving the Foreign and Defence Ministers of both countries.<br>3. Japan is currently the largest source of Foreign Direct Investment (FDI) into India.<br>Which of the statements given above is/are correct?",
+
+    opts: [
+        "1 and 3 only",
+        "2 and 3 only",
+        "1 and 2 only",
+        "1, 2 and 3"
+    ],
+
+    ans: 2,
+
+    exp: "India-Japan ties were elevated to a Special Strategic and Global Partnership in 2014, and the relationship is institutionalised through a 2+2 Ministerial Dialogue between the Foreign and Defence Ministers. Statement 3 is incorrect, as Japan is only the fifth-largest source of FDI into India, not the largest."
+},
+{
+    q: "With reference to the structure and composition of the WHO Pandemic Agreement, consider the following statements: <br> 1. The Pathogen Access and Benefit Sharing (PABS) system is designed to form an annex to the WHO Pandemic Agreement.<br>2. The Intergovernmental Working Group (IGWG) negotiating the PABS annex was established following the Agreement's adoption at the 78th World Health Assembly in May 2025.<br>3. The PABS annex was finalised and formally adopted by the World Health Assembly in May 2026, exactly as originally scheduled.<br>Which of the statements given above is/are correct?",
+
+    opts: [
+        "1 and 2 only",
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+
+    ans: 0,
+
+    exp: "The PABS system is intended to form an annex to the WHO Pandemic Agreement, and the IGWG tasked with negotiating it was set up after the Agreement's adoption in May 2025. Statement 3 is incorrect, as member states missed the May 2026 deadline for finalising the PABS annex and extended negotiations, with a new outcome now expected to be presented to the WHA in May 2027."
+},
+{
+    q: "Assertion (A): Under Article 51 of the UN Charter, a state exercising the right of self-defence must immediately report the measures it has taken to the UN Security Council.<br>Reason (R): The right of self-defence under Article 51 is unlimited and permits a state to use force in any manner it deems necessary, without regard to principles of proportionality or necessity.<br>Which one of the following is correct in respect of the above Assertion (A) and Reason (R)?",
+
+    opts: [
+        "Both A and R are true, and R is the correct explanation of A",
+        "Both A and R are true, but R is not the correct explanation of A",
+        "A is true, but R is false",
+        "A is false, but R is true"
+    ],
+
+    ans: 2,
+
+    exp: "Assertion A is correct, as Article 51 explicitly requires states to report self-defence measures to the Security Council so it can act to maintain international peace. Reason R is false, since the right of self-defence is not unlimited — it is constrained by the customary international law principles of necessity and proportionality, further reinforced by the Geneva Conventions and their Additional Protocols."
+},
+{
+    q: "With reference to the Citizenship (Amendment) Rules, 2026 notified by the Ministry of Home Affairs, consider the following statements: <br> 1. Under the 2026 amendments, Overseas Citizen of India (OCI) cardholders have been granted voting rights in Indian elections.<br>2. The Rules introduced the electronic Overseas Citizen of India (e-OCI) card, in addition to the existing physical card.<br>3. The window for converting Person of Indian Origin (PIO) cards to OCI cards closed in December 2025.<br>Which of the statements given above is/are correct?",
+
+    opts: [
+        "2 and 3 only",
+        "1 and 2 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+
+    ans: 0,
+
+    exp: "The 2026 Rules digitised the OCI framework by introducing the e-OCI alongside the physical card, and the PIO-to-OCI conversion window did close in December 2025, after which PIO cards ceased to be valid for travel to India. Statement 1 is incorrect, as the Rules reaffirm that OCI remains a statutory privilege short of citizenship — cardholders still cannot vote, hold constitutional posts, or purchase agricultural land in most states."
+},
+{
+    q: "Assertion (A): The Quad Critical Minerals Initiative Framework, announced in May 2026, extends cooperation on critical minerals to all four Quad members — India, the United States, Japan and Australia.<br>Reason (R): India had earlier joined the US-led Minerals Security Partnership and amended the Mines and Minerals (Development and Regulation) Act, 1957 to enable exclusive auctions for critical mineral blocks.<br>Which one of the following is correct in respect of the above Assertion (A) and Reason (R)?",
+
+    opts: [
+        "Both A and R are true, and R is the correct explanation of A",
+        "Both A and R are true, but R is not the correct explanation of A",
+        "A is true, but R is false",
+        "A is false, but R is true"
+    ],
+
+    ans: 1,
+
+    exp: "Assertion A is correct — the framework, announced at the Quad Foreign Ministers' Meeting in New Delhi, covers all four Quad members. Reason R is also factually correct, as India joined the Minerals Security Partnership and amended the MMDR Act in 2023, but this domestic and plurilateral background does not explain why the Quad specifically chose to launch a four-nation critical minerals framework in 2026, so R is not the correct explanation of A."
+},
+{
+    q: "Consider the following pairs: <br> Agreement/Protocol — Feature <br> 1. Kyoto Protocol — Imposed legally binding greenhouse gas emission-reduction targets only on developed countries <br> 2. Montreal Protocol — Aimed at phasing out ozone-depleting substances such as CFCs <br> 3. Kigali Amendment — An amendment to the Kyoto Protocol for phasing down hydrofluorocarbons (HFCs) <br> How many of the above pairs are correctly matched?",
+
+    opts: [
+        "Only one pair",
+        "Only two pairs",
+        "All three pairs",
+        "None of the pairs"
+    ],
+
+    ans: 1,
+
+    exp: "The Kyoto Protocol did impose binding targets solely on Annex I (developed) countries, and the Montreal Protocol targeted ozone-depleting substances, making pairs 1 and 2 correct. Pair 3 is incorrect, as the Kigali Amendment (2016) amended the Montreal Protocol, not the Kyoto Protocol, to phase down HFCs — a distinction UPSC has tested repeatedly given the frequent conflation of the two protocols."
+},
+{
+    q: "With reference to the G20, which one of the following statements best describes the functions of the 'Troika' mechanism?",
+
+    opts: [
+        "It is a permanent secretariat located in Washington D.C. that drafts binding resolutions for G20 members",
+        "It comprises the current, immediate past, and incoming G20 presidencies, ensuring continuity of the agenda across successive presidencies",
+        "It refers to the three largest economies within the G20, which hold veto power over summit declarations",
+        "It is a rotating committee of finance ministers that reviews the World Bank's lending policies"
+    ],
+
+    ans: 1,
+
+    exp: "The G20 has no permanent secretariat or headquarters; instead, the Troika — consisting of the outgoing, current, and incoming presidencies — coordinates the agenda to maintain continuity as the presidency rotates annually. The 2025-26 troika (South Africa, Brazil, United States) illustrates this function, which carries no formal voting power or treaty basis, unlike the fabricated 'veto power' or 'binding resolutions' described in the other options."
+},
+{
+    q: "With reference to the background and evolution of the Israel-Palestine conflict, consider the following statements: <br> 1. India voted in favour of the 1947 UN Partition Plan for Palestine (UNGA Resolution 181).<br>2. The 1947 UN Partition Plan proposed dividing Mandatory Palestine into a Jewish state and an Arab state, with Jerusalem placed under international administration.<br>3. The 1993 Oslo Accords led to mutual recognition between Israel and the PLO and the creation of the Palestinian Authority.<br>Which of the statements given above is/are correct?",
+
+    opts: [
+        "1 and 2 only",
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+
+    ans: 2,
+
+    exp: "The 1947 Partition Plan did propose separate Jewish and Arab states with Jerusalem under international administration, and the 1993 Oslo Accords resulted in mutual recognition between Israel and the PLO along with the creation of the Palestinian Authority. Statement 1 is incorrect, as India actually voted against the Partition Plan in 1947, reflecting its sympathy for the Palestinian position at the time, despite later establishing full diplomatic relations with Israel in 1992."
+},
+{
+    q: "With reference to the background and evolution of India-Bangladesh relations, consider the following statements: <br> 1. Relations remained consistently close and free of tension throughout the period from 1975 to 1990, following the assassination of Sheikh Mujibur Rahman.<br>2. The relationship was built on India's decisive role in the 1971 Liberation War and formalised through the 1972 Treaty of Friendship, Cooperation and Peace.<br>3. Following the ouster of the Awami League government in August 2024, the Bangladesh Nationalist Party, led by Tarique Rahman, won the general elections held in February 2026.<br>Which of the statements given above is/are correct?",
+
+    opts: [
+        "1 and 2 only",
+        "1 and 3 only",
+        "1, 2 and 3",
+        "2 and 3 only"
+    ],
+
+    ans: 3,
+
+    exp: "India-Bangladesh ties were indeed founded on India's role in the 1971 Liberation War and formalised through the 1972 Friendship Treaty, and the BNP under Tarique Rahman won Bangladesh's February 2026 elections following the interim period after Sheikh Hasina's ouster. Statement 1 is incorrect, as the 1975-1990 period was actually one of strain, with successive military regimes in Dhaka tilting towards Pakistan after Mujibur Rahman's assassination."
+},
+{
+    q: "With reference to the background and evolution of the Indo-Pacific Economic Framework (IPEF), consider the following statements: <br> 1. IPEF was launched by US President Joe Biden in Tokyo in May 2022, on the sidelines of the Quad Leaders' Summit.<br>2. IPEF emerged partly as a response to the United States' withdrawal from the Trans-Pacific Partnership (TPP) in 2017.<br>3. Unlike traditional free trade agreements such as RCEP and CPTPP, IPEF does not involve market access commitments such as tariff reductions.<br>Which of the statements given above is/are correct?",
+
+    opts: [
+        "1 and 2 only",
+        "1, 2 and 3",
+        "1 and 3 only",
+        "2 and 3 only"
+    ],
+
+    ans: 1,
+
+    exp: "IPEF was indeed launched by President Biden in Tokyo in May 2022, alongside the Quad Summit, partly to fill the gap left by the US exit from the TPP in 2017. Unlike RCEP or CPTPP, IPEF is explicitly an administrative arrangement built around four pillars (trade, supply chains, clean economy, fair economy) and does not involve tariff or market-access commitments, making all three statements correct."
+},
+{
+    q: "With reference to important agreements and policy developments under the Indo-Pacific Economic Framework (IPEF), consider the following statements: <br> 1. The IPEF Supply Chain Agreement, the first-of-its-kind agreement under the framework, was substantially concluded in 2023.<br>2. India has signed all four IPEF pillar agreements, including the Trade Pillar.<br>3. The Clean Economy and Fair Economy Agreements under IPEF were signed in June 2024.<br>Which of the statements given above is/are correct?",
+
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+
+    ans: 2,
+
+    exp: "The IPEF Supply Chain Agreement was substantially concluded in 2023, and the Clean Economy and Fair Economy Agreements were signed in June 2024. Statement 2 is incorrect, as India has notably stayed away from the IPEF Trade Pillar, choosing instead to engage with the other three pillars covering supply chains, clean economy, and fair economy."
+},
+{
+    q: "With reference to the Corruption Perceptions Index (CPI), which one of the following statements is correct?",
+
+    opts: [
+        "It is published by the World Bank and measures actual instances of bribery reported to law enforcement agencies",
+        "It has been published biennially since 1995 by the OECD",
+        "It is published annually by Transparency International and scores countries from 0 (highly corrupt) to 100 (very clean)",
+        "It ranks countries based on GDP growth adjusted for corruption-related economic losses"
+    ],
+
+    ans: 2,
+
+    exp: "The Corruption Perceptions Index has been published annually since 1995 by Transparency International, a non-governmental organisation, and scores countries on a 0-100 scale of perceived public-sector corruption based on expert assessments and surveys. It is unrelated to the World Bank or OECD, and does not directly measure GDP or reported bribery incidents."
+},
+{
+    q: "With reference to the structure and composition of the International Court of Justice (ICJ), consider the following statements: <br> 1. An Indian judge has never been elected to serve on the ICJ.<br>2. The ICJ is a principal organ of the United Nations, established under the UN Charter.<br>3. The ICJ consists of 15 judges elected for nine-year terms, with elections held every three years for one-third of the seats.<br>Which of the statements given above is/are correct?",
+
+    opts: [
+        "2 and 3 only",
+        "1 and 2 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+
+    ans: 0,
+
+    exp: "The ICJ is indeed a principal UN organ established under the UN Charter, comprising 15 judges serving staggered nine-year terms with one-third of seats up for election every three years. Statement 1 is incorrect, as India has had judges on the ICJ, including Justice Dalveer Bhandari, who has served since 2012 and whose current term runs until 2027."
+},
+{
+    q: "With reference to the institutional structure and composition of India's engagement with its overseas diaspora, consider the following statements: <br> 1. The Ministry of Overseas Indian Affairs (MOIA), established in 2004, was merged with the Ministry of External Affairs in January 2016.<br>2. India's diaspora has historically been categorised into three groups: Non-Resident Indians (NRIs), Persons of Indian Origin (PIOs), and Overseas Citizens of India (OCI).<br>3. The Person of Indian Origin (PIO) card scheme continued to operate independently alongside the OCI scheme even after 2015.<br>Which of the statements given above is/are correct?",
+
+    opts: [
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3",
+        "1 and 2 only"
+    ],
+
+    ans: 3,
+
+    exp: "The MOIA, set up in 2004, was indeed merged into the MEA in January 2016, and India's diaspora has traditionally been classified into NRIs, PIOs, and OCIs. Statement 3 is incorrect, as the PIO card scheme was withdrawn in 2015 and merged with the OCI scheme, ending its independent operation."
+},
+{
+    q: "Assertion (A): The Financial Action Task Force (FATF) can impose binding economic sanctions on countries placed on its 'black list'.<br>Reason (R): FATF was established by the G7 at the 1989 Paris Summit as an inter-governmental body to combat money laundering and terrorist financing.<br>Which one of the following is correct in respect of the above Assertion (A) and Reason (R)?",
+
+    opts: [
+        "Both A and R are true, and R is the correct explanation of A",
+        "Both A and R are true, but R is not the correct explanation of A",
+        "A is true, but R is false",
+        "A is false, but R is true"
+    ],
+
+    ans: 3,
+
+    exp: "Reason R is correct — FATF was indeed established by the G7 at its 1989 Paris Summit to combat money laundering. However, Assertion A is false, as FATF itself has no power to impose binding sanctions; it is a soft-law standard-setting body whose 'black' and 'grey' lists only trigger reputational and financial consequences through the independent actions of member states and international financial institutions."
+},
+{
+    q: "With reference to the structure and composition of the Global Peace Index (GPI), consider the following statements: <br> 1. India ranked among the top 50 most peaceful nations in the GPI 2026.<br>2. The GPI is published by the Institute for Economics and Peace (IEP), an Australia-based think tank.<br>3. The GPI measures peacefulness using 23 qualitative and quantitative indicators across three domains: societal safety and security, ongoing conflict, and militarisation.<br>Which of the statements given above is/are correct?",
+
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+
+    ans: 1,
+
+    exp: "The GPI is indeed published by the Institute for Economics and Peace, headquartered in Sydney, and it measures peacefulness across the three stated domains using 23 indicators. Statement 1 is incorrect, as India ranked 127th out of 163 countries in the GPI 2026, a decline from 115th the previous year, placing it well outside the top 50."
+},
+{
+    q: "With reference to the features and characteristics of the Biodiversity Beyond National Jurisdiction (BBNJ) Agreement, or High Seas Treaty, which one of the following statements is correct?",
+
+    opts: [
+        "It grants coastal states extended sovereign rights over the high seas beyond their Exclusive Economic Zones",
+        "It mandates Environmental Impact Assessments for high-seas activities that may harm marine ecosystems, even when such activities originate within a country's national jurisdiction",
+        "It replaces the UN Convention on the Law of the Sea (UNCLOS) as the primary framework governing all ocean-related activities",
+        "It mandates that all deep-sea mining in the high seas be conducted exclusively by developed countries"
+    ],
+
+    ans: 1,
+
+    exp: "The BBNJ Agreement, the third implementing agreement under UNCLOS, mandates Environmental Impact Assessments for activities that could harm high-seas biodiversity, regardless of where the activity originates. It does not grant sovereign rights over the high seas to any state, nor does it replace UNCLOS; it operates within and supplements that broader framework."
+},
+{
+    q: "Assertion (A): The G7 is not a formal international organisation and lacks a founding treaty, permanent secretariat, or enforcement mechanism.<br>Reason (R): Decisions and communiqués issued at G7 summits are not legally binding on member states and require unanimous agreement rather than majority voting.<br>Which one of the following is correct in respect of the above Assertion (A) and Reason (R)?",
+
+    opts: [
+        "Both A and R are true, and R is the correct explanation of A",
+        "Both A and R are true, but R is not the correct explanation of A",
+        "A is true, but R is false",
+        "A is false, but R is true"
+    ],
+
+    ans: 0,
+
+    exp: "Assertion A is correct, as the G7 operates without a charter, treaty basis, or permanent secretariat, relying instead on a rotating presidency and 'Sherpa' system. Reason R correctly explains this informality, since the absence of a binding legal framework is precisely why G7 summit outcomes remain non-binding declarations requiring unanimous consensus rather than enforceable, majority-voted decisions."
+},
+{
+    q: "Consider the following pairs: <br> Grouping — Feature <br> 1. I2U2 — Comprises India, Israel, the UAE and the United States, often referred to as the 'West Asian Quad' <br> 2. IPEF — Launched by the United States at the Quad Leaders' Summit in Tokyo in 2022 <br> 3. AUKUS — A trilateral security pact that includes India as a full member <br> How many of the above pairs are correctly matched?",
+
+    opts: [
+        "Only one pair",
+        "Only two pairs",
+        "All three pairs",
+        "None of the pairs"
+    ],
+
+    ans: 1,
+
+    exp: "I2U2 does bring together India, Israel, the UAE and the US, and IPEF was indeed launched in Tokyo in 2022 alongside the Quad Summit, making pairs 1 and 2 correct. Pair 3 is incorrect, as AUKUS is a trilateral security pact solely among Australia, the United Kingdom and the United States — India is not, and has never been, a member of AUKUS."
+},
+{
+    q: "Consider the following pairs: <br> Grouping — Feature <br> 1. G20 — Has no permanent secretariat; its presidency rotates annually, supported by a 'Troika' mechanism <br> 2. BRICS — Held its first summit in 2009 in Yekaterinburg, Russia <br> 3. G7 — Includes India as a permanent member since 2023 <br> How many of the above pairs are correctly matched?",
+
+    opts: [
+        "Only one pair",
+        "Only two pairs",
+        "All three pairs",
+        "None of the pairs"
+    ],
+
+    ans: 1,
+
+    exp: "The G20 does operate without a permanent secretariat, relying on a rotating presidency supported by a Troika, and the first BRIC summit was indeed held in Yekaterinburg in 2009 (with South Africa joining a year later to form BRICS). Pair 3 is incorrect, as India is not a permanent member of the G7; it has only been invited as a guest to select G7 summits."
+},
+{
+    q: "Which one of the following best describes Saudi Arabia's 2025 labour reform concerning the Kafala sponsorship system?",
+
+    opts: [
+        "It extended the Kafala system to cover all GCC member states under a unified regional framework",
+        "It replaced the Kafala system with mandatory dual citizenship for long-term migrant workers",
+        "It abolished the Kafala system for skilled workers only, while retaining it for domestic and construction workers",
+        "It abolished the requirement for migrant workers to obtain employer consent to change jobs after completing their contract, and removed exit-permit requirements tied to sponsors"
+    ],
+
+    ans: 3,
+
+    exp: "Saudi Arabia's 2025 Labour Reform Initiative, announced as part of Vision 2030, ended the requirement for workers to secure employer consent before changing jobs after contract completion and removed the need for sponsor-issued exit permits, benefiting over 2.6 million Indian workers. Kuwait, Qatar and Oman, by contrast, continue to retain stricter versions of the Kafala system."
+},
+{
+    q: "With reference to important legislative developments concerning Indian emigration policy, consider the following statements: <br> 1. The Overseas Mobility (Facilitation and Welfare) Bill, 2025 is intended to replace the Emigration Act, 1983.<br>2. It proposes the establishment of an Overseas Mobility and Welfare Council to improve inter-ministerial coordination.<br>3. Earlier draft bills — the Emigration Bill of 2019 and 2021 — had also attempted to replace the 1983 Act but were not enacted.<br>Which of the statements given above is/are correct?",
+
+    opts: [
+        "1 and 2 only",
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+
+    ans: 3,
+
+    exp: "The 2025 Bill, proposed by the Ministry of External Affairs, is indeed meant to replace the outdated Emigration Act, 1983, and proposes an Overseas Mobility and Welfare Council for better inter-ministerial coordination. This follows two earlier, unsuccessful legislative attempts — draft bills in 2019 and 2021 — making all three statements correct."
+},
+{
+    q: "Which one of the following best explains why India has increasingly prioritised BIMSTEC over SAARC in recent years?",
+
+    opts: [
+        "SAARC was formally dissolved by its member states in 2016 and no longer exists as an organisation",
+        "BIMSTEC has a larger membership than SAARC, comprising all South Asian and Southeast Asian nations",
+        "SAARC's charter requires unanimous consent for decision-making and summit-level meetings, which has allowed a single member state to block progress, whereas BIMSTEC operates without this constraint and excludes Pakistan",
+        "India is constitutionally barred from participating in SAARC summits under its Foreign Trade Policy"
+    ],
+
+    ans: 2,
+
+    exp: "SAARC's consensus-based charter has allowed a single member — effectively Pakistan, given persistent India-Pakistan tensions — to block summit-level progress, with no SAARC summit held since 2014. BIMSTEC, which excludes Pakistan and links South Asia with Southeast Asia, has therefore emerged as India's preferred platform; SAARC itself remains formally in existence, just largely dormant at the political level."
+},
+{
+    q: "With reference to the ongoing civil war in Myanmar, consider the following statements: <br> 1. The conflict was triggered by the military coup of February 2021, which deposed the elected civilian government.<br>2. In April 2026, coup leader Min Aung Hlaing was installed as president following junta-controlled elections held in December 2025-January 2026.<br>3. The Three Brotherhood Alliance, formed by ethnic armed organisations, has consistently fought alongside the Myanmar military (Tatmadaw) against pro-democracy resistance forces.<br>Which of the statements given above is/are correct?",
+
+    opts: [
+        "1 and 2 only",
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+
+    ans: 0,
+
+    exp: "Myanmar's civil war was indeed triggered by the February 2021 coup, and junta leader Min Aung Hlaing was installed as president in April 2026 following tightly controlled, opposition-excluding elections. Statement 3 is incorrect, as the Three Brotherhood Alliance — comprising the Arakan Army, MNDAA, and TNLA — has fought against the Tatmadaw as part of the broader resistance, not alongside it."
+},
+{
+    q: "Which one of the following best describes the function of the Indian Community Welfare Fund (ICWF)?",
+
+    opts: [
+        "It is a sovereign wealth fund that invests diaspora remittances in Indian infrastructure projects",
+        "It provides means-tested emergency welfare assistance to overseas Indian nationals in distress, including legal aid, repatriation costs, and shelter for victims of abuse",
+        "It provides unconditional cash grants to all Non-Resident Indians (NRIs) upon their return to India",
+        "It functions as an insurance scheme exclusively covering the medical expenses of Overseas Citizens of India (OCI) cardholders"
+    ],
+
+    ans: 1,
+
+    exp: "The ICWF, set up in 2009 and now administered by the Ministry of External Affairs, provides means-tested welfare assistance to overseas Indians in distress — covering legal aid, repatriation of mortal remains, shelter for abused NRI spouses, and emergency evacuations from conflict zones. It is not an investment fund, a universal cash-grant scheme, or a dedicated medical insurance programme."
+}
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-19 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

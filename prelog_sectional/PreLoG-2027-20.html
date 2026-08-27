@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-20</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+{
+    q: "With reference to India's defence technology initiatives, consider the following statements: <br> 1. The iDEX (Innovations for Defence Excellence) scheme operates through the Defence Innovation Organisation (DIO).<br>2. The ADITI Scheme is a sub-component under iDEX meant for critical and strategic defence technologies.<br>3. The Positive Indigenisation Lists are notified jointly by the Department of Military Affairs and the Department of Defence Production.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 3,
+    exp: "iDEX operates through the DIO to support startups and MSMEs in developing indigenous defence technologies. The ADITI Scheme (Acing Development of Innovative Technologies with iDEX) specifically targets critical and strategic technologies under iDEX. Positive Indigenisation Lists, restricting import of specified items beyond notified timelines, are issued separately by both the DMA and DDP. Hence all three statements are correct."
+},
+{
+    q: "Directed-Energy Weapons (DEWs), often discussed in the context of India's defence modernisation, work primarily on which of the following principles?",
+    opts: [
+        "Propelling a solid projectile using chemical explosives",
+        "Delivering concentrated electromagnetic energy such as lasers to damage a target",
+        "Using nuclear fission to generate a shockwave",
+        "Guiding a missile using inertial navigation alone"
+    ],
+    ans: 1,
+    exp: "Directed-Energy Weapons, such as DRDO's laser-based systems, neutralize targets like drones and missiles by delivering focused electromagnetic energy (e.g., high-power lasers or microwaves) rather than kinetic projectiles. This makes them useful for precise, low-cost-per-shot counter-aerial defence, distinct from conventional or nuclear weapons."
+},
+{
+    q: "Consider the following statements regarding Artificial Intelligence (AI) as understood in current policy discourse: <br> 1. Generative AI refers to systems that can create new content such as text, images, or code, rather than merely classifying existing data.<br>2. The IndiaAI Mission was approved with an outlay exceeding ₹10,000 crore to build indigenous compute infrastructure and support AI startups.<br>3. All large language models are necessarily a subset of generative AI.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 3,
+    exp: "Generative AI creates novel outputs (text, images, code) by learning patterns from data. The IndiaAI Mission has an outlay of over ₹10,300 crore for GPU infrastructure, startups, and skilling. Large language models (LLMs) generate text and are thus inherently a form of generative AI. All three statements are correct."
+},
+{
+    q: "The 'Turing Test', often referenced in discussions on Artificial Intelligence, is primarily used to evaluate:",
+    opts: [
+        "The computational speed of a processor",
+        "A machine's ability to exhibit intelligent behaviour indistinguishable from a human",
+        "The energy efficiency of an AI data centre",
+        "The accuracy of a machine translation system alone"
+    ],
+    ans: 1,
+    exp: "The Turing Test, proposed by Alan Turing, assesses whether a machine can generate responses indistinguishable from those of a human during conversation, serving as a foundational benchmark for machine intelligence rather than a measure of speed, energy use, or translation accuracy specifically."
+},
+{
+    q: "With reference to semiconductor manufacturing in India, consider the following statements: <br> 1. A semiconductor fabrication (fab) plant typically requires significantly higher capital investment than a steel plant.<br>2. India's semiconductor push includes Assembly, Testing, Marking and Packaging (ATMP) facilities as well as fabrication units.<br>3. The India Semiconductor Mission is implemented under the Ministry of Electronics and Information Technology.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 3,
+    exp: "Setting up an advanced fab costs around $15-20 billion, far higher than conventional industrial plants. India's semiconductor ecosystem includes both capital-intensive fabs and less capital-intensive ATMP units. The India Semiconductor Mission (ISM) functions as the nodal agency under MeitY. Hence all three statements are correct."
+},
+{
+    q: "Which of the following best explains why semiconductor fabrication is described as a highly water- and power-intensive industry?",
+    opts: [
+        "Fabs require continuous, ultra-reliable power supply and large volumes of ultra-pure water for wafer cleaning and cooling processes",
+        "Semiconductors are extracted from underground rock formations using hydraulic mining",
+        "Chip packaging requires large quantities of water solely for employee sanitation",
+        "Fabs primarily consume water for landscaping around the manufacturing facility"
+    ],
+    ans: 0,
+    exp: "Fabrication involves precise chemical and thermal processes requiring nearly uninterrupted power (near 100% uptime) and millions of litres of ultra-pure water daily for wafer cleaning, etching, and cooling, making reliable utility infrastructure a critical prerequisite for fabs, unlike the other unrelated options."
+},
+{
+    q: "The 'BioE3 Policy' launched by India's Department of Biotechnology aims to promote high-performance biomanufacturing. In this context, consider the following statements: <br> 1. The policy envisions setting up biomanufacturing hubs across the country.<br>2. It identifies priority domains including precision biotherapeutics and climate-resilient agriculture.<br>3. The policy is implemented under the Ministry of Environment, Forest and Climate Change.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "The BioE3 Policy envisions setting up multiple biomanufacturing hubs and identifies priority areas such as precision biotherapeutics, climate-resilient agriculture, and bio-based chemicals. However, it is implemented by the Department of Biotechnology under the Ministry of Science and Technology, not the Ministry of Environment. Hence statement 3 is incorrect."
+},
+{
+    q: "In the context of biotechnology, 'gene therapy' primarily involves:",
+    opts: [
+        "Cultivating genetically modified crops for higher yield alone",
+        "Introducing, altering, or removing genetic material within a patient's cells to treat or prevent disease",
+        "Cloning an entire organism from a single somatic cell",
+        "Using bacteria to decompose industrial waste in bioremediation"
+    ],
+    ans: 1,
+    exp: "Gene therapy is a medical technique that treats or prevents disease by modifying a patient's genetic material, such as correcting a mutated gene or introducing a therapeutic gene. This is distinct from crop genetic modification, cloning, or bioremediation, which involve different biotechnological applications."
+},
+{
+    q: "Consider the following challenges commonly associated with India's defence technology and manufacturing sector: <br> 1. High dependence on imports for critical rare earth materials used in defence electronics.<br>2. Restrictions imposed by advanced economies on transfer of sub-7 nm semiconductor technologies.<br>3. Long gestation periods before returns on investment, discouraging private sector participation.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 3,
+    exp: "India remains heavily dependent on China for rare earth materials critical to defence electronics. Export restrictions on advanced sub-7 nm technologies limit India's entry into cutting-edge chip segments relevant to defence systems. Additionally, defence R&D projects typically take 5-7 years to yield returns, deterring private investment. All three statements are valid challenges."
+},
+{
+    q: "The 'Design Linked Incentive (DLI)' scheme, often mentioned alongside India's semiconductor push, is primarily aimed at supporting:",
+    opts: [
+        "Foreign companies setting up assembly units in India",
+        "Domestic chip design startups, MSMEs, and academic institutions in developing semiconductor designs",
+        "Farmers adopting precision agriculture technologies",
+        "State governments building industrial corridors for heavy engineering"
+    ],
+    ans: 1,
+    exp: "The DLI scheme extends financial support and infrastructure access to domestic semiconductor design companies, startups, and academic institutions, strengthening India's fabless chip design ecosystem rather than directly funding assembly units, agriculture, or unrelated industrial corridors."
+},
+{
+    q: "With reference to the legal and policy framework governing quantum technology in India, consider the following statements: <br> 1. The Digital Personal Data Protection Act, 2023 specifically mandates the use of Post-Quantum Cryptography (PQC) for all government data.<br>2. Quantum Key Distribution (QKD) enables secure communication by leveraging principles of quantum mechanics rather than conventional encryption laws.<br>3. The National Quantum Mission was approved by the Union Cabinet under the aegis of the Department of Science and Technology.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 1,
+    exp: "QKD achieves secure communication through quantum mechanical principles like the no-cloning theorem, distinct from law-based encryption mandates. The National Quantum Mission (2023-31) was approved by the Union Cabinet and is implemented by the DST. However, no existing Indian statute, including the DPDP Act, mandates PQC usage; PQC frameworks are being developed by agencies like C-DoT but are not yet a binding legal requirement. Hence statement 1 is incorrect."
+},
+{
+    q: "With reference to recent developments under India's National Quantum Mission, consider the following statements: <br> 1. India has demonstrated a secure quantum communication network exceeding 1,000 km using indigenous technology.<br>2. The Quantum Valley project at Amaravati aims to install India's first 133-qubit quantum computer.<br>3. India was the first country in the world to launch a dedicated national quantum mission.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "India achieved a 1,000 km quantum key distribution network using indigenous technology developed by QNu Labs, well ahead of schedule. The Quantum Valley project in Amaravati, a Triple Helix Model involving government, industry, and academia, targets installing a 133-qubit quantum computer. However, India was the 7th country to launch a dedicated quantum mission, after nations like the USA, China, and France, making statement 3 incorrect."
+},
+{
+    q: "Which of the following best captures a key challenge associated with the rapid adoption of Artificial Intelligence, as commonly discussed in current policy debates?",
+    opts: [
+        "AI systems are entirely immune to bias since they rely on mathematical algorithms",
+        "Heavy dependence on imported high-end GPUs creates a strategic vulnerability in compute capacity",
+        "AI development requires no significant investment in data infrastructure",
+        "AI adoption has eliminated the need for skilled human oversight in critical sectors"
+    ],
+    ans: 1,
+    exp: "A major challenge for India's AI ecosystem is dependence on imported high-end GPUs, such as those from NVIDIA, since indigenous chip design and fabrication capacity for advanced AI hardware remains limited. AI systems can inherit biases from training data, and human oversight remains essential in critical applications, making the other options incorrect."
+},
+{
+    q: "With reference to the organisational structure of India's space programme, consider the following statements: <br> 1. The Indian Space Research Organisation (ISRO) functions under the administrative control of the Department of Space.<br>2. The Chairman of ISRO also serves as the Chairman of the Space Commission.<br>3. IN-SPACe functions as ISRO's commercial marketing arm for promoting space products.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "ISRO operates under the Department of Space, which reports to the Prime Minister. The Chairman of ISRO concurrently holds the position of Secretary, Department of Space, and Chairman of the Space Commission, the apex policy body. However, it is Antrix Corporation (now largely superseded by NewSpace India Limited) that serves as the commercial/marketing arm, while IN-SPACe is the regulatory and promotional body for private space activities. Hence statement 3 is incorrect."
+},
+{
+    q: "Consider the following areas of recent scientific and technological progress in India: <br> 1. Development of an indigenous rocket-sled test facility for validating fighter aircraft escape systems.<br>2. Advances in AI-assisted diagnostic tools for diseases such as tuberculosis and lung cancer.<br>3. Documentation of new plant and animal species discoveries.<br>Which of the statements given above accurately reflect genuine areas of scientific development being tracked for current affairs?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 3,
+    exp: "India has validated fighter aircraft escape systems through high-speed rocket-sled tests conducted by DRDO. AI-driven diagnostic tools, such as those for tuberculosis and lung cancer detection, represent a growing convergence of technology and healthcare. Additionally, documentation of new plant and animal species remains a regularly tracked area under biodiversity-related science current affairs. All three are genuine areas of ongoing scientific development."
+},
+{
+    q: "With reference to the evolution of India's cybersecurity architecture, consider the following statements: <br> 1. CERT-In (Indian Computer Emergency Response Team) functions as the nodal agency for responding to cybersecurity incidents.<br>2. The National Critical Information Infrastructure Protection Centre (NCIIPC) is tasked with protecting critical sectors such as power and finance.<br>3. India's cybersecurity legal framework originated with the Information Technology Act, which predates the establishment of CERT-In.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 3,
+    exp: "CERT-In serves as India's nodal agency for handling cybersecurity incidents, alerts, and advisories. NCIIPC focuses specifically on protecting critical information infrastructure across sectors like power, banking, and telecom. The IT Act, 2000 laid the foundational legal framework for cyberspace regulation in India, predating CERT-In's later operational expansion. All three statements are correct, reflecting the layered evolution of India's cyber architecture."
+},
+{
+    q: "With reference to important policies governing Artificial Intelligence in India, consider the following statements: <br> 1. The Digital Personal Data Protection Act, 2023 provides a legal framework relevant to data used in training AI systems.<br>2. India currently has a dedicated, standalone 'Artificial Intelligence Act' analogous to the European Union's AI Act.<br>3. The IndiaAI Mission includes a pillar focused on promoting 'Safe and Trusted AI'.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 2,
+    exp: "The DPDP Act, 2023 governs personal data processing, which has implications for datasets used in AI training. The IndiaAI Mission's seven pillars include a dedicated 'Safe and Trusted AI' component addressing responsible AI governance. However, unlike the EU, India does not yet have a standalone, comprehensive AI-specific legislation; AI governance currently relies on existing IT and data protection laws along with advisory frameworks. Hence statement 2 is incorrect."
+},
+{
+    q: "With reference to trends observed in UPSC Prelims and Mains regarding semiconductors, consider the following statements: <br> 1. UPSC Mains 2025 GS Paper III featured a direct question on the challenges faced by India's semiconductor industry.<br>2. Application-oriented questions, such as why gallium nitride chips are preferred for certain hardware, reflect a growing UPSC trend over rote definitional questions.<br>3. Semiconductors have historically been one of the most frequently repeated topics in UPSC Prelims over the last two decades.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "UPSC Mains 2025 GS-III included a question on semiconductor industry challenges and the India Semiconductor Mission, confirming semiconductors as an emerging focus area. Recent Prelims trends show a shift toward application-based questions rather than plain definitions. However, semiconductors are a relatively newer emerging theme in the syllabus and have not been among the most frequently repeated Prelims topics historically; the 2025 paper notably introduced it for the first time alongside fusion energy. Hence statement 3 is incorrect."
+},
+{
+    q: "With reference to the structure of India's digital health ecosystem, consider the following statements: <br> 1. The Ayushman Bharat Health Account (ABHA) provides every citizen a unique digital health identity.<br>2. e-Sanjeevani functions as a government-run teleconsultation platform under the digital health architecture.<br>3. The Health Facility Registry and Healthcare Professionals Registry are components meant to connect hospitals and doctors on a common digital platform.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 3,
+    exp: "ABHA IDs form the unique identity layer under the Ayushman Bharat Digital Mission (ABDM), enabling secure health record linkage. e-Sanjeevani operates as a large government-run teleconsultation platform integrated into this ecosystem. The Health Facility Registry and Healthcare Professionals Registry are core ABDM components that connect doctors, hospitals, and other providers on a unified digital platform. All three statements accurately describe the structural components of India's digital health ecosystem."
+},
+{
+    q: "With reference to the institutional structure of India's cybersecurity architecture, consider the following statements: <br> 1. CERT-In functions under the Ministry of Electronics and Information Technology.<br>2. The National Critical Information Infrastructure Protection Centre (NCIIPC) operates independently of CERT-In with a mandate limited to defence installations only.<br>3. CSIRT-Fin is a sector-specific incident response team functioning under CERT-In for the financial sector.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 2,
+    exp: "CERT-In operates under the Ministry of Electronics and Information Technology as India's nodal cyber incident response agency. CSIRT-Fin functions under CERT-In as a dedicated response team for the financial sector. However, NCIIPC's mandate covers a broader range of critical sectors, including power, banking, telecom, and transport, not merely defence installations, and it coordinates with rather than remaining entirely independent of CERT-In. Hence statement 2 is incorrect."
+},
+{
+    q: "Consider the following developments related to India's cybersecurity landscape in 2025-2026: <br> 1. The Data Protection Board of India became operational, marking the beginning of active enforcement under the DPDP Act.<br>2. CERT-In recorded a decline in the number of cyber incidents handled compared to the previous year.<br>3. AI-powered deepfake-related fraud emerged as a significant financial threat during this period.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 2,
+    exp: "The Data Protection Board of India became operational in late 2025, shifting DPDP Act compliance from a theoretical to an actively enforced framework. AI-powered deepfake fraud caused significant estimated financial losses in 2025, emerging as a major threat vector. However, CERT-In actually recorded a sharp rise in cyber incidents handled in 2025 compared to 2024, not a decline, making statement 2 incorrect."
+},
+{
+    q: "With reference to the evolution of India's defence technology ecosystem, consider the following statements: <br> 1. India's domestic defence production as a share of total procurement has risen significantly over the past decade.<br>2. The iDEX scheme was launched to substitute DRDO's role entirely by transferring all defence R&D to private industry.<br>3. Defence Industrial Corridors were established to provide infrastructure and incentives, including support for MSMEs, in specific states.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 2,
+    exp: "India's domestic defence production has evolved from significant import dependence toward substantially higher self-reliance over the past decade, supported by Aatmanirbhar Bharat initiatives. Defence Industrial Corridors, set up in states like Uttar Pradesh and Tamil Nadu, provide infrastructure and incentives, particularly benefiting MSMEs. However, iDEX was designed to complement, not replace, DRDO's role, fostering innovation among startups and MSMEs alongside DRDO's continuing R&D functions. Hence statement 2 is incorrect."
+},
+{
+    q: "With reference to recent developments in India's space programme (2025-2026), consider the following statements: <br> 1. The NISAR satellite, a joint mission with NASA, uses dual-frequency radar imaging for Earth observation.<br>2. The uncrewed Gaganyaan test flight involves the humanoid robot Vyommitra to simulate human presence in the crew module.<br>3. The final crewed Gaganyaan mission has already been successfully completed as of early 2026.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "NISAR, launched in July 2025, is the world's first satellite using both L-band and S-band radar for Earth observation, jointly developed by ISRO and NASA. The uncrewed Gaganyaan test flight (G1) carries the humanoid robot Vyommitra to simulate human physiological responses and operate cabin systems. However, the crewed Gaganyaan mission was targeted for a later timeline and had not been completed by early 2026, making statement 3 incorrect."
+},
+{
+    q: "Which of the following best describes a key feature of modern health technology platforms such as AI-assisted diagnostics and telemedicine in India?",
+    opts: [
+        "They eliminate the need for any regulatory oversight of medical devices",
+        "They enable remote diagnosis and consultation, expanding healthcare access to underserved rural areas",
+        "They are limited exclusively to urban tertiary care hospitals",
+        "They function without any linkage to a patient's digital health identity"
+    ],
+    ans: 1,
+    exp: "A defining feature of platforms like e-Sanjeevani and AI-assisted diagnostic tools is their ability to extend specialist consultation and diagnosis to remote and underserved rural areas, improving healthcare access and equity. Medical devices and software remain subject to regulatory oversight (e.g., CDSCO), and such platforms are increasingly linked to digital health identities like ABHA, making the other options inaccurate."
+},
+{
+    q: "With reference to trends observed in UPSC examinations regarding Artificial Intelligence, consider the following statements: <br> 1. UPSC Mains has previously asked about AI's application in clinical diagnosis and associated privacy concerns.<br>2. Over the last decade, UPSC Prelims has shown increasing focus on applied technology themes including AI, blockchain, and quantum computing.<br>3. A common UPSC Prelims trap involves confusing Narrow AI systems, such as widely used chatbots, with Artificial General Intelligence.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 3,
+    exp: "UPSC Mains has featured questions on AI's role in clinical diagnosis and the associated privacy implications for individuals. Analysis of the last decade's Prelims papers shows a marked shift toward applied technology themes like AI, blockchain, and quantum computing rather than basic science. A recurring conceptual trap for aspirants is treating current chatbot systems, which are Narrow AI, as equivalent to Artificial General Intelligence, which remains a distinct and more advanced category. All three statements are accurate."
+},
+{
+    q: "With reference to the constitutional and legal framework relevant to cybersecurity in India, consider the following statements: <br> 1. The Information Technology Act, 2000 provides the primary statutory basis for regulating cyber offences in India.<br>2. The Digital Personal Data Protection Act, 2023 establishes obligations regarding breach notification for entities processing personal data.<br>3. The Right to Privacy has been read by the Supreme Court as a fundamental right under Article 21 of the Constitution, relevant to data protection jurisprudence.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 3,
+    exp: "The IT Act, 2000, along with its amendments, remains the foundational statute governing cyber offences and electronic governance in India. The DPDP Act, 2023 establishes accountability requirements, including timely breach notification, for organisations handling personal data. The Supreme Court, in the K.S. Puttaswamy judgment, recognized the Right to Privacy as intrinsic to Article 21, forming the constitutional basis underpinning subsequent data protection legislation. All three statements are correct."
+},
+{
+    q: "Which of the following best characterizes a key feature of India's evolving cybersecurity ecosystem?",
+    opts: [
+        "A single central agency handles all types of cyber incidents across every sector without any specialised sub-units",
+        "A layered, sector-specific approach exists, with dedicated response teams for domains such as finance, alongside a nodal agency for overall coordination",
+        "Cybersecurity regulation applies only to government departments and excludes private sector entities entirely",
+        "Cyber incident reporting is entirely voluntary, with no defined timelines for disclosure"
+    ],
+    ans: 1,
+    exp: "A defining feature of India's cybersecurity architecture is its layered, sector-specific structure, exemplified by CSIRT-Fin for the financial sector operating alongside the nodal agency CERT-In, which coordinates overall national response. Private sector entities are also covered under CERT-In directions and data protection obligations, and mandatory incident reporting timelines exist, making the other options inaccurate characterizations."
+},
+{
+    q: "With reference to the Indian Space Policy, 2023, consider the following statements: <br> 1. It delineates distinct roles for ISRO, NewSpace India Limited (NSIL), and IN-SPACe within the space sector.<br>2. Under the policy, ISRO is expected to transition away from manufacturing operational space systems and focus on research and new technology development.<br>3. The policy constitutes a binding Act of Parliament that provides statutory liability provisions for private space activities.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "The Indian Space Policy, 2023 clearly delineates roles: ISRO for R&D, NSIL for commercialisation of space assets, and IN-SPACe as the regulatory and promotional interface for private players. The policy also envisions ISRO transitioning out of routine manufacturing of operational systems toward advanced research. However, the policy is an executive decision approved by the Union Cabinet, not a binding Act of Parliament, and a dedicated Space Activities Bill with statutory liability provisions remains pending. Hence statement 3 is incorrect."
+},
+{
+    q: "With reference to the constitutional and legal dimensions relevant to Artificial Intelligence in India, consider the following statements: <br> 1. The Right to Privacy, recognized as part of Article 21, has implications for regulating personal data used in training AI models.<br>2. There is currently no dedicated fundamental right in the Constitution that explicitly mentions 'Artificial Intelligence'.<br>3. The Digital Personal Data Protection Act, 2023 applies exclusively to AI companies and excludes other data fiduciaries.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "2 and 3 only",
+        "1 and 2 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 1,
+    exp: "The Supreme Court's recognition of privacy as intrinsic to Article 21 has direct bearing on how personal data used for AI training must be regulated. The Constitution, being a pre-AI era document, naturally does not explicitly mention artificial intelligence as a fundamental right. However, the DPDP Act, 2023 applies broadly to all data fiduciaries processing digital personal data, not exclusively to AI companies, making statement 3 incorrect."
+},
+{
+    q: "With reference to trends in UPSC questions on Scientific Discoveries, consider the following statements: <br> 1. UPSC Prelims has increasingly tested application-based understanding of discoveries rather than isolated factual recall.<br>2. Topics such as gene editing and CRISPR have historically been among the most repeated themes in UPSC Prelims over the past decade.<br>3. UPSC Mains has featured questions linking scientific discoveries to their broader societal or economic implications for India.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 2,
+    exp: "UPSC Prelims has shifted toward application-oriented questions that connect scientific concepts with real-world or policy contexts. Mains questions frequently ask candidates to discuss the implications of scientific developments for India's economy, environment, or governance. However, analyses of past papers indicate that gene editing and CRISPR-specific standalone questions have been notably rare or even absent in Prelims over the past decade, making them an 'overdue' rather than frequently repeated theme. Hence statement 2 is incorrect."
+},
+{
+    q: "With reference to reforms and recommendations concerning India's space sector, consider the following statements: <br> 1. The government liberalised the Foreign Direct Investment policy to permit up to 100% FDI in manufacturing of satellite components and sub-systems under the automatic route.<br>2. A Parliamentary Standing Committee has flagged concerns regarding underutilisation of allocated funds and staffing shortages within the Department of Space.<br>3. FDI in launch vehicles and associated systems is permitted up to 100% under the automatic route without any government approval requirement.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "The liberalised FDI policy of 2024 permits 100% FDI under the automatic route specifically for manufacturing satellite components and sub-systems. The Parliamentary Standing Committee has noted concerns about lagging fund utilisation and a shortage of skilled personnel, recommending timely recruitment. However, FDI in launch vehicles and associated systems is capped at 49% under the automatic route, with amounts beyond this requiring government approval, making statement 3 incorrect."
+},
+{
+    q: "With reference to genome editing technologies relevant to India's biotechnology sector, consider the following statements: <br> 1. Genome-edited (GE) crops involve permanent insertion of foreign DNA into the target organism, similar to genetically modified (GM) crops.<br>2. India has developed an indigenous genome-editing tool using TnpB proteins as a compact, patent-free alternative to CRISPR-Cas9.<br>3. CRISPR-based approaches have also been applied in India for developing therapies targeting genetic blood disorders such as sickle cell disease.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 1,
+    exp: "Unlike GM crops, genome-edited crops typically do not retain foreign DNA in later generations; edits occur at existing gene locations, and Cas proteins are usually absent in subsequent generations, making them transgene-free. India's ICAR developed a TnpB-based genome-editing tool as a smaller, IP-free alternative to CRISPR-Cas9. Additionally, an indigenous CRISPR-based gene therapy, BIRSA-101, was developed in India for sickle cell disease. Hence statement 1 is incorrect, while statements 2 and 3 are correct."
+},
+{
+    q: "Which of the following recent scientific developments (2025-2026) were reported in India, as tracked under current affairs relevant to UPSC preparation? <br> 1. Development of an indigenous CRISPR-based gene therapy targeting sickle cell disease.<br>2. Successful completion of multi-location trials for genome-edited rice varieties showing improved yield and salinity tolerance.<br>3. Approval of India's first commercially released genetically modified (GM) food crop since 2006.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "India launched BIRSA-101, an indigenous CRISPR-based gene therapy for sickle cell disease, in November 2025. Genome-edited rice lines derived from Samba Mahsuri and MTU-1010 completed multi-location trials showing higher yield and improved tolerance to saline and alkaline soils. However, India's progress in commercially approved GM crops has remained stalled since Bt cotton, with no new GM food crop commercially released; recent progress has instead occurred in the genome-editing (GE) category, which is distinct from GM. Hence statement 3 is incorrect."
+},
+{
+    q: "With reference to challenges associated with India's space missions, consider the following statements: <br> 1. The increasing congestion of Low Earth Orbit has necessitated a rising number of Collision Avoidance Manoeuvres by Indian satellites.<br>2. Project NETRA is aimed at developing India's indigenous Space Situational Awareness capability to track debris and provide early collision warnings.<br>3. India's space debris mitigation efforts are entirely independent of international frameworks such as the Inter-Agency Space Debris Coordination Committee.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "Rising orbital congestion has led ISRO to execute an increasing number of Collision Avoidance Manoeuvres in recent years to protect its satellites. Project NETRA develops India's indigenous Space Situational Awareness capability using radars and telescopes to track debris and issue early warnings. However, India actively participates in and contributes to international frameworks like the Inter-Agency Space Debris Coordination Committee, rather than operating independently of them. Hence statement 3 is incorrect."
+},
+{
+    q: "With reference to important policies relevant to scientific discoveries and biotechnology regulation in India, consider the following statements: <br> 1. The Genetic Engineering Appraisal Committee (GEAC) is the regulatory body responsible for approving genetically modified organisms in India.<br>2. Genome-edited crops that do not contain foreign DNA have been treated differently from GM crops under India's evolving regulatory approach.<br>3. The BioE3 Policy specifically governs approval processes for genome-edited crop varieties in India.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "2 and 3 only",
+        "1 and 2 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 1,
+    exp: "The GEAC, functioning under the Ministry of Environment, Forest and Climate Change, is India's apex regulatory body for approving genetically modified organisms. India's regulatory approach has evolved to treat transgene-free genome-edited crops differently from conventional GM crops, enabling faster development pathways. However, crop variety approvals fall under bodies like GEAC and agricultural regulatory frameworks, not the BioE3 Policy, which focuses on high-performance biomanufacturing rather than crop-specific regulatory approval. Hence statement 3 is incorrect."
+},
+{
+    q: "With reference to important policies governing India's digital health ecosystem, consider the following statements: <br> 1. Telemedicine platforms are classified as 'data fiduciaries' under the Digital Personal Data Protection Act, 2023, obligating them to protect patient data.<br>2. The Health Data Management Policy under the National Digital Health Mission lays down specific consent and data-sharing norms for health records.<br>3. The Clinical Establishments (Registration and Regulation) Act, 2010 mandates certain electronic health record standards for registered clinical establishments.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 3,
+    exp: "Under the DPDP Act, 2023, telemedicine platforms handling personal data are treated as data fiduciaries with corresponding legal obligations. The Health Data Management Policy under the NDHM/ABDM framework specifies detailed consent and data-sharing requirements for health records. Additionally, the Clinical Establishments Act, 2010 mandates electronic health record standards, including access controls and data privacy safeguards, for registered establishments. All three statements are correct, reflecting the multi-layered legal architecture governing India's digital health ecosystem."
+},
+{
+    q: "With reference to important policies related to India's semiconductor sector, consider the following statements: <br> 1. The Semicon India Programme (Semicon 1.0) was approved with a financial outlay of ₹76,000 crore in December 2021.<br>2. Semicon 2.0 was approved with a substantially higher financial outlay compared to Semicon 1.0, expanding focus to design, materials, and equipment.<br>3. The Design Linked Incentive (DLI) Scheme offers financial support exclusively for semiconductor fabrication plants and excludes chip design startups.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "2 and 3 only",
+        "1 and 3 only",
+        "1 and 2 only",
+        "1, 2 and 3"
+    ],
+    ans: 2,
+    exp: "The Semicon India Programme was approved in December 2021 with an outlay of ₹76,000 crore for semiconductor and display manufacturing. Semicon 2.0, approved later, carries a substantially higher outlay of around ₹1,27,500 crore and expands focus across design, machines, materials, and supply chains. However, the DLI Scheme specifically supports chip design startups and MSMEs, not fabrication plants, making statement 3 incorrect."
+},
+{
+    q: "With reference to recent reforms and recommendations concerning India's research and innovation ecosystem, consider the following statements: <br> 1. The Anusandhan National Research Foundation (ANRF) was established through an Act of Parliament, subsuming the Science and Engineering Research Board.<br>2. ANRF's total funding target is intended to be met entirely through Union Government budgetary allocation, with no private sector contribution.<br>3. Programmes like PAIR under ANRF aim to foster partnerships between top-tier institutions and academic institutions with limited research capacity.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 2,
+    exp: "The ANRF Act, 2023 established ANRF as a statutory body, merging the Science and Engineering Research Board into its structure. The PAIR programme under ANRF is specifically designed to connect top-tier institutions with academic institutions having limited research capabilities under a hub-and-spoke model. However, ANRF's ₹50,000 crore funding target for 2023-28 relies substantially on non-government sources, including industry and philanthropy, rather than being met entirely through government budgetary support. Hence statement 2 is incorrect."
+},
+{
+    q: "With reference to trends in UPSC Prelims Quantum Technology-related questions, consider the following statements: <br> 1. Analysis of the last 13 years of Prelims papers indicates that quantum computing has not been directly tested as a standalone question.<br>2. Quantum technology, when tested, tends to be linked with applied themes such as secure communication and computing power.<br>3. Quantum technology questions have consistently appeared as a fixed, unchanging annual feature of the Science and Technology section since 2013.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "Reviews of past Prelims papers note that quantum computing has recorded zero standalone questions over roughly 13 years, marking it as an 'overdue' emerging topic. When quantum-related concepts are tested, they are typically linked to applied contexts like secure communication (QKD) or enhanced computational power. However, quantum technology has not been a fixed, recurring annual feature; it remains a relatively newer and infrequently tested theme rather than a consistent yearly topic. Hence statement 3 is incorrect."
+},
+{
+    q: "With reference to the features of quantum technology as understood in current scientific discourse, consider the following statements: <br> 1. Quantum computers are expected to solve certain complex problems significantly faster than classical computers for specific tasks.<br>2. Quantum encryption techniques, such as those based on Quantum Key Distribution, are considered more secure against certain forms of eavesdropping than classical encryption methods.<br>3. Quantum technology relies on principles of classical Newtonian mechanics rather than quantum mechanics.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "Quantum computers leverage phenomena like superposition and entanglement to solve certain complex computational problems far faster than classical computers for specific applications. Quantum Key Distribution offers enhanced security by making eavesdropping detectable, based on quantum mechanical principles rather than computational complexity assumptions used in classical cryptography. However, quantum technology fundamentally relies on the principles of quantum mechanics, not classical Newtonian mechanics, making statement 3 incorrect."
+},
+{
+    q: "With reference to recent developments (2025-2026) in India's biotechnology sector, consider the following statements: <br> 1. The Biopharma SHAKTI initiative was announced under the Union Budget 2026-27 to strengthen India's position as a global hub for biologics and biosimilars.<br>2. India's first Biofoundry Network was launched under the BioE3 Policy to support bioproduction scale-up.<br>3. The Department of Biotechnology signed a Memorandum of Understanding with IndiaAI to explore artificial intelligence applications in biotechnology.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 3,
+    exp: "The Biopharma SHAKTI initiative, announced in the Union Budget 2026-27 with an outlay of around ₹10,000 crore, aims to strengthen India's biologics and biosimilars manufacturing capacity. India's first Biofoundry Network, launched under the BioE3 Policy, supports bioproduction scale-up for startups, academia, and industry. Additionally, the Department of Biotechnology signed an MoU with IndiaAI in August 2025 to explore AI applications in biotechnology. All three statements accurately reflect recent developments in India's biotechnology sector."
+},
+{
+    q: "With reference to challenges highlighted regarding Space Missions, particularly evident in the growth of India's commercial and defence satellite ecosystem, consider the following statements: <br> 1. India's number of active satellites operating in Low Earth Orbit has made collision-related risks a growing operational concern.<br>2. Skilled personnel shortages within the Department of Space have been flagged as a constraint by a Parliamentary Standing Committee.<br>3. India's space budget utilisation has consistently exceeded 95% every year without exception since 2020.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "With most of India's active satellites operating in Low Earth Orbit, the increasingly congested orbital environment has heightened collision-related operational concerns, prompting more frequent collision avoidance manoeuvres. A Parliamentary Standing Committee has flagged shortages of skilled personnel within the Department of Space as a constraint on the sector's growth. However, actual utilisation has lagged behind allocations in recent years, with reported expenditure around 78% of the revised allocation as of January 2026, contradicting the claim of consistently exceeding 95%. Hence statement 3 is incorrect."
+},
+{
+    q: "With reference to trends observed in UPSC Prelims questions on Health Technology, consider the following statements: <br> 1. Health science-related themes have featured among topics tested within the broader Science and Technology section of recent Prelims papers.<br>2. UPSC has, in past years, tested candidates on the distinction between mRNA vaccines and traditional vaccine platforms.<br>3. The number of Science and Technology questions, including health-related ones, has remained a completely fixed count of exactly ten every year since 2013.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "Health science themes, including diseases and vaccine technologies, have been featured within the Science and Technology section of recent Prelims papers. UPSC has previously tested the conceptual distinction between mRNA vaccines and traditional vaccine platforms. However, the number of Science and Technology questions has varied over the years, ranging roughly between 7 and 16 questions depending on the year, rather than remaining a fixed count of exactly ten annually. Hence statement 3 is incorrect."
+},
+{
+    q: "With reference to the functions and powers of the Anusandhan National Research Foundation (ANRF) in India's scientific research ecosystem, consider the following statements: <br> 1. ANRF is mandated to provide high-level strategic direction to scientific research across the country.<br>2. The Prime Minister serves as the ex-officio President of the Governing Board of ANRF.<br>3. ANRF's functions are limited exclusively to funding research in central government institutions, excluding state universities.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "ANRF is empowered to provide high-level strategic direction for scientific research in alignment with the National Education Policy. The Prime Minister serves as the ex-officio President of its Governing Board, with senior ministers as Vice-Presidents. However, ANRF specifically prioritizes strengthening research infrastructure in state universities and colleges, recognizing that the vast majority of students study there, rather than being limited to central institutions. Hence statement 3 is incorrect."
+},
+{
+    q: "With reference to the functions and powers of key institutions in India's biotechnology ecosystem, consider the following statements: <br> 1. The Biotechnology Industry Research Assistance Council (BIRAC) functions as an interface agency providing risk capital funding and technology transfer support to biotech startups.<br>2. BIRAC operates as a not-for-profit Public Sector Enterprise established by the Department of Biotechnology.<br>3. BIRAC's mandate is restricted solely to funding basic academic research, excluding any role in industry-academia collaboration.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "BIRAC functions as an interface agency, providing risk capital, technology transfer, and IP management support to biotech startups and SMEs. It operates as a not-for-profit Public Sector Enterprise set up by the DBT. However, BIRAC's core mandate specifically includes bridging industry-academia gaps and fostering research-industry interface, rather than being restricted to basic academic research alone. Hence statement 3 is incorrect."
+},
+{
+    q: "With reference to trends observed in UPSC questions on Cyber Security, consider the following statements: <br> 1. Within GS Paper III Internal Security, cyber security has been among the largest recurring thematic clusters over the 2013-2025 period.<br>2. UPSC Mains has previously asked about a project named 'CyberDome' in the context of controlling internet crimes.<br>3. Post-2017, UPSC's cyber security questions shifted toward increasingly definitional, non-analytical formats compared to earlier years.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "Analysis of GS-III Internal Security PYQs from 2013-2025 shows cyber security as one of the largest recurring thematic clusters, alongside border management. UPSC Mains 2019 specifically asked about the CyberDome Project and its role in controlling internet crimes. However, the trend after 2017 has actually moved toward more analytical questions involving radicalization, emerging technologies, and policy evaluation, rather than becoming more definitional. Hence statement 3 is incorrect."
+},
+{
+    q: "With reference to reforms and recommendations relevant to India's biotechnology sector, consider the following statements: <br> 1. The Biopharma SHAKTI initiative was recommended to build on the ongoing work of the DBT's National Biopharma Mission.<br>2. India's regulatory approach has evolved to treat genome-edited crops differently from genetically modified crops, enabling faster approval pathways.<br>3. Establishing biofoundries and biomanufacturing hubs has been recommended as a means to bridge the gap between lab-scale innovation and commercial-scale production.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 3,
+    exp: "The Biopharma SHAKTI initiative builds upon the National Biopharma Mission's existing work in supporting indigenous diagnostics, biologics, and vaccine development. India's regulatory approach now differentiates transgene-free genome-edited crops from conventional GM crops, enabling comparatively faster development pathways. Additionally, establishing biofoundries and biomanufacturing hubs has been a key recommendation to address the persistent gap between early-stage lab innovation and commercial-ready manufacturing. All three statements are correct."
+},
+{
+    q: "Which of the following best describes a fundamental technical feature distinguishing semiconductors from conductors and insulators?",
+    opts: [
+        "Semiconductors have an electrical conductivity that lies between that of conductors and insulators, and can be modified through doping",
+        "Semiconductors conduct electricity better than any known conductor under all conditions",
+        "Semiconductors cannot conduct electricity under any circumstances, similar to perfect insulators",
+        "Semiconductor conductivity is entirely unaffected by temperature or impurity additions"
+    ],
+    ans: 0,
+    exp: "A defining feature of semiconductors, such as silicon and gallium nitride, is that their electrical conductivity lies between that of conductors and insulators, and can be precisely controlled through doping with impurity atoms to create n-type or p-type materials. This tunability is unlike insulators, which resist conduction under normal conditions, or conductors, which conduct freely regardless of doping."
+},
+{
+    q: "With reference to the structure and composition of India's defence research establishment, consider the following statements: <br> 1. DRDO is headed by the Secretary, Department of Defence Research and Development, who also serves as its Director General.<br>2. DRDO operates a network of laboratories organized under distinct technology clusters covering domains such as Aeronautics, Armament, and Naval Systems.<br>3. The Department of Military Affairs, headed by the Chief of Defence Staff, is responsible for DRDO's research and development functions.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "2 and 3 only",
+        "1 and 3 only",
+    "1 and 2 only",
+        "1, 2 and 3"
+    ],
+    ans: 2,
+    exp: "DRDO is headed by the Secretary, Department of Defence Research and Development, who concurrently serves as its Director General, assisted by Chief Controllers overseeing specific technology domains. DRDO's laboratory network is organized under distinct technology clusters, including Aeronautics, Armament, Combat Engineering, and Naval Systems. However, DRDO's R&D functions fall under the Department of Defence Research and Development, not the Department of Military Affairs, which instead focuses on promoting jointness among the armed forces. Hence statement 3 is incorrect."
+},
+{
+    q: "With reference to the background and evolution of health technology in India, consider the following statements: <br> 1. The National Digital Health Mission (NDHM), launched in 2020, later evolved into the Ayushman Bharat Digital Mission (ABDM).<br>2. Telemedicine services in India predate the COVID-19 pandemic, though their scale expanded significantly during and after it.<br>3. The e-Sanjeevani platform originated as a purely private-sector initiative with no government involvement.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "The National Digital Health Mission, launched in 2020, laid the foundation for what evolved into the Ayushman Bharat Digital Mission (ABDM), aiming to build an integrated digital health ecosystem. Telemedicine services existed in India prior to the COVID-19 pandemic, though their adoption and scale expanded dramatically during and after it, driven by platforms like e-Sanjeevani. However, e-Sanjeevani is a government-run initiative, not a purely private-sector platform, making it India's largest government-operated teleconsultation service. Hence statement 3 is incorrect."
+}
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-20 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

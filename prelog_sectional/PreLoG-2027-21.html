@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-21</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+{
+    q: "With reference to the Union Budget 2025-26, consider the following statements: <br> 1. The fiscal deficit for 2025-26 was budgeted at a lower percentage of GDP than the revised estimate for 2024-25.<br>2. The income tax exemption limit under the new tax regime was raised to ₹12 lakh for individual taxpayers.<br>3. Capital expenditure as a proportion of total expenditure was reduced compared to the previous year to prioritise revenue spending.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "2 and 3 only",
+        "1 and 3 only",
+        "1 and 2 only",
+        "1, 2 and 3"
+    ],
+    ans: 2,
+    exp: "The Union Budget 2025-26 pegged the fiscal deficit at 4.4% of GDP, lower than the revised estimate of 4.8% for 2024-25, reflecting continued fiscal consolidation. It also raised the income tax exemption limit to ₹12 lakh (₹12.75 lakh for salaried individuals) under the new regime. However, the budget continued to emphasise capital expenditure for growth rather than reducing it, making statement 3 incorrect."
+},
+{
+    q: "Consider the following statements with reference to the structure and composition of Fiscal Policy in India: <br> 1. Fiscal policy primarily deals with the revenue and expenditure decisions of the government, while monetary policy is managed by the Reserve Bank of India.<br>2. Public debt management is not considered a component of fiscal policy.<br>3. Taxation policy, public expenditure policy, and deficit financing together constitute the major instruments of fiscal policy.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1, 2 and 3",
+        "2 and 3 only",
+        "1 and 2 only",
+        "1 and 3 only"
+    ],
+    ans: 3,
+    exp: "Fiscal policy relates to government revenue collection (mainly taxation) and expenditure to influence the economy, distinct from monetary policy which is under RBI's purview. Public debt management is very much a component of fiscal policy, as governments borrow to finance deficits, making statement 2 incorrect. Taxation, public expenditure, and deficit financing are indeed the key instruments of fiscal policy."
+},
+{
+    q: "With reference to India's fiscal deficit targets for 2025-26 and 2026-27, consider the following statements: <br> 1. The fiscal deficit for 2025-26 was budgeted at 4.4% of GDP, lower than the revised estimate of 4.8% for 2024-25.<br>2. The fiscal deficit for 2026-27 has been targeted at a level lower than the revised estimate for 2025-26.<br>3. The FRBM Act, 2003 mandates a fiscal deficit target of 4% of GDP for the Central Government.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "2 and 3 only",
+        "1 and 2 only",
+        "1, 2 and 3"
+    ],
+    ans: 2,
+    exp: "The fiscal deficit was budgeted at 4.4% of GDP for 2025-26, down from the revised estimate of 4.8% in 2024-25, and further targeted at 4.3% of GDP for 2026-27, continuing the glide path. The FRBM Act, 2003 actually targets a fiscal deficit of 3% of GDP, not 4%, making statement 3 incorrect."
+},
+{
+    q: "With reference to the Union Budget of India, consider the following statements: <br> 1. As per Article 112 of the Constitution, the Budget is referred to as the 'Annual Financial Statement'.<br>2. A Money Bill, as defined under Article 110, can be introduced only in the Lok Sabha.<br>3. The Rajya Sabha has the power to reject or amend a Money Bill, subject to the President's approval.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1, 2 and 3",
+        "1 and 3 only",
+        "2 and 3 only",
+        "1 and 2 only"
+    ],
+    ans: 3,
+    exp: "Article 112 mandates the presentation of the Annual Financial Statement (Budget) before Parliament, and Article 110 restricts introduction of a Money Bill to the Lok Sabha alone. The Rajya Sabha cannot reject or amend a Money Bill; it can only recommend changes within 14 days, which the Lok Sabha may accept or reject, making statement 3 incorrect."
+},
+{
+    q: "With reference to the Income Tax Act, 2025, consider the following statements: <br> 1. It replaces the Income Tax Act, 1961 and introduces new tax rates applicable from the assessment year 2026-27.<br>2. It introduces the concept of a 'tax year', doing away with the distinction between the previous year and the assessment year.<br>3. The Act received Presidential assent in 2025 and comes into force from 1st April 2026.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "1, 2 and 3",
+        "1 and 3 only",
+        "2 and 3 only"
+    ],
+    ans: 3,
+    exp: "The Income Tax Act, 2025 does not introduce any new tax rates; it primarily simplifies language, structure, and compliance provisions of the erstwhile 1961 Act, making statement 1 incorrect. It replaces the concepts of 'previous year' and 'assessment year' with a unified 'tax year', and it received Presidential assent in August 2025, coming into effect from 1st April 2026."
+},
+{
+    q: "With reference to the Sixteenth Finance Commission, consider the following statements: <br> 1. It is chaired by Dr. Arvind Panagariya and its recommendations cover the period from 2026-27 to 2030-31.<br>2. It has recommended an increase in the states' share in the divisible pool of central taxes to 45%.<br>3. It has introduced a new criterion giving weightage to a state's contribution to national GDP for horizontal devolution.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1, 2 and 3",
+        "1 and 3 only"
+    ],
+    ans: 3,
+    exp: "The Sixteenth Finance Commission, headed by Dr. Arvind Panagariya, submitted its report for the award period 2026-27 to 2030-31. It retained the states' share in the divisible pool at 41%, the same as recommended by the Fifteenth Finance Commission, making statement 2 incorrect. It introduced a new weight for a state's contribution to GDP as part of the horizontal devolution formula."
+},
+{
+    q: "With reference to the classification of taxes in India, a recurring theme in UPSC Prelims, consider the following statements: <br> 1. In the case of a direct tax, the burden cannot be shifted to another person, whereas in an indirect tax, the burden can be shifted.<br>2. Income Tax and Corporation Tax are examples of direct taxes, while GST and Customs Duty are examples of indirect taxes.<br>3. Direct taxes are generally considered progressive, while indirect taxes are generally considered regressive in nature.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1, 2 and 3",
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only"
+    ],
+    ans: 0,
+    exp: "A direct tax is levied on and paid directly by the person on whom it is imposed, so its burden cannot be shifted, whereas an indirect tax's burden can be passed on to the final consumer. Income Tax and Corporation Tax are direct taxes, while GST and Customs Duty are indirect taxes. Since direct taxes are usually levied based on income levels, they tend to be progressive, while indirect taxes, being uniform regardless of income, tend to be regressive."
+},
+{
+    q: "With reference to Revenue Deficit, a concept frequently tested in UPSC Prelims, consider the following statements: <br> 1. Revenue deficit refers to the excess of total revenue expenditure over total revenue receipts of the government.<br>2. A revenue deficit implies that the government is borrowing even to meet its consumption expenditure.<br>3. Effective Revenue Deficit is calculated by adding grants for creation of capital assets to the Revenue Deficit.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "2 and 3 only",
+        "1 and 2 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 1,
+    exp: "Revenue deficit occurs when revenue expenditure exceeds revenue receipts, indicating that the government is dissaving and borrowing to finance its day-to-day consumption expenditure rather than asset creation. However, Effective Revenue Deficit is calculated by subtracting, not adding, grants-in-aid for creation of capital assets from the Revenue Deficit, since such grants indirectly result in asset formation, making statement 3 incorrect."
+},
+{
+    q: "With reference to the constitutional and legal provisions relating to taxation in India, consider the following statements: <br> 1. Article 265 of the Constitution provides that no tax shall be levied or collected except by authority of law.<br>2. Article 246A empowers both Parliament and State Legislatures to make laws with respect to Goods and Services Tax.<br>3. The power to levy taxes not mentioned in the Union, State, or Concurrent Lists (residuary power of taxation) lies with the State Legislatures.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "2 and 3 only",
+        "1 and 2 only",
+        "1, 2 and 3"
+    ],
+    ans: 2,
+    exp: "Article 265 establishes that taxation requires legislative sanction, and Article 246A, inserted by the 101st Constitutional Amendment, grants concurrent powers to Parliament and State Legislatures to legislate on GST. However, residuary powers of taxation, like other residuary powers under Entry 97 of the Union List, vest with Parliament, not the State Legislatures, making statement 3 incorrect."
+},
+{
+    q: "With reference to the recent reforms in the Goods and Services Tax (GST) regime, consider the following statements: <br> 1. The GST Council approved a shift from a four-slab structure to a simplified two-slab structure of 5% and 18%, along with a special 40% slab for luxury and sin goods.<br>2. The new GST rates came into effect from 22nd September 2025.<br>3. Life-saving drugs and certain diagnostic kits were brought under the 0% (nil) tax slab as part of the reform.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 3,
+    exp: "As part of the GST 2.0 reforms, the Group of Ministers and the GST Council approved collapsing the 12% and 28% slabs, moving to a simplified two-rate structure of 5% and 18%, with a special 40% de-merit rate for luxury and sin goods. These changes came into force from 22nd September 2025, and life-saving drugs and diagnostic kits were shifted to the nil rate slab to reduce healthcare costs."
+},
+{
+    q: "With reference to the constitutional and legal framework governing Fiscal Policy in India, consider the following statements: <br> 1. Article 292 of the Constitution empowers the Union Government to borrow upon the security of the Consolidated Fund of India.<br>2. The Fiscal Responsibility and Budget Management (FRBM) Act was enacted in 2003 to institutionalise fiscal discipline.<br>3. The FRBM Act mandates the government to eliminate the fiscal deficit entirely by a specified target year.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "Article 292 authorises the Union Government to borrow against the security of the Consolidated Fund of India, subject to limits set by Parliament, and the FRBM Act, 2003 was enacted to bring fiscal discipline and transparency in fiscal management. However, the FRBM Act aims to progressively reduce the fiscal deficit to a targeted percentage of GDP (such as 3%), not eliminate it entirely, making statement 3 incorrect."
+},
+{
+    q: "With reference to the constitutional and legal provisions relating to Fiscal Deficit in India, consider the following statements: <br> 1. The FRBM Act, 2003 originally targeted a fiscal deficit of 3% of GDP to be achieved by a specified year.<br>2. The FRBM Act contains an 'escape clause' that allows deviation from the fiscal deficit target during specified circumstances such as national security or natural calamity.<br>3. The N.K. Singh Committee recommended a fixed fiscal deficit target with no provision for any deviation band.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "2 and 3 only",
+        "1 and 2 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 1,
+    exp: "The FRBM Act, 2003 originally set a target of reducing the fiscal deficit to 3% of GDP, and it includes an escape clause permitting deviation during exceptional circumstances like war, national security threats, or natural calamities. However, the N.K. Singh Committee (2017) actually recommended a fiscal deficit target of 3% of GDP with a permissible deviation band of 0.5 percentage points, not a rigid target without deviation, making statement 3 incorrect."
+},
+{
+    q: "With reference to the constitutional and legal provisions relating to Revenue Deficit in India, consider the following statements: <br> 1. The distinction between Revenue Account and Capital Account in the Budget is based on provisions under Article 112 of the Constitution.<br>2. The original FRBM Act, 2003 mandated the elimination of revenue deficit to zero by a specified target date.<br>3. The Constitution explicitly uses the term 'Revenue Deficit' and defines it under the Seventh Schedule.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "2 and 3 only",
+        "1 and 3 only",
+        "1 and 2 only",
+        "1, 2 and 3"
+    ],
+    ans: 2,
+    exp: "Article 112 requires the Annual Financial Statement to distinguish expenditure on revenue account from other expenditure, forming the basis of the revenue-capital classification. The original FRBM Act, 2003 had indeed mandated eliminating the revenue deficit by a target date, though this was later diluted through amendments. However, the term 'Revenue Deficit' is a budgetary and fiscal concept defined under the FRBM Act, not the Constitution or the Seventh Schedule, making statement 3 incorrect."
+},
+{
+    q: "Consider the following statements with reference to the features and characteristics of Fiscal Policy: <br> 1. An expansionary fiscal policy involves an increase in government spending or a reduction in taxes to stimulate aggregate demand.<br>2. Automatic stabilisers, such as progressive taxation and unemployment benefits, help moderate economic fluctuations without any new policy action by the government.<br>3. Fiscal policy operates with a shorter implementation lag as compared to monetary policy, since it does not require legislative approval.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "An expansionary fiscal policy raises government spending or cuts taxes to boost demand during a slowdown, and automatic stabilisers like progressive taxes and unemployment benefits work counter-cyclically without fresh government action. However, fiscal policy usually has a longer implementation lag than monetary policy because it requires legislative approval through the Budget process, making statement 3 incorrect."
+},
+{
+    q: "With reference to a commonly tested theme in UPSC Prelims regarding Fiscal Policy, consider the following statements: <br> 1. An increase in the tax revenue collected by the government, by itself, does not necessarily lead to an increase in the fiscal deficit.<br>2. Higher fiscal deficit can lead to 'crowding out' of private investment due to increased government borrowing.<br>3. Deficit financing necessarily leads to inflationary pressure in the economy under all circumstances.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "2 and 3 only",
+        "1 and 3 only",
+        "1 and 2 only",
+        "1, 2 and 3"
+    ],
+    ans: 2,
+    exp: "A rise in tax revenue by itself does not increase the fiscal deficit, since the deficit depends on the gap between total expenditure and total receipts, not revenue alone. Increased government borrowing to fund a higher fiscal deficit can raise interest rates and crowd out private investment. However, deficit financing does not always cause inflation; its inflationary impact depends on factors like the output gap and whether the economy is operating below full capacity, making statement 3 incorrect."
+},
+{
+    q: "With reference to major tax reform committees and their recommendations in India, consider the following statements: <br> 1. The Raja Chelliah Committee (1991) recommended a reduction in the number and rates of direct and indirect taxes to widen the tax base.<br>2. The Kelkar Task Force recommended simplification of the tax structure and a reduction in tax exemptions.<br>3. The Direct Taxes Code was proposed to replace the Income Tax Act, 1961, but the actual replacement was eventually carried out through the Income Tax Act, 2025.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "1 and 2 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 3,
+    exp: "The Raja Chelliah Committee laid the foundation for India's tax reforms in the 1990s by recommending lower and simplified rates with a broader base. The Kelkar Task Force similarly pushed for simplification and rationalisation of exemptions. Although the Direct Taxes Code Bill was never enacted in its original form, its underlying goal of replacing the six-decade-old Income Tax Act, 1961 was eventually achieved through the Income Tax Act, 2025."
+},
+{
+    q: "Consider the following statements with reference to the features and characteristics of the Goods and Services Tax (GST) in India: <br> 1. GST is a destination-based tax, implying that the tax revenue accrues to the State where goods or services are consumed, not where they are produced.<br>2. India has adopted a dual GST model under which both the Centre and the States simultaneously levy tax on a common base.<br>3. GST has completely subsumed all taxes previously levied by the Centre and the States, including customs duty and stamp duty.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1, 2 and 3",
+        "2 and 3 only",
+        "1 and 2 only",
+        "1 and 3 only"
+    ],
+    ans: 2,
+    exp: "GST is a destination-based consumption tax, so revenue accrues to the consuming State rather than the producing State, and India follows a dual GST structure with the Centre levying CGST and States levying SGST/UTGST on the same transaction. However, GST has not subsumed all taxes; levies such as basic customs duty, stamp duty, and taxes on alcohol for human consumption remain outside its ambit, making statement 3 incorrect."
+},
+{
+    q: "With reference to the functions and powers of the Finance Commission of India, consider the following statements: <br> 1. It recommends the distribution of the net proceeds of taxes between the Union and the States, known as vertical devolution.<br>2. It recommends the principles governing grants-in-aid to the States under Article 275 of the Constitution.<br>3. Its recommendations are legally binding on the Union Government and must be implemented without modification.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "2 and 3 only",
+        "1 and 2 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 1,
+    exp: "The Finance Commission, under Article 280, recommends vertical devolution of taxes between the Union and States and the principles for grants-in-aid to States under Article 275. However, its recommendations are advisory in nature and not constitutionally binding on the Union Government, though they are conventionally accepted, making statement 3 incorrect."
+},
+{
+    q: "With reference to the functions and powers of the GST Council, consider the following statements: <br> 1. The Union Finance Minister acts as the Chairperson of the GST Council.<br>2. In the GST Council's voting mechanism, the States collectively have two-thirds of the total votes and the Centre has one-third of the total votes.<br>3. The Supreme Court has held that recommendations of the GST Council are binding on both the Union and the State Legislatures.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "1 and 2 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 1,
+    exp: "The GST Council, constituted under Article 279A, is chaired by the Union Finance Minister, and decisions require a three-fourths majority of votes cast, with States holding two-thirds weightage and the Centre holding one-third. However, the Supreme Court, in the Mohit Minerals case, clarified that the Council's recommendations are only persuasive and not binding on the Union or State Legislatures, making statement 3 incorrect."
+},
+{
+    q: "With reference to the functions of Indirect Taxes in India's fiscal system, consider the following statements: <br> 1. In the case of an indirect tax, the person who bears the ultimate burden (impact) may be different from the person who initially pays the tax (incidence).<br>2. Customs Duty continues to exist as a separate indirect tax even after the introduction of GST.<br>3. Indirect taxes are primarily used by the government to redistribute income by taxing the wealthy at higher rates than the poor.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1, 2 and 3",
+        "1 and 3 only",
+        "2 and 3 only",
+        "1 and 2 only"
+    ],
+    ans: 3,
+    exp: "Indirect taxes are characterised by a separation between incidence (who initially pays) and impact (who ultimately bears the burden), as the tax burden is passed on to the final consumer. Customs Duty was kept outside the GST framework and continues to be levied separately on imports and exports. However, indirect taxes are generally regressive rather than redistributive, since they are levied uniformly regardless of a taxpayer's income level, making statement 3 incorrect."
+},
+{
+    q: "With reference to the background and evolution of Direct Taxes in India, consider the following statements: <br> 1. Income tax was first introduced in India in 1860 by Sir James Wilson to help the British government recover from the financial losses caused by the Revolt of 1857.<br>2. Wealth Tax, a direct tax levied on the net wealth of individuals and companies, was abolished through the Union Budget 2015-16.<br>3. The Direct Taxes Code Bill, first introduced in 2010, was enacted into law in its original form to replace the Income Tax Act, 1961.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "Income tax was first introduced in India in 1860 by Sir James Wilson primarily to compensate for losses suffered by the British administration during the Revolt of 1857, and Wealth Tax was abolished in the Union Budget 2015-16 to reduce compliance burden with limited revenue yield. However, the Direct Taxes Code Bill was never enacted in its original form; it eventually lapsed, and its underlying objective of overhauling the Income Tax Act, 1961 was achieved through a substantially different Income Tax Act, 2025, making statement 3 incorrect."
+},
+{
+    q: "With reference to the challenges and issues associated with the Finance Commission's role in Centre-State fiscal relations, consider the following statements: <br> 1. Increasing reliance of the Union Government on cesses and surcharges, which lie outside the divisible pool, reduces the effective share of states in central tax devolution.<br>2. The use of 2011 Census population data as a criterion for horizontal devolution has drawn criticism from southern states for penalising better demographic performance.<br>3. Local body grants recommended by the Finance Commission are released to states unconditionally, without requiring any compliance with entry-level criteria.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "2 and 3 only",
+        "1 and 2 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 1,
+    exp: "Cesses and surcharges are excluded from the divisible pool of taxes, so their rising share in Union tax revenue reduces the effective devolution to states, and use of 2011 Census population has been contested by southern states that achieved earlier demographic transition. However, local body grants recommended by the Finance Commission are not unconditional; they require states to fulfil entry-level criteria such as constitution of local bodies and publication of audited accounts, making statement 3 incorrect."
+},
+{
+    q: "With reference to current affairs relating to the Union Budget 2026-27, consider the following statements: <br> 1. The Budget announced the 'Biopharma SHAKTI' initiative with an outlay of ₹10,000 crore to develop India as a global biopharmaceutical manufacturing hub.<br>2. The Budget revised income tax slabs to introduce a new tax bracket specifically for high-income earners.<br>3. The Budget proposed scaling up manufacturing in seven strategic and frontier sectors as part of its growth strategy.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 2,
+    exp: "The Union Budget 2026-27 announced the Biopharma SHAKTI initiative with a ₹10,000 crore outlay to build India's biopharmaceutical manufacturing capacity, and it proposed scaling up manufacturing across seven strategic and frontier sectors. However, the income tax slab structure for assessment year 2026-27 was kept unchanged from the previous year, and no new tax bracket was introduced, making statement 2 incorrect."
+},
+{
+    q: "With reference to the background and evolution of Fiscal Policy in India, consider the following statements: <br> 1. Prior to the 1991 economic reforms, India's fiscal policy relied primarily on market-based financing of private investment, with a limited role for public sector spending.<br>2. The Balance of Payments crisis of 1991 was a key trigger for structural fiscal reforms, including reduction of the fiscal deficit and rationalisation of subsidies.<br>3. The FRBM Act, 2003 was the first central legislation in independent India to institutionalise fiscal discipline through legally mandated deficit targets.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "1 and 3 only",
+        "1, 2 and 3",
+        "2 and 3 only"
+    ],
+    ans: 3,
+    exp: "The 1991 Balance of Payments crisis triggered wide-ranging structural fiscal reforms, including deficit reduction and subsidy rationalisation, and the FRBM Act, 2003 was indeed the first central law to institutionalise fiscal discipline through legally binding deficit targets. However, prior to 1991, India's fiscal policy was centred on public sector-led planning and deficit financing of government investment, not market-based private financing, making statement 1 incorrect."
+},
+{
+    q: "With reference to the constitutional and legal provisions relating to Indirect Taxes in India, consider the following statements: <br> 1. Article 269A provides that the Integrated GST (IGST) on inter-state supply of goods and services shall be levied and collected by the Government of India and apportioned between the Union and the States.<br>2. Entry 84 of the Union List continues to empower Parliament to levy excise duty on petroleum crude, high-speed diesel, and tobacco products even after the introduction of GST.<br>3. Alcohol for human consumption is currently taxed under the GST regime at a special rate, in addition to state excise duty.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1, 2 and 3",
+        "1 and 3 only"
+    ],
+    ans: 0,
+    exp: "Article 269A governs the levy and collection of IGST on inter-state trade by the Union, with subsequent apportionment between the Centre and States, and the amended Entry 84 of the Union List retains central excise power over petroleum crude, high-speed diesel, and tobacco products. However, alcohol for human consumption has been kept entirely outside the scope of GST and is taxed only through state excise duty, making statement 3 incorrect."
+},
+{
+    q: "With reference to the challenges and issues associated with Fiscal Deficit in India, consider the following statements: <br> 1. Extra-budgetary resources and off-budget borrowings by public sector entities can understate the fiscal deficit officially reported by the government.<br>2. A high fiscal deficit sustained over a long period can increase the debt-servicing burden and reduce fiscal space for productive expenditure.<br>3. Since 2021-22, the Union Government has completely eliminated the practice of off-budget borrowing, ensuring full transparency in fiscal deficit reporting.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "1 and 2 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 1,
+    exp: "Off-budget borrowings, such as loans routed through public sector undertakings or the National Small Savings Fund, have historically understated the true fiscal deficit, and persistently high fiscal deficits raise the interest burden, crowding out productive spending. However, while the government has taken steps to curb such practices and improve transparency, off-budget borrowing has not been completely eliminated, making statement 3 incorrect."
+},
+{
+    q: "With reference to the structure and composition of Fiscal Deficit in India, consider the following statements: <br> 1. Fiscal Deficit is calculated as the excess of total expenditure over the sum of revenue receipts and non-debt capital receipts.<br>2. Primary Deficit is obtained by subtracting interest payments from the Fiscal Deficit.<br>3. 'Effective Fiscal Deficit' is an official measure that excludes grants given to states for creation of capital assets from the Fiscal Deficit.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "2 and 3 only",
+        "1, 2 and 3",
+        "1 and 2 only",
+        "1 and 3 only"
+    ],
+    ans: 2,
+    exp: "Fiscal Deficit is indeed the excess of total expenditure over revenue receipts plus non-debt capital receipts, and Primary Deficit is derived by subtracting interest payments from the Fiscal Deficit, reflecting the current year's borrowing requirement excluding past debt servicing. However, it is 'Effective Revenue Deficit', not 'Effective Fiscal Deficit', that adjusts for grants given for creation of capital assets, making statement 3 incorrect."
+},
+{
+    q: "With reference to the challenges and issues associated with Public Debt in India, consider the following statements: <br> 1. Rising public debt increases the government's interest payment obligations, which can crowd out expenditure on capital investment and social sectors.<br>2. India's public debt comprises both internal debt and external debt, with internal debt forming the dominant share of the total.<br>3. Contingent liabilities, such as government guarantees extended to public sector enterprises, are always included in the calculation of India's fiscal deficit.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3",
+        "1 and 2 only"
+    ],
+    ans: 3,
+    exp: "A rising public debt burden increases interest payments, which can squeeze fiscal space for capital and social sector spending, and India's public debt is overwhelmingly composed of internal debt, with external debt forming a small share. However, contingent liabilities like government guarantees are off-balance-sheet obligations and are not included in the fiscal deficit unless the guarantee is actually invoked, making statement 3 incorrect."
+},
+{
+    q: "With reference to the functions and powers relating to Fiscal Policy in India, consider the following statements: <br> 1. According to Musgrave's classification, the three main functions of fiscal policy are allocation, distribution, and stabilisation.<br>2. The allocative function of fiscal policy relates to the government's role in providing public goods and correcting market failures.<br>3. In India, the power to formulate and implement fiscal policy rests exclusively with the Reserve Bank of India, independent of the Ministry of Finance.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "Musgrave's classic framework identifies allocation, distribution, and stabilisation as the three core functions of fiscal policy, with the allocative function specifically addressing provision of public goods and correction of market failures. However, fiscal policy in India is formulated and implemented by the Ministry of Finance and the Government, not the Reserve Bank of India, which is instead responsible for monetary policy, making statement 3 incorrect."
+},
+{
+    q: "With reference to a recurring theme in UPSC Prelims regarding Public Debt in India, consider the following statements: <br> 1. Public Debt of the Government of India, as classified in budget documents, is divided into Internal Debt and External Debt.<br>2. Liabilities under the 'Public Account' of India, such as Small Savings and Provident Funds, are classified as part of the Union Government's Public Debt.<br>3. Treasury Bills and Dated Government Securities are examples of instruments used for raising internal public debt.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "1 and 2 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "Public Debt is classified into Internal Debt (market loans within the country) and External Debt (loans from foreign sources), and Treasury Bills and Dated Securities are standard instruments for raising internal debt. However, liabilities under the Public Account, such as Small Savings and Provident Funds, are classified as 'Other Liabilities' rather than as Public Debt, even though both together form the government's Total Liabilities, making statement 2 incorrect."
+},
+{
+    q: "With reference to the constitutional and legal provisions relating to the Finance Commission, consider the following statements: <br> 1. Article 280 of the Constitution provides for the constitution of a Finance Commission by the President every five years or earlier, if considered necessary.<br>2. Article 281 requires that the recommendations of the Finance Commission, along with an explanatory memorandum on the action taken, be laid before each House of Parliament.<br>3. The qualifications for appointment of members of the Finance Commission are specified directly in the Constitution itself.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "2 and 3 only",
+        "1 and 2 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 1,
+    exp: "Article 280 mandates the President to constitute a Finance Commission every five years, or earlier if needed, and Article 281 requires that its recommendations, along with an explanatory memorandum, be placed before Parliament. However, the qualifications for members are not specified in the Constitution itself; Article 280(2) empowers Parliament to prescribe these qualifications by law, which it did through the Finance Commission (Miscellaneous Provisions) Act, 1951, making statement 3 incorrect."
+},
+{
+    q: "With reference to the structure and composition of the Finance Commission of India, consider the following statements: <br> 1. The Finance Commission consists of a Chairman and four other members appointed by the President of India.<br>2. As per the Finance Commission (Miscellaneous Provisions) Act, 1951, one of the members must be, or must have been, qualified to be appointed as a Judge of a High Court.<br>3. The Finance Commission is a permanent constitutional body that continues to function on a continuous basis without being reconstituted.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "2 and 3 only",
+        "1 and 2 only",
+        "1, 2 and 3"
+    ],
+    ans: 2,
+    exp: "The Finance Commission is composed of a Chairman and four members appointed by the President, and the 1951 Act requires that one member be qualified to be, or have been, a High Court judge. However, it is not a continuously functioning permanent body; it is constituted periodically for a specific award period and ceases to exist after submitting its report, until the next Commission is set up, making statement 3 incorrect."
+},
+{
+    q: "With reference to important Acts, Amendments, and Policies relating to Revenue Deficit in India, consider the following statements: <br> 1. The original FRBM Act, 2003 mandated the elimination of Revenue Deficit to zero by 31st March 2009.<br>2. The FRBM (Amendment) Act, 2012 introduced the concept of 'Effective Revenue Deficit' and set a target for its elimination.<br>3. The Revenue Deficit elimination targets under the FRBM framework have been achieved consistently every year since 2012.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3",
+        "1 and 2 only"
+    ],
+    ans: 3,
+    exp: "The original FRBM Act, 2003 set a target to eliminate the Revenue Deficit by 31st March 2009, and the 2012 amendment introduced 'Effective Revenue Deficit' as a more realistic fiscal indicator with its own elimination target. However, these revenue deficit elimination targets have been repeatedly postponed and missed rather than achieved consistently, making statement 3 incorrect."
+},
+{
+    q: "With reference to the constitutional and legal provisions relating to the Goods and Services Tax (GST), consider the following statements: <br> 1. The Constitution (101st Amendment) Act, 2016 inserted Articles 246A, 269A, and 279A to enable the GST regime.<br>2. Article 366(12A), inserted by the same amendment, defines 'Goods and Services Tax' as any tax on supply of goods or services except taxes on alcoholic liquor for human consumption.<br>3. The Constitution (101st Amendment) Act empowers the GST Council to directly levy and collect GST across all states, without requiring separate State GST legislation.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "The 101st Constitutional Amendment inserted Articles 246A, 269A, and 279A, and Article 366(12A) defines GST while explicitly excluding alcoholic liquor for human consumption. However, the GST Council itself does not levy or collect tax; it only makes recommendations, and States were required to enact their own SGST legislation to give effect to GST, making statement 3 incorrect."
+},
+{
+    q: "With reference to important Acts relating to Indirect Taxes in India, consider the following statements: <br> 1. The Central Goods and Services Tax (CGST) Act, 2017 and the Integrated Goods and Services Tax (IGST) Act, 2017 gave legal effect to the GST regime from 1st July 2017.<br>2. The GST (Compensation to States) Act, 2017 provided for compensating states for revenue loss for five years, with the compensation cess later extended beyond 2022 to help repay loans taken during the COVID-19 period.<br>3. The Customs Act, 1962 was repealed and completely subsumed into GST law with effect from 1st July 2017.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "2 and 3 only",
+        "1 and 2 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 1,
+    exp: "The CGST and IGST Acts of 2017 operationalised the GST regime, and the GST (Compensation to States) Act, 2017 guaranteed compensation for five years, with its cess later extended to repay COVID-era borrowings. However, the Customs Act, 1962 was never repealed or subsumed; it continues to operate independently, governing duties on imports and exports outside the GST framework, making statement 3 incorrect."
+},
+{
+    q: "With reference to the background and evolution of Fiscal Deficit as a budgetary concept in India, consider the following statements: <br> 1. Prior to 1991, Indian budget documents primarily highlighted 'Budgetary Deficit', largely financed through automatic monetisation by the Reserve Bank of India.<br>2. The concept of 'Fiscal Deficit' as a key indicator of the government's total borrowing requirement was formally introduced in Union Budget documents from 1991-92 onwards.<br>3. The FRBM framework replaced 'Fiscal Deficit' with 'Budgetary Deficit' as the primary indicator of the government's borrowing requirement.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "2 and 3 only",
+        "1 and 2 only",
+        "1, 2 and 3"
+    ],
+    ans: 2,
+    exp: "Before 1991, India's budget relied on 'Budgetary Deficit', largely covered through automatic RBI monetisation via ad hoc Treasury Bills, and 'Fiscal Deficit' was formally adopted as the key indicator of total borrowing requirement from the 1991-92 Budget onwards, following the balance of payments crisis. The FRBM framework did the opposite of statement 3: it reinforced Fiscal Deficit (not Budgetary Deficit) as the principal indicator for fiscal management, making statement 3 incorrect."
+},
+{
+    q: "With reference to the functions and powers relating to Fiscal Deficit in India, consider the following statements: <br> 1. Fiscal Deficit indicates the total borrowing requirement of the government to bridge the gap between its expenditure and receipts, excluding borrowings.<br>2. The Comptroller and Auditor General (CAG) of India audits government accounts and verifies actual fiscal deficit figures against budgeted targets.<br>3. The power to determine and revise the annual fiscal deficit target rests exclusively with the Reserve Bank of India through its Monetary Policy Committee.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3",
+        "1 and 2 only"
+    ],
+    ans: 3,
+    exp: "Fiscal Deficit reflects the government's total borrowing requirement to cover the gap between expenditure and non-borrowed receipts, and the CAG performs an audit function by verifying actual fiscal outcomes against budgeted figures. However, the fiscal deficit target is set by the Union Government through the Ministry of Finance and the FRBM framework, not by the RBI's Monetary Policy Committee, which handles monetary, not fiscal, policy, making statement 3 incorrect."
+},
+{
+    q: "With reference to major reforms and recommendations concerning Fiscal Policy in India, consider the following statements: <br> 1. The Fifteenth Finance Commission recommended constituting a high-powered inter-governmental group to review the FRBM Act and suggest a fresh fiscal consolidation roadmap.<br>2. The Fifteenth Finance Commission suggested a glide path to bring down general government debt to sustainable levels by 2036-37, with the Centre's debt around 40% of GDP and States' around 20%.<br>3. The Vijay Kelkar Committee (2012) on fiscal consolidation recommended a shift from fiscal deficit targeting to inflation targeting as the primary objective of fiscal policy.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "The Fifteenth Finance Commission recommended setting up a high-powered group to review the FRBM framework and proposed a long-term glide path for reducing combined government debt by 2036-37. However, the Vijay Kelkar Committee (2012) focused on a fiscal deficit reduction roadmap, not inflation targeting, which was instead the focus of the later Urjit Patel Committee on monetary policy, making statement 3 incorrect."
+},
+{
+    q: "With reference to the constitutional provisions relating to the Union Budget process in India, consider the following statements: <br> 1. As per Article 113, estimates of expenditure 'charged' upon the Consolidated Fund of India, such as salaries of the President and judges of the Supreme Court, are not submitted to the vote of Parliament.<br>2. Article 114 provides for the introduction of an Appropriation Bill to authorise withdrawal of funds from the Consolidated Fund of India for approved expenditure.<br>3. A 'Vote on Account' under Article 116 requires prior passage of the Finance Bill before any funds can be withdrawn from the Consolidated Fund.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "1 and 2 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 1,
+    exp: "Article 113 exempts 'charged' expenditure, such as salaries of constitutional authorities, from being put to a parliamentary vote, and Article 114 mandates an Appropriation Bill to authorise actual withdrawal of funds. However, a Vote on Account is specifically meant to allow withdrawal of funds for a short period before the full Budget process, including the Finance Bill, is completed, so it does not require prior passage of the Finance Bill, making statement 3 incorrect."
+},
+{
+    q: "With reference to the structure and composition of Direct Taxes in India, consider the following statements: <br> 1. The Central Board of Direct Taxes (CBDT), functioning under the Department of Revenue, Ministry of Finance, is the apex body responsible for administration of direct taxes.<br>2. Corporation Tax and Personal Income Tax together constitute the major components of Direct Tax revenue collected by the Union Government.<br>3. Securities Transaction Tax (STT) is classified as an indirect tax since its burden is passed on to third parties rather than borne directly by the investor.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "2 and 3 only",
+        "1 and 3 only",
+        "1 and 2 only",
+        "1, 2 and 3"
+    ],
+    ans: 2,
+    exp: "The CBDT, under the Department of Revenue, Ministry of Finance, administers direct tax laws in India, and Corporation Tax along with Personal Income Tax form the two largest components of direct tax revenue. However, Securities Transaction Tax is levied directly on the person carrying out the securities transaction and its burden is not shifted to a third party, so it is classified as a direct tax, making statement 3 incorrect."
+},
+{
+    q: "With reference to important Acts and Policies relating to Public Debt management in India, consider the following statements: <br> 1. The Government Securities Act, 2006 repealed the Public Debt Act, 1944 and now governs the issuance and management of Government Securities.<br>2. Under Section 21 of the RBI Act, 1934, the Reserve Bank of India manages the public debt of the Central Government.<br>3. An independent Public Debt Management Agency (PDMA), as proposed under FRBM review recommendations, has been fully operationalised and has taken over all debt management functions from the RBI.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "2 and 3 only",
+        "1 and 2 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 1,
+    exp: "The Government Securities Act, 2006 replaced the Public Debt Act, 1944 as the governing law for G-Secs, and Section 21 of the RBI Act, 1934 empowers RBI to manage the Central Government's public debt. However, the proposed independent Public Debt Management Agency has not been fully operationalised, and RBI continues to perform the public debt management function, making statement 3 incorrect."
+},
+{
+    q: "With reference to the structure and composition of Indirect Taxes in India, consider the following statements: <br> 1. The Central Board of Indirect Taxes and Customs (CBIC), functioning under the Department of Revenue, Ministry of Finance, administers indirect taxes such as GST and Customs Duty.<br>2. Central Excise Duty, as a general tax on manufactured goods, was completely abolished with the introduction of GST and no longer exists in any form.<br>3. Indirect tax revenue collected by the Union comprises components such as CGST, IGST, GST Compensation Cess, and Customs Duty.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 2,
+    exp: "CBIC, under the Department of Revenue, is the nodal body for administering GST and Customs Duty, and Union indirect tax revenue includes CGST, IGST, Compensation Cess, and Customs Duty. However, Central Excise Duty has not been completely abolished; it continues to apply to items kept outside GST, such as petroleum crude, high-speed diesel, and tobacco products, making statement 2 incorrect."
+},
+{
+    q: "With reference to a recurring theme in UPSC Prelims regarding Indirect Taxes in India, consider the following statements: <br> 1. GST subsumed a number of indirect taxes previously levied by the Centre and States, such as Central Excise Duty, Service Tax, and Value Added Tax (VAT).<br>2. Octroi and Entry Tax, which were earlier levied on the entry of goods into a local area, were also subsumed under GST.<br>3. Securities Transaction Tax (STT) was subsumed under the GST regime when it was introduced in 2017.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3",
+        "1 and 2 only"
+    ],
+    ans: 3,
+    exp: "GST subsumed a wide range of Central and State indirect taxes, including Excise Duty, Service Tax, VAT, Octroi, and Entry Tax, thereby creating a unified national market. However, Securities Transaction Tax is a distinct levy on securities transactions and was never subsumed under GST; it continues to be collected separately, making statement 3 incorrect."
+},
+{
+    q: "With reference to the functions and powers relating to the Union Budget in India, consider the following statements: <br> 1. The Budget serves as an instrument through which the government allocates resources across sectors and undertakes macroeconomic stabilisation.<br>2. The power to approve the Union Budget's expenditure proposals through the Appropriation Bill rests primarily with the Lok Sabha, given the Money Bill provisions.<br>3. The President of India holds the power to unilaterally amend the provisions of the Union Budget after its presentation in Parliament, without requiring parliamentary approval.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "The Budget performs the functions of resource allocation and macroeconomic stabilisation, and since the Appropriation Bill is treated as a Money Bill, the Lok Sabha holds primary power over its approval. However, the President has no power to unilaterally amend Budget provisions after presentation; any change requires the constitutional process of parliamentary approval, making statement 3 incorrect."
+},
+{
+    q: "With reference to the functions and powers relating to Revenue Deficit in India, consider the following statements: <br> 1. Revenue Deficit indicates that the government's revenue receipts are insufficient to meet its revenue expenditure, implying government dissaving.<br>2. A high Revenue Deficit as a proportion of Fiscal Deficit is generally considered a sign of poor quality of the fiscal deficit, since it indicates borrowed funds are used for consumption rather than asset creation.<br>3. The power to determine India's Revenue Deficit target rests exclusively with the Reserve Bank of India through its annual Monetary Policy Statement.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "2 and 3 only",
+        "1 and 2 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 1,
+    exp: "Revenue Deficit reflects a shortfall of revenue receipts relative to revenue expenditure, indicating dissaving, and a high Revenue Deficit-to-Fiscal Deficit ratio signals poor quality of the deficit since borrowings are financing consumption rather than asset creation. However, Revenue Deficit targets are set by the Government of India through the Ministry of Finance under the fiscal responsibility framework, not by the RBI, which handles monetary rather than fiscal targets, making statement 3 incorrect."
+},
+{
+    q: "With reference to current affairs relating to Indirect Taxes in India, consider the following statements: <br> 1. The Goods and Services Tax Appellate Tribunal (GSTAT) was formally launched in September 2025, with Justice (Retd.) Sanjaya Kumar Mishra as its first President.<br>2. The GSTAT comprises a Principal Bench located in New Delhi along with State Benches set up across various locations in the country.<br>3. The GSTAT primarily hears disputes related to direct taxes such as Income Tax, rather than indirect tax disputes.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "2 and 3 only",
+        "1 and 2 only",
+        "1, 2 and 3"
+    ],
+    ans: 2,
+    exp: "The GSTAT was formally launched in September 2025 with Justice (Retd.) Sanjaya Kumar Mishra as its first President, and it has a Principal Bench in New Delhi supported by State Benches across the country. However, the GSTAT is specifically meant to hear indirect tax (GST-related) disputes and appeals, not direct tax disputes, which fall under separate appellate forums like the Income Tax Appellate Tribunal, making statement 3 incorrect."
+},
+{
+    q: "With reference to the background and evolution of the Union Budget process in India, consider the following statements: <br> 1. The Railway Budget, which was presented separately in Parliament since 1924, was merged with the General Budget starting from 2017.<br>2. The date of presentation of the Union Budget was preponed from the last working day of February to 1st February with effect from 2017.<br>3. The long-standing British-era tradition of presenting the Budget at 5 PM was continued without any change and remains in effect till today.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3",
+        "1 and 2 only"
+    ],
+    ans: 3,
+    exp: "The Railway Budget, presented separately since 1924, was merged with the General Budget from 2017, and the Budget presentation date was also preponed to 1st February that same year to allow for earlier implementation of schemes. However, the colonial-era tradition of presenting the Budget at 5 PM was changed in 1999 by then Finance Minister Yashwant Sinha to 11 AM, making statement 3 incorrect."
+},
+{
+    q: "With reference to the structure and composition of the Goods and Services Tax (GST) in India, consider the following statements: <br> 1. Under the GST framework, intra-state supplies attract both CGST and SGST/UTGST, while inter-state supplies attract IGST.<br>2. Small businesses with turnover below the prescribed threshold can opt for the Composition Scheme, allowing payment of tax at a lower, fixed rate with simplified compliance.<br>3. GST Compensation Cess is levied on essential commodities such as food grains and medicines to fund states' revenue shortfall.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 2 only",
+        "1 and 3 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 0,
+    exp: "GST correctly splits intra-state supplies into CGST and SGST/UTGST components while inter-state supplies attract IGST, and eligible small taxpayers can opt for the Composition Scheme with lower fixed rates and simplified returns. However, the GST Compensation Cess is levied on luxury and sin goods such as tobacco, aerated drinks, and automobiles, not on essential commodities like food grains and medicines, making statement 3 incorrect."
+},
+{
+    q: "With reference to the challenges and issues associated with Fiscal Policy in India, consider the following statements: <br> 1. A low tax-to-GDP ratio limits the fiscal space available to the government for using fiscal policy as a countercyclical tool.<br>2. High committed expenditure, such as interest payments, subsidies, and salaries, reduces the flexibility of fiscal policy to respond to economic shocks.<br>3. Fiscal policy in India has generally been observed to be counter-cyclical, automatically expanding during economic downturns without any implementation lag.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "2 and 3 only",
+        "1 and 2 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+    ],
+    ans: 1,
+    exp: "A persistently low tax-to-GDP ratio constrains the government's ability to use fiscal policy countercyclically, and high committed or 'inflexible' expenditure limits the room for fiscal manoeuvre during shocks. However, fiscal policy in India has often been observed to be pro-cyclical rather than counter-cyclical, and it suffers from implementation lags due to the budgetary and legislative approval process, making statement 3 incorrect."
+},
+{
+    q: "With reference to major reforms and recommendations concerning Revenue Deficit in India, consider the following statements: <br> 1. The N.K. Singh Committee (FRBM Review Committee, 2017) recommended dropping Revenue Deficit as a target and instead focusing on Fiscal Deficit and Debt-to-GDP ratio as key fiscal indicators.<br>2. The 'Golden Rule' of public finance suggests that government borrowing should be used only to finance capital expenditure, not revenue expenditure, thereby aiming to reduce the Revenue Deficit over time.<br>3. The Fourteenth Finance Commission recommended a permanent constitutional amendment to abolish the concept of Revenue Deficit from India's fiscal framework.<br>Which of the statements given above is/are correct?",
+    opts: [
+        "1 and 3 only",
+        "2 and 3 only",
+        "1 and 2 only",
+        "1, 2 and 3"
+    ],
+    ans: 2,
+    exp: "The N.K. Singh Committee suggested moving away from Revenue Deficit targeting towards Fiscal Deficit and Debt-to-GDP as more meaningful indicators, and the 'Golden Rule' principle advocates borrowing only for capital expenditure to gradually eliminate revenue deficit. However, the Fourteenth Finance Commission did not recommend any constitutional amendment to abolish the concept of Revenue Deficit; its focus was on increasing tax devolution to states, making statement 3 incorrect."
+}
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-21 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>
