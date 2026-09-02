@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-22</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "With reference to India's Foreign Direct Investment (FDI) regulatory framework, consider the following statements: <br> 1. FDI in India is governed under the Foreign Exchange Management Act (FEMA), 1999.<br>2. 100% FDI under the automatic route is permitted in all sectors of the Indian economy.<br>3. The Department for Promotion of Industry and Internal Trade (DPIIT) formulates and notifies India's FDI policy.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 2 alone",
+            "Exactly one of the statements is correct",
+            "Exactly two of the statements are correct",
+            "Both 2 and 3"
+        ],
+        ans: 2,
+        exp: "FDI in India is regulated under FEMA, 1999, with DPIIT under the Ministry of Commerce and Industry formulating the FDI policy, making statements 1 and 3 correct. However, several sectors such as defence, media, telecom, and multi-brand retail have sectoral caps or require government route approval, so 100% automatic-route FDI is not permitted in all sectors, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to India's current account balance in the recent period, consider the following statements: <br> 1. India's current account recorded a surplus of about USD 13.5 billion in the fourth quarter (Jan-Mar) of FY 2024-25.<br>2. A rising net services trade surplus has been a major factor in moderating India's current account deficit through FY 2025-26.<br>3. The current account deficit narrowed in the July-September 2025 quarter (Q2, FY 2025-26) compared to the April-June 2025 quarter (Q1).<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "All of the above",
+            "Exactly one of the statements is correct",
+            "Both 2 and 3"
+        ],
+        ans: 0,
+        exp: "RBI data confirms a current account surplus of about USD 13.5 billion in Q4 FY 2024-25, and rising services exports (business and computer services) have consistently offset a widening merchandise trade deficit, making statements 1 and 2 correct. However, the deficit actually widened from about USD 2.4 billion in Q1 FY 2025-26 to about USD 12.3 billion in Q2, so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to Foreign Portfolio Investment (FPI) in India, consider the following statements: <br> 1. FPI is recorded under the capital account of India's Balance of Payments.<br>2. Unlike Foreign Direct Investment, FPI does not confer management control over the invested enterprise to the investor.<br>3. The Securities and Exchange Board of India (SEBI) is the primary regulator for FPIs in India.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 3 alone",
+            "Exactly two of the statements are correct",
+            "All three statements are correct",
+            "Only statement 2"
+        ],
+        ans: 2,
+        exp: "FPI flows are recorded in the capital account of the Balance of Payments and are regulated by SEBI under the SEBI (FPI) Regulations, which merged the earlier FII, sub-account, and QFI categories. FPI is portfolio investment in listed securities and, unlike FDI, does not give the investor managerial control over the enterprise, making all three statements correct."
+    },
+    {
+        q: "With reference to Capital Account Convertibility in India, consider the following statements: <br> 1. It refers to the freedom to convert domestic financial assets into foreign financial assets, and vice versa, at market-determined rates of exchange.<br>2. The Tarapore Committee (1997) recommended full Capital Account Convertibility in a phased manner, subject to certain preconditions.<br>3. India currently has full Capital Account Convertibility.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 2 alone",
+            "Only one of the statements is correct",
+            "1 and 2 only",
+            "All three statements are correct"
+        ],
+        ans: 2,
+        exp: "Capital Account Convertibility means the freedom to convert domestic financial assets into foreign ones at market rates, and the S.S. Tarapore Committee (1997) laid down a roadmap and preconditions for its phased achievement, making statements 1 and 2 correct. India, however, has only partial (not full) capital account convertibility even today, so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to recent developments (2025-2026) in India's Foreign Direct Investment (FDI) policy, consider the following statements: <br> 1. As per the Economic Survey 2025-26, India's FDI inflows grew by about 17.9% year-on-year to reach around USD 55.6 billion.<br>2. The government has permitted 100% FDI under the automatic route in the insurance sector.<br>3. The 'Small Yard, High Fence' approach adopted in early 2026 refers to a complete prohibition of FDI from all land-bordering countries.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 2 and 3",
+            "All of the above",
+            "Only two of the statements are correct",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "The Economic Survey 2025-26 recorded FDI inflows growth of about 17.9% to reach USD 55.6 billion, and the government raised the insurance sector's FDI cap to 100% under the automatic route, making statements 1 and 2 correct. However, the 'Small Yard, High Fence' approach actually relaxed norms to allow limited (up to 10%) beneficial ownership from land-bordering countries via the automatic route rather than imposing a complete prohibition, so statement 3 is incorrect."
+    },
+    {
+        q: "Consider the following statements with respect to exchange rate concepts used in India's external sector analysis: <br> 1. The Nominal Effective Exchange Rate (NEER) is a weighted average of India's bilateral nominal exchange rates against a basket of currencies of major trading partners.<br>2. The Real Effective Exchange Rate (REER) adjusts the NEER for relative inflation differentials between India and its trading partners.<br>3. A rise in India's REER indicates a real depreciation of the rupee, making Indian exports more price-competitive.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "Exactly two of the statements are correct",
+            "Only one of the statements is correct",
+            "None of the above"
+        ],
+        ans: 1,
+        exp: "NEER measures the weighted nominal value of the rupee against a currency basket, while REER further adjusts NEER for inflation differentials to reflect real purchasing power, making statements 1 and 2 correct. A rise in REER actually signals real appreciation (not depreciation) of the rupee, which tends to make exports less, not more, competitive, so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to recent reforms (2025-2026) concerning capital account transactions in India, consider the following statements: <br> 1. The SWAGAT-FI framework provides a single-window digital onboarding and KYC mechanism for eligible foreign portfolio and venture capital investors.<br>2. The SWAGAT-FI framework was notified by the Reserve Bank of India in December 2025.<br>3. The draft FEMA (Foreign Investment) Rules, 2026 aim to simplify and consolidate the regulatory framework governing foreign investment in India.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All three statements are correct",
+            "None of the statements are correct",
+            "Only two of the statements are correct",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "SWAGAT-FI offers a unified single-window onboarding gateway for foreign portfolio investors and foreign venture capital investors, and the draft FEMA (Foreign Investment) Rules, 2026 seek to simplify the dense existing regulatory framework, making statements 1 and 3 correct. However, SWAGAT-FI was notified by SEBI (not the RBI) on December 1, 2025, so statement 2 is incorrect."
+    },
+    {
+        q: "With reference to India's Foreign Trade Policy (FTP) 2023, consider the following statements: <br> 1. The FTP 2023 is structured around four pillars: Incentive to Remission, Export Promotion through Collaboration, Ease of Doing Business, and Emerging Areas.<br>2. Unlike earlier Foreign Trade Policies, the FTP 2023 does not have a fixed five-year validity period and is open-ended.<br>3. The FTP is formulated and administered by the Reserve Bank of India.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 2",
+            "1 and 2 only",
+            "All of the above",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "The FTP 2023, effective from April 1, 2023, rests on the four pillars mentioned and, unlike previous five-year policies, is open-ended with revisions made as and when required, making statements 1 and 2 correct. However, the FTP is formulated, controlled, and administered by the Directorate General of Foreign Trade (DGFT), an attached office of the Ministry of Commerce and Industry, and not by the RBI, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to India's External Commercial Borrowings (ECB) framework, consider the following statements: <br> 1. ECBs in India are regulated under the Foreign Exchange Management (Borrowing and Lending) Regulations, 2018, issued under FEMA, 1999.<br>2. In October 2025, the RBI released a draft ECB framework proposing a shift from a detailed prescriptive approach to a net-worth-linked, principle-based approach.<br>3. Under the current framework, ECBs can be raised only through the Government Approval Route, as the Automatic Route has been discontinued.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "None of the statements are correct",
+            "Exactly one of the statements is correct",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "ECBs are governed by regulations issued under FEMA, 1999, and in October 2025 the RBI released draft ECB regulations proposing a transition to a principle-based, net-worth-linked approach to simplify compliance, making statements 1 and 2 correct. However, eligible borrowers can still raise ECBs under both the Automatic Route and the Approval Route, so statement 3, which claims the Automatic Route has been discontinued, is incorrect."
+    },
+    {
+        q: "With reference to the concept of 'Balance of Trade' in the context of India's external sector, consider the following statements: <br> 1. Balance of Trade refers to the difference between the value of a country's exports and imports of both goods and services.<br>2. Balance of Trade (merchandise trade balance) is a sub-component of the Current Account in India's Balance of Payments.<br>3. A trade deficit necessarily indicates deteriorating macroeconomic health of an economy.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 3 alone",
+            "Statement 2 alone",
+            "2 and 3 only",
+            "Both 1 and 3"
+        ],
+        ans: 1,
+        exp: "Balance of Trade, strictly speaking, refers only to the difference between the value of merchandise (goods) exports and imports; trade in services is accounted for separately, so statement 1 is incorrect. This merchandise trade balance is indeed a sub-component of the Current Account, making statement 2 correct, but a trade deficit does not necessarily signal poor macroeconomic health, as it can also reflect strong domestic demand or investment-led growth, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the Current Account of India's Balance of Payments, consider the following statements: <br> 1. The Current Account records transactions relating to trade in goods and services, primary income, and secondary income (unilateral transfers).<br>2. A Current Account Deficit implies that a country is, on net, borrowing resources from the rest of the world to finance its consumption and investment.<br>3. Remittances sent by Non-Resident Indians (NRIs) to India are recorded under the Capital Account.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "None of the above",
+            "Both 2 and 3",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "The Current Account covers trade in goods and services, primary income (like investment income), and secondary income (unilateral transfers), and a deficit on this account implies the country is a net borrower from abroad to finance the gap, making statements 1 and 2 correct. However, NRI remittances are classified as unilateral transfers and recorded under the Current Account (secondary income), not the Capital Account, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to India's foreign exchange reserves and their management, consider the following statements: <br> 1. The Reserve Bank of India is the custodian and manager of India's foreign exchange reserves.<br>2. India's foreign exchange reserves comprise foreign currency assets, gold, Special Drawing Rights (SDRs), and the Reserve Tranche Position in the IMF.<br>3. The RBI intervenes in the foreign exchange market with the primary objective of maintaining a fixed exchange rate for the rupee.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 3 alone",
+            "Exactly two of the statements are correct",
+            "1, 2 and 3",
+            "None of the statements are correct"
+        ],
+        ans: 1,
+        exp: "The RBI acts as custodian of India's foreign exchange reserves, which comprise foreign currency assets, gold, SDRs, and the Reserve Tranche Position in the IMF, making statements 1 and 2 correct. India follows a market-determined, managed floating exchange rate regime, and the RBI intervenes only to curb excessive volatility rather than to maintain any fixed exchange rate, so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to major reforms in India's foreign exchange management, consider the following statements: <br> 1. The Liberalized Exchange Rate Management System (LERMS), introduced in 1992, adopted a dual exchange rate system as a transitional step toward a market-determined exchange rate.<br>2. The Foreign Exchange Management Act (FEMA), 1999 replaced the earlier Foreign Exchange Regulation Act (FERA), 1973.<br>3. India adopted full convertibility of the rupee on the current account in 1994 based on the recommendations of the Tarapore Committee.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "Only one of the statements is correct",
+            "1 and 3 only",
+            "Both 2 and 3"
+        ],
+        ans: 0,
+        exp: "LERMS (1992) introduced a dual exchange rate mechanism as a transition to a market-determined rate, and FEMA, 1999 replaced the more stringent FERA, 1973, making statements 1 and 2 correct. However, current account convertibility in 1994 was based on the recommendations of the C. Rangarajan-led High Level Committee on Balance of Payments, not the Tarapore Committee, which was constituted later (1997) to examine capital account convertibility, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the legal framework governing India's foreign trade, consider the following statements: <br> 1. The Foreign Trade Policy is formulated and announced under Section 5 of the Foreign Trade (Development and Regulation) Act, 1992.<br>2. The Foreign Trade (Development and Regulation) Act, 1992 replaced the earlier Imports and Exports (Control) Act, 1947.<br>3. The Foreign Trade (Development and Regulation) Amendment Act, 2010 empowered the Central Government to impose quantitative restrictions on imports as a safeguard measure.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "All of the statements are correct",
+            "Statement 1 alone",
+            "Statement 3 alone"
+        ],
+        ans: 1,
+        exp: "Section 5 of the FTDR Act, 1992 empowers the Central Government to formulate and announce the Foreign Trade Policy, and this Act itself replaced the earlier Imports and Exports (Control) Act, 1947, making statements 1 and 2 correct. Further, the FTDR Amendment Act, 2010 inserted Section 9A, empowering the government to impose quantitative restrictions as a safeguard measure against a surge in imports, making statement 3 correct as well."
+    },
+    {
+        q: "With reference to India's merchandise trade in the recent period, consider the following statements: <br> 1. India's merchandise trade deficit widened to a record high of about USD 41.68 billion in October 2025.<br>2. India's trade deficit with China touched a record high of about USD 116 billion in 2025.<br>3. In February 2026, the United States imposed a permanent 50% tariff on all Indian goods.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 2",
+            "Both 2 and 3",
+            "Only statement 3",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "India's merchandise trade deficit hit a record USD 41.68 billion in October 2025, and its trade deficit with China touched a record USD 116 billion during 2025, making statements 1 and 2 correct. However, in late February 2026 the US imposed only a temporary 10% tariff on Indian goods (alongside standard MFN rates) after its Supreme Court struck down earlier higher tariffs, not a permanent 50% tariff, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to Special Drawing Rights (SDRs) issued by the International Monetary Fund (IMF), consider the following statements: <br> 1. SDR is an international reserve asset created by the IMF to supplement member countries' official foreign exchange reserves.<br>2. The value of the SDR is determined daily based on a basket of five currencies: the US Dollar, Euro, Chinese Renminbi, Japanese Yen, and British Pound.<br>3. SDRs can be directly used by a member country to pay for its imports without first being exchanged for a freely usable currency.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 2 and 3",
+            "Exactly two of the statements are correct",
+            "Both 1 and 3",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 1,
+        exp: "The SDR is a reserve asset created by the IMF, and its value is based on a basket of five currencies (USD, Euro, Renminbi, Yen, and Pound Sterling), making statements 1 and 2 correct. However, the SDR is not itself a currency and cannot be directly used for import payments; it must first be exchanged by member countries for a freely usable currency, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to India's Balance of Payments (BoP), consider the following statements: <br> 1. 'Errors and Omissions' is a balancing item included in the BoP statement to account for statistical discrepancies between recorded credits and debits.<br>2. External assistance received by the Government of India is recorded under the Capital Account of the BoP.<br>3. A Balance of Payments crisis occurs when a country holds sufficient foreign exchange reserves to comfortably meet its import bill and other external obligations.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 2 and 3",
+            "Statement 2 alone",
+            "1 and 2 only",
+            "Statement 3 alone"
+        ],
+        ans: 2,
+        exp: "'Errors and Omissions' is included as a balancing item to reconcile statistical discrepancies in BoP recording, and external assistance (loans from foreign governments/institutions) is recorded under the Capital Account, making statements 1 and 2 correct. A BoP crisis, however, refers to a situation where a country lacks adequate foreign exchange reserves to meet its import bill and external obligations, the opposite of what statement 3 claims, making it incorrect."
+    },
+    {
+        q: "With reference to the features of Capital Account transactions in India's Balance of Payments, consider the following statements: <br> 1. Capital Account transactions include external assistance, external commercial borrowings, and foreign investment (FDI and FPI).<br>2. Capital Account transactions typically lead to a change in the level of a country's external financial assets or liabilities.<br>3. Unlike Current Account transactions, Capital Account transactions do not have any effect on a country's foreign exchange reserves.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "Both 1 and 2",
+            "All of the statements are correct",
+            "Only statement 3"
+        ],
+        ans: 1,
+        exp: "Capital Account transactions cover external assistance, ECBs, and foreign investment, and by definition they change the stock of a country's external assets or liabilities, making statements 1 and 2 correct. Capital inflows and outflows, however, directly affect the level of foreign exchange reserves (alongside Current Account flows), so statement 3, which claims no such effect, is incorrect."
+    },
+    {
+        q: "With reference to the structure and composition of India's Capital Account, consider the following statements: <br> 1. India's Capital Account is broadly classified into Foreign Investment, Loans, Banking Capital, and Rupee Debt Service.<br>2. Non-Resident Indian (NRI) deposits form a part of Banking Capital under India's Capital Account.<br>3. External Commercial Borrowings (ECBs) are classified under the 'Foreign Investment' head of India's Capital Account.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "All of the statements are correct",
+            "Only two of the statements are correct",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "India's Capital Account is conventionally classified into Foreign Investment, Loans, Banking Capital, and Rupee Debt Service, with NRI deposits forming a component of Banking Capital, making statements 1 and 2 correct. However, ECBs are classified under the 'Loans' head (along with external assistance), while 'Foreign Investment' refers specifically to FDI and FPI, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to reforms in India's trade regime aimed at correcting its Balance of Trade, consider the following statements: <br> 1. India removed the last remaining quantitative restrictions (QRs) on imports of nearly 715 items in April 2001, in line with its WTO commitments.<br>2. The Abid Hussain Committee (1991) recommended trade policy reforms, including reduction of import licensing and tariff rationalization, to promote export competitiveness.<br>3. The removal of QRs led to a sudden and continuous trade surplus for India throughout the 2000s.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the statements are correct",
+            "Both 1 and 2",
+            "Statement 1 alone",
+            "Statement 3 alone"
+        ],
+        ans: 1,
+        exp: "India phased out the last remaining quantitative restrictions on imports of about 715 items in April 2001 to meet its WTO obligations, and the Abid Hussain Committee (1990-91) had earlier recommended reducing import licensing and rationalizing tariffs to boost export competitiveness, making statements 1 and 2 correct. However, India continued to record trade deficits through most of the 2000s despite QR removal, so statement 3, which claims a continuous trade surplus, is incorrect."
+    },
+    {
+        q: "With reference to the features of India's exchange rate regime, consider the following statements: <br> 1. India follows a market-determined, managed floating exchange rate regime.<br>2. Under the current regime, the RBI publishes a daily reference rate for the rupee, but the exchange rate is primarily determined by market forces of demand and supply.<br>3. India's exchange rate regime provides for full convertibility of the rupee on both the Current Account and the Capital Account.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "Statement 3 alone",
+            "1 and 2 only",
+            "All of the above"
+        ],
+        ans: 2,
+        exp: "India has followed a market-determined, managed floating exchange rate regime since 1993, under which the RBI publishes a daily reference rate while market forces primarily determine the rupee's value, making statements 1 and 2 correct. However, India has full convertibility only on the Current Account (since 1994); the Capital Account remains only partially convertible, so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to the background and evolution of Foreign Portfolio Investment (FPI) in India, consider the following statements: <br> 1. Foreign Institutional Investors (FIIs) were first permitted to invest in the Indian securities market in September 1992, following the post-1991 liberalization reforms.<br>2. In 2014, SEBI merged the erstwhile categories of FIIs, their sub-accounts, and Qualified Foreign Investors (QFIs) into a unified category called Foreign Portfolio Investors (FPIs).<br>3. The SEBI (FPI) Regulations, 2019 mandated that all FPI investments be routed only through the Government Approval Route.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "All three statements are correct",
+            "Only one of the statements is correct",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 0,
+        exp: "FIIs were permitted to invest in Indian securities markets from September 1992 as part of post-liberalization reforms, and in 2014 SEBI merged FIIs, their sub-accounts, and QFIs into the unified FPI category, making statements 1 and 2 correct. However, FPI investments are generally permitted through the automatic portfolio investment route and not routed only through the Government Approval Route (which applies to certain sensitive FDI sectors), making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the background and evolution of India's Current Account regime, consider the following statements: <br> 1. India accepted the obligations of Article VIII of the IMF's Articles of Agreement in August 1994, marking full convertibility on the Current Account.<br>2. Prior to the 1991 reforms, India followed a fixed exchange rate regime, with the rupee pegged to a basket of currencies.<br>3. The Liberalized Exchange Rate Management System (LERMS), introduced in 1992, established full convertibility on the Current Account for the first time.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 2 and 3",
+            "Both 1 and 2",
+            "Only statement 3",
+            "Only statement 1"
+        ],
+        ans: 1,
+        exp: "India accepted Article VIII obligations of the IMF in August 1994, achieving full Current Account convertibility, and prior to 1991 the rupee was pegged to a basket of currencies under a fixed exchange rate regime, making statements 1 and 2 correct. However, LERMS (1992) introduced only a dual/partial exchange rate mechanism as a transitional step, not full Current Account convertibility, which came only in 1994, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the challenges associated with India's Balance of Payments (BoP), consider the following statements: <br> 1. A persistently widening Current Account Deficit can increase a country's reliance on volatile capital flows, such as FPI, to finance the resulting gap.<br>2. Excessive dependence on unhedged External Commercial Borrowings can increase a country's external debt vulnerability to currency depreciation.<br>3. A Balance of Payments crisis is impossible under a floating exchange rate regime and can only occur under a fixed exchange rate regime.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "Both 1 and 2",
+            "Exactly one of the statements is correct",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "A widening CAD often has to be financed by volatile capital inflows like FPI, increasing vulnerability to sudden reversals, and unhedged external borrowings expose the borrower to currency risk if the domestic currency depreciates, making statements 1 and 2 correct. However, BoP crises are not confined to fixed exchange rate regimes; sharp currency depreciation, reserve depletion, or capital flight can also trigger a BoP crisis under a floating regime, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to recent developments (2025-2026) related to India's Foreign Trade Policy, consider the following statements: <br> 1. In March 2026, DGFT extended the Export Obligation Period for Advance Authorisation and EPCG Authorisation holders till August 31, 2026, citing disruptions to global shipping routes and supply chains.<br>2. DGFT has constituted an Inter-Ministerial Group to assess the impact of recent geopolitical developments on India's exports and supply chain vulnerabilities.<br>3. In January 2025, DGFT amended the FTP, 2023 to make stakeholder consultation legally mandatory before formulating or amending the policy.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 2 and 3",
+            "2 only",
+            "All of the statements are correct",
+            "None of the above"
+        ],
+        ans: 2,
+        exp: "DGFT extended the Export Obligation Period for Advance and EPCG Authorisations to August 31, 2026, citing geopolitical disruptions to shipping and logistics, and separately constituted an Inter-Ministerial Group to assess export vulnerabilities from ongoing geopolitical developments, making statements 1 and 2 correct. DGFT also amended the FTP, 2023 in January 2025 to legally mandate stakeholder consultations for greater transparency in policy formulation, making statement 3 correct as well."
+    },
+    {
+        q: "With reference to reforms undertaken to address India's Balance of Payments (BoP) crisis of 1991, consider the following statements: <br> 1. India approached the IMF for a loan under a Structural Adjustment Programme following a severe crisis triggered by rapidly depleting foreign exchange reserves.<br>2. The rupee was devalued in two stages in July 1991 as part of the stabilization measures to correct the BoP situation.<br>3. The High Level Committee that examined India's BoP situation and recommended a roadmap for Current Account convertibility was headed by C. Rangarajan.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 3 alone",
+            "Exactly two of the statements are correct",
+            "None of the above",
+            "All of the above"
+        ],
+        ans: 3,
+        exp: "Facing a severe foreign exchange crisis in 1991, India approached the IMF for assistance under a Structural Adjustment Programme, and as part of the stabilization measures, the rupee was devalued in two stages in July 1991, making statements 1 and 2 correct. The High Level Committee on Balance of Payments, headed by C. Rangarajan, subsequently examined India's BoP situation and recommended the roadmap for Current Account convertibility, adopted in 1994, making statement 3 correct as well."
+    },
+    {
+        q: "With reference to the concept of 'Balance of Trade', consider the following statements: <br> 1. Balance of Trade is calculated as the difference between the value of a country's visible (merchandise) exports and imports.<br>2. Balance of Trade is also referred to as the 'Balance of Merchandise Trade' or simply the 'Trade Balance'.<br>3. Balance of Trade includes trade in invisibles, such as software services exports and remittances.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "Only one of the statements is correct",
+            "Exactly one of the statements is correct",
+            "Only two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "Balance of Trade is defined as the difference between the value of a country's visible merchandise exports and imports, and it is interchangeably called the Balance of Merchandise Trade or Trade Balance, making statements 1 and 2 correct. Trade in invisibles, such as services and remittances, is accounted for separately under other heads of the Current Account and is not part of the Balance of Trade, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to India's trade statistics, consider the following statements: <br> 1. A country's Balance of Trade is said to be 'favourable' or in surplus when the value of its exports exceeds the value of its imports.<br>2. India has recorded an overall trade surplus in goods for most years since Independence.<br>3. Balance of Trade is a flow concept, typically measured over a specific period such as a month or a financial year.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All three statements are correct",
+            "Exactly two of the statements are correct",
+            "Both 2 and 3",
+            "Statement 1 alone"
+        ],
+        ans: 1,
+        exp: "A trade surplus (favourable Balance of Trade) occurs when exports exceed imports, and Balance of Trade is indeed a flow variable measured over a defined period, making statements 1 and 3 correct. However, India has predominantly run merchandise trade deficits for most years since Independence, largely due to its heavy dependence on crude oil and gold imports, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to recent trends (2025-2026) in Foreign Portfolio Investment (FPI) flows into India, consider the following statements: <br> 1. As per SEBI's Annual Report, FPIs recorded a net outflow of about Rs 1.27 lakh crore from Indian equities in FY 2024-25, the second-largest annual equity outflow on record.<br>2. Calendar year 2025 saw the largest-ever annual FPI outflow from Indian equities, at around Rs 1.6-1.66 lakh crore.<br>3. Despite sustained equity outflows, FPIs recorded robust net inflows into the Indian debt segment during FY 2024-25.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "Both 2 and 3",
+            "All of the above",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 2,
+        exp: "SEBI's Annual Report recorded a net FPI equity outflow of about Rs 1.27 lakh crore in FY 2024-25 (the second-largest on record after 2021-22), while calendar year 2025 as a whole saw an even larger record outflow of around Rs 1.6-1.66 lakh crore, driven by rupee depreciation, elevated valuations, and global trade tensions, making statements 1 and 2 correct. At the same time, FPIs remained net buyers in the debt segment, registering inflows of about Rs 1.4 lakh crore in FY 2024-25, making statement 3 correct as well."
+    },
+    {
+        q: "With reference to the historical evolution of India's exchange rate regime, consider the following statements: <br> 1. India followed a fixed exchange rate regime, with the rupee pegged to the British Pound Sterling, until 1966.<br>2. India devalued the rupee in June 1966 in response to a severe Balance of Payments crisis.<br>3. India adopted a fully free-floating exchange rate system for the rupee starting in 1975.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "Exactly one of the statements is correct",
+            "1 and 3 only",
+            "None of the statements are correct"
+        ],
+        ans: 0,
+        exp: "India's rupee was pegged to the British Pound Sterling under a fixed exchange rate system until 1966, when it was devalued sharply in response to a severe Balance of Payments crisis, making statements 1 and 2 correct. However, in 1975 India adopted a basket-peg system, linking the rupee to a basket of currencies of major trading partners, rather than a fully free float, which came about only later as part of the post-1991 reforms; hence statement 3 is incorrect."
+    },
+    {
+        q: "With reference to the challenges associated with Capital Account transactions, consider the following statements: <br> 1. Volatile short-term capital flows, particularly Foreign Portfolio Investment, can amplify exchange rate volatility during episodes of global risk aversion.<br>2. Large and sustained capital account surpluses can complicate monetary policy management by generating excess domestic liquidity and appreciating the domestic currency.<br>3. Full Capital Account Convertibility eliminates the possibility of a currency crisis, regardless of a country's underlying macroeconomic fundamentals.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 2 alone",
+            "1 and 2 only",
+            "Both 1 and 3",
+            "Only statement 3"
+        ],
+        ans: 1,
+        exp: "Volatile FPI flows can amplify exchange rate swings during global risk-off episodes, and large capital account surpluses can complicate monetary policy by fueling excess liquidity and currency appreciation, making statements 1 and 2 correct. Full Capital Account Convertibility, however, does not eliminate currency crisis risk; in fact, it can heighten vulnerability to sudden capital flight if macroeconomic fundamentals are weak, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the Current Account of India's Balance of Payments, consider the following statements: <br> 1. Payment of interest on External Commercial Borrowings is recorded under the Current Account as part of primary income outflows.<br>2. Grants and donations received by the Government of India from foreign governments are recorded under the Capital Account.<br>3. India has consistently recorded a Current Account surplus during most years since the 1991 economic reforms.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "Only one of the statements is correct",
+            "Only two of the statements are correct",
+            "All of the statements are correct"
+        ],
+        ans: 1,
+        exp: "Interest payments on external borrowings represent investment income flows and are correctly recorded under the primary income component of the Current Account, making statement 1 correct. However, grants and donations are unilateral transfers recorded under the Current Account (secondary income), not the Capital Account, and India has run a Current Account deficit in most years since 1991 (barring a few exceptional quarters, such as during the pandemic), making statements 2 and 3 incorrect."
+    },
+    {
+        q: "With reference to the historical background of India's foreign exchange management, consider the following statements: <br> 1. India followed a fixed exchange rate regime, with the rupee linked to the British Pound Sterling, until 1966.<br>2. Following the collapse of the Bretton Woods System in the early 1970s, India adopted a basket-peg system in 1975, linking the rupee's value to a basket of currencies of its major trading partners.<br>3. The Foreign Exchange Regulation Act (FERA), 1973 was enacted with the objective of conserving foreign exchange and regulating its proper utilisation in the interest of the economic development of the country.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "All of the statements are correct",
+            "Both 1 and 3",
+            "Only one of the statements is correct"
+        ],
+        ans: 1,
+        exp: "The rupee was pegged to the British Pound Sterling under a fixed regime until 1966, and following the breakdown of the Bretton Woods System, India moved to a basket-peg mechanism in 1975 to link the rupee's value to a basket of trading partner currencies, making statements 1 and 2 correct. FERA, 1973 was indeed enacted with the stated objective of conserving foreign exchange and ensuring its proper utilisation for the country's economic development, making statement 3 correct as well."
+    },
+    {
+        q: "With reference to the challenges associated with Foreign Direct Investment (FDI) in India, consider the following statements: <br> 1. Volatile global capital markets and geopolitical uncertainties can affect the predictability of FDI inflows into India.<br>2. Excessive concentration of FDI in non-productive or speculative sectors, such as real estate speculation, can limit its long-term developmental benefits.<br>3. FDI inflows are always fully hedged against exchange rate risk, unlike External Commercial Borrowings.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "Exactly one of the statements is correct",
+            "1 and 3 only",
+            "None of the above"
+        ],
+        ans: 0,
+        exp: "Global market volatility and geopolitical uncertainty genuinely affect the predictability of FDI inflows, and concentration of FDI in speculative sectors can limit its capacity to generate productive, technology-driven growth, making statements 1 and 2 correct. However, FDI, being equity investment, carries inherent exchange rate risk on repatriation of profits or divestment and is not 'always fully hedged'; there is no automatic hedging mechanism that distinguishes it in this way from ECBs, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the legal and policy framework governing Capital Account transactions in India, consider the following statements: <br> 1. Capital Account transactions in India are regulated under the Foreign Exchange Management (Permissible Capital Account Transactions) Regulations, 2000, issued under FEMA, 1999.<br>2. The Reserve Bank of India Act, 1934 is the primary legislation governing Capital Account transactions in India.<br>3. The Tarapore Committee (1997) laid down a roadmap and preconditions for achieving full Capital Account Convertibility in India.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "None of the statements are correct",
+            "1 and 2 only",
+            "Statement 1 alone"
+        ],
+        ans: 0,
+        exp: "Capital Account transactions are regulated under the Foreign Exchange Management (Permissible Capital Account Transactions) Regulations, 2000, framed under FEMA, 1999, and the Tarapore Committee (1997) laid down the roadmap and preconditions for achieving full Capital Account Convertibility, making statements 1 and 3 correct. The RBI Act, 1934, however, primarily governs the establishment, functions, and powers of the Reserve Bank itself, not Capital Account transactions, which fall under FEMA, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to the legal and statistical framework of India's Balance of Payments (BoP), consider the following statements: <br> 1. The RBI compiles and publishes India's Balance of Payments statistics in accordance with the IMF's Balance of Payments and International Investment Position Manual (BPM6).<br>2. India transitioned from the BPM5 to the BPM6 presentation format for its Balance of Payments statistics.<br>3. The Foreign Exchange Regulation Act (FERA), 1973 continues to be the governing law for Balance of Payments-related transactions in India.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "Statement 2 alone",
+            "Exactly two of the statements are correct",
+            "Both 1 and 3"
+        ],
+        ans: 2,
+        exp: "The RBI compiles India's BoP statistics as per the IMF's BPM6 framework, having transitioned from the earlier BPM5 presentation format, making statements 1 and 2 correct. FERA, 1973, however, was repealed and replaced by FEMA, 1999, which is the current governing law for foreign exchange and BoP-related transactions, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the structure of India's exchange rate system, consider the following statements: <br> 1. India's exchange rate policy operates under a market-determined system, wherein the RBI intervenes only to curb excessive volatility rather than to target a specific exchange rate.<br>2. The Real Effective Exchange Rate (REER) index is calculated using a trade-weighted basket of currencies of India's major trading partners.<br>3. The rupee's exchange rate is composed solely of its value against the US Dollar, since India's foreign exchange reserves are held exclusively in dollars.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "2 only",
+            "Both 1 and 3",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "India follows a market-determined exchange rate system with RBI intervention aimed only at curbing excessive volatility, and the REER is computed using a trade-weighted basket of trading-partner currencies, making statements 1 and 2 correct. However, the rupee's exchange rate is quoted and tracked against multiple major currencies, not the US Dollar alone, and India's forex reserves comprise a mix of currencies, gold, SDRs, and the Reserve Tranche Position rather than being held exclusively in dollars, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the structure and composition of India's foreign exchange reserves, consider the following statements: <br> 1. India's foreign exchange reserves are structured into four components: Foreign Currency Assets, Gold, Special Drawing Rights (SDRs), and the Reserve Tranche Position (RTP) in the IMF.<br>2. Foreign Currency Assets constitute the largest share of India's total foreign exchange reserves.<br>3. The RBI holds its foreign currency assets exclusively in the form of physical foreign currency notes stored within India.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "2 only",
+            "Both 1 and 3",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 0,
+        exp: "India's forex reserves comprise Foreign Currency Assets, Gold, SDRs, and the Reserve Tranche Position in the IMF, with Foreign Currency Assets forming by far the largest share, making statements 1 and 2 correct. However, the RBI holds its foreign currency assets in diverse forms such as foreign government securities and deposits with other central banks and the Bank for International Settlements, not exclusively as physical currency notes stored within India, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to recent developments (2025-2026) concerning the Indian rupee's exchange rate, consider the following statements: <br> 1. The rupee crossed the 90-per-US-Dollar mark for the first time in early January 2026.<br>2. The rupee was among the worst-performing major Asian currencies in 2025, having lost around 5% of its value against the US Dollar over the year.<br>3. In January 2026, the RBI introduced curbs on speculative foreign exchange forward transactions and tightened banks' foreign exchange position limits, which helped the rupee strengthen back below the 90 mark.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the above",
+            "Both 1 and 3",
+            "3 only",
+            "1 only"
+        ],
+        ans: 0,
+        exp: "The rupee breached the 90-per-dollar mark for the first time in early January 2026, having lost around 5% in 2025 to become the worst-performing major Asian currency amid steep US tariffs, making statements 1 and 2 correct. Subsequently, the RBI tightened curbs on speculative forward transactions and banks' foreign exchange positions in January 2026, which triggered dollar selling and helped the rupee recover to below the 90 mark, making statement 3 correct as well."
+    },
+    {
+        q: "With reference to the structure and composition of India's Current Account, consider the following statements: <br> 1. India's Current Account is structured into four broad components: Merchandise Trade, Services, Primary Income, and Secondary Income.<br>2. Software and IT-enabled services exports form a major part of the Services component of India's Current Account.<br>3. Secondary Income primarily comprises unilateral transfers, such as remittances from Non-Resident Indians.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 3",
+            "Only statement 1",
+            "All of the above",
+            "None of the statements are correct"
+        ],
+        ans: 2,
+        exp: "India's Current Account is conventionally structured into Merchandise Trade, Services, Primary Income, and Secondary Income, with software and IT-enabled services exports forming a major share of the Services component, making statements 1 and 2 correct. Secondary Income indeed primarily comprises unilateral transfers such as NRI remittances, which have been a major and stable source of current account receipts for India, making statement 3 correct as well."
+    },
+    {
+        q: "With reference to the fundamental features of the Balance of Payments (BoP), consider the following statements: <br> 1. Balance of Payments is a systematic record of a country's economic transactions with the rest of the world over a specific period, typically a financial year.<br>2. By the fundamental principle of double-entry bookkeeping, the overall Balance of Payments (Current Account plus Capital Account plus Errors and Omissions) always balances.<br>3. A surplus on the Current Account always implies an equal and simultaneous surplus on the Capital Account.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "Only statement 3",
+            "None of the above"
+        ],
+        ans: 1,
+        exp: "The BoP is indeed a systematic record of a country's transactions with the rest of the world over a period, and it always balances overall as a matter of double-entry bookkeeping (with reserve changes acting as the balancing item), making statements 1 and 2 correct. However, a Current Account surplus corresponds to a net capital outflow (a deficit on the non-reserve Capital Account, as the country effectively lends to the rest of the world), not a simultaneous surplus, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to trends in India's external debt, consider the following statements: <br> 1. India's external debt is classified, based on original maturity, into Long-term and Short-term debt.<br>2. Short-term external debt, with an original maturity of up to one year, forms the largest component of India's total external debt stock.<br>3. Commercial borrowings (including External Commercial Borrowings) constitute one of the major components of India's long-term external debt.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "1 and 2 only",
+            "None of the statements are correct",
+            "Only one of the statements is correct"
+        ],
+        ans: 0,
+        exp: "India's external debt is classified by original maturity into long-term and short-term debt, and commercial borrowings (including ECBs) form one of the major components of the long-term debt stock, making statements 1 and 3 correct. However, long-term external debt, not short-term debt, has consistently constituted the largest share of India's total external debt, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to the background and evolution of India's Capital Account liberalization, consider the following statements: <br> 1. India's Capital Account has been progressively liberalized since the 1991 reforms, though full convertibility has not yet been achieved.<br>2. The Sodhani Committee (1995) recommended measures to develop and deepen India's foreign exchange market as a precursor to greater capital account liberalization.<br>3. The second Tarapore Committee (2006) revisited the roadmap for 'fuller' Capital Account Convertibility and recommended its phased implementation over five years.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "Exactly one of the statements is correct",
+            "Statement 3 alone",
+            "All of the above"
+        ],
+        ans: 3,
+        exp: "India has progressively liberalized its Capital Account since the 1991 reforms while retaining only partial convertibility, and the Sodhani Committee (1995) recommended measures to deepen and widen the forex market as groundwork for capital account liberalization, making statements 1 and 2 correct. The second Tarapore Committee, constituted in 2006, revisited the roadmap for 'fuller' Capital Account Convertibility and recommended a phased five-year implementation, making statement 3 correct as well."
+    },
+    {
+        q: "With reference to constitutional provisions relating to foreign exchange in India, consider the following statements: <br> 1. 'Currency, coinage and legal tender; foreign exchange' is listed as Entry 36 of the Union List in the Seventh Schedule of the Constitution.<br>2. 'Foreign loans' is listed as a separate entry (Entry 37) of the Union List in the Seventh Schedule.<br>3. Matters relating to foreign exchange fall under the Concurrent List, allowing both Parliament and State Legislatures to legislate on them.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 and 2 only",
+            "All three statements are correct",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "The Seventh Schedule's Union List includes 'Currency, coinage and legal tender; foreign exchange' as Entry 36 and 'Foreign loans' as a separate Entry 37, making statements 1 and 2 correct. Since foreign exchange falls under the Union List, it is a subject on which only Parliament has exclusive legislative power, not the Concurrent List, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to major reforms and recommendations concerning India's Foreign Trade Policy, consider the following statements: <br> 1. The Abid Hussain Committee (1990-91) recommended a shift from a restrictive import-licensing regime toward a more liberal, export-oriented trade policy.<br>2. The New Trade Policy of 1991 abolished import licensing for most capital goods and intermediates, barring a small negative list.<br>3. The Foreign Trade Policy, 2023 recommended restructuring of the Department of Commerce to make it more responsive to evolving trade requirements.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "Exactly two of the statements are correct",
+            "All of the above",
+            "Only one of the statements is correct"
+        ],
+        ans: 2,
+        exp: "The Abid Hussain Committee recommended liberalizing the restrictive import-licensing regime to promote exports, and the New Trade Policy of 1991 duly abolished import licensing for most capital goods and intermediates except for a small negative list, making statements 1 and 2 correct. The Foreign Trade Policy, 2023 also explicitly recommended restructuring of the Department of Commerce to make it 'future ready' and more responsive to trade needs, making statement 3 correct as well."
+    },
+    {
+        q: "With reference to the features and characteristics of India's external debt, consider the following statements: <br> 1. India's external debt is predominantly composed of long-term debt, which has consistently accounted for a much larger share than short-term debt.<br>2. Commercial borrowings (including External Commercial Borrowings) have traditionally been the largest single component of India's external debt.<br>3. US Dollar-denominated debt constitutes the smallest currency component of India's external debt.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 3",
+            "1 and 2 only",
+            "Statement 1 alone",
+            "3 only"
+        ],
+        ans: 1,
+        exp: "Long-term debt has consistently accounted for roughly 80% or more of India's total external debt, and commercial borrowings (ECBs) have traditionally been the single largest component by instrument, making statements 1 and 2 correct. However, US Dollar-denominated debt is actually the largest currency component of India's external debt (over 50% of the total), not the smallest, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to Capital Account transactions in India's Balance of Payments, consider the following statements: <br> 1. The Capital Account records transactions that lead to a change in the country's external financial assets and liabilities.<br>2. Non-Resident Indian (NRI) deposits are classified under 'Banking Capital' within the Capital Account.<br>3. Portfolio investment inflows are recorded under the 'Loans' category of the Capital Account, alongside External Commercial Borrowings.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 3 alone",
+            "Exactly two of the statements are correct",
+            "Both 1 and 3",
+            "All of the above"
+        ],
+        ans: 1,
+        exp: "The Capital Account by definition records transactions altering a country's external assets and liabilities, and NRI deposits are classified under 'Banking Capital' within it, making statements 1 and 2 correct. However, Portfolio Investment (FPI) is classified under the 'Foreign Investment' head of the Capital Account, separate from 'Loans' (which covers external assistance and ECBs), making statement 3 incorrect."
+    },
+    {
+        q: "With reference to Foreign Direct Investment (FDI), consider the following statements: <br> 1. FDI involves acquiring a lasting management interest, typically defined as 10% or more equity ownership, in an enterprise operating in an economy other than that of the investor.<br>2. FDI is generally considered more stable than Foreign Portfolio Investment because it is less prone to sudden reversal.<br>3. In India, all inbound FDI proposals mandatorily require prior approval of the Reserve Bank of India, regardless of the sector.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All three statements are correct",
+            "None of the above",
+            "Only two of the statements are correct",
+            "2 only"
+        ],
+        ans: 2,
+        exp: "FDI is internationally defined as an investment reflecting a lasting management interest, typically at least 10% equity ownership, and is widely regarded as more stable than FPI due to its long-term, illiquid nature, making statements 1 and 2 correct. However, most FDI in India is permitted under the Automatic Route without prior government or RBI approval, with only specific sensitive sectors requiring Government Route approval, so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to the structure and composition of Foreign Direct Investment (FDI) in India, consider the following statements: <br> 1. FDI in India is permitted through two routes: the Automatic Route and the Government Route.<br>2. Under the Automatic Route, the foreign investor or Indian company does not require prior approval from the Government or the RBI for the investment.<br>3. Equity capital, reinvested earnings, and other capital (such as inter-company debt) together constitute the components of Foreign Direct Investment.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "None of the above",
+            "All three statements are correct",
+            "2 only"
+        ],
+        ans: 2,
+        exp: "FDI in India is channeled through the Automatic Route (no prior approval needed) and the Government Route (requiring approval for specified sectors), making statements 1 and 2 correct. As per standard international and RBI classification, FDI comprises equity capital, reinvested earnings, and other capital such as inter-company debt transactions, making statement 3 correct as well."
+    },
+    {
+        q: "With reference to recent trends (2025-2026) in India's external debt, consider the following statements: <br> 1. India's external debt stood at about USD 747.2 billion at the end of June 2025, according to RBI data.<br>2. India's external debt-to-GDP ratio moderated to about 18.9% at the end of June 2025, down from 19.1% at the end of March 2025.<br>3. US Dollar-denominated debt remained the largest currency component of India's external debt at the end of March 2025, at about 54.2% of the total.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "1 and 2 only",
+            "All three statements are correct",
+            "Statement 1 alone"
+        ],
+        ans: 2,
+        exp: "RBI data confirms India's external debt stood at about USD 747.2 billion at end-June 2025, with the debt-to-GDP ratio moderating to about 18.9% from 19.1% at end-March 2025, making statements 1 and 2 correct. US Dollar-denominated debt also remained the largest currency component of India's external debt at end-March 2025, at around 54.2% of the total, followed by rupee-denominated, yen, SDR, and euro-denominated debt, making statement 3 correct as well."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-22 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

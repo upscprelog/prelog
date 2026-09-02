@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-25</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "With reference to a theme frequently tested in UPSC Prelims regarding the conditions favourable for the growth of Coral Reefs, consider the following statements: <br> 1. Coral reefs are generally restricted to tropical and sub-tropical waters where sea surface temperatures remain above 20Â°C.<br>2. Corals require clear, sediment-free water to allow adequate sunlight penetration for their symbiotic algae.<br>3. Coral reefs thrive best in waters of very low salinity, such as those found near major river mouths.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "Only one of the statements is correct",
+            "Statement 3 alone",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 0,
+        exp: "Reef-building corals need warm water above roughly 20Â°C and clear, sunlit conditions to sustain the photosynthetic zooxanthellae algae living within their tissues. Freshwater influx and sediment load near river mouths actually inhibit coral growth, since corals require normal to high salinity and clear water, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to features of Tides commonly tested in UPSC Prelims, consider the following statements: <br> 1. In a semi-diurnal tidal pattern, two high tides and two low tides of roughly equal height occur each lunar day.<br>2. The Bay of Fundy in Canada is well known for recording one of the highest tidal ranges in the world.<br>3. A 'mixed tide' pattern is characterised by two high and two low tides per day, with a marked difference in the height of successive highs or lows.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "None of the above",
+            "All of the above",
+            "Statement 1 alone"
+        ],
+        ans: 2,
+        exp: "Semi-diurnal tides bring two roughly equal high and low tides daily, the Bay of Fundy records the world's highest tidal range (over 15 metres at points), and mixed tides show two highs and two lows of noticeably unequal heights each day. All three statements are correct."
+    },
+    {
+        q: "With reference to a theme commonly tested in UPSC Prelims regarding La NiÃ±a, consider the following statements: <br> 1. La NiÃ±a is characterised by cooler-than-normal sea surface temperatures in the central and eastern equatorial Pacific Ocean.<br>2. La NiÃ±a years are generally associated with above-normal southwest monsoon rainfall in India.<br>3. La NiÃ±a is typically accompanied by a weakening of the easterly trade winds over the equatorial Pacific.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "All of the above",
+            "1 and 2 only",
+            "None of the above"
+        ],
+        ans: 2,
+        exp: "La NiÃ±a brings below-normal sea surface temperatures to the central-eastern equatorial Pacific and is generally linked with a stronger, above-normal southwest monsoon over India. It is actually accompanied by a strengthening, not a weakening, of the easterly trade winds, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to important Acts and policies governing Oceans and maritime zones in India, consider the following statements: <br> 1. The Territorial Waters, Continental Shelf, Exclusive Economic Zone and other Maritime Zones Act, 1976 is the principal domestic legislation defining India's maritime zones.<br>2. India ratified the United Nations Convention on the Law of the Sea (UNCLOS) in 1995.<br>3. The Environment (Protection) Act, 1986 has no bearing on the regulation of activities in India's coastal and marine areas.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 1 alone",
+            "1 and 2 only",
+            "Exactly one of the statements is correct",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "The 1976 Maritime Zones Act defines India's territorial waters, continental shelf, and EEZ, and India ratified UNCLOS in 1995. The Environment (Protection) Act, 1986 is in fact the parent legislation under which the Coastal Regulation Zone Notification is issued, giving it direct bearing on coastal and marine regulation, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the background and evolution of Coral Reefs, consider the following statements: <br> 1. Coral reefs are formed by colonies of tiny marine invertebrates called polyps that secrete calcium carbonate skeletons.<br>2. According to Charles Darwin's subsidence theory, atolls evolve through successive stages of fringing reefs and barrier reefs as a volcanic island gradually subsides.<br>3. The Great Barrier Reef, the world's largest coral reef system, is located along the eastern coast of India.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 3",
+            "1, 2 and 3",
+            "Exactly one of the statements is correct",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "Coral reefs are built up by colonial polyps secreting calcium carbonate skeletons, and Darwin's subsidence theory explains atoll formation as a volcanic island subsides while fringing and then barrier reefs continue growing upward. The Great Barrier Reef lies off the north-eastern coast of Australia, not India, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the features and characteristics of Tides, consider the following statements: <br> 1. Tides occur due to the combined gravitational pull of the Moon and the Sun, along with the centrifugal force generated by the Earth-Moon system.<br>2. The Moon's gravitational influence on tides is greater than that of the Sun because of its relative proximity to Earth, despite its much smaller mass.<br>3. A tidal 'bore' refers to a wave that travels up a river against the river's current, typically caused by an incoming tide funnelled into a narrowing estuary.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the statements are correct",
+            "Only one of the statements is correct",
+            "Statement 1 alone",
+            "None of the above"
+        ],
+        ans: 0,
+        exp: "Tides result from the gravitational pull of the Moon and Sun combined with the centrifugal effect of the Earth-Moon system, and the Moon's tide-generating force exceeds the Sun's due to its much closer distance despite its smaller mass. A tidal bore is indeed a wave that surges upstream against a river's flow when incoming tidal water is compressed into a narrowing, shallowing estuary. All three statements are correct."
+    },
+    {
+        q: "With reference to the structure and composition of La NiÃ±a, consider the following statements: <br> 1. La NiÃ±a represents the cold phase of the El NiÃ±o-Southern Oscillation (ENSO) cycle.<br>2. During La NiÃ±a, stronger-than-normal trade winds push warm surface water further towards the western Pacific, intensifying upwelling of cold water off South America.<br>3. La NiÃ±a conditions are associated with a weakening of the Walker Circulation over the equatorial Pacific.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "Only statement 2",
+            "Statement 3 alone",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "La NiÃ±a is the cool phase of ENSO, marked by strengthened trade winds pushing warm water westward and intensifying cold-water upwelling off the South American coast. This is accompanied by a strengthening, not a weakening, of the Walker Circulation, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the structure and composition of Marine Resources, consider the following statements: <br> 1. Marine resources can be broadly classified into living resources, such as fish and seaweed, and non-living resources, such as minerals and hydrocarbons.<br>2. Placer deposits found along continental shelves are an important source of minerals like ilmenite, rutile, and monazite.<br>3. Gas hydrates found beneath the ocean floor are composed mainly of methane trapped within a crystalline ice-like structure.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "Both 1 and 3",
+            "Only statement 1",
+            "All three statements are correct"
+        ],
+        ans: 3,
+        exp: "Marine resources span living forms like fish and seaweed and non-living resources like minerals and hydrocarbons; continental shelf placer deposits are indeed key sources of heavy minerals such as ilmenite, rutile, and monazite; and gas hydrates consist of methane molecules trapped within an ice-like crystalline lattice. All three statements are correct."
+    },
+    {
+        q: "With reference to the background and evolution of frameworks governing Marine Resources, consider the following statements: <br> 1. The concept of the deep seabed as the 'Common Heritage of Mankind' was formally adopted through a UN General Assembly Declaration in 1970.<br>2. The establishment of Exclusive Economic Zones (EEZs) as a distinct maritime zone was formally codified through UNCLOS, adopted in 1982.<br>3. India's engagement with deep-sea mineral exploration began only after the year 2000, with no prior 'Pioneer Investor' status.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 3",
+            "Both 1 and 3",
+            "Statement 2 alone",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "The UN General Assembly's 1970 Declaration established the principle that the deep seabed and its resources are the 'Common Heritage of Mankind', and UNCLOS, adopted in 1982, formally codified the EEZ as a distinct 200-nautical-mile maritime zone. India actually secured 'Pioneer Investor' status for polymetallic nodule exploration as early as 1987, well before 2000, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the challenges and issues associated with Ocean Pollution, consider the following statements: <br> 1. Plastic pollution in oceans poses a persistent challenge due to the slow degradation rate of most plastic materials.<br>2. Enforcement of international conventions on marine pollution is often hindered by the difficulty of monitoring activities on the high seas.<br>3. Land-based sources contribute a relatively minor share of total marine pollution compared to ship-based sources.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "Only statement 3",
+            "Exactly two of the statements are correct",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "Plastics can persist in the marine environment for decades or centuries, and the vastness and jurisdictional complexity of the high seas make monitoring and enforcement of pollution conventions difficult. Land-based activities, including agricultural runoff, sewage, and industrial discharge, actually account for the majority of marine pollution, not a minor share, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the background and evolution of Oceans, consider the following statements: <br> 1. Earth's oceans are believed to have formed primarily through the condensation of water vapour released by volcanic outgassing during the planet's early history.<br>2. The oceans are estimated to have existed for approximately the last 4 billion years, nearly as old as the Earth itself.<br>3. The shape and extent of ocean basins have remained completely unchanged since their formation, unaffected by plate tectonic processes.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "Both 1 and 3",
+            "All of the above",
+            "Only two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "Scientific consensus attributes the origin of Earth's oceans largely to volcanic outgassing, whose water vapour condensed as the planet cooled, with liquid oceans existing for roughly the last 4 billion years. Ocean basins have been continuously reshaped over geological time by plate tectonic processes such as seafloor spreading and subduction, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to institutional functions and powers relating to Ocean Pollution in India, consider the following statements: <br> 1. Under the National Oil Spill Disaster Contingency Plan (NOS-DCP), the Indian Coast Guard is designated as the Central Coordinating Authority for combating oil spills in Indian waters.<br>2. The Central Pollution Control Board (CPCB) is empowered to set standards for the discharge of pollutants into coastal and marine waters.<br>3. The Ministry of Earth Sciences has been assigned exclusive statutory authority for regulating all forms of marine pollution in India, to the exclusion of the Ministry of Environment, Forest and Climate Change.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 3",
+            "Only two of the statements are correct",
+            "2 and 3 only",
+            "Statement 2 alone"
+        ],
+        ans: 1,
+        exp: "The Indian Coast Guard functions as the Central Coordinating Authority for oil spill response under the NOS-DCP, and the CPCB sets and enforces effluent and discharge standards for coastal and marine waters. Pollution control functions rest primarily with the Ministry of Environment, Forest and Climate Change and the CPCB, not with the Ministry of Earth Sciences exclusively, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to important Acts and policies concerning the protection of Coral Reefs in India, consider the following statements: <br> 1. Coral reefs in India are notified as Ecologically Sensitive Areas under the CRZ-I category of the Coastal Regulation Zone Notification.<br>2. The Gulf of Mannar Marine National Park, known for its coral reefs, was declared under the provisions of the Wildlife (Protection) Act, 1972.<br>3. India is not a signatory to any international convention or initiative that provides for the protection of coral reef ecosystems.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "Only one of the statements is correct",
+            "1 and 2 only",
+            "Both 2 and 3"
+        ],
+        ans: 2,
+        exp: "Coral reefs are notified as ecologically sensitive under CRZ-I, and the Gulf of Mannar Marine National Park was declared under the Wildlife (Protection) Act, 1972. India is in fact a party to relevant international frameworks such as the Convention on Biological Diversity and participates in the International Coral Reef Initiative, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to important policies concerning Waves-related coastal hazards in India, consider the following statements: <br> 1. The National Disaster Management Authority (NDMA) has issued specific guidelines addressing preparedness for coastal disasters such as cyclones, storm surges, and tsunami waves.<br>2. The National Policy on Disaster Management, 2009 adopts a multi-hazard approach that includes hydro-meteorological and oceanic hazards.<br>3. Construction of sea walls and other wave-protection structures along the Indian coast is entirely unregulated and does not require clearance under the Coastal Regulation Zone Notification.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "Only one of the statements is correct",
+            "Exactly one of the statements is correct",
+            "Both 1 and 3"
+        ],
+        ans: 0,
+        exp: "The NDMA has issued specific guidelines on managing coastal hazards including cyclones, storm surges, and tsunamis, and the National Policy on Disaster Management, 2009 explicitly adopts a multi-hazard framework covering oceanic and hydro-meteorological risks. However, coastal protection structures like sea walls do require clearance under the CRZ Notification, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to important Acts and policies governing Marine Resources in India, consider the following statements: <br> 1. The Merchant Shipping Act, 1958 and its amendments contain provisions related to protection of the marine environment from shipping activities.<br>2. The Rules for Sustainable Harnessing of Fisheries in the EEZ, notified in 2025, apply to fishing vessels operating beyond the territorial waters up to the outer limit of India's Exclusive Economic Zone.<br>3. Marine fishing within India's territorial waters is uniformly regulated by a single central Marine Fishing Regulation Act applicable identically across all coastal States and Union Territories.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 3",
+            "None of the statements are correct",
+            "2 only",
+            "Only two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "The Merchant Shipping Act, 1958 (as amended) includes provisions for preventing marine pollution from shipping, and the 2025 EEZ Rules govern deep-sea fishing operations beyond territorial waters up to the EEZ's outer limit. Fishing within territorial waters, however, is a state subject regulated through separate State-level Marine Fishing Regulation Acts modelled on a central guideline, not a single uniform central law, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the institutional and policy framework for monitoring El NiÃ±o, consider the following statements: <br> 1. The India Meteorological Department (IMD) is the nodal agency responsible for monitoring and forecasting El NiÃ±o's potential impact on the Indian monsoon.<br>2. The World Meteorological Organization (WMO) periodically issues global updates on the status of El NiÃ±o-Southern Oscillation (ENSO) conditions.<br>3. El NiÃ±o events are formally declared and legally regulated under the United Nations Framework Convention on Climate Change (UNFCCC).<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "Both 1 and 2",
+            "1 and 3 only",
+            "All three statements are correct"
+        ],
+        ans: 1,
+        exp: "The IMD monitors and forecasts El NiÃ±o's likely impact on the southwest monsoon, and the WMO regularly issues global ENSO status updates in coordination with national meteorological agencies. El NiÃ±o is a naturally occurring ocean-atmosphere phenomenon and is not something formally declared or regulated under the UNFCCC, which primarily addresses anthropogenic greenhouse gas emissions, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the features and characteristics of Ocean Bottom Relief, consider the following statements: <br> 1. The continental shelf is the gently sloping, submerged extension of the continental landmass, generally extending to depths of about 200 metres.<br>2. Oceanic trenches, the deepest parts of the ocean floor, are typically found associated with convergent plate boundaries.<br>3. Guyots are flat-topped seamounts formed by the erosion of volcanic islands that have subsequently subsided below sea level.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "2 only",
+            "All of the above",
+            "Both 2 and 3"
+        ],
+        ans: 2,
+        exp: "The continental shelf is a shallow, gently sloping submerged margin of the continent extending to roughly 200 metres depth, oceanic trenches form at convergent boundaries where one plate subducts beneath another, and guyots are flat-topped seamounts created when volcanic islands are eroded and then subside. All three statements are therefore correct."
+    },
+    {
+        q: "With reference to the challenges and issues associated with Tides, consider the following statements: <br> 1. High capital costs and limited technological maturity are major challenges hindering large-scale commercial harnessing of tidal energy in India.<br>2. Construction of tidal barrages can adversely affect estuarine ecosystems by altering natural sediment and salinity gradients.<br>3. Rising sea levels due to climate change are expected to have no effect on the frequency or severity of high-tide flooding in coastal regions.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "1 and 3 only",
+            "Exactly two of the statements are correct",
+            "Both 2 and 3"
+        ],
+        ans: 2,
+        exp: "Tidal energy projects in India face high upfront costs and immature technology, limiting commercial viability, and tidal barrages can disrupt natural sediment transport and salinity patterns in estuaries. Climate-change-driven sea level rise is, however, expected to increase both the frequency and severity of high-tide (nuisance) flooding in low-lying coastal areas, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the challenges and issues concerning Marine Resources, consider the following statements: <br> 1. Overfishing and Illegal, Unreported and Unregulated (IUU) fishing pose significant threats to the sustainability of marine fish stocks.<br>2. Ocean acidification adversely affects calcifying marine organisms such as corals and shellfish, threatening marine biodiversity.<br>3. India's marine fisheries sector faces no significant challenge from competition with foreign fishing fleets in the high seas.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the above",
+            "1 and 2 only",
+            "1 and 3 only",
+            "Only statement 1"
+        ],
+        ans: 1,
+        exp: "Overfishing and IUU fishing practices deplete fish stocks and undermine sustainable management, while ocean acidification weakens the calcium carbonate structures of corals and shellfish, threatening marine ecosystems. India's marine fisheries sector does face real challenges from competition with, and encroachment by, foreign fishing fleets, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the ecological and physical functions of Tides, consider the following statements: <br> 1. Tidal action facilitates the flushing and nutrient exchange essential for the survival of mangrove ecosystems in estuarine regions.<br>2. Tides assist in maintaining the navigability of harbour channels by helping to prevent excessive silt deposition.<br>3. Tidal currents have no significant role in shaping coastal depositional landforms such as mudflats and tidal flats.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "All of the statements are correct",
+            "None of the above",
+            "Statement 1 alone"
+        ],
+        ans: 0,
+        exp: "Regular tidal flushing brings in nutrients and oxygenated water that sustain mangrove ecosystems, and tidal currents help scour harbour channels, keeping them navigable. Tidal currents are, in fact, a major agent in depositing sediment to form mudflats and tidal flats, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to recent developments (2025-2026) concerning Marine Resources, consider the following statements: <br> 1. Matsya-6000, India's indigenously developed manned submersible, is being developed under the Samudrayaan project, a component of the Deep Ocean Mission.<br>2. India holds an exploration contract from the International Seabed Authority for polymetallic nodules in the Central Indian Ocean Basin.<br>3. At a recent International Seabed Authority meeting, a group of countries called for unrestricted and continued deep-sea mining, opposing any form of moratorium.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "Both 2 and 3",
+            "Exactly one of the statements is correct",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "Matsya-6000, developed by NIOT under the Samudrayaan project of the Deep Ocean Mission, is India's manned submersible for deep-sea exploration, and India holds an exclusive ISA contract to explore polymetallic nodules in the Central Indian Ocean Basin. At a recent ISA meeting, a group of countries actually pushed for a moratorium on deep-sea mining pending further research, not for unrestricted mining, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the features and characteristics of Waves, consider the following statements: <br> 1. Wave height is the vertical distance between the crest and the trough of a wave.<br>2. 'Fetch' refers to the uninterrupted distance of open water over which wind blows, influencing the size of waves generated.<br>3. Waves in deep water involve significant net horizontal transport of water particles along the direction of wave propagation.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "Only one of the statements is correct",
+            "1 and 3 only",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 0,
+        exp: "Wave height is measured as the vertical distance from crest to trough, and a longer fetch generally allows larger, more powerful waves to develop. In deep water, water particles move in roughly circular orbital paths with little net horizontal displacement; significant net transport of water occurs mainly as waves break in shallow water, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to important policies concerning Tides in India, consider the following statements: <br> 1. The High Tide Line (HTL), as defined under India's Coastal Regulation Zone (CRZ) Notification, is used as the reference line for demarcating various CRZ categories.<br>2. The CRZ Notification defines the HTL as the line on the land up to which the highest water line reaches during spring tide.<br>3. Distances for CRZ regulation are measured landward from the Low Tide Line (LTL) rather than the High Tide Line (HTL).<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 1",
+            "Exactly one of the statements is correct",
+            "All of the above",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "The CRZ Notification uses the High Tide Line, defined as the landward limit reached by the highest water level during spring tides, as the baseline for demarcating CRZ categories and their respective No Development Zones. CRZ distances are measured landward from the HTL itself, not from the Low Tide Line, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the ecological functions of Coral Reefs, consider the following statements: <br> 1. Coral reefs act as natural barriers that reduce the impact of wave energy and storm surges on coastlines.<br>2. Coral reefs provide breeding and nursery grounds for a significant proportion of marine fish species.<br>3. Coral polyps derive their nutrition mainly through photosynthesis carried out directly by the polyps themselves.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 3",
+            "Only one of the statements is correct",
+            "Exactly two of the statements are correct",
+            "2 only"
+        ],
+        ans: 2,
+        exp: "Coral reefs dissipate wave energy and buffer coastlines from storm surges, and their complex structures serve as critical breeding and nursery habitats for many fish species. However, the polyps themselves do not photosynthesise; they derive much of their nutrition from symbiotic zooxanthellae algae living within their tissues, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to recent developments (2025-2026) concerning Ocean Bottom Relief exploration, consider the following statements: <br> 1. India's research vessel Sagar Nidhi has been used to survey and map polymetallic nodule sites in the Central Indian Ocean Basin.<br>2. Matsya-6000 is designed to reach depths sufficient to access nearly 95% of the world's ocean floor.<br>3. The Samudrayaan mission's crewed deep-ocean dive using Matsya-6000 has already been successfully completed as of 2025.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "All three statements are correct",
+            "2 only",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "The research vessel Sagar Nidhi has been used to survey polymetallic nodule sites and map seabed biodiversity in the Central Indian Ocean Basin, and the 6,000-metre depth capability of Matsya-6000 would allow access to about 95% of the ocean floor. As of the given period, Matsya-6000 had only completed wet and shallow-water testing, with the full crewed deep dive planned for around 2027-28, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to a phenomenon frequently tested in UPSC Prelims relating to Oceans, consider the following statements about the Indian Ocean Dipole (IOD): <br> 1. A positive IOD is characterised by warmer sea surface temperatures in the western Indian Ocean relative to the eastern Indian Ocean.<br>2. A positive IOD phase is generally associated with above-normal rainfall over the Indian subcontinent during the southwest monsoon season.<br>3. The Indian Ocean Dipole was first described using data from well before the 1990s, predating the discovery of the El NiÃ±o-Southern Oscillation (ENSO) phenomenon.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "Both 1 and 2",
+            "Statement 3 alone",
+            "Both 1 and 3"
+        ],
+        ans: 1,
+        exp: "A positive IOD involves anomalous warming in the western Indian Ocean relative to the east, and this phase is generally associated with enhanced southwest monsoon rainfall over India. The IOD was identified and named only in the late 1990s, well after ENSO had already been recognised and studied for decades, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the general features and characteristics of Oceans, consider the following statements: <br> 1. The Pacific Ocean is the largest and deepest of the world's oceans.<br>2. The average salinity of ocean water is about 35 parts per thousand (ppt).<br>3. The neritic zone refers to the deep-sea zone beyond the continental shelf, extending to the ocean floor.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "Only statement 1",
+            "All three statements are correct",
+            "Both 2 and 3"
+        ],
+        ans: 0,
+        exp: "The Pacific Ocean is both the largest in area and the deepest of the world's oceans, and average ocean salinity is conventionally taken as about 35 parts per thousand. The neritic zone actually refers to the relatively shallow water over the continental shelf, not the deep sea beyond it, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the legal and institutional framework relating to Waves, particularly tsunami waves, in India, consider the following statements: <br> 1. The Indian National Centre for Ocean Information Services (INCOIS), which operates the Tsunami Early Warning Centre, functions under the Ministry of Earth Sciences.<br>2. The Disaster Management Act, 2005 provides the legal framework for disaster preparedness and response, including in the event of tsunami waves.<br>3. Issuance of a tsunami warning under India's early warning system requires prior approval from UNESCO.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "All three statements are correct",
+            "1 and 2 only",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 2,
+        exp: "INCOIS, which runs India's Tsunami Early Warning Centre, operates under the Ministry of Earth Sciences, and the Disaster Management Act, 2005 provides the statutory framework for handling disasters such as tsunamis. India issues tsunami warnings domestically through INCOIS without requiring prior UNESCO approval, though it does participate in the UNESCO-IOC Indian Ocean Tsunami Warning System as a Regional Tsunami Service Provider, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to policy reforms concerning Tidal Energy in India, consider the following statements: <br> 1. In 2019, the Ministry of New and Renewable Energy (MNRE) notified tidal, wave, and ocean thermal energy as renewable sources of energy.<br>2. Electricity generated from tidal and wave energy is eligible for meeting the non-solar component of Renewable Purchase Obligations (RPO).<br>3. India currently operates a commercially functioning large-scale tidal barrage power plant in the Gulf of Kutch.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "Statement 1 alone",
+            "Exactly two of the statements are correct",
+            "None of the above"
+        ],
+        ans: 2,
+        exp: "MNRE notified ocean energy, including tidal and wave power, as a renewable energy source in 2019, making it eligible for meeting non-solar RPO targets. Earlier proposed tidal barrage projects at the Gulf of Kutch were shelved on grounds of high cost and environmental concerns, so no such commercial plant is currently operational, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to constitutional and legal provisions relating to Oceans in India, consider the following statements: <br> 1. Article 297 of the Constitution of India vests all lands, minerals, and other resources in the territorial waters, continental shelf, and Exclusive Economic Zone in the Union of India.<br>2. The Territorial Waters, Continental Shelf, Exclusive Economic Zone and other Maritime Zones Act, 1976 defines India's territorial waters as extending up to 12 nautical miles from the baseline.<br>3. Under this Act, India's contiguous zone extends up to 200 nautical miles from the baseline.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "Statement 3 alone",
+            "1 only",
+            "Only one of the statements is correct"
+        ],
+        ans: 0,
+        exp: "Article 297 vests oceanic resources within India's maritime zones in the Union, and the 1976 Maritime Zones Act fixes the territorial waters at 12 nautical miles from the baseline. The same Act sets the contiguous zone at 24 nautical miles, while the Exclusive Economic Zone extends to 200 nautical miles, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the features and characteristics of Ocean Currents, consider the following statements: <br> 1. Ocean currents are influenced by factors such as prevailing winds, the Coriolis force, and differences in water temperature and salinity.<br>2. Continental landmasses can deflect and split ocean currents, influencing their direction of flow.<br>3. Cold currents generally flow from high latitudes towards the equator along the eastern margins of ocean basins.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the above",
+            "Both 1 and 3",
+            "None of the above",
+            "Both 1 and 2"
+        ],
+        ans: 0,
+        exp: "Ocean currents result from the interplay of wind stress, the Coriolis force, and density differences caused by temperature and salinity variations, and continental landmasses act as barriers that deflect and bifurcate currents. Cold currents such as the Peru (Humboldt), Canary, and Benguela currents indeed flow from higher latitudes towards the equator along the eastern margins of ocean basins, so all three statements are correct."
+    },
+    {
+        q: "With reference to the historical evolution of theories explaining Tides, consider the following statements: <br> 1. Newton's Equilibrium Theory of Tides explains tide-generating forces based on the gravitational attraction of the Sun and Moon on a hypothetical ocean of uniform depth covering the entire Earth.<br>2. The Dynamic Theory of Tides, associated with Pierre-Simon Laplace, accounts for the effects of ocean depth, coastline configuration, and the Earth's rotation on tidal behaviour.<br>3. The Equilibrium Theory of Tides was developed after, and as a refinement of, the Dynamic Theory of Tides.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "None of the statements are correct",
+            "2 and 3 only",
+            "All of the above"
+        ],
+        ans: 0,
+        exp: "Newton's Equilibrium Theory, formulated in the 17th century, treats tides as a response of an idealised uniform ocean to the gravitational pull of the Sun and Moon, while Laplace's later Dynamic Theory incorporated real-world factors like depth, continental barriers, and Earth's rotation. The Equilibrium Theory actually preceded the Dynamic Theory chronologically, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to recent policy reforms and recommendations concerning India's Oceans, consider the following statements: <br> 1. The Draft Blue Economy Policy Framework of India identifies coastal and deep-sea fisheries as one of its priority thematic areas.<br>2. The centrally sponsored O-SMART scheme of the Ministry of Earth Sciences supports ocean research, services, and technology development.<br>3. India's Deep Ocean Mission is implemented solely by the Ministry of New and Renewable Energy, without any involvement of the Ministry of Earth Sciences.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "Both 1 and 2",
+            "3 only"
+        ],
+        ans: 2,
+        exp: "India's Draft Blue Economy Policy Framework lists fisheries, both coastal and deep-sea, among its key thematic areas, and the O-SMART scheme funds a range of ocean science, services, and technology activities. The Deep Ocean Mission is implemented by the Ministry of Earth Sciences, not the Ministry of New and Renewable Energy, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the background and evolution of theories explaining Ocean Bottom Relief, consider the following statements: <br> 1. Alfred Wegener's theory of Continental Drift proposed that continents were once joined together in a single landmass called Pangaea.<br>2. Harry Hess's theory of Seafloor Spreading explains the formation of new oceanic crust at mid-oceanic ridges.<br>3. The theory of Plate Tectonics, which evolved by synthesising Continental Drift and Seafloor Spreading, considers the lithosphere to be a single rigid, undivided shell.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 and 3 only",
+            "Both 2 and 3",
+            "1 only"
+        ],
+        ans: 0,
+        exp: "Wegener's Continental Drift theory proposed the ancient supercontinent Pangaea, and Hess's Seafloor Spreading theory explained how new crust forms at mid-oceanic ridges as magma upwells. Plate Tectonics theory, built on these ideas, actually views the lithosphere as broken into several rigid plates that move relative to one another, not as a single undivided shell, making statement 3 incorrect."
+    },
+    {
+        q: "'AMOC', which has been in the news recently, is related to Ocean Currents. In this context, consider the following statements: <br> 1. The Atlantic Meridional Overturning Circulation (AMOC) transports warm surface water northward and returns cold, dense water southward at depth.<br>2. Recent studies attribute the weakening of the AMOC partly to an increase in North Atlantic salinity caused by reduced Arctic and Greenland ice melt.<br>3. A potential collapse of the AMOC has been flagged as one of the recognised climate tipping elements, with implications for the Indian monsoon.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 3",
+            "None of the above",
+            "1 and 2 only",
+            "All three statements are correct"
+        ],
+        ans: 0,
+        exp: "The AMOC forms the Atlantic arm of the thermohaline 'conveyor belt', moving warm water north and cold water south, and it is recognised as one of the Earth's climate tipping elements with possible effects on Asian monsoon patterns. Its observed weakening is actually linked to a decrease in North Atlantic salinity caused by increased freshwater influx from melting Arctic and Greenland ice, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to the structure and composition of Oceans, consider the following statements: <br> 1. Sodium chloride is the most abundant salt dissolved in seawater.<br>2. Salinity of ocean water is generally higher in the mid-latitude subtropical regions compared to the equatorial regions.<br>3. The pelagic zone of the ocean is classified, based on depth, into sub-zones such as the epipelagic, mesopelagic, and bathypelagic zones.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "2 and 3 only",
+            "Only two of the statements are correct",
+            "All three statements are correct"
+        ],
+        ans: 3,
+        exp: "Sodium chloride accounts for the largest share of dissolved salts in seawater, salinity peaks in subtropical high-pressure belts due to high evaporation and low rainfall (compared to the rain-fed, less saline equatorial belt), and oceanographers divide the pelagic zone by depth into the epipelagic, mesopelagic, bathypelagic, abyssopelagic, and hadalpelagic zones. All three statements are therefore correct."
+    },
+    {
+        q: "With reference to the evolution of the international legal framework on Ocean Pollution, consider the following statements: <br> 1. The MARPOL Convention (1973/78) is the principal international convention aimed at preventing pollution from ships.<br>2. Part XII of the United Nations Convention on the Law of the Sea (UNCLOS) deals exclusively with the delimitation of maritime boundaries and contains no provisions relating to marine pollution.<br>3. The London Convention of 1972 regulates the dumping of wastes and other matter at sea.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 3 alone",
+            "Both 1 and 3",
+            "All three statements are correct",
+            "None of the statements are correct"
+        ],
+        ans: 1,
+        exp: "MARPOL 73/78 is the key IMO convention addressing ship-based marine pollution, and the London Convention of 1972 specifically governs the dumping of wastes at sea. UNCLOS Part XII is titled 'Protection and Preservation of the Marine Environment' and lays down extensive obligations on states to prevent marine pollution, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to the legal protection of Coral Reefs in India, consider the following statements: <br> 1. Under India's Coastal Regulation Zone (CRZ) Notification, coral reefs are classified as Ecologically Sensitive Areas falling under CRZ-I.<br>2. The extraction of corals is prohibited through provisions incorporated in the Wildlife (Protection) Act, 1972.<br>3. The CRZ Notification derives its legal authority from Section 3 of the Environment (Protection) Act, 1986.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "Only one of the statements is correct",
+            "All of the statements are correct",
+            "3 only"
+        ],
+        ans: 2,
+        exp: "Coral reefs, along with mangroves and sand dunes, are notified as ecologically sensitive areas under CRZ-I, coral species have been brought under the protective schedules of the Wildlife (Protection) Act, 1972, and the CRZ Notification itself is issued under Section 3 of the Environment (Protection) Act, 1986. All three statements are therefore correct."
+    },
+    {
+        q: "With reference to Tides, consider the following statements: <br> 1. Spring tides occur when the Earth, Sun and Moon are aligned in a straight line, during full moon and new moon.<br>2. Neap tides occur when the gravitational forces of the Sun and Moon act at right angles to each other, roughly during the first and third quarters of the moon.<br>3. The height of spring tides is generally lower than that of neap tides.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All three statements are correct",
+            "1 and 3 only",
+            "Exactly one of the statements is correct",
+            "Both 1 and 2"
+        ],
+        ans: 3,
+        exp: "Spring tides occur due to the combined gravitational pull of the Sun and Moon when they are in syzygy (full and new moon), while neap tides occur when their pulls act at right angles during the moon's quarter phases. Spring tides produce a greater tidal range and are therefore higher, not lower, than neap tides, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the composition of Ocean Pollution, consider the following statements: <br> 1. Thermal pollution of oceans is primarily caused by the discharge of heated water from power plants and industrial units.<br>2. Eutrophication of coastal waters results from a deficiency of nutrients such as nitrogen and phosphorus.<br>3. Oil spills reduce the amount of sunlight and dissolved oxygen available to marine organisms.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "Only statement 3",
+            "None of the statements are correct",
+            "Both 1 and 2"
+        ],
+        ans: 0,
+        exp: "Heated effluent discharge from power plants and industries raises water temperature and lowers dissolved oxygen levels, while oil spills form surface films that block sunlight and oxygen exchange, harming marine life. Eutrophication is caused by an excess, not a deficiency, of nutrients like nitrogen and phosphorus, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to the geomorphic functions of Waves, consider the following statements: <br> 1. Constructive waves have a stronger swash than backwash and tend to deposit material on the beach.<br>2. Destructive waves have a stronger backwash than swash and tend to erode the coastline.<br>3. Wave refraction concentrates wave energy on headlands while dispersing it in bays.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "Statement 3 alone",
+            "Statement 2 alone",
+            "All of the statements are correct"
+        ],
+        ans: 3,
+        exp: "Constructive waves, with a dominant swash, build up beaches, whereas destructive waves, with a dominant backwash, erode them. Wave refraction bends wave crests as they approach an irregular coastline, concentrating energy on projecting headlands and dispersing it in sheltered bays, so all three statements are correct."
+    },
+    {
+        q: "With reference to the significance of different Ocean Bottom Relief features, consider the following statements: <br> 1. The continental shelf, being rich in sedimentary deposits, is the most important zone for the exploitation of oil and natural gas.<br>2. Mid-oceanic ridges are sites of divergent plate boundaries where new oceanic crust is formed through seafloor spreading.<br>3. Submarine canyons are typically found on the abyssal plains, far away from continental margins.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "Exactly two of the statements are correct",
+            "Statement 3 alone",
+            "2 only"
+        ],
+        ans: 1,
+        exp: "The continental shelf holds most of the world's exploitable offshore oil and gas reserves, and mid-oceanic ridges mark divergent boundaries where magma upwelling creates new oceanic crust. Submarine canyons, however, are mostly incised into the continental shelf and slope near river mouths, not on the deep abyssal plains, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to important policies and agreements governing Ocean Bottom Relief and seabed resources, consider the following statements: <br> 1. The International Seabed Authority (ISA), established under UNCLOS, regulates exploration and exploitation of mineral resources in 'the Area' lying beyond national jurisdiction.<br>2. India has secured exploration rights for polymetallic sulphides in the Carlsberg Ridge of the Indian Ocean under a contract with the ISA.<br>3. India's Deep Ocean Mission focuses exclusively on maritime security and does not involve exploration of seabed mineral resources.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 3",
+            "1, 2 and 3",
+            "None of the statements are correct",
+            "Both 1 and 2"
+        ],
+        ans: 3,
+        exp: "The ISA governs mining activities in the international seabed area beyond national jurisdiction, and India signed a 15-year contract with the ISA for exclusive exploration rights over polymetallic sulphides in the Carlsberg Ridge. The Deep Ocean Mission's core objectives include exploring polymetallic nodules and developing deep-sea mining technology, not just security, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to Ocean Currents, consider the following statements: <br> 1. Ocean currents in the Northern Hemisphere are deflected to the right due to the Coriolis force, resulting in a clockwise circulation of oceanic gyres.<br>2. Warm ocean currents generally flow from low latitudes towards high latitudes.<br>3. The Gulf Stream is a cold current found in the Pacific Ocean.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "Exactly one of the statements is correct",
+            "All of the above",
+            "None of the statements are correct"
+        ],
+        ans: 0,
+        exp: "The Coriolis force deflects moving water to the right in the Northern Hemisphere, producing clockwise gyres, and warm currents move from equatorial to polar latitudes carrying heat poleward. The Gulf Stream is a warm current in the Atlantic Ocean, not a cold current in the Pacific, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to recent reforms in India's marine fisheries sector, consider the following statements: <br> 1. The Rules for 'Sustainable Harnessing of Fisheries in the Exclusive Economic Zone (EEZ)', notified in 2025, give priority to Fishermen Cooperative Societies and Fish Farmer Producer Organisations (FFPOs) for deep-sea fishing operations.<br>2. The NITI Aayog's report on India's Blue Economy recommends focusing exclusively on coastal and inshore fisheries rather than deep-sea and offshore resources.<br>3. Under the new EEZ Rules, fish resources landed from India's EEZ beyond the contiguous zone are treated as an 'import' under customs norms.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "All of the statements are correct",
+            "2 only",
+            "Statement 1 alone"
+        ],
+        ans: 3,
+        exp: "The 2025 EEZ Rules prioritise Fishermen Cooperative Societies and FFPOs for deep-sea fishing and introduce a mother-and-child vessel model. NITI Aayog's report instead calls for unlocking untapped deep-sea and offshore potential, and the Rules recognise EEZ-origin fish as 'Indian origin' rather than treating them as imports, making statements 2 and 3 incorrect."
+    },
+    {
+        q: "With reference to El NiÃ±o, consider the following statements: <br> 1. El NiÃ±o refers to the warming of sea surface temperatures in the central and eastern equatorial Pacific Ocean.<br>2. El NiÃ±o is associated with a strengthening of trade winds blowing from South America towards Australia and Indonesia.<br>3. El NiÃ±o is one phase of the El NiÃ±o-Southern Oscillation (ENSO), with La NiÃ±a being the cold phase.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 2",
+            "Both 1 and 3",
+            "Only one of the statements is correct",
+            "None of the statements are correct"
+        ],
+        ans: 1,
+        exp: "El NiÃ±o is the warm phase of ENSO, marked by above-normal sea surface temperatures in the central-eastern equatorial Pacific, while La NiÃ±a is the corresponding cold phase. It is associated with a weakening, not strengthening, of the easterly trade winds, which allows warm water to shift eastward, making statement 2 incorrect."
+    },
+    {
+        q: "'Marine Heatwaves', which have been in the news recently, are best understood with reference to which of the following statements? <br> 1. A Marine Heatwave (MHW) occurs when sea surface temperatures exceed a high historical percentile threshold for at least five consecutive days.<br>2. INCOIS (Indian National Centre for Ocean Information Services) issues real-time alerts for marine heatwaves across Indian Ocean basins.<br>3. Marine heatwaves cause coral bleaching but have no significant effect on the migration patterns of commercial fish species.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 2",
+            "Both 1 and 2",
+            "1 and 3 only",
+            "None of the statements are correct"
+        ],
+        ans: 1,
+        exp: "Marine heatwaves are defined by anomalously warm sea surface temperatures persisting for at least five days above a high historical percentile, and INCOIS has issued multiple such alerts across Indian Ocean basins in recent years. Beyond coral bleaching, they also disrupt fish migration, with species like sardine and mackerel shifting to deeper, cooler waters, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to Ocean Pollution, consider the following statements: <br> 1. Eutrophication of coastal waters is primarily caused by excessive nutrient runoff of nitrogen and phosphorus, leading to algal blooms and oxygen depletion.<br>2. Microplastics are plastic particles generally smaller than 5 mm and can enter the marine food chain.<br>3. Ocean acidification is caused by a decrease in the absorption of atmospheric carbon dioxide by seawater.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "Exactly one of the statements is correct",
+            "Both 1 and 2",
+            "Only statement 2"
+        ],
+        ans: 2,
+        exp: "Excess nutrients from agricultural and urban runoff trigger eutrophication and hypoxic 'dead zones', and microplastics under 5 mm are readily ingested by marine organisms and move up the food chain. Ocean acidification actually results from increased, not decreased, absorption of atmospheric CO2 by seawater, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to Marine Resources, consider the following statements: <br> 1. India's Exclusive Economic Zone (EEZ) extends up to 200 nautical miles from the baseline.<br>2. A coastal state exercises full territorial sovereignty over its EEZ, similar to its territorial waters.<br>3. Under UNCLOS, a coastal state has sovereign rights for exploring and exploiting natural resources within its EEZ.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "Only one of the statements is correct",
+            "Only statement 2",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "The EEZ extends to 200 nautical miles from the baseline, and under UNCLOS the coastal state enjoys sovereign rights over exploration, exploitation, conservation, and management of natural resources there. However, the EEZ is not sovereign territory like territorial waters; other states retain freedoms of navigation and overflight, making statement 2 incorrect."
+    },
+    {
+        q: "Consider the following statements regarding the challenges posed by El NiÃ±o: <br> 1. El NiÃ±o years are generally associated with below-normal southwest monsoon rainfall in India.<br>2. El NiÃ±o conditions typically strengthen the upwelling of nutrient-rich cold water off the coast of Peru, boosting fish catch there.<br>3. El NiÃ±o can contribute to food inflation in India through its adverse impact on kharif crop production.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "1 and 3 only",
+            "Only statement 2",
+            "Both 2 and 3"
+        ],
+        ans: 1,
+        exp: "El NiÃ±o is associated with a weakening of the southwest monsoon over India and, through crop losses, can push up food prices, particularly affecting kharif output. Off Peru, El NiÃ±o actually suppresses the normal cold-water upwelling, reducing nutrient availability and depressing fish catch, making statement 2 incorrect."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-25 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

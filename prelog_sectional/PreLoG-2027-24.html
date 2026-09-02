@@ -1,0 +1,1749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-24</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "With reference to wildlife corridors in India, consider the following statements: <br> 1. They are primarily meant to facilitate the seasonal migration of birds between wetlands.<br>2. Fragmentation of corridors by linear infrastructure such as highways and railway lines can lead to genetic isolation of wildlife populations.<br>3. The Kanha-Pench corridor along NH-7 includes overpasses built to allow safe passage of tigers and other wildlife.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "Both 1 and 2",
+            "Only one of the statements is correct",
+            "Both 2 and 3"
+        ],
+        ans: 3,
+        exp: "Wildlife corridors link fragmented terrestrial habitats mainly for mammals like tigers and elephants, not primarily for migratory birds, making Statement 1 incorrect. Corridor fragmentation restricts gene flow between populations, leading to inbreeding and reduced genetic diversity (Statement 2 correct). The Kanha-Pench corridor on NH-7 does feature overpasses/underpasses to preserve wildlife movement, making Statement 3 correct."
+    },
+    {
+        q: "Coral reefs across the world are facing severe stress in recent years. In this context, consider the following statements: <br> 1. Coral bleaching occurs when corals expel the symbiotic algae (zooxanthellae) living in their tissues due to stress from elevated sea surface temperatures.<br>2. Ocean acidification, caused by increased absorption of atmospheric carbon dioxide, reduces the availability of carbonate ions needed by corals to build their skeletons.<br>3. The Great Barrier Reef has experienced its first-ever mass bleaching event only in the last two years.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "1, 2 and 3",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 0,
+        exp: "Coral bleaching is indeed the expulsion of symbiotic zooxanthellae under heat stress, which removes the coral's main food and colour source (Statement 1 correct). Ocean acidification lowers carbonate ion concentration, impairing calcification (Statement 2 correct). However, the Great Barrier Reef has suffered multiple mass bleaching events since 1998, not only recently, making Statement 3 incorrect."
+    },
+    {
+        q: "Consider the following statements regarding the features of Indian fauna: <br> 1. India lies at the confluence of two major biogeographic realms, the Palaearctic and the Indo-Malayan.<br>2. The Western Ghats and the Eastern Himalayas are both recognised as biodiversity hotspots in India.<br>3. India is home to only one of the two extant species of rhinoceros found in Asia.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "Both 2 and 3",
+            "Exactly one of the statements is correct",
+            "None of the statements are correct"
+        ],
+        ans: 0,
+        exp: "India's fauna shows a transition zone character due to its location between the Palaearctic and Indo-Malayan realms (Statement 1 correct). Both the Western Ghats and the Eastern Himalayas are internationally recognised biodiversity hotspots (Statement 2 correct). However, India hosts the Greater One-Horned Rhinoceros, while Asia has three extant rhino species in total (including Sumatran and Javan), so Statement 3's claim about 'only one of two' is factually wrong."
+    },
+    {
+        q: "With reference to medicinal plants found in India, consider the following statements: <br> 1. Rauwolfia serpentina, used in the treatment of hypertension, derives its therapeutic property mainly from alkaloids present in its roots.<br>2. Withania somnifera (Ashwagandha) belongs to the same plant family as the potato and tomato.<br>3. The active medicinal compounds in most medicinal plants are stored exclusively in their flowers.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "None of the above",
+            "Only statement 2",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "Rauwolfia serpentina's antihypertensive property comes from reserpine and other alkaloids concentrated in its roots (Statement 1 correct). Ashwagandha belongs to the Solanaceae family, the same family as potato, tomato, and brinjal (Statement 2 correct). Medicinal compounds are distributed variably across roots, bark, leaves, seeds, or flowers depending on the species, not exclusively in flowers, making Statement 3 incorrect."
+    },
+    {
+        q: "With reference to the structural zonation of a typical coral reef, consider the following statements: <br> 1. The reef flat is a relatively shallow, wave-protected zone located between the reef crest and the shore.<br>2. The fore reef or reef slope faces the open ocean and typically shows the highest coral diversity due to greater wave energy and nutrient supply.<br>3. Atolls are ring-shaped reefs enclosing a central lagoon and are typically found around volcanic islands that have subsided below sea level.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 3 alone",
+            "All of the statements are correct",
+            "Exactly one of the statements is correct",
+            "Both 1 and 2"
+        ],
+        ans: 1,
+        exp: "The reef flat is indeed the shallow, sheltered zone shoreward of the reef crest, subject to lower wave energy (Statement 1 correct). The fore reef faces open water and generally hosts the richest coral growth due to wave-driven oxygenation and nutrient circulation (Statement 2 correct). Atolls form when fringing reefs around a subsiding volcanic island continue growing upward, leaving a ring-shaped reef around a lagoon, as per Darwin's subsidence theory (Statement 3 correct)."
+    },
+    {
+        q: "Grasslands form an important biome in India. In this context, consider the following statements: <br> 1. The Shola grasslands are found in the high-altitude plateaus of the Western Ghats, interspersed with patches of stunted forest.<br>2. Grasslands generally support fewer large herbivore species compared to tropical forests because of low primary productivity.<br>3. The Banni grassland in Gujarat is one of the largest tropical grasslands in Asia.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "None of the statements are correct",
+            "Exactly one of the statements is correct",
+            "Both 1 and 2"
+        ],
+        ans: 0,
+        exp: "Shola grasslands are a characteristic high-altitude ecosystem of the Western Ghats, occurring in a mosaic with stunted montane forests in valleys (Statement 1 correct). Grasslands actually support high densities and diversity of large grazing herbivores due to their high primary productivity of grasses, not low productivity, making Statement 2 incorrect. The Banni grassland in Kutch, Gujarat, is recognised as one of the largest tropical grasslands in Asia (Statement 3 correct)."
+    },
+    {
+        q: "With reference to the evolution of the concept of wildlife corridors in India, consider the following statements: <br> 1. The identification and conservation of wildlife corridors in the country has been driven mainly by the conservation needs of wide-ranging species such as tigers and elephants.<br>2. India's wildlife corridors enjoy the same statutory protection as Protected Areas declared under the Wildlife (Protection) Act, 1972.<br>3. The concept of corridor connectivity gained formal policy recognition through successive editions of the National Wildlife Action Plan.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "Both 1 and 2",
+            "All of the above",
+            "None of the above"
+        ],
+        ans: 0,
+        exp: "Corridor identification in India has historically centred on flagship, wide-ranging species like tigers and elephants, whose movement between habitat patches is ecologically critical (Statement 1 correct). However, unlike Protected Areas, wildlife corridors do not enjoy hard statutory recognition or the same legal protection under the Wildlife (Protection) Act, 1972, making Statement 2 incorrect. Successive National Wildlife Action Plans, including the current one (2017-2031), have formally emphasised maintaining and restoring landscape connectivity (Statement 3 correct)."
+    },
+    {
+        q: "Which of the following statements regarding recent (2025-26) developments related to medicinal plants in India is/are correct? <br> 1. The e-CHARAK portal has been launched to facilitate trade and market access for cultivators and traders of medicinal plants.<br>2. The National Medicinal Plants Board functions under the Ministry of Environment, Forest and Climate Change.<br>3. The Central Sector Scheme on Conservation, Development and Sustainable Management of Medicinal Plants is being implemented with a defined financial outlay up to 2025-26.<br>Select the correct answer using the code given below:",
+        opts: [
+            "Only one of the statements is correct",
+            "1 and 3 only",
+            "2 only",
+            "All of the statements are correct"
+        ],
+        ans: 1,
+        exp: "The e-CHARAK mobile app and web portal have indeed been developed to facilitate trade and market access for medicinal plant produce (Statement 1 correct). The National Medicinal Plants Board (NMPB) functions under the Ministry of AYUSH, not the Ministry of Environment, Forest and Climate Change, making Statement 2 incorrect. The Central Sector Scheme on Conservation, Development and Sustainable Management of Medicinal Plants has been implemented with a defined outlay for the period 2021-22 to 2025-26 (Statement 3 correct)."
+    },
+    {
+        q: "With reference to the legal and policy framework governing India's grasslands, consider the following statements: <br> 1. Grasslands in India have historically been classified as 'wastelands' in revenue records, a legacy that continues to facilitate their diversion for other uses.<br>2. Grasslands that have not been formally declared as Protected Areas under the Wildlife (Protection) Act, 1972 or as forests under the Indian Forest Act, 1927 generally lack dedicated legal protection.<br>3. In 2025-26, the National Board for Wildlife directed government agencies to undertake, for the first time, a nationwide mapping of India's grasslands.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "All three statements are correct",
+            "2 only",
+            "None of the above"
+        ],
+        ans: 1,
+        exp: "Colonial-era and subsequent revenue classification of grasslands as 'wastelands' has historically enabled their diversion for solar parks, industry, and agriculture (Statement 1 correct). Since grasslands lack a dedicated protective statute, only those formally notified as Protected Areas or reserve forests receive legal safeguards (Statement 2 correct). The National Board for Wildlife has directed agencies to map the extent and biodiversity of India's grasslands nationwide for the first time, marking a policy shift (Statement 3 correct)."
+    },
+    {
+        q: "With reference to statutory bodies associated with wildlife conservation in India that are frequently in the news, consider the following statements: <br> 1. The Wildlife Crime Control Bureau (WCCB) was constituted under the Wildlife (Protection) Act, 1972 to coordinate action against organised wildlife crime across state and international borders.<br>2. The National Tiger Conservation Authority (NTCA) has the power to approve or evaluate tiger conservation plans prepared by state governments for tiger reserves.<br>3. The National Board for Wildlife (NBWL) is chaired by the Minister of Environment, Forest and Climate Change.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 3",
+            "All three statements are correct",
+            "Exactly two of the statements are correct",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 2,
+        exp: "The WCCB was established as a statutory multi-disciplinary body under the Wildlife (Protection) Act, 1972 (through the 2006 amendment) to combat organised wildlife crime, including as India's nodal point for SAWEN (Statement 1 correct). The NTCA, also created by the 2006 amendment, evaluates and approves tiger conservation plans and provides statutory backing to Project Tiger (Statement 2 correct). However, the NBWL is chaired by the Prime Minister, with the Environment Minister serving only as Vice-Chairperson, making Statement 3 incorrect."
+    },
+    {
+        q: "Consider the following statements regarding the ecological functions of grasslands in India: <br> 1. Grasslands store a substantial proportion of their biomass below ground in the form of deep root systems, making them significant carbon sinks.<br>2. Unlike forests, grassland ecosystems provide negligible support to pastoral livelihoods and livestock economies.<br>3. Grasslands play a role in groundwater recharge and soil conservation by preventing surface runoff.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "Exactly two of the statements are correct",
+            "1 only",
+            "Only one of the statements is correct"
+        ],
+        ans: 1,
+        exp: "Grasslands store the majority of their carbon in below-ground root biomass, functioning as important carbon sinks despite low above-ground vegetation (Statement 1 correct). Contrary to Statement 2, grasslands are central to pastoral economies, sustaining grazing-based livestock systems worth thousands of crores of rupees in states like Maharashtra and Gujarat, making it incorrect. Grasslands also aid water regulation and soil protection by slowing runoff and enhancing infiltration (Statement 3 correct)."
+    },
+    {
+        q: "With reference to the legal provisions applicable to coral reefs in India, consider the following statements: <br> 1. All species of hard (reef-building) corals have been included in Schedule I of the Wildlife (Protection) Act, 1972.<br>2. The Coastal Regulation Zone (CRZ) Notification, issued under the Environment (Protection) Act, 1986, places coral reef areas under the most restricted category of coastal zones.<br>3. The Territorial Waters, Continental Shelf, Exclusive Economic Zone and Other Maritime Zones Act, 1976 has no bearing on the legal framework for marine pollution control affecting coral reefs.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "3 only",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "Hard corals were notified under Schedule I of the Wildlife (Protection) Act, 1972 in 2001, granting them the same protection status as species like the tiger (Statement 1 correct). Coral reef areas fall under CRZ-I, the most restrictive category under the CRZ Notification, which prohibits activities like coral mining (Statement 2 correct). The Territorial Waters, Continental Shelf, EEZ and Other Maritime Zones Act, 1976 does provide the legislative framework for controlling marine pollution in Indian waters, making Statement 3 incorrect."
+    },
+    {
+        q: "With reference to reforms and recommendations concerning wildlife corridors in India, consider the following statements: <br> 1. The Wildlife Institute of India's guidelines on 'Eco-friendly Measures to Mitigate Impacts of Linear Infrastructure on Wildlife' were prepared to minimise the impact of highways, railways, and canals passing through wildlife habitats.<br>2. The National Wildlife Action Plan (2017-2031) recommends integrating corridor connectivity concerns into the early planning stages of infrastructure projects.<br>3. Under existing recommendations, elevated wildlife passages such as those over the Pench Tiger Reserve area are considered a standard mitigation measure for highways passing through critical corridors.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "All of the above",
+            "Only statement 3",
+            "None of the statements are correct"
+        ],
+        ans: 1,
+        exp: "The Wildlife Institute of India's 2016 guidelines specifically address mitigation measures for highways, railways, and canals affecting wildlife corridors, though transmission lines were initially excluded and addressed separately by the NBWL (Statement 1 correct). The third National Wildlife Action Plan (2017-2031) recommends that infrastructure ministries account for corridor connectivity from the project planning stage itself (Statement 2 correct). Elevated expressway structures, such as those built over the Kanha-Pench corridor, are cited as model examples of animal passage mitigation for linear infrastructure (Statement 3 correct)."
+    },
+    {
+        q: "With reference to laws and policies applicable to the conservation of coral reefs in India, consider the following statements: <br> 1. The Forest (Conservation) Act, 1980 has no relevance to coral reef conservation since coral reefs are entirely marine ecosystems.<br>2. Since all four major coral reef areas of India have been declared Protected Areas, the provisions of the Wildlife (Protection) Act, 1972 apply to them.<br>3. The Environment (Protection) Act, 1986 empowers the government to declare ecologically sensitive coastal areas, including those adjoining coral reefs, and impose restrictions on hazardous industrial activities there.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "Statement 1 alone",
+            "None of the statements are correct",
+            "Both 1 and 2"
+        ],
+        ans: 0,
+        exp: "The Forest (Conservation) Act, 1980 can have bearing on coral reef areas where associated mangroves or coastal forest lands are involved, so calling it entirely irrelevant is incorrect, making Statement 1 wrong. As all four major coral reef regions of India (Gulf of Mannar, Gulf of Kutch, Lakshadweep, and Andaman & Nicobar Islands) have Protected Area status, the Wildlife (Protection) Act, 1972 applies to them (Statement 2 correct). The Environment (Protection) Act, 1986 is the umbrella legislation enabling notification of ecologically sensitive zones and restrictions on hazardous industries near such areas (Statement 3 correct)."
+    },
+    {
+        q: "With reference to the major challenges facing Indian fauna today, consider the following statements: <br> 1. Habitat fragmentation due to linear infrastructure is considered a greater threat to wide-ranging mammals than to smaller, territorial species.<br>2. Human-wildlife conflict has increased partly due to the shrinking and fragmentation of natural corridors connecting protected areas.<br>3. Invasive alien species pose a threat to native fauna primarily through direct predation, with competition for resources being negligible.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "Only two of the statements are correct",
+            "None of the statements are correct",
+            "Both 1 and 3"
+        ],
+        ans: 1,
+        exp: "Wide-ranging species such as tigers and elephants require large contiguous habitats, making them more vulnerable to fragmentation than smaller territorial species with limited home ranges (Statement 1 correct). Loss of corridor connectivity forces animals into human-dominated landscapes in search of resources, escalating conflict (Statement 2 correct). Invasive species threaten native fauna through multiple pathways, including resource competition, habitat alteration, and disease transmission, not merely direct predation, making Statement 3 incorrect."
+    },
+    {
+        q: "Vultures which used to be very common in the Indian countryside some years ago are rarely seen nowadays. This is attributed to: ",
+        opts: [
+            "A drug used by cattle owners for treating their diseased cattle",
+            "Their being captured for zoos and private collections",
+            "A sudden increase in the number of predator birds",
+            "A rapid increase in the number of stray dogs which are known to kill vultures"
+        ],
+        ans: 0,
+        exp: "This is a UPSC Prelims 2012 question. The veterinary drug diclofenac, administered to cattle for pain and inflammation, proved fatal to vultures that fed on the carcasses of treated cattle, causing kidney failure. This led to a catastrophic decline in Indian vulture populations across several species."
+    },
+    {
+        q: "With reference to reforms and recommendations for the conservation of Indian flora, consider the following statements: <br> 1. Ex-situ conservation techniques such as seed banks and botanical gardens are recommended as a substitute for in-situ conservation of endangered plant species.<br>2. Expert bodies have recommended strengthening the network of Biodiversity Heritage Sites to protect regions with unique and threatened plant assemblages.<br>3. Community participation through mechanisms like Joint Forest Management has been recommended to improve conservation outcomes for native flora.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "Exactly one of the statements is correct",
+            "1 and 3 only",
+            "Only two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "Ex-situ conservation is recommended as a complement to, not a substitute for, in-situ conservation, since it cannot replicate the natural evolutionary processes and ecological interactions of a species in the wild, making Statement 1 incorrect. Expanding and strengthening Biodiversity Heritage Sites under the Biological Diversity Act has been a consistent policy recommendation to protect unique flora-rich areas (Statement 2 correct). Community-based approaches like Joint Forest Management have similarly been recommended to align local livelihoods with conservation of native plant diversity (Statement 3 correct)."
+    },
+    {
+        q: "From the ecological point of view, which one of the following assumes importance in being a good link between the Eastern Ghats and the Western Ghats?",
+        opts: [
+            "Nagarhole National Park",
+            "Sathyamangalam Tiger Reserve",
+            "Seshachalam Biosphere Reserve",
+            "Nallamala Forest"
+        ],
+        ans: 1,
+        exp: "This is a UPSC Prelims 2017 question. The Sathyamangalam Tiger Reserve in Tamil Nadu lies at the point where the Eastern and Western Ghats nearly converge, functioning as a vital wildlife corridor and genetic link between the two mountain systems, connecting to protected areas like Bandipur, Mudumalai, and the BRT Wildlife Sanctuary. The other options are located within only one of the two Ghats and do not serve this connecting function."
+    },
+    {
+        q: "With reference to the powers and functions of authorities constituted under the Wetlands (Conservation and Management) Rules, 2017 in India, consider the following statements: <br> 1. The Rules provide for the constitution of a State Wetlands Authority or Union Territory Wetlands Authority, headed by the State's Environment Minister.<br>2. The National Wetland Committee, which advises the Central Government, has powers to directly notify individual wetlands without reference to state governments.<br>3. State/UT Wetlands Authorities are empowered to prepare a list of activities that are to be regulated or permitted within notified wetlands.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "Only statement 3",
+            "Exactly one of the statements is correct",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "The 2017 Rules constitute State/UT Wetlands Authorities headed by the respective State's Environment Minister, comprising experts in wetland ecology, hydrology, and related fields (Statement 1 correct). The National Wetland Committee plays only an advisory role at the Centre and does not have the power to independently notify individual wetlands, since the Rules decentralised this function primarily to the states (Statement 2 incorrect). State/UT Wetlands Authorities are indeed tasked with identifying activities to be regulated, permitted, or prohibited within notified wetlands under their jurisdiction (Statement 3 correct)."
+    },
+    {
+        q: "With reference to the Mangrove Initiative for Shoreline Habitats and Tangible Incomes (MISHTI), a scheme related to mangrove conservation in India, consider the following statements: <br> 1. It was launched through the Union Budget 2023-24 with a target of restoring mangrove cover across a specified area within five years.<br>2. The scheme is implemented solely through funding from the Compensatory Afforestation Fund Management and Planning Authority (CAMPA), without convergence with any other government scheme.<br>3. As per the India State of Forest Report 2023, India's mangrove cover showed a net increase compared to the 2021 assessment.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 3",
+            "2 and 3 only",
+            "Exactly two of the statements are correct",
+            "All of the above"
+        ],
+        ans: 2,
+        exp: "MISHTI was announced in the Union Budget 2023-24 with the goal of restoring mangrove cover across 540 sq km of degraded coastline over five years (Statement 1 correct). The scheme draws convergent funding not just from CAMPA but also from schemes such as MGNREGS/its successor rural employment mission and state plans, making Statement 2 incorrect. The India State of Forest Report 2023 recorded a net increase in mangrove cover of about 16.68 sq km compared to the 2021 assessment (Statement 3 correct)."
+    },
+    {
+        q: "With reference to the challenges confronting forest ecosystems in India, consider the following statements: <br> 1. Diversion of forest land for non-forest purposes such as mining and infrastructure requires prior approval under the Forest (Conservation) Act, 1980.<br>2. Forest fires are exclusively a natural phenomenon in India and are not attributable to any anthropogenic causes.<br>3. Encroachment and unsustainable extraction of non-timber forest produce have been identified as contributing factors to forest degradation in India.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 2 and 3",
+            "1 and 3 only",
+            "Both 1 and 2",
+            "3 only"
+        ],
+        ans: 1,
+        exp: "The Forest (Conservation) Act, 1980 mandates prior approval of the Central Government before forest land is diverted for non-forest purposes like mining or infrastructure projects (Statement 1 correct). A significant proportion of forest fires in India are human-induced, whether accidental or deliberate (such as for land clearing), not purely natural, making Statement 2 incorrect. Encroachment and unsustainable harvesting of non-timber forest produce are well-documented drivers of forest degradation across Indian forest landscapes (Statement 3 correct)."
+    },
+    {
+        q: "With reference to the challenges facing wetland ecosystems in India, consider the following statements: <br> 1. A significant proportion of wetlands mapped by remote sensing agencies in India remain formally unnotified under the Wetlands (Conservation and Management) Rules, 2017.<br>2. Encroachment for construction and agriculture is one of the major anthropogenic threats to wetlands in India.<br>3. The Wetlands (Conservation and Management) Rules, 2017 extend statutory protection to all man-made water bodies, including tanks built for irrigation and aquaculture.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "Statement 3 alone",
+            "Both 1 and 3",
+            "Both 1 and 2"
+        ],
+        ans: 3,
+        exp: "Although satellite mapping has identified over two lakh wetlands in India, only a small fraction have been formally notified under the 2017 Rules, leaving most without dedicated statutory protection (Statement 1 correct). Encroachment for construction, agriculture, and urban expansion remains among the most significant threats to India's wetlands (Statement 2 correct). However, the 2017 Rules specifically exclude certain man-made water bodies such as those built for irrigation, aquaculture, salt production, and drinking water purposes, making Statement 3 incorrect."
+    },
+    {
+        q: "With reference to reforms and recommendations concerning mangrove conservation in India, consider the following statements: <br> 1. The Coastal Regulation Zone (CRZ) Notification classifies mangrove areas as Ecologically Sensitive Areas, restricting activities permissible within them.<br>2. India's participation in global mangrove conservation platforms has been recommended as complementary to domestic schemes like MISHTI.<br>3. Community-based livelihood diversification, including promotion of eco-tourism, has been recommended as a component of mangrove restoration programmes.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "Both 1 and 3",
+            "All three statements are correct",
+            "1 only"
+        ],
+        ans: 2,
+        exp: "The CRZ Notification classifies mangrove areas as Ecologically Sensitive Areas, permitting only limited activities within them to prevent degradation (Statement 1 correct). India's engagement with platforms such as the Mangrove Alliance for Climate, launched at COP27, has been positioned as reinforcing domestic efforts like MISHTI rather than substituting them (Statement 2 correct). MISHTI's operational guidelines explicitly include livelihood diversification and eco-tourism promotion through community groups as recommended components of mangrove restoration (Statement 3 correct)."
+    },
+    {
+        q: "In India, if a species of tortoise is declared protected under Schedule I of the Wildlife (Protection) Act, 1972, what does it imply?",
+        opts: [
+            "It enjoys the same level of protection as the tiger",
+            "It no longer exists in the wild; a few individuals are under captive protection, and now it is impossible to prevent its extinction",
+            "It is endemic to a particular region of India",
+            "Both (b) and (c) stated above are correct in this context"
+        ],
+        ans: 0,
+        exp: "This is a UPSC Prelims 2017 question. Schedule I of the Wildlife (Protection) Act, 1972 provides the highest degree of legal protection, with the most stringent penalties for offences, and this protection applies uniformly to all species listed in it, including the tiger. Being listed under Schedule I does not imply extinction in the wild or endemism; it simply denotes the maximum protection status accorded under the law."
+    },
+    {
+        q: "With reference to the constitutional and legal provisions relevant to species protection in India, consider the following statements: <br> 1. Article 51A(g) of the Constitution imposes a Fundamental Duty on every citizen to protect and improve the natural environment, including wildlife.<br>2. The Wildlife (Protection) Act, 1972 was enacted under Entry 17-B of the Concurrent List, inserted through the 42nd Constitutional Amendment.<br>3. The Wild Life (Protection) Amendment Act, 2022 reduced the number of Schedules under the Act and empowered the Central Government to designate a Management Authority to regulate international trade in specimens under CITES.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "Both 2 and 3",
+            "1 and 3 only",
+            "Statement 2 alone"
+        ],
+        ans: 2,
+        exp: "Article 51A(g) explicitly casts a Fundamental Duty on citizens to protect the natural environment, including forests, lakes, rivers, and wildlife, and to have compassion for living creatures (Statement 1 correct). Wildlife protection is placed under Entry 17-B of the Concurrent List (inserted by the 42nd Amendment), but the Wildlife (Protection) Act itself was originally enacted in 1972, prior to this entry's insertion in 1976, making Statement 2 incorrect in its causal framing. The 2022 amendment reduced the number of Schedules from six to four and introduced provisions to designate a Management Authority and Scientific Authority for implementing CITES obligations (Statement 3 correct)."
+    },
+    {
+        q: "With reference to the structure and composition of Indian flora, consider the following statements: <br> 1. Tropical evergreen forests, characterised by dense canopy and high species diversity, are typically found in regions receiving over 200 cm of annual rainfall.<br>2. Xerophytic vegetation found in arid regions of India is generally characterised by features such as reduced leaf surface area and thick cuticles to minimise water loss.<br>3. Epiphytic plants, which grow on the surface of other plants for physical support, are parasitic in nature and derive nutrition directly from their host.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "Statement 3 alone",
+            "Both 1 and 2",
+            "None of the above"
+        ],
+        ans: 2,
+        exp: "Tropical evergreen forests in India, found in regions like the Western Ghats and Northeast, require high rainfall exceeding 200 cm annually to sustain their dense, multi-layered canopy structure (Statement 1 correct). Xerophytes adapted to arid Indian regions like the Thar Desert exhibit reduced leaf area, thick cuticles, and other water-conserving structural adaptations (Statement 2 correct). However, epiphytes use other plants only for physical support and structural attachment, not for nutrition, distinguishing them from parasitic plants; hence Statement 3 is incorrect."
+    },
+    {
+        q: "With reference to the powers and functions associated with mangrove ecosystem governance in India, consider the following statements: <br> 1. The Coastal Regulation Zone Notification empowers authorities to restrict industrial and construction activities within mangrove areas classified as Ecologically Sensitive Areas.<br>2. The Ministry of Environment, Forest and Climate Change is the nodal ministry responsible for implementation of the MISHTI scheme.<br>3. State Forest Departments have no role in the identification of degraded mangrove sites for restoration under centrally sponsored schemes.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "Both 1 and 3",
+            "Exactly one of the statements is correct",
+            "Only one of the statements is correct"
+        ],
+        ans: 0,
+        exp: "The CRZ Notification designates mangrove areas as Ecologically Sensitive Areas, granting authorities the power to restrict harmful activities within them (Statement 1 correct). MISHTI functions under the Ministry of Environment, Forest and Climate Change, which coordinates its implementation with state governments (Statement 2 correct). State Forest Departments play a central role in identifying degraded mangrove sites and executing restoration and plantation activities on the ground, making Statement 3 incorrect."
+    },
+    {
+        q: "With reference to the constitutional and legal provisions relevant to grasslands in India, consider the following statements: <br> 1. There is a dedicated central statute exclusively for the protection and management of grassland ecosystems in India.<br>2. Rights of pastoralist communities over community forest resources, including grazing lands, can be recognised under Section 3 of the Forest Rights Act, 2006.<br>3. A grassland declared as a 'protected forest' under the Indian Forest Act, 1927 attracts the restrictions applicable to reserved and protected forests under that Act.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "Exactly one of the statements is correct",
+            "2 and 3 only",
+            "Both 1 and 3"
+        ],
+        ans: 2,
+        exp: "India has no dedicated central legislation exclusively protecting grasslands; they are governed indirectly through revenue, forest, and wildlife laws, making Statement 1 incorrect. Section 3 of the Forest Rights Act, 2006 recognises the rights of forest-dwelling and pastoralist communities, such as the Maldharis of Banni, to protect and conserve community forest resources including grazing areas (Statement 2 correct). Once a grassland is notified as a protected forest under the Indian Forest Act, 1927, as with Banni in 1955, it becomes subject to the restrictions on activities applicable under that Act (Statement 3 correct)."
+    },
+    {
+        q: "With reference to the structural composition of wildlife corridors, consider the following statements: <br> 1. A corridor essentially comprises a continuous or near-continuous strip of habitat connecting two or more larger habitat patches.<br>2. Engineered structures such as overpasses and underpasses are used to maintain corridor connectivity where linear infrastructure intersects a natural corridor.<br>3. The effectiveness of a corridor's structure is independent of its width, since even narrow strips serve species with large home ranges equally well.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "All of the statements are correct",
+            "1 and 3 only",
+            "3 only"
+        ],
+        ans: 0,
+        exp: "By definition, a wildlife corridor is a continuous or near-continuous habitat strip linking otherwise isolated habitat patches to allow species movement (Statement 1 correct). Where highways or railways intersect corridors, engineered structures such as overpasses and underpasses, as seen along the Kanha-Pench corridor, are used to preserve connectivity (Statement 2 correct). Corridor width does affect its ecological effectiveness; wider corridors generally support the movement of large, wide-ranging species better than narrow ones, making Statement 3 incorrect."
+    },
+    {
+        q: "With reference to the features and characteristics of wildlife corridors, consider the following statements: <br> 1. Corridors are typically classified based on their structure into linear, stepping-stone, and landscape corridors.<br>2. A stepping-stone corridor consists of a series of small, discontinuous habitat patches that facilitate movement between larger habitats.<br>3. Corridors identified in India are exclusively terrestrial and do not include riverine or aquatic connectivity pathways.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "Statement 1 alone",
+            "Statement 3 alone",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "Ecologists commonly classify corridors into linear (continuous strips), stepping-stone (discrete patches), and landscape/matrix corridors based on their structural configuration (Statement 1 correct). A stepping-stone corridor indeed consists of a chain of smaller habitat patches that species use as intermediate stopovers while moving between larger habitats, particularly relevant for birds and less mobile species (Statement 2 correct). Corridors in India are not exclusively terrestrial; riverine corridors, such as those supporting the Gangetic dolphin and other aquatic species, are also recognised, making Statement 3 incorrect."
+    },
+    {
+        q: "With reference to the major challenges confronting Indian flora, consider the following statements: <br> 1. Overgrazing and unregulated collection of forest produce are recognised as significant threats to the natural regeneration of native plant species.<br>2. Invasive alien plant species, such as Lantana camara, have been found to suppress the growth of native flora by altering soil and light conditions.<br>3. Climate change is not expected to have any measurable impact on the geographic distribution of Indian plant species in the foreseeable future.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "Exactly one of the statements is correct",
+            "None of the above",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "Overgrazing and unsustainable extraction of forest produce hinder the natural regeneration of native flora, a widely documented challenge across Indian forest and grassland ecosystems (Statement 1 correct). Invasive species like Lantana camara alter understorey light availability and soil chemistry, suppressing native plant regeneration, as observed across many Indian forests (Statement 2 correct). Climate change is, in fact, projected to significantly alter the geographic range and phenology of many Indian plant species, making Statement 3 incorrect."
+    },
+    {
+        q: "With reference to the functions and powers of the National Medicinal Plants Board (NMPB) in India, consider the following statements: <br> 1. The NMPB is empowered to support policies and programmes related to the cultivation, conservation, and trade of medicinal plants.<br>2. The NMPB functions under the administrative control of the Ministry of AYUSH.<br>3. The NMPB has the statutory power to override state government policies relating to land use for medicinal plant cultivation.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 3 alone",
+            "1 and 3 only",
+            "None of the above",
+            "Both 1 and 2"
+        ],
+        ans: 3,
+        exp: "The NMPB was established to coordinate matters relating to medicinal plants and to support policies and programmes for their cultivation, conservation, and trade promotion (Statement 1 correct). It functions under the Ministry of AYUSH, Government of India (Statement 2 correct). The NMPB does not possess statutory power to override state government land-use policy; land being a state subject, its role is coordinative and facilitative rather than overriding, making Statement 3 incorrect."
+    },
+    {
+        q: "With reference to the background and evolution of India's approach to tracking 'species in the news', consider the following statements: <br> 1. Species are typically brought into policy and media focus due to factors such as changes in their IUCN Red List status, rediscovery after presumed extinction, or reintroduction programmes.<br>2. The IUCN Red List categorises species based solely on their population size, without considering the rate of population decline or range restriction.<br>3. India's cheetah reintroduction programme at Kuno National Park was undertaken using cheetahs translocated from African countries, since the Asiatic cheetah is functionally extinct in the country.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 3",
+            "None of the above",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "Species typically attract policy and public attention due to changes in conservation status, unexpected rediscoveries, or high-profile reintroduction efforts, all of which have UPSC relevance (Statement 1 correct). The IUCN Red List assessment considers multiple criteria, including population size, rate of decline, geographic range, and probability of extinction, not population size alone, making Statement 2 incorrect. India's cheetah reintroduction at Kuno National Park used cheetahs translocated from Namibia and South Africa, since the Asiatic cheetah had gone extinct in India by the mid-20th century (Statement 3 correct)."
+    },
+    {
+        q: "With reference to the ecological functions and management powers associated with coral reef ecosystems, consider the following statements: <br> 1. Coral reefs function as breeding and nursery grounds for a significant proportion of marine fish species.<br>2. Reefs provide natural coastal protection by dissipating wave energy before it reaches the shoreline.<br>3. Coastal Zone Management Authorities have been empowered to enforce restrictions on coral extraction within Coastal Regulation Zone-I areas.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "Only one of the statements is correct",
+            "All of the above",
+            "Only two of the statements are correct"
+        ],
+        ans: 2,
+        exp: "Coral reefs provide critical breeding and nursery habitats for a large share of marine fish diversity, supporting fisheries productivity well beyond reef boundaries (Statement 1 correct). Their complex structures absorb and dissipate wave energy, offering coastlines natural protection against storms and erosion (Statement 2 correct). Coastal Zone Management Authorities are tasked with enforcing CRZ provisions, including restrictions on coral mining within CRZ-I designated areas as per the Coastal Zone Management Plans (Statement 3 correct)."
+    },
+    {
+        q: "With reference to the distinctive features and characteristics of Indian flora, consider the following statements: <br> 1. India's flora shows an overlap of Indo-Malayan and Indo-European floristic elements owing to its geographical position.<br>2. Sal (Shorea robusta) is a dominant tree species characteristic of the moist deciduous forests of eastern and central India.<br>3. All native Indian orchid species are terrestrial, with epiphytic orchids being found only outside the Indian subcontinent.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "Exactly two of the statements are correct",
+            "Statement 1 alone",
+            "None of the above"
+        ],
+        ans: 1,
+        exp: "India's floristic composition reflects an overlap of Indo-Malayan, Indo-European, and other floristic elements due to its transitional biogeographic location, contributing to high plant diversity (Statement 1 correct). Sal is indeed a dominant and economically important species characteristic of moist deciduous forests across states like Chhattisgarh, Odisha, and West Bengal (Statement 2 correct). India actually hosts numerous epiphytic orchid species, particularly in the Western Ghats and Northeastern states, making the claim in Statement 3 incorrect."
+    },
+    {
+        q: "With reference to important legal notifications and policies relevant to mangrove conservation in India, consider the following statements: <br> 1. The Coastal Regulation Zone Notification was first issued in 1991 under the Environment (Protection) Act, 1986 and has since undergone consolidation and amendment through subsequent notifications in 2011 and 2019.<br>2. Under the CRZ framework, mangrove areas are classified under the most ecologically sensitive sub-category, restricting diversion for developmental activities.<br>3. The Indian Forest Act, 1927 is the sole legislation applicable to mangrove forests, with the Environment (Protection) Act, 1986 having no bearing on them.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "Only statement 1",
+            "Both 1 and 3",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "The CRZ Notification was first issued in February 1991 under the Environment (Protection) Act, 1986, and was subsequently consolidated in 2011 and further revised in 2019 to reflect evolving coastal management needs (Statement 1 correct). Mangroves are classified under CRZ-I(A), the most ecologically sensitive sub-category, where developmental diversion is heavily restricted (Statement 2 correct). Multiple laws, including the Environment (Protection) Act, 1986, the Indian Forest Act, 1927, and the Wildlife (Protection) Act, 1972, all have bearing on mangrove areas depending on their notified status, making Statement 3 incorrect."
+    },
+    {
+        q: "With reference to the features and characteristics of coral reefs, consider the following statements: <br> 1. Coral reefs are formed by colonies of polyps that secrete calcium carbonate skeletons over long geological timescales.<br>2. Reefs are generally restricted to warm tropical and subtropical waters, typically within a narrow temperature range.<br>3. Fringing reefs, unlike barrier reefs, grow directly attached to the coastline with little to no lagoon separating them from the shore.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the above",
+            "Exactly one of the statements is correct",
+            "Only statement 2",
+            "Only one of the statements is correct"
+        ],
+        ans: 0,
+        exp: "Coral reefs are built up over thousands of years by colonial polyps secreting calcium carbonate skeletons, which accumulate to form massive reef structures (Statement 1 correct). Reef-building corals require warm waters, generally within a narrow temperature range of about 23-29Â°C, restricting their distribution largely to tropical and subtropical seas (Statement 2 correct). Fringing reefs grow close to and directly attached to the coastline with minimal or no lagoon, distinguishing them structurally from barrier reefs, which are separated from the shore by a wider lagoon (Statement 3 correct)."
+    },
+    {
+        q: "With reference to the functions and powers associated with forest governance in India, consider the following statements: <br> 1. Forests act as major carbon sinks, sequestering atmospheric carbon dioxide and helping mitigate climate change.<br>2. State Forest Departments have the exclusive statutory power to grant final clearance for diversion of forest land for non-forest use, without any role for the Central Government.<br>3. Forests regulate the hydrological cycle by influencing rainfall patterns, groundwater recharge, and soil moisture retention.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "2 and 3 only",
+            "1 only",
+            "All of the statements are correct"
+        ],
+        ans: 0,
+        exp: "Forests function as significant carbon sinks, absorbing and storing atmospheric carbon in biomass and soil, making them central to climate mitigation efforts (Statement 1 correct). Under the Forest (Conservation) Act, 1980, final approval for diverting forest land for non-forest purposes rests with the Central Government, not exclusively with state forest departments, making Statement 2 incorrect. Forests play a vital role in regulating the hydrological cycle, influencing precipitation patterns, groundwater recharge, and soil moisture (Statement 3 correct)."
+    },
+    {
+        q: "With reference to the challenges confronting mangrove ecosystems in India, consider the following statements: <br> 1. Aquaculture expansion, particularly shrimp farming, has been identified as a significant driver of mangrove deforestation along the Indian coastline.<br>2. Mangroves are relatively resilient to sea-level rise and are not considered vulnerable to submergence caused by climate change.<br>3. Freshwater diversion for irrigation and urban use upstream can alter the salinity balance critical for mangrove survival in deltaic regions.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All three statements are correct",
+            "Both 1 and 3",
+            "Only one of the statements is correct",
+            "None of the statements are correct"
+        ],
+        ans: 1,
+        exp: "Conversion of mangrove areas for aquaculture, especially shrimp farming, has been a well-documented cause of mangrove loss along India's coasts (Statement 1 correct). Contrary to Statement 2, mangroves are indeed vulnerable to sea-level rise, as sustained submergence beyond their sediment accretion capacity can drown root systems, making the statement incorrect. Altered freshwater inflow due to upstream diversion disrupts the delicate salinity gradients that many mangrove species depend on, particularly in deltas like the Sundarbans (Statement 3 correct)."
+    },
+    {
+        q: "With reference to the constitutional and legal provisions relevant to wetland conservation in India, consider the following statements: <br> 1. The Wetlands (Conservation and Management) Rules, 2017 have been notified under the Environment (Protection) Act, 1986.<br>2. The Supreme Court has invoked the Public Trust Doctrine in linking the ecological health of wetlands to the right to life under Article 21 of the Constitution.<br>3. Under the current legal framework, every wetland recognised under the Ramsar Convention automatically enjoys a statutorily fixed buffer zone restricting mining activity around it.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "None of the statements are correct",
+            "1 and 2 only",
+            "Statement 3 alone"
+        ],
+        ans: 2,
+        exp: "The Wetlands (Conservation and Management) Rules, 2017 were notified by the Ministry of Environment, Forest and Climate Change under the Environment (Protection) Act, 1986 (Statement 1 correct). Courts, including in cases invoking the Public Trust Doctrine, have linked wetland conservation to the fundamental right to a clean environment guaranteed under Article 21 (Statement 2 correct). However, neither the Ramsar Convention nor the 2017 Rules prescribe a fixed statutory mining buffer around every Ramsar site; such restrictions have instead arisen through specific judicial directions on a case-by-case basis, making Statement 3 incorrect."
+    },
+    {
+        q: "With reference to the structural composition of mangrove ecosystems, consider the following statements: <br> 1. Mangrove plants typically possess specialised root structures such as pneumatophores that facilitate gas exchange in waterlogged, oxygen-poor soils.<br>2. Many mangrove species exhibit vivipary, wherein seeds germinate while still attached to the parent tree.<br>3. Mangrove vegetation is structurally uniform, with a single dominant canopy layer and negligible zonation across the intertidal gradient.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 and 2 only",
+            "None of the above",
+            "All three statements are correct"
+        ],
+        ans: 1,
+        exp: "Mangroves have evolved specialised aerial root structures like pneumatophores that project above the anaerobic mud to enable gas exchange (Statement 1 correct). Vivipary, where propagules germinate on the parent plant before dispersal, is a well-known adaptive feature of many mangrove species, aiding establishment in saline, unstable substrates (Statement 2 correct). Mangrove forests actually show distinct zonation, with different species dominating specific zones based on tidal inundation and salinity gradients, making Statement 3 incorrect."
+    },
+    {
+        q: "\"Biorock technology\" is talked about in which one of the following situations?",
+        opts: [
+            "Providing salt licks for wild animals in forests/protected areas",
+            "Development of building materials using plant residues",
+            "Identification of areas for exploration/extraction of shale gas",
+            "Restoration of damaged coral reefs"
+        ],
+        ans: 3,
+        exp: "This is a UPSC Prelims 2022 question. Biorock technology, also known as mineral accretion technology, uses low-voltage electrical currents passed through seawater to stimulate the deposition of calcium carbonate on submerged structures. This accelerates coral growth and enhances resistance to bleaching and pollution, making it a valuable tool for the restoration of damaged coral reefs, as applied in projects in the Gulf of Kutch."
+    },
+    {
+        q: "With reference to reforms and recommendations concerning forest governance in India, consider the following statements: <br> 1. Expert committees have recommended greater involvement of local and forest-dwelling communities in forest management through mechanisms such as Joint Forest Management.<br>2. The National Forest Policy recommends maintaining at least one-third of the country's geographical area under forest and tree cover.<br>3. Compensatory afforestation, as mandated under forest diversion approvals, has been recommended as a substitute for avoiding the diversion of ecologically sensitive natural forests altogether.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "1, 2 and 3",
+            "Only one of the statements is correct",
+            "Both 2 and 3"
+        ],
+        ans: 0,
+        exp: "Community-based approaches such as Joint Forest Management have been consistently recommended to improve conservation outcomes by aligning local livelihoods with forest protection (Statement 1 correct). The National Forest Policy, 1988 set a target of bringing at least one-third of India's geographical area under forest and tree cover, with a higher target for hilly and mountainous regions (Statement 2 correct). Compensatory afforestation is meant to offset, not substitute for, the loss of natural forests; expert bodies have repeatedly cautioned that plantations cannot replicate the ecological value of natural, especially old-growth, forests, making Statement 3 incorrect."
+    },
+    {
+        q: "With reference to recent (2025-26) developments concerning wetlands in India, consider the following statements: <br> 1. India's total number of Ramsar sites crossed 100 during 2026, with the highest number of sites located in Tamil Nadu.<br>2. The Supreme Court has clarified that its direction restricting mining within a defined radius of the Asan Wetland Conservation Reserve applies, on grounds of parity, to wetland conservation reserves across the country.<br>3. All new Ramsar site additions during 2025-26 were located exclusively in coastal states.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "Both 1 and 3",
+            "3 only",
+            "All three statements are correct"
+        ],
+        ans: 0,
+        exp: "India's Ramsar site count crossed the 100 mark in 2026, with Tamil Nadu continuing to hold the highest number of such sites in the country (Statement 1 correct). The Supreme Court clarified that its interim mining restriction around the Asan Wetland Conservation Reserve in Uttarakhand would extend to wetland conservation reserves nationwide, on the principle of parity (Statement 2 correct). However, new Ramsar additions during this period included inland and non-coastal states such as Bihar, Uttar Pradesh, and Chhattisgarh, so the claim of exclusively coastal additions in Statement 3 is incorrect."
+    },
+    {
+        q: "With reference to reforms and recommendations for coral reef conservation, consider the following statements: <br> 1. Active restoration techniques such as coral gardening and Biorock technology have been recommended to supplement natural recovery of degraded reefs.<br>2. Strengthening enforcement of Coastal Zone Management Plans has been recommended to curb illegal coral mining in Coastal Regulation Zone-I areas.<br>3. Expert bodies have recommended phasing out destructive fishing practices, such as the use of dynamite and cyanide, near reef ecosystems.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "All three statements are correct",
+            "Only one of the statements is correct",
+            "None of the statements are correct"
+        ],
+        ans: 1,
+        exp: "Techniques like coral gardening and Biorock-based mineral accretion have been recommended as active restoration tools to complement natural coral recovery processes, particularly in degraded reef zones like the Gulf of Kutch (Statement 1 correct). Effective enforcement of Coastal Zone Management Plans has been identified as essential to prevent illegal coral extraction within the strictly regulated CRZ-I category (Statement 2 correct). Phasing out destructive fishing methods that physically damage reef structures has similarly been a consistent conservation recommendation (Statement 3 correct)."
+    },
+    {
+        q: "With reference to the functions and powers of statutory and constitutional provisions applicable to Indian fauna, consider the following statements: <br> 1. The Chief Wildlife Warden of a state is empowered under the Wildlife (Protection) Act, 1972 to permit the capture or killing of a wild animal that has become a danger to human life or is disabled beyond recovery.<br>2. The National Board for Wildlife has advisory as well as regulatory functions, including consideration of proposals for altering the boundaries of protected areas.<br>3. The power to declare an area as a Wildlife Sanctuary or National Park under the Wildlife (Protection) Act, 1972 rests exclusively with the Central Government.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 3 alone",
+            "Only two of the statements are correct",
+            "Both 1 and 3",
+            "Both 2 and 3"
+        ],
+        ans: 1,
+        exp: "Under the Wildlife (Protection) Act, 1972, only the Chief Wildlife Warden, as the competent authority, can permit the capture or killing of a wild animal that poses danger to human life or is diseased or disabled beyond recovery (Statement 1 correct). The National Board for Wildlife performs both advisory functions on wildlife policy and specific regulatory roles, such as reviewing proposals to denotify or alter the boundaries of protected areas (Statement 2 correct). However, the power to declare Wildlife Sanctuaries and National Parks under the Act primarily rests with the State Government, not exclusively the Centre, making Statement 3 incorrect."
+    },
+    {
+        q: "With reference to the constitutional and legal provisions relevant to Indian flora, consider the following statements: <br> 1. Forests and protection of wild animals and birds are placed in the Concurrent List of the Seventh Schedule of the Constitution.<br>2. The Biological Diversity Act, 2002 provides a framework for regulating access to India's biological resources, including plant genetic material, and for ensuring benefit-sharing.<br>3. Under the Wildlife (Protection) Act, 1972, cultivation of certain specified plant species requires a licence from the competent authority.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All three statements are correct",
+            "Statement 3 alone",
+            "Only statement 1",
+            "Both 2 and 3"
+        ],
+        ans: 0,
+        exp: "Forests and protection of wild animals and birds were transferred to the Concurrent List through the 42nd Constitutional Amendment, allowing both Parliament and state legislatures to legislate on the subject (Statement 1 correct). The Biological Diversity Act, 2002 establishes a framework regulating access to India's biological resources and associated traditional knowledge, ensuring equitable benefit-sharing (Statement 2 correct). Species placed under the specified Schedule for plants under the Wildlife (Protection) Act require a licence for their cultivation, as clarified in past UPSC questions on this provision (Statement 3 correct)."
+    },
+    {
+        q: "With reference to reforms and recommendations concerning the medicinal plants sector in India, consider the following statements: <br> 1. Expert bodies have recommended promoting cultivation of medicinal plants on farmers' land to reduce pressure on wild populations.<br>2. Digital platforms have been recommended to improve market access and price transparency for growers and traders of medicinal plants.<br>3. Recommendations for the sector have exclusively focused on export promotion, with no emphasis on domestic conservation of rare and endangered species.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "1, 2 and 3",
+            "Both 1 and 2",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 2,
+        exp: "Promoting cultivation of medicinal plants on farmland has been a consistent policy recommendation to reduce overharvesting pressure on wild populations, supported through schemes under the National Medicinal Plants Board (Statement 1 correct). Digital initiatives such as the e-CHARAK portal have been developed specifically to improve market access and price transparency for cultivators and traders (Statement 2 correct). However, recommendations for the sector have also strongly emphasised conservation of rare, endangered, and threatened (RET) species through germplasm conservation and tissue culture, not solely export promotion, making Statement 3 incorrect."
+    },
+    {
+        q: "With reference to the background and evolution of India's medicinal plants sector, consider the following statements: <br> 1. The traditional use of medicinal plants in India is documented in classical texts associated with the Ayurveda system of medicine.<br>2. The National Medicinal Plants Board was established to provide policy coordination as demand for medicinal plants grew alongside the expansion of the AYUSH sector.<br>3. Conservation of medicinal plant germplasm through tissue culture techniques has emerged as a recent policy focus for rare and endangered species.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "Both 1 and 3",
+            "Statement 2 alone",
+            "Both 2 and 3"
+        ],
+        ans: 0,
+        exp: "India's use of medicinal plants has ancient roots, extensively documented in classical Ayurvedic texts describing their therapeutic applications (Statement 1 correct). The National Medicinal Plants Board was established under the Ministry of AYUSH to coordinate policy as demand from the traditional medicine and pharmaceutical sectors grew (Statement 2 correct). More recently, initiatives using advanced tissue culture techniques have been adopted to conserve germplasm of rare, endangered, and threatened medicinal plant species, reflecting an evolving conservation focus (Statement 3 correct)."
+    },
+    {
+        q: "With reference to important Acts, amendments, and policies concerning forests in India, consider the following statements: <br> 1. The Forest (Conservation) Act, 1980 was enacted to check indiscriminate diversion of forest land for non-forest purposes.<br>2. The Forest (Conservation) Amendment Act, 2023 introduced exemptions for certain categories of land from the definition of 'forest' as applicable under the Act.<br>3. The Scheduled Tribes and Other Traditional Forest Dwellers (Recognition of Forest Rights) Act, 2006 recognises only individual rights over forest land, with no provision for community forest rights.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "None of the above",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 2,
+        exp: "The Forest (Conservation) Act, 1980 was enacted specifically to curb the unchecked diversion of forest land for non-forest activities, requiring central government approval for such diversion (Statement 1 correct). The 2023 amendment introduced changes exempting certain categories of land, such as those near international borders or falling below specified areas, from the Act's applicability, a matter that proved controversial (Statement 2 correct). However, the Forest Rights Act, 2006 recognises both individual forest rights and community forest resource rights, including rights to protect, regenerate, and manage community forest resources, making Statement 3 incorrect."
+    },
+    {
+        q: "With reference to the background and evolution of wetland conservation policy in India, consider the following statements: <br> 1. India became a signatory to the Ramsar Convention on Wetlands in 1982.<br>2. The National Wetlands Conservation Programme, an early government initiative, has since been succeeded by statutory rules governing wetland management.<br>3. Wetland governance in India evolved from a centrally administered regulatory authority towards a more decentralised, state-led authority structure.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 1 alone",
+            "Only two of the statements are correct",
+            "All three statements are correct",
+            "Only one of the statements is correct"
+        ],
+        ans: 2,
+        exp: "India became a party to the Ramsar Convention in 1982, formally committing to conserve wetlands designated as being of international importance (Statement 1 correct). The National Wetlands Conservation Programme was an early scheme-based initiative that has since been succeeded by the statutory Wetlands (Conservation and Management) Rules of 2010 and 2017 (Statement 2 correct). Wetland governance evolved from the earlier Central Wetlands Regulatory Authority to a decentralised structure under the 2017 Rules, which empowers State/UT Wetlands Authorities while leaving only an advisory role to the central National Wetland Committee (Statement 3 correct)."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-24 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>
