@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-64</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "With reference to the background and evolution of organ transplantation in India, consider the following statements:<br>1. India's first successful kidney transplant was performed in 1971 at the Christian Medical College, Vellore.<br>2. The Transplantation of Human Organs Act, 1994 was amended in 2011, an amendment that paved the way for setting up the National Organ and Tissue Transplant Organisation (NOTTO).<br>3. India's first heart transplant was performed several decades before the enactment of the Transplantation of Human Organs Act, 1994, since no legal framework was required for the procedure at the time.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "India's first successful kidney transplant was performed in 1971 at CMC Vellore, and the 2011 amendment to the THOA paved the way for setting up NOTTO. India's first heart transplant, however, was performed at AIIMS New Delhi in August 1994, just one month after the THOA was enacted, not decades before it, making statement 3 incorrect."
+    },
+    {
+        q: "Which one of the following statements correctly describes a feature of the Ayushman Bharat Digital Mission (ABDM)?",
+        opts: [
+            "Participation in ABDM, including creation of an ABHA ID, is mandatory for every citizen and hospital in India",
+            "ABDM was launched nationally on 27 September 2021 and is implemented by the National Health Authority",
+            "ABDM's core objective is limited exclusively to digitising death registration records nationwide",
+            "The ABHA number can only be generated by visiting a designated government hospital in person, with no online option available"
+        ],
+        ans: 1,
+        exp: "ABDM was launched nationally on 27 September 2021, following a pilot in six Union Territories, and is implemented by the National Health Authority. Participation, including creation of an ABHA ID, remains voluntary rather than mandatory; the ABHA number can be generated online via the ABDM portal, app, or Aadhaar/mobile number without an in-person hospital visit; and ABDM's objective spans a broader digital health ecosystem, not merely death registration."
+    },
+    {
+        q: "With reference to the roles of Accredited Social Health Activists (ASHAs) under India's health missions, a recurring UPSC theme, consider the following functions:<br>1. Escorting pregnant women to health facilities for antenatal check-ups.<br>2. Creating awareness on nutrition, sanitation and immunization at the village level.<br>3. Performing institutional deliveries of babies as the primary skilled birth attendant.<br>4. Maintaining the official register of births and deaths for her village.<br>Which of the above are recognised functions of an ASHA?",
+        opts: [
+            "1, 2, 3 and 4",
+            "1 and 2 only",
+            "1, 2 and 3 only",
+            "2 and 4 only"
+        ],
+        ans: 1,
+        exp: "ASHAs escort women for antenatal care and spread awareness on nutrition, sanitation and immunization as part of their core community health functions. Conducting deliveries is the domain of skilled medical professionals at healthcare facilities, not ASHAs, and maintaining official birth-death registers is not a designated ASHA function, making statements 3 and 4 incorrect."
+    },
+    {
+        q: "With reference to recommendations for reforming India's Health Missions, consider the following statements:<br>1. The Fifteenth Finance Commission recommended that combined public health expenditure of the Union and State governments be progressively increased to reach 2.5% of GDP by 2025.<br>2. As of the latest available data, India has successfully achieved and surpassed this 2.5% of GDP health-spending target well ahead of schedule.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2",
+            "Neither statement is correct",
+            "Only statement 2",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 3,
+        exp: "The Fifteenth Finance Commission did recommend raising combined public health expenditure to 2.5% of GDP by 2025, echoing the National Health Policy, 2017 target. However, India's public health spending has stagnated between roughly 1.5% and 2% of GDP even as of 2026, remaining short of this target, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to reforms and regulatory recommendations for gene therapy in India, consider the following statements:<br>1. Under the New Drugs and Clinical Trials Rules, 2019, gene therapy products are explicitly excluded from the definition of 'new drugs' and hence require no separate regulatory approval.<br>2. The Gene Therapy Advisory and Evaluation Committee (GTAEC), which oversees gene therapy trials in India, has its secretariat housed within the Indian Council of Medical Research (ICMR).<br>3. India's regulatory framework for gene therapy recommends completely banning public-private partnerships in gene-therapy manufacturing to prevent conflicts of interest.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "None of the statements is correct",
+            "1 only",
+            "3 only"
+        ],
+        ans: 0,
+        exp: "The GTAEC, which provides regulatory oversight for gene therapy trials in India, has its secretariat based at the ICMR. Contrary to statement 1, gene therapy products are explicitly classified as 'new drugs' under the 2019 Rules and thus require regulatory approval. Far from banning them, India's framework actively encourages public-private partnerships, such as the CSIR-IGIB and Serum Institute of India collaboration, to reduce costs, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the features and characteristics of the 'One Health' approach, consider the following statements:<br>1. The 'Tripartite' collaboration among the WHO, FAO and WOAH, formalised in 2010, expanded into a 'Quadripartite' arrangement in 2022 with the inclusion of the UN Environment Programme (UNEP).<br>2. The One Health High-Level Expert Panel (OHHLEP) defines 'One Health' exclusively in terms of human and animal health, explicitly excluding ecosystem health from its scope.<br>3. Antimicrobial resistance, avian influenza and rabies were identified as the three priority areas of work under the Tripartite/Quadripartite One Health alliance.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "2 and 3 only",
+            "Exactly one of the statements is correct",
+            "Statement 2 alone"
+        ],
+        ans: 0,
+        exp: "The Tripartite Alliance (WHO, FAO, WOAH), formed in 2010, became a Quadripartite Alliance in 2022 upon adding UNEP, and the alliance identified AMR, avian influenza and rabies as its three priority areas. The OHHLEP's definition explicitly encompasses the health of ecosystems alongside humans and animals, so statement 2, which claims ecosystem health is excluded, is incorrect."
+    },
+    {
+        q: "With reference to vaccination programmes in India, consider the following statements:<br>1. The Universal Immunization Programme (UIP) was launched in 1978 as the 'Expanded Programme on Immunization'.<br>2. Under Mission Indradhanush, free immunization is provided exclusively to children below one year of age, with pregnant women excluded from its ambit.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "Neither 1 nor 2",
+            "1 only",
+            "Both 1 and 2"
+        ],
+        ans: 2,
+        exp: "The Universal Immunization Programme traces its origin to the Expanded Programme on Immunization launched in 1978, later renamed UIP in 1985. Mission Indradhanush (launched December 2014) targets unvaccinated and partially vaccinated children up to two years of age as well as pregnant women, so statement 2 wrongly excludes pregnant women and misstates the age limit."
+    },
+    {
+        q: "Assertion (A): The Intensified Mission Indradhanush (IMI), launched in October 2017, aimed to accelerate full immunisation coverage to at least 90% in identified low-coverage districts and urban pockets.<br>Reason (R): Mission Indradhanush and its subsequent phases function entirely independently of the Universal Immunization Programme, employing an altogether separate basket of vaccines exclusive to the mission.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "A is false but R is true",
+            "Both A and R are true but R is NOT the correct explanation of A",
+            "A is true but R is false",
+            "Both A and R are true and R is the correct explanation of A"
+        ],
+        ans: 2,
+        exp: "IMI, launched in October 2017, did aim to push full immunisation coverage to at least 90% in identified districts and urban areas. However, Mission Indradhanush and its phases supplement and accelerate the Universal Immunization Programme rather than functioning independently of it, targeting the same UIP vaccine-preventable diseases for unvaccinated and partially vaccinated beneficiaries, making the Reason false."
+    },
+    {
+        q: "With reference to institutions exercising functions and powers over gene therapy in India, consider the following:<br>1. The Review Committee on Genetic Manipulation (RCGM), functioning under the Department of Biotechnology, provides biosafety oversight of gene therapy vectors and genetically modified cells.<br>2. The Institutional Biosafety Committee (IBSC) is required to provide site-level biosafety review and approval before a gene therapy clinical trial can commence at that institution.<br>3. Final marketing authorization for an approved gene therapy product is granted solely by the Department of Biotechnology, with the Central Drugs Standard Control Organisation (CDSCO) having no role.<br>4. The Gene Therapy Advisory and Evaluation Committee (GTAEC) provides a no-objection certificate before initiation of gene therapy clinical trials.<br>Which of the above are correct?",
+        opts: [
+            "1, 2, 3 and 4",
+            "2, 3 and 4 only",
+            "1, 2 and 4 only",
+            "1, 2 and 3 only"
+        ],
+        ans: 2,
+        exp: "RCGM provides biosafety oversight of gene therapy vectors, the IBSC conducts site-level biosafety review before trials commence, and the GTAEC issues a no-objection certificate before clinical trials begin. However, final marketing authorization for an approved gene therapy product is granted by the CDSCO, not the Department of Biotechnology, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the constitutional and legal basis of Health Missions in India, consider the following statements:<br>1. Since 'public health and hospitals' falls under the State List, Centrally Sponsored Schemes like the National Health Mission are funded through Union grants extended under Article 282 of the Constitution.<br>2. The National Health Mission was established through a specific Act of Parliament, giving it independent statutory status akin to a constitutional body.<br>3. 'Population control and family planning' is a subject placed in the Concurrent List of the Seventh Schedule.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 2 and 3",
+            "Both 1 and 2",
+            "Only two of the statements are correct",
+            "Only statement 2"
+        ],
+        ans: 2,
+        exp: "As public health is a State subject, the Union extends financial assistance for schemes like the NHM through Article 282, which permits grants for public purposes beyond the Union's own legislative competence. 'Population control and family planning' is indeed a Concurrent List subject. However, the NHM was launched through an executive/Cabinet decision in 2013, not through a dedicated Act of Parliament, so statement 2 is incorrect."
+    },
+    {
+        q: "With reference to recent (2025-2026) developments concerning antimicrobial resistance (AMR) in India, consider the following statements:<br>1. NAP-AMR 2.0, covering the period 2025-2029, was launched by the Union Ministry of Health and Family Welfare during the WHO's World AMR Awareness Week in November 2025.<br>2. NAP-AMR 2.0 follows India's first National Action Plan on Antimicrobial Resistance, which had been launched in 2017.<br>3. Kerala and Gujarat became the first Indian states to ban the over-the-counter sale of antibiotics.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 1",
+            "All of the above",
+            "1 and 3 only",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 1,
+        exp: "NAP-AMR 2.0 (2025-2029) was launched by the Union Health Minister on 18 November 2025, coinciding with the WHO's World AMR Awareness Week, and builds upon the first NAP-AMR launched in 2017. Kerala and Gujarat have indeed been noted as the first states to ban over-the-counter antibiotic sales. All three statements are accurate."
+    },
+    {
+        q: "With reference to the National Health Policy (NHP), 2017, a recurring theme in UPSC Prelims, consider the following statements:<br>1. It set a goal of increasing government health expenditure to 2.5% of GDP.<br>2. It conferred a statutory, court-enforceable 'Right to Health' on all citizens.<br>3. It replaced the National Health Policy of 2002.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "The NHP 2017 set a target of raising public health expenditure to 2.5% of GDP and replaced the NHP of 2002, which itself had replaced the original 1983 policy. However, it stopped short of making health a justiciable right, unlike the Right to Education Act, so statement 2 is incorrect."
+    },
+    {
+        q: "With reference to important Acts, Rules and policies concerning antimicrobial resistance (AMR) in India, consider the following statements:<br>1. Schedule H1 of the Drugs and Cosmetics Rules, introduced through a 2013 amendment effective from 2014, mandates that specified antibiotics be sold only against a registered medical practitioner's prescription, with a separate sale register maintained.<br>2. The National Action Plan on Antimicrobial Resistance (NAP-AMR), first launched in 2017, is a standalone Act of Parliament carrying penal provisions for non-compliance.<br>3. The Food Safety and Standards Authority of India (FSSAI) has notified regulations prescribing maximum residue limits for antibiotics in food products such as meat and aquaculture.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "Both 1 and 3",
+            "2 only",
+            "1 only"
+        ],
+        ans: 1,
+        exp: "Schedule H1 regulates prescription-only sale of specified antibiotics, and FSSAI has indeed notified maximum residue limit regulations for antibiotics in food products like meat and aquaculture. NAP-AMR, however, is a policy roadmap and not a standalone Act of Parliament with penal provisions, making statement 2 incorrect."
+    },
+    {
+        q: "Assertion (A): The judiciary in India has read a 'Right to Health' into the ambit of Article 21 of the Constitution.<br>Reason (R): 'Public health and sanitation; hospitals and dispensaries' is placed in the Concurrent List of the Seventh Schedule, giving the Union exclusive legislative jurisdiction over health.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "Both A and R are true and R is the correct explanation of A",
+            "A is true but R is false",
+            "A is false but R is true",
+            "Both A and R are true but R is NOT the correct explanation of A"
+        ],
+        ans: 1,
+        exp: "Courts have interpreted the right to life under Article 21 to include a right to health, as seen in cases like Paschim Banga Khet Mazdoor Samity. However, 'public health and sanitation; hospitals and dispensaries' is an entry in the State List, not the Concurrent List, so the Union does not have exclusive jurisdiction over it, making R false."
+    },
+    {
+        q: "With reference to the constitutional and legal basis for disease surveillance in India, consider the following statements:<br>1. 'Inter-State quarantine' is a subject placed in the Union List of the Seventh Schedule, giving Parliament exclusive legislative competence over it.<br>2. As a State Party to the International Health Regulations (IHR), 2005, India is obligated to notify the WHO of events that may constitute a Public Health Emergency of International Concern (PHEIC).<br>3. The Union Government has no legislative competence over 'prevention of the extension from one State to another of infectious or contagious diseases', since this subject falls exclusively within the State List.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "'Inter-State quarantine' is placed in the Union List (Entry 81), giving Parliament exclusive power over it, and as an IHR (2005) State Party, India must notify the WHO of potential PHEIC events. However, 'prevention of the extension from one State to another of infectious or contagious diseases' is Entry 29 of the Concurrent List, giving both Union and States legislative competence, not the State List exclusively, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to recent (2025-2026) developments in vaccination in India, consider the following statements:<br>1. As of January 2026, India's full immunization coverage under the Universal Immunization Programme had declined to below 70%, reversing years of progress.<br>2. ICMR's indigenous multi-stage malaria vaccine, AdFalciVax, was shelved in 2025 after failing to secure any manufacturing partners.<br>3. In February 2026, India launched the 'Swastha Nari Mission', a free nationwide HPV vaccination drive targeting 14-year-old girls.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "3 only",
+            "1 only",
+            "None of the statements is correct"
+        ],
+        ans: 1,
+        exp: "In February 2026, India launched the 'Swastha Nari Mission', a free nationwide HPV vaccination drive for 14-year-old girls, aiming to prevent cervical cancer. Full immunization coverage under the UIP actually rose to about 98.4% by January 2026, not below 70%, and AdFalciVax was licensed to multiple manufacturers in September 2025 rather than being shelved, making statements 1 and 2 incorrect."
+    },
+    {
+        q: "With reference to the background and evolution of medical devices regulation in India, consider the following statements:<br>1. Prior to 2005, India had no dedicated regulatory framework for medical devices, with only a handful of items like disposable hypodermic syringes and condoms subject to registration.<br>2. Medical devices in India were historically regulated on a piecemeal basis through periodic gazette notifications declaring specific devices as 'drugs' under the Drugs and Cosmetics Act, 1940, until the Medical Devices Rules, 2017 introduced a risk-based classification framework.<br>3. The February 2020 notification under the Medical Devices Rules narrowed the definition of 'medical device' so that most health-related devices remained entirely unregulated and outside the law's scope.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "Before 2005, India lacked dedicated device regulation beyond a few notified items, and devices were subsequently regulated piecemeal via gazette notifications until the Medical Devices Rules, 2017 introduced risk-based classification. The February 2020 notification, however, expanded rather than narrowed the definition of 'medical device', bringing nearly all health-related devices into regulatory scope, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to recent (2025-2026) developments in gene therapy in India, consider the following statements:<br>1. India's first in-human gene therapy trial for severe Haemophilia A, conducted at CMC Vellore in collaboration with BRIC-inStem, reported that participants achieved restored Factor VIII expression with a near-zero annualised bleeding rate.<br>2. In November 2025, CSIR's Institute of Genomics and Integrative Biology partnered with the Serum Institute of India to develop an affordable, indigenous gene-editing platform for sickle cell disease.<br>3. BIRSA 101, India's indigenous CRISPR-based gene therapy candidate for sickle cell disease, has already received full regulatory approval for commercial marketing.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 3 only",
+            "1 and 2 only",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "India's Haemophilia A gene therapy trial at CMC Vellore reported encouraging Phase 1 results, and CSIR-IGIB partnered with the Serum Institute of India in November 2025 for an indigenous sickle cell gene-editing platform. However, BIRSA 101 is still undergoing groundwork for clinical trials and has not received commercial marketing approval, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to important Acts and policies governing gene therapy in India, consider the following statements:<br>1. Gene therapy products in India are regulated as 'cosmetics' under the Drugs and Cosmetics Act, 1940, since they involve biological modification of cells.<br>2. The New Drugs and Clinical Trials Rules, 2019 was enacted specifically and exclusively to regulate gene therapy products, with no application to conventional pharmaceutical drugs.<br>3. The Indian Council of Medical Research (ICMR) issued the 'National Guidelines for Gene Therapy Product Development and Clinical Trials in India' in 2019.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "3 only",
+            "1 only",
+            "None of the statements is correct"
+        ],
+        ans: 1,
+        exp: "ICMR did issue the National Guidelines for Gene Therapy Product Development and Clinical Trials in 2019. Gene therapy products are regulated as 'new drugs' (biologicals), not as cosmetics, making statement 1 incorrect. The New Drugs and Clinical Trials Rules, 2019 is a broad regulatory framework governing new drugs and clinical trials generally, not a law exclusive to gene therapy, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to the functions and powers of institutions under India's 'One Health' framework, consider the following statements:<br>1. The National One Health Mission (NOHM) was approved by the Prime Minister's Science, Technology and Innovation Advisory Council (PM-STIAC), with the Indian Council of Medical Research (ICMR) functioning as its nodal implementing agency.<br>2. The National Institute of One Health at Nagpur serves as the anchor institute coordinating the Mission's activities across the country.<br>3. The National One Health Mission is implemented solely by the Ministry of Defence, with no involvement of health, agriculture, or environment-related ministries.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "The NOHM was approved by PM-STIAC, with ICMR as the nodal implementing agency under the Office of the Principal Scientific Adviser, and the National Institute of One Health at Nagpur anchors its activities. The Mission is a cross-ministerial effort spanning over a dozen ministries and departments, including Health, Animal Husbandry, and Environment, so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to challenges in operationalising the 'One Health' approach in India, consider the following statements:<br>1. According to studies, nearly 60-75% of emerging infectious diseases globally are zoonotic in origin.<br>2. A key challenge is limited policy visibility for high-burden endemic zoonotic diseases in India, as compared to globally recognised pandemic-potential pathogens.<br>3. India's disease surveillance systems currently monitor zoonotic spillover risks equally well across human, livestock and wildlife populations, leaving no early-warning gaps.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "Both 2 and 3",
+            "Statement 1 alone",
+            "Statement 3 alone"
+        ],
+        ans: 0,
+        exp: "A large majority of emerging infectious diseases are indeed zoonotic, and India's policy attention has historically focused more on globally flagged pandemic-potential pathogens than on high-burden local endemic zoonoses. However, India's surveillance largely operates in silos, often missing early warning signals from wildlife populations, so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to the functions and powers of institutions involved in vaccination in India, consider the following statements:<br>1. The National Technical Advisory Group on Immunization (NTAGI) is India's apex advisory body that recommends to the Ministry of Health and Family Welfare on the introduction of new vaccines into the Universal Immunization Programme.<br>2. Regulatory approval for the manufacture and marketing of a new vaccine in India is granted by the NTAGI under statutory powers vested in it by the Drugs and Cosmetics Act.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Neither 1 nor 2",
+            "2 only",
+            "1 only",
+            "Both 1 and 2"
+        ],
+        ans: 2,
+        exp: "NTAGI functions purely as an advisory body, recommending to the Ministry of Health and Family Welfare on vaccination policy and introduction of new vaccines into the UIP. Statutory regulatory approval for the manufacture and marketing of vaccines rests with the Drugs Controller General of India (DCGI), not with NTAGI, making statement 2 incorrect."
+    },
+    {
+        q: "Assertion (A): Despite flagship missions like Ayushman Bharat, out-of-pocket health expenditure continues to push many Indian households, particularly the income groups falling in the 'missing middle', towards financial distress.<br>Reason (R): The Union government's health expenditure as a proportion of GDP has consistently exceeded 2.5% of GDP since 2020, effectively insulating all income groups from healthcare costs.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "Both A and R are true but R is NOT the correct explanation of A",
+            "A is true but R is false",
+            "Both A and R are true and R is the correct explanation of A",
+            "A is false but R is true"
+        ],
+        ans: 1,
+        exp: "The 'missing middle' income class, not covered by Ayushman Bharat's targeted poorer beneficiaries or by private insurance affordable to the wealthy, continues to face catastrophic out-of-pocket healthcare costs, making Assertion true. However, the Union government's health expenditure has remained well below the 2.5% of GDP target set by the National Health Policy, 2017, and has even declined in recent years as a share of GDP, making the Reason false."
+    },
+    {
+        q: "In the context of recurring UPSC Prelims themes on organ transplantation in India, consider the following statements:<br>1. As per the amended 2023 guidelines, an upper age limit of 65 years continues to apply for living-donor organ transplants between family members.<br>2. India remains barred internationally from performing any organ transplants involving foreign nationals under the Transplantation of Human Organs and Tissues Act.<br>3. In February 2023, India's organ transplantation guidelines removed the domicile criterion, allowing a person to register for a deceased-donor organ transplant in any state of the country.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 only",
+            "2 only",
+            "None of the statements is correct"
+        ],
+        ans: 0,
+        exp: "In February 2023, India removed the domicile requirement for deceased-donor organ registration, allowing patients to register in any state. There has never been an age cap on living-donor transplants between family members, so statement 1 is incorrect, and the Act explicitly permits, under additional scrutiny, transplants involving foreign nationals, making statement 2 incorrect as well."
+    },
+    {
+        q: "With reference to telemedicine in India, consider the following statements:<br>1. The Telemedicine Practice Guidelines, 2020 prohibit Registered Medical Practitioners from prescribing certain restricted medicines, such as narcotic and psychotropic substances, through teleconsultation.<br>2. eSanjeevani, India's national telemedicine service, operates through two distinct models — a provider-to-provider hub-and-spoke model at Health and Wellness Centres and a direct-to-patient OPD model.<br>3. Under the Telemedicine Practice Guidelines, 2020, every teleconsultation mandatorily requires a notarized written contract signed by both doctor and patient before treatment can begin.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "1 and 3 only",
+            "Both 1 and 2",
+            "Both 2 and 3"
+        ],
+        ans: 2,
+        exp: "The 2020 guidelines restrict teleconsultation prescriptions for certain categories of medicines, including narcotics and psychotropics, and eSanjeevani indeed runs through its AB-HWC hub-and-spoke model and its direct OPD model. However, the guidelines do not require a notarized written contract for every consultation; implicit or recorded consent generally suffices, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to important legislative and policy measures relating to Health Missions in India, consider the following statements:<br>1. The National Medical Commission Act, 2019 replaced the Indian Medical Council Act, 1956, and established the National Medical Commission as the regulator for medical education and practice.<br>2. The Ayushman Bharat Pradhan Mantri Jan Arogya Yojana (AB PM-JAY) was enacted through a specific Act of Parliament that established the National Health Authority as a statutory regulator.<br>3. AB PM-JAY provides a health cover of up to ₹5 lakh per family per year for secondary and tertiary care hospitalization.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "Only one of the statements is correct",
+            "None of the above",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "The National Medical Commission Act, 2019 replaced the older Indian Medical Council Act, 1956. AB PM-JAY provides family-floater cover of up to ₹5 lakh per year for secondary and tertiary hospitalisation. However, AB PM-JAY was launched through a Cabinet decision under the National Health Policy, 2017, and its implementing body, the National Health Authority, originated as a registered society rather than a body created by a dedicated parliamentary Act, making statement 2 incorrect."
+    },
+    {
+        q: "Which one of the following statements best describes a feature of the Transplantation of Human Organs and Tissues Act (THOTA), 1994, as amended?",
+        opts: [
+            "It permits transplantation of artificial or mechanical organs under the same registration process as human organs",
+            "It applies only to organ transplantation involving Indian citizens and excludes foreign nationals from its scope",
+            "It permits the commercial sale of human organs provided both parties execute a notarized agreement",
+            "It legally recognises 'brain-stem death' as a form of death for the purpose of organ removal, in addition to conventional cardio-pulmonary death"
+        ],
+        ans: 3,
+        exp: "A key feature of the Act is its legal recognition of brain-stem death, certified under specified conditions, as a valid form of death enabling organ retrieval, in addition to conventional cardio-pulmonary death. The Act's central objective is to prevent commercial dealing in organs, it explicitly covers transplants involving foreign nationals under additional scrutiny, and it does not deal with artificial or mechanical organs at all."
+    },
+    {
+        q: "With reference to the features of the Integrated Disease Surveillance Programme (IDSP) in India, consider the following statements:<br>1. IDSP was launched in 2004 with World Bank assistance and operates through a three-tier structure of surveillance units at the Central, State and District levels.<br>2. Under IDSP, disease data is reported using three specified formats — 'S' for suspected cases, 'P' for presumptive cases, and 'L' for laboratory-confirmed cases.<br>3. The Integrated Health Information Platform (IHIP), the digital upgrade to IDSP's reporting system, was launched only after 2023, prior to which no digital reporting mechanism existed under the programme.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "Both 2 and 3",
+            "1, 2 and 3",
+            "Both 1 and 3"
+        ],
+        ans: 0,
+        exp: "IDSP, launched in 2004 with World Bank support, functions through Central, State and District Surveillance Units and collects data via the S-P-L reporting formats. However, the IHIP digital platform was piloted as early as November 2019, well before 2023, so statement 3 incorrectly claims the absence of any prior digital reporting mechanism."
+    },
+    {
+        q: "With reference to challenges facing India's public health system, consider the following statements:<br>1. India's public health expenditure as a share of GDP has already exceeded the global average of around 6% of GDP.<br>2. India's public healthcare system continues to face a shortage of doctors and specialists, particularly in rural primary and community health centres.<br>3. Out-of-pocket health expenditure in India has been fully eliminated following the rollout of Ayushman Bharat, leaving no household exposed to catastrophic health costs.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements is correct",
+            "1 only",
+            "2 only",
+            "3 only"
+        ],
+        ans: 2,
+        exp: "A persistent shortage of doctors and specialists, especially in rural primary and community health centres, remains a well-documented challenge for India's public health system. India's public health spending remains around 1.5-2% of GDP, well below the global average of roughly 6%, and out-of-pocket expenditure remains high, particularly for the 'missing middle' income group not fully covered by Ayushman Bharat."
+    },
+    {
+        q: "With reference to the National Health Mission (NHM) in India, consider the following statements:<br>1. It encompasses two sub-missions, namely the National Rural Health Mission (NRHM) and the National Urban Health Mission (NUHM).<br>2. The NRHM was launched in 2005, prior to the launch of the NUHM in 2013.<br>3. Reproductive, Maternal, Newborn, Child and Adolescent Health (RMNCH+A) is one of its key programmatic components.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the above",
+            "Exactly two of the statements are correct",
+            "1 and 2 only",
+            "Only one of the statements is correct"
+        ],
+        ans: 0,
+        exp: "The NHM, launched in 2013 as an umbrella mission, comprises the NRHM (launched 2005) and the NUHM (launched 2013), and its programmatic components include health system strengthening, RMNCH+A, and control of communicable and non-communicable diseases. All three statements are accurate."
+    },
+    {
+        q: "With reference to challenges facing India's disease surveillance systems, consider the following:<br>1. Under-reporting of cases by private healthcare providers, who deliver a substantial share of India's healthcare.<br>2. Complete, 100% real-time reporting compliance has been achieved by all private hospitals since the launch of the Integrated Health Information Platform (IHIP).<br>3. Shortage of trained epidemiologists and laboratory technicians at the district level.<br>4. Absence of any laboratory network capable of testing for viral pathogens at the district level.<br>Which of the above are genuine challenges facing India's disease surveillance systems?",
+        opts: [
+            "1 and 3 only",
+            "1, 2, 3 and 4",
+            "1, 2 and 3 only",
+            "2 and 4 only"
+        ],
+        ans: 0,
+        exp: "Under-reporting by the private sector, which delivers a large share of healthcare, and a shortage of trained epidemiologists and lab technicians at the district level are well-documented challenges. IHIP has improved digital reporting but has not achieved complete, 100% compliance from all private hospitals, and district-level viral testing laboratories, though limited in capacity, do exist under programmes like IDSP's Viral Research and Diagnostic Laboratories network, making statements 2 and 4 incorrect."
+    },
+    {
+        q: "Assertion (A): India's National Task Force on AMR Containment, first constituted in 2010, laid early institutional groundwork for the country's antimicrobial resistance strategy.<br>Reason (R): The 'Red Line' campaign mandates that all antibiotics sold in India, whether over-the-counter or prescription-only, must display a red line on their packaging.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "Both A and R are true and R is the correct explanation of A",
+            "A is false but R is true",
+            "A is true but R is false",
+            "Both A and R are true but R is NOT the correct explanation of A"
+        ],
+        ans: 2,
+        exp: "India's AMR containment efforts trace back to the constitution of a National Task Force in 2010, well before the first NAP-AMR of 2017. However, the 'Red Line' campaign specifically targets prescription-only antibiotics under Schedules H/H1, marking them to discourage self-medication; it is not a universal requirement covering every antibiotic sold in the country, so the Reason is false."
+    },
+    {
+        q: "In the context of institutions associated with disease surveillance in India, a recurring UPSC theme, consider the following statements:<br>1. The National Centre for Disease Control (NCDC), India's apex body for disease surveillance research, originated as the Central Malaria Bureau established at Kasauli in 1909.<br>2. The NCDC functions under the Ministry of Environment, Forest and Climate Change, given its primary focus on vector-borne and zoonotic diseases.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "Neither 1 nor 2",
+            "2 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "The NCDC traces its origins to the Central Malaria Bureau set up at Kasauli, Himachal Pradesh, in 1909, and was later renamed from the National Institute of Communicable Diseases. It functions as an institute under the Directorate General of Health Services, Ministry of Health and Family Welfare, not the Ministry of Environment, Forest and Climate Change, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to recent (2025-2026) disease surveillance developments in India, consider the following statements:<br>1. Following the 2026 West Bengal Nipah cases, the WHO assessed the global risk level as high, prompting international travel bans to and from India.<br>2. In January 2026, India confirmed Nipah virus cases in West Bengal, marking the first documented Nipah spillover event in eastern India in recent years; contact tracing found no evidence of further transmission.<br>3. Kerala has never reported a Nipah virus outbreak, with all of India's Nipah cases before 2026 having occurred exclusively in northern India.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "2 only",
+            "None of the statements is correct",
+            "1 only"
+        ],
+        ans: 1,
+        exp: "India confirmed two Nipah virus cases in West Bengal in January 2026, the first documented spillover in eastern India in recent years, with contact tracing of over 190 people finding no further transmission. The WHO actually assessed the risk as low at the national, regional and global levels, not high, and Kerala has in fact reported multiple Nipah outbreaks since 2018, making statements 1 and 3 incorrect."
+    },
+    {
+        q: "In the context of recurring UPSC Prelims themes on antimicrobial resistance and 'superbugs', which one of the following is most directly cited as contributing to the emergence of antimicrobial-resistant pathogens in India?",
+        opts: [
+            "Presence of multiple co-morbidities in patients",
+            "Seasonal variation in atmospheric temperature",
+            "Incomplete dosage and misuse of antibiotics, combined with their routine use in livestock farming",
+            "Genetic predisposition of certain population groups"
+        ],
+        ans: 2,
+        exp: "Antimicrobial resistance chiefly arises from the incorrect or incomplete use of antibiotics by patients and their routine, non-therapeutic use as growth promoters in livestock and poultry farming, both of which exert selective pressure favouring resistant microbial strains. Human genetic predisposition and co-morbidities are not established drivers of microbial drug resistance."
+    },
+    {
+        q: "With reference to the constitutional and legal basis for regulating gene therapy in India, consider the following statements:<br>1. Gene therapy products, being regulated as 'new drugs' under Indian law, fall within the ambit of Entry 19 ('Drugs and poisons') of the Concurrent List of the Seventh Schedule.<br>2. The Constitution of India contains a specific, standalone entry titled 'Gene Therapy and Biotechnology' in the Union List of the Seventh Schedule.<br>3. Since gene therapy involves genetic modification, its regulation falls exclusively within the State List, with the Union Government having no legislative competence over it.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 only",
+            "2 only",
+            "None of the statements is correct"
+        ],
+        ans: 1,
+        exp: "As gene therapy products are classified as 'new drugs', their regulation is grounded in Entry 19 of the Concurrent List ('Drugs and poisons'), which allows both Union and State legislation. There is no specific constitutional entry on 'Gene Therapy and Biotechnology', and regulation is not confined exclusively to the State List, since the Union, through bodies like CDSCO and ICMR, exercises significant legislative and regulatory competence over it."
+    },
+    {
+        q: "With reference to the legal and regulatory framework for antimicrobial resistance (AMR) in India, consider the following statements:<br>1. Schedule H1 of the Drugs and Cosmetics Rules, 1945 mandates that select antibiotics be sold only against a registered medical practitioner's prescription, with pharmacies required to maintain a separate sale register.<br>2. The Constitution of India contains an explicit entry titled 'Antimicrobial Resistance' in the Union List of the Seventh Schedule.<br>3. India's National Action Plan on Antimicrobial Resistance (NAP-AMR) is an Act of Parliament that legally binds all States to its provisions.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 only",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "Schedule H1, incorporated into the Drugs and Cosmetics Rules, regulates the sale of specified antibiotics through prescription and record-keeping requirements. There is no explicit constitutional entry on 'Antimicrobial Resistance'; regulation instead flows from entries on drugs and poisons. NAP-AMR is a policy action plan, not a legally binding Act of Parliament, so statements 2 and 3 are incorrect."
+    },
+    {
+        q: "With reference to gene therapy in India, consider the following statements:<br>1. The Indian Council of Medical Research (ICMR) has issued national guidelines for gene therapy product development and clinical trials in the country.<br>2. Nexcar19, India's first approved indigenous CAR T-cell therapy, was developed by a company incubated at the Indian Institute of Technology, Bombay.<br>3. Gene therapy clinical trials in India can be conducted without review by any dedicated ethics or advisory committee, as biological therapies fall outside the purview of drug-trial regulations.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 2,
+        exp: "ICMR has released the 'National Guidelines for Gene Therapy Product Development and Clinical Trials', and its Gene Therapy Advisory and Evaluation Committee oversees such trials. Nexcar19, a CAR T-cell therapy for blood cancers, was developed by ImmunoACT, a company incubated at IIT Bombay. Statement 3 is incorrect since gene therapy trials do require oversight through this dedicated advisory mechanism."
+    },
+    {
+        q: "With reference to institutions governing organ transplantation in India, consider the following statements:<br>1. The National Organ and Tissue Transplant Organisation (NOTTO), the apex body for organ and tissue transplantation activities, functions under the Directorate General of Health Services, Ministry of Health and Family Welfare.<br>2. The 'Appropriate Authority' under the THOTA, appointed by the respective State/UT Government, is empowered to grant and renew registration of hospitals conducting organ transplants.<br>3. NOTTO functions as a private, self-regulating body with no accountability to the Ministry of Health and Family Welfare or state-level bodies like ROTTOs and SOTTOs.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "NOTTO is a government apex body functioning under the Directorate General of Health Services, MoHFW, and the Appropriate Authority appointed by States under THOTA is responsible for registering and monitoring transplant hospitals. NOTTO is networked with Regional and State Organ and Tissue Transplant Organisations (ROTTOs/SOTTOs) and remains accountable to the Ministry, so statement 3, which describes it as an unaccountable private body, is incorrect."
+    },
+    {
+        q: "With reference to institutions exercising functions and powers relating to antimicrobial resistance (AMR) in India, consider the following statements:<br>1. The Food Safety and Standards Authority of India (FSSAI) has no role in regulating antibiotic residues in food products, as this function lies solely with the Drugs Controller General of India.<br>2. The Indian Council of Medical Research (ICMR) coordinates the Antimicrobial Resistance Surveillance and Research Network (AMRSN), which gathers data on antibiotic resistance patterns from a network of laboratories across India.<br>3. Individual State Governments are barred from taking any independent regulatory action on antibiotic sales, since this power is vested exclusively with the Union Government under the Drugs and Cosmetics Act.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "3 only",
+            "2 only",
+            "None of the statements is correct"
+        ],
+        ans: 2,
+        exp: "ICMR coordinates the AMRSN, a network of laboratories that generates data on antimicrobial resistance patterns across India. FSSAI does play a role in regulating antibiotic residue limits in food products, contrary to statement 1, and States like Kerala and Gujarat have taken independent measures such as banning over-the-counter antibiotic sales, showing that regulatory action is not the Union's exclusive domain, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to India's 'One Health' approach, consider the following statements:<br>1. India's National One Health Mission (NOHM) seeks to integrate coordination across more than a dozen government departments spanning human, animal and environmental health sectors.<br>2. The 'One Health' approach has been formally endorsed by the WHO, FAO, UNEP and WOAH as a joint framework for tackling zoonotic disease risks.<br>3. The NOHM functions under the exclusive jurisdiction of the Ministry of Environment, Forest and Climate Change, with no role for the Ministry of Health and Family Welfare.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "India's National One Health Mission integrates over a dozen departments to address zoonotic disease risk, in line with the globally endorsed One Health framework backed by WHO, FAO, UNEP and WOAH. The mission is multi-ministerial by design, drawing in the Ministry of Health and Family Welfare and the Department of Animal Husbandry and Dairying, so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to reforms and recommendations for telemedicine in India, consider the following statements:<br>1. The Telemedicine Practice Guidelines, 2020 were jointly prepared by the Board of Governors, in supersession of the erstwhile Medical Council of India, in consultation with NITI Aayog.<br>2. Recent (2024-25) policy recommendations explicitly discourage assisted or low-bandwidth telemedicine models, favouring only direct doctor-to-patient video consultations in high-bandwidth urban settings.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 2",
+            "Both 1 and 2 are correct",
+            "Only statement 1",
+            "None of the above"
+        ],
+        ans: 2,
+        exp: "The Telemedicine Practice Guidelines, 2020 were indeed prepared by the Board of Governors in consultation with NITI Aayog. However, recent policy recommendations actually emphasise assisted telemedicine, low-bandwidth solutions, and mobile outreach to extend services to underserved rural areas, rather than discouraging them, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to the Clinical Establishments (Registration and Regulation) Act, 2010, consider the following statements:<br>1. The Act automatically applies uniformly across every State of India from the date of its enactment by Parliament, leaving no scope for a State to not adopt it.<br>2. Clinical establishments run by the Armed Forces are exempted from the purview of the Act.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 2 alone",
+            "Neither statement is correct",
+            "1 only",
+            "All of the statements are correct"
+        ],
+        ans: 0,
+        exp: "Since public health is a State subject, the Act, though passed by Parliament under Article 252, initially applied only to states that sought it and to Union Territories; other states must separately adopt it by resolution, and several, including Delhi, have not. The Act does exempt Armed Forces clinical establishments from its purview, making statement 2 correct."
+    },
+    {
+        q: "With reference to important Acts and amendments governing disease surveillance in India, consider the following statements:<br>1. The Epidemic Diseases Act, 1897 was originally enacted in response to the outbreak of bubonic plague in the Bombay Presidency.<br>2. The Act was amended in 2020 to include provisions protecting healthcare personnel from acts of violence during an epidemic.<br>3. 'Prevention of the extension from one State to another of infectious or contagious diseases' is a subject placed in the Union List of the Seventh Schedule, giving Parliament exclusive legislative power over it.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 and 3 only",
+            "2 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "The Epidemic Diseases Act, 1897 was enacted to tackle bubonic plague in the Bombay Presidency and was amended in 2020, amid the COVID-19 pandemic, to penalise violence against healthcare workers. However, 'prevention of the extension from one State to another of infectious or contagious diseases' is Entry 29 of the Concurrent List, not the Union List, so both the Union and States can legislate on it, making statement 3 incorrect."
+    },
+    {
+        q: "Assertion (A): A Registered Medical Practitioner enrolled under the Indian Medical Council Act/NMC framework can lawfully provide teleconsultation to a patient located in any state of India, without needing separate registration in that state.<br>Reason (R): Since 'public health and sanitation' is placed in the State List of the Seventh Schedule, no central law or guideline can validly authorise a doctor registered in one state to practise medicine, including telemedicine, in another state.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "A is false but R is true",
+            "Both A and R are true but R is NOT the correct explanation of A",
+            "Both A and R are true and R is the correct explanation of A",
+            "A is true but R is false"
+        ],
+        ans: 3,
+        exp: "Under the Telemedicine Practice Guidelines, 2020, a Registered Medical Practitioner enrolled in the State or Indian Medical Register may provide teleconsultation to patients anywhere in India, making the Assertion true. However, 'legal, medical and other professions' fall under Entry 26 of the Concurrent List, allowing Parliament to enact nationally applicable laws like the Indian Medical Council Act/NMC Act governing practitioner registration and mobility, so the Reason's claim that no central law can validly authorise cross-state practice is false."
+    },
+    {
+        q: "In the context of recurring UPSC Prelims themes on telemedicine in India, consider the following statements:<br>1. Under the Telemedicine Practice Guidelines, 2020, a Registered Medical Practitioner is prohibited from prescribing medicines listed in Schedule X of the Drugs and Cosmetics Rules through teleconsultation.<br>2. The Guidelines classify prescribable medicines into three lists — List O (over-the-counter medicines), List A (first-consult medicines), and List B (follow-up medicines).<br>3. The Guidelines were issued as an independent, standalone Act of Parliament, separate from the Indian Medical Council Act, 1956 framework.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 3",
+            "1 and 2 only",
+            "None of the statements are correct",
+            "Only one of the statements is correct"
+        ],
+        ans: 1,
+        exp: "The Guidelines prohibit prescribing Schedule X medicines like narcotics through teleconsultation and classify prescribable medicines into List O, List A, and List B categories. However, the Guidelines were issued as Appendix 5 to the Indian Medical Council (Professional Conduct, Etiquette and Ethics) Regulations, 2002, not as an independent Act of Parliament, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the background and evolution of vaccination in India, consider the following statements:<br>1. India's Universal Immunisation Programme began in 1978 as the Expanded Programme on Immunization and was renamed the Universal Immunisation Programme in 1985.<br>2. India recorded its last case of wild poliovirus in 2011 in Howrah, West Bengal, and was certified polio-free along with the rest of the WHO South-East Asia Region in 2014.<br>3. India's National Vaccination Day, observed on 16 March, commemorates the administration of the first dose of Oral Polio Vaccine in 1995 under the Pulse Polio Programme.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "India's immunisation programme began as the Expanded Programme on Immunization in 1978 and was renamed UIP in 1985. India's last wild poliovirus case was in Howrah in 2011, followed by regional polio-free certification in 2014. National Vaccination Day on 16 March commemorates the first Oral Polio Vaccine dose administered in 1995 under the Pulse Polio Programme. All three statements are accurate."
+    },
+    {
+        q: "With reference to reforms in India's medical devices sector, consider the following statements:<br>1. The National Medical Devices Policy, 2023 was formulated by the Department of Pharmaceuticals under the Ministry of Chemicals and Fertilizers.<br>2. Medical devices in India are regulated under a dedicated, standalone 'Medical Devices Act' that is entirely separate from the Drugs and Cosmetics Act, 1940.<br>3. The draft New Drugs, Medical Devices and Cosmetics Bill, first unveiled in 2022, has since been enacted into law and has fully replaced the Drugs and Cosmetics Act, 1940.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1 only",
+            "None of the statements is correct",
+            "3 only"
+        ],
+        ans: 1,
+        exp: "The National Medical Devices Policy, 2023 was indeed formulated by the Department of Pharmaceuticals under the Ministry of Chemicals and Fertilizers. However, medical devices continue to be regulated through the Medical Devices Rules, 2017 framed under the existing Drugs and Cosmetics Act, 1940, with no separate standalone Act in force, and the New Drugs, Medical Devices and Cosmetics Bill remains only a draft proposal, not enacted legislation."
+    },
+    {
+        q: "With reference to public health developments in India during 2025-2026, consider the following statements:<br>1. In the Union Budget 2025-26, the government exempted 36 life-saving drugs from Basic Customs Duty.<br>2. The Ayushman Bharat Pradhan Mantri Jan Arogya Yojana (AB PM-JAY) was expanded to extend coverage to gig workers registered on the e-Shram portal.<br>3. The Union government's health expenditure as a percentage of GDP rose sharply to over 1% of GDP in 2025-26, more than tripling from the previous year.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 1",
+            "Exactly one of the statements is correct",
+            "1 and 2 only",
+            "3 only"
+        ],
+        ans: 2,
+        exp: "The Union Budget 2025-26 exempted 36 life-saving drugs from customs duty and extended AB PM-JAY coverage to gig workers registered on the e-Shram portal. However, the Union government's health spending as a share of GDP has actually stagnated and even declined in recent years rather than tripling, making statement 3 incorrect."
+    },
+    {
+        q: "Which one of the following statements correctly describes a feature of India's Telemedicine Practice Guidelines, 2020?",
+        opts: [
+            "They apply uniformly to all systems of medicine, including Ayurveda and Homoeopathy, without any separate guidelines",
+            "They were issued through an amendment to the Indian Medical Council (Professional Conduct, Etiquette and Ethics) Regulations, 2002, thereby authorising Registered Medical Practitioners to practise telemedicine",
+            "They mandate that all teleconsultations be conducted exclusively through the government-run eSanjeevani platform, barring private telemedicine providers",
+            "They permit any individual, regardless of medical qualification, to legally issue prescriptions through teleconsultation"
+        ],
+        ans: 1,
+        exp: "The Telemedicine Practice Guidelines, 2020 were issued as an amendment to the Indian Medical Council (Professional Conduct, Etiquette and Ethics) Regulations, 2002, legally empowering Registered Medical Practitioners to offer teleconsultations. Only such registered practitioners, not any individual, may prescribe; private platforms besides eSanjeevani also operate; and separate telemedicine guidelines were later issued specifically for AYUSH practitioners, showing the 2020 guidelines were not uniformly extended to all systems of medicine."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-64 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-75</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "With reference to the challenges faced during the Champaran Satyagraha (1917), consider the following statements:<br>1. The Bihar Planters' Association welcomed Gandhi's inquiry into the grievances of indigo cultivators, believing it would strengthen their own position.<br>2. Gandhi was tried and ordered to leave Champaran under the Rowlatt Act, 1919, for defying the local magistrate.<br>3. The Committee of Inquiry appointed to examine Champaran's agrarian conditions rejected Gandhi's proposals and retained the 'tinkathia' system in a modified form.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 only",
+            "None of the statements is correct",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "The Bihar Planters' Association in fact strongly opposed Gandhi's inquiry, fearing it would incite the peasantry. Gandhi was ordered to leave Champaran under Section 144 of the Criminal Procedure Code in April 1917, two years before the Rowlatt Act existed, and the Committee of Inquiry (on which Gandhi himself served) recommended abolishing, not retaining, the tinkathia system, leading to the Champaran Agrarian Act, 1918."
+    },
+    {
+        q: "With reference to acts and ordinances associated with the Civil Disobedience Movement, consider the following statements:<br>1. The Indian Press (Emergency Powers) Act, 1931, which gave provincial governments wide powers to suppress propaganda for the movement, was substantially narrowed in scope when amended in 1932.<br>2. Gandhi's Salt March defied the Government of India Act, 1919, which imposed the colonial government's monopoly over salt manufacture.<br>3. In response to the movement, the government issued a fresh Press Ordinance in 1930 that revived the restrictive provisions of the Indian Press Act of 1910 to gag nationalist newspapers.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 only"
+        ],
+        ans: 0,
+        exp: "The Press Ordinance of 1930 did revive the restrictive provisions of the 1910 Press Act to curb nationalist newspapers, making the third statement correct. However, the Indian Press (Emergency Powers) Act, 1931 was broadened, not narrowed, when amended in 1932, and the law that criminalised salt manufacture was the Salt Act of 1882, not the unrelated Government of India Act, 1919."
+    },
+    {
+        q: "With reference to constitutional amendments linked to Gandhi's vision of village self-governance, consider the following statements:<br>1. The 73rd Constitutional Amendment Act (1992), which gave constitutional status to Panchayati Raj Institutions, added a new Part IX (Articles 243 to 243-O) and the Eleventh Schedule listing 29 functional subjects.<br>2. Its companion, the 74th Constitutional Amendment Act (1992), performed the equivalent function for urban local bodies, adding Part IX-A and the Twelfth Schedule.<br>3. Both amendments were first successfully introduced and passed under the Rajiv Gandhi government in 1989, coming into force immediately that year.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "Both 2 and 3",
+            "None of the statements are correct",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "The 73rd Amendment did add Part IX and the Eleventh Schedule for Panchayats, and the 74th Amendment correspondingly added Part IX-A and the Twelfth Schedule for municipalities, both in 1992. However, earlier attempts to pass these reforms as the 64th and 65th Amendment Bills under the Rajiv Gandhi government in 1989 failed in the Rajya Sabha; they were successfully enacted only later, under the P.V. Narasimha Rao government, coming into force in 1993."
+    },
+    {
+        q: "With reference to the Champaran Agrarian Enquiry Committee (1917), consider the following statements:<br>1. The Committee possessed statutory judicial powers to try and punish planters found guilty of exploiting ryots.<br>2. It was appointed in June 1917 and consisted of seven members, including four ICS officers and Gandhi himself.<br>3. Its recommendations included abolishing the 'tinkathia' system and permitting only voluntary indigo cultivation for terms not exceeding three years.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "The Committee was a seven-member fact-finding and recommendatory body (four ICS officers plus Gandhi), appointed in June 1917, whose report led to abolishing tinkathia and permitting only voluntary indigo cultivation on short-term contracts. It had no judicial powers to try or punish planters; it could only recommend administrative and legislative action, which the government then implemented through the Champaran Agrarian Act, 1918."
+    },
+    {
+        q: "With reference to Gandhian principles reflected in the Constitution of India, consider the following statements:<br>1. Article 40, directing the State to organise village panchayats as units of self-government, reflects Gandhi's vision of 'Gram Swaraj' central to the Constructive Programme.<br>2. Article 43, which directs the State to promote cottage industries on an individual or cooperative basis, reflects the Constructive Programme's emphasis on khadi and village industries.<br>3. These Gandhian Directive Principles, being part of Part IV of the Constitution, are as legally enforceable in courts as Fundamental Rights.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All three statements are correct",
+            "Both 2 and 3",
+            "Exactly one of the statements is correct",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "Articles 40 and 43 are indeed the constitutional expressions of Gandhi's Gram Swaraj and khadi/village-industries ideals from the Constructive Programme. However, being Directive Principles under Part IV, they are explicitly declared non-justiciable by Article 37 and cannot be enforced by courts in the manner of Fundamental Rights, making the third statement incorrect."
+    },
+    {
+        q: "With reference to the recommendations of the Sedition Committee (Rowlatt Committee), which formed the basis of the Rowlatt Act, 1919, consider the following statements:<br>1. It recommended making permanent, in peacetime, emergency detention powers similar to those exercised under the wartime Defence of India Act, 1915.<br>2. It recommended that persons found merely in possession of material deemed seditious could be imprisoned for up to two years.<br>3. It recommended trial of such political offences by special tribunals functioning without a jury and without the right of appeal.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 3,
+        exp: "The Sedition Committee (1917–18), headed by Justice Sidney Rowlatt, recommended extending wartime emergency powers into peacetime, permitting up to two years' imprisonment merely for possessing seditious material, and trial by special tribunals without a jury or right of appeal — all of which were enacted through the Rowlatt Act, 1919. All three statements accurately reflect its recommendations."
+    },
+    {
+        q: "Which one of the following best distinguishes the Champaran Satyagraha (1917) from Gandhi's later Non-Cooperation and Civil Disobedience Movements?",
+        opts: [
+            "It directly led to the passage of the Government of India Act, 1935",
+            "It was the first movement to explicitly demand complete independence (Purna Swaraj)",
+            "It marked the first use of the hartal as a method of political protest in India",
+            "It addressed local agrarian grievances of indigo cultivators rather than calling for a nationwide boycott of British institutions"
+        ],
+        ans: 3,
+        exp: "Unlike the pan-Indian, institution-boycotting character of the Non-Cooperation and Civil Disobedience Movements, the Champaran Satyagraha (1917) was a localised campaign against the 'tinkathia' system of forced indigo cultivation in a single Bihar district. The demand for Purna Swaraj came later at Lahore (1929), the Government of India Act, 1935 emerged from the Round Table Conferences, and the hartal as a nationwide protest tool is associated with the Rowlatt Satyagraha (1919)."
+    },
+    {
+        q: "With reference to the Non-Cooperation programme approved at the Congress's special session at Calcutta (September 1920), consider the following statements:<br>1. The Congress declared the attainment of 'Swaraj' by all legitimate and peaceful means to be its objective.<br>2. Gandhi predicted that Swaraj could be achieved within one year if the programme was fully implemented, a claim immediately challenged by C.R. Das at the same session.<br>3. The programme's escalation to civil disobedience and non-payment of taxes was to be undertaken immediately and unconditionally from the very outset of the movement.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 2 only",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "The Calcutta session declared Swaraj by legitimate and peaceful means as the Congress's objective, and Gandhi's one-year Swaraj prediction was indeed challenged there and then by C.R. Das. However, the escalation to civil disobedience and non-payment of taxes was to be a later, conditional stage — undertaken only if Swaraj had not been attained within a year and the government resorted to repression — not an immediate or unconditional step."
+    },
+    {
+        q: "With reference to events during the Quit India Movement, consider the following statements:<br>1. The flag-hoisting at Gowalia Tank Maidan on 9 August 1942 was personally led by Vinoba Bhave, who had earlier been chosen by Gandhi as the first individual Satyagrahi in 1940.<br>2. It was in fact Aruna Asaf Ali who hoisted the Indian National Congress flag there, defying the heavy police presence that followed the arrest of the Congress's top leadership.<br>3. Gowalia Tank Maidan was subsequently renamed August Kranti Maidan in commemoration of this event.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "It was Aruna Asaf Ali, not Vinoba Bhave, who defiantly hoisted the flag at Gowalia Tank Maidan on 9 August 1942, an act that earned her lasting recognition; the ground was later renamed August Kranti Maidan in memory of the event. Vinoba Bhave, though indeed Gandhi's first individual Satyagrahi in 1940, played no part in this particular episode."
+    },
+    {
+        q: "With reference to the background of the Kheda Satyagraha (1918), consider the following statements:<br>1. It originated in a demand under the Bombay Land Revenue Code for full remission when crop yield fell below 25% of normal, a threshold the peasants argued they had met following crop failure compounded by outbreaks of plague and cholera in 1917.<br>2. Before Gandhi personally intervened, the peasants' cause had already been taken up by the Gujarat Sabha, which petitioned the Bombay government for exemption and postponement of the revenue demand.<br>3. Gandhi personally investigated the peasants' distress only after returning from a stay in England, giving up all his responsibilities related to the Champaran and Ahmedabad campaigns to focus solely on Kheda.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "1 and 3 only",
+            "Only one of the statements is correct",
+            "Both 2 and 3"
+        ],
+        ans: 0,
+        exp: "The Kheda peasants did invoke the Bombay Land Revenue Code's remission provision, and the Gujarat Sabha had already petitioned on their behalf before Gandhi's direct involvement. However, Gandhi arrived from Bombay in February 1918, not from a stay in England, and he remained simultaneously engaged with the Ahmedabad Mill Strike around the same period rather than setting aside all other responsibilities to focus solely on Kheda."
+    },
+    {
+        q: "With reference to the constitutional background of the Quit India Movement, consider the following statements:<br>1. The Cripps Mission (March 1942) offered India full and immediate independence, unconditional on the outcome of the Second World War.<br>2. It proposed the right of any British Indian province unwilling to join the proposed Indian Union to frame its own separate constitution, a provision that indirectly lent support to the Muslim League's demand for a separate state.<br>3. Following the Mission's failure, the Quit India Resolution was passed by the All India Congress Committee at its Bombay session on 8 August 1942.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "Statement 3 alone",
+            "All three statements are correct",
+            "Statement 1 alone"
+        ],
+        ans: 0,
+        exp: "The Cripps Mission's proposals included a post-war Constituent Assembly and a provincial secession clause, which indirectly bolstered the Muslim League's separate-state demand, and its failure led directly to the Quit India Resolution passed at Bombay on 8 August 1942. However, Cripps only offered Dominion Status after the war, not full and immediate independence, which is one of the key reasons Congress rejected the proposals as a 'post-dated cheque on a crashing bank'."
+    },
+    {
+        q: "With reference to the Gandhi-Irwin Pact (1931), consider the following statements:<br>1. Under the pact, all emergency ordinances promulgated to suppress the Civil Disobedience Movement were to be withdrawn.<br>2. Land confiscated from protestors that had not yet been sold to third parties was to be returned to its original owners.<br>3. Fines already collected from participants of the movement were to be fully refunded in cash by the government.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "The pact did provide for the withdrawal of the special ordinances used against the movement and the return of confiscated land not yet sold to third parties. However, only unrealised fines (those not yet collected) were to be remitted; fines already paid or collected were not refunded, making the third statement incorrect."
+    },
+    {
+        q: "With reference to the Kheda Satyagraha (1918), consider the following statements:<br>1. It was organised without any involvement of Sardar Vallabhbhai Patel, who joined the freedom movement only later during the Non-Cooperation Movement.<br>2. The satyagraha concluded with an official government proclamation publicly admitting that the tax increase had been unjust.<br>3. Vithalbhai Patel, elder brother of Sardar Patel, opposed the Kheda peasants and sided with the colonial administration throughout the campaign.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements is correct",
+            "1 only",
+            "1 and 2 only",
+            "2 only"
+        ],
+        ans: 0,
+        exp: "Sardar Vallabhbhai Patel was in fact the chief organiser of the Kheda Satyagraha, which is where he entered active politics; his elder brother Vithalbhai Patel also supported the peasants' cause. The government never issued a public admission that the tax was unjust; it quietly instructed that revenue be recovered only from those who could pay, avoiding any open concession, so none of the three statements is correct."
+    },
+    {
+        q: "With reference to the Ahmedabad Mill Strike (1918), consider the following statements:<br>1. It arose from the mill owners' withdrawal of the 'plague bonus' paid to workers during the 1917 plague epidemic, rather than from an unrelated demand for higher wages.<br>2. The arbitration board that finally resolved the dispute was headed by Professor Anandshankar Dhruva as the sole arbitrator.<br>3. Mahatma Gandhi initially demanded a 50% wage increase for the workers, matching their own original demand, before persuading the mill owners to accept arbitration.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "Exactly one of the statements is correct",
+            "Only two of the statements are correct",
+            "Both 1 and 3"
+        ],
+        ans: 2,
+        exp: "The dispute originated when mill owners withdrew the plague bonus paid during the 1917 epidemic, and the final arbitration board was headed by Professor Anandshankar Dhruva as sole umpire. However, Gandhi did not endorse the workers' original 50% demand; he personally calculated 35% as a fair figure and proposed this compromise, which the arbitration board eventually awarded."
+    },
+    {
+        q: "With reference to the powers exercised during the Kheda Satyagraha (1918), consider the following statements:<br>1. Under the Bombay Land Revenue Code, cultivators were entitled to a full remission of land revenue if the crop yield fell below 25% of the normal produce.<br>2. When peasants withheld revenue, colonial officials were legally barred from seizing any movable property of defaulters and could only impose monetary fines.<br>3. The government's coercive powers under the Code extended to forfeiting land titles and seizing standing crops and cattle of defaulting cultivators.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements is correct",
+            "1 and 2 only",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "The Bombay Land Revenue Code did provide for full remission where crop yield fell below 25% of normal, a threshold the Kheda peasants argued they met. Far from being barred from seizing property, colonial officials actively exercised powers of attachment, seizing standing crops and cattle and forfeiting land titles of defaulters, making the second statement incorrect."
+    },
+    {
+        q: "With reference to the Quit India Movement (1942), consider the following statements:<br>1. The Congress Working Committee, the All India Congress Committee, and the Provincial Congress Committees were declared unlawful associations under the Rowlatt Act, 1919.<br>2. Public meetings during the movement were prohibited under Rule 56 of the Defence of India Rules, framed under the Defence of India Act, 1939.<br>3. The Defence of India Act, 1939 re-enacted wartime emergency provisions similar to the Defence of India Act, 1915, permitting detention without trial.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 2 and 3",
+            "Only one of the statements is correct",
+            "1 and 2 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "Congress bodies were declared unlawful under the Criminal Law Amendment Act, 1908, not the Rowlatt Act, making the first statement incorrect. Public assembly was indeed banned under Rule 56 of the Defence of India Rules, and the Defence of India Act, 1939 revived the wartime detention-without-trial powers first used under the 1915 Act, so statements 2 and 3 are correct."
+    },
+    {
+        q: "With reference to the new constitution adopted by the Indian National Congress at its Nagpur Session (December 1920), consider the following statements:<br>1. It changed the Congress goal from attaining self-government through constitutional means to attaining 'Swaraj' by all legitimate and peaceful means.<br>2. It reorganised the Provincial Congress Committees on a linguistic basis rather than along existing British administrative provincial boundaries.<br>3. It raised the annual membership subscription of the Congress in order to restrict its membership to the educated elite.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "All of the above",
+            "Only two of the statements are correct",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "The Nagpur Session adopted a new Congress constitution committing the party to attaining Swaraj by legitimate and peaceful means (an extra-constitutional goal) and reorganised Provincial Congress Committees on linguistic lines. Far from restricting membership, the subscription was lowered to four annas precisely to widen mass participation, so the third statement is incorrect."
+    },
+    {
+        q: "With reference to the features of the Round Table Conferences (1930–32), consider the following statements:<br>1. Delegates were nominated by the British government rather than elected, drawn from British India's political parties and communities as well as from the princely states.<br>2. Each conference functioned as a single deliberative body voting directly on binding resolutions, without reference to any subcommittees.<br>3. At the First Round Table Conference, representatives of the Indian princely states expressed willingness in principle to join a proposed All-India Federation alongside British Indian provinces.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the above",
+            "Only two of the statements are correct",
+            "Exactly one of the statements is correct",
+            "Statement 3 alone"
+        ],
+        ans: 1,
+        exp: "Delegates to the conferences were indeed nominated, not elected, representing diverse communities and the princely states, whose representatives notably agreed in principle to an All-India Federation at the First Conference. However, the conferences were consultative rather than binding, and their detailed work was distributed among several subcommittees on federal structure, franchise, minorities, and other issues, not decided by a single body voting directly."
+    },
+    {
+        q: "With reference to the challenges faced during the Quit India Movement (1942), consider the following statements:<br>1. Gandhi and almost the entire top Congress leadership were arrested in the early hours of 9 August 1942, even before the movement could be launched in an organised, centrally directed manner.<br>2. This sudden decapitation of leadership meant the movement was largely spontaneous and locally improvised, relying on younger and underground leaders rather than central Congress direction.<br>3. The resulting disruption in communication and coordination prompted underground leaders to rely on clandestine methods, such as secret radio broadcasts, to sustain the movement.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "Only statement 2",
+            "All three statements are correct",
+            "Only two of the statements are correct"
+        ],
+        ans: 2,
+        exp: "The pre-emptive arrest of nearly the entire top Congress leadership on 9 August 1942 left the movement without central direction, forcing younger and underground leaders to improvise locally. This breakdown in coordination led figures like Usha Mehta to run the clandestine Congress Radio to keep the movement's message alive, making all three statements accurate."
+    },
+    {
+        q: "With reference to the challenges faced by Mahatma Gandhi's Constructive Programme, consider the following statements:<br>1. A major criticism was that khadi, being labour-intensive, was often costlier than mill-made cloth, which limited its mass appeal among the very poor it aimed to help.<br>2. Gandhi's insistence on manual spinning as a qualification for Congress membership was uncontested and unanimously welcomed by all sections of the Congress leadership.<br>3. The programme's emphasis on Hindu-Muslim unity succeeded in fully eliminating communal tensions in Indian politics by the 1930s.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 2 alone",
+            "Both 2 and 3",
+            "Exactly two of the statements are correct",
+            "Only one of the statements is correct"
+        ],
+        ans: 3,
+        exp: "Khadi's labour-intensive production made it costlier than mill cloth, limiting its adoption among the poorest, a genuine and widely noted limitation of the programme. In contrast, the 'khadi/spinning' qualification for Congress membership was in fact contested by leaders like Jawaharlal Nehru and Subhas Chandra Bose as impractical, and communal tensions did not disappear but instead deepened through the 1930s, culminating eventually in Partition."
+    },
+    {
+        q: "With reference to the Gandhi-Irwin Pact (1931), consider the following statements:<br>1. The British government agreed to repeal the salt tax law altogether.<br>2. The pact provided for the release of political prisoners who had not been convicted of violent offences.<br>3. The pact included the British government's agreement to hold an official inquiry into police excesses committed during the Civil Disobedience Movement.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "1, 2 and 3",
+            "Exactly two of the statements are correct",
+            "Only statement 1"
+        ],
+        ans: 0,
+        exp: "The Gandhi-Irwin Pact (5 March 1931) provided for the release of political prisoners not involved in violence, but the salt law itself was not repealed — only a limited concession allowed coastal residents to produce salt for personal, non-commercial use. Congress's demand for an official inquiry into police excesses during the Civil Disobedience Movement was specifically not accepted by the British side."
+    },
+    {
+        q: "With reference to the boycott of British law courts during the Non-Cooperation Movement, consider the following statements:<br>1. The Congress promoted the establishment of national arbitration courts (panchayats) at the town and village level, which functioned by resolving civil, agrarian, and minor criminal disputes through community consensus.<br>2. Despite limited legal-professional participation, the experiment contributed to a temporary decline in imperial court litigation in some provinces during 1921.<br>3. The panchayat courts were formally recognised by statute as having the same binding legal authority and appellate powers as regular British Indian courts.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "These panchayat courts did function by resolving disputes through community consensus and contributed to a measurable, if temporary, dip in imperial court litigation in provinces like Bengal, Bihar, and the United Provinces in 1921. However, they had no statutory backing or binding appellate authority; only a small minority of lawyers actually boycotted British courts to join them, and the experiment ultimately failed due to limited participation and repression."
+    },
+    {
+        q: "With reference to the Rowlatt Act, 1919, consider the following statements:<br>1. It was officially enacted as Act No. 11 of 1919, titled 'An Act to cope with anarchical and revolutionary crime'.<br>2. It received the assent of the Governor-General, Lord Chelmsford, on 21 March 1919, three days after being passed by the Imperial Legislative Council.<br>3. The Act remained in force throughout the colonial period and was still operative when India became independent in 1947.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 and 3 only",
+            "1, 2 and 3",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "The Rowlatt Act was indeed enacted as Act No. 11 of 1919 and received the Governor-General's assent on 21 March 1919, three days after being passed on 18 March. However, it was repealed just three years later by the Special Laws Repeal Act, 1922, and was not operative by the time of independence in 1947."
+    },
+    {
+        q: "With reference to the Simon Commission's Report (published in 1930, amid the Civil Disobedience Movement), consider the following statements:<br>1. It recommended the abolition of dyarchy at the provincial level and accepted the principle of federalism for India.<br>2. It recommended immediate transfer of central subjects such as Defence and Foreign Affairs to Indian ministers, going beyond what the Congress itself was demanding at the time.<br>3. Its recommendations were rendered largely irrelevant even before publication, since the Irwin Declaration of October 1929 had already committed Britain to the more advanced goal of Dominion Status.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "Both 1 and 2",
+            "2 only",
+            "1 only"
+        ],
+        ans: 0,
+        exp: "The Simon Commission did recommend abolishing provincial dyarchy and accepted the federal principle, but its report was overtaken by events even before release, since the Irwin Declaration of October 1929 had already promised the more advanced goal of Dominion Status. The Commission was in fact conservative on central subjects, recommending no responsible government at the centre at all, let alone an immediate transfer of Defence and Foreign Affairs, which fell well short of what the Congress was demanding."
+    },
+    {
+        q: "With reference to the background of the Rowlatt Act (1919), consider the following statements:<br>1. The Act permitted trial of political offences by special tribunals functioning without a jury and without a right of appeal.<br>2. The Sedition Committee (Rowlatt Committee) was appointed to review the Government of India Act, 1919 and recommend further constitutional reforms.<br>3. Every Indian member of the Imperial Legislative Council supported the passage of the Rowlatt Bill, viewing it as necessary to curb revolutionary violence.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 and 3 only",
+            "1 and 3 only",
+            "2 only"
+        ],
+        ans: 0,
+        exp: "The Rowlatt Act did allow trial by special tribunals without a jury or appeal, making the first statement correct. The Sedition Committee (1917–18) was appointed to investigate revolutionary conspiracies, not to review the Government of India Act, 1919, and every Indian member of the Imperial Legislative Council actually voted against the Bill, though it was still passed."
+    },
+    {
+        q: "Consider the following:<br>Assertion (A): The outcome of the Kheda Satyagraha (1918) is often regarded as a more ambiguous victory for the peasants than the Champaran Satyagraha.<br>Reason (R): The government agreed to suspend revenue collection from cultivators unable to pay, but did so without officially acknowledging that the tax hike itself was unjust.<br>Which one of the following is correct in respect of the above Assertion (A) and Reason (R)?",
+        opts: [
+            "A is true, but R is false",
+            "Both A and R are true, but R is not the correct explanation of A",
+            "Both A and R are true, and R is the correct explanation of A",
+            "A is false, but R is true"
+        ],
+        ans: 2,
+        exp: "Both statements are accurate: the Kheda Satyagraha ended with the government quietly suspending revenue recovery from the poorest cultivators for the year, but without formally admitting that the tax increase was unjust, unlike Champaran, where an official inquiry committee acknowledged the grievance and legislated its abolition. This lack of formal vindication is precisely why Kheda's outcome is seen as a more ambiguous or partial victory, so R correctly explains A."
+    },
+    {
+        q: "With reference to the Round Table Conferences (1930–32), consider the following statements:<br>1. The First Round Table Conference was held in the absence of the Indian National Congress, which was then leading the Civil Disobedience Movement.<br>2. Mahatma Gandhi attended the Second Round Table Conference as the sole official representative of the Congress, following the Gandhi–Irwin Pact.<br>3. The Communal Award was announced as a direct outcome of the discussions held at the Third Round Table Conference.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "The Congress boycotted the First Round Table Conference (1930–31) as it was engaged in the Civil Disobedience Movement, and Gandhi attended the Second Conference alone as Congress's representative after the Gandhi–Irwin Pact. However, the Communal Award was announced in August 1932, before the Third Round Table Conference convened in November–December 1932, so it could not have resulted from that conference's discussions."
+    },
+    {
+        q: "Which component of Mahatma Gandhi's Constructive Programme is considered to have most directly inspired the post-independence establishment of the Khadi and Village Industries Commission (KVIC) under the Khadi and Village Industries Commission Act, 1956?",
+        opts: [
+            "Promotion of Hindu-Muslim unity",
+            "Promotion of khadi and other village industries",
+            "Campaign against untouchability",
+            "Promotion of basic education (Nai Talim)"
+        ],
+        ans: 1,
+        exp: "Gandhi's Constructive Programme placed strong emphasis on khadi and village industries as instruments of rural self-reliance and decentralised economic development, a vision that directly shaped the post-independence creation of the KVIC in 1956–57 to institutionalise support for cottage industries. The other components, though integral to the Constructive Programme, did not lead to the establishment of this particular body."
+    },
+    {
+        q: "With reference to the organisation of the Kheda Satyagraha (1918), consider the following statements:<br>1. It was organised under the aegis of the Gujarat Sabha, a political body of which Gandhi was president and Vallabhbhai Patel served as secretary.<br>2. At a meeting held in Nadiad on 22 March 1918, volunteers took a formal pledge to withhold payment of the land revenue assessment, whether wholly or in part, until their demands were met.<br>3. Its organisational structure mirrored that of the later Bardoli Satyagraha (1928), with the district formally divided into thirteen 'chhavani' (camps), each with a designated zone-leader reporting daily to Patel.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "None of the statements is correct",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "The Kheda campaign was indeed organised through the Gujarat Sabha, with Gandhi as president and Patel as secretary, and volunteers took the formal no-tax pledge at Nadiad on 22 March 1918. The formal division into thirteen 'chhavani' camps with designated zone-leaders was a feature of the later, more elaborately organised Bardoli Satyagraha of 1928, not the 1918 Kheda campaign, which relied on a smaller band of leaders touring villages directly."
+    },
+    {
+        q: "With reference to the background and initial course of the Champaran Satyagraha (1917), consider the following statements:<br>1. Gandhi first learnt of the Champaran peasants' plight directly from British colonial officials, who invited him to mediate the dispute.<br>2. On reaching Champaran, the local administration permitted Gandhi to conduct his inquiry freely, imposing no restrictions on his movement.<br>3. The Agrarian Committee of Inquiry appointed to examine the peasants' grievances excluded Gandhi from its membership to maintain official neutrality.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "None of the statements is correct",
+            "1 only",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "None of these statements is accurate: Gandhi was persuaded to visit Champaran not by British officials but by the local peasant leader Raj Kumar Shukla, whom he had met at the Lucknow Congress session in December 1916. On arrival, the local magistrate ordered him under Section 144 CrPC to leave the district, which he defied, courting arrest; and far from being excluded, Gandhi himself served as a member of the Agrarian Committee of Inquiry that was subsequently appointed."
+    },
+    {
+        q: "With reference to the distinguishing features of the Civil Disobedience Movement, consider the following statements:<br>1. Unlike Champaran and Kheda, the movement received no support whatsoever from India's business and merchant community, relying solely on peasant participation.<br>2. Unlike the Non-Cooperation Movement's broad boycott of British institutions, the Civil Disobedience Movement's central method was the symbolic defiance of a specific, concrete law, most famously the Salt Act, through direct action.<br>3. The movement unfolded in two distinct phases, 1930–31 and 1932–34, separated by a temporary suspension following the Gandhi-Irwin Pact and the Second Round Table Conference.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "None of the above",
+            "1, 2 and 3",
+            "Only two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "The Civil Disobedience Movement is indeed distinguished by its method of defying a specific law like the Salt Act rather than a general boycott, and it unfolded in two phases separated by the Gandhi-Irwin Pact and Second Round Table Conference. However, unlike the earlier localised campaigns, this movement actually received considerable financial support from Indian business and merchant communities, making the claim of 'no support whatsoever' incorrect."
+    },
+    {
+        q: "With reference to the parallel ('underground') governments formed during the Quit India Movement, consider the following pairs:<br>1. Ballia – 'Jatiya Sarkar'<br>2. Tamluk (Midnapore) – 'Jatiya Sarkar'<br>3. Satara – 'Prati Sarkar', associated with Nana Patil and Y.B. Chavan<br>Which of the pairs given above is/are correctly matched?",
+        opts: [
+            "All three pairs are correctly matched",
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "The parallel government at Tamluk in Midnapore was specifically named the 'Jatiya Sarkar', and the one at Satara was the 'Prati Sarkar', led by figures such as Nana Patil and Y.B. Chavan — both correctly matched. The parallel government formed at Ballia under Chittu Pandey, however, is not identified by the name 'Jatiya Sarkar' in historical accounts, making the first pair incorrect."
+    },
+    {
+        q: "With reference to the character of the Gandhi-Irwin Pact (1931), consider the following statements:<br>1. It is also popularly known as the 'Delhi Pact', since it was signed in Delhi.<br>2. It was formally ratified as a treaty between two sovereign states under international law.<br>3. It provoked strong criticism from British Conservative politicians such as Winston Churchill, who objected to the Viceroy negotiating with Gandhi as an equal.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "Signed in Delhi, the agreement is indeed also known as the Delhi Pact, and it drew sharp criticism from British Conservative die-hards like Winston Churchill, who resented the Viceroy treating Gandhi as an equal negotiating partner. However, it was an informal political settlement between the Viceroy and the Congress as a political body, not a treaty between sovereign states under international law."
+    },
+    {
+        q: "Consider the following:<br>Assertion (A): The Champaran Satyagraha (1917) is regarded as a turning point that linked the Indian national movement with the struggle of the peasantry.<br>Reason (R): It was the first occasion on which Mahatma Gandhi applied the method of Satyagraha on Indian soil, in contrast to his earlier campaigns in South Africa.<br>Which one of the following is correct in respect of the above Assertion (A) and Reason (R)?",
+        opts: [
+            "Both A and R are true, but R is not the correct explanation of A",
+            "A is true, but R is false",
+            "Both A and R are true, and R is the correct explanation of A",
+            "A is false, but R is true"
+        ],
+        ans: 0,
+        exp: "Both statements are factually correct: Champaran did mark a shift in Indian nationalism by drawing rural peasant grievances into the mainstream movement, and it was indeed Gandhi's first Satyagraha within India after his South African campaigns. However, R does not explain A — Champaran's significance for peasant mobilisation stems from its focus on local agrarian exploitation and mass rural participation, not merely from the fact that it was Gandhi's first Indian Satyagraha."
+    },
+    {
+        q: "With reference to the background of the Gandhi-Irwin Pact, consider the following statements:<br>1. The immediate background to the pact was the failure of the First Round Table Conference (1930–31) to make progress in the absence of the Congress, prompting British efforts to bring the Congress into the process.<br>2. The pact was signed on 5 March 1931 after a single, brief meeting between Gandhi and Irwin lasting less than an hour.<br>3. Talks between Gandhi and Irwin were mediated in part by Indian liberal leaders such as Tej Bahadur Sapru and M.R. Jayakar, following around eight meetings held over several weeks.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "2 and 3 only",
+            "Only one of the statements is correct",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "The First Round Table Conference's failure without Congress participation did prompt the British to seek Congress's involvement, and the resulting talks, mediated in part by liberal leaders like Sapru and Jayakar, unfolded over roughly eight meetings across several weeks. It was not the product of a single brief meeting; the negotiations were prolonged and required sustained engagement before the pact was finally signed on 5 March 1931."
+    },
+    {
+        q: "With reference to the Champaran Satyagraha, consider the following statements:<br>1. In April 2025, India observed the 108th anniversary of the Champaran Satyagraha, marking Gandhi's first experiment with Satyagraha in India.<br>2. The movement was triggered by the 'tinkathia' system, under which peasants were compelled to cultivate indigo on a fixed proportion of their landholding for European planters.<br>3. The Champaran Satyagraha directly led to the enactment of the Government of India Act, 1919, which granted provincial autonomy to Indian legislatures.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the statements are correct",
+            "1 and 2 only",
+            "1 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "April 2025 indeed marked 108 years since the 1917 Champaran Satyagraha, Gandhi's first Satyagraha on Indian soil, which arose from the tinkathia system forcing indigo cultivation on peasants. However, its direct legislative outcome was the Champaran Agrarian Act, 1918, which abolished tinkathia; the Government of India Act, 1919 (which introduced provincial dyarchy, not autonomy) was unrelated to this movement."
+    },
+    {
+        q: "With reference to the resolution of the Ahmedabad Mill Strike (1918), consider the following statements:<br>1. The wage dispute was formally adjudicated under the provisions of the Factories Act, 1881, which regulated working hours in Indian factories.<br>2. The arbitration award was made binding under the Industrial Disputes Act, which was already in force in British India at the time of the strike.<br>3. At the time of the strike, India had no statutory law for industrial dispute resolution; the matter was resolved through an informal arbitration tribunal mutually agreed upon by the workers and mill owners.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 only",
+            "2 only",
+            "3 only"
+        ],
+        ans: 3,
+        exp: "In 1918, India had no dedicated statutory mechanism for resolving industrial disputes; the wage dispute was instead settled through an ad hoc arbitration tribunal that both sides agreed to, which awarded a 35% wage increase. The Factories Act, 1881 dealt with factory working conditions, not wage arbitration, and the Industrial Disputes Act was enacted only in 1947, decades after this strike, making the first two statements anachronistic and incorrect."
+    },
+    {
+        q: "With reference to the organisational structure of the Civil Disobedience Movement across different regions, consider the following statements:<br>1. After Gandhi's arrest on 5 May 1930, leadership of the planned raid on the Dharasana Salt Works passed successively to Abbas Tyabji and then to Sarojini Naidu.<br>2. In the North-West Frontier Province, Khan Abdul Ghaffar Khan organised a corps of non-violent volunteers known as the Khudai Khidmatgars, popularly called the 'Red Shirts'.<br>3. In Tamil Nadu, C. Rajagopalachari led a parallel salt march from Tiruchirapalli to Vedaranyam on the Tanjore coast.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "The movement's regional leadership structure is accurately described in all three statements: leadership of the Dharasana raid passed from Gandhi to Abbas Tyabji and then Sarojini Naidu after their respective arrests; Khan Abdul Ghaffar Khan's Khudai Khidmatgars ('Red Shirts') led the campaign in the NWFP; and Rajagopalachari's Vedaranyam march paralleled the Dandi March in Tamil Nadu."
+    },
+    {
+        q: "With reference to the Government of India Act, 1935, which built upon discussions held at the Round Table Conferences, consider the following statements:<br>1. It provided for an All-India Federation comprising British Indian provinces and Princely States.<br>2. It granted adult franchise to all Indian citizens for elections to the central legislature.<br>3. It abolished dyarchy in the provinces by introducing provincial autonomy, while introducing dyarchy at the centre instead.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "The Government of India Act, 1935, envisaged an All-India Federation of provinces and princely states and replaced provincial dyarchy (introduced in 1919) with provincial autonomy, while introducing dyarchy at the federal centre instead. However, it did not introduce adult franchise — the franchise remained limited and communally segmented, with universal adult suffrage arriving only through the Constitution of India in 1950."
+    },
+    {
+        q: "Which of the following is considered a distinguishing feature of the Ahmedabad Mill Strike (1918) among Gandhi's early campaigns in India?",
+        opts: [
+            "It marked the first practical application of Gandhi's concept of 'trusteeship' in industrial relations, alongside his first use of a fast as a tool of satyagraha",
+            "It was the only one of Gandhi's early campaigns that turned violent, requiring police intervention",
+            "It was resolved through the passage of a specific labour welfare statute enacted by the Imperial Legislative Council",
+            "It exclusively involved women workers, led entirely by Anasuya Sarabhai without Gandhi's direct participation"
+        ],
+        ans: 0,
+        exp: "The Ahmedabad Mill Strike is distinguished as the first practical application of Gandhi's 'trusteeship' theory of labour–capital relations, and it also featured his first use of a fast as an instrument of satyagraha, undertaken to strengthen the workers' resolve. It was resolved through voluntary arbitration rather than any specific statute, remained non-violent, and while Anasuya Sarabhai played a key organising role, Gandhi personally mediated and fasted alongside her efforts."
+    },
+    {
+        q: "With reference to the background of the Civil Disobedience Movement, consider the following statements:<br>1. The Irwin Declaration of 31 October 1929 (also called the 'Deepavali Declaration') promised India eventual Dominion Status but specified no timeline.<br>2. Nationalist leaders' Delhi Manifesto (November 1929), demanding a guarantee that the Round Table Conference would frame a Dominion Status constitution with the Congress in a majority, was accepted by Lord Irwin without modification.<br>3. The Lahore Session of the Congress (December 1929), presided over by Jawaharlal Nehru, adopted the Purna Swaraj resolution and authorised the Working Committee to launch civil disobedience, including non-payment of taxes.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3",
+            "1 and 3 only"
+        ],
+        ans: 3,
+        exp: "The Irwin Declaration (31 October 1929) offered only a vague, undated promise of eventual Dominion Status, and the Lahore Session under Nehru's presidency responded by adopting Purna Swaraj and authorising civil disobedience. However, Irwin rejected rather than accepted the Delhi Manifesto's demands for a guarantee of Congress majority representation and immediate constitution-framing, which is precisely what set the stage for confrontation."
+    },
+    {
+        q: "With reference to the Champaran Agrarian Act, 1918, consider the following statements:<br>1. It required the prior sanction of the Government of India, under Section 79 of the Government of India Act, 1915, before the Bihar and Orissa legislature could enact it.<br>2. It completely abolished all forms of indigo cultivation in Champaran, prohibiting ryots from growing indigo even voluntarily.<br>3. Its provisions extended to the whole of the Bihar and Orissa province, not merely the district of Champaran.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements is correct",
+            "2 only",
+            "1 and 3 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "As a provincial enactment affecting agrarian rights, the Champaran Agrarian Act, 1918 indeed required prior sanction from the Government of India under Section 79 of the Government of India Act, 1915, as recorded in its own preamble. However, the Act only ended forced 'tinkathia' cultivation while still permitting voluntary indigo cultivation on short-term contracts, and by its own terms (Section 1) it extended only to the district of Champaran, not the whole province."
+    },
+    {
+        q: "With reference to the Civil Disobedience Movement, consider the following statements:<br>1. In 2025, India observed the 95th anniversary of the Dandi March, which marked the formal launch of the Civil Disobedience Movement in 1930.<br>2. The movement was finally and formally withdrawn by Gandhi in 1934, after being suspended once in 1931 following the Gandhi–Irwin Pact.<br>3. It was the first movement in which the Congress explicitly demanded 'Purna Swaraj' (complete independence), a goal declared at the Lahore Session (1929).<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 and 2 only",
+            "2 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 3,
+        exp: "The Dandi March (12 March–6 April 1930) launched the Civil Disobedience Movement, whose 95th anniversary fell in 2025; the movement was suspended in 1931 after the Gandhi–Irwin Pact and finally withdrawn in 1934. It was also the first movement to carry forward the Purna Swaraj resolution passed at the 1929 Lahore Session, making all three statements correct."
+    },
+    {
+        q: "In his pamphlet 'Constructive Programme: Its Meaning and Place' (first published in 1941, revised in 1945), Mahatma Gandhi primarily described the Constructive Programme as:",
+        opts: [
+            "A set of short-term political agitation tactics to be used only during phases of active civil disobedience",
+            "The construction of Poorna Swaraj (complete independence) through truthful and non-violent means, as distinct from methods involving violence",
+            "A list of demands to be submitted to the Viceroy ahead of the Second Round Table Conference",
+            "A government policy document meant exclusively for implementation by a future independent Indian government"
+        ],
+        ans: 1,
+        exp: "Gandhi explicitly described the Constructive Programme as 'construction of Poorna Swaraj or complete independence by truthful and non-violent means,' contrasting it with the destruction and untruth he associated with violent methods of seeking independence. It was conceived as an ongoing, positive social programme running alongside civil disobedience, not confined to agitation phases, a government blueprint, or a set of negotiating demands."
+    },
+    {
+        q: "In 2025, marking 105 years since the launch of the Non-Cooperation Movement, the Government of India's commemorative account of the movement's early phase (from January 1921) highlighted which of the following developments?",
+        opts: [
+            "Gandhi's nationwide tour and the emergence of over 800 national schools and colleges as students boycotted government institutions",
+            "The formal launch of the boycott of the Simon Commission",
+            "The passage of the Government of India Act, 1935",
+            "The signing of the Gandhi-Irwin Pact suspending the movement"
+        ],
+        ans: 0,
+        exp: "Official commemorative material released around the movement's 105th anniversary in 2025 recalled how, from January 1921, Gandhi undertook an extensive nationwide tour and thousands of students left government institutions to join over 800 newly established national schools and colleges. The Gandhi-Irwin Pact belongs to the later Civil Disobedience Movement, the Simon Commission boycott took place in 1928, and the Government of India Act, 1935 emerged from the Round Table Conferences — none related to this 1920–21 phase."
+    },
+    {
+        q: "With reference to the process leading to the Government of India Act, 1935, consider the following statements:<br>1. The Joint Select Committee's recommendations were rejected by the British House of Commons, delaying enactment of any new Government of India Act until after the Second World War.<br>2. The recommendations of the three Round Table Conferences were consolidated into a White Paper titled 'Proposals for Indian Constitutional Reform', published in March 1933.<br>3. This White Paper was examined by a Joint Select Committee of the British Parliament, chaired by Lord Linlithgow, between April 1933 and late 1934, whose report the House of Commons approved in December 1934.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "The RTC recommendations were indeed consolidated into the White Paper of March 1933, which a Joint Select Committee under Lord Linlithgow examined between April 1933 and late 1934, with its report approved by the House of Commons in December 1934. Far from being rejected or delayed to after the Second World War, this process led directly to the Government of India Act, 1935, enacted well before the war began."
+    },
+    {
+        q: "With reference to the challenges faced during the Kheda Satyagraha (1918), consider the following statements:<br>1. To counter the government's strategy of confiscating and auctioning peasants' land, the movement's leaders organised social boycotts against any Indians who came forward to purchase such confiscated land.<br>2. The government responded to the sustained agitation by publicly and unconditionally conceding that the tax demand itself was unjust, waiving revenue for all cultivators regardless of their capacity to pay.<br>3. The settlement that ended the movement was widely regarded, including by Gandhi himself, as an unambiguous and complete victory for the peasants.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 1",
+            "Both 1 and 3",
+            "All of the statements are correct",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 0,
+        exp: "A genuine tactic used during the campaign was social ostracism of anyone who bought confiscated peasant land, which helped neutralise the government's coercive strategy. However, the government never publicly conceded that the tax was unjust; it merely instructed officials to recover dues only from those able to pay, and Gandhi himself described the outcome as an ambiguous, partial victory rather than a complete one."
+    },
+    {
+        q: "With reference to the legacy of the Ahmedabad Mill Strike (1918), consider the following statements:<br>1. It resulted in the immediate enactment of the Trade Unions Act by the British Indian government to legally register such associations.<br>2. The dispute was resolved through a voluntary arbitration tribunal that eventually granted the workers a 35% wage increase.<br>3. It led to the founding of the Textile Labour Association (Majoor Mahajan Sangh) in 1920, one of India's earliest organised trade unions.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 2 and 3",
+            "1 only",
+            "Only statement 2",
+            "All three statements are correct"
+        ],
+        ans: 0,
+        exp: "The strike, resolved through arbitration, resulted in a 35% wage increase for the workers and directly led to the founding of the Textile Labour Association (Majoor Mahajan Sangh) in 1920 under Anasuya Sarabhai. However, the Trade Unions Act was enacted only in 1926, eight years later, as a general piece of legislation, not an immediate or direct legal consequence of this particular strike."
+    },
+    {
+        q: "With reference to Gandhi's Constructive Programme, as outlined in his 1941 pamphlet, consider the following statements:<br>1. Among its specific items were prohibition of alcohol, promotion of Hindustani (a blend of Hindi and Urdu) as a possible national link language, and the upliftment of women.<br>2. It recommended the removal of untouchability but explicitly excluded any programme for economic equality, viewing redistribution of wealth as outside its scope.<br>3. It also included specific items addressing the welfare of adivasis (tribal communities), agricultural labourers/kisans, and provision for the education and care of leprosy patients.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 and 3 only",
+            "None of the statements is correct"
+        ],
+        ans: 2,
+        exp: "Gandhi's Constructive Programme was a wide-ranging list that did include prohibition, promotion of Hindustani, upliftment of women, welfare of adivasis, kisans, and lepers, among many other items. It did not exclude economic equality; on the contrary, 'economic equality' was itself explicitly listed as one of its component items alongside the removal of untouchability."
+    },
+    {
+        q: "With reference to the Quit India Movement, consider the following statements:<br>1. In 2025, India observed the 83rd anniversary of the launch of the Quit India Movement.<br>2. The slogan 'Quit India' (Bharat Chhodo) was personally coined by Mahatma Gandhi at the Bombay session of the AICC in August 1942.<br>3. The freedom fighter credited with coining the 'Quit India' slogan had earlier also coined the slogan 'Simon, Go Back' during protests against the Simon Commission.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "The Quit India Movement, launched on 8–9 August 1942, completed 83 years in 2025. However, the slogan 'Quit India'/'Bharat Chhodo' was coined not by Gandhi but by the socialist leader Yusuf Meherally, who had earlier also given the slogan 'Simon, Go Back' in 1927–28; Gandhi's own contribution was the call 'Do or Die'."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-75 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

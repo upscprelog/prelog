@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-55</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "With reference to the functions and powers exercised under the Stockholm Convention, consider the following statements: <br> 1. The POPs Review Committee (POPRC) is a subsidiary scientific body responsible for reviewing and recommending chemicals for listing as Persistent Organic Pollutants.<br>2. Parties to the Convention are required to develop and implement National Implementation Plans (NIPs) outlining measures to fulfil their obligations.<br>3. The Convention mandates the immediate closure of all industrial facilities found to unintentionally produce dioxins and furans, with no provision for phased reduction.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "Only two of the statements are correct",
+            "None of the above",
+            "Only statement 1"
+        ],
+        ans: 1,
+        exp: "POPRC is indeed the Convention's subsidiary scientific body that evaluates and recommends new POPs for listing, and Parties are required to prepare National Implementation Plans detailing their compliance measures. However, the Convention does not mandate immediate closure of facilities producing unintentional by-products like dioxins and furans; instead, it promotes phased reduction through Best Available Techniques and Best Environmental Practices, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the institutional structure of the Convention on the Conservation of Migratory Species (CMS), consider the following statements: <br> 1. The CMS Standing Committee is composed exclusively of representatives from range states located in Europe.<br>2. CMS has no formal body to provide technical or scientific input, with technical decisions made unilaterally by the Secretariat alone.<br>3. The CMS Secretariat, provided by UNEP, is located in Bonn, Germany, and the Convention's Scientific Council provides technical and scientific advice to the Conference of the Parties.<br>Which one of the statements given above is correct?",
+        opts: [
+            "2 only",
+            "3 only",
+            "None of the statements is correct",
+            "1 only"
+        ],
+        ans: 1,
+        exp: "The CMS Secretariat, administered by UNEP, is indeed based in Bonn, Germany, and its Scientific Council provides the necessary technical and scientific input to guide COP decisions. The Standing Committee is not restricted to European range states but draws representation across UN regional groups, and technical decisions are not made unilaterally by the Secretariat, making the other two statements false."
+    },
+    {
+        q: "With reference to the Montreal Protocol and its Kigali Amendment, a theme frequently tested in UPSC Prelims, consider the following statements: <br> 1. The Kigali Amendment is legally binding and mandates the phase-down of hydrofluorocarbons (HFCs), which are potent greenhouse gases but do not deplete the ozone layer.<br>2. The Montreal Protocol operates under the broader framework of the Vienna Convention for the Protection of the Ozone Layer.<br>3. Under the Kigali Amendment, all countries — developed and developing alike — must achieve their HFC phase-down targets by a common deadline of 2030.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 2 only",
+            "1 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "The Kigali Amendment (2016) is a legally binding addition targeting HFCs, which are greenhouse gases rather than ozone-depleting substances, and the Montreal Protocol indeed sits under the Vienna Convention framework. However, the Amendment sets differentiated, staggered timelines — developed countries beginning cuts from 2019, most developing countries from the mid-2020s, and countries like India targeting steep reductions only by 2047 — so there is no common 2030 deadline for all parties."
+    },
+    {
+        q: "With reference to the features and characteristics of the Kyoto Protocol, consider the following statements: <br> 1. The Kyoto Protocol adopted a 'top-down' approach, assigning differentiated, legally binding quantified emission targets only to Annex I (developed) countries relative to a 1990 baseline.<br>2. Under the Kyoto Protocol, every Annex I country was assigned an identical, uniform emission reduction target of exactly 8% below 1990 levels.<br>3. The Kyoto Protocol applied equally binding, quantified emission reduction targets to both developed and developing countries alike.<br>Which one of the statements given above is correct?",
+        opts: [
+            "3 only",
+            "2 only",
+            "1 only",
+            "None of the statements is correct"
+        ],
+        ans: 2,
+        exp: "The Kyoto Protocol's defining characteristic was its 'top-down' architecture, imposing differentiated, legally binding targets only on Annex I countries against a 1990 baseline. These targets varied significantly by country rather than being a uniform 8% for all, and developing (non-Annex I) countries were explicitly exempt from binding targets, making the other two statements false."
+    },
+    {
+        q: "With reference to the background and evolution of the UNCCD, consider the following statements: <br> 1. The UNCCD was adopted in Paris in June 1994, following the 1992 Rio Earth Summit's Agenda 21 recommendation for a convention to combat desertification, particularly in Africa.<br>2. The UNCCD entered into force in the same year it was adopted, i.e., 1994.<br>3. World Day to Combat Desertification and Drought is observed on 5th June every year, coinciding with World Environment Day.<br>Which one of the statements given above is correct?",
+        opts: [
+            "3 only",
+            "2 only",
+            "1 only",
+            "None of the statements is correct"
+        ],
+        ans: 2,
+        exp: "Agenda 21 from the 1992 Rio Earth Summit specifically called for a convention on desertification, particularly for Africa, leading to the UNCCD's adoption in Paris in June 1994. However, the Convention only entered into force in December 1996 after sufficient ratifications, and World Day to Combat Desertification and Drought is observed on 17th June, not 5th June, making the other two statements false."
+    },
+    {
+        q: "With reference to important mechanisms and policies under the Kyoto Protocol, consider the following statements: <br> 1. The Kyoto Protocol introduced three flexible, market-based mechanisms — the Clean Development Mechanism (CDM), Joint Implementation (JI), and Emissions Trading — to help Annex I countries meet targets cost-effectively.<br>2. The detailed operational rules for these flexible mechanisms were finalized through the Marrakesh Accords, adopted at COP7 in 2001.<br>3. The Clean Development Mechanism allows Annex I countries to invest in emission-reduction projects only in other Annex I (developed) countries, entirely excluding developing countries.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "Statement 3 alone",
+            "1 and 2 only",
+            "Statement 1 alone"
+        ],
+        ans: 2,
+        exp: "The Kyoto Protocol's three flexible mechanisms are correctly described, and the Marrakesh Accords of 2001 indeed laid out their detailed operating rules. However, the Clean Development Mechanism specifically enables Annex I countries to invest in emission-reduction projects in non-Annex I developing countries, which is the opposite of statement 3, making it incorrect."
+    },
+    {
+        q: "Assertion (A): The continued production and use of DDT has not been entirely banned under the Stockholm Convention on Persistent Organic Pollutants.<br>Reason (R): The Convention grants a specific exemption permitting DDT use for disease vector control, particularly to combat malaria, until cost-effective and safe alternatives become available.<br>Select the correct answer using the codes given below:",
+        opts: [
+            "A is false, but R is true",
+            "Both A and R are true, but R is not the correct explanation of A",
+            "Both A and R are true, and R is the correct explanation of A",
+            "A is true, but R is false"
+        ],
+        ans: 2,
+        exp: "DDT is listed under the Stockholm Convention's Annex B, which allows restricted rather than outright banned use. This carve-out exists precisely because several malaria-endemic countries still rely on DDT for indoor residual spraying to control disease vectors, pending viable alternatives, making R the correct explanation for A."
+    },
+    {
+        q: "With reference to key amendments to the Montreal Protocol, consider the following statements: <br> 1. The London Amendment (1990) expanded the list of controlled substances and set a full phase-out schedule for CFCs and halons in developed countries.<br>2. The Copenhagen Amendment (1992) accelerated the CFC phase-out timeline and added HCFCs and methyl bromide to the list of controlled substances.<br>3. The Beijing Amendment (1999) introduced binding control measures on hydrofluorocarbons (HFCs) as ozone-depleting substances.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 only",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "The London and Copenhagen Amendments correctly describe the successive tightening of controls on CFCs and the addition of HCFCs and methyl bromide. HFCs, however, do not deplete the ozone layer and were not controlled under the Beijing Amendment; they were addressed only later through the 2016 Kigali Amendment, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the institutional structure of the United Nations Convention to Combat Desertification (UNCCD), consider the following statements: <br> 1. The Secretariat of the UNCCD is headquartered in Nairobi, Kenya.<br>2. The Committee on Science and Technology (CST) is a decision-making body senior to the Conference of the Parties (COP).<br>3. The UNCCD was established as a specialized desertification wing under the World Meteorological Organization (WMO).<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements is correct",
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "All three statements are factually incorrect: the UNCCD Secretariat is headquartered in Bonn, Germany, not Nairobi; the COP, not the CST, is the Convention's supreme decision-making body, with the CST serving only in an advisory, subsidiary capacity; and the UNCCD is an independent Rio Convention adopted in 1994, not a wing of the WMO."
+    },
+    {
+        q: "Consider the following pairs regarding international environmental conventions and their primary thematic focus: <br> 1. UNFCCC — Climate Change<br>2. CBD — Biological Diversity<br>3. UNCCD — Ozone Layer Depletion<br>How many of the above pairs are correctly matched?",
+        opts: [
+            "Only one pair",
+            "Only two pairs",
+            "All three pairs",
+            "None of the pairs"
+        ],
+        ans: 1,
+        exp: "The UNFCCC and CBD are correctly matched with climate change and biological diversity respectively. However, the UNCCD's primary focus is on combating desertification, land degradation, and drought — ozone layer depletion is instead the subject of the Vienna Convention and Montreal Protocol — making only two of the three pairs correctly matched."
+    },
+    {
+        q: "With reference to the features of the Convention on Biological Diversity (CBD), consider the following statements: <br> 1. The CBD has three main objectives — conservation of biodiversity, sustainable use of its components, and fair and equitable sharing of benefits from genetic resources.<br>2. The Cartagena Protocol, adopted under the CBD, specifically deals with the safe handling and transboundary movement of Living Modified Organisms (LMOs).<br>3. The CBD was opened for signature at the 1992 Rio Earth Summit and entered into force the same year.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 2,
+        exp: "The CBD's three-fold mandate and the Cartagena Protocol's focus on biosafety and LMOs are both accurately stated. However, while the CBD was opened for signature at the 1992 Rio Earth Summit, it required ratification by 30 states and only entered into force in December 1993, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the functions and powers of the Conference of the Parties (COP) to the Convention on Biological Diversity (CBD), consider the following statements: <br> 1. The COP has the function of adopting global biodiversity targets, such as the Kunming-Montreal Global Biodiversity Framework's '30x30' target of conserving 30% of the world's land and sea areas by 2030.<br>2. The COP has the power to impose binding trade sanctions on Parties that fail to submit their National Biodiversity Strategies and Action Plans (NBSAPs).<br>3. The functions of the COP are limited strictly to biodiversity conservation and explicitly exclude any role in reviewing national reports or action plans submitted by Parties.<br>Which one of the statements given above is correct?",
+        opts: [
+            "1 only",
+            "3 only",
+            "2 only",
+            "None of the statements is correct"
+        ],
+        ans: 0,
+        exp: "Adopting overarching global targets, such as the Kunming-Montreal Global Biodiversity Framework's '30x30' goal, is indeed a core function of the CBD's COP. The COP has no power to impose binding trade sanctions for non-submission of NBSAPs, relying instead on cooperative, non-punitive review mechanisms, and reviewing national reports and action plans submitted by Parties is itself very much a function of the COP, making the other two statements false."
+    },
+    {
+        q: "With reference to the features and characteristics of CITES, consider the following statements: <br> 1. The CITES Conference of the Parties (CoP) meets annually, similar to the UNFCCC's COP.<br>2. CITES entered into force in the same year it was signed, i.e., 1973.<br>3. Export of a specimen of a species listed under CITES Appendix II requires, among other things, a 'non-detriment finding' by the Scientific Authority of the exporting country confirming that the export will not harm the species' survival.<br>Which one of the statements given above is correct?",
+        opts: [
+            "3 only",
+            "None of the statements is correct",
+            "1 only",
+            "2 only"
+        ],
+        ans: 0,
+        exp: "The 'non-detriment finding' requirement for Appendix II exports is a genuine and central feature of CITES' permit-based system, ensuring exports do not threaten a species' survival. CITES actually meets roughly every two to three years, not annually, and it was signed in 1973 but only entered into force in 1975, making the first two statements false."
+    },
+    {
+        q: "With reference to the 30th Conference of the Parties (COP30) to the UNFCCC held in Belém, Brazil in November 2025, consider the following statements: <br> 1. COP30 was described as an 'implementation COP,' focusing on operationalising prior commitments such as the Paris Agreement rather than negotiating fresh pledges.<br>2. COP30 concluded with the adoption of the 'Belém Package,' though it lacked a clear, time-bound roadmap for phasing out fossil fuels.<br>3. The United States sent an official government delegation to COP30 and played a leading role in the negotiations.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the statements are correct",
+            "Only one of the statements is correct",
+            "Both 1 and 3",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "COP30, held in the Amazonian city of Belém, was explicitly framed as an implementation-focused COP, and it concluded with the negotiated 'Belém Package,' which notably failed to secure a clear, time-bound roadmap on fossil fuel phase-out. However, the United States did not send an official delegation to COP30, which was widely noted as weakening developed-country bargaining power, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the features and characteristics of the United Nations Convention to Combat Desertification (UNCCD), consider the following statements: <br> 1. The UNCCD is regarded as one of the three 'Rio Conventions' emerging from the 1992 Earth Summit process, alongside the UNFCCC and the CBD, even though it was formally adopted in 1994.<br>2. The UNCCD follows a bottom-up, participatory approach requiring countries to formulate National Action Programmes (NAPs) to combat desertification.<br>3. Land Degradation Neutrality (LDN), a key target framework linked to UNCCD implementation, corresponds to Sustainable Development Goal 15.3.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "The UNCCD is indeed considered one of the three Rio Conventions, though its own text was adopted two years after the 1992 Earth Summit that recommended its creation. It emphasizes country-driven, bottom-up National Action Programmes, and its Land Degradation Neutrality target directly corresponds to SDG target 15.3, making all three statements correct."
+    },
+    {
+        q: "With reference to recent developments concerning the Stockholm Convention on Persistent Organic Pollutants, consider the following statements: <br> 1. In 2025, the Conference of the Parties agreed to list the pesticide chlorpyrifos for global elimination as a Persistent Organic Pollutant.<br>2. Long-chain perfluorocarboxylic acids (LC-PFCAs) were also added to the list of chemicals for global elimination at the same 2025 Conference of the Parties.<br>3. This 2025 Conference of the Parties to the Stockholm Convention was held in Geneva, Switzerland.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "At its 2025 meeting held in Geneva, the Conference of the Parties to the Stockholm Convention agreed to list both the organophosphate pesticide chlorpyrifos and the group of long-chain perfluorocarboxylic acids (LC-PFCAs) as Persistent Organic Pollutants for global elimination, reflecting the Convention's ongoing practice of periodically expanding its list of banned chemicals."
+    },
+    {
+        q: "With reference to the functions and powers exercised under the United Nations Convention to Combat Desertification (UNCCD), consider the following statements: <br> 1. The Committee for the Review of the Implementation of the Convention (CRIC) periodically reviews the progress made by Parties in implementing their UNCCD obligations.<br>2. The Global Mechanism of the UNCCD is primarily tasked with promoting the mobilization of financial resources for affected developing country Parties.<br>3. The UNCCD's Conference of the Parties has the power to unilaterally impose trade sanctions on Parties that fail to submit National Action Programmes on time.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "Both 2 and 3",
+            "Only two of the statements are correct",
+            "3 only"
+        ],
+        ans: 2,
+        exp: "CRIC and the Global Mechanism are correctly described — the former reviews implementation progress while the latter focuses on financial resource mobilization for affected countries. However, the UNCCD's COP possesses no power to impose trade sanctions on non-complying Parties; the Convention functions through cooperative, non-punitive mechanisms, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the institutional structure of CITES, consider the following statements: <br> 1. The CITES Secretariat, administered under UNEP, is located in Geneva, Switzerland.<br>2. Appendix III of CITES lists species already threatened with extinction, for which international trade is prohibited except in exceptional circumstances.<br>3. The CITES Standing Committee provides policy guidance to the Secretariat between meetings of the Conference of the Parties.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "1 and 2 only",
+            "1 and 3 only",
+            "All of the statements are correct"
+        ],
+        ans: 2,
+        exp: "The CITES Secretariat, administered by UNEP, is indeed based in Geneva, and the Standing Committee correctly provides inter-sessional policy guidance. However, statement 2 misdescribes Appendix III, which actually lists species that an individual Party has identified as subject to regulation within its own jurisdiction and for which it seeks cooperation from other Parties — species threatened with extinction and subject to strict trade prohibition fall under Appendix I."
+    },
+    {
+        q: "With reference to the functions and powers of the United Nations Framework Convention on Climate Change (UNFCCC), consider the following statements: <br> 1. The Conference of the Parties (COP) is the supreme decision-making body of the UNFCCC.<br>2. The UNFCCC itself imposes legally binding, country-specific greenhouse gas emission reduction targets.<br>3. The Secretariat of the UNFCCC is headquartered in Geneva, Switzerland.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "1, 2 and 3",
+            "None of the statements are correct",
+            "2 only"
+        ],
+        ans: 0,
+        exp: "The COP, comprising all parties to the Convention, is the supreme body that reviews implementation and takes decisions to promote the Convention's objectives. The UNFCCC itself is a framework convention with no binding emission targets — these emerged later through the Kyoto Protocol and Paris Agreement. Its Secretariat is located in Bonn, Germany, not Geneva."
+    },
+    {
+        q: "With reference to the evolution of major international frameworks on climate and ozone protection, arrange the following in correct chronological order of their adoption: <br> 1. Kyoto Protocol <br> 2. United Nations Framework Convention on Climate Change (UNFCCC) <br> 3. Paris Agreement <br> 4. Kigali Amendment to the Montreal Protocol",
+        opts: [
+            "1-2-3-4",
+            "2-1-3-4",
+            "2-1-4-3",
+            "2-3-1-4"
+        ],
+        ans: 1,
+        exp: "The UNFCCC was adopted in 1992, followed by the Kyoto Protocol in 1997. The Paris Agreement was adopted in December 2015, just before the Kigali Amendment to the Montreal Protocol, which was adopted in October 2016. Hence the correct order is UNFCCC, Kyoto Protocol, Paris Agreement, Kigali Amendment."
+    },
+    {
+        q: "With reference to recent calls for reforming the UNFCCC process, consider the following statements: <br> 1. Ahead of COP30, Brazil as COP presidency proposed only three narrow reform ideas, focused exclusively on shortening conference duration.<br>2. At the June 2025 Bonn Climate Conference, various proposals for reforming the UNFCCC process were discussed, but no consensus on structural reforms was reached ahead of COP30.<br>3. Proposals to restrict the participation of fossil-fuel industry lobbyists at COP negotiations, through a conflict-of-interest framework, have already been unanimously adopted and enforced at every COP since 2021.<br>Which one of the statements given above is correct?",
+        opts: [
+            "1 only",
+            "2 only",
+            "3 only",
+            "None of the statements is correct"
+        ],
+        ans: 1,
+        exp: "Reform proposals were indeed extensively debated at the June 2025 Bonn Climate Conference without reaching consensus ahead of COP30. Brazil actually floated a much broader set of reform ideas (covering streamlining, delegation sizes, and conflict-of-interest rules) rather than just three narrow ones, and the conflict-of-interest framework restricting fossil-fuel lobbyists remains a proposal under discussion, not an adopted and enforced rule, making the other statements false."
+    },
+    {
+        q: "With reference to the features and characteristics of the UNFCCC, consider the following statements: <br> 1. Article 2 of the UNFCCC specifies an explicit calendar deadline of 2030 by which its ultimate objective must be achieved.<br>2. The UNFCCC directly imposes binding sanctions, including trade tariffs, on Parties that fail to reduce their emissions.<br>3. The classification of Parties into Annex I, Annex II, and Non-Annex I categories under the UNFCCC is based primarily on population density rather than historical emissions or economic development.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "None of the statements is correct",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "Article 2 of the UNFCCC states its objective in qualitative terms — stabilizing greenhouse gas concentrations to prevent dangerous anthropogenic interference — without any explicit 2030 deadline. The Convention has no built-in binding sanctions or trade-tariff enforcement mechanism. Its Annex classifications reflect historical responsibility and level of economic development, not population density, so all three statements are incorrect."
+    },
+    {
+        q: "With reference to India's legal framework for implementing obligations under the Convention on Biological Diversity, consider the following statements: <br> 1. India enacted the Biological Diversity Act, 2002 to regulate access to biological resources and associated traditional knowledge, in line with CBD objectives.<br>2. The National Biodiversity Authority (NBA), established under the Act, is headquartered in New Delhi.<br>3. Biodiversity Management Committees (BMCs), constituted at the level of local bodies under the Act, are tasked with preparing People's Biodiversity Registers (PBRs).<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 3",
+            "None of the above",
+            "Both 1 and 3",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 2,
+        exp: "The Biological Diversity Act, 2002 was indeed enacted to operationalize CBD commitments in India, including regulating access to biological resources, and BMCs at the local body level are correctly tasked with maintaining People's Biodiversity Registers. However, the National Biodiversity Authority is headquartered in Chennai, not New Delhi, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to the features of the Convention on the Conservation of Migratory Species (CMS), consider the following statements: <br> 1. CMS is administered under the aegis of the United Nations Environment Programme (UNEP) and is popularly known as the Bonn Convention.<br>2. Only bird and mammal species can be listed under the CMS Appendices; reptiles and fish are excluded from its scope.<br>3. CMS itself directly enforces India's Wildlife Protection Act, 1972, within Indian territory.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "1 and 2 only",
+            "2 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "CMS is indeed the Bonn Convention operating under UNEP. However, the Convention's definition of 'migratory species' is broad and covers reptiles, fish, and other taxa (e.g., sharks and sea turtles are listed), so statement 2 is false. CMS is an international framework encouraging national action; it does not itself enforce India's domestic Wildlife Protection Act, making statement 3 false too."
+    },
+    {
+        q: "With reference to the challenges facing the Convention on International Trade in Endangered Species of Wild Fauna and Flora (CITES), consider the following statements: <br> 1. CITES is a legally binding treaty, but its effective enforcement depends on domestic legislation enacted by member countries.<br>2. A Party may lodge a formal 'reservation' against the listing of a particular species, thereby continuing to trade in that species as though it were not covered by CITES.<br>3. CITES regulates all forms of wildlife trade, including trade conducted entirely within a country's domestic borders.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 2,
+        exp: "CITES relies on national implementing legislation for enforcement, which has been a persistent challenge given uneven capacity across member states, and it does permit a Party to enter a reservation to continue trading in a specifically listed species. However, CITES governs only international, cross-border trade and has no jurisdiction over trade occurring wholly within a single country's borders, making statement 3 incorrect."
+    },
+    {
+        q: "Which body established under the Montreal Protocol is primarily responsible for providing financial and technical assistance to developing (Article 5) countries to help them meet their ozone-depleting substance phase-out obligations?",
+        opts: [
+            "The Green Climate Fund",
+            "The Global Environment Facility acting alone",
+            "The Multilateral Fund for the Implementation of the Montreal Protocol",
+            "The Adaptation Fund"
+        ],
+        ans: 2,
+        exp: "The Multilateral Fund, established under the 1990 London Amendment, is the dedicated financial mechanism of the Montreal Protocol that funds technology transfer and compliance projects specifically for developing countries. The Green Climate Fund and Adaptation Fund operate under the UNFCCC process, and while the GEF supports certain ozone-related activities in some countries, it is not the Protocol's primary dedicated fund."
+    },
+    {
+        q: "With reference to challenges facing the Paris Agreement, consider the following statements: <br> 1. The Paris Agreement's compliance mechanism empowers a body to impose binding financial penalties on any country that fails to achieve its Nationally Determined Contribution (NDC) targets.<br>2. The United States has never withdrawn from, or announced an intention to withdraw from, the Paris Agreement since joining in 2016.<br>3. A major challenge for the Paris Agreement is that NDCs are not legally binding, and the first Global Stocktake concluded that the world remains off-track to meet the 1.5°C temperature goal.<br>Which one of the statements given above is correct?",
+        opts: [
+            "3 only",
+            "2 only",
+            "None of the statements is correct",
+            "1 only"
+        ],
+        ans: 0,
+        exp: "The non-binding nature of NDCs, combined with the first Global Stocktake's finding that the world remains off-track on the 1.5°C goal, is indeed a core challenge for the Agreement. The Agreement's compliance mechanism is explicitly facilitative and non-punitive rather than empowered to impose financial penalties, and the United States has in fact withdrawn from (2017) and later moved to withdraw again from the Agreement, making the other two statements false."
+    },
+    {
+        q: "Decisions under the UNFCCC process, including at its Conference of the Parties, often move slowly despite scientific urgency on climate change. Which of the following best explains this?",
+        opts: [
+            "The UNFCCC's rules of procedure generally require decisions to be adopted by consensus among all Parties, making agreement difficult among nearly 200 countries with divergent interests",
+            "The UNFCCC Secretariat holds veto power over any decision proposed by a Party",
+            "The Kyoto Protocol requires unanimous approval from the UN Security Council before implementation",
+            "Only Annex I countries are permitted to vote at the Conference of the Parties"
+        ],
+        ans: 0,
+        exp: "The UNFCCC process operates predominantly on a consensus basis rather than majority voting, meaning that near-universal agreement among nearly 200 Parties with widely varying economic interests and priorities is typically needed for substantive decisions, which is a major reason for slow-moving negotiations. The Secretariat has no such veto power, voting is not restricted to Annex I countries, and the UN Security Council has no role in this process."
+    },
+    {
+        q: "With reference to the background and evolution of the Ramsar Convention, consider the following statements: <br> 1. The Ramsar Convention was adopted at the 1992 Rio Earth Summit alongside the UNFCCC and CBD.<br>2. The Ramsar Convention, adopted in the Iranian city of Ramsar in 1971 and entering into force in 1975, is recognized as the oldest of the modern global intergovernmental environmental agreements.<br>3. The Ramsar Convention's original focus, since its 1971 adoption, was exclusively on marine coral reef ecosystems rather than wetlands.<br>Which one of the statements given above is correct?",
+        opts: [
+            "1 only",
+            "3 only",
+            "2 only",
+            "None of the statements is correct"
+        ],
+        ans: 2,
+        exp: "The Ramsar Convention, negotiated through the 1960s and adopted in 1971 in the Iranian city of Ramsar, is indeed recognized as the oldest of the modern global intergovernmental environmental agreements, predating the 1992 Rio Earth Summit by over two decades. Its original focus was on wetlands as waterfowl habitat, not coral reefs, making both other statements false."
+    },
+    {
+        q: "With reference to the background and evolution of the Paris Agreement, consider the following statements: <br> 1. The Paris Agreement entered into force in the same year it was adopted, i.e., 2015.<br>2. The concept of Intended Nationally Determined Contributions (INDCs) was first introduced through the 2011 Durban Platform, prior to the Lima Call for Climate Action.<br>3. The 2009 Copenhagen Accord, a political precursor to the Paris Agreement, was not a legally binding instrument and was associated with only a little over 100 countries.<br>Which one of the statements given above is correct?",
+        opts: [
+            "3 only",
+            "1 only",
+            "None of the statements is correct",
+            "2 only"
+        ],
+        ans: 0,
+        exp: "The 2009 Copenhagen Accord was indeed a non-binding political document associated with just over 100 countries, marking an important step in the road to Paris. The Paris Agreement, adopted in December 2015, only entered into force in November 2016, and the INDC concept was actually introduced through the 2014 Lima Call for Climate Action, not the 2011 Durban Platform, making the other two statements false."
+    },
+    {
+        q: "With reference to persistent challenges facing the Montreal Protocol, consider the following statements: <br> 1. Illegal production and trade of banned ozone-depleting substances such as CFCs have continued to be reported in some countries despite the Protocol's near-universal ratification.<br>2. The Multilateral Fund under the Montreal Protocol provides financial and technical assistance exclusively to developed (Annex II) countries.<br>3. A key ongoing challenge is the safe disposal of the substantial 'banks' of old ozone-depleting substances still present in existing equipment, foams, and appliances.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 3 only",
+            "1 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "Illegal trade in banned substances and the challenge of safely managing legacy 'banks' of ozone-depleting substances are both genuine, well-documented issues. However, the Multilateral Fund was established precisely to assist developing (Article 5) countries in meeting their phase-out obligations, not developed Annex II countries, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to protocols and targets adopted under the Convention on Biological Diversity (CBD), a recurring UPSC theme, consider the following statements: <br> 1. The Nagoya Protocol deals with access to genetic resources and the fair and equitable sharing of benefits arising from their utilization.<br>2. The Cartagena Protocol under the CBD primarily addresses access to genetic resources and benefit-sharing rather than biosafety.<br>3. All twenty Aichi Biodiversity Targets, adopted under the CBD, were fully achieved by their target year of 2020.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 2 alone",
+            "None of the statements are correct",
+            "All of the above",
+            "Only one of the statements is correct"
+        ],
+        ans: 3,
+        exp: "The Nagoya Protocol indeed governs Access and Benefit-Sharing (ABS) of genetic resources. Statement 2 reverses the actual mandates — the Cartagena Protocol deals with the safe handling and transfer of Living Modified Organisms (biosafety), while ABS is Nagoya's domain. Global assessments confirmed that none of the Aichi Targets were fully met by 2020, making statement 3 false as well."
+    },
+    {
+        q: "With reference to the functions and powers of the Ramsar Convention on Wetlands, consider the following statements: <br> 1. The Conference of the Contracting Parties (COP) is the Convention's policy-making organ, ordinarily meeting once every three years.<br>2. The Montreux Record lists wetlands where ecological character has changed, is changing, or is likely to change due to human interference, and is maintained as part of the Ramsar List.<br>3. Placement of a wetland on the Montreux Record automatically results in its removal from the List of Wetlands of International Importance.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "The COP is indeed the Ramsar Convention's policy-making body, meeting roughly every three years, and the Montreux Record correctly tracks wetlands facing ecological threats as a subset of the broader Ramsar List. However, inclusion in the Montreux Record does not remove a site from the List of Wetlands of International Importance — it instead triggers monitoring and advisory support, so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to reform and coordination efforts concerning the Stockholm Convention, consider the following statements: <br> 1. Reform recommendations for the Stockholm Convention have called for eliminating the POPs Review Committee (POPRC) entirely and transferring its scientific functions directly to the COP.<br>2. Since 2013, the Basel, Rotterdam, and Stockholm (BRS) Conventions have held synchronized, back-to-back Conferences of the Parties and share an integrated secretariat to reduce administrative duplication and enhance coordination.<br>3. The synchronized BRS COP arrangement has fully merged the three conventions into a single legal treaty with one unified set of obligations for all Parties.<br>Which one of the statements given above is correct?",
+        opts: [
+            "3 only",
+            "None of the statements is correct",
+            "2 only",
+            "1 only"
+        ],
+        ans: 2,
+        exp: "The synchronized 'BRS' arrangement, in place since 2013, is a genuine coordination reform allowing joint back-to-back COPs and a shared secretariat to improve efficiency. However, POPRC continues to function as the Stockholm Convention's scientific review body with no proposal to abolish it, and the three conventions remain legally distinct treaties with their own separate obligations despite the administrative synergy, making the other statements false."
+    },
+    {
+        q: "Under the Stockholm Convention on Persistent Organic Pollutants, chemicals such as DDT, whose production and use are to be restricted (with specific permitted exemptions) rather than completely eliminated, are listed under which Annex?",
+        opts: [
+            "Annex D",
+            "Annex C",
+            "Annex A",
+            "Annex B"
+        ],
+        ans: 3,
+        exp: "Annex A lists POPs for complete elimination, Annex C covers substances subject to measures to reduce unintentional production (such as dioxins and furans), while Annex B specifically lists substances like DDT that are restricted, permitting limited exempted uses such as disease vector control. There is no 'Annex D' under the Convention."
+    },
+    {
+        q: "Consider the following pairs regarding Conferences of the Parties (COP) held under the UNFCCC and their host locations: <br> 1. COP 3 — Kyoto, Japan<br>2. COP 8 — New Delhi, India<br>3. COP 21 — Copenhagen, Denmark<br>How many of the above pairs are correctly matched?",
+        opts: [
+            "Only two pairs",
+            "Only one pair",
+            "All three pairs",
+            "None of the pairs"
+        ],
+        ans: 0,
+        exp: "COP3, held in 1997, was indeed hosted in Kyoto, Japan, resulting in the Kyoto Protocol, and COP8 was hosted in New Delhi, India in 2002. However, COP21, held in 2015, took place in Paris, France (yielding the Paris Agreement) — it was COP15 in 2009 that was held in Copenhagen. Hence, only two of the three pairs are correctly matched."
+    },
+    {
+        q: "With reference to a recurring UPSC theme concerning the Kyoto Protocol, consider the following statements: <br> 1. Countries with binding, quantified emission limitation and reduction commitments under the Kyoto Protocol are listed in its Annex B, a list largely, though not entirely, identical to the UNFCCC's Annex I.<br>2. Under the Kyoto Protocol's flexible mechanisms, only two countries at a time may trade carbon credits, a restriction referred to as 'Bilateral Emissions Trading.'<br>3. Under the Kyoto Protocol, 'Assigned Amount Units' (AAUs) refer to carbon credits that can only be generated by developing (non-Annex I) countries.<br>Which one of the statements given above is correct?",
+        opts: [
+            "2 only",
+            "None of the statements is correct",
+            "3 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "The Kyoto Protocol's Annex B lists countries with binding targets and closely mirrors, though is not identical to, the UNFCCC's Annex I list. There is no restriction limiting Emissions Trading to only two countries at a time, nor any concept called 'Bilateral Emissions Trading.' Assigned Amount Units (AAUs) are allocated to Annex B (developed) countries based on their emission targets, not generated by developing countries — that role is closer to Certified Emission Reductions (CERs) under the Clean Development Mechanism."
+    },
+    {
+        q: "With reference to the Convention on the Conservation of Migratory Species of Wild Animals (CMS), a recurring theme in UPSC Prelims, consider the following statements: <br> 1. CMS is also known as the Bonn Convention and functions under the aegis of the UNEP.<br>2. Appendix I of CMS lists endangered migratory species and prohibits their taking, while Appendix II lists species with an unfavourable conservation status requiring range-state cooperation agreements.<br>3. India has never hosted a Conference of the Parties (COP) to the CMS.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "1 only",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "CMS, signed in 1979 and administered under UNEP, is popularly called the Bonn Convention; its two Appendices are correctly described in statement 2. Statement 3 is false since India hosted the 13th COP (CMS COP13) at Gandhinagar in 2020, a fact frequently tested in Prelims."
+    },
+    {
+        q: "With reference to recommendations for strengthening the Ramsar Convention, consider the following statements: <br> 1. Ramsar has recommended that Contracting Parties completely replace the Convention's voluntary wetland-listing framework with a mandatory regime enforced through binding trade sanctions.<br>2. Recommendations for strengthening the Ramsar Convention have emphasized aligning wetland conservation targets more closely with the goals of the Kunming-Montreal Global Biodiversity Framework adopted under the CBD.<br>3. The Ramsar Convention's Scientific and Technical Review Panel (STRP) has recommended abolishing the Montreux Record altogether as an outdated tool.<br>Which one of the statements given above is correct?",
+        opts: [
+            "3 only",
+            "2 only",
+            "1 only",
+            "None of the statements is correct"
+        ],
+        ans: 1,
+        exp: "A genuine thrust of recent Ramsar reform discussions has been better alignment of wetland targets with the CBD's Kunming-Montreal Global Biodiversity Framework, given shared restoration and conservation goals. Ramsar's site-listing system remains voluntary with no trade-sanction enforcement mechanism proposed, and the Montreux Record remains an active monitoring tool with no recommendation to abolish it, making the other statements false."
+    },
+    {
+        q: "Which of the following was NOT among the actual criticisms levelled against the effectiveness of the Kyoto Protocol in curbing global greenhouse gas emissions?",
+        opts: [
+            "The United States, one of the largest emitters, never ratified the Protocol",
+            "It established a rigorous, legally enforceable penalty mechanism that was strictly complied with by all Annex I countries",
+            "Canada's withdrawal from the Protocol in 2012 weakened confidence in its long-term commitment framework",
+            "It exempted developing countries, including large emerging emitters, from binding emission reduction targets"
+        ],
+        ans: 1,
+        exp: "The Kyoto Protocol's compliance mechanism was widely criticised as weak and largely unenforced, with several Annex I countries falling short of targets without meaningful penalty — the opposite of option (c). The other three options accurately reflect genuine, well-documented shortcomings of the Protocol."
+    },
+    {
+        q: "With reference to reform and enforcement-related recommendations concerning CITES, consider the following statements: <br> 1. CITES reform recommendations have called for phasing out its permit-based system entirely, replacing it with a complete, blanket ban on all international trade in wild fauna and flora.<br>2. The International Consortium on Combating Wildlife Crime (ICCWC) — comprising the CITES Secretariat, INTERPOL, UNODC, the World Bank, and the World Customs Organization — has been recommended as a key mechanism to strengthen enforcement against illegal wildlife trade.<br>3. Reform proposals for CITES have recommended abolishing the Conference of the Parties and transferring all decision-making authority to the Secretariat alone.<br>Which one of the statements given above is correct?",
+        opts: [
+            "None of the statements is correct",
+            "2 only",
+            "3 only",
+            "1 only"
+        ],
+        ans: 1,
+        exp: "ICCWC is a genuine multi-agency partnership recommended and used to strengthen coordinated enforcement against illegal wildlife trade across customs, police, and judicial systems. CITES reform discussions have instead focused on improving the existing permit-based system (such as through digital eCITES permitting) rather than replacing it with a blanket trade ban, and the Conference of the Parties remains, and is expected to remain, CITES' central decision-making body."
+    },
+    {
+        q: "With reference to recent developments concerning the United Nations Convention to Combat Desertification (UNCCD), consider the following statements: <br> 1. COP16 of the UNCCD, held in Riyadh, Saudi Arabia, was the first UNCCD COP to be held in the Middle East and North Africa region.<br>2. COP16 coincided with the 30th anniversary of the UNCCD.<br>3. The seventeenth session of the Conference of the Parties (COP17) to the UNCCD is scheduled to be held in Mongolia.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 1",
+            "All of the above",
+            "Only two of the statements are correct",
+            "Both 1 and 3"
+        ],
+        ans: 1,
+        exp: "COP16, held in Riyadh in December 2024, was both the first UNCCD COP held in the MENA region and coincided with the Convention's 30th anniversary, being described as the largest-ever UN land conference. Following this, COP17 has been designated to be hosted in Mongolia, making all three statements correct."
+    },
+    {
+        q: "With reference to India's legal framework governing wetlands and Ramsar sites, consider the following statements: <br> 1. In India, wetlands including Ramsar sites are regulated primarily through the Wetlands (Conservation and Management) Rules, 2017, framed under the Environment (Protection) Act, 1986, rather than a standalone Act of Parliament specifically for wetlands.<br>2. India has enacted a standalone 'Wetlands Protection Act' passed directly by Parliament, separate from the Environment (Protection) Act, 1986 framework.<br>3. Under Indian law, State Governments have no role in constituting authorities for wetland management, this function resting solely with the Union Ministry of Environment.<br>Which one of the statements given above is correct?",
+        opts: [
+            "3 only",
+            "1 only",
+            "2 only",
+            "None of the statements is correct"
+        ],
+        ans: 1,
+        exp: "India regulates its wetlands, including Ramsar sites, through delegated rules — the Wetlands (Conservation and Management) Rules, 2017 — framed under the parent Environment (Protection) Act, 1986, rather than through any dedicated standalone parliamentary statute for wetlands. The 2017 Rules in fact empower State Governments to constitute State Wetland Authorities, giving States an active role, contrary to the other two statements."
+    },
+    {
+        q: "With reference to the background and evolution of the Kyoto Protocol, consider the following statements: <br> 1. The Kyoto Protocol was adopted in 1997 at the third Conference of the Parties (COP3) held in Kyoto, Japan, and entered into force in 2005.<br>2. The Doha Amendment to the Kyoto Protocol established a second commitment period running from 2015 to 2025.<br>3. The Kyoto Protocol continues to remain the primary legally binding instrument governing global climate action and has never been superseded by any subsequent agreement.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "The Kyoto Protocol was indeed adopted at COP3 in 1997 and entered into force in 2005 after meeting ratification thresholds. However, the Doha Amendment actually established a second commitment period from 2013 to 2020, not 2015-2025, making statement 2 incorrect. Further, the Kyoto framework has effectively been superseded in practice by the Paris Agreement, adopted in 2015, making statement 3 incorrect as well."
+    },
+    {
+        q: "Which of the following has emerged as a major point of contention among Parties to the Convention on Biological Diversity (CBD) in recent Conferences of the Parties, concerning the use of genetic sequence data without physical transfer of biological material?",
+        opts: [
+            "Ratification of the Nagoya Protocol",
+            "Compliance under the Cartagena Protocol",
+            "Digital Sequence Information (DSI) on genetic resources",
+            "Adoption of the Bonn Guidelines"
+        ],
+        ans: 2,
+        exp: "Digital Sequence Information has become a contentious benefit-sharing issue because researchers can use genomic data without physically accessing a country's biological resources, bypassing traditional Access and Benefit Sharing rules. This led to the establishment of a multilateral benefit-sharing fund at a recent CBD COP, unlike the other options which are established, settled mechanisms."
+    },
+    {
+        q: "Which amendment to the CITES text specifically allows Regional Economic Integration Organisations, such as the European Union, to become a Party to the Convention in their own right?",
+        opts: [
+            "Gaborone Amendment",
+            "Nairobi Protocol",
+            "Kigali Amendment",
+            "Bonn Amendment"
+        ],
+        ans: 0,
+        exp: "The Gaborone Amendment, adopted in 1983 at a meeting in Gaborone, Botswana, modified the CITES text to permit regional economic integration organisations to accede to the Convention, enabling entities like the European Union to become a Party. The Bonn Amendment and Nairobi Protocol are not actual CITES instruments, and the Kigali Amendment pertains instead to the Montreal Protocol on ozone-depleting substances."
+    },
+    {
+        q: "With reference to instruments concluded under the Convention on the Conservation of Migratory Species (CMS), consider the following statements: <br> 1. Agreements concluded under Article IV of CMS, such as AEWA, are legally binding, whereas Memoranda of Understanding (MoUs) concluded under CMS are generally non-binding, more flexible instruments.<br>2. India has signed a non-binding CMS Memorandum of Understanding concerning the conservation of Siberian Cranes.<br>3. The Agreement on the Conservation of African-Eurasian Migratory Waterbirds (AEWA) was concluded entirely outside the CMS framework and has no institutional link to it.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "All of the statements are correct",
+            "Exactly one of the statements is correct",
+            "Both 1 and 2"
+        ],
+        ans: 3,
+        exp: "CMS distinguishes between legally binding daughter Agreements (like AEWA) and more flexible, non-binding MoUs, and India is indeed a signatory to a CMS MoU on Siberian Crane conservation. AEWA, however, was concluded precisely under the CMS framework as one of its formal Article IV agreements, not independently of it, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the institutional structure of the Convention on Biological Diversity (CBD), consider the following statements: <br> 1. The Secretariat of the CBD is located in Montreal, Canada.<br>2. The Subsidiary Body on Scientific, Technical and Technological Advice (SBSTTA) is the Convention's supreme decision-making body, senior to the Conference of the Parties.<br>3. The United States has ratified the CBD and is a full Party to the Convention.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 only",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "The CBD Secretariat is indeed based in Montreal, Canada. However, the Conference of the Parties (COP), not SBSTTA, is the Convention's supreme decision-making body — SBSTTA functions only as its scientific advisory subsidiary body. The United States, notably, signed the CBD but has never ratified it and is therefore not a full Party, making statement 3 incorrect too."
+    },
+    {
+        q: "With reference to the institutional structure of the UNFCCC, consider the following statements: <br> 1. The Bureau of the COP consists exclusively of representatives from Annex I (developed) countries.<br>2. The UNFCCC's Standing Committee on Finance was established exclusively to manage the internal administrative budget of the Secretariat in Bonn, rather than climate finance issues.<br>3. The Subsidiary Body for Scientific and Technological Advice (SBSTA) and the Subsidiary Body for Implementation (SBI) are the two permanent subsidiary bodies of the UNFCCC.<br>Which one of the statements given above is correct?",
+        opts: [
+            "2 only",
+            "None of the statements is correct",
+            "1 only",
+            "3 only"
+        ],
+        ans: 3,
+        exp: "SBSTA and SBI are indeed the UNFCCC's two permanent subsidiary bodies, providing scientific/technological advice and supporting implementation review respectively. The COP Bureau, however, comprises officers representing the five UN regional groups (and Small Island Developing States), not exclusively Annex I countries, and the Standing Committee on Finance actually assists the COP with climate finance matters, not merely the Secretariat's internal budget."
+    },
+    {
+        q: "A frequently tested UPSC theme involves distinguishing chemical-related multilateral conventions. With reference to the Stockholm Convention, consider the following statements: <br> 1. It establishes a Prior Informed Consent (PIC) procedure for trade in certain hazardous chemicals and pesticides.<br>2. It aims to eliminate or restrict the production and use of Persistent Organic Pollutants (POPs).<br>3. India is not a signatory to the Stockholm Convention.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "2 only",
+            "None of the statements are correct",
+            "Only statement 1"
+        ],
+        ans: 1,
+        exp: "The Stockholm Convention (2001, in force 2004) specifically targets the elimination/restriction of POPs, the so-called 'Dirty Dozen'. The Prior Informed Consent procedure is instead the subject of the Rotterdam Convention, a distinction UPSC has tested via matching-type questions. India ratified the Stockholm Convention in 2006, making statement 3 false."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-55 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

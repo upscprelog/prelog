@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-39</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "Assertion (A): Thawing of permafrost in the Arctic regions is considered a positive feedback loop in global warming.<br>Reason (R): Permafrost stores large quantities of organic carbon, which on thawing is decomposed by microbes, releasing carbon dioxide and methane.<br>In the context of the above, which one of the following is correct?",
+        opts: [
+            "A is correct but R is not correct",
+            "Both A and R are correct but R is not the correct explanation of A",
+            "A is not correct but R is correct",
+            "Both A and R are correct and R is the correct explanation of A"
+        ],
+        ans: 3,
+        exp: "Frozen soils hold vast stocks of organic carbon. When warming thaws them, microbial decomposition releases CO2 and methane, which further warms the planet and thaws more permafrost, so the process reinforces itself. R therefore correctly explains why the thaw is a positive feedback."
+    },
+    {
+        q: "Consider the following statements regarding carbon sequestration:<br>1. Spreading finely ground basalt on farmland and adding alkaline material to the oceans are among the approaches discussed for removing and storing carbon dioxide.<br>2. Zero tillage increases the release of carbon from soils by exposing organic matter to oxidation.<br>3. Depleted oil and gas reservoirs cannot be used for geological storage of carbon dioxide because they have lost their sealing capacity.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "2 and 3 only",
+            "1 only",
+            "1, 2 and 3"
+        ],
+        ans: 2,
+        exp: "Enhanced rock weathering using basalt and ocean alkalinity enhancement are discussed as carbon dioxide removal methods, a theme UPSC tested in 2023. Zero tillage reduces soil disturbance and helps retain soil carbon, so statement 2 is wrong. Depleted oil and gas reservoirs are a favoured storage option precisely because they held hydrocarbons securely for millions of years, as tested in the sequestration-sites question, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the constitutional and legal framework relevant to climate adaptation in India, consider the following statements:<br>1. Article 51A(g), which concerns protecting and improving the natural environment, is a Directive Principle of State Policy.<br>2. The National Disaster Management Authority is chaired by the Union Home Minister.<br>3. In M.K. Ranjitsinh v. Union of India (2024), the Supreme Court recognised a right against the adverse effects of climate change as part of the rights under Articles 14 and 21.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 and 3 only",
+            "2 only",
+            "1 only"
+        ],
+        ans: 0,
+        exp: "In 2024 the Supreme Court read a right against the adverse effects of climate change into Articles 14 and 21. Article 51A(g) is a Fundamental Duty of citizens, whereas the Directive Principle on the environment is Article 48A, so statement 1 is wrong. Under the Disaster Management Act, 2005 the NDMA is chaired by the Prime Minister, not the Home Minister, so statement 2 is wrong."
+    },
+    {
+        q: "With reference to the challenges in mitigating climate change, consider the following statements:<br>1. Carbon leakage occurs when emission-intensive production shifts to regions with weaker climate policies, which can offset emission cuts made elsewhere.<br>2. The intermittency of solar and wind power is eliminated simply by increasing installed capacity, even without storage or grid flexibility.<br>3. Green hydrogen produced by electrolysis using renewable electricity is currently cheaper than grey hydrogen produced from natural gas in most markets.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "3 only",
+            "2 and 3 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "Carbon leakage is the reason border carbon adjustment mechanisms are being introduced. Statement 2 is wrong because variable renewables need storage, grid upgrades or firm backup, since adding capacity alone does not supply power when the sun or wind is absent. Statement 3 is wrong because green hydrogen is still costlier than grey hydrogen in most markets, which is why cost is a key barrier to scaling it."
+    },
+    {
+        q: "With reference to climate finance, consider the following statements:<br>1. The New Collective Quantified Goal adopted at COP29 requires developed countries alone to mobilise US$ 1.3 trillion annually by 2035.<br>2. The COP29 decision calls on all actors to work together to scale up financing to developing countries to at least US$ 1.3 trillion per year by 2035.<br>3. The earlier goal of mobilising US$ 100 billion per year was first met in 2020 as originally pledged.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 1 alone",
+            "1, 2 and 3",
+            "Exactly one of the statements is correct",
+            "Both 1 and 2"
+        ],
+        ans: 2,
+        exp: "The COP29 NCQG sets a developed-country-led goal of at least US$ 300 billion per year by 2035. The US$ 1.3 trillion figure is a call for efforts by all actors, public and private, so statement 1 is wrong. The US$ 100 billion goal, due from 2020, was first reported as met only in 2022, so statement 3 is also wrong. Only statement 2 is correct."
+    },
+    {
+        q: "Consider the following statements:<br>Statement I: The Energy Conservation (Amendment) Act, 2022 is an enabling law for market-based climate mitigation in India.<br>Statement II: The Act empowers the Central Government to specify a carbon credit trading scheme.<br>Statement III: The Act established the Bureau of Energy Efficiency for the first time.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "Both Statement II and Statement III are correct but only one of them explains Statement I",
+            "Only one of the Statements II and III is correct and that explains Statement I",
+            "Both Statement II and Statement III are correct and both of them explain Statement I",
+            "Neither Statement II nor Statement III is correct"
+        ],
+        ans: 1,
+        exp: "The 2022 amendment to the Energy Conservation Act, 2001 enabled the Central Government to specify a carbon credit trading scheme, which was notified in 2023, and it also allows a minimum share of non-fossil sources to be mandated for designated consumers. Statement II therefore explains Statement I. Statement III is wrong because the Bureau of Energy Efficiency was set up in 2002 under the original 2001 Act."
+    },
+    {
+        q: "Which of the following are adaptation measures, as distinct from mitigation measures?<br>1. Providing crop insurance to farmers against weather-related losses<br>2. Raising the plinth height of houses in flood-prone areas<br>3. Replacing diesel buses with electric buses in cities<br>4. Planting mangrove belts along cyclone-prone coasts as natural bio-shields<br>How many of the above are adaptation measures?",
+        opts: [
+            "Only two",
+            "All four",
+            "Only three",
+            "Only one"
+        ],
+        ans: 2,
+        exp: "Adaptation adjusts systems to actual or expected climate impacts and reduces vulnerability, whereas mitigation cuts emissions. Crop insurance transfers weather risk, raised plinths reduce flood damage and mangrove belts blunt storm surges, so these are adaptation measures. Electric buses reduce emissions from transport, which makes them a mitigation measure."
+    },
+    {
+        q: "Consider the following statements regarding the WMO Greenhouse Gas Bulletin released in October 2025:<br>1. It reported the globally averaged concentration of carbon dioxide in 2024 at about 423.9 parts per million.<br>2. The rise in carbon dioxide from 2023 to 2024 was the largest annual increase since modern measurements began in 1957.<br>3. Methane and nitrous oxide also reached record concentrations in 2024.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the above",
+            "1 and 2 only",
+            "Only one of the statements is correct",
+            "Only two of the statements are correct"
+        ],
+        ans: 0,
+        exp: "The WMO Greenhouse Gas Bulletin No. 21 reported CO2 at 423.9 ppm in 2024, a jump of 3.5 ppm over 2023 and the biggest annual rise since monitoring began in 1957. Methane (about 1942 ppb) and nitrous oxide (about 338 ppb) also hit record highs. WMO linked the surge to continued fossil fuel emissions, wildfires and weaker land and ocean sinks, so all three statements are correct."
+    },
+    {
+        q: "With reference to India's legal and policy framework relevant to global warming, consider the following statements:<br>1. The Bureau of Energy Efficiency was constituted under the Environment (Protection) Act, 1986.<br>2. India's updated Nationally Determined Contribution (2022) commits to reducing the emissions intensity of its GDP by 45 per cent by 2030 from the 2005 level.<br>3. India submitted its Long-Term Low Emission Development Strategy to the UNFCCC in November 2022, in line with its net-zero target for 2070.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "Statement 1 alone",
+            "Both 1 and 3",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "The BEE is a statutory body set up under the Energy Conservation Act, 2001, not the Environment (Protection) Act, 1986. India's updated NDC of 2022 includes a 45 per cent emissions-intensity reduction target for 2030, and the LT-LEDS was submitted at COP27 in Sharm el-Sheikh in November 2022 with net-zero by 2070 as its goal. Statements 2 and 3 are correct."
+    },
+    {
+        q: "With reference to the evolution of carbon trading, consider the following statements:<br>1. The Kyoto Protocol was adopted at the 1992 Earth Summit in Rio de Janeiro.<br>2. The European Union Emissions Trading System, launched in 2005, operates on a cap-and-trade principle.<br>3. Under Joint Implementation of the Kyoto Protocol, an emission reduction project in one Annex I Party can earn credits for another Annex I Party.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 and 2 only",
+            "1, 2 and 3",
+            "2 and 3 only"
+        ],
+        ans: 3,
+        exp: "The Kyoto Protocol was adopted in 1997 at COP3 in Kyoto, whereas the 1992 Rio Summit gave rise to the UNFCCC, so statement 1 is wrong. The EU ETS began in 2005 as a cap-and-trade system, and Joint Implementation (Article 6 of the Kyoto Protocol) allows credits called Emission Reduction Units to be earned through projects between Annex I Parties."
+    },
+    {
+        q: "Consider the following statements regarding India's Carbon Credit Trading Scheme (CCTS):<br>1. The first greenhouse gas emission intensity targets under the scheme were notified in 2023 for all the notified sectors together.<br>2. In January 2026, intensity targets were extended to petroleum refineries, petrochemicals, textiles and secondary aluminium, taking the compliance mechanism to 490 obligated entities.<br>3. The offset mechanism of the scheme is open only to the obligated entities of the compliance mechanism.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "None of the statements are correct",
+            "Exactly two of the statements are correct",
+            "Statement 2 alone"
+        ],
+        ans: 3,
+        exp: "The scheme itself was notified in June 2023, but the first emission intensity targets came in October 2025 for aluminium, cement, chlor-alkali and pulp and paper (282 entities), so statement 1 is wrong. On 13 January 2026 targets were extended to four more sectors, taking the compliance mechanism to 490 obligated entities. The offset mechanism lets non-obligated entities voluntarily register projects and earn credits, so statement 3 is wrong."
+    },
+    {
+        q: "Which one of the following is an example of geological carbon sequestration?",
+        opts: [
+            "Incorporation of biochar into agricultural soils",
+            "Injection of captured carbon dioxide into deep saline formations",
+            "Restoration of degraded peatlands and wetlands",
+            "Addition of iron to nutrient-poor ocean waters to boost phytoplankton growth"
+        ],
+        ans: 1,
+        exp: "Geological sequestration stores captured CO2 in deep underground formations such as saline aquifers, depleted oil and gas reservoirs and unmineable coal seams. The Sleipner project in Norway (1996) was an early commercial-scale example. Peatland restoration and biochar are terrestrial or biological approaches, and iron fertilisation is an ocean-based geoengineering proposal."
+    },
+    {
+        q: "Consider the following statements regarding India's recent initiatives on carbon capture:<br>1. The Union Budget 2026-27 announced a scheme for carbon capture, utilisation and storage with an outlay of ₹20,000 crore over five years.<br>2. The scheme is aimed at sectors such as power, steel, cement, refineries and chemicals.<br>3. Under carbon capture, utilisation and storage, captured carbon dioxide can only be stored underground and cannot be used to make products.<br>4. The scheme makes carbon capture mandatory for all industrial units from 2026-27.<br>How many of the above statements are correct?",
+        opts: [
+            "Only one",
+            "Only two",
+            "All four",
+            "Only three"
+        ],
+        ans: 1,
+        exp: "The Union Budget 2026-27, presented on 1 February 2026, proposed a ₹20,000 crore CCUS scheme over five years for power, steel, cement, refineries and chemicals, which are hard-to-abate sectors. Statement 3 is wrong because the 'U' in CCUS stands for utilisation, which includes converting captured CO2 into materials, fuels and chemicals. Statement 4 is wrong because the scheme is meant to incentivise deployment and raise technology readiness, not to make capture mandatory."
+    },
+    {
+        q: "With reference to the challenges in the integrity of carbon credits, consider the following statements:<br>1. A project is considered 'additional' if the emission reductions it claims would have occurred even without the revenue from carbon credits.<br>2. Carbon credits from forestry projects carry no reversal risk because trees store carbon permanently.<br>3. Under Article 6.2 of the Paris Agreement, a corresponding adjustment is made by the host country so that a transferred emission reduction is not counted towards its own Nationally Determined Contribution.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 2 only",
+            "3 only",
+            "2 only"
+        ],
+        ans: 2,
+        exp: "A corresponding adjustment prevents double counting by removing a transferred reduction from the host country's own accounts. Statement 1 states the opposite of additionality: credits are credible only if the reduction would not have happened without carbon finance. Statement 2 is wrong because forests can lose stored carbon to fire, pests and logging, which is known as reversal or permanence risk."
+    },
+    {
+        q: "With reference to the carbon cycle, consider the following statements:<br>1. The oceans are the largest reservoir of carbon on Earth.<br>2. The weathering of silicate rocks gradually draws carbon dioxide out of the atmosphere over geological timescales.<br>3. Decomposition of dead organic matter returns carbon dioxide to the atmosphere.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 only"
+        ],
+        ans: 1,
+        exp: "The largest carbon reservoir is the lithosphere, in sedimentary carbonate rocks and kerogen, which holds far more carbon than the oceans, so statement 1 is wrong. Silicate weathering slowly consumes atmospheric CO2 and acts as a long-term thermostat, while decomposition and respiration, like volcanic action, return CO2 to the air, a pattern UPSC has repeatedly tested in the form of 'which of the following adds carbon dioxide to the carbon cycle'."
+    },
+    {
+        q: "Consider the following statements regarding recent developments in global climate finance:<br>1. The COP30 outcome called for efforts to triple adaptation finance by 2035.<br>2. COP30 adopted a binding roadmap for the phase-out of fossil fuels.<br>3. COP30 raised the New Collective Quantified Goal to US$ 1.3 trillion a year, to be provided by developed countries alone by 2035.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "Only two of the statements are correct",
+            "All three statements are correct",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "COP30 in Belém (November 2025) agreed in its 'global mutirão' decision to call for efforts to triple adaptation finance by 2035, though without an agreed baseline. It did not adopt a formal fossil fuel roadmap, so statement 2 is wrong. The New Collective Quantified Goal remains the COP29 target of at least US$ 300 billion a year by 2035 led by developed countries, while the US$ 1.3 trillion Baku-to-Belém Roadmap is a call for efforts by all actors, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to India's National Action Plan on Climate Change (NAPCC), consider the following statements:<br>1. It was launched in 2015 after the adoption of the Paris Agreement.<br>2. All its national missions are focused exclusively on climate adaptation.<br>3. The National Water Mission aims at increasing water use efficiency by 20 per cent.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 2",
+            "All of the statements are correct",
+            "None of the statements are correct",
+            "Statement 3 alone"
+        ],
+        ans: 3,
+        exp: "The NAPCC was released in 2008, not 2015, and has eight national missions. These cover both mitigation (for example the National Solar Mission and the Mission for Enhanced Energy Efficiency) and adaptation (for example the Missions on Water, Sustainable Agriculture and the Himalayan Ecosystem), so statement 2 is wrong. The National Water Mission targets a 20 per cent improvement in water use efficiency."
+    },
+    {
+        q: "Consider the following measures:<br>1. Using cold mix asphalt technology in rural road construction<br>2. Blending Sustainable Aviation Fuel with aviation turbine fuel<br>3. Building embankments along low-lying coastal settlements<br>4. Afforestation of degraded forest land<br>How many of the above are climate change mitigation measures?",
+        opts: [
+            "Only one",
+            "Only three",
+            "Only two",
+            "All four"
+        ],
+        ans: 1,
+        exp: "Mitigation reduces greenhouse gas emissions at source or enhances sinks. Cold mix asphalt lowers the carbon footprint of road building, Sustainable Aviation Fuel cuts lifecycle emissions from flying, and afforestation adds a carbon sink. Coastal embankments only reduce exposure to sea-level rise and storm surge, so they are an adaptation measure."
+    },
+    {
+        q: "With reference to the Kigali Amendment to the Montreal Protocol, consider the following statements:<br>1. It provides for a phase-down in the production and consumption of hydrofluorocarbons.<br>2. Hydrofluorocarbons are controlled under it mainly because they deplete the stratospheric ozone layer.<br>3. India is required to begin its hydrofluorocarbon phase-down earlier than the developed countries.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "Statement 2 alone",
+            "None of the statements are correct",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 0,
+        exp: "The Kigali Amendment (adopted 2016, in force 2019) phases down HFCs. They are controlled because they are potent greenhouse gases and not because they deplete ozone, as they contain no chlorine, so statement 2 is wrong. Developed countries began their phase-down first, while India's schedule starts later, in 2032, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the Global Environment Facility (GEF), consider the following statements:<br>1. It serves as a financial mechanism for both the UNFCCC and the Convention on Biological Diversity.<br>2. Countries with economies in transition, along with developing countries, are eligible to receive its funding.<br>3. It is the principal source of funding for the phase-out of ozone-depleting substances in developing countries under the Montreal Protocol.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 only",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "The GEF is a financial mechanism for the UNFCCC, the CBD and certain other conventions, and its recipients include developing countries and countries with economies in transition. The principal funding source for phasing out ozone-depleting substances is the Multilateral Fund of the Montreal Protocol, with GEF support only for some economies in transition, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the scientific and institutional evolution of the climate change regime, consider the following statements:<br>1. The Intergovernmental Panel on Climate Change was established in 1992 as a subsidiary body of the UNFCCC.<br>2. The Keeling Curve is a long-term record of the global mean surface temperature.<br>3. The UNFCCC, adopted in 1992, entered into force in 1994.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 only",
+            "3 only",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "The IPCC was set up in 1988 jointly by the WMO and UNEP, before the UNFCCC existed, so it is not a UNFCCC body. The Keeling Curve records atmospheric CO2 concentration measured at Mauna Loa since 1958, not temperature. The UNFCCC was adopted in 1992 at the Earth Summit and entered into force on 21 March 1994."
+    },
+    {
+        q: "With reference to the Green Climate Fund (GCF), consider the following statements:<br>1. Its headquarters is located in Bonn, Germany.<br>2. Its Board consists exclusively of representatives of developing countries.<br>3. It serves as an operating entity of the financial mechanism of the UNFCCC and the Paris Agreement.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "1, 2 and 3",
+            "3 only"
+        ],
+        ans: 3,
+        exp: "The GCF is headquartered in Songdo, Incheon (South Korea), not Bonn, which hosts the UNFCCC Secretariat. Its 24-member Board has equal representation from developed and developing countries, so statement 2 is wrong. Only statement 3 is correct."
+    },
+    {
+        q: "Consider the following statements:<br>Statement-I: Under the Perform, Achieve and Trade scheme, a designated consumer that saves more energy than its assigned target is awarded tradable Energy Saving Certificates.<br>Statement-II: Targets under the Perform, Achieve and Trade scheme are fixed in terms of the specific energy consumption of each designated consumer.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "Both Statement-I and Statement-II are correct and Statement-II is the correct explanation for Statement-I",
+            "Statement-I is correct but Statement-II is not correct",
+            "Statement-I is not correct but Statement-II is correct",
+            "Both Statement-I and Statement-II are correct but Statement-II is not the correct explanation for Statement-I"
+        ],
+        ans: 0,
+        exp: "The PAT scheme, run by the Bureau of Energy Efficiency under the Energy Conservation Act, 2001, is a market-based mechanism for improving energy efficiency in energy-intensive industries. Targets are set as specific energy consumption, meaning energy used per unit of output, so an entity that goes below its target has saved energy and receives certificates it can sell to entities that fall short. Statement-II therefore explains Statement-I."
+    },
+    {
+        q: "Consider the following statements regarding global climate adaptation developments:<br>1. The Global Goal on Adaptation is enshrined in Article 4 of the Paris Agreement.<br>2. The UAE Framework for Global Climate Resilience, adopted at COP28, provides targets to guide progress on the Global Goal on Adaptation.<br>3. COP30 was held in November 2025 in Belém, Brazil.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "The Global Goal on Adaptation is set out in Article 7 of the Paris Agreement, not Article 4, which deals with mitigation and NDCs. The UAE Framework for Global Climate Resilience (COP28, Dubai) provides targets to guide the goal. COP30 took place in Belém, Brazil, in November 2025. Statements 2 and 3 are correct."
+    },
+    {
+        q: "Which one of the following statements about the Intergovernmental Panel on Climate Change (IPCC) is correct?",
+        opts: [
+            "It is a specialised agency of the United Nations system headed by the Secretary-General",
+            "It is a UNFCCC body that negotiates binding emission-reduction targets for member countries",
+            "It assesses published scientific literature and gives governments policy-relevant but policy-neutral information",
+            "It conducts independent field research on climate change and publishes its own primary data"
+        ],
+        ans: 2,
+        exp: "The IPCC was established in 1988 by the WMO and UNEP. It does not carry out original research or monitoring. It assesses existing peer-reviewed literature and produces reports that are policy-relevant but not policy-prescriptive. Negotiating targets is the work of the UNFCCC Parties, and the IPCC is not a UN specialised agency."
+    },
+    {
+        q: "Assertion (A): Under the Paris Agreement, developed country Parties are obligated to provide financial resources to assist developing countries in mitigation and adaptation.<br>Reason (R): The UNFCCC recognises that developed country Parties should take the lead in combating climate change, in view of their historical contribution to emissions.<br>In the context of the above, which one of the following is correct?",
+        opts: [
+            "Both A and R are correct but R is not the correct explanation of A",
+            "A is correct but R is not correct",
+            "Both A and R are correct and R is the correct explanation of A",
+            "A is not correct but R is correct"
+        ],
+        ans: 2,
+        exp: "Article 9 of the Paris Agreement requires developed countries to provide climate finance to developing countries. This follows from the UNFCCC principle of common but differentiated responsibilities and respective capabilities (Article 3), under which developed countries take the lead. R therefore correctly explains A."
+    },
+    {
+        q: "Under the Clean Development Mechanism of the Kyoto Protocol, one Certified Emission Reduction (CER) unit is equivalent to:",
+        opts: [
+            "One tonne of carbon dioxide equivalent emissions reduced or removed",
+            "One tonne of elemental carbon sequestered in a forest sink",
+            "One hectare of land brought under afforestation or reforestation",
+            "One megawatt-hour of electricity generated from renewable sources"
+        ],
+        ans: 0,
+        exp: "A CER is issued for emission reductions from a registered CDM project in a developing country, and each unit equals one tonne of CO2 equivalent. It can be counted by developed countries towards their Kyoto targets. The 'elemental carbon' option is tempting but wrong, since one tonne of carbon corresponds to about 3.67 tonnes of CO2."
+    },
+    {
+        q: "With reference to Article 6 of the Paris Agreement, consider the following statements:<br>1. Under Article 6.2, every bilateral transfer of mitigation outcomes requires prior approval of the Supervisory Body.<br>2. The mechanism under Article 6.4 is a continuation of the Joint Implementation mechanism of the Kyoto Protocol.<br>3. Article 6.8 establishes a market-based framework for trading emission reductions.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements given above is correct",
+            "1 only",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "Article 6.2 covers bilateral or plurilateral cooperative approaches that are authorised by the participating countries themselves, not approved by the Supervisory Body, which oversees the Article 6.4 mechanism. The Article 6.4 mechanism is seen as the successor of the Clean Development Mechanism, not Joint Implementation. Article 6.8 provides for non-market approaches. All three statements are incorrect."
+    },
+    {
+        q: "With reference to India's Carbon Credit Trading Scheme (CCTS), consider the following statements:<br>1. It is anchored in the Energy Conservation Act, 2001, as amended in 2022.<br>2. For the notified sectors under its compliance mechanism, targets are set in terms of greenhouse gas emission intensity.<br>3. The Bureau of Energy Efficiency acts as the administrator of the Indian carbon market.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "The Energy Conservation (Amendment) Act, 2022 enabled the Central Government to specify a carbon credit trading scheme, which was notified in 2023. The compliance mechanism sets GHG emission intensity targets for obligated entities in notified sectors, and the Bureau of Energy Efficiency functions as the administrator. All three statements are correct."
+    },
+    {
+        q: "Consider the following statements regarding greenhouse gases:<br>1. Nitrous oxide is emitted mainly from enteric fermentation in livestock.<br>2. Sulphur hexafluoride is controlled under the Montreal Protocol.<br>3. Chlorofluorocarbons are among the greenhouse gases listed in Annex A of the Kyoto Protocol.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements given above is correct",
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 only"
+        ],
+        ans: 0,
+        exp: "Enteric fermentation is chiefly a source of methane, while nitrous oxide comes mainly from agricultural soils and fertiliser use. SF6 is one of the Kyoto basket gases, not a Montreal Protocol substance. CFCs are ozone-depleting substances controlled under the Montreal Protocol, whereas the Kyoto basket covers CO2, CH4, N2O, HFCs, PFCs and SF6 (NF3 was added later). All three statements are incorrect."
+    },
+    {
+        q: "The Least Developed Countries Fund and the Special Climate Change Fund, which support adaptation and related activities under the UNFCCC, are operated by which one of the following?",
+        opts: [
+            "Global Environment Facility",
+            "Adaptation Fund Board",
+            "Green Climate Fund",
+            "Climate Investment Funds of the World Bank"
+        ],
+        ans: 0,
+        exp: "Both the LDCF and the SCCF were set up under the UNFCCC and are operated by the Global Environment Facility, which is an operating entity of the Convention's financial mechanism. The Adaptation Fund Board and the Green Climate Fund manage separate funds, and the Climate Investment Funds are a World Bank-hosted initiative outside the UNFCCC mechanism."
+    },
+    {
+        q: "With reference to the international efforts to limit global warming, consider the following statements:<br>1. The outcome of the first Global Stocktake at COP28 called for a phase-out of all fossil fuels by 2030.<br>2. The Global Methane Pledge launched at COP26 aims to cut global methane emissions by 50 per cent by 2030 from the 2010 level.<br>3. The Paris Agreement requires its Parties to submit successive Nationally Determined Contributions every five years, each representing a progression beyond the previous one.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 and 2 only",
+            "2 only",
+            "1 only"
+        ],
+        ans: 0,
+        exp: "The Paris Agreement's ratchet mechanism requires a new NDC every five years, with each successive NDC representing a progression. COP28 called for transitioning away from fossil fuels in energy systems, along with tripling renewable capacity and doubling the rate of efficiency improvement by 2030, so statement 1 is wrong. The Global Methane Pledge seeks a 30 per cent cut by 2030 relative to 2020 levels, not 50 per cent relative to 2010, so statement 2 is wrong."
+    },
+    {
+        q: "With reference to the evolution of climate finance, consider the following statements:<br>1. The goal of mobilising US$ 100 billion a year by 2020 for developing countries was first announced at the Paris climate conference in 2015.<br>2. The decision to establish the Green Climate Fund was taken at the Cancun conference in 2010.<br>3. The New Collective Quantified Goal adopted at COP29 replaced the US$ 100 billion goal with a target of US$ 1.3 trillion a year to be provided by developed countries alone.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 only",
+            "None of the above",
+            "Only statement 3"
+        ],
+        ans: 1,
+        exp: "The US$ 100 billion a year goal dates from the Copenhagen Accord of 2009, not Paris 2015, and the Green Climate Fund was decided at COP16 in Cancun in 2010. The COP29 goal is at least US$ 300 billion a year by 2035 led by developed countries, with US$ 1.3 trillion as a wider call for all actors, so statement 3 is wrong. Only statement 2 is correct."
+    },
+    {
+        q: "With reference to the Adaptation Fund, consider the following statements:<br>1. It was established under the Kyoto Protocol to finance adaptation projects in vulnerable developing countries.<br>2. Its initial resources came from a share of the proceeds from Certified Emission Reductions issued under the Clean Development Mechanism.<br>3. The majority of the seats on its Board are held by representatives of developed countries.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 2 and 3",
+            "1 and 2 only",
+            "Only one of the statements is correct",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "The Adaptation Fund was set up under the Kyoto Protocol and was originally financed mainly through a 2 per cent share of proceeds of CDM CERs, and it now also serves the Paris Agreement. Statement 3 is incorrect because its Board has a majority of members from developing countries."
+    },
+    {
+        q: "With reference to the characteristics of greenhouse gases, consider the following statements:<br>1. Methane has a higher global warming potential than carbon dioxide over a 100-year period, but a much shorter atmospheric lifetime.<br>2. Nitrous oxide is a greenhouse gas that also contributes to the depletion of the stratospheric ozone layer.<br>3. Sulphur hexafluoride has the highest global warming potential among the gases covered under the Kyoto Protocol.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "Only two of the statements are correct",
+            "3 only",
+            "1, 2 and 3"
+        ],
+        ans: 3,
+        exp: "Methane is far more potent than CO2 per unit mass over 100 years but lasts only about a decade or so in the atmosphere. Nitrous oxide is both a long-lived greenhouse gas and an ozone-depleting substance, and SF6 has the highest GWP of the Kyoto basket gases, at several thousand times that of CO2. All three statements are correct."
+    },
+    {
+        q: "With reference to the challenges associated with carbon sequestration, consider the following statements:<br>1. Leakage from geological storage reservoirs could release stored carbon dioxide back into the atmosphere.<br>2. Solvent-based capture of carbon dioxide from flue gases requires additional energy, which reduces the net efficiency of the power plant.<br>3. Carbon stored in forests and soils is permanently locked and cannot be released through fire, pests or land-use change.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "None of the statements are correct",
+            "Only statement 1",
+            "Both 2 and 3"
+        ],
+        ans: 0,
+        exp: "Geological storage in saline formations, depleted oil and gas fields and coal seams faces leakage and monitoring risks, and capture itself carries an energy penalty. Statement 3 is wrong because biological sinks are reversible: forest fires, pest outbreaks, drought and land-use change can return stored carbon to the atmosphere, so permanence is a major concern for forest-based carbon credits."
+    },
+    {
+        q: "Consider the following statements regarding reforms in the global climate finance architecture:<br>1. The Fund for Responding to Loss and Damage was decided at COP27 and operationalised at COP28.<br>2. The World Bank hosts the Fund as an interim arrangement through a Financial Intermediary Fund.<br>3. The Bridgetown Initiative proposes reforms of the global financial architecture, including climate-resilient debt clauses.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "All of the statements are correct",
+            "Exactly one of the statements is correct",
+            "Only two of the statements are correct"
+        ],
+        ans: 1,
+        exp: "The decision to set up a loss and damage fund came at COP27 (Sharm el-Sheikh) and it was operationalised at COP28 (Dubai), with the World Bank as interim host. The Bridgetown Initiative, championed by Barbados Prime Minister Mia Mottley, seeks reform of multilateral development finance and includes climate-resilient debt clauses that pause debt service after climate disasters. All three statements are correct."
+    },
+    {
+        q: "With reference to India's Green Credit Programme, consider the following statements:<br>1. It was notified under the Environment (Protection) Act, 1986.<br>2. It is administered by the Bureau of Energy Efficiency.<br>3. Green credits can be generated through activities such as tree plantation and water conservation.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "Only one of the statements is correct",
+            "1, 2 and 3",
+            "Only statement 1"
+        ],
+        ans: 0,
+        exp: "The Green Credit Programme was notified in 2023 by the Ministry of Environment, Forest and Climate Change under the Environment (Protection) Act, 1986, and rewards voluntary environmental actions such as tree plantation and water conservation. Its administrator is the Indian Council of Forestry Research and Education (ICFRE), not the Bureau of Energy Efficiency, which is associated with the Carbon Credit Trading Scheme. Statements 1 and 3 are correct."
+    },
+    {
+        q: "With reference to carbon trading, which one of the following statements is correct?",
+        opts: [
+            "The Article 6.4 mechanism of the Paris Agreement is a continuation of the Joint Implementation mechanism of the Kyoto Protocol.",
+            "Carbon credits are traded at a price fixed from time to time by the United Nations Environment Programme.",
+            "Certified Emission Reductions are credits generated under the Nagoya Protocol.",
+            "Annex I Parties listed under the UNFCCC include industrialised countries and economies in transition."
+        ],
+        ans: 3,
+        exp: "Annex I of the UNFCCC lists industrialised countries and economies in transition; UPSC 2016 tested this term through a wrong pairing with the Cartagena Protocol. Certified Emission Reductions come from the Clean Development Mechanism of the Kyoto Protocol, not the Nagoya Protocol. Carbon prices are set by markets, which UPSC 2011 tested, and the Article 6.4 mechanism is regarded as the successor of the CDM, a point central to the 2025 Article 6 question, not of Joint Implementation."
+    },
+    {
+        q: "With reference to carbon credits, consider the following statements:<br>1. One carbon credit represents the reduction or removal of one tonne of carbon dioxide equivalent.<br>2. Voluntary carbon market transactions take place only between national governments.<br>3. Article 6 of the Paris Agreement provides a framework for voluntary international cooperation, including market-based approaches, in achieving climate targets.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 only"
+        ],
+        ans: 2,
+        exp: "A carbon credit is a tradable certificate equal to one tonne of CO2e reduced or removed, and Article 6 of the Paris Agreement allows Parties to cooperate voluntarily, including through market-based approaches. Statement 2 is wrong because the voluntary carbon market involves private companies, NGOs and project developers, not only governments."
+    },
+    {
+        q: "With reference to the legal framework on global warming, consider the following statements:<br>1. The Kyoto Protocol imposed legally binding emission reduction targets on all Parties, including developing countries.<br>2. The Paris Agreement aims to hold the rise in global average temperature to well below 2°C above pre-industrial levels and to pursue efforts to limit it to 1.5°C.<br>3. Under the Paris Agreement, achievement of the targets set in a Party's Nationally Determined Contribution is legally binding.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 2 alone",
+            "All of the statements are correct",
+            "None of the above",
+            "Only statement 3"
+        ],
+        ans: 0,
+        exp: "The temperature goal in statement 2 is stated in Article 2 of the Paris Agreement. The Kyoto Protocol set binding targets only for developed countries listed in Annex B, so statement 1 is wrong. Under the Paris Agreement the obligation to prepare, communicate and maintain NDCs is binding, but achieving the NDC targets is not, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the National Adaptation Fund for Climate Change (NAFCC), consider the following statements:<br>1. It is financed by the Green Climate Fund.<br>2. The National Bank for Agriculture and Rural Development is its National Implementing Entity.<br>3. It supports only mitigation projects such as renewable energy and energy efficiency.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "None of the above",
+            "All of the above",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "NAFCC was set up in 2015 as a Central Sector Scheme of the Ministry of Environment, Forest and Climate Change to meet the cost of adaptation for States and Union Territories particularly vulnerable to climate change, with NABARD as National Implementing Entity. It is funded from the Government of India's budget, not by the Green Climate Fund, and it supports concrete adaptation projects in sectors such as agriculture, water, forestry and coastal areas, not mitigation."
+    },
+    {
+        q: "Consider the following statements:<br>Statement I: The presence of greenhouse gases keeps the lower atmosphere of the Earth warmer than it would otherwise be.<br>Statement II: Greenhouse gases absorb a large fraction of the outgoing long-wave radiation emitted by the Earth's surface.<br>Statement III: Greenhouse gases absorb most of the incoming short-wave solar radiation before it reaches the Earth's surface.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "Both Statement II and Statement III are correct and both of them explain Statement I",
+            "Only one of the Statements II and III is correct and that explains Statement I",
+            "Both Statement II and Statement III are correct but only one of them explains Statement I",
+            "Neither Statement II nor Statement III is correct"
+        ],
+        ans: 1,
+        exp: "Incoming short-wave solar radiation largely passes through the atmosphere and warms the surface, which then emits long-wave infrared radiation. Greenhouse gases absorb a large part of this outgoing radiation and re-radiate some of it downwards, which warms the lower atmosphere, so Statement II explains Statement I. Statement III is wrong because the atmosphere is largely transparent to incoming short-wave radiation."
+    },
+    {
+        q: "With reference to the evolution of the international regime on greenhouse gases, consider the following statements:<br>1. The Kyoto Protocol originally covered chlorofluorocarbons along with carbon dioxide and methane.<br>2. Nitrogen trifluoride was added to the gases covered by the Kyoto Protocol through the Doha Amendment.<br>3. The Montreal Protocol of 1987 was adopted mainly to control emissions of carbon dioxide and methane.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 and 2 only",
+            "2 only",
+            "1 only"
+        ],
+        ans: 2,
+        exp: "The Doha Amendment of 2012 added nitrogen trifluoride to the Kyoto basket, which originally covered carbon dioxide, methane, nitrous oxide, HFCs, PFCs and sulphur hexafluoride. Chlorofluorocarbons were left out of Kyoto because they were already controlled under the Montreal Protocol, so statement 1 is wrong. The Montreal Protocol targets ozone-depleting substances, not carbon dioxide and methane, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to heat stress and climate adaptation, consider the following statements:<br>1. Wet-bulb temperature reflects the combined effect of heat and humidity.<br>2. Wet-bulb temperature is always higher than the dry-bulb temperature.<br>3. Heat Action Plans that provide early warnings and cooling measures for vulnerable populations are adaptation measures.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1 only",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "Wet-bulb temperature is the lowest temperature reached by evaporative cooling, so it combines heat and humidity and is never higher than the dry-bulb temperature, which makes statement 2 wrong. Around a wet-bulb temperature of 35°C the human body can no longer shed heat effectively through sweating. Heat Action Plans reduce vulnerability to this risk rather than cutting emissions, so they are adaptation measures."
+    },
+    {
+        q: "With reference to the constitutional and legal framework relevant to India's regulation of carbon emissions and carbon sinks, consider the following statements:<br>1. Article 48A, a Directive Principle of State Policy, directs the State to protect and improve the environment.<br>2. Article 51A(g) makes it a Fundamental Duty of every citizen to protect and improve the natural environment.<br>3. Under Article 253, Parliament can legislate to implement an international climate agreement only if a majority of State Legislatures consent.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "Article 48A (inserted by the 42nd Amendment, 1976) is a Directive Principle, and Article 51A(g) is a Fundamental Duty of citizens. Statement 3 is incorrect: Article 253 empowers Parliament to make laws for implementing international treaties and agreements without the consent of State Legislatures, and this overrides the normal Union-State division of legislative powers."
+    },
+    {
+        q: "With reference to the challenges posed by global warming, consider the following statements:<br>1. Thawing of permafrost can release stored carbon dioxide and methane, which further amplifies warming.<br>2. As the oceans warm, their capacity to dissolve carbon dioxide increases, making them a stronger carbon sink.<br>3. A warmer atmosphere holds less water vapour, so extreme rainfall events become less likely.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "1 and 2 only",
+            "3 only",
+            "2 only"
+        ],
+        ans: 0,
+        exp: "Permafrost holds large stocks of organic carbon, and its thaw is a classic positive feedback. Statement 2 is wrong because gases dissolve less in warmer water, so ocean warming weakens the sink. Statement 3 is wrong because warmer air can hold more moisture, roughly 7 per cent more per degree Celsius, which makes intense rainfall events more likely."
+    },
+    {
+        q: "With reference to carbon sequestration, consider the following statements:<br>1. Blue carbon refers to carbon captured and stored by coastal and marine ecosystems such as mangroves, seagrass meadows and salt marshes.<br>2. In coastal wetland ecosystems, carbon is stored predominantly in above-ground biomass rather than in the soil.<br>3. Direct air capture with underground storage is classified as a nature-based sequestration method.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 only",
+            "2 only",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "Blue carbon ecosystems capture carbon and store it largely in waterlogged sediments. Statement 2 is wrong because most of the carbon in such ecosystems sits in the soil or sediment, which is why their destruction releases large quantities of stored carbon. Statement 3 is wrong because direct air capture is an engineered, technology-based removal method, not a nature-based one."
+    },
+    {
+        q: "Consider the following statements:<br>Statement-I: Under India's Carbon Credit Trading Scheme, an obligated entity that performs better than its assigned greenhouse gas emission intensity target can earn tradable carbon credit certificates.<br>Statement-II: The compliance mechanism of the scheme assigns absolute emission caps to each obligated entity.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "Statement-I is correct but Statement-II is not correct",
+            "Both Statement-I and Statement-II are correct and Statement-II is the correct explanation for Statement-I",
+            "Statement-I is incorrect but Statement-II is correct",
+            "Both Statement-I and Statement-II are correct but Statement-II is not the correct explanation for Statement-I"
+        ],
+        ans: 0,
+        exp: "The CCTS, notified in June 2023 under the Energy Conservation (Amendment) Act, 2022, works on greenhouse gas emission intensity targets for obligated entities. Entities that beat their targets earn credits and those that fall short must buy them, with targets first notified in October 2025 for aluminium, cement, chlor-alkali and pulp and paper, and extended to more sectors in January 2026. Statement-II is wrong because it is an intensity-based baseline-and-credit system, not an absolute cap-and-trade system."
+    },
+    {
+        q: "Consider the following statements:<br>1. The National Mission for a Green India is one of the eight national missions under the National Action Plan on Climate Change.<br>2. Under the Compensatory Afforestation Fund Act, 2016, the larger share of the money collected is credited to the State Compensatory Afforestation Funds.<br>3. The Green Credit Programme is administered by the Bureau of Energy Efficiency.<br>4. The Forest (Conservation) Amendment Act, 2023 extended the Act to all land having forest-like characteristics, irrespective of its notification or record.<br>How many of the above statements are correct?",
+        opts: [
+            "All four",
+            "Only one",
+            "Only three",
+            "Only two"
+        ],
+        ans: 3,
+        exp: "The Green India Mission is one of the eight NAPCC missions, and under the CAF Act about 90 per cent of the funds go to State Funds and 10 per cent to the National Fund. The Green Credit Programme is administered by ICFRE, not BEE, which is linked to the Carbon Credit Trading Scheme. The 2023 amendment (Van (Sanrakshan Evam Samvardhan) Adhiniyam) limited the Act to land notified as forest or recorded as forest in government records, rather than extending it to all forest-like land, so statement 4 is wrong."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-39 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

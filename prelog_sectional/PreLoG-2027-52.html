@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-52</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "With reference to India's demographic features, consider the following statements:<br>1. India's sex ratio at birth has consistently favoured females over males since independence.<br>2. India's dependency ratio has been steadily rising since 1991 due to a shrinking working-age population.<br>3. India's population pyramid currently has a broad base narrowing towards older age groups, characteristic of a young, still-growing population.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "None of the statements is correct",
+            "2 only",
+            "1 only"
+        ],
+        ans: 0,
+        exp: "India's population pyramid remains broad-based with a narrowing top, reflecting a still-young and growing population still in the midst of its demographic transition. The country's sex ratio at birth has historically been skewed against females, not in their favour, and its dependency ratio has actually been declining, not rising, as the working-age (15-59) share of the population has grown, forming the basis of India's much-discussed demographic dividend."
+    },
+    {
+        q: "The Total Fertility Rate (TFR) of a population is best defined as:",
+        opts: [
+            "the average number of children a woman would bear during her reproductive lifespan, given the prevailing age-specific fertility rates",
+            "the number of live births per 1,000 population in a given year",
+            "the number of surviving children per married couple as recorded in the latest census",
+            "the difference between the crude birth rate and the crude death rate"
+        ],
+        ans: 0,
+        exp: "TFR is a synthetic, period-based measure representing the average number of children a woman would have over her reproductive years (roughly 15-49) if she experienced the currently prevailing age-specific fertility rates throughout that period. It is distinct from the crude birth rate, which merely counts live births per 1,000 population without adjusting for age structure."
+    },
+    {
+        q: "With reference to the Employment Linked Incentive (ELI) Scheme, consider the following statements:<br>1. Under Part A of the scheme, employers, rather than first-time employees, receive a one-month EPF wage subsidy of up to Rs 15,000, credited directly to the employer's account.<br>2. The ELI Scheme is designed as a permanent, open-ended scheme with no fixed timeline for job-creation eligibility.<br>3. The scheme, approved by the Union Cabinet in July 2025, ties cash incentives to enrolment with the Employees' Provident Fund Organisation (EPFO).<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements is correct",
+            "3 only",
+            "2 only",
+            "1 only"
+        ],
+        ans: 1,
+        exp: "The ELI Scheme, approved by the Union Cabinet on 1 July 2025, uses EPFO enrolment both as the eligibility gate and as proof of formal job creation. Part A benefits first-time employees, not employers, with the wage subsidy credited to the employee, while employer incentives fall under Part B; and the scheme applies only to jobs created between 1 August 2025 and 31 July 2027, a fixed window rather than an open-ended one, making statements 1 and 2 incorrect."
+    },
+    {
+        q: "With reference to the Waqf (Amendment) Act, 2025, consider the following statements:<br>1. In September 2025, the Supreme Court struck down the entire Act as unconstitutional.<br>2. The Act received Presidential assent on 5 April 2025 and came into force on 8 April 2025.<br>3. The Act's removal of the concept of 'waqf-by-user' and its extension of the Limitation Act to waqf disputes were among the specific changes struck down by the Supreme Court in its September 2025 interim order.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements is correct",
+            "1 only",
+            "2 only",
+            "3 only"
+        ],
+        ans: 2,
+        exp: "The Waqf (Amendment) Act, 2025 received Presidential assent on 5 April 2025 and was notified into force from 8 April 2025. In its September 2025 interim order, the Supreme Court stayed only specific provisions — such as expanded district collector powers, a five-year Islam-practice condition, and a cap on non-Muslim Waqf Board representation — while upholding the removal of 'waqf-by-user' and applicability of the Limitation Act, and it did not strike down the Act in its entirety, making statements 1 and 3 incorrect."
+    },
+    {
+        q: "With reference to the Scheduled Castes and the Scheduled Tribes (Prevention of Atrocities) Amendment Act, 2018, consider the following statements:<br>1. This amendment was struck down as unconstitutional in Prithvi Raj Chauhan v. Union of India for violating the principle of judicial review.<br>2. Section 18A, inserted by this amendment, mandates that a preliminary inquiry must be conducted before an FIR can be registered under the Act, in order to prevent its misuse.<br>3. Section 18A restored the bar on anticipatory bail for offences under the Act, notwithstanding any judgment or order of any court.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "None of the statements is correct",
+            "2 only",
+            "3 only"
+        ],
+        ans: 3,
+        exp: "Section 18A was inserted specifically to overturn the safeguards read into the Act by the Supreme Court's Kashinath Mahajan judgment, doing away with the preliminary-inquiry requirement (not mandating one) and restoring the bar on anticipatory bail notwithstanding any court order. Far from striking it down, the Supreme Court in Prithvi Raj Chauhan v. Union of India upheld the constitutional validity of this amendment, making statements 1 and 2 incorrect."
+    },
+    {
+        q: "As per the National Education Policy (NEP) 2020, the traditional '10+2' structure of school education in India has been replaced by which of the following pedagogical structures?",
+        opts: [
+            "6+4+2+2",
+            "10+2 with an additional vocational year",
+            "8+4+2+2",
+            "5+3+3+4"
+        ],
+        ans: 3,
+        exp: "NEP 2020 replaced the earlier 10+2 structure with a 5+3+3+4 design covering Foundational, Preparatory, Middle and Secondary stages, aligning schooling with the cognitive development stages of children starting from age three. This restructuring also brought early childhood education formally within the ambit of the formal schooling framework for the first time."
+    },
+    {
+        q: "With reference to Population Census-2027, consider the following statements:<br>1. It will be India's first fully digital census and will include enumeration of caste for the first time since 1931.<br>2. For most of India the reference date is 1 March 2027, while for Ladakh, Jammu & Kashmir, Himachal Pradesh and Uttarakhand it is 1 October 2026.<br>3. It is being conducted under the provisions of a dedicated National Population Register Act.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "Census 2027 will be India's first digital census and the first since 1931 to enumerate caste, with the reference date being 1 March 2027 for most of the country and 1 October 2026 for snow-bound and remote areas. It is conducted under the Census Act, 1948, and there is no separate National Population Register Act; the NPR is instead maintained under the Citizenship Rules, 2003, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the Pradhan Mantri Matru Vandana Yojana (PMMVY), consider the following statements:<br>1. Cash incentives are provided for the first living child, and for a second child only if that child is a girl.<br>2. Under PMMVY 2.0, the benefit for a second (girl) child is disbursed in a single instalment after birth, unlike the multi-instalment structure for the first child.<br>3. In the event of a miscarriage or stillbirth, the beneficiary permanently forfeits eligibility under the scheme for any future pregnancy.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 2 and 3",
+            "1 and 3 only",
+            "Only two of the statements are correct",
+            "All three statements are correct"
+        ],
+        ans: 2,
+        exp: "PMMVY provides cash benefits for the first living child in instalments, and under PMMVY 2.0 an additional lump-sum benefit for a second child only if it is a girl, aimed at discouraging female foeticide. In cases of miscarriage or stillbirth, however, the beneficiary is treated as a fresh applicant for any subsequent pregnancy rather than being permanently disqualified, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to Articles 29 and 30 of the Constitution of India, consider the following statements:<br>1. Article 29 is available exclusively to religious and linguistic minorities, and not to any other section of citizens.<br>2. Article 30 confers upon all religious and linguistic minorities the right to establish and administer educational institutions of their choice.<br>3. The protection under Article 29(2) against denial of admission to State-funded educational institutions applies only to minority students, not to citizens generally.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 only",
+            "None of the statements is correct",
+            "3 only"
+        ],
+        ans: 1,
+        exp: "Article 30 clearly grants all religious and linguistic minorities the right to establish and administer educational institutions of their choice, making statement 2 correct. Article 29(1), despite being titled 'Protection of Interests of Minorities', is in fact available to any section of citizens with a distinct language, script or culture, and Article 29(2)'s bar on denial of admission on grounds of religion, race, caste or language protects all citizens, not minorities alone, making statements 1 and 3 incorrect."
+    },
+    {
+        q: "With reference to the historical evolution of the reservation policy for Other Backward Classes (OBCs) in India, consider the following statements:<br>1. The Mandal Commission was constituted in 1990, following the Supreme Court's verdict in Indra Sawhney v. Union of India, to recommend the extent of OBC reservation.<br>2. The Mandal Commission recommended 27% reservation for OBCs in central government jobs and educational institutions, based on caste-based data drawn primarily from the 1931 Census.<br>3. In Indra Sawhney v. Union of India (1992), the Supreme Court rejected the concept of a 'creamy layer' and held that all OBCs, regardless of economic status, must be treated as equally backward.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "None of the statements is correct",
+            "1 only",
+            "3 only"
+        ],
+        ans: 0,
+        exp: "The Mandal Commission recommended 27% reservation for OBCs, basing its assessment of backward classes largely on caste data from the 1931 Census, the last census to record full caste-wise figures. The Commission was actually constituted in 1979, well before Indra Sawhney (1992), whose verdict came only after the Mandal recommendations were implemented in 1990; and far from rejecting it, the Court in that very case introduced the 'creamy layer' concept to exclude the affluent among OBCs, making statements 1 and 3 incorrect."
+    },
+    {
+        q: "Under India's Periodic Labour Force Survey (PLFS), a person's 'Current Weekly Status' (CWS) of employment is determined based on their activity during a reference period of:",
+        opts: [
+            "the preceding one month",
+            "the day preceding the date of survey",
+            "the preceding one year",
+            "the preceding seven days"
+        ],
+        ans: 3,
+        exp: "The Current Weekly Status approach classifies a person's activity based on a reference period of the preceding seven days, in contrast to the Usual Status approach, which uses a 365-day reference period, and the Current Daily Status approach, which records activity for each day of the reference week separately."
+    },
+    {
+        q: "With reference to India's recently notified Labour Codes, consider the following statements:<br>1. Section 9 of the Code on Wages, 2019 empowers the Central Government to fix a national floor wage, below which no State can notify a lower minimum wage.<br>2. The Industrial Relations Code, 2020 lowered the threshold for mandatory government approval of lay-offs, retrenchment and closure from 300 workers to 100 workers, tightening the exit process for large firms.<br>3. Fixed-term employees under the labour codes are statutorily barred from receiving gratuity, irrespective of the length of their service.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "Statement 2 alone",
+            "Exactly two of the statements are correct",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "The Code on Wages empowers the Centre to set a national floor wage that no State can undercut. The Industrial Relations Code actually raised, not lowered, the threshold for mandatory government approval of lay-offs and retrenchment, from 100 to 300 workers, easing exit norms for larger firms, and fixed-term employees are explicitly entitled to pro-rata gratuity after one year of service rather than being barred from it, making statements 2 and 3 incorrect."
+    },
+    {
+        q: "With reference to religious minorities notified under the National Commission for Minorities Act, 1992, consider the following statements:<br>1. Only the Central Government has the power to notify a community as a 'minority', and State Governments cannot independently accord minority status to any community within their territory.<br>2. In Bal Patil v. Union of India (2005), the Supreme Court held that minority status must be determined solely at the national level, based on the population of India as a whole.<br>3. Jains were notified as a religious minority community under the Act by the Central Government in the year 2014.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "None of the statements is correct",
+            "3 only",
+            "1 only"
+        ],
+        ans: 2,
+        exp: "Jains were formally notified as India's sixth religious minority community by the Central Government in January 2014. Courts have held, following TMA Pai Foundation, that minority status can also be determined state-wise since a community that is a majority nationally may be a linguistic or religious minority within a particular state, contrary to the exclusively national-level, Centre-only framing in statements 1 and 2."
+    },
+    {
+        q: "The Global Hunger Index (GHI), jointly published by Concern Worldwide and Welthungerhilfe, computes its composite score using which of the following four indicators?",
+        opts: [
+            "Child stunting, child wasting, maternal mortality, and food inflation",
+            "Undernourishment, child mortality, sanitation coverage, and literacy rate",
+            "Undernourishment, child stunting, child wasting, and child mortality",
+            "Undernourishment, anaemia prevalence, low birth weight, and child mortality"
+        ],
+        ans: 2,
+        exp: "The GHI combines four indicators capturing three dimensions of hunger: undernourishment (insufficient caloric intake), child stunting and child wasting (both indicators of child undernutrition), and child mortality. India was ranked 102nd out of 123 countries in the GHI 2025, with a score of 25.8, placed in the 'serious' category."
+    },
+    {
+        q: "Assertion (A): Despite a comprehensive legal and institutional child-protection framework, conviction rates in cases registered under the Protection of Children from Sexual Offences (POCSO) Act remain low.<br>Reason (R): A large share of child sexual abuse incidents in India go unreported altogether due to social stigma and fear of retribution, and this underreporting is what directly determines the low conviction rate in cases that have already been registered.<br>Select the correct answer using the codes given below:",
+        opts: [
+            "Both A and R are true, and R is the correct explanation of A",
+            "Both A and R are true, but R is NOT the correct explanation of A",
+            "A is true, but R is false",
+            "A is false, but R is true"
+        ],
+        ans: 1,
+        exp: "The government has itself reported very low conviction rates (around 17-18 percent) in exclusive POCSO cases, so Assertion A is true, and underreporting of child sexual abuse due to stigma is also a well-documented reality, so R is true. However, underreporting explains why fewer incidents ever get registered as cases in the first place; it does not explain why cases that are already registered fail to end in conviction, an outcome driven instead by trial delays, hostile or turned witnesses, and evidentiary gaps. Hence R is not the correct explanation of A."
+    },
+    {
+        q: "With reference to the Ayushman Bharat Pradhan Mantri Jan Arogya Yojana (AB PM-JAY), consider the following statements:<br>1. In 2025, the scheme was extended to Delhi and Odisha, though West Bengal continues to remain outside it.<br>2. The Ayushman Vay Vandana Card extends AB-PMJAY coverage to all senior citizens aged 70 and above, but only to those below the poverty line.<br>3. As of 2025, AB PM-JAY has been made mandatorily available to all private-sector salaried employees covered under the Employees' State Insurance Scheme (ESIC).<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements is correct",
+            "3 only",
+            "2 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "AB PM-JAY was extended to Delhi and Odisha in 2025 through MoUs with the respective state governments, with West Bengal remaining the only state yet to join. The Ayushman Vay Vandana Card, however, covers all senior citizens aged 70 and above regardless of income or socio-economic status, not only those below the poverty line, and the scheme has not been made mandatory for ESIC-covered private employees, making statements 2 and 3 incorrect."
+    },
+    {
+        q: "With reference to NITI Aayog, consider the following statements:<br>1. It was constituted through a resolution of the Union Cabinet and is neither a constitutional nor a statutory body.<br>2. Unlike the erstwhile Planning Commission, NITI Aayog does not have the power to allocate plan funds to the Union Ministries and the States.<br>3. The Governing Council of NITI Aayog, which includes all State Chief Ministers, is chaired by the Union Finance Minister.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 2 only",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "NITI Aayog, set up in January 2015 by a Cabinet resolution, replaced the Planning Commission but was deliberately not given the power to allocate funds to States, that function now resting with the Finance Commission and the Union Finance Ministry. Its Governing Council, comprising all State Chief Ministers and Lt. Governors of UTs, is chaired by the Prime Minister, not the Finance Minister, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the Viksit Bharat Shiksha Adhishthan (VBSA) Bill, 2025, consider the following statements:<br>1. It proposes to repeal the UGC Act, 1956, the AICTE Act, 1987, and the NCTE Act, 1993, replacing them with a single apex regulatory body.<br>2. The Bill vests the new apex regulator with the power to directly disburse funding grants to higher education institutions, a function it inherits from the UGC.<br>3. As per the Bill, three separate councils would function under the VBSA — for Regulation, Accreditation, and Academic Standards.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "None of the above",
+            "Both 1 and 3",
+            "Statement 3 alone"
+        ],
+        ans: 2,
+        exp: "The VBSA Bill, 2025 seeks to replace the UGC, AICTE and NCTE Acts with a single unified regulator organised into three councils for Regulation, Accreditation, and Academic Standards. However, the Union Education Minister has clarified that the new regulator will not have funding powers, so statement 2 is incorrect."
+    },
+    {
+        q: "With reference to child marriage in India, consider the following statements:<br>1. The Bal Vivah Mukt Bharat campaign, launched in November 2024, seeks to make India free of child marriage by the year 2030.<br>2. Under the Prohibition of Child Marriage Act, 2006, the minimum legal age of marriage is 18 years for both males and females.<br>3. Offences under the Prohibition of Child Marriage Act, 2006 are cognizable and non-bailable.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "Both 1 and 2",
+            "None of the statements are correct",
+            "Both 2 and 3"
+        ],
+        ans: 0,
+        exp: "The Bal Vivah Mukt Bharat campaign, launched in November 2024, aims to make India child-marriage-free by 2030, and Section 15 of the Prohibition of Child Marriage Act, 2006 makes offences under the Act cognizable and non-bailable. However, the Act sets the minimum age asymmetrically at 18 years for females and 21 years for males, not 18 for both, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to the role of the Gram Sabha under the Mahatma Gandhi National Rural Employment Guarantee Act (MGNREGA), consider the following statements:<br>1. Conducting a social audit of all works executed within the Gram Panchayat is a statutory function of the Gram Sabha.<br>2. The Central Government bears 100 percent of both the wage cost and the material cost of works under the Act.<br>3. If employment is not provided within fifteen days of an application, the liability to pay unemployment allowance rests entirely with the Central Government.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "None of the statements are correct",
+            "Exactly two of the statements are correct",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 3,
+        exp: "Section 17 of the MGNREGA makes social audit of all Gram Panchayat works a mandatory function of the Gram Sabha, so statement 1 is correct. The Centre funds 100 percent of unskilled wage costs but only 75 percent of the material cost, with States bearing the remaining 25 percent, and the liability for unemployment allowance rests with the State Government, not the Centre, so statements 2 and 3 are both incorrect."
+    },
+    {
+        q: "With reference to the National Commission for Scheduled Castes (NCSC), consider the following statements:<br>1. The NCSC is a constitutional body established under Article 338 of the Constitution.<br>2. The civil-court-like powers vested in the NCSC under Article 338(8), such as summoning witnesses and calling for documents, allow it to adjudicate disputes and pass binding remedial orders against offenders.<br>3. The NCSC's annual report is submitted directly to Parliament, without being routed through the President of India.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 2",
+            "3 only",
+            "Exactly two of the statements are correct",
+            "Statement 1 alone"
+        ],
+        ans: 3,
+        exp: "The NCSC is indeed a constitutional body under Article 338. However, the Supreme Court has clarified that its civil-court-like powers under Article 338(8) are meant only to aid investigation and inquiry, not to adjudicate disputes or grant enforceable relief. Its annual report is also presented to the President, who causes it to be laid before each House of Parliament, rather than going to Parliament directly, making both statements 2 and 3 incorrect."
+    },
+    {
+        q: "With reference to institutions examining the condition of minorities in India, consider the following statements:<br>1. The Sachar Committee, headed by Justice Rajinder Sachar, submitted its report on the socio-economic and educational status of Muslims in India in November 2006.<br>2. The Ranganath Mishra Commission's report, submitted in 2007, was tabled in Parliament in the same year it was submitted.<br>3. The Sachar Committee was mandated to examine the socio-economic condition of all notified religious minorities collectively, including Muslims, Christians, Sikhs, Buddhists and Parsis.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "None of the statements is correct",
+            "2 only",
+            "3 only"
+        ],
+        ans: 0,
+        exp: "The Sachar Committee, set up in 2005 under Justice Rajinder Sachar, was mandated specifically to study Muslims and submitted its report in November 2006; the broader mandate covering all notified religious and linguistic minorities belonged instead to the Ranganath Mishra Commission (NCRLM). That Commission's report, though submitted in 2007, was tabled in Parliament only in December 2009, after becoming a subject of controversy, making statements 2 and 3 incorrect."
+    },
+    {
+        q: "With reference to the World Inequality Report 2026, published by the World Inequality Lab, consider the following statements:<br>1. The top 10 percent of earners in India capture about 58 percent of the country's national income.<br>2. India's female labour force participation rate has risen significantly over the past decade to exceed 40 percent.<br>3. The report finds that India's income inequality has worsened compared to its 2022 edition, with the top 10 percent's income share rising from 57 percent to 58 percent.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 3,
+        exp: "The World Inequality Report 2026 finds India's top 10 percent capturing about 58 percent of national income, up from 57 percent in the 2022 edition, indicating worsening inequality. However, the same report records India's female labour force participation as remaining very low, at around 15.7 percent, showing no real improvement over the decade, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to Mission Saksham Anganwadi and Poshan 2.0, consider the following statements:<br>1. It integrates three erstwhile schemes: POSHAN Abhiyaan, Anganwadi Services, and the Scheme for Adolescent Girls.<br>2. It rests on three pillars: convergence, governance, and capacity-building.<br>3. It was announced as part of the Union Budget 2021-22.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 and 3 only",
+            "1, 2 and 3",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "Mission Poshan 2.0 was announced in the Union Budget 2021-22 as an integrated nutrition strategy merging POSHAN Abhiyaan, Anganwadi Services and the Scheme for Adolescent Girls, and it is structured around the three pillars of convergence, governance, and capacity-building. All three statements accurately describe this restructured mission."
+    },
+    {
+        q: "With reference to Article 15 of the Constitution of India, consider the following statements:<br>1. Clause (4), enabling special provisions for socially and educationally backward classes, SCs and STs, was inserted by the First Constitutional Amendment, 1951.<br>2. Clause (5), permitting reservation in private unaided educational institutions, was inserted by the 93rd Constitutional Amendment, 2005.<br>3. Clause (6), providing reservation for Economically Weaker Sections, permits such reservation up to 50 percent of seats in educational institutions.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "Article 15(4) was added by the First Amendment of 1951 following the Champakam Dorairajan case, and Article 15(5), covering private unaided institutions, was inserted by the 93rd Amendment of 2005. Article 15(6), inserted by the 103rd Amendment of 2019, caps EWS reservation at 10 percent, not 50 percent, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the Nari Shakti Vandan Adhiniyam (106th Constitutional Amendment Act, 2023), consider the following statements:<br>1. It reserves one-third of seats for women in the Lok Sabha and State Legislative Assemblies.<br>2. This reservation will come into effect only after delimitation is carried out on the basis of the first census conducted after the Act's commencement.<br>3. Once implemented, the reservation is permanent and is not subject to any sunset clause requiring periodic renewal by Parliament.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "The Nari Shakti Vandan Adhiniyam reserves one-third of seats for women in the Lok Sabha and State Assemblies, with commencement expressly tied to delimitation following the first census after the Act comes into force. However, the reservation is not open-ended: it is designed to cease after 15 years from commencement unless Parliament extends it, similar to the erstwhile SC/ST reservation sunset clause, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to India's rural public health infrastructure, consider the following statements:<br>1. A Community Health Centre (CHC) functions as a referral centre for four Primary Health Centres and is staffed exclusively by ASHA and Anganwadi workers rather than qualified doctors.<br>2. A Primary Health Centre (PHC) is designed to cover a population of about 3,000 people in plain areas.<br>3. A Sub-Health Centre is designed to serve a population of about 5,000 people in plain areas, and about 3,000 people in hilly, tribal or difficult areas.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1 only",
+            "None of the statements is correct",
+            "3 only"
+        ],
+        ans: 3,
+        exp: "A Sub-Health Centre is designed to cover roughly 5,000 people in plain areas and about 3,000 people in hilly, tribal or difficult terrain, making it the most peripheral contact point in the health system. A PHC, by contrast, covers a much larger population of about 30,000 in plain areas, not 3,000, and a CHC is staffed by specialist doctors with in-patient beds, not run exclusively by ASHA or Anganwadi workers, making statements 1 and 2 incorrect."
+    },
+    {
+        q: "With reference to the National Commission for Minorities (NCM), consider the following statements:<br>1. The NCM enjoys constitutional status, on par with the National Commissions for Scheduled Castes and Scheduled Tribes.<br>2. Recommendations made by the NCM to the Union or State Governments are legally binding upon them.<br>3. The Commission traces its origin to a 1978 Ministry of Home Affairs resolution and acquired statutory status only with the enactment of the National Commission for Minorities Act, 1992.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "3 only",
+            "1 only",
+            "2 only"
+        ],
+        ans: 1,
+        exp: "The NCM was first set up by a 1978 executive resolution and became a statutory body only when the National Commission for Minorities Act, 1992 was enacted; it has never been a constitutional body like the NCSC (Article 338) or NCST (Article 338A). Its recommendations remain purely advisory and non-binding, which is why it is often described as a body with limited enforcement powers."
+    },
+    {
+        q: "With reference to the National Food Security Act, 2013, consider the following statements:<br>1. It legally entitles up to 75 percent of the rural population and 50 percent of the urban population to receive subsidised foodgrains under the Targeted Public Distribution System.<br>2. The Act entitles every eligible household, regardless of its size, to a uniform quantity of 10 kg of foodgrains per month.<br>3. The Act was enacted following the recommendations of the Rangarajan Committee specifically on food subsidy targeting.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "3 only",
+            "None of the statements is correct",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "The NFSA, 2013 covers up to 75 percent of the rural and 50 percent of the urban population as its legally entitled beneficiaries under the TPDS. Entitlements are calculated per person, not as a flat household quantity, with priority households receiving 5 kg per person per month and Antyodaya households a fixed 35 kg per household; and the Act's design drew on food-security specific policy processes rather than the Rangarajan Committee, which dealt with poverty-line methodology, making statements 2 and 3 incorrect."
+    },
+    {
+        q: "With reference to the structure and composition of India's workforce, consider the following statements:<br>1. India's workforce is predominantly engaged in manufacturing, which employs the largest share of workers among all sectors.<br>2. As per Periodic Labour Force Survey (PLFS) data, over 90 percent of India's workforce remains engaged in the informal sector.<br>3. Female workers constitute the majority of India's total workforce as per the latest PLFS estimates.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "3 only",
+            "1 only",
+            "None of the statements is correct"
+        ],
+        ans: 0,
+        exp: "PLFS data consistently shows that well over 90 percent of India's workforce remains engaged in informal employment, lacking job security and social protection. Agriculture, not manufacturing, continues to employ the largest share of India's workforce, and despite a recent rise in female labour force participation, women still form a minority of the total workforce, making statements 1 and 3 incorrect."
+    },
+    {
+        q: "With reference to reservation for Economically Weaker Sections (EWS) under the 103rd Constitutional Amendment, consider the following statements:<br>1. Eligibility for EWS reservation is determined through caste-based criteria similar to those used for OBC reservation.<br>2. EWS reservation applies to economically weaker sections among the general category, that is, persons not already covered by existing SC, ST, or OBC reservation.<br>3. In Janhit Abhiyan v. Union of India (2022), the Supreme Court held that the EWS quota must be counted within the pre-existing 50 percent ceiling on reservations meant for SC/ST/OBC categories.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements is correct",
+            "1 only",
+            "2 only",
+            "3 only"
+        ],
+        ans: 2,
+        exp: "EWS reservation is explicitly designed for the economically weaker sections of the general category, that is, those not already availing benefits under SC, ST, or OBC reservation, and its eligibility rests on income and asset thresholds rather than caste. In Janhit Abhiyan, the Supreme Court treated the EWS quota as a distinct additional category rather than something to be counted within the 50 percent ceiling meant for SC/ST/OBC reservations, making statements 1 and 3 incorrect."
+    },
+    {
+        q: "With reference to India's poverty-line committees, consider the following statements:<br>1. The Tendulkar Committee (2009) recommended shifting away from a purely calorie-based poverty line towards one anchored in a broader consumption basket including health and education expenditure.<br>2. The Rangarajan Committee (2014) recommended a lower poverty line than the Tendulkar Committee for both rural and urban India.<br>3. The Rangarajan Committee's recommended poverty lines were formally accepted by the Government of India and remain the country's official poverty line.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "1 and 2 only",
+            "3 only",
+            "2 only"
+        ],
+        ans: 0,
+        exp: "The Tendulkar Committee shifted India's poverty measurement away from a purely calorie-based norm towards a broader consumption basket. The Rangarajan Committee, however, recommended higher poverty lines than Tendulkar's for both rural (Rs 33 vs Rs 30/day) and urban (Rs 47 vs Rs 36/day) India, and its report was never formally adopted as the country's official poverty line, making statements 2 and 3 incorrect."
+    },
+    {
+        q: "With reference to manual scavenging in India, consider the following statements:<br>1. The Prohibition of Employment as Manual Scavengers and their Rehabilitation Act, 2013 makes every offence under the Act cognizable and non-bailable.<br>2. In Dr. Balram Singh v. Union of India (2023), the Supreme Court directed full mechanisation of sewer and septic tank cleaning and enhanced ex-gratia compensation for sewer deaths to Rs 30 lakh.<br>3. As per the Government's own submissions to Parliament, deaths from hazardous cleaning of sewers and septic tanks have been reduced to zero since the enactment of the 2013 Act.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "Only two of the statements are correct",
+            "All three statements are correct",
+            "Statement 1 alone"
+        ],
+        ans: 1,
+        exp: "The 2013 Act makes offences under it cognizable and non-bailable, and in Dr. Balram Singh v. Union of India (2023) the Supreme Court ordered full mechanisation of sewer cleaning along with an enhanced ex-gratia of Rs 30 lakh for sewer deaths. Yet the Government has itself told Parliament that hundreds of workers have died from hazardous cleaning in recent years, so deaths have certainly not been reduced to zero, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the Justice G. Rohini Commission on sub-categorisation of Other Backward Classes (OBCs), consider the following statements:<br>1. It was constituted under Article 338 of the Constitution to examine sub-categorisation of OBCs.<br>2. The Commission recommended raising the existing 27% central OBC reservation quota to 40% to accommodate sub-categories.<br>3. Its terms of reference included examining the extent of inequitable distribution of reservation benefits among the more than 2,600 entries in the Central List of OBCs.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements is correct",
+            "1 only",
+            "3 only",
+            "2 only"
+        ],
+        ans: 2,
+        exp: "The Rohini Commission was constituted under Article 340, not Article 338, which empowers the President to appoint a commission to investigate the condition of socially and educationally backward classes. Its mandate was precisely to examine how the existing 27% OBC quota's benefits had been unevenly captured among the over 2,600 entries in the Central List of OBCs, not to recommend an increase in the quota itself, making statement 3 the only correct one."
+    },
+    {
+        q: "With reference to NITI Aayog's National Multidimensional Poverty Index (MPI), consider the following statements:<br>1. It uses the Alkire-Foster methodology to identify multidimensionally poor households.<br>2. It is computed primarily using data from the National Sample Survey's Household Consumption Expenditure Survey.<br>3. As per NITI Aayog's estimates, the share of India's population in multidimensional poverty declined between the periods 2015-16 and 2019-21.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "Only one of the statements is correct",
+            "Both 1 and 3",
+            "Both 1 and 2"
+        ],
+        ans: 2,
+        exp: "NITI Aayog's National MPI applies the globally used Alkire-Foster method across 12 indicators of health, education and standard of living, drawing its data from the National Family Health Survey (NFHS-4 and NFHS-5), not the consumption expenditure survey, making statement 2 incorrect. Its 2023 discussion paper recorded a decline in the poverty headcount ratio between 2015-16 and 2019-21, with roughly 13.5 crore people moving out of multidimensional poverty."
+    },
+    {
+        q: "With reference to challenges facing India's healthcare sector, consider the following statements:<br>1. Non-communicable diseases (NCDs) account for less than one-fifth of all deaths in India, with communicable diseases remaining the leading cause of mortality.<br>2. India's doctor-population ratio, at around 1:811, is currently better than the WHO-recommended norm of 1:1000.<br>3. India's public health expenditure has already crossed the National Health Policy, 2017 target of 2.5% of GDP.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements is correct",
+            "1 only",
+            "3 only",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "The Union Government has informed Parliament that India's doctor-population ratio stands at around 1:811, better than the WHO norm of 1:1000, even though this masks rural-urban and specialist disparities. NCDs, in fact, account for over 60% of all deaths in India, not less than one-fifth, and public health expenditure remains at about 1.9% of GDP, still short of the 2.5% target, making statements 1 and 3 incorrect."
+    },
+    {
+        q: "With reference to challenges in India's school education system, consider the following statements:<br>1. India's mean years of schooling remain far below its expected years of schooling, reflecting a gap between years spent in school and learning outcomes achieved.<br>2. Under the Right of Children to Free and Compulsory Education (RTE) Act, free and compulsory education is a fundamental right for children up to the age of 18 years.<br>3. Dropout rates in Indian schools rise sharply as students move from the foundational to the secondary stage.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 and 3 only",
+            "2 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "Reports flagged by the Ministry of Education show India's mean years of schooling (around 7.3 years) trailing far behind its expected years of schooling (around 13.3 years), and dropout rates climbing steeply from the foundational stage to the secondary stage. The RTE right under Article 21A, however, covers only children aged 6 to 14 years, not up to 18, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to the Supreme Court's verdict in State of Punjab v. Davinder Singh (2024), consider the following statements:<br>1. A seven-judge Bench overruled its earlier verdict in E.V. Chinnaiah v. State of Andhra Pradesh (2004) and held that sub-classification within Scheduled Castes for reservation is constitutionally permissible.<br>2. A majority of the judges also held that the 'creamy layer' principle, till then applied only to Other Backward Classes, should be extended to Scheduled Castes and Scheduled Tribes as well.<br>3. As a consequence of this verdict, the Supreme Court struck down the 50 percent ceiling on total reservations laid down in Indra Sawhney v. Union of India (1992).<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "In August 2024, a seven-judge Bench by a 6:1 majority overruled E.V. Chinnaiah and upheld sub-classification within Scheduled Castes, with several judges separately extending the creamy layer principle to SCs and STs. The verdict did not touch, let alone strike down, the 50 percent reservation ceiling from Indra Sawhney, which remains a separate and undisturbed constitutional principle, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to NITI Aayog's SDG India Index, consider the following statements:<br>1. The Index covers all 17 SDGs quantitatively, computing a composite score for every goal including Goal 17 (Partnerships for the Goals).<br>2. States and UTs are categorised under the Index into four categories — Aspirant, Performer, Front-Runner and Achiever — based on their composite score range.<br>3. The Index is prepared solely by NITI Aayog, without any collaboration from other ministries or international agencies.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 only",
+            "2 only",
+            "None of the statements is correct"
+        ],
+        ans: 2,
+        exp: "The SDG India Index classifies States and UTs into four categories — Aspirant (0-49), Performer (50-64), Front-Runner (65-99) and Achiever (100) — based on their composite score. Goal 17, however, is assessed only qualitatively and excluded from the composite score, and the Index is developed jointly by NITI Aayog with MoSPI, the UN in India, and the Global Green Growth Institute, not by NITI Aayog alone, making statements 1 and 3 incorrect."
+    },
+    {
+        q: "With reference to the World Bank's revision of its International Poverty Line, consider the following statements:<br>1. In June 2025, the World Bank raised its extreme poverty line from USD 2.15/day to USD 3.00/day, both expressed in PPP terms.<br>2. Despite this upward revision, the absolute number of Indians classified as extremely poor is estimated to have risen between 2011-12 and 2022-23.<br>3. Following this revision, the World Bank reclassified India from a lower-middle-income to an upper-middle-income country.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "Exactly one of the statements is correct",
+            "Statement 3 alone",
+            "None of the above"
+        ],
+        ans: 1,
+        exp: "The World Bank did raise its extreme poverty benchmark from USD 2.15/day (2017 PPP) to USD 3.00/day (2021 PPP) in June 2025. Even under this higher threshold, the number of extremely poor Indians fell sharply, from about 34.4 crore in 2011-12 to about 7.5 crore in 2022-23, and India continues to be classified by the World Bank as a lower-middle-income country, making statements 2 and 3 incorrect."
+    },
+    {
+        q: "With reference to the historical evolution of India's nutrition programmes, consider the following statements:<br>1. The Integrated Child Development Services (ICDS) scheme emerged directly from the recommendations of the Bhore Committee (1946) on child health services.<br>2. ICDS, launched in 1975, is one of the world's largest programmes for early childhood care, nutrition, and pre-school education, delivered through Anganwadi Centres.<br>3. ICDS was launched simultaneously across all districts of India in 1975, covering the entire country from inception.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 only",
+            "None of the statements is correct",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "ICDS, launched in 1975, remains one of the world's largest early childhood programmes, delivered through Anganwadi Centres. It did not originate from the Bhore Committee (1946), which dealt with general health services well before ICDS was conceived, and it began as a pilot in only a limited number of community development blocks, being universalised across the country only in later decades, making statements 1 and 3 incorrect."
+    },
+    {
+        q: "With reference to the Right of Children to Free and Compulsory Education (Second Amendment) Act, 2019, consider the following statements:<br>1. It requires private unaided schools to reserve 50% of their entry-level seats for children from disadvantaged and economically weaker sections.<br>2. It empowers State Governments to decide whether to hold back students in Classes 5 and 8 who fail a year-end examination, effectively ending the mandatory 'no-detention policy' at these levels.<br>3. It extended the age group covered under the fundamental right to education from 6-14 years to 3-18 years.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "3 only",
+            "None of the statements is correct",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "The RTE (Second) Amendment Act, 2019 allowed States to decide whether to detain students who fail year-end examinations in Classes 5 and 8, reversing the earlier blanket no-detention policy. It did not touch the 25% reservation requirement for disadvantaged children in private unaided schools (which remains 25%, not 50%), nor did it alter the 6-14 years age bracket under Article 21A, making statements 1 and 3 incorrect."
+    },
+    {
+        q: "In June 2026, the Prime Minister chaired the 11th Governing Council Meeting of NITI Aayog, bringing together Chief Ministers, Lt. Governors and Union Ministers, under which theme aimed at ensuring development for every Indian irrespective of age, gender, region or socio-economic background?",
+        opts: [
+            "Inclusive Human Development for Viksit Bharat @2047",
+            "Cooperative and Competitive Federalism",
+            "Ease of Living for All",
+            "Reforms as a Continuous Process"
+        ],
+        ans: 0,
+        exp: "The 11th Governing Council Meeting of NITI Aayog, held on 11 June 2026 at the Rashtrapati Bhavan Cultural Centre, was organised around the theme 'Inclusive Human Development for Viksit Bharat @2047'. Deliberations were structured around four pillars: foundational human capital and future-ready skills, productive employment and entrepreneurship, health and nutrition, and equity and dignity for all."
+    },
+    {
+        q: "The Second National Commission on Labour (2002), whose recommendations eventually led to the enactment of India's four consolidated Labour Codes, had proposed that the numerous existing central labour laws be grouped into approximately how many broad Codes?",
+        opts: [
+            "Two",
+            "Ten",
+            "Four to five",
+            "Seven"
+        ],
+        ans: 2,
+        exp: "The Second National Commission on Labour (2002) recommended simplifying India's fragmented labour law architecture by consolidating it into four to five broad Codes. This recommendation was eventually operationalised only after nearly two decades, when the Code on Wages (2019) and the Industrial Relations, Social Security, and Occupational Safety, Health and Working Conditions Codes (2020) were together brought into force from 21 November 2025, repealing 29 central labour statutes."
+    },
+    {
+        q: "With reference to the Ayushman Bharat Pradhan Mantri Jan Arogya Yojana (AB PM-JAY), consider the following statements:<br>1. It provides a health cover of up to Rs 5 lakh per family per year for secondary and tertiary care hospitalisation.<br>2. Beneficiary families are identified using deprivation and occupational criteria drawn from the Socio-Economic Caste Census (SECC) 2011.<br>3. The scheme imposes a fixed cap of five members per family for availing benefits.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "1 and 3 only",
+            "Exactly one of the statements is correct",
+            "None of the above"
+        ],
+        ans: 0,
+        exp: "AB PM-JAY offers a Rs 5 lakh annual health cover per family and identifies beneficiaries from the bottom sections of the population using SECC 2011 deprivation and occupational criteria. Unlike its predecessor, the Rashtriya Swasthya Bima Yojana, PM-JAY deliberately imposes no cap on family size or age, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to POSHAN Abhiyaan (the National Nutrition Mission), consider the following statements:<br>1. It functions under the nodal Ministry of Women and Child Development.<br>2. It has since been restructured and subsumed, along with Anganwadi Services and the Scheme for Adolescent Girls, into Mission Saksham Anganwadi and Poshan 2.0.<br>3. It operates purely as a single-ministry scheme, without requiring convergence with other ministries or departments.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "2 only",
+            "None of the above",
+            "3 only"
+        ],
+        ans: 0,
+        exp: "POSHAN Abhiyaan is nodally administered by the Ministry of Women and Child Development and has since been folded, along with Anganwadi Services and the Scheme for Adolescent Girls, into Mission Saksham Anganwadi and Poshan 2.0. It was explicitly designed as a multi-ministerial convergence mission, drawing in the National Health Mission, Swachh Bharat Mission and ICDS, so describing it as a purely single-ministry scheme is incorrect."
+    },
+    {
+        q: "With reference to NITI Aayog's National Multidimensional Poverty Index (MPI), consider the following statements:<br>1. It rests on three equally-weighted dimensions: health, education, and standard of living.<br>2. The standard-of-living dimension is captured through the fewest number of indicators among the three dimensions.<br>3. Within each dimension, all indicators are assigned equal weight relative to one another.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "The National MPI's three dimensions carry equal weight of one-third each, and within a dimension every indicator carries an equal share of that dimension's weight. However, standard of living is captured through seven of the twelve indicators (cooking fuel, sanitation, drinking water, electricity, housing, assets, and bank account), the largest number among the three dimensions, not the fewest, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to the constitutional provisions relating to employment, consider the following statements:<br>1. The right to work under Article 41 has been interpreted by the Supreme Court as a justiciable Fundamental Right, directly enforceable in a court of law.<br>2. Article 43 obligates the State to secure a 'living wage' for all workers within five years of the commencement of the Constitution.<br>3. Article 41, a Directive Principle of State Policy, directs the State to make effective provision for securing the right to work 'within the limits of its economic capacity and development'.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements is correct",
+            "3 only",
+            "1 only",
+            "2 only"
+        ],
+        ans: 1,
+        exp: "Article 41 is a Directive Principle that obliges the State to make effective provision for securing the right to work, but explicitly qualifies this obligation with the phrase 'within the limits of its economic capacity and development'. Being a Directive Principle, it is non-justiciable under Article 37 and cannot be directly enforced as a Fundamental Right, and Article 43's call for a living wage carries no fixed five-year deadline, making statements 1 and 2 incorrect."
+    },
+    {
+        q: "With reference to the 86th Constitutional Amendment Act, 2002, consider the following statements:<br>1. It inserted Article 21A into Part III of the Constitution, making free and compulsory education a fundamental right for children aged 6 to 14 years.<br>2. It also recast the erstwhile Article 45 to direct the State to provide early childhood care and education to children below the age of 6 years.<br>3. It inserted a new Fundamental Duty under Article 51A, obligating parents or guardians to provide opportunities for education to their child between 6 and 14 years of age.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "The 86th Amendment made three linked changes: it inserted Article 21A as a fundamental right for children aged 6-14, redirected the original Article 45 towards early childhood care and education for children below 6, and added Article 51A(k) as a new Fundamental Duty on parents/guardians. All three statements accurately describe distinct parts of this single constitutional amendment."
+    },
+    {
+        q: "With reference to the constitutional and legal framework governing the Census in India, consider the following statements:<br>1. The Constitution mandates that a Census be conducted every ten years without exception.<br>2. The conduct of Census falls under Entry 69 of the Union List in the Seventh Schedule, giving the Union exclusive power over the exercise.<br>3. The Census Act, 1948 requires that individual-level census data be made public to ensure administrative accountability.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements is correct",
+            "3 only",
+            "1 only",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "Census-taking falls under Entry 69 of the Union List, making it the exclusive domain of the Union Government, and this is why Census 2021 could be repeatedly postponed without any constitutional violation, since the Constitution itself prescribes no fixed periodicity; that is governed by the Census Act, 1948. The Census Act, in fact, mandates strict confidentiality of individual-level records under Section 15, with only aggregate data released publicly, making statements 1 and 3 incorrect."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-52 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-44</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "The Ramakrishna Mission observed its Foundation Day on 1 May 2026 at Belur Math. With reference to the Ramakrishna Mission, consider the following statements: <br> 1. It was founded by Swami Vivekananda in 1897.<br>2. Its headquarters is at Belur Math in Howrah district of West Bengal.<br>3. The Ramakrishna Mission is the monastic order, while the Ramakrishna Math is its service-oriented wing.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 2 only",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "Swami Vivekananda founded the Ramakrishna Mission on 1 May 1897, and its headquarters is at Belur Math in Howrah district, where the Foundation Day is observed every year. The roles in statement 3 are reversed: the Ramakrishna Math is the monastic order, while the Ramakrishna Mission is the body that carries out service activities such as education, health care and relief work. Statement 3 is therefore incorrect."
+    },
+    {
+        q: "With reference to the Aligarh Movement led by Sir Syed Ahmad Khan, consider the following statements: <br> 1. Sir Syed Ahmad Khan founded the Deoband seminary to combine religious and Western education.<br>2. He encouraged Indian Muslims to join the Indian National Congress soon after its formation in 1885.<br>3. The Mohammedan Anglo-Oriental College was established in 1875 at Lucknow.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 3 only",
+            "None of the statements is correct",
+            "2 only"
+        ],
+        ans: 2,
+        exp: "The Deoband seminary (1866) was founded by Muhammad Qasim Nanautavi and Rashid Ahmad Gangohi as a traditional Islamic school. It was not Sir Syed's institution, so statement 1 is wrong. Sir Syed opposed the Congress and advised Muslims to stay away from its politics and focus on modern education, so statement 2 is wrong. The MAO College was founded in 1875 at Aligarh, not Lucknow, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the Theosophical Society and Annie Besant's role in Indian education and politics, consider the following statements: <br> 1. Annie Besant founded the Central Hindu College at Benares in 1898.<br>2. The Theosophical Society was founded in 1875 at Adyar, near Madras.<br>3. Banaras Hindu University was established under an Act of the Imperial Legislative Council passed in 1905.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 only",
+            "2 and 3 only",
+            "2 only"
+        ],
+        ans: 1,
+        exp: "Annie Besant founded the Central Hindu College at Benares in 1898, and it later became the nucleus of Banaras Hindu University. The Theosophical Society was founded in New York in 1875 by Madame Blavatsky and Colonel Olcott and moved its headquarters to Adyar only in 1882, so statement 2 is wrong. The BHU Act was passed in 1915, not 1905, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the Prarthana Samaj, consider the following statements: <br> 1. It was founded in Bombay in 1867, with Atmaram Pandurang as one of its prominent leaders.<br>2. It rejected the teachings of the Bhakti saints of Maharashtra and relied exclusively on Christian scriptures.<br>3. Leaders such as M. G. Ranade and R. G. Bhandarkar associated with it advocated widow remarriage and women's education, and discouraged caste restrictions and child marriage.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 only",
+            "1 and 3 only"
+        ],
+        ans: 3,
+        exp: "The Prarthana Samaj was established in Bombay in 1867, inspired by Keshab Chandra Sen's Brahmo ideas, with Atmaram Pandurang as a leading figure. M. G. Ranade and R. G. Bhandarkar later gave it its reformist character, focusing on widow remarriage, women's education and opposition to caste restrictions and child marriage. It drew on the Bhakti tradition of Maharashtra saints such as Tukaram and did not rely exclusively on Christian scriptures, so statement 2 is wrong."
+    },
+    {
+        q: "The Age of Consent Act, 1891, which raised the age of consent for girls from 10 to 12 years and was supported by Prarthana Samaj leaders such as M. G. Ranade, was enacted during the Viceroyalty of which one of the following?",
+        opts: [
+            "Lord Lytton",
+            "Lord Ripon",
+            "Lord Curzon",
+            "Lord Lansdowne"
+        ],
+        ans: 3,
+        exp: "The Age of Consent Act was passed in 1891 during the Viceroyalty of Lord Lansdowne (1888-94), after the death of the child bride Phulmoni Dasi and a campaign led by B. M. Malabari. Reformers such as Ranade supported the Act, while leaders such as Tilak opposed it as interference by a foreign government. Ripon (1880-84), Lytton (1876-80) and Curzon (1899-1905) held office in other periods."
+    },
+    {
+        q: "Which one of the following episodes of the 1880s seriously damaged the credibility of the Theosophical Society's founder H. P. Blavatsky, by alleging that the psychic phenomena associated with her were fraudulent?",
+        opts: [
+            "The Hodgson Report of the Society for Psychical Research",
+            "The secession of the American Section under W. Q. Judge",
+            "The disassociation of J. Krishnamurti from the Society",
+            "The Besant-Leadbeater controversy"
+        ],
+        ans: 0,
+        exp: "In 1885 Richard Hodgson, investigating for the Society for Psychical Research, reported that the phenomena associated with Blavatsky were fraudulent. This badly damaged the Society's reputation. The Leadbeater controversy (1906), the secession of Judge's American Section (1895) and Krishnamurti's disassociation (about 1929) belong to later decades."
+    },
+    {
+        q: "With reference to Annie Besant's role in the Home Rule movement and the Indian National Congress, consider the following statements: <br> 1. Her Home Rule League was launched in 1916 at Poona.<br>2. She was interned in 1917 by the Government of India under the Indian Arms Act.<br>3. She was interned by the Madras government in 1917, and in the same year she was elected President of the Indian National Congress at its Calcutta session.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 and 3 only",
+            "3 only"
+        ],
+        ans: 3,
+        exp: "Annie Besant's Home Rule League was launched in September 1916 at Madras (Adyar), while Tilak's league was launched in Poona/Belgaum in April 1916, so statement 1 is wrong. Her internment in 1917 was ordered by the Madras government under repressive wartime laws such as the Defence of India Act, not the Indian Arms Act, so statement 2 is wrong. The protests against her internment led to her election as Congress President at the Calcutta session in December 1917, so statement 3 is correct."
+    },
+    {
+        q: "The Arya Samaj, founded by Swami Dayananda Saraswati in 1875, split into two factions in 1893 after his death. Which one of the following was the central point of disagreement that led to this split?",
+        opts: [
+            "Whether the Samaj should formally affiliate itself with the Indian National Congress",
+            "Whether the Shuddhi programme of reconversion should be adopted as the main activity of the Samaj",
+            "Whether education should give primary place to English and Western learning, or to Vedic Gurukul-style instruction with strict vegetarianism",
+            "Whether idol worship could be tolerated as a preliminary stage of Vedic religious practice"
+        ],
+        ans: 2,
+        exp: "The 1893 split produced the 'College' section (Lala Hansraj, Lala Lajpat Rai), which supported the DAV schools and Western education, and the 'Gurukul' or 'Mahatma' section (Lala Munshi Ram, later Swami Shraddhananda), which stressed Vedic education and vegetarianism and later founded Gurukul Kangri (1902). Dayananda strongly opposed idol worship, so option 3 is not a point of dispute."
+    },
+    {
+        q: "Young Bengal and other liberal opinion in Calcutta pressed for freedom of the press in the 1830s. Which one of the following measures, enacted in 1835, removed the licensing restrictions imposed by the Press Regulation of 1823 and came to be called the liberation of the Indian press?",
+        opts: [
+            "The Indian Press Act, 1910",
+            "John Adam's Press Regulation, 1823",
+            "The Vernacular Press Act, 1878",
+            "Metcalfe's Press Act, 1835"
+        ],
+        ans: 3,
+        exp: "Charles Metcalfe, then acting Governor-General, passed the Press Act of 1835, which repealed the restrictive licensing regulation of 1823 introduced by John Adam. This was widely welcomed by Indian liberal opinion, including the Derozians. The Vernacular Press Act (1878) and the Indian Press Act (1910) were later restrictive measures."
+    },
+    {
+        q: "With reference to the Viksit Bharat Shiksha Adhishthan (VBSA) Bill, 2025 introduced in the Lok Sabha in December 2025, consider the following statements: <br> 1. It proposes to replace the UGC, AICTE and NCTE with a single apex higher education regulator.<br>2. It brings medical and legal education within the regulatory purview of the new body.<br>3. Unlike the UGC, the proposed body is not empowered to make grants to universities.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 2,
+        exp: "The VBSA Bill seeks to repeal the UGC Act 1956, the AICTE Act 1987 and the NCTE Act 1993, and to create a single regulator aligned with NEP 2020. The new body has no grant-making power, unlike the UGC. Medical and legal education are excluded and remain under their separate statutory regulators, so statement 2 is incorrect."
+    },
+    {
+        q: "In February 2026, the 202nd birth anniversary of Swami Dayananda Saraswati, founder of the Arya Samaj, was observed. With reference to him, consider the following statements: <br> 1. He was born in 1824 and was originally named Mool Shankar.<br>2. He founded the Arya Samaj in Bombay in 1875.<br>3. He was inspired by his teacher Swami Virjanand of Mathura to work for the revival of Vedic teachings.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "Only statement 3",
+            "Only one of the statements is correct",
+            "1, 2 and 3"
+        ],
+        ans: 3,
+        exp: "Dayananda Saraswati (1824-1883) was born as Mool Shankar, which is why 2026 marked his 202nd birth anniversary. He founded the Arya Samaj at Bombay in 1875. His guru, the blind scholar Swami Virjanand of Mathura, inspired him to dedicate his life to reviving the Vedas, and he wrote Satyarth Prakash as his chief work. All three statements are correct."
+    },
+    {
+        q: "The Theosophical Society marked 150 years of its founding at its International Convention at Adyar, Chennai, held from 31 December 2025 to 4 January 2026. With reference to the Society, consider the following statements: <br> 1. It was founded in New York in 1875 by H. P. Blavatsky and H. S. Olcott.<br>2. Its international headquarters is at Wheaton, Illinois.<br>3. Annie Besant was its first President.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "Only statement 1",
+            "None of the above",
+            "Only statement 3"
+        ],
+        ans: 1,
+        exp: "The Theosophical Society was founded in New York in 1875 by Madame Blavatsky and Colonel Olcott. Its international headquarters is at Adyar, Chennai, and Wheaton, Illinois is the seat of the Theosophical Society in America, one of its national sections. Colonel Olcott was its first President, and Annie Besant became President only in 1907."
+    },
+    {
+        q: "With reference to Wood's Despatch of 1854, consider the following statements: <br> 1. It rejected English as a medium of instruction at all levels and discouraged vernacular schools.<br>2. It recommended the establishment of universities at Calcutta, Bombay and Madras on the model of the University of London.<br>3. It recommended a system of grants-in-aid to encourage private effort in education.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "3 only",
+            "1 only"
+        ],
+        ans: 1,
+        exp: "Wood's Despatch recommended universities at the three presidency towns, which were set up in 1857, along with provincial Departments of Public Instruction, grants-in-aid and teacher training. It supported English for higher education and vernacular languages for school education, so statement 1 is incorrect."
+    },
+    {
+        q: "With reference to the Mohammedan Anglo-Oriental (MAO) College at Aligarh, consider the following statements: <br> 1. The foundation stone of its main college building was laid by Lord Lytton in 1877.<br>2. It was transformed into the Aligarh Muslim University by an Act of the Central Legislature in 1920.<br>3. It admitted students exclusively from the Muslim community.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 3",
+            "Only two of the statements are correct",
+            "Both 2 and 3",
+            "None of the statements are correct"
+        ],
+        ans: 1,
+        exp: "The MAO College, founded in 1875 by Sir Syed Ahmad Khan, had its building foundation stone laid by Viceroy Lord Lytton in 1877. It became the Aligarh Muslim University through an Act passed in 1920. Although it focused on Muslim educational advancement, it was open to students of other communities as well, so statement 3 is incorrect."
+    },
+    {
+        q: "B. M. Malabari campaigned for the Age of Consent Bill, 1891, which raised the age of consent for girls from 10 to 12 years. Despite its modest aim, it was strongly opposed by sections of the nationalist leadership, including Bal Gangadhar Tilak. What was the principal objection raised by these critics?",
+        opts: [
+            "The Bill made registration of all Hindu marriages compulsory before a British magistrate",
+            "A foreign government was seen as legislating on the social and religious customs of Hindus without popular consent",
+            "The Bill demanded that the age of consent be raised to 18 years, which was considered impractical",
+            "The Bill was applicable only to Muslim communities and was seen as discriminatory"
+        ],
+        ans: 1,
+        exp: "Critics such as Tilak did not defend child marriage as such but objected to an alien colonial government interfering in Hindu social and religious customs without the consent of Indians. This shows a recurring challenge for social reformers: reform demands could be resisted on nationalist and orthodox grounds. The other options misstate the content and scope of the 1891 Act."
+    },
+    {
+        q: "With reference to the Aligarh Movement, consider the following statements: <br> 1. The Aligarh Institute Gazette of the Scientific Society was started by Sir Syed Ahmad Khan in 1857.<br>2. The journal Tahzib-ul-Akhlaq, started in 1870, advocated social and religious reform among Muslims.<br>3. Sir Syed Ahmad Khan urged Muslims to join mass political agitation against British rule.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1 and 2 only",
+            "1 only",
+            "3 only"
+        ],
+        ans: 0,
+        exp: "The Aligarh Institute Gazette was started in 1866, not 1857, by the Scientific Society of Sir Syed, so statement 1 is wrong. The Tahzib-ul-Akhlaq (1870) was his journal for social and religious reform among Muslims, advocating rational thought and modern education. Sir Syed advised Muslims to avoid mass political agitation and cooperate with the British, so statement 3 is wrong."
+    },
+    {
+        q: "Which one of the following best reflects the stand of the Arya Samaj on the caste system?",
+        opts: [
+            "Birth-based caste hierarchy is divinely ordained and must be strictly preserved in society",
+            "Every caste distinction should be abolished at once by making inter-caste marriage compulsory for all Hindus",
+            "Varna should rest on merit and occupation rather than birth, and untouchability should be rejected",
+            "Study of the Vedas should remain restricted to the twice-born castes to protect its sanctity"
+        ],
+        ans: 2,
+        exp: "Swami Dayananda Saraswati held that varna should be determined by an individual's qualities and work rather than by birth, and the Arya Samaj opposed untouchability and allowed all, including women and lower castes, to study the Vedas. The Samaj did not make inter-caste marriage compulsory. Options 1 and 4 reflect the orthodox position that the Samaj opposed."
+    },
+    {
+        q: "Which one of the following was a prominent student-follower of Henry Derozio at the Hindu College, Calcutta, and is counted among the Derozians of the Young Bengal group?",
+        opts: [
+            "Krishna Mohan Banerjee",
+            "Ishwar Chandra Vidyasagar",
+            "Keshab Chandra Sen",
+            "Dwarkanath Tagore"
+        ],
+        ans: 0,
+        exp: "Krishna Mohan Banerjee was among the leading students of Derozio at the Hindu College. Vidyasagar studied at the Sanskrit College and was not a Derozian, and Keshab Chandra Sen was born in 1838, after the Young Bengal phase began. Dwarkanath Tagore was a businessman and philanthropist, not a student-follower of Derozio."
+    },
+    {
+        q: "The Native Marriage Act, 1872 (Act III of 1872) was enacted largely as a result of the efforts of the Brahmo Samaj. Which one of the following was a provision of this Act?",
+        opts: [
+            "Permission for a man to take a second wife with the written consent of the first wife",
+            "A minimum age of 12 years for brides and 16 years for grooms",
+            "Compulsory registration of every marriage performed among Hindus under their personal law",
+            "A declaration by the parties that they did not profess the Hindu, Muslim, Christian, Parsi, Buddhist, Sikh or Jain religion"
+        ],
+        ans: 3,
+        exp: "The Act provided for civil marriages among persons who declared that they did not profess any of the major religions named in it. It prohibited polygamy, prescribed minimum ages of 14 for brides and 18 for grooms, and allowed inter-caste marriage and widow remarriage. The requirement of such a declaration was a limitation, and the Act was later replaced by the Special Marriage Act, 1954. The other options are not provisions of the Act."
+    },
+    {
+        q: "The Orientalist-Anglicist controversy over the objective and medium of education in British India was formally settled by which one of the following?",
+        opts: [
+            "The Charter Act of 1813, which earmarked a sum of one lakh rupees annually for education",
+            "The Report of the Hunter Commission of 1882, which reviewed primary and secondary education",
+            "Wood's Despatch of 1854, which proposed a comprehensive scheme of education for India",
+            "Lord William Bentinck's Resolution of 1835, which accepted Macaulay's Minute and favoured English education"
+        ],
+        ans: 3,
+        exp: "The Charter Act of 1813 provided for an annual grant for education but left the dispute between the Orientalists and Anglicists unresolved. Macaulay's Minute of 1835 argued for English education, and Bentinck's Resolution of 1835 accepted this view and redirected funds to English education. Wood's Despatch (1854) and the Hunter Commission (1882) came later."
+    },
+    {
+        q: "With reference to the constitutional provisions relating to education in India, consider the following statements: <br> 1. Article 21A, inserted by the 86th Constitutional Amendment Act, 2002, guarantees free and compulsory education to all children up to the age of 18 years.<br>2. Education was transferred from the State List to the Concurrent List by the 44th Constitutional Amendment Act.<br>3. Article 51A(k) makes it a fundamental duty of a parent or guardian to provide opportunities for education to a child between the ages of six and fourteen years.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 only",
+            "3 only",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "Article 21A covers free and compulsory education for children between six and fourteen years, not up to eighteen, so statement 1 is wrong. Education was moved from the State List to the Concurrent List by the 42nd Amendment (1976), not the 44th, so statement 2 is wrong. The 86th Amendment also inserted Article 51A(k), which makes it a fundamental duty of parents and guardians to provide education opportunities to children aged six to fourteen years, so statement 3 is correct."
+    },
+    {
+        q: "With reference to the Young Bengal Movement, consider the following statements: <br> 1. Its followers took up public issues such as freedom of the press, trial by jury and the protection of ryots from oppression by zamindars.<br>2. The movement enjoyed a wide base among the peasantry of rural Bengal.<br>3. It rejected Western rationalist ideas and called for a return to Vedic religion.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "3 only",
+            "1 and 3 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "The Derozians, inspired by Derozio's rationalism and by liberal and radical Western thought, agitated on issues such as freedom of the press, trial by jury and the condition of ryots. The movement remained limited to a small group of educated urban youth, with no mass base among the peasantry, so statement 2 is wrong. It embraced Western rationalism and was critical of orthodoxy, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the women's organisations of the early twentieth century, consider the following statements: <br> 1. The Women's Indian Association was founded in 1917 at Madras by Annie Besant, Margaret Cousins and Dorothy Jinarajadasa.<br>2. The All India Women's Conference was founded in 1927 at Pune.<br>3. Margaret Cousins, an Irish suffragist, was associated with the founding of both the Women's Indian Association and the All India Women's Conference.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "Only two of the statements are correct",
+            "All of the above",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 2,
+        exp: "The Women's Indian Association was started in 1917 at Adyar, Madras, by Annie Besant, Margaret Cousins and Dorothy Jinarajadasa. The All India Women's Conference held its first session at Pune in 1927, and Margaret Cousins, an Irish suffragist settled in India, was a key figure in founding both bodies. All three statements are correct."
+    },
+    {
+        q: "Which one of the following pairs of social reform organisations and their founders is correctly matched?",
+        opts: [
+            "Servants of India Society - Dadabhai Naoroji",
+            "Seva Sadan - Pandita Ramabai",
+            "Satyashodhak Samaj - Jotirao Phule",
+            "Dharma Sabha - Raja Ram Mohan Roy"
+        ],
+        ans: 2,
+        exp: "Jotirao Phule founded the Satyashodhak Samaj in 1873 at Pune to promote social equality and the interests of the lower castes. The Servants of India Society was founded by Gopal Krishna Gokhale in 1905. Seva Sadan was founded by B. M. Malabari, while Pandita Ramabai founded the Sharada Sadan. The Dharma Sabha was formed by Radhakanta Deb to oppose Roy's reforms."
+    },
+    {
+        q: "In 1848, a school for girls was opened at Bhide Wada in Pune by which of the following?",
+        opts: [
+            "Ishwar Chandra Vidyasagar and J. E. D. Bethune",
+            "Jotirao Phule and Savitribai Phule",
+            "D. K. Karve and Tarabai Shinde",
+            "Pandita Ramabai and Anandibai Joshi"
+        ],
+        ans: 1,
+        exp: "Jotirao Phule and his wife Savitribai Phule opened a girls' school at Bhide Wada in Pune in 1848, with Savitribai teaching there, which makes her regarded as India's first woman teacher. Vidyasagar and Bethune are associated with girls' education in Bengal (the Bethune School, 1849). Karve's work came later and Ramabai's institutions were set up in the 1880s."
+    },
+    {
+        q: "Which one of the following pairs of social-reform institutions/organisations and their founders/leaders is NOT correctly matched?",
+        opts: [
+            "Seva Sadan - B. M. Malabari",
+            "Servants of India Society - M. G. Ranade",
+            "Prarthana Samaj - Atmaram Pandurang",
+            "Indian National Social Conference - M. G. Ranade"
+        ],
+        ans: 1,
+        exp: "The Servants of India Society was founded in 1905 by Gopal Krishna Gokhale, not Ranade. Malabari (with Dayaram Gidumal) founded Seva Sadan in 1885, Ranade (with Raghunath Rao) started the Indian National Social Conference in 1887, and Atmaram Pandurang founded the Prarthana Samaj in 1867. Option 4 is therefore the mismatched pair."
+    },
+    {
+        q: "Which one of the following pairs of leaders gave the Prarthana Samaj its intellectual and reformist leadership in Bombay Presidency after it was founded?",
+        opts: [
+            "Gopal Krishna Gokhale and Vasudeo Balwant Phadke",
+            "Bal Gangadhar Tilak and Gopal Ganesh Agarkar",
+            "Jyotiba Phule and Savitribai Phule",
+            "Mahadev Govind Ranade and Ramkrishna Gopal Bhandarkar"
+        ],
+        ans: 3,
+        exp: "M. G. Ranade and R. G. Bhandarkar joined the Prarthana Samaj after its founding in 1867 by Atmaram Pandurang and shaped its social reform agenda. Tilak and Agarkar are associated with the Deccan Education Society, Gokhale with the Servants of India Society, Phadke with armed revolt, and the Phules with the Satyashodhak Samaj."
+    },
+    {
+        q: "With reference to the school structure proposed under the National Education Policy (NEP) 2020, consider the following statements: <br> 1. The Foundational Stage covers five years, comprising three years of pre-school and Classes 1 and 2, for children aged 3 to 8 years.<br>2. The Secondary Stage covers four years, Classes 9 to 12, and is designed in two phases.<br>3. The Preparatory Stage covers Classes 3 to 5, for children aged 8 to 11 years.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 and 3 only",
+            "1, 2 and 3",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "NEP 2020 replaces the 10+2 structure with a 5+3+3+4 structure. The Foundational Stage (ages 3 to 8) has three years of pre-school and Classes 1-2, the Preparatory Stage (ages 8 to 11) covers Classes 3-5, the Middle Stage (ages 11 to 14) covers Classes 6-8, and the Secondary Stage (ages 14 to 18) covers Classes 9-12 in two phases. All three statements are correct."
+    },
+    {
+        q: "Which one of the following works was written in Persian by Raja Ram Mohan Roy to argue against idolatry and polytheism?",
+        opts: [
+            "Tuhfat-ul-Muwahhidin",
+            "The Precepts of Jesus",
+            "Sambad Kaumudi",
+            "Mirat-ul-Akhbar"
+        ],
+        ans: 0,
+        exp: "Tuhfat-ul-Muwahhidin (A Gift to Monotheists), a Persian work with an Arabic preface, put forward Roy's rational case for belief in one God and against idolatry and polytheism. The Precepts of Jesus was an English work on Christian ethical teachings. Sambad Kaumudi was a Bengali weekly, and Mirat-ul-Akhbar was a Persian journal, so neither was a treatise against polytheism."
+    },
+    {
+        q: "Which one of the following was among the declared objects of the Theosophical Society, founded in 1875 by H. P. Blavatsky and H. S. Olcott?",
+        opts: [
+            "To organise a political movement for immediate Indian independence",
+            "To spread Christianity among Indians through English education",
+            "To codify and enforce Hindu personal law across India",
+            "To form a nucleus of universal brotherhood without distinction of race, creed, sex, caste or colour"
+        ],
+        ans: 3,
+        exp: "The Theosophical Society's first declared object was to form a nucleus of universal brotherhood without distinction of race, creed, sex, caste or colour. Its other objects were the comparative study of religions, philosophies and sciences, and the investigation of unexplained laws of nature and latent human powers. It was not a missionary, political or legal-reform body."
+    },
+    {
+        q: "With reference to the Arya Samaj, consider the following statements: <br> 1. Swami Dayananda Saraswati's Satyarth Prakash, written in Hindi, is the principal text expounding the doctrines of the Arya Samaj.<br>2. The Arya Samaj rejected the doctrines of karma and rebirth.<br>3. Pilgrimages and shraddha rites for the dead were prescribed by it as essential religious duties.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "Exactly two of the statements are correct",
+            "None of the above",
+            "All three statements are correct"
+        ],
+        ans: 0,
+        exp: "Dayananda wrote Satyarth Prakash (1875) in Hindi as the main exposition of Arya Samaj beliefs. The Arya Samaj accepted the Vedas as infallible and retained belief in karma and rebirth, so statement 2 is wrong. It opposed idol worship, pilgrimages and shraddha rituals as later accretions, so statement 3 is wrong."
+    },
+    {
+        q: "Arrange the following organisations associated with the Brahmo movement in the chronological order of their establishment: <br> 1. Tattvabodhini Sabha<br>2. Atmiya Sabha<br>3. Brahmo Samaj of India<br>4. Brahmo Sabha<br>Select the correct answer using the code given below:",
+        opts: [
+            "4 - 2 - 3 - 1",
+            "4 - 2 - 1 - 3",
+            "2 - 1 - 4 - 3",
+            "2 - 4 - 1 - 3"
+        ],
+        ans: 3,
+        exp: "Raja Ram Mohan Roy founded the Atmiya Sabha in 1815 and the Brahmo Sabha in 1828, which was renamed the Brahmo Samaj in 1830. Debendranath Tagore founded the Tattvabodhini Sabha in 1839. After Keshab Chandra Sen's group seceded, he formed the Brahmo Samaj of India in 1866. The correct order is therefore 2 - 4 - 1 - 3."
+    },
+    {
+        q: "The Trust Deed of 1830, associated with Raja Ram Mohan Roy and the Brahmo Samaj, laid down that the Samaj building at Chitpur Road, Calcutta was to be used for which one of the following purposes?",
+        opts: [
+            "Worship of Vishnu in his incarnations, in accordance with the Vaishnava tradition",
+            "Worship of one formless, eternal God, without images, sacrifices or offerings",
+            "Conduct of caste-based ritual ceremonies approved by the Hindu orthodox priesthood",
+            "Performance of Vedic sacrifices, restricted to members of the Brahmin community"
+        ],
+        ans: 1,
+        exp: "The Trust Deed of 1830 provided that the Samaj premises be used for the worship of the one formless, eternal God, with no use of images, sacrifices or offerings. This reflected Roy's monotheism and his rejection of idolatry and priestly ritualism. The other options describe practices that the Brahmo Samaj opposed."
+    },
+    {
+        q: "Which one of the following best describes the core reform programme advocated by Sir Syed Ahmad Khan for the Muslims of India?",
+        opts: [
+            "Joining the Indian National Congress to build a united mass movement for self-government against colonial rule",
+            "Retention of Persian court culture and traditional Islamic sciences as the only path to Muslim revival and political recovery",
+            "Modern scientific and English education combined with a rational reinterpretation of Islam and cooperation with the British",
+            "Rejection of Western learning and a return to the practices of the early Islamic caliphate through traditional madrasa education alone"
+        ],
+        ans: 2,
+        exp: "Sir Syed Ahmad Khan urged Muslims to acquire modern scientific and English education, reinterpreted Islamic teachings in the light of reason, and advised cooperation with the British rather than confrontation. He founded the Scientific Society (1864), the journal Tahzib-ul-Akhlaq (1870) and the MAO College (1875). Option 1 describes the approach of the Deoband school. He opposed the Congress, so option 2 is wrong."
+    },
+    {
+        q: "Which one of the following pairs related to the Arya Samaj is NOT correctly matched?",
+        opts: [
+            "Satyarth Prakash - Swami Dayananda Saraswati",
+            "Gurukul (Mahatma) section after the split of 1893 - Lala Lajpat Rai",
+            "Gurukul Kangri (1902) - Swami Shraddhananda",
+            "College (DAV) section after the split of 1893 - Lala Hansraj"
+        ],
+        ans: 1,
+        exp: "After the split of 1893, the Gurukul (Mahatma) section was led by Lala Munshi Ram, later Swami Shraddhananda, who founded Gurukul Kangri in 1902. Lala Lajpat Rai belonged to the College section, which supported the DAV institutions and was led by Lala Hansraj. The other three pairs are correctly matched."
+    },
+    {
+        q: "With reference to the Ramakrishna Mission, consider the following statements: <br> 1. It was founded by Swami Vivekananda in 1893 immediately after the Parliament of the World's Religions at Chicago.<br>2. It gave importance to social service, such as education, relief and health care, as a form of worship of God in humanity.<br>3. It rejected idol worship and all ritual forms of devotion as superstition.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 2",
+            "Both 1 and 3",
+            "None of the statements are correct",
+            "Only statement 3"
+        ],
+        ans: 0,
+        exp: "The Ramakrishna Mission was founded by Vivekananda in 1897, not 1893. The 1893 date marks his address at the Chicago Parliament of Religions, so statement 1 is wrong. The Mission's practical Vedanta treats service to humanity as service to God, so statement 2 is correct. Ramakrishna Paramahamsa himself accepted idol worship and diverse paths of devotion, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the features of the Brahmo Samaj, consider the following statements: <br> 1. It permitted idol worship in private homes as a concession to popular belief.<br>2. It upheld belief in one God and opposed priestly domination and meaningless rituals.<br>3. It regarded the doctrine of avatars as essential to the worship of God.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1 and 2 only",
+            "3 only",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "The Brahmo Samaj was based on monotheism and rational worship through prayer, meditation and the study of scriptures. It rejected idol worship, priestly domination, meaningless rituals and the doctrine of avatars. Statements 1 and 3 contradict these principles, so only statement 2 is correct."
+    },
+    {
+        q: "Arrange the following events in the history of the Theosophical Society in chronological order: <br> 1. Disassociation of J. Krishnamurti from the Society<br>2. Founding of the Society at New York<br>3. Election of Annie Besant as President of the Society<br>4. Shifting of the international headquarters to Adyar near Madras<br>Select the correct answer using the code given below:",
+        opts: [
+            "2 - 3 - 4 - 1",
+            "2 - 4 - 3 - 1",
+            "4 - 2 - 3 - 1",
+            "2 - 4 - 1 - 3"
+        ],
+        ans: 1,
+        exp: "The Theosophical Society was founded in New York in 1875 by Madame Blavatsky and Colonel Olcott, and its headquarters moved to Adyar in 1882. Annie Besant became its President in 1907 after Olcott's death. J. Krishnamurti disassociated himself from the Society around 1929. The correct order is 2 - 4 - 3 - 1."
+    },
+    {
+        q: "With reference to Sir Syed Ahmad Khan and the Aligarh Movement, consider the following statements: <br> 1. Sir Syed Ahmad Khan founded the All India Muslim League in 1906.<br>2. He was among the founding members of the Indian National Congress in 1885.<br>3. The Aligarh Movement was launched in response to the Partition of Bengal in 1905.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3",
+            "None of the statements is correct"
+        ],
+        ans: 3,
+        exp: "Sir Syed Ahmad Khan died in 1898, so he could not have founded the All India Muslim League, which was formed in 1906 at Dhaka. He opposed the Congress and cautioned Muslims against joining it. The Aligarh Movement arose after the revolt of 1857 and had educational and social reform aims, long before the Partition of Bengal in 1905. None of the statements is correct."
+    },
+    {
+        q: "Which one of the following best describes a distinctive organisational feature of the Sadharan Brahmo Samaj, formed in 1878?",
+        opts: [
+            "Control of the Samaj by a council of Brahmin priests who conducted all rituals",
+            "Representative management on a constitutional basis by elected members, instead of the personal authority of a single leader",
+            "A centralised system in which one acharya claimed divine inspiration to command all members",
+            "Hereditary leadership passing down through the descendants of its founder"
+        ],
+        ans: 1,
+        exp: "The Sadharan Brahmo Samaj was formed by followers who left Keshab Chandra Sen's Brahmo Samaj of India. They set it up on democratic principles, with a constitution and management by elected representatives, in contrast to Keshab's personal and charismatic leadership. Its leaders included Anand Mohan Bose and Sivanath Sastri. The Brahmo movement rejected hereditary priesthood."
+    },
+    {
+        q: "With reference to the Brahmo Samaj, consider the following statements: <br> 1. Debendranath Tagore founded the Tattvabodhini Sabha in 1839 to propagate Upanishadic ideas.<br>2. Keshab Chandra Sen's group separated from Debendranath Tagore's and formed the Brahmo Samaj of India in 1866.<br>3. The Native Marriage Act, 1872 legalised Brahmo marriages by prescribing a minimum age of 14 years for the bride and 18 years for the groom.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "Only one of the statements is correct",
+            "Exactly two of the statements are correct",
+            "All of the above"
+        ],
+        ans: 3,
+        exp: "The Tattvabodhini Sabha (1839) was set up by Debendranath Tagore to spread Upanishadic knowledge. The 1866 split produced Keshab Chandra Sen's Brahmo Samaj of India and Debendranath's Adi Brahmo Samaj. The Native Marriage Act, 1872 gave legal recognition to Brahmo marriages and prescribed minimum marriage ages of 14 for the bride and 18 for the groom, so all three statements are correct."
+    },
+    {
+        q: "Which one of the following represents the distinctive contribution of the Ramakrishna Mission to the socio-religious reform movements of nineteenth-century India?",
+        opts: [
+            "The formation of a political party to demand Home Rule for India within the British Empire",
+            "A campaign for the legal prohibition of sati and female infanticide through petitions to the Government",
+            "A programme of Shuddhi to reconvert persons who had embraced other religions back to Hinduism",
+            "A combination of spiritual ideals with organised social service such as education, famine relief and health care"
+        ],
+        ans: 3,
+        exp: "Vivekananda founded the Ramakrishna Mission in 1897 on the ideal of practical Vedanta, under which service to humanity is a form of worship. The Mission runs schools, hospitals and relief work during famines and disasters. Shuddhi was the programme of the Arya Samaj, and the other options do not describe the Mission."
+    },
+    {
+        q: "With reference to the Young Bengal Movement of the early nineteenth century, consider the following statements: <br> 1. Henry Louis Vivian Derozio, the inspirer of the movement, taught at the Sanskrit College, Calcutta.<br>2. Followers of Derozio questioned orthodox religious practices and superstitions and advocated rational inquiry.<br>3. Derozio founded the Academic Association in 1828 as a forum for debate on social, religious and philosophical questions.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 only"
+        ],
+        ans: 1,
+        exp: "Derozio was a teacher at the Hindu College, Calcutta, not the Sanskrit College, so statement 1 is wrong. He founded the Academic Association in 1828, and he and his students (the Derozians) championed free thought and rationalism and attacked idolatry, superstition and social evils. Orthodox opposition forced Derozio's removal from the Hindu College in 1831."
+    },
+    {
+        q: "With reference to the University Grants Commission (UGC) under the UGC Act, 1956, consider the following statements: <br> 1. It can allocate and disburse grants to eligible universities and colleges.<br>2. It can establish a central university on its own authority through a notification.<br>3. Only a university established or incorporated by law, or a deemed university, can confer degrees.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "Only two of the statements are correct",
+            "All three statements are correct",
+            "None of the statements are correct"
+        ],
+        ans: 1,
+        exp: "The UGC's core functions include providing grants to universities and colleges and coordinating and maintaining standards in higher education. Under Section 22 of the Act, the right to confer degrees belongs only to universities established or incorporated by law and to institutions deemed to be universities. A central university can be established only by an Act of Parliament, not by the UGC, so statement 2 is wrong."
+    },
+    {
+        q: "With reference to the legal and constitutional provisions related to social reform in India, consider the following statements: <br> 1. The Regulation abolishing sati (Regulation XVII of 1829) was enacted during the Governor-Generalship of Lord Dalhousie.<br>2. The Hindu Widows' Remarriage Act, 1856 was passed during the Governor-Generalship of Lord William Bentinck.<br>3. Article 25(2)(b) of the Constitution empowers the State to make laws providing for social welfare and reform.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 1 alone",
+            "1 and 3 only",
+            "Statement 3 alone",
+            "None of the above"
+        ],
+        ans: 2,
+        exp: "Sati was abolished in 1829 under Lord William Bentinck, not Dalhousie, so statement 1 is wrong. The Hindu Widows' Remarriage Act of 1856, promoted by Ishwar Chandra Vidyasagar, was passed under Lord Canning, so statement 2 is wrong. Article 25(2)(b) permits the State to legislate for social welfare and reform, and to throw open Hindu religious institutions of a public character to all sections of Hindus, so statement 3 is correct."
+    },
+    {
+        q: "The Brahmo Samaj split in 1878, leading to the formation of the Sadharan Brahmo Samaj. Which one of the following events directly triggered this split?",
+        opts: [
+            "A government ban on Brahmo marriages under the Native Marriage Act, 1872",
+            "Keshab Chandra Sen's marrying off his minor daughter to the Maharaja of Cooch Behar",
+            "Keshab Chandra Sen's open support for the Shuddhi movement of the Arya Samaj",
+            "Debendranath Tagore's conversion to Christianity"
+        ],
+        ans: 1,
+        exp: "Keshab Chandra Sen arranged the marriage of his underage daughter to the Maharaja of Cooch Behar in 1878, violating the Native Marriage Act, 1872, which he himself had helped to bring about. Many followers, including Anand Mohan Bose and Sivanath Sastri, broke away and formed the Sadharan Brahmo Samaj. The other options did not happen or did not cause the split."
+    },
+    {
+        q: "With reference to the legal measures concerning the status of women in India, consider the following statements: <br> 1. As originally enacted in 1929, the Child Marriage Restraint Act fixed the minimum age of marriage at 18 years for girls and 21 years for boys.<br>2. The Hindu Women's Right to Property Act, 1937 conferred on Hindu daughters equal coparcenary rights with sons.<br>3. The Age of Consent Act, 1891 raised the age of consent for girls to 16 years.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "None of the statements is correct",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "The Sarda Act of 1929 originally fixed the minimum marriage age at 14 for girls and 18 for boys; the limits of 18 and 21 came with the 1978 amendment. The Hindu Women's Right to Property Act, 1937 gave a widow a limited interest in her husband's property, and daughters got coparcenary rights only through the 2005 amendment to the Hindu Succession Act. The Age of Consent Act, 1891 raised the age from 10 to 12 years. None of the statements is correct."
+    },
+    {
+        q: "With reference to the features of the Prarthana Samaj, consider the following statements: <br> 1. It advocated the continuation of caste distinctions in dining and marriage as essential to Hindu society.<br>2. It stressed monotheistic worship and drew inspiration from the devotional tradition of Maharashtra saints such as Tukaram.<br>3. It undertook social service activities such as night schools for working people, orphanages and work for the depressed classes.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 only",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "The Prarthana Samaj promoted belief in one God through prayer, drawing on the Bhakti tradition of Maharashtra rather than creating a new religion. It was active in social service, including night schools, orphanages and the Depressed Class Mission (1906) associated with V. R. Shinde. It criticised caste restrictions and promoted widow remarriage and women's education, so statement 1 is wrong."
+    },
+    {
+        q: "With reference to the abolition of sati in India, consider the following statements: <br> 1. Regulation XVII of 1829 permitted the practice of sati wherever the widow gave written consent before a magistrate.<br>2. Raja Ram Mohan Roy supported the measure of Governor-General Lord William Bentinck to abolish sati.<br>3. Orthodox Hindus led by Radhakanta Deb formed the Dharma Sabha in Calcutta to oppose the abolition.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 2 and 3",
+            "All of the above",
+            "Only statement 3",
+            "Only statement 2"
+        ],
+        ans: 0,
+        exp: "Regulation XVII of 1829 declared sati illegal and punishable as culpable homicide, without any exception for consent, so statement 1 is wrong. Raja Ram Mohan Roy, who had long campaigned against sati, supported Bentinck's measure. The orthodox opposition, organised through the Dharma Sabha under Radhakanta Deb, petitioned against the abolition and appealed to the Privy Council, which upheld the law."
+    },
+    {
+        q: "Given below are two statements, one labelled as Assertion (A) and the other as Reason (R). <br> Assertion (A): The Theosophical Society helped revive self-respect among educated Indians in the late nineteenth century by praising ancient Indian religious and philosophical traditions.<br>Reason (R): The Theosophical Society was founded and initially led by Indian reformers who were reacting against Christian missionary criticism of Hinduism.<br>In the context of the above statements, which one of the following is correct?",
+        opts: [
+            "A is false, but R is true",
+            "Both A and R are true, but R is not the correct explanation of A",
+            "A is true, but R is false",
+            "Both A and R are true, and R is the correct explanation of A"
+        ],
+        ans: 2,
+        exp: "The Society, through its appreciation of Hindu, Buddhist and Zoroastrian thought, helped restore cultural pride among Indians, so A is true. However, it was founded in New York in 1875 by the Russian Madame H. P. Blavatsky and the American Colonel H. S. Olcott, not by Indian reformers, so R is false. Annie Besant later became its most prominent leader in India."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-44 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

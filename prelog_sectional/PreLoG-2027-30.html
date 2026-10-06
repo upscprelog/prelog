@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-30</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "With reference to the ideals of the national struggle for freedom that Article 51A(b) asks citizens to cherish, consider the following statements: <br> 1. The Objectives Resolution was moved in the Constituent Assembly by Dr. B.R. Ambedkar.<br>2. The 'Poorna Swaraj' resolution was passed at the Karachi session of the Indian National Congress in 1931.<br>3. The Karachi Resolution of 1931 combined a declaration of fundamental rights with a programme of national economic policy.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "2 only",
+            "1 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "The Karachi session of 1931, presided over by Vallabhbhai Patel, adopted a resolution on fundamental rights and a national economic programme, which later influenced the Constitution. The Objectives Resolution was moved by Jawaharlal Nehru in December 1946, and the Poorna Swaraj resolution was adopted at the Lahore session of 1929."
+    },
+    {
+        q: "Consider the following statements about the criticism of, and global perspective on, Fundamental Duties: <br> 1. The idea of incorporating Fundamental Duties in the Indian Constitution is traditionally traced to the Constitution of the erstwhile USSR.<br>2. Article 29(1) of the Universal Declaration of Human Rights recognises that everyone has duties to the community.<br>3. Critics argue that the list is not exhaustive, since duties such as paying taxes and casting a vote are not included.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "Standard references note that the Fundamental Duties were inspired by the Constitution of the erstwhile USSR. Article 29(1) of the UDHR declares that everyone has duties to the community, which is also cited as international support for Article 51A. A common criticism is that the list is not exhaustive and omits duties such as voting and paying taxes."
+    },
+    {
+        q: "In the context of upholding the sovereignty, unity and integrity of India under Article 51A(c), consider the following developments of 2025: <br> 1. Operation Sindoor was launched on 7 May 2025 in response to the Pahalgam terror attack.<br>2. The decision to hold the Indus Waters Treaty in abeyance was taken by the Cabinet Committee on Security on 23 April 2025.<br>3. The 150th birth anniversary of Sardar Vallabhbhai Patel, who led the integration of princely states, was marked with a 'Unity March' organised under MY Bharat.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "All of the above",
+            "Both 2 and 3",
+            "1 only"
+        ],
+        ans: 1,
+        exp: "Operation Sindoor began on 7 May 2025 after the Pahalgam attack, and the Cabinet Committee on Security put the 1960 Indus Waters Treaty in abeyance on 23 April 2025. The Unity March under MY Bharat commemorated Sardar Patel's 150th birth anniversary and highlighted national unity and integration. All three statements are therefore correct."
+    },
+    {
+        q: "With reference to the 42nd Constitutional Amendment Act, 1976, consider the following statements: <br> 1. It inserted the words 'Socialist' and 'Secular' and the word 'integrity' in the Preamble.<br>2. It transferred 'Education' from the Concurrent List to the State List.<br>3. Its provision barring judicial review of constitutional amendments was upheld by the Supreme Court in Minerva Mills v. Union of India (1980).<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "1 only",
+            "Statement 2 alone",
+            "Both 1 and 2"
+        ],
+        ans: 1,
+        exp: "The 42nd Amendment, often called the 'Mini-Constitution', amended the Preamble and added Part IV-A. It moved 'Education' and four other subjects from the State List to the Concurrent List, which is the reverse of statement 2. In Minerva Mills (1980) the Supreme Court struck down the clauses of Article 368 that barred judicial review of amendments."
+    },
+    {
+        q: "With reference to the Fundamental Duty of parents and guardians to provide opportunities for education to their children, consider the following statements: <br> 1. Article 51A(k), added by the 86th Amendment, casts a duty on the State to provide free and compulsory education to children aged six to fourteen years.<br>2. In 2026, the Supreme Court directed governments to ensure implementation of the 25 per cent free seats for disadvantaged children in private unaided non-minority schools under Section 12(1)(c) of the RTE Act, 2009.<br>3. In Pramati Educational and Cultural Trust v. Union of India (2014), the Supreme Court held that the 25 per cent quota applies fully to unaided minority schools.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 and 3 only",
+            "3 only",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "Article 51A(k) places the duty on parents and guardians, while the obligation of the State to provide free and compulsory education arises from Article 21A, so statement 1 is wrong. The 2026 direction on Section 12(1)(c), reported in January 2026, was aimed at making the 25 per cent quota effective. In Pramati (2014), minority schools were exempted from the RTE Act, which makes statement 3 incorrect."
+    },
+    {
+        q: "A State government discontinues primary-level instruction in a minority language, leaving children of a linguistic minority without schooling in their mother tongue. Which provision of the Constitution most directly supports a demand to restore such facilities?",
+        opts: [
+            "Article 351, which directs the Union to promote the spread and development of the Hindi language",
+            "Article 350A, which directs States to provide adequate facilities for instruction in the mother tongue at the primary stage to children of linguistic minority groups",
+            "Article 29(2), which bars denial of admission to State-maintained or State-aided institutions on grounds of religion, race, caste or language",
+            "Article 347, which allows the President to direct official recognition of a language spoken by a substantial proportion of a State's population"
+        ],
+        ans: 1,
+        exp: "Article 350A, inserted by the 7th Amendment (1956), specifically targets instruction in the mother tongue at the primary stage for linguistic minority children. Article 29(2) concerns admission rather than the medium of instruction, Article 347 concerns official recognition of a language, and Article 351 concerns the development of Hindi."
+    },
+    {
+        q: "Consider the following events relating to the evolution of Fundamental Duties in India: <br> 1. Report of the Verma Committee on operationalisation of Fundamental Duties<br>2. Insertion of the eleventh Fundamental Duty by the 86th Amendment Act<br>3. Constitution of the Swaran Singh Committee<br>4. Enactment of the 42nd Constitutional Amendment Act<br>Arrange the above events in chronological order, from the earliest to the latest, using the code given below:",
+        opts: [
+            "3 - 1 - 4 - 2",
+            "3 - 4 - 1 - 2",
+            "4 - 3 - 1 - 2",
+            "3 - 4 - 2 - 1"
+        ],
+        ans: 1,
+        exp: "The Swaran Singh Committee was set up in 1976, and the 42nd Amendment, enacted later in 1976, added Part IV-A with ten duties. The Verma Committee on operationalisation of Fundamental Duties came in 1999, and the eleventh duty, Article 51A(k), was added by the 86th Amendment Act of 2002."
+    },
+    {
+        q: "The 86th Constitutional Amendment Act, 2002 inserted Article 21A, which the Right of Children to Free and Compulsory Education Act, 2009 gives effect to. In this context, consider the following statements: <br> 1. In its judgment of 1 September 2025, the Supreme Court held that in-service teachers with more than five years of service left must qualify the Teacher Eligibility Test (TET) within two years to continue in service.<br>2. In the same judgment, the Supreme Court held that the TET is mandatory for teachers of minority educational institutions as well, overruling Pramati Educational and Cultural Trust (2014).<br>3. In Pramati (2014), a five-judge Constitution Bench held that the RTE Act applies in full to aided and unaided minority institutions.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 1 alone",
+            "Only two of the statements are correct",
+            "2 only",
+            "Both 1 and 2"
+        ],
+        ans: 0,
+        exp: "The two-judge bench in Anjuman Ishaat-e-Taleem Trust v. State of Maharashtra (1 September 2025) required in-service teachers with more than five years left to qualify the TET within two years. It did not overrule Pramati but doubted it and referred to a larger bench the question whether the RTE Act applies to minority institutions, so statement 2 is wrong. Statement 3 is wrong because Pramati (2014) exempted minority institutions from the RTE Act."
+    },
+    {
+        q: "With reference to the Fundamental Duty relating to scientific temper under Article 51A(h), which one of the following statements is correct?",
+        opts: [
+            "It is a Directive Principle of State Policy that directs the State to promote scientific temper",
+            "It was inserted along with the duty of parents to provide education, by the 86th Amendment Act, 2002",
+            "It has been made justiciable through the Scientific Policy Resolution, 1958",
+            "It requires citizens to develop scientific temper, humanism and the spirit of inquiry and reform, and was among the original ten duties added in 1976"
+        ],
+        ans: 3,
+        exp: "Article 51A(h) is a duty of citizens, not a directive to the State, and it was part of the ten duties inserted by the 42nd Amendment (1976). The 86th Amendment added only the duty of parents and guardians in clause (k). The Scientific Policy Resolution, 1958 is a policy document and cannot make any duty justiciable."
+    },
+    {
+        q: "In the context of the Fundamental Duty to respect the Constitution and national symbols, consider the following statements relating to the 150th anniversary of the National Song: <br> 1. 'Vande Mataram' was composed by Rabindranath Tagore.<br>2. The year-long commemoration of 150 years of 'Vande Mataram' was launched in November 2025.<br>3. 'Vande Mataram' is mentioned by name in Article 51A(a) of the Constitution.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "Only statement 2",
+            "Only statement 1",
+            "3 only"
+        ],
+        ans: 1,
+        exp: "The year-long commemoration of 150 years of Vande Mataram was launched in November 2025. The song was composed by Bankim Chandra Chatterjee, not Tagore. Article 51A(a) refers only to the Constitution, the National Flag and the National Anthem and does not name the National Song."
+    },
+    {
+        q: "With reference to the Supreme Court's December 2025 judgment in M.K. Ranjitsinh v. Union of India concerning the Great Indian Bustard (GIB) and the Lesser Florican, consider the following statements: <br> 1. The Court reaffirmed that protection of endangered species flows from Articles 21, 48A and 51A(g) of the Constitution.<br>2. The Court imposed a blanket ban on all renewable energy projects across the entire States of Rajasthan and Gujarat.<br>3. The GIB is classified as 'Endangered' on the IUCN Red List.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "Statement 2 alone",
+            "1 only",
+            "None of the statements are correct"
+        ],
+        ans: 2,
+        exp: "The Court grounded species protection in Articles 21, 48A and 51A(g), and described it as non-negotiable. It did not impose a statewide ban: it restricted new renewable energy projects only within the revised priority habitat areas and allowed regulated development elsewhere. The GIB is listed as 'Critically Endangered' by the IUCN, which is a higher threat category than 'Endangered'."
+    },
+    {
+        q: "With reference to the legal framework for protecting the environment in India, consider the following statements: <br> 1. The Environment (Protection) Act, 1986 was enacted to implement decisions of the United Nations Conference on the Human Environment held at Stockholm in 1972.<br>2. Appeals against orders of the National Green Tribunal lie to the High Court.<br>3. The National Green Tribunal has jurisdiction over cases arising under the Wild Life (Protection) Act, 1972.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "Only statement 1",
+            "None of the above",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "The 1986 Act, enacted under Article 253, gave effect to the decisions of the Stockholm Conference of 1972. Appeals against NGT orders lie directly to the Supreme Court, not the High Court. The Wild Life (Protection) Act, 1972 and the Indian Forest Act, 1927 are not among the seven laws listed in the NGT Act, 2010, so the NGT has no jurisdiction under them."
+    },
+    {
+        q: "Consider the following pairs: <br> Law : Fundamental Duty it principally helps to give effect to <br>1. Prevention of Insults to National Honour Act, 1971 : Duty to respect the National Flag and the National Anthem<br>2. Forest (Conservation) Act, 1980 : Duty to protect and improve the natural environment including forests<br>3. Protection of Civil Rights Act, 1955 : Duty to uphold and protect the sovereignty, unity and integrity of India<br>How many of the pairs given above are correctly matched?",
+        opts: [
+            "None of the pairs",
+            "Only one pair",
+            "All three pairs",
+            "Only two pairs"
+        ],
+        ans: 3,
+        exp: "The Prevention of Insults to National Honour Act, 1971 operationalises respect for the Flag and the Anthem under Article 51A(a), and the Forest (Conservation) Act, 1980 supports Article 51A(g). The Protection of Civil Rights Act, 1955 deals with untouchability and is linked to the duty to promote harmony and brotherhood and to cherish the ideals of the freedom struggle, not to sovereignty and integrity, so pair 3 is wrongly matched."
+    },
+    {
+        q: "Consider the following two statements: <br> Assertion (A): The 42nd Constitutional Amendment Act, 1976 is often described as the 'Mini-Constitution'.<br>Reason (R): It amended the Preamble, inserted Part IV-A on Fundamental Duties, and made changes to several Articles and the Seventh Schedule.<br>In the context of the above, which one of the following is correct?",
+        opts: [
+            "A is true, but R is false",
+            "A is false, but R is true",
+            "Both A and R are true, but R is not the correct explanation of A",
+            "Both A and R are true, and R is the correct explanation of A"
+        ],
+        ans: 3,
+        exp: "The 42nd Amendment, passed during the Emergency, was so wide in scope that it is called the 'Mini-Constitution'. It added 'Socialist', 'Secular' and 'integrity' to the Preamble, inserted Part IV-A, and shifted subjects from the State List to the Concurrent List. The breadth of these changes is exactly why the label is used, so R explains A."
+    },
+    {
+        q: "With reference to the challenges in the implementation of Fundamental Duties, consider the following statements: <br> 1. The Constitution prescribes specific penalties for failure to perform Fundamental Duties.<br>2. Critics point out that expressions such as 'composite culture' and 'noble ideals' used in Article 51A are not defined in the Constitution.<br>3. All Fundamental Duties other than clause (k) of Article 51A are justiciable.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "3 only",
+            "1 and 3 only",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "A common criticism is that terms such as 'composite culture' and 'noble ideals' are vague and undefined. The Constitution prescribes no penalties for non-performance, so statement 1 is wrong. All the Fundamental Duties, including clause (k), are non-justiciable, so statement 3 is wrong."
+    },
+    {
+        q: "In the context of renouncing practices derogatory to the dignity of women, consider the following statements about the Supreme Court's judgment of 30 January 2026 in Dr. Jaya Thakur v. Union of India: <br> 1. The Court held that access to menstrual health and hygiene is an integral part of the right to life and dignity under Article 21.<br>2. The judgment was delivered by a Constitution Bench of five judges.<br>3. The Court directed States and Union Territories to ensure free sanitary napkins and functional gender-separate toilets in schools.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only",
+            "3 only"
+        ],
+        ans: 0,
+        exp: "The Court treated menstrual health as part of the right to life with dignity under Article 21 and issued binding directions on free sanitary napkins, separate toilets and awareness in schools. The ruling was delivered by a two-judge bench of Justices J.B. Pardiwala and R. Mahadevan, not by a Constitution Bench, so statement 2 is incorrect."
+    },
+    {
+        q: "Consider the following two statements: <br> Assertion (A): Article 51A of the Constitution does not itself prescribe any penalty for non-compliance with the Fundamental Duties.<br>Reason (R): The Swaran Singh Committee had not made any recommendation regarding penalty or punishment for non-observance of the duties.<br>In the context of the above, which one of the following is correct?",
+        opts: [
+            "Both A and R are true, and R is the correct explanation of A",
+            "A is true, but R is false",
+            "A is false, but R is true",
+            "Both A and R are true, but R is not the correct explanation of A"
+        ],
+        ans: 1,
+        exp: "Article 51A is silent on sanctions, so the Fundamental Duties are non-justiciable and carry no direct penalty. R is false because the Swaran Singh Committee did recommend that Parliament be empowered to provide penalties for non-compliance, but this was not accepted when the 42nd Amendment (1976) was enacted. The Committee's recommendation on the duty to pay taxes was likewise not incorporated into Article 51A."
+    },
+    {
+        q: "With reference to the constitutional provisions safeguarding the sovereignty, unity and integrity of India, consider the following statements: <br> 1. Under Article 3, Parliament can alter the area, boundaries or name of a State only with the consent of the Legislature of that State.<br>2. Article 19(2) permits reasonable restrictions on the freedom of speech and expression in the interests of the sovereignty and integrity of India.<br>3. The words 'sovereignty and integrity of India' were inserted in Article 19 by the 42nd Amendment Act, 1976.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 only",
+            "1 and 3 only",
+            "3 only"
+        ],
+        ans: 1,
+        exp: "Article 19(2) allows restrictions on speech in the interests of the sovereignty and integrity of India. Statement 1 is wrong because Article 3 only requires the President to refer the Bill to the State Legislature for its views, which are not binding on Parliament. Statement 3 is wrong because these words were added to Article 19 by the 16th Amendment Act, 1963, while the 42nd Amendment added the word 'integrity' to the Preamble."
+    },
+    {
+        q: "With reference to the constitutional provisions relating to the dignity and rights of women, consider the following statements: <br> 1. Article 15(3) permits the State to make special provisions for women and children.<br>2. Article 39(d), which provides for equal pay for equal work for men and women, is a Fundamental Right.<br>3. The reservation of one-third of seats for women in Panchayats under Article 243D was introduced by the 74th Amendment Act.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 only",
+            "3 only",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "Article 15(3) is an exception to the bar on discrimination and allows special provisions for women and children. Article 39(d) is a Directive Principle, not a Fundamental Right. The reservation for women in Panchayats under Article 243D came through the 73rd Amendment, while the 74th Amendment dealt with Municipalities."
+    },
+    {
+        q: "In the context of the Fundamental Duty to defend the country and render national service when called upon, consider the following statements: <br> 1. The Territorial Army is a full-time regular component of the Indian Army.<br>2. A 2025 notification of the Ministry of Defence under Rule 33 of the Territorial Army Rules, 1948 authorised the Chief of the Army Staff to activate all 32 Territorial Army infantry battalions.<br>3. Under the Agnipath scheme, Agniveers are recruited for a four-year tenure, with up to 25 per cent retained in regular service.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1 only",
+            "3 only",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "The Territorial Army is a part-time voluntary force that supports and augments the regular Army. The 2025 notification empowered the Army Chief to activate 14 of the 32 Territorial Army infantry battalions, not all of them, and was valid for three years. Under the Agnipath scheme, Agniveers serve four years and up to 25 per cent are retained for regular service."
+    },
+    {
+        q: "With reference to the Fundamental Duty to value and preserve the rich heritage of our composite culture, consider the following statements: <br> 1. It is contained in Article 51A(f) of the Constitution.<br>2. Article 351 envisages that the development of Hindi should enable it to serve as a medium of expression for all the elements of the composite culture of India.<br>3. Article 29(1), which protects the distinct language, script or culture of a section of citizens, can be invoked only by religious or linguistic minorities.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 2,
+        exp: "Clause (f) of Article 51A casts the duty to value and preserve the rich heritage of the composite culture, and Article 351 links the growth of Hindi to the same idea. Statement 3 is incorrect because Article 29(1) speaks of 'any section of citizens', so it is not confined to minorities."
+    },
+    {
+        q: "In the context of the continuing attention of courts and legislatures to protest-related damage to public property, consider the following statements: <br> 1. The duty to safeguard public property and abjure violence was added to Article 51A by the 86th Amendment Act, 2002.<br>2. In its 2009 judgment in Destruction of Public and Private Properties, In Re, the Supreme Court held that organisers of a protest cannot be made liable for damage unless they personally caused it.<br>3. Under the Prevention of Damage to Public Property Act, 1984, mischief causing damage to public property is punishable with imprisonment of up to five years, extendable to ten years if committed by fire or explosive substance.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 and 3 only",
+            "2 only",
+            "1 only"
+        ],
+        ans: 0,
+        exp: "Article 51A(i) was among the ten duties added by the 42nd Amendment (1976), not by the 86th Amendment. In the 2009 case the Supreme Court accepted the recommendations of the K.T. Thomas and Fali Nariman committees and said those behind violent protests should be held liable, so statement 2 is wrong. Statement 3 correctly states the penalties under the 1984 Act."
+    },
+    {
+        q: "With reference to reforms and recommendations relating to Fundamental Duties, consider the following statements: <br> 1. The Verma Committee (1999) recommended promoting awareness of Fundamental Duties through educational institutions.<br>2. Courts may regard a law that seeks to give effect to a Fundamental Duty as reasonable while testing it against Articles 14 and 19.<br>3. The 42nd Amendment inserted the duty to pay taxes honestly in Article 51A, as recommended by the Swaran Singh Committee.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "3 only",
+            "1 and 3 only",
+            "All of the above"
+        ],
+        ans: 0,
+        exp: "The Justice J.S. Verma Committee on operationalisation of Fundamental Duties emphasised education and awareness, and the Supreme Court has held that a law giving effect to a Fundamental Duty can be treated as reasonable under Articles 14 and 19. Statement 3 is incorrect because the duty to pay taxes was recommended by the Swaran Singh Committee but was not included in Article 51A."
+    },
+    {
+        q: "With reference to the legal provisions on respect for the Constitution and national symbols, consider the following statements: <br> 1. The Prevention of Insults to National Honour Act, 1971 provides for punishment for insulting the Indian National Flag or the Constitution of India, and for preventing the singing of the National Anthem.<br>2. The Flag Code of India, 2002 is an Act of Parliament.<br>3. Use of the State Emblem of India is regulated principally by the Prevention of Insults to National Honour Act, 1971.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "2 only",
+            "Only one of the statements is correct",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "The 1971 Act penalises insults to the National Flag and the Constitution and obstruction of the singing of the National Anthem. The Flag Code of India, 2002 is a set of executive instructions and not an Act of Parliament. The State Emblem of India is protected mainly by the State Emblem of India (Prohibition of Improper Use) Act, 2005."
+    },
+    {
+        q: "Superstition and black magic are often cited as obstacles to developing the scientific temper that Article 51A(h) calls for. In this context, consider the following statements: <br> 1. Parliament has enacted a central law prohibiting black magic and human sacrifice that applies uniformly across all States.<br>2. Maharashtra enacted a law against human sacrifice and black magic practices in 2013, after the murder of the rationalist Narendra Dabholkar.<br>3. Karnataka enacted a law against inhuman evil practices and black magic in 2017.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 and 2 only",
+            "3 only",
+            "2 and 3 only"
+        ],
+        ans: 3,
+        exp: "Public order is a State subject, and there is no central law on black magic, so statement 1 is incorrect. Maharashtra's 2013 Act followed the murder of Narendra Dabholkar, who had campaigned against superstition, and Karnataka passed a similar law in 2017. Such State laws are often linked to the duty to develop scientific temper and humanism."
+    },
+    {
+        q: "Which one of the following was NOT done by the 86th Constitutional Amendment Act, 2002?",
+        opts: [
+            "It inserted Article 15(5), enabling special provisions for the admission of backward classes to educational institutions",
+            "It inserted Article 21A, providing free and compulsory education to children aged six to fourteen in the manner the State may determine by law",
+            "It added a Fundamental Duty on parents and guardians to provide opportunities for education to their children aged six to fourteen",
+            "It substituted Article 45 to provide for early childhood care and education for children below the age of six"
+        ],
+        ans: 0,
+        exp: "The 86th Amendment inserted Article 21A, substituted Article 45 and added Article 51A(k). Article 15(5), which enables special provisions for admission to educational institutions, was inserted by the 93rd Amendment Act, 2005."
+    },
+    {
+        q: "With reference to the role of the Supreme Court in the enforcement of Fundamental Duties, consider the following statements: <br> 1. In AIIMS Students' Union v. AIIMS (2001), the Supreme Court observed that Fundamental Duties, though not enforceable by a writ, are no less important than Fundamental Rights.<br>2. The Supreme Court has held that Fundamental Duties can be directly enforced against citizens through a writ under Article 32.<br>3. In Shyam Narayan Chouksey v. Union of India, the Supreme Court finally held that playing the National Anthem in cinema halls is compulsory.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 3 alone",
+            "Only two of the statements are correct",
+            "Only statement 1",
+            "None of the above"
+        ],
+        ans: 2,
+        exp: "In AIIMS Students' Union the Court stressed the importance of the duties while accepting that they cannot be enforced by a writ, so statement 2 is wrong. In Shyam Narayan Chouksey, the 2016 order making the Anthem compulsory in cinema halls was modified in January 2018 to make it optional, so statement 3 is wrong."
+    },
+    {
+        q: "In the context of communal and regional tensions, citizens are expected to promote harmony and the spirit of common brotherhood. Which one of the following is NOT contained in clause (e) of Article 51A?",
+        opts: [
+            "Transcending religious, linguistic and regional or sectional diversities",
+            "Renouncing practices derogatory to the dignity of women",
+            "Promoting harmony and the spirit of common brotherhood amongst all the people of India",
+            "Developing the scientific temper, humanism and the spirit of inquiry and reform"
+        ],
+        ans: 3,
+        exp: "Clause (e) of Article 51A combines the duty to promote harmony and brotherhood across religious, linguistic and regional or sectional diversities with the duty to renounce practices derogatory to the dignity of women. The duty to develop scientific temper, humanism and the spirit of inquiry and reform is a separate duty under clause (h)."
+    },
+    {
+        q: "With reference to reforms in the legal framework for protecting wildlife in India, consider the following statements about the Wild Life (Protection) Amendment Act, 2022: <br> 1. It reduced the number of Schedules in the Wild Life (Protection) Act, 1972 from six to four.<br>2. It prohibits all transfer or transport of captive elephants within the country.<br>3. It retained a separate Schedule listing vermin species.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 only",
+            "3 only"
+        ],
+        ans: 2,
+        exp: "The 2022 amendment rationalised the Schedules from six to four and gave effect to India's obligations under CITES. It deleted the Schedule on vermin and instead empowered the Central Government to declare certain wild animals as vermin for a specified area and period. Statement 2 is wrong because the Act permits transfer or transport of captive elephants for religious or other purposes under prescribed conditions."
+    },
+    {
+        q: "Consider the following pairs: <br> Provision : Feature <br>1. Articles 36 to 51 (Directive Principles) : Contained in Part IV-A of the Constitution<br>2. Article 51A : Duties addressed to the State<br>3. Article 37 : Declares that Directive Principles are not enforceable by any court<br>How many of the pairs given above are correctly matched?",
+        opts: [
+            "All three pairs",
+            "Only one pair",
+            "Only two pairs",
+            "None of the pairs"
+        ],
+        ans: 1,
+        exp: "Article 37 provides that Directive Principles are not enforceable by any court, so pair 3 is correct. The Directive Principles lie in Part IV, while Part IV-A contains only Article 51A, so pair 1 is wrong. Article 51A is addressed to citizens, whereas Directive Principles are addressed to the State, so pair 2 is wrong as well."
+    },
+    {
+        q: "With reference to the Verma Committee (1999) on the operationalisation of Fundamental Duties, consider the following statements: <br> 1. It was constituted to examine whether Fundamental Duties should be incorporated in the Constitution.<br>2. It recommended the repeal of the Prevention of Insults to National Honour Act, 1971.<br>3. It identified existing legal provisions that give effect to certain Fundamental Duties, such as the Prevention of Insults to National Honour Act, 1971 and the Protection of Civil Rights Act, 1955.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "Only two of the statements are correct",
+            "1 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "The Justice J.S. Verma Committee on operationalisation of Fundamental Duties identified existing laws, including the 1971 Act and the Protection of Civil Rights Act, 1955, that already give effect to certain duties. The duties had been part of the Constitution since 1976, so the Committee was not asked whether to incorporate them. It did not recommend repealing the 1971 Act, which it treated as an existing legal support for the duties."
+    },
+    {
+        q: "Consider the following statements about Fundamental Duties: <br> 1. They are contained in Part IV of the Constitution along with the Directive Principles of State Policy.<br>2. They were incorporated in the Constitution in 1976 following the recommendations of the Swaran Singh Committee.<br>3. The duty to vote in elections is listed among them in Article 51A.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 2 alone",
+            "Both 2 and 3",
+            "Only statement 1",
+            "All of the above"
+        ],
+        ans: 0,
+        exp: "The Fundamental Duties were added by the 42nd Amendment (1976) following the Swaran Singh Committee. They are placed in Part IV-A, a separate Part after the Directive Principles in Part IV, so statement 1 is wrong. Voting is not among the duties listed in Article 51A, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the constitutional and legal provisions on the education of children, consider the following statements: <br> 1. Article 21A guarantees free and compulsory education to all children up to the age of eighteen years.<br>2. Article 51A(k) places the responsibility for providing education to children on the State rather than on parents.<br>3. The Right of Children to Free and Compulsory Education Act, 2009 came into force on 1 April 2010.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 only",
+            "3 only",
+            "1 only"
+        ],
+        ans: 2,
+        exp: "The RTE Act, 2009 came into force on 1 April 2010. Article 21A covers children aged six to fourteen years, not up to eighteen. Article 51A(k) casts the duty on a parent or guardian to provide opportunities for education to a child between six and fourteen, while the State's obligation arises under Article 21A."
+    },
+    {
+        q: "Which one of the following best describes the background in which the Swaran Singh Committee was set up?",
+        opts: [
+            "It was constituted by Parliament through a joint resolution after the Kesavananda Bharati verdict to define the limits of citizens' rights",
+            "It was set up by the Congress Party in 1976, during the internal Emergency, to make recommendations on Fundamental Duties",
+            "It was appointed by the Law Commission in 1978 to review the 42nd Amendment Act",
+            "It was appointed by the Constituent Assembly in 1948 to draft a chapter on the duties of citizens"
+        ],
+        ans: 1,
+        exp: "The need for Fundamental Duties was felt during the internal Emergency (1975-77), and the Congress Party set up the Sardar Swaran Singh Committee in 1976. It recommended a separate chapter on duties, and the 42nd Amendment (1976) added Part IV-A. The Committee suggested eight duties, but the Amendment included ten."
+    },
+    {
+        q: "Which one of the following correctly distinguishes Fundamental Rights from Fundamental Duties?",
+        opts: [
+            "All Fundamental Rights are available equally to citizens and foreigners, whereas Fundamental Duties are meant for citizens only",
+            "Fundamental Rights were part of the Constitution as originally adopted in 1950, whereas Fundamental Duties were added later by an amendment",
+            "Fundamental Rights are contained in Part III, whereas Fundamental Duties form part of the Directive Principles in Part IV",
+            "Both are enforceable through courts, but only Fundamental Rights are subject to reasonable restrictions"
+        ],
+        ans: 1,
+        exp: "Fundamental Rights formed part of Part III from the start, while Fundamental Duties were inserted in Part IV-A by the 42nd Amendment (1976). Option B is wrong because certain Fundamental Rights, such as those under Articles 15, 16, 19, 29 and 30, are available only to citizens. Option C is wrong because Fundamental Duties are non-justiciable, and option D is wrong because Fundamental Duties lie in the separate Part IV-A."
+    },
+    {
+        q: "With reference to the Fundamental Duty relating to the defence of the country and national service, consider the following statements: <br> 1. The duty was added to Article 51A by the 86th Amendment Act, 2002.<br>2. It obliges every citizen to undergo compulsory military training.<br>3. The duty to render national service arises when citizens are called upon to do so.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "Only statement 1",
+            "All three statements are correct",
+            "Only one of the statements is correct"
+        ],
+        ans: 3,
+        exp: "Article 51A(d) requires citizens to defend the country and render national service when called upon to do so. It was among the original ten duties added by the 42nd Amendment (1976), not by the 86th Amendment, which added only clause (k). The provision does not itself impose compulsory military training."
+    },
+    {
+        q: "Which of the following are among the Fundamental Duties of citizens laid down in Article 51A of the Constitution of India? <br> 1. To abide by the Constitution and respect its ideals and institutions, the National Flag and the National Anthem<br>2. To pay taxes honestly to the State<br>3. To protect and improve the natural environment including forests, lakes, rivers and wildlife<br>4. To defend the country and render national service when called upon to do so<br>Select the correct answer using the code given below:",
+        opts: [
+            "1, 3 and 4 only",
+            "2, 3 and 4 only",
+            "1 and 2 only",
+            "1, 2, 3 and 4"
+        ],
+        ans: 0,
+        exp: "Article 51A(a), (g) and (d) respectively contain the duties to abide by the Constitution and respect the Flag and Anthem, to protect the natural environment, and to defend the country and render national service. The duty to pay taxes honestly, though often assumed to be a Fundamental Duty, is not listed in Article 51A, which is the usual trap in such questions."
+    },
+    {
+        q: "With reference to the comparison of India's Fundamental Duties with other constitutional models, consider the following statements: <br> 1. The Constitution of Japan lists duties of citizens, including the duties to work, to pay taxes and to have children under their protection receive ordinary education.<br>2. The Constitution of the United States, like that of the erstwhile USSR, contains a separate chapter on the duties of citizens.<br>3. The Constitution of the erstwhile USSR declared that the exercise of citizens' rights and freedoms was inseparable from the performance of their duties and obligations.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "None of the above",
+            "All three statements are correct",
+            "Both 1 and 3"
+        ],
+        ans: 3,
+        exp: "Standard references trace the Indian Fundamental Duties to the USSR Constitution, which linked rights with duties, and note that the Japanese Constitution lists duties such as work, taxation and education of children. The US Constitution has no list of citizens' duties, so statement 2 is incorrect."
+    },
+    {
+        q: "In the context of promoting harmony and common brotherhood, consider the following statements about recent legal developments: <br> 1. The Waqf (Amendment) Act, 2025 repealed the Waqf Act, 1995 and replaced it with an entirely new statute.<br>2. In its interim order of 15 September 2025, the Supreme Court stayed certain provisions of the Waqf (Amendment) Act, 2025, such as the five-year practising-Islam requirement for creating a waqf, while declining to stay the entire Act.<br>3. In Vishal Tiwari v. Union of India (May 2025), the Supreme Court directed Parliament to enact a central law on hate speech.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "2 only",
+            "1 and 3 only",
+            "1 only"
+        ],
+        ans: 1,
+        exp: "The 2025 law amended the Waqf Act, 1995 rather than repealing it. The Supreme Court's interim order of 15 September 2025 stayed some provisions, including the five-year requirement, but did not stay the whole Act. In Vishal Tiwari the Court strongly condemned hate speech but took no direct action and did not direct Parliament to legislate."
+    },
+    {
+        q: "Article 51A(c) casts a duty on every citizen to uphold and protect the sovereignty, unity and integrity of India. With reference to the legal position on the transfer of a part of Indian territory to a foreign country, which one of the following is correct?",
+        opts: [
+            "It requires a constitutional amendment under Article 368, as Article 3 does not cover cession of territory to a foreign State",
+            "The Union Executive can do so through a treaty alone, as it conducts foreign affairs",
+            "It requires a Presidential Order under Article 3 after the consent of the concerned State Legislature",
+            "Parliament can do so by a simple majority law under Article 3"
+        ],
+        ans: 0,
+        exp: "In the Berubari Union case (1960), the Supreme Court held that Article 3 deals only with internal reorganisation of States and does not permit cession of Indian territory to another country. Such cession needs a constitutional amendment under Article 368, as with the 9th Amendment (1960) and the 100th Amendment (2015) for the India-Bangladesh Land Boundary Agreement. A treaty or ordinary law alone is therefore insufficient."
+    },
+    {
+        q: "With reference to the legal provisions for promoting harmony and common brotherhood, consider the following statements: <br> 1. The Places of Worship (Special Provisions) Act, 1991 maintains the religious character of a place of worship as it existed on 26 January 1950.<br>2. The Bharatiya Nyaya Sanhita, 2023 retains, in Section 196, the offence of promoting enmity between groups on grounds such as religion, race, place of birth, residence or language, earlier covered by Section 153A of the Indian Penal Code.<br>3. The Representation of the People Act, 1951 does not treat an appeal for votes on the ground of religion as a corrupt practice.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 only",
+            "1 and 3 only",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "Section 196 of the BNS carries forward the offence earlier found in Section 153A of the IPC. The 1991 Act freezes the religious character of places of worship as on 15 August 1947 (with an exemption for the Ayodhya dispute), not 26 January 1950. Section 123(3) of the Representation of the People Act, 1951 treats an appeal for votes on grounds of religion, race, caste, community or language as a corrupt practice, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the constitutional provisions on Fundamental Duties, consider the following statements: <br> 1. Article 51A begins by stating that it shall be the duty of every citizen of India to observe the duties listed in it.<br>2. The duty to provide opportunities for education applies to a parent or guardian of a child between the ages of six and fourteen years.<br>3. Article 51A provides that Parliament may by law prescribe penalties for violation of any of the duties listed in it.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "Only statement 1",
+            "1 and 2 only",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 2,
+        exp: "Article 51A, the only Article in Part IV-A, opens by casting the duties on every citizen, and clause (k) covers parents and guardians of children aged six to fourteen. The Constitution contains no provision authorising or prescribing penalties for violating the duties, so statement 3 is incorrect. This is why the duties remain non-justiciable."
+    },
+    {
+        q: "With reference to the Fundamental Duty 'to cherish and follow the noble ideals which inspired our national struggle for freedom', consider the following statements: <br> 1. It was inserted in Article 51A by the 86th Constitutional Amendment Act, 2002.<br>2. The Constitution specifically enumerates the ideals that inspired the national struggle for freedom.<br>3. It is addressed only to citizens and cannot be directly enforced by courts through a writ.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "Exactly two of the statements are correct",
+            "All of the above",
+            "None of the statements are correct"
+        ],
+        ans: 0,
+        exp: "Article 51A(b) is one of the original ten duties added by the 42nd Amendment (1976), so statement 1 is wrong. The Constitution refers only to 'noble ideals' without listing them, so statement 2 is also wrong. Like all Fundamental Duties, it applies only to citizens and is non-justiciable."
+    },
+    {
+        q: "With reference to the features of Fundamental Duties, consider the following statements: <br> 1. Part IV-A of the Constitution consists of several Articles, each dealing with one Fundamental Duty.<br>2. Some of the Fundamental Duties are moral in nature, while others are civic in nature.<br>3. The Constitution prescribes a specific penalty for every violation of a Fundamental Duty.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "Only statement 3",
+            "Exactly one of the statements is correct",
+            "All of the statements are correct"
+        ],
+        ans: 2,
+        exp: "Moral duties include cherishing the noble ideals of the freedom struggle, while civic duties include respecting the Constitution, the National Flag and the National Anthem. Part IV-A contains a single Article, 51A, listing all the duties. The Constitution prescribes no penalty for their violation, which is why they are non-justiciable."
+    },
+    {
+        q: "With reference to the constitutional and legal framework for protecting the environment and wildlife in India, consider the following statements: <br> 1. Article 48A, inserted by the 42nd Amendment, directs the State to protect and improve the environment and safeguard forests and wildlife.<br>2. 'Forests' and 'Protection of wild animals and birds' are subjects in the Concurrent List of the Seventh Schedule.<br>3. Under Article 253, Parliament can legislate even on State List subjects to implement international agreements.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 and 3 only",
+            "1, 2 and 3",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "Article 48A is a Directive Principle in Part IV that binds the State, while the corresponding duty of citizens lies in Article 51A(g). The 42nd Amendment shifted 'Forests' and 'Protection of wild animals and birds' from the State List to the Concurrent List. Article 253 lets Parliament override the State List to implement treaties, as was done for the Environment (Protection) Act, 1986."
+    },
+    {
+        q: "In the context of the year-long commemoration of 150 years of the National Song 'Vande Mataram' launched in November 2025, consider the following statements: <br> 1. Article 51A(a) requires citizens to respect the Constitution, the National Flag and the National Anthem, but does not mention the National Song.<br>2. In 1937, the Congress Working Committee endorsed the use of only the first two stanzas of the song at national gatherings.<br>3. The Prevention of Insults to National Honour Act, 1971 prescribes penalty for disrespect to the National Song.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "Only statement 1",
+            "1 and 3 only",
+            "Only statement 2"
+        ],
+        ans: 0,
+        exp: "The Constitution does not mention a National Song, and Article 51A(a) refers only to the Constitution, the Flag and the Anthem. The Congress Working Committee in 1937 limited the song's use to its first two stanzas, and the Constituent Assembly accorded it equal honour with the Anthem on 24 January 1950. The 1971 Act penalises insults only to the National Flag, the Constitution and the National Anthem, so statement 3 is incorrect."
+    },
+    {
+        q: "In the debate on whether Fundamental Duties should be made enforceable, consider the following statements: <br> 1. Being part of the Constitution, Fundamental Duties can be directly enforced through a writ petition against a citizen who violates them.<br>2. Like Articles 14 and 21, Fundamental Duties apply to citizens and foreigners alike.<br>3. The Verma Committee (1999) concluded that no existing statute gives legal effect to any of the Fundamental Duties.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 only",
+            "2 and 3 only",
+            "None of the statements given above is correct"
+        ],
+        ans: 3,
+        exp: "Fundamental Duties are non-justiciable and apply only to citizens, so neither statement 1 nor statement 2 is correct. The Justice J.S. Verma Committee on Operationalisation of Fundamental Duties (1999) identified existing laws that already give effect to several duties, such as the Prevention of Insults to National Honour Act, 1971 and the Protection of Civil Rights Act, 1955. Statement 3 therefore misstates its finding."
+    },
+    {
+        q: "With reference to judicial pronouncements relating to national symbols and Fundamental Duties, consider the following statements: <br> 1. In Bijoe Emmanuel v. State of Kerala (1986), the Supreme Court held that students who stood respectfully but did not sing the National Anthem could not be expelled, as no law compelled them to sing it.<br>2. In Union of India v. Naveen Jindal (2004), the Supreme Court held that the right to fly the National Flag is merely a customary right and not a fundamental right.<br>3. In Animal Welfare Board of India v. A. Nagaraja (2014), the Supreme Court invoked the duty to have compassion for living creatures under Article 51A(g) while interpreting animal protection laws.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 and 3 only",
+            "1 and 2 only",
+            "1 and 3 only"
+        ],
+        ans: 3,
+        exp: "In Bijoe Emmanuel, the Court held that respectful standing during the Anthem satisfies the duty and that compelling students to sing violates their freedom of conscience. In Nagaraja (Jallikattu case), the Court relied on Article 51A(g) and the dignity of animals. Statement 2 is wrong: in Naveen Jindal the Court held that flying the National Flag is a fundamental right under Article 19(1)(a), subject to reasonable restrictions."
+    },
+    {
+        q: "With reference to the Fundamental Duty to strive towards excellence in all spheres of individual and collective activity, consider the following statements: <br> 1. It was added to Article 51A by the 86th Constitutional Amendment Act, 2002.<br>2. The Supreme Court has cited this duty while emphasising merit in admissions to super-speciality medical courses.<br>3. It expects excellence in both individual and collective activity so that the nation constantly rises to higher levels of endeavour and achievement.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 and 2 only",
+            "3 only"
+        ],
+        ans: 0,
+        exp: "Article 51A(j) was part of the original ten duties added by the 42nd Amendment (1976). The 86th Amendment (2002) added only the eleventh duty, Article 51A(k), on education of children aged 6 to 14. In AIIMS Students' Union v. AIIMS (2001), the Court linked Article 51A(j) to merit in super-speciality admissions, and the duty covers both individual and collective activity."
+    },
+    {
+        q: "With reference to the legal provisions on safeguarding public property, consider the following statements: <br> 1. The Prevention of Damage to Public Property Act, 1984 protects both public and private property from damage during riots and protests.<br>2. Under the Act, the definition of public property includes property of a government company and installations used for the supply of water, light, power or energy.<br>3. Under the Act, a person accused of an offence punishable under its main penal provisions cannot be released on bail while in custody unless the prosecution has been given an opportunity to oppose the application.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 3",
+            "None of the statements are correct",
+            "Both 1 and 3",
+            "Both 2 and 3"
+        ],
+        ans: 3,
+        exp: "The 1984 Act defines public property widely, covering property of the Government, local authorities, statutory corporations and government companies, and installations such as those for water, power and energy supply. It also restricts bail unless the prosecution is heard. Statement 1 is wrong because the Act deals only with public property, and damage to private property is addressed through other laws and the Supreme Court's guidelines."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-30 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

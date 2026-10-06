@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-80</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "With reference to the structure of India's science and technology administration, consider the following statements: <br>1. The Ministry of Science and Technology comprises three departments — the Department of Science and Technology (DST), the Department of Scientific and Industrial Research (DSIR), and the Department of Biotechnology (DBT).<br>2. The Council of Scientific and Industrial Research (CSIR) functions as an autonomous body under the administrative purview of the DSIR.<br>3. The Survey of India and the National Atlas and Thematic Mapping Organisation (NATMO) function as subordinate offices under the administrative control of the DST.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "All of the above",
+            "1 and 3 only",
+            "Statement 1 alone"
+        ],
+        ans: 1,
+        exp: "The Ministry of Science and Technology is indeed composed of DST, DSIR and DBT, and CSIR operates as an autonomous body under DSIR, making statements 1 and 2 correct. The Survey of India and NATMO are also subordinate departments functioning under the administrative control of DST, making statement 3 correct as well."
+    },
+    {
+        q: "Which of the following is a recognised challenge in the development of nanotechnology in India?",
+        opts: [
+            "A legal prohibition on the import of nanotechnology-based equipment",
+            "Absence of a comprehensive national regulatory framework specifically governing the safety and environmental impact of nanomaterials",
+            "A ban on public-private partnerships in the nanotechnology sector",
+            "A complete absence of government funding for nanoscience research"
+        ],
+        ans: 1,
+        exp: "A recognised challenge for India's nanotechnology sector is the lack of a comprehensive, dedicated national regulatory framework to govern the safety, standardisation and environmental impact of nanomaterials, prompting calls for a national regulatory roadmap. The other options misstate the situation, since the Nano Mission actively funds research, encourages public-private partnerships, and does not restrict equipment imports."
+    },
+    {
+        q: "With reference to the structure of India's renewable energy governance, consider the following statements: <br>1. The Ministry of New and Renewable Energy (MNRE) traces its origins to the Commission for Additional Sources of Energy, established within the Department of Science and Technology in 1981.<br>2. The Indian Renewable Energy Development Agency (IREDA) functions as a Navratna non-banking financial institution under the administrative control of MNRE.<br>3. The Solar Energy Corporation of India (SECI) is a private limited company with no government ownership, established solely to attract foreign investment.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "MNRE traces its lineage to the Commission for Additional Sources of Energy set up within DST in 1981, and IREDA functions as a Navratna NBFC under MNRE's administrative control, making statements 1 and 2 correct. SECI, however, is a Schedule-A Central Public Sector Enterprise under MNRE with government ownership, not a private company established solely for foreign investment, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to India's National Strategy for Additive Manufacturing, consider the following statements: <br>1. It was released by the Ministry of Electronics and Information Technology (MeitY) in February 2022.<br>2. It aims to develop India-specific technologies, promote new startups, and train a skilled workforce in additive manufacturing.<br>3. It sets a target of increasing India's share in the global additive manufacturing market to 25% within three years.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "Both 1 and 3",
+            "None of the above",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "The National Strategy for Additive Manufacturing was indeed released by MeitY in February 2022, with objectives to develop India-specific technologies, encourage new startups, and train a skilled workforce, making statements 1 and 2 correct. However, its actual target is to raise India's share in the global additive manufacturing market to 5%, not 25%, within three years, making statement 3 incorrect."
+    },
+    {
+        q: "The Energy Conservation (Amendment) Act, 2022, which enables the establishment of India's Carbon Credit Trading Scheme, was enacted by amending which of the following legislations?",
+        opts: [
+            "Electricity Act, 2003",
+            "Air (Prevention and Control of Pollution) Act, 1981",
+            "Energy Conservation Act, 2001",
+            "Environment (Protection) Act, 1986"
+        ],
+        ans: 2,
+        exp: "The Energy Conservation (Amendment) Act, 2022 amended the Energy Conservation Act, 2001, empowering the Central Government to specify a carbon credit trading scheme and to mandate that designated consumers meet a minimum share of their energy consumption from non-fossil sources. It did not amend the Environment (Protection) Act, Electricity Act, or Air Act, which govern separate regulatory domains."
+    },
+    {
+        q: "With reference to recommendations concerning India's research and development ecosystem in the context of scientific recognition, consider the following statements: <br>1. India's Gross Expenditure on Research and Development (GERD), at less than 1% of GDP, remains well below the global average and is often cited as a structural constraint on India's scientific output.<br>2. The Science, Technology and Innovation Policy of 2013 had set a target of raising GERD to 2% of GDP.<br>3. Experts have recommended that India progressively raise its R&D spending, suggesting a range of about 1% to 3% of GDP by 2047.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "India's GERD has remained below 1% of GDP (around 0.64% as of 2020-21), well below the global average, and is widely cited as a factor limiting high-end scientific output, making statement 1 correct. The 2013 STI Policy had indeed set a 2% of GDP target for GERD, and experts have recommended progressively raising R&D spending to a range of roughly 1% to 3% of GDP by 2047, making statements 2 and 3 correct as well."
+    },
+    {
+        q: "With reference to the features of the Nobel Prize, consider the following statements: <br>1. Nobel Prizes are conferred annually on 10 December, the anniversary of Alfred Nobel's death.<br>2. All Nobel Prizes, including the Prize in Economic Sciences, are awarded in a ceremony held in Stockholm, Sweden.<br>3. A Nobel medal, once awarded, cannot be revoked even if the laureate is later found guilty of misconduct.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 3",
+            "2 and 3 only",
+            "Only statement 2",
+            "None of the statements are correct"
+        ],
+        ans: 0,
+        exp: "Nobel Prizes are indeed awarded annually on 10 December, the anniversary of Alfred Nobel's death, and Nobel Foundation statutes make clear that a medal cannot be revoked once conferred, making statements 1 and 3 correct. However, while Physics, Chemistry, Medicine, Literature and Economic Sciences prizes are awarded in Stockholm, the Nobel Peace Prize is awarded separately in Oslo, Norway, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to the evolution of India's science and technology policy, consider the following statements: <br>1. India's first national science policy, the Scientific Policy Resolution, was adopted in 1958 under the government of Jawaharlal Nehru.<br>2. The Technology Policy Statement of 1983 emphasised technological self-reliance and the development of indigenous technology.<br>3. The Draft Science, Technology and Innovation Policy (STIP) 2020 represents India's fifth national science policy and remains under consideration, without formal notification as of the mid-2020s.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "The Scientific Policy Resolution of 1958 was indeed India's first national science policy under Nehru, and the Technology Policy Statement of 1983 emphasised technological self-reliance through indigenous technology, making statements 1 and 2 correct. The Draft STIP 2020, coming after the 1958, 1983, 2003 and 2013 policies, is indeed India's fifth national science policy and has remained under consultation without formal notification, making statement 3 correct as well."
+    },
+    {
+        q: "With reference to India's Nano Mission, consider the following statements: <br>1. It functions under the administrative control of the Department of Science and Technology.<br>2. It evolved out of the earlier Nano Science and Technology Initiative (NSTI).<br>3. Its funding support is confined exclusively to private sector startups, with public research institutions and universities excluded.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "Only two of the statements are correct",
+            "Only one of the statements is correct",
+            "Both 1 and 3"
+        ],
+        ans: 1,
+        exp: "The Nano Mission is administered by the Department of Science and Technology (DST) and was scaled up from the earlier Nano Science and Technology Initiative (NSTI), making statements 1 and 2 correct. The Mission funds research centres, IITs, IISc, CSIR and public-private partnerships rather than excluding public institutions, so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to India's National Quantum Mission, consider the following statements: <br>1. It was approved by the Union Cabinet in 2023, with the Department of Science and Technology as the implementing agency.<br>2. It envisages the establishment of four Thematic Hubs (T-Hubs) in premier academic and national research institutions to advance quantum research.<br>3. Its objective is restricted to developing quantum key distribution for cybersecurity, excluding quantum computing hardware from its scope.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the statements are correct",
+            "Exactly two of the statements are correct",
+            "2 only",
+            "Only statement 3"
+        ],
+        ans: 1,
+        exp: "The National Quantum Mission was approved by the Union Cabinet in 2023 with the Department of Science and Technology as the nodal implementing agency, and it provides for four Thematic Hubs in premier institutions covering quantum computing, communication, sensing and materials, making statements 1 and 2 correct. Its scope is broad and not restricted to quantum key distribution alone, as it explicitly includes the development of quantum computing hardware, making statement 3 incorrect."
+    },
+    {
+        q: "Which of the following schemes was launched by the Government of India to succeed the FAME-II scheme for promoting electric mobility?",
+        opts: [
+            "PM-KUSUM Scheme",
+            "National Hydrogen Mission",
+            "PM E-DRIVE Scheme",
+            "PLI Scheme for Advanced Chemistry Cell (ACC) Battery Storage"
+        ],
+        ans: 2,
+        exp: "The PM E-DRIVE (PM Electric Drive Revolution in Innovative Vehicle Enhancement) Scheme was launched to succeed the FAME-II scheme upon its conclusion, extending support to electric two-wheelers, three-wheelers, buses, trucks and ambulances. The National Hydrogen Mission, PM-KUSUM and the ACC battery PLI scheme address green hydrogen, solar-powered irrigation, and battery cell manufacturing respectively, and are not successors to FAME-II."
+    },
+    {
+        q: "Consider the following statements regarding the features of green technology: <br>1. Green technology, also referred to as clean technology, includes innovations that promote renewable energy, energy efficiency, and reduction of greenhouse gas emissions.<br>2. Green hydrogen, produced through electrolysis of water using renewable electricity, is considered an example of green technology.<br>3. There exists a single, internationally agreed and legally binding definition of 'green technology.'<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "Green technology, synonymous with clean technology, broadly covers innovations promoting renewable energy, efficiency and lower emissions, and green hydrogen produced via electrolysis using renewable electricity is a recognised example, making statements 1 and 2 correct. However, there is no single, internationally agreed or legally binding definition of 'green technology,' as noted by UNCTAD, making statement 3 incorrect."
+    },
+    {
+        q: "The Carbon Credit Trading Scheme (CCTS), which establishes the Indian Carbon Market, has been notified by exercising powers conferred under which of the following legislations?",
+        opts: [
+            "Environment (Protection) Act, 1986",
+            "The Electricity Act, 2003",
+            "Air (Prevention and Control of Pollution) Act, 1981",
+            "Energy Conservation Act, 2001"
+        ],
+        ans: 3,
+        exp: "The Carbon Credit Trading Scheme, 2023 was notified under Section 14(w) of the Energy Conservation Act, 2001, as amended by the Energy Conservation (Amendment) Act, 2022, which empowers the Central Government to specify such a scheme. It works alongside the existing Perform, Achieve and Trade (PAT) Scheme for obligated entities rather than being derived from environmental or electricity legislation."
+    },
+    {
+        q: "With reference to national policies for recognising scientific achievement in India, consider the following statements: <br>1. The Rashtriya Vigyan Puraskar, introduced by the Government of India, does not carry a monetary award and is designed to be on par with the Padma Awards in stature.<br>2. The Bharat Ratna and Padma Awards are titles conferred under Article 18(1) of the Constitution of India.<br>3. The Shanti Swarup Bhatnagar Prize for Science and Technology has been administered by the Council of Scientific and Industrial Research (CSIR) since its inception.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "Both 2 and 3",
+            "Both 1 and 2",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "The Rashtriya Vigyan Puraskar was introduced without a monetary component, elevated in stature to match the Padma Awards, and the Shanti Swarup Bhatnagar Prize has been administered by CSIR since it was instituted, making statements 1 and 3 correct. However, the Supreme Court has clarified that the Bharat Ratna and Padma Awards are decorations, not 'titles' within the meaning of Article 18(1), so statement 2 is incorrect."
+    },
+    {
+        q: "Consider the following statements: <br>1. The National Action Plan on Climate Change (NAPCC) is a legally binding treaty ratified by Parliament in 2008, comprising eight national missions.<br>2. The Jawaharlal Nehru National Solar Mission (JNNSM) was inaugurated in January 2010, with an original target of 20,000 MW of grid-connected solar capacity by 2022, later revised upward.<br>3. Implementation of the NAPCC is overseen primarily by the Ministry of External Affairs, given its predominantly international dimensions.<br>Which of the statements given above is correct?",
+        opts: [
+            "1 and 2 only",
+            "2 only",
+            "1 only",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "The Jawaharlal Nehru National Solar Mission was indeed launched in January 2010 with an original target of 20,000 MW by 2022, later revised significantly upward, making statement 2 correct. However, the NAPCC is a policy document rather than a legally binding treaty ratified by Parliament, and its implementation is overseen domestically by the Prime Minister's Council on Climate Change and the Ministry of Environment, Forest and Climate Change, not the Ministry of External Affairs, making statements 1 and 3 incorrect."
+    },
+    {
+        q: "With reference to the background and evolution of the Nobel Prize, consider the following statements: <br>1. Alfred Nobel's will, signed in 1895, originally established six prize categories, including the Prize in Economic Sciences.<br>2. The first Nobel Prizes were awarded in 1901, at a ceremony held on 10 December, the fifth anniversary of Nobel's death.<br>3. Rabindranath Tagore, awarded the Nobel Prize in Literature in 1913, became the first Asian Nobel laureate.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "1, 2 and 3",
+            "3 only"
+        ],
+        ans: 1,
+        exp: "The first Nobel Prizes were indeed awarded in 1901 on 10 December, the fifth anniversary of Alfred Nobel's death, and Tagore's 1913 Literature Nobel made him the first Asian laureate, making statements 2 and 3 correct. However, Nobel's 1895 will originally established only five prize categories — Physics, Chemistry, Medicine, Literature and Peace — with the Prize in Economic Sciences added later in 1968 by Sveriges Riksbank, making statement 1 incorrect."
+    },
+    {
+        q: "With reference to the background and evolution of India's scientific institutions, consider the following statements: <br>1. ISRO was established on 15 August 1969, superseding the earlier Indian National Committee for Space Research (INCOSPAR), set up in 1962.<br>2. INCOSPAR functioned under the Department of Atomic Energy before ISRO's establishment.<br>3. The Council of Scientific and Industrial Research (CSIR), established in 1942, predates ISRO's establishment by more than two decades.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 1 alone",
+            "1, 2 and 3",
+            "Both 2 and 3",
+            "None of the statements are correct"
+        ],
+        ans: 1,
+        exp: "ISRO was indeed established in 1969, superseding INCOSPAR, which had been set up in 1962 under the Department of Atomic Energy at Vikram Sarabhai's initiative, making statements 1 and 2 correct. CSIR, established in 1942, predates ISRO by more than two decades, making it one of India's oldest scientific institutions and statement 3 correct as well."
+    },
+    {
+        q: "Consider the following statements regarding the features of nanomaterials: <br>1. As particle size decreases to the nanoscale, the surface area-to-volume ratio increases, enhancing chemical reactivity.<br>2. Nanomaterials exhibit reduced surface area, since a large fraction of their atoms lie in the interior, away from the surface.<br>3. Certain nanomaterials, such as carbon nanotubes, exhibit significantly enhanced mechanical strength compared to their bulk counterparts.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the above",
+            "None of the above",
+            "Only one of the statements is correct",
+            "Both 1 and 3"
+        ],
+        ans: 3,
+        exp: "At the nanoscale, a much larger proportion of atoms are located on the surface of a particle, which increases the surface area-to-volume ratio and enhances reactivity, making statement 1 correct; this directly contradicts statement 2, which is therefore incorrect. Carbon nanotubes, owing to their ordered atomic structure at the nanoscale, exhibit mechanical strength far exceeding that of their bulk material counterparts, making statement 3 correct as well."
+    },
+    {
+        q: "With reference to challenges facing the robotics sector in India, consider the following statements: <br>1. High dependence on imported hardware components increases the cost of adopting robotic technology in India.<br>2. India currently lacks a dedicated, comprehensive national legislation specifically governing liability and safety standards for robots.<br>3. The proposed Robotics Innovation Unit (RIU) is envisaged to function under the Ministry of Electronics and Information Technology (MeitY) as part of the INDIAai programme.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All three statements are correct",
+            "Both 1 and 3",
+            "Only one of the statements is correct",
+            "Only statement 3"
+        ],
+        ans: 0,
+        exp: "India's robotics sector faces high costs due to import dependence on hardware, and the absence of dedicated robotics legislation covering liability and safety is a recognised regulatory gap, making statements 1 and 2 correct. The proposed Robotics Innovation Unit has indeed been envisaged to operate under MeitY as part of the INDIAai programme to drive the national robotics strategy, making statement 3 correct as well."
+    },
+    {
+        q: "With reference to the Bureau of Energy Efficiency (BEE), consider the following statements: <br>1. It is a statutory body under the Ministry of Power, established in 2002 under the Energy Conservation Act, 2001.<br>2. It administers the Perform, Achieve and Trade (PAT) scheme, a market-based mechanism enabling energy-intensive industries to trade energy-saving certificates.<br>3. BEE possesses the power to directly amend the Energy Conservation Act through executive notification, without recourse to Parliament.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "Both 1 and 3",
+            "Only one of the statements is correct",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "BEE is indeed a statutory body under the Ministry of Power, established in 2002 under the Energy Conservation Act, 2001, and it administers the PAT scheme enabling industries to trade energy-saving certificates, making statements 1 and 2 correct. However, BEE can only recommend energy consumption norms and related measures to the Central Government under the Act; it has no power to amend the Act itself, which requires parliamentary action, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to recent (2025-26) developments in India's FinTech ecosystem, consider the following statements: <br>1. At the Global Fintech Fest 2025, the RBI announced a CBDC retail sandbox to let fintech innovators experiment and build on top of the digital rupee.<br>2. The RBI is also developing a Unified Markets Interface (UMI), intended to enable tokenisation of financial assets using wholesale CBDC.<br>3. The Unified Lending Interface (ULI) evolved from the RBI's 'Public Tech Platform for Frictionless Credit', piloted in August 2023.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 and 3 only",
+            "2 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 3,
+        exp: "At the Global Fintech Fest 2025, the RBI announced a CBDC retail sandbox, and it is separately developing the Unified Markets Interface for tokenisation of assets using wholesale CBDC, making statements 1 and 2 correct. The ULI itself evolved from the RBI's Public Tech Platform for Frictionless Credit, first piloted in August 2023, making statement 3 correct as well."
+    },
+    {
+        q: "Which of the following best describes the 'Account Aggregator' (AA) framework operating within India's FinTech ecosystem?",
+        opts: [
+            "A government scheme providing collateral-free loans directly to FinTech startups",
+            "A digital platform for aggregating cryptocurrency wallets across exchanges",
+            "An RBI-regulated non-banking financial company that facilitates consent-based sharing of a customer's financial data between financial information providers and users, without storing the data itself",
+            "A SEBI-regulated body for aggregating mutual fund NAVs"
+        ],
+        ans: 2,
+        exp: "The Account Aggregator, introduced through an RBI Master Direction, is a distinct category of NBFC that acts as a data-blind consent manager, enabling the encrypted transfer of a customer's financial data from a Financial Information Provider to a Financial Information User only with explicit consent. It does not itself store, process or interpret the data, unlike the other described entities which do not accurately capture its role."
+    },
+    {
+        q: "Under RBI's regulatory framework, which of the following activities is a Non-Banking Financial Company – Peer to Peer Lending Platform (NBFC-P2P) prohibited from undertaking?",
+        opts: [
+            "Lending funds from its own balance sheet",
+            "Facilitating movement of funds through an escrow mechanism",
+            "Acting as an intermediary online marketplace connecting lenders and borrowers",
+            "Registering with the RBI as a Non-Banking Financial Company"
+        ],
+        ans: 0,
+        exp: "Under the RBI's 2017 master directions, an NBFC-P2P is explicitly prohibited from lending on its own account or providing any credit enhancement or guarantee; it may only function as an intermediary online marketplace, route funds through an escrow mechanism, and must register as an NBFC with the RBI, which the other three options correctly describe."
+    },
+    {
+        q: "With reference to India's updated Nationally Determined Contribution (NDC 3.0), consider the following statements: <br>1. It was approved by the Union Cabinet in March 2026, covering the period 2031-2035.<br>2. It commits India to sourcing 60% of installed electric power capacity from non-fossil sources by 2035.<br>3. It lowers India's emissions intensity reduction target compared to the 2022 updated NDC.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "India's NDC 3.0, approved by the Union Cabinet in March 2026 for the 2031-2035 period, commits to 60% of installed power capacity from non-fossil sources by 2035, making statements 1 and 2 correct. However, it raises, rather than lowers, the emissions intensity reduction target to 47% from 2005 levels (up from the 45% target in the 2022 NDC), making statement 3 incorrect."
+    },
+    {
+        q: "With reference to India's Digital Personal Data Protection (DPDP) Act, 2023, consider the following statements: <br>1. It received Presidential assent in August 2023, though its substantive provisions are to be brought into force through subsequent notification.<br>2. It establishes the Data Protection Board of India as a quasi-judicial adjudicatory authority, with appeals against its orders lying before the Telecom Disputes Settlement and Appellate Tribunal (TDSAT).<br>3. It adopts a 'whitelist' approach to cross-border data transfer, permitting transfer of personal data only to specifically notified countries.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "The DPDP Act received Presidential assent on 11 August 2023, with its substantive provisions to be operationalised through phased notification, and it establishes the Data Protection Board of India as a quasi-judicial body with appeals lying before the TDSAT, making statements 1 and 2 correct. However, the Act follows a 'blacklist' approach, permitting data transfer to all countries except those specifically restricted by the Central Government, the opposite of the 'whitelist' approach described in statement 3, which is therefore incorrect."
+    },
+    {
+        q: "With reference to challenges in India's approach to internet governance, consider the following statements: <br>1. India has fully embraced the multistakeholder model of internet governance since 2011, moving away completely from its earlier multilateral stance.<br>2. The Internet Corporation for Assigned Names and Numbers (ICANN) is a private, non-profit body and not a specialised agency of the United Nations.<br>3. Data localisation requirements and disputes over cross-border data flows remain among the key challenges in India's internet governance framework.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only",
+            "2 and 3 only"
+        ],
+        ans: 3,
+        exp: "ICANN functions as a private, non-profit multistakeholder body coordinating unique internet identifiers and is not a UN specialised agency, while data localisation and cross-border data flow disputes remain live challenges for India, making statements 2 and 3 correct. India has historically favoured a government-led multilateral approach rather than fully embracing the multistakeholder model, so the absolute claim in statement 1 is incorrect."
+    },
+    {
+        q: "With reference to the structure and composition of the Nobel Prize, consider the following statements: <br>1. C.V. Raman (1930) remains the only Nobel laureate in a science category (Physics, Chemistry or Medicine) to have conducted the prize-winning research entirely within India.<br>2. Rabindranath Tagore, awarded the Nobel Prize in Literature in 1913, was the first Asian to receive a Nobel Prize.<br>3. The Nobel Peace Prize permits an unlimited number of individual laureates to share the prize in a single year, unlike the science categories, which are capped at three.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "Both 1 and 3",
+            "Only one of the statements is correct",
+            "Only two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "C.V. Raman's 1930 Physics Nobel remains the only instance of prize-winning scientific research conducted entirely in India, and Tagore's 1913 Literature Nobel made him the first Asian laureate, making statements 1 and 2 correct. However, Nobel Foundation statutes cap the number of individual laureates sharing any single prize, including the Peace Prize, at three; only Peace Prize organisations (not counted as individual laureates) may have larger memberships, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to Central Bank Digital Currencies (CBDCs), consider the following statements: <br>1. A CBDC enables cross-border payments to be settled bilaterally without necessarily routing through the US dollar or the SWIFT messaging system.<br>2. A CBDC can be issued with built-in programmability, such as restricting its use to a specific time-frame or defined purpose.<br>3. Unlike cryptocurrencies, a CBDC is not a direct liability of the central bank and does not enjoy legal tender status.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 and 3 only",
+            "1, 2 and 3",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "A CBDC can indeed enable bilateral settlement without routing through the US dollar or SWIFT, and it can be programmed with conditions such as a defined time-frame or purpose for spending, making statements 1 and 2 correct. However, a CBDC is precisely a direct liability of the issuing central bank and carries legal tender status, unlike decentralised cryptocurrencies, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the background and evolution of nanotechnology, consider the following statements: <br>1. The conceptual foundation of nanotechnology is often traced to physicist Richard Feynman's 1959 lecture 'There's Plenty of Room at the Bottom,' although he did not use the term 'nanotechnology' himself.<br>2. The term 'nanotechnology' was first coined by the Japanese scientist Norio Taniguchi in 1974.<br>3. India's engagement with nanoscale research predates the 2007 Nano Mission, having begun with the Nano Science and Technology Initiative (NSTI) in the early 2000s.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "Feynman's 1959 lecture is widely regarded as the conceptual birth of nanotechnology even though he never used the term, and Norio Taniguchi coined the word 'nanotechnology' in 1974, making statements 1 and 2 correct. India's organised engagement with nanoscale research indeed predates the 2007 Nano Mission, having begun with the Nano Science and Technology Initiative in the early 2000s, making statement 3 correct as well."
+    },
+    {
+        q: "With reference to the regulatory sandbox framework for FinTech in India, consider the following statements: <br>1. It emerged from a recommendation of an RBI Working Group constituted in 2016 to review the fintech regulatory landscape.<br>2. Entities offering cryptocurrency trading, investing or settlement services are eligible for testing under this sandbox.<br>3. It permits temporary relaxation of certain regulatory norms for live testing of new products with a limited group of customers.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "The regulatory sandbox framework followed from the recommendation of an RBI Working Group set up in 2016 to review fintech regulation, and it allows temporary regulatory relaxation for live testing with a limited customer base, making statements 1 and 3 correct. However, entities offering cryptocurrency or crypto-asset trading, investing or settlement services are explicitly excluded from the sandbox's scope, making statement 2 incorrect."
+    },
+    {
+        q: "Consider the following statements: <br>1. The Prime Minister's Council on Climate Change is chaired by the Union Minister of Environment, Forest and Climate Change, not the Prime Minister.<br>2. State Action Plans on Climate Change (SAPCCs) are optional exercises with no requirement to align with the National Action Plan on Climate Change (NAPCC) framework.<br>3. The National Action Plan on Climate Change is a legally binding statute enacted by Parliament in 2008.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1, 2 and 3",
+            "None of the statements is correct",
+            "1 only"
+        ],
+        ans: 2,
+        exp: "The Prime Minister's Council on Climate Change is in fact chaired by the Prime Minister, with the Ministry of Environment, Forest and Climate Change assisting in facilitating its work, making statement 1 incorrect. State Action Plans on Climate Change are required to align with the NAPCC framework rather than being optional, and the NAPCC itself is a policy document, not a legally binding statute enacted by Parliament, making statements 2 and 3 incorrect as well; hence none of the statements is correct."
+    },
+    {
+        q: "Consider the following statements: <br>1. Full battery electric vehicles and hydrogen fuel-cell vehicles are both classified as alternative powertrain vehicles, since neither relies on a conventional internal combustion engine.<br>2. Fuel cell-electric hybrid vehicles, which combine a hydrogen fuel cell with a battery storage system, are not considered alternative powertrain vehicles.<br>3. The FAME India Scheme, which supports electric and hybrid vehicle adoption, was launched exclusively for electric two-wheelers, excluding buses, three-wheelers and passenger cars from its scope.<br>Which of the statements given above is correct?",
+        opts: [
+            "2 only",
+            "1, 2 and 3",
+            "1 and 3 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "Full battery electric vehicles and hydrogen fuel-cell vehicles both use non-conventional propulsion systems and are correctly classified as alternative powertrain vehicles, making statement 1 correct. Fuel cell-electric hybrid vehicles are also classified as alternative powertrain vehicles, not excluded from the category, and the FAME India Scheme covers two-wheelers, three-wheelers, passenger vehicles and buses rather than two-wheelers alone, making statements 2 and 3 incorrect."
+    },
+    {
+        q: "With reference to Unmanned Aerial Vehicles (UAVs), consider the following statements: <br>1. All types of UAVs are capable of vertical take-off and landing.<br>2. All types of UAVs are capable of automated hovering in place.<br>3. All types of UAVs rely exclusively on batteries as their source of power.<br>How many of the statements given above are correct?",
+        opts: [
+            "Only one",
+            "None",
+            "Only two",
+            "All the three"
+        ],
+        ans: 1,
+        exp: "Fixed-wing UAVs require a runway or launch mechanism and cannot perform vertical take-off and landing or hover in place, unlike rotary-wing or VTOL drones, so statements 1 and 2 do not hold for all UAV types. Similarly, not all UAVs run solely on batteries, as some use fuel-based propulsion, making statement 3 incorrect as well, so none of the statements is correct for every type of UAV."
+    },
+    {
+        q: "With reference to challenges concerning India and the Nobel Prize, consider the following statements: <br>1. No individual working within India has won a Nobel Prize in the sciences since C.V. Raman in 1930.<br>2. Indian-origin scientists such as Har Gobind Khorana, Subrahmanyan Chandrasekhar and Venkatraman Ramakrishnan have won science Nobel Prizes while based abroad.<br>3. India's comparatively low number of researchers per million population is considered irrelevant to its Nobel Prize prospects, since research quality does not depend on researcher density.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 3",
+            "Both 2 and 3",
+            "Only statement 1",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "No individual working within India has won a science Nobel Prize since C.V. Raman in 1930, while several Indian-origin scientists, including Khorana, Chandrasekhar and Ramakrishnan, have won science Nobels while based abroad, making statements 1 and 2 correct. India's low researcher density relative to countries like the US and South Korea is, however, widely cited as a contributing factor to this gap, not an irrelevant one, making statement 3 incorrect."
+    },
+    {
+        q: "Consider the following statements regarding challenges in India's green technology transition: <br>1. Inadequate battery energy storage capacity has resulted in the curtailment of surplus daytime solar power in parts of India.<br>2. Grid integration challenges arising from the variability of renewable generation have been fully resolved through India's existing transmission infrastructure, requiring no further investment.<br>3. India possesses abundant domestic reserves of lithium and cobalt, eliminating any import dependence for battery manufacturing.<br>Which of the statements given above is correct?",
+        opts: [
+            "2 only",
+            "1 only",
+            "1 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "Inadequate battery storage infrastructure has indeed led to curtailment of surplus daytime solar generation in several Indian states, making statement 1 correct. Grid integration challenges from renewable variability remain a live concern requiring continued investment in storage and transmission, and India has historically been import-dependent for critical battery minerals like lithium and cobalt, with only nascent domestic reserves being explored, making statements 2 and 3 incorrect."
+    },
+    {
+        q: "With reference to the Shreya Singhal v. Union of India (2015) judgment on internet governance in India, consider the following statements: <br>1. The Supreme Court struck down Section 66A of the Information Technology Act, 2000 as violative of Article 19(1)(a) of the Constitution.<br>2. The Court also declared Section 69A of the Act, which empowers website blocking, to be unconstitutional.<br>3. The Court read down Section 79 of the Act, relating to intermediary liability, along with its associated rules.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "Both 2 and 3",
+            "Both 1 and 2",
+            "1 and 3 only"
+        ],
+        ans: 3,
+        exp: "In Shreya Singhal, the Supreme Court struck down Section 66A for violating Article 19(1)(a) without protection under Article 19(2), and it read down Section 79 along with the associated intermediary rules, making statements 1 and 3 correct. However, the Court upheld Section 69A as constitutionally valid since it contained adequate procedural safeguards, making statement 2 incorrect."
+    },
+    {
+        q: "Which of the following best captures a key highlight of recent (2025-26) developments in India's nanotechnology sector?",
+        opts: [
+            "A global ban on nanomaterial-based cosmetic products following Indian regulatory action",
+            "Complete phase-out of the Nano Mission in favour of a purely private sector-led model",
+            "India's withdrawal from all international nanotechnology research collaborations",
+            "Growing convergence of nanotechnology with artificial intelligence, as reflected in industry events such as India Nano 2026"
+        ],
+        ans: 3,
+        exp: "Recent developments, including the India Nano 2026 event, have highlighted the growing convergence of nanotechnology with artificial intelligence and innovation, marking a key thrust area for the sector. The Nano Mission continues to operate with government support alongside private participation, and there has been no such regulatory ban or withdrawal from international collaboration as suggested in the other options."
+    },
+    {
+        q: "The Fundamental Duty 'to develop the scientific temper, humanism and the spirit of inquiry and reform' is enshrined under which provision of the Constitution of India?",
+        opts: [
+            "Article 21A",
+            "Article 51A(h)",
+            "Article 48A",
+            "Article 39(f)"
+        ],
+        ans: 1,
+        exp: "Article 51A(h), inserted by the 42nd Constitutional Amendment Act, 1976, casts a Fundamental Duty on every citizen of India to develop scientific temper, humanism and the spirit of inquiry and reform. Article 48A deals with protection of environment, Article 39(f) is a Directive Principle on the welfare of children, and Article 21A concerns the right to education, none of which relate to scientific temper."
+    },
+    {
+        q: "With reference to recent (2025-26) developments in additive manufacturing in India, consider the following statements: <br>1. Agnikul Cosmos achieved a test-fire described as the largest single-piece 3D-printed rocket engine developed in India.<br>2. The Indian Army's 'Agnishodh' research cell for defence-related additive manufacturing was inaugurated at IIT Bombay.<br>3. India's National Strategy for Additive Manufacturing identifies aerospace, defence, automotive and healthcare, among other sectors, as priority areas for the adoption of 3D printing technology.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "Agnikul Cosmos did achieve a test-fire described as India's largest single-piece 3D-printed rocket engine, and the National Strategy for Additive Manufacturing identifies aerospace, defence, automotive and healthcare among its priority sectors, making statements 1 and 3 correct. However, the Indian Army's 'Agnishodh' research cell for additive manufacturing was inaugurated at IIT Madras, not IIT Bombay, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to India's Draft National Strategy for Robotics, consider the following statements: <br>1. It envisions India emerging as a global robotics leader by 2030, identifying manufacturing, healthcare, agriculture and national security as core focus sectors.<br>2. It recommends implementation through a 'National Robotics Mission', with the Robotics Innovation Unit (RIU) functioning under the Ministry of Electronics and Information Technology as part of the INDIAai programme.<br>3. The strategy classifies robots strictly into two categories, industrial and service robots, excluding medical robots from its definitional scope.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "1 and 2 only",
+            "1, 2 and 3",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "The Draft National Strategy for Robotics aims to position India as a global robotics leader by 2030 through manufacturing, healthcare, agriculture and national security, and proposes implementation via a National Robotics Mission with the Robotics Innovation Unit functioning under MeitY as part of INDIAai, making statements 1 and 2 correct. However, the strategy's definition of robots, drawn from Bureau of Indian Standards categorisation, includes three types — industrial, service and medical — so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to India's scientific institutions, consider the following statements: <br>1. Dr. N. Kalaiselvi is the first woman to serve as Director General of the Council of Scientific and Industrial Research (CSIR).<br>2. In 2025, CSIR's National Physical Laboratory secured a trademark for Indian Standard Time (IST).<br>3. CSIR functions as a single centralised laboratory rather than as a consortium of multiple national research institutes.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 2 only",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "Dr. N. Kalaiselvi became the first woman Director General of CSIR in 2022, and in 2025 CSIR-National Physical Laboratory secured a trademark for Indian Standard Time (IST), making statements 1 and 2 correct. CSIR is not a single centralised laboratory but a consortium of about 38 national research institutes and laboratories, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the Payment and Settlement Systems Act, 2007, consider the following statements: <br>1. It designates the Reserve Bank of India as the authority to regulate and supervise payment systems in India.<br>2. Under the Act, any person may commence or operate a payment system in India without prior authorisation from the RBI, provided they intimate the RBI within 30 days.<br>3. The National Payments Corporation of India (NPCI), which operates the Unified Payments Interface (UPI), functions within the regulatory framework enabled by this Act.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 3",
+            "Statement 3 alone",
+            "Statement 1 alone",
+            "None of the statements are correct"
+        ],
+        ans: 0,
+        exp: "The Payment and Settlement Systems Act, 2007 designates the RBI as the regulatory authority for payment systems, and NPCI, which operates UPI, functions within the regulatory framework this Act enables, making statements 1 and 3 correct. However, Section 4 of the Act prohibits any person from commencing or operating a payment system without prior authorisation from the RBI; there is no provision allowing operation merely on the basis of subsequent intimation, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to the structure of India's science and technology advisory apparatus, consider the following statements: <br>1. The Office of the Principal Scientific Adviser (PSA) to the Government of India was established in November 1999, with A.P.J. Abdul Kalam serving as its first occupant.<br>2. The Prime Minister's Science, Technology and Innovation Advisory Council (PM-STIAC) is chaired by the Principal Scientific Adviser, whose office also functions as its Secretariat.<br>3. Ajay Kumar Sood, the incumbent Principal Scientific Adviser, is only the second person to hold this office since its creation.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "2 only",
+            "Both 1 and 2",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "The Office of the PSA was indeed established in November 1999 with A.P.J. Abdul Kalam as its first occupant, and the PM-STIAC is chaired by the PSA with the PSA's office serving as its Secretariat, making statements 1 and 2 correct. However, Ajay Kumar Sood is the fourth person to hold the office of Principal Scientific Adviser, following Kalam, Rajagopala Chidambaram, and K. Vijayraghavan, not the second, making statement 3 incorrect."
+    },
+    {
+        q: "Which of the following best describes the National Centre for Additive Manufacturing (NCAM) in India?",
+        opts: [
+            "A statutory regulatory authority created by an Act of Parliament to license 3D printing equipment",
+            "A private industry association funded entirely by foreign additive manufacturing companies",
+            "A wing of the Bureau of Indian Standards responsible solely for certifying 3D printers",
+            "A Section 8 company jointly promoted by MeitY and the Government of Telangana to build an ecosystem for skill development, R&D and industry adoption of additive manufacturing"
+        ],
+        ans: 3,
+        exp: "NCAM was jointly established by the Ministry of Electronics and Information Technology and the Government of Telangana, in partnership with industry, as a company registered under Section 8 of the Companies Act, 2013, with a mandate spanning skill development, indigenisation, infrastructure access, research and development, and facilitating industry adoption of additive manufacturing. It is not a statutory licensing authority, a BIS wing, or a foreign-funded association, as the other options suggest."
+    },
+    {
+        q: "With reference to the 2025 Nobel Prizes and India, consider the following statements: <br>1. The Nobel Prize in Physics 2025 was awarded for the discovery of macroscopic quantum mechanical tunnelling and energy quantisation in an electric circuit.<br>2. No individual holding Indian citizenship was awarded a Nobel Prize in any category in 2025.<br>3. The Nobel Prize in Chemistry 2025 was awarded to an Indian-origin scientist for work on metal-organic frameworks.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 2,
+        exp: "The 2025 Physics Nobel went to John Clarke, Michel Devoret and John Martinis for macroscopic quantum tunnelling in a superconducting circuit, and no Indian citizen featured among the 2025 laureates across any category, making statements 1 and 2 correct. The Chemistry Prize that year was awarded to Susumu Kitagawa, Richard Robson and Omar Yaghi for metal-organic frameworks, none of whom is of Indian origin, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to India's human spaceflight programme, consider the following statements: <br>1. The first uncrewed experimental Gaganyaan mission, featuring the Vyommitra half-humanoid, is targeted for the last quarter of 2026.<br>2. The Bharatiya Antariksh Station (BAS) will be a single-module station, expected to be fully operational by 2030.<br>3. The Human Rated Launch Vehicle (HLVM3) for Gaganyaan is being developed entirely by a private company, with no involvement of ISRO.<br>Which of the statements given above is correct?",
+        opts: [
+            "1 only",
+            "2 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "The first uncrewed Gaganyaan mission carrying the Vyommitra half-humanoid is indeed targeted for the last quarter of 2026, making statement 1 correct. However, the Bharatiya Antariksh Station is planned to comprise five modules and is targeted for full operationalisation by 2035, not a single module by 2030, and the HLVM3 launch vehicle is being developed by ISRO itself, not by a private company alone, making statements 2 and 3 incorrect."
+    },
+    {
+        q: "With reference to Institutions of National Importance in India, consider the following statements: <br>1. Under the Constitution, only Parliament possesses the power to declare an institution to be an 'Institution of National Importance'.<br>2. Such a declaration confers on the institution complete immunity from any regulatory oversight by bodies such as the University Grants Commission or professional councils.<br>3. Examples of Institutions of National Importance include the Indian Institutes of Technology (IITs) and the All India Institute of Medical Sciences (AIIMS), each established through separate Acts of Parliament.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 3 only",
+            "1 and 2 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "The power to declare an institution to be of national importance rests exclusively with Parliament, under Entry 64 of the Union List in the Seventh Schedule, and institutions such as the IITs and AIIMS have indeed been established through separate Acts of Parliament as Institutions of National Importance, making statements 1 and 3 correct. However, such a declaration does not grant complete immunity from all regulatory oversight, as these institutions remain subject to various applicable regulatory and statutory frameworks, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to the structure of internet governance, consider the following statements: <br>1. The Internet Governance Forum (IGF), a multistakeholder platform under the United Nations, was first convened in 2006 following an announcement by the UN Secretary-General.<br>2. India IGF (IIGF), launched as the India chapter of the global IGF, follows a multistakeholder model with representation from government, industry, civil society and academia.<br>3. ICANN, responsible for coordinating domain names and IP address allocation, functions as an organ of the International Telecommunication Union (ITU), a UN specialised agency.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "The IGF was announced by the UN Secretary-General in July 2006 and first convened later that year as a multistakeholder platform, and India IGF follows the same multistakeholder model with representation from government, industry, civil society and academia, making statements 1 and 2 correct. ICANN, however, is an independent, non-profit corporation and not an organ of the ITU or any UN specialised agency, making statement 3 incorrect."
+    },
+    {
+        q: "Consider the following statements: <br>1. Green hydrogen is produced through the electrolysis of water using electricity generated from renewable energy sources.<br>2. India's National Green Hydrogen Mission was approved by the Union Cabinet in January 2023.<br>3. Unlike green hydrogen, blue hydrogen is obtained from natural gas reforming combined with carbon capture and storage.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "Only one of the statements is correct",
+            "Only two of the statements are correct",
+            "All of the above"
+        ],
+        ans: 3,
+        exp: "Green hydrogen is produced via electrolysis of water powered by renewable electricity, making statement 1 correct. The National Green Hydrogen Mission was approved by the Union Cabinet on 4 January 2023, targeting 5 MMT of annual production by 2030, making statement 2 correct. Blue hydrogen, distinguished from green hydrogen, is derived from natural gas reforming combined with carbon capture and storage, making statement 3 correct as well."
+    },
+    {
+        q: "Consider the following statements: <br>1. Nanoparticles, unlike engineered nanomaterials, do not occur naturally and are exclusively synthesised by humans.<br>2. Nanoparticles of certain metallic oxides, such as zinc oxide, are used in the manufacture of some cosmetic products.<br>3. Nanoparticles from some commercial products that enter the environment can pose safety risks to humans.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3",
+            "3 only",
+            "1 and 2",
+            "1 only"
+        ],
+        ans: 0,
+        exp: "Nanoparticles occur widely in nature, for instance through volcanic activity and sea spray, so statement 1 is incorrect. Nanoparticles of metallic oxides such as zinc oxide and titanium dioxide are indeed used in cosmetics for purposes like sun protection, and nanoparticles entering the environment from commercial products can pose safety concerns for humans, making statements 2 and 3 correct."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-80 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

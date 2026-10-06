@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-54</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "With reference to the regulatory functions and powers exercised over microfinance institutions (MFIs) in India, consider the following statements: <br> 1. Based on the Malegam Committee's recommendations, the RBI capped the interest rate margin that NBFC-MFIs can charge over their cost of funds, in order to prevent usurious lending.<br>2. The RBI permits any number of MFIs to lend simultaneously to the same borrower, without imposing any cap on that borrower's aggregate indebtedness.<br>3. NBFC-MFIs are permitted to charge a loan processing fee of up to 25% of the gross loan amount, over and above the capped interest margin.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "The RBI, acting on the Malegam Committee's recommendations, capped the margin NBFC-MFIs can charge over their cost of funds, making statement 1 correct. Statement 2 is wrong because RBI norms restrict the number of MFIs lending to a single borrower and impose a cap on the borrower's aggregate indebtedness, and statement 3 is wrong because the permissible processing fee is capped at a much lower level (around 1% of the gross loan amount), not 25%."
+    },
+    {
+        q: "With reference to casual workers employed in India, consider the following statements: <br> 1. All casual workers automatically qualify for Employees' Provident Fund coverage, regardless of the size or category of the establishment employing them.<br>2. All casual workers are guaranteed fixed regular working hours identical to those of permanent employees, with no scope for the government to alter this position through delegated legislation.<br>3. The government is empowered, by notification, to mandate that a specific establishment or industry pay wages to its workers, including casual workers, only through their bank accounts.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "Statement 3 alone",
+            "Both 1 and 3",
+            "Only two of the statements are correct"
+        ],
+        ans: 1,
+        exp: "The government indeed holds the power to notify that a given establishment or industry must pay wages, including to casual workers, only through their bank accounts, an amendment introduced to enhance transparency in wage payments, making statement 3 correct. Statement 1 is wrong because EPF coverage depends on the size and category of the establishment rather than being automatic for all casual workers, and statement 2 is wrong because working-hour norms are themselves subject to government regulation and delegated legislation, not immune from it."
+    },
+    {
+        q: "With reference to economic inequality, consider the following statements: <br> 1. Income inequality refers to the unequal distribution of earnings among individuals or households, while wealth inequality refers to the unequal distribution of accumulated assets.<br>2. In India, wealth inequality is generally found to be more pronounced than income inequality.<br>3. The Lorenz Curve, used to depict the distribution of income, always lies above the line of perfect equality.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 and 3 only",
+            "All three statements are correct",
+            "Only statement 3"
+        ],
+        ans: 0,
+        exp: "Income and wealth inequality are conceptually distinct, and empirical studies consistently show wealth concentration in India to be sharper than income concentration, making statements 1 and 2 correct. Statement 3 is wrong because the Lorenz Curve, representing actual distribution, sags below (not above) the 45-degree line of perfect equality, and the greater this sag, the higher the inequality."
+    },
+    {
+        q: "With reference to the recent labour law reforms in India, consider the following statements: <br> 1. The Second National Commission on Labour (2002) recommended consolidating existing labour laws into broader functional codes.<br>2. Acting on this recommendation, 29 central labour laws were consolidated into four Labour Codes.<br>3. All four Labour Codes came into force immediately upon their enactment by Parliament in 2019 and 2020.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 2,
+        exp: "The Second National Commission on Labour recommended consolidating India's fragmented labour laws, which led to 29 central laws being merged into four Labour Codes, making statements 1 and 2 correct. However, the Codes were enacted between 2019 and 2020 but only brought into effect from 21 November 2025 after the framing of rules, so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to the Directive Principles of State Policy relevant to inclusive growth, consider the following statements: <br> 1. Article 38 directs the State to promote a social order in which social, economic and political justice informs all institutions of national life.<br>2. Article 39(c) directs the State to ensure that the operation of the economic system does not result in the concentration of wealth and means of production to the common detriment.<br>3. Article 46 directs the State to promote the educational and economic interests of the Scheduled Castes, Scheduled Tribes and other weaker sections.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "All three Articles form part of the constitutional foundation for inclusive growth: Article 38 mandates a just social order, Article 39(c) guards against concentration of wealth, and Article 46 obligates the State to advance the interests of weaker sections including SCs and STs. Together, these non-justiciable but fundamental provisions guide state policy towards equitable and inclusive development."
+    },
+    {
+        q: "With reference to the Y.H. Malegam Committee on microfinance institutions, consider the following statements: <br> 1. It recommended a cap on the margin that NBFC-MFIs could charge over their cost of funds.<br>2. It was constituted under the aegis of the Securities and Exchange Board of India.<br>3. It recommended that microfinance institutions be permitted to accept public deposits like commercial banks.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "The Malegam Committee, set up by the RBI in 2010 after the Andhra Pradesh microfinance crisis, recommended margin caps and interest-rate ceilings for NBFC-MFIs, so statement 1 is correct. It was an RBI committee, not a SEBI one, and it kept MFIs as non-deposit-taking NBFCs rather than recommending deposit-taking powers, making statements 2 and 3 incorrect."
+    },
+    {
+        q: "With reference to the background and evolution of the concept of inclusive growth in India's planning framework, consider the following statements: <br> 1. India's First Five Year Plan (1951-56) explicitly used the specific term 'inclusive growth' as its stated strategic objective.<br>2. The specific term 'inclusive growth' was prominently mainstreamed into India's planning framework through the Approach Paper to the Eleventh Five Year Plan (2007-2012).<br>3. Once introduced, the concept of inclusive growth replaced all concern for the pace of GDP growth, focusing the Eleventh Plan exclusively on redistribution.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "1 and 3 only",
+            "3 only",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "The Approach Paper to the Eleventh Five Year Plan, titled 'Towards Faster and More Inclusive Growth,' is widely credited with mainstreaming the specific term 'inclusive growth' in Indian planning, making statement 2 correct. Statement 1 is wrong because the First Five Year Plan did not use this specific terminology, and statement 3 is wrong because inclusive growth sought to combine a high growth rate with equitable distribution of its benefits, rather than abandoning growth as a concern altogether."
+    },
+    {
+        q: "With reference to the implementation of India's new labour law framework, consider the following statements: <br> 1. On 21 November 2025, the Government of India brought into force the Code on Social Security, 2020 along with three other Labour Codes, together consolidating 29 central labour laws.<br>2. Under the notified provisions, gig and platform workers became statutorily entitled to social security coverage for the first time.<br>3. The notification extended Employees' State Insurance Corporation (ESIC) coverage and benefits on a pan-India basis.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 3 only",
+            "1 and 2 only",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "All three statements are correct: the four Labour Codes, including the Code on Social Security, 2020, came into force on 21 November 2025, consolidating 29 central labour laws, extending statutory social security entitlements to gig and platform workers for the first time, and expanding ESIC coverage across the country. This marked one of the most significant labour reforms in India's post-independence history."
+    },
+    {
+        q: "With reference to the constitutional provisions relating to employment and labour in India, consider the following statements: <br> 1. Article 41 directs the State to secure the right to work within the limits of its economic capacity and development.<br>2. Article 42 provides for securing just and humane conditions of work and for maternity relief.<br>3. Article 43A, which provides for workers' participation in the management of industries, was inserted by the 42nd Constitutional Amendment Act, 1976.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "Article 41 secures the right to work subject to the State's economic capacity, Article 42 mandates humane working conditions and maternity relief, and Article 43A, inserted by the 42nd Amendment in 1976, provides for workers' participation in industrial management, making all three statements correct. These Directive Principles collectively form the constitutional basis for India's labour and employment policy framework."
+    },
+    {
+        q: "Which one of the following is NOT among the indicators used to compute the Human Development Index (HDI)?",
+        opts: [
+            "Life expectancy at birth",
+            "Gross National Income (GNI) per capita",
+            "Gini coefficient of income inequality",
+            "Mean years of schooling"
+        ],
+        ans: 2,
+        exp: "The HDI, published annually by UNDP, combines three dimensions: a long and healthy life (life expectancy), knowledge (mean and expected years of schooling), and a decent standard of living (GNI per capita, PPP). The Gini coefficient measures income inequality separately and is not one of the HDI's component indicators."
+    },
+    {
+        q: "With reference to Self-Help Groups (SHGs) in India, consider the following statements: <br> 1. The principle of joint liability makes the group as a whole responsible for a loan taken by any individual member.<br>2. Scheduled Commercial Banks and Regional Rural Banks extend credit to SHGs under the SHG-Bank Linkage Programme.<br>3. The SHG-Bank Linkage Programme was launched by NABARD in the early 1990s.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "Exactly one of the statements is correct",
+            "None of the statements are correct",
+            "All of the above"
+        ],
+        ans: 3,
+        exp: "All three statements are factually correct: SHGs operate on joint liability, Scheduled Commercial Banks and RRBs support them with credit, and NABARD pioneered the SHG-Bank Linkage Programme in the early 1990s. This corrects a commonly tested misconception that the State Bank of India, rather than NABARD, originated the programme."
+    },
+    {
+        q: "With reference to the background and evolution of the microfinance movement, consider the following statements: <br> 1. Group-based microcredit was pioneered by Professor Muhammad Yunus through the Grameen Bank experiment, beginning as a pilot project in Jobra village in Bangladesh during the 1970s.<br>2. Grameen Bank was established as a private commercial bank listed on the Dhaka Stock Exchange in 1983.<br>3. In India, NABARD formally launched the SHG-Bank Linkage Programme in the early 1990s, drawing on the broader global experience of group-based microfinance.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "Only one of the statements is correct",
+            "Statement 1 alone",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "Muhammad Yunus's pilot lending project in Jobra village in the 1970s evolved into a formal institution, and NABARD subsequently launched the SHG-Bank Linkage Programme in India in the early 1990s, making statements 1 and 3 correct. Statement 2 is wrong because Grameen Bank was constituted as a specialised bank under Bangladeshi government legislation (a statutory public authority), not as a listed private commercial bank."
+    },
+    {
+        q: "Which one of the following combinations would most effectively bring about a redistribution of income in a country?",
+        opts: [
+            "Progressive taxation combined with progressive expenditure",
+            "Regressive taxation combined with regressive expenditure",
+            "Progressive taxation combined with regressive expenditure",
+            "Regressive taxation combined with progressive expenditure"
+        ],
+        ans: 0,
+        exp: "Progressive taxation draws proportionately more revenue from higher-income groups, while progressive public expenditure (welfare schemes, subsidies, social spending) channels resources towards lower-income groups, and together these two mechanisms are most effective in narrowing income disparities. Any combination involving regressive taxation or regressive expenditure works against redistribution by placing a proportionately heavier burden on, or providing lesser benefit to, the poor."
+    },
+    {
+        q: "The Multidimensional Poverty Index (MPI), which captures overlapping deprivations in health, education and standard of living at the household level, was jointly developed by the UNDP and which one of the following institutions?",
+        opts: [
+            "Oxford Poverty and Human Development Initiative (OPHI)",
+            "World Economic Forum",
+            "International Monetary Fund",
+            "World Trade Organization"
+        ],
+        ans: 0,
+        exp: "The MPI was jointly developed by the UNDP and the Oxford Poverty and Human Development Initiative (OPHI) at the University of Oxford, and it was first featured in the 2010 Human Development Report as a complement to income-based poverty measures. It captures deprivations across health, education, and living standards, going beyond the purely monetary focus of traditional poverty lines."
+    },
+    {
+        q: "With reference to the National Skill Development Corporation (NSDC), consider the following statements: <br> 1. NSDC was set up as a not-for-profit company under the Companies Act, structured as a Public-Private Partnership with the Government holding a majority stake of 51%.<br>2. NSDC functions primarily as a 'market-maker', catalysing private investment and the creation of large-scale, quality vocational training institutions rather than directly conducting training itself.<br>3. NSDC directly regulates and certifies all training curricula in India, exercising this function independently without involving industry-led Sector Skill Councils.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 and 3 only",
+            "3 only",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "NSDC's core mandate is to act as a 'market-maker', catalysing the flow of private investment into large-scale, quality vocational training institutions rather than delivering training directly, making statement 2 correct. Statement 1 is wrong because the Government (through MSDE) actually holds a 49% stake, with the private sector holding the 51% majority, not the other way around, and statement 3 is wrong because NSDC works in collaboration with industry-led Sector Skill Councils for curricula and standards, rather than doing so independently."
+    },
+    {
+        q: "With reference to the features of Self-Help Groups (SHGs) under the DAY-NRLM framework, consider the following statements: <br> 1. A general women's SHG typically consists of 10 to 20 members, though this may be relaxed to a minimum of 5 members in especially difficult areas such as remote tribal regions.<br>2. SHGs are formed on the principle of homogeneity, bringing together members with broadly similar social and economic backgrounds.<br>3. An SHG must first be formally registered under the Societies Registration Act, 1860 or an equivalent state Act before it can be linked to a bank for credit.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "Only one of the statements is correct",
+            "All of the statements are correct",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "SHGs under DAY-NRLM are typically 10-20 member groups (relaxed to a minimum of 5 in difficult areas) formed on the basis of social and economic homogeneity, making statements 1 and 2 correct. Statement 3 is incorrect because SHGs remain informal, unregistered bodies, and registration is not a precondition for bank credit linkage."
+    },
+    {
+        q: "With reference to the constitutional and legal basis of Self-Help Groups (SHGs) in India, consider the following statements: <br> 1. Self-Help Groups derive their legal status directly from Article 19(1)(c) of the Constitution, which explicitly names SHGs among the protected categories of association.<br>2. SHGs are mandatorily required to register under the Societies Registration Act, 1860 before they can open a bank account.<br>3. The Constitution contains a specific entry in the Union List that reserves the regulation and registration of Self-Help Groups exclusively to the Union Government.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only",
+            "None of the statements is correct"
+        ],
+        ans: 3,
+        exp: "Article 19(1)(c) guarantees a general freedom to form associations but does not explicitly name SHGs, and there is no dedicated Union List entry reserving SHG regulation to the Centre; SHGs instead function as informal, unregistered groups operating through executive schemes like DAY-NRLM, so statements 1 and 3 are both incorrect. Statement 2 is also incorrect since SHGs are not required to register under the Societies Registration Act to open a bank account, making none of the three statements correct."
+    },
+    {
+        q: "With reference to financial inclusion in India, consider the following statements: <br> 1. The RBI's Financial Inclusion Index (FI-Index) rose to 67.0 in March 2025, up from 64.2 in March 2024.<br>2. The FI-Index is computed on a scale of 0 to 10, with 10 denoting full financial inclusion.<br>3. The RBI's National Strategy for Financial Inclusion (NSFI) 2025-30 was launched as a continuation of the earlier NSFI 2019-2024 framework.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 2,
+        exp: "The RBI's Financial Inclusion Index, which measures progress across Access, Usage and Quality parameters, rose to 67.0 in March 2025 from 64.2 a year earlier, and the RBI's NSFI 2025-30 builds on the gains of the preceding NSFI 2019-2024 strategy, making statements 1 and 3 correct. Statement 2 is incorrect because the FI-Index is computed on a scale of 0 to 100, not 0 to 10, with 100 denoting full financial inclusion."
+    },
+    {
+        q: "With reference to the challenges confronting inclusive growth in India, consider the following statements: <br> 1. India's employment elasticity of growth has remained persistently high, meaning that GDP growth has translated proportionately into fast and adequate employment generation.<br>2. Significant regional disparities persist in India, with substantial gaps in per capita income and human development indicators across states.<br>3. Over 90% of India's workforce is engaged in the formal sector with access to social security, making informality a negligible challenge to inclusive growth.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "3 only",
+            "Statement 1 alone",
+            "Only one of the statements is correct"
+        ],
+        ans: 3,
+        exp: "Wide and persistent regional disparities in income and human development indicators across Indian states remain a well-documented obstacle to inclusive growth, making statement 2 correct. Statement 1 describes the opposite of reality, since India's low employment elasticity of growth (the 'jobless growth' problem) means GDP growth has not translated proportionately into employment, and statement 3 is wrong because over 90% of India's workforce is actually informal, not formal, making informality a major rather than negligible challenge."
+    },
+    {
+        q: "With reference to the structure and composition of India's social security framework, consider the following statements: <br> 1. India's social security system is composed exclusively of contributory schemes funded by employer-employee contributions, with no non-contributory components.<br>2. The Employees' State Insurance (ESI) Scheme's applicability is confined only to establishments engaged in hazardous or life-threatening work.<br>3. The Code on Social Security, 2020 provides for separate social security funds for unorganised workers as well as for gig and platform workers.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 2 only",
+            "1 and 3 only",
+            "3 only"
+        ],
+        ans: 3,
+        exp: "The Code on Social Security, 2020 explicitly provides for distinct social security funds for unorganised workers and for gig and platform workers, making statement 3 correct. Statement 1 is wrong because India also has non-contributory social assistance schemes such as old-age pensions under the National Social Assistance Programme, and statement 2 is wrong because ESI applies broadly to establishments above a notified employee threshold, with hazardous-work coverage being only one special category, not the sole basis of applicability."
+    },
+    {
+        q: "Assertion (A): The Deendayal Antyodaya Yojana - National Rural Livelihoods Mission (DAY-NRLM) restructured the earlier Swarnajayanti Gram Swarozgar Yojana (SGSY) into a demand-driven, community-based institutional architecture for the rural poor.<br>Reason (R): SHGs formed under DAY-NRLM are legally required to register as cooperative societies before they can access bank credit.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "Both A and R are true and R is the correct explanation of A",
+            "A is true but R is false",
+            "A is false but R is true",
+            "Both A and R are true but R is not the correct explanation of A"
+        ],
+        ans: 1,
+        exp: "DAY-NRLM did restructure the erstwhile SGSY into a more demand-driven, community-institution-based framework, making Assertion A correct. However, SHGs remain informal, voluntary associations and are not legally required to register as cooperative societies to access bank credit, making Reason R false."
+    },
+    {
+        q: "With reference to the case of Olga Tellis v. Bombay Municipal Corporation (1985), consider the following statements: <br> 1. The Supreme Court held that the right to livelihood is an integral part of the right to life guaranteed under Article 21 of the Constitution.<br>2. The Court in this case drew exclusive support from Article 19(1)(g), the freedom to practise any profession, without any reference to a Directive Principle of State Policy.<br>3. The Court held that pavement dwellers possess an absolute and unconditional fundamental right to construct permanent dwellings on public pavements.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1 only",
+            "1, 2 and 3"
+        ],
+        ans: 2,
+        exp: "The landmark ruling in Olga Tellis held that the right to livelihood flows from the right to life under Article 21, making statement 1 correct. Statement 2 is wrong because the Court explicitly drew on Directive Principles under Articles 39(a) and 41 (not merely Article 19(1)(g)) to support this reasoning, and statement 3 is wrong because the Court did not recognise any absolute or unconditional right to occupy pavements, only that eviction must follow a just and fair procedure."
+    },
+    {
+        q: "With reference to the structure and composition of poverty estimation in India, consider the following statements: <br> 1. The Rangarajan Committee (2014) retained a single consumption basket for both rural and urban areas, similar to the approach followed by the Tendulkar Committee.<br>2. The composition of the poverty line basket under both the Tendulkar and Rangarajan methodologies excluded any allowance for non-food expenditure such as health and education.<br>3. Poverty estimates in India are officially updated every five years through a mandatory Census-linked exercise.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1 and 3 only",
+            "None of the statements is correct"
+        ],
+        ans: 3,
+        exp: "The Rangarajan Committee actually reverted to separate consumption baskets for rural and urban areas, departing from the Tendulkar Committee's single urban basket, making statement 1 incorrect. Both committees included non-food items such as health and education in their baskets, and India has no mandatory five-year Census-linked schedule for updating poverty estimates, which instead depend on irregularly conducted consumption expenditure surveys, so none of the three statements is correct."
+    },
+    {
+        q: "With reference to the Code on Social Security, 2020, consider the following statements: <br> 1. It consolidates nine existing central laws relating to social security into a single Code.<br>2. It is the first Indian law to statutorily define 'gig workers' and 'platform workers'.<br>3. Under the Code, aggregators such as ride-sharing and food-delivery platforms are exempted from making any contribution towards the social security fund for gig and platform workers.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 2 and 3",
+            "All of the above",
+            "Exactly one of the statements is correct",
+            "Only two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "The Code on Social Security, 2020 merges nine earlier laws (including the EPF Act and the Maternity Benefit Act) and, for the first time, gives statutory definitions to 'gig worker' and 'platform worker', making statements 1 and 2 correct. Statement 3 is incorrect because the Code specifically requires aggregators to contribute a notified percentage of their turnover towards a social security fund for such workers, rather than exempting them."
+    },
+    {
+        q: "With reference to the Socio-Economic and Caste Census (SECC) 2011, consider the following statements: <br> 1. It officially fixed India's poverty line and headcount poverty ratio.<br>2. It was conducted by the National Sample Survey Office (NSSO).<br>3. The caste-wise population data collected under it was made fully public along with the socio-economic deprivation data.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "None of the statements is correct",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "SECC 2011 was conducted by the Ministry of Rural Development and the Ministry of Housing and Urban Poverty Alleviation, not the NSSO, and it never fixed an official poverty line, which is separately estimated using NSSO consumption expenditure data. While it gathered deprivation data used to identify scheme beneficiaries, the caste enumeration data collected was not released publicly, so none of the three statements is correct."
+    },
+    {
+        q: "With reference to the background and evolution of poverty estimation in India, consider the following statements: <br> 1. The earliest attempt to estimate a poverty line in India was made by Dadabhai Naoroji in his work 'Poverty and Un-British Rule in India,' although he himself never used the specific term 'poverty line'.<br>2. V.M. Dandekar and N. Rath, in their 1971 assessment, used differentiated calorie norms of 2400 kcal for rural areas and 2100 kcal for urban areas.<br>3. The Alagh Committee (1979) was the first official body to introduce differences in poverty lines based on regional price variations across Indian states.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "Exactly two of the statements are correct",
+            "Only statement 1",
+            "2 only"
+        ],
+        ans: 2,
+        exp: "Dadabhai Naoroji's 19th-century estimate is widely regarded as the earliest attempt to quantify poverty in India, even though he never used the term 'poverty line' himself, making statement 1 correct. Statement 2 is wrong because Dandekar and Rath actually used a uniform 2250 kcal norm for both rural and urban areas (it was the Alagh Committee that later differentiated the norms as 2400/2100), and statement 3 is wrong because the Alagh Committee adjusted its poverty line only for inflation over time, not for regional price variation across states, which was introduced much later."
+    },
+    {
+        q: "With reference to a World Bank report released in June 2025 on poverty in India, consider the following statements: <br> 1. India's extreme poverty rate fell from 27.1% in 2011-12 to 5.3% in 2022-23, based on a revised international poverty line of USD 3 per day (2021 PPP).<br>2. This revised USD 3 per day threshold represents a lower poverty line than the earlier USD 2.15 per day (2017 PPP) threshold, once adjusted for inflation.<br>3. Government-provided subsidised and free food distribution, particularly during the COVID-19 period, has been credited as a major contributor to India's poverty reduction.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "Both 1 and 2",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 3,
+        exp: "The World Bank's June 2025 report recorded India's extreme poverty falling from 27.1% to 5.3% using the revised USD 3/day line, and it credited subsidised and free food distribution, especially during COVID-19, as a major driver of this decline, making statements 1 and 3 correct. Statement 2 is wrong because the revised USD 3/day threshold is actually about 15% higher than the earlier USD 2.15/day line, not lower, once price-level adjustments are accounted for."
+    },
+    {
+        q: "Under the Indian Constitution, the concentration of wealth and means of production to the common detriment is treated as a violation of which one of the following?",
+        opts: [
+            "The Fundamental Duties of citizens",
+            "The Fundamental Right to Equality (Article 14)",
+            "The Directive Principles of State Policy",
+            "The Fundamental Right to Freedom (Article 19)"
+        ],
+        ans: 2,
+        exp: "Article 39(c), part of the Directive Principles of State Policy, directs the State to ensure that the operation of the economic system does not result in the concentration of wealth and means of production to the common detriment. Though the DPSPs are non-justiciable, they remain fundamental in the governance of the country, distinguishing them from the enforceable Fundamental Rights."
+    },
+    {
+        q: "With reference to the regulation of microfinance institutions (MFIs) in India, consider the following statements: <br> 1. The Micro Finance Institutions (Development and Regulation) Bill, 2012 sought to make the Reserve Bank of India the principal regulator of the microfinance sector.<br>2. This Bill was subsequently enacted into law and remains in force today.<br>3. In 2011, the RBI created a new category of Non-Banking Financial Companies called NBFC-MFIs, acting on the recommendations of the Malegam Committee.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "The 2012 Bill did propose the RBI as the sole regulator of MFIs, and the RBI separately created the NBFC-MFI category in 2011 based on Malegam Committee recommendations, making statements 1 and 3 correct. Statement 2 is wrong because the Bill lapsed with the dissolution of the 15th Lok Sabha and was never enacted into law."
+    },
+    {
+        q: "With reference to the Lakhpati Didi initiative, consider the following statements: <br> 1. The Lakhpati Didi initiative operates as a standalone centrally sponsored scheme with its own separate budgetary allocation, independent of DAY-NRLM.<br>2. India's original target of 6 crore Lakhpati Didis, set in 2023, was achieved well ahead of schedule by early 2026.<br>3. To qualify as a 'Lakhpati Didi,' a woman SHG member's enhanced household income of over Rs 1 lakh per annum must be sustained across multiple agricultural seasons or business cycles, not merely a one-time gain.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "None of the above",
+            "2 and 3 only",
+            "Statement 3 alone"
+        ],
+        ans: 3,
+        exp: "The Lakhpati Didi criterion specifically requires that the enhanced income be sustainable, maintained across at least four agricultural seasons or business cycles, rather than being a one-off windfall, making statement 3 correct. Statement 1 is wrong because Lakhpati Didi is an outcome/initiative under DAY-NRLM with no separate scheme or dedicated budget line, and statement 2 is wrong because the original 2023 target was 3 crore (achieved ahead of the March 2027 schedule by early 2026), with 6 crore being a fresh, still-unmet target set for March 2029."
+    },
+    {
+        q: "With reference to the features and characteristics of employment in India, consider the following statements: <br> 1. Disguised unemployment refers to a situation of visible joblessness where a worker actively seeks work but cannot find any employment opportunity.<br>2. The overwhelming majority of India's workforce is employed in the formal sector, with informal employment being a relatively marginal phenomenon.<br>3. Seasonal unemployment is typically observed in activities like agriculture, where labour demand fluctuates with the cropping cycle.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 3",
+            "All of the above",
+            "Only two of the statements are correct",
+            "Statement 2 alone"
+        ],
+        ans: 0,
+        exp: "Seasonal unemployment, arising from fluctuating labour demand across the agricultural cropping cycle, is indeed a well-documented feature of Indian employment, making statement 3 correct. Statement 1 wrongly describes open/visible unemployment rather than disguised unemployment, which actually refers to over-manning where some workers contribute zero or negligible marginal productivity, and statement 2 is wrong because the vast majority of India's workforce remains in informal employment, not formal employment."
+    },
+    {
+        q: "With reference to the Constitution (One Hundred and Third Amendment) Act, 2019, consider the following statements: <br> 1. It inserted new clauses into Articles 15 and 16 of the Constitution to enable reservation on economic grounds.<br>2. It provides reservation for Economically Weaker Sections (EWS) from among citizens already covered under the Scheduled Castes, Scheduled Tribes and Other Backward Classes reservations.<br>3. The reservation provided under this Amendment, being in addition to the pre-existing reservations, takes the total reservation beyond the 50% ceiling recognised in the Indra Sawhney case.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "The 103rd Amendment inserted Articles 15(6) and 16(6) to provide a 10% EWS quota, and since this sits on top of the existing SC/ST/OBC quotas, total reservation crosses the 50% ceiling. Statement 2 is wrong because EWS reservation is specifically for citizens NOT already covered by SC/ST/OBC reservations."
+    },
+    {
+        q: "With reference to Indian legislation supporting the human development approach, consider the following statements: <br> 1. The Right of Children to Free and Compulsory Education (RTE) Act, 2009 operationalises Article 21A and directly furthers the 'education' dimension central to human development.<br>2. The National Food Security Act, 2013 was enacted before the RTE Act, 2009, making it India's first legislative measure linked to the human development approach.<br>3. The National Food Security Act, 2013 legally entitles a specified proportion of the rural and urban population to receive subsidised foodgrains, supporting the living-standards dimension of human development.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 2 and 3",
+            "1 and 3 only",
+            "Only one of the statements is correct",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "The RTE Act, 2009 gave statutory effect to Article 21A and furthers the education dimension of human development, while the NFSA, 2013 legally entitles a specified share of the population to subsidised foodgrains, supporting the living-standards dimension, making statements 1 and 3 correct. Statement 2 is wrong because the RTE Act, 2009 actually preceded the NFSA, 2013, not the other way around."
+    },
+    {
+        q: "With reference to the concept of inclusive growth as used in India's planning framework, consider the following statements: <br> 1. Inclusive growth refers to a growth process that yields broad-based benefits across social groups while ensuring equality of opportunity for all.<br>2. Inclusive growth focuses exclusively on raising the rate of GDP growth, treating equitable distribution of its benefits as a secondary and non-essential concern.<br>3. Financial inclusion, skill development, and access to healthcare and education are widely regarded as key enablers of inclusive growth.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "Statement 2 alone",
+            "Both 1 and 3",
+            "1 only"
+        ],
+        ans: 2,
+        exp: "As conceptualised in India's Five-Year Plans, inclusive growth is defined by broad-based benefits and equality of opportunity, with financial inclusion, skilling, healthcare and education acting as key enablers, making statements 1 and 3 correct. Statement 2 is wrong because inclusive growth explicitly emphasises equitable distribution of growth's benefits, not merely the pace of GDP growth."
+    },
+    {
+        q: "With reference to the historical evolution of employment generation policy in India, consider the following statements: <br> 1. The Employment Guarantee Scheme (EGS) launched by Maharashtra in 1972 is widely regarded as a historical precursor to the national rural employment guarantee framework later adopted under MGNREGA.<br>2. The Maharashtra Employment Guarantee Act, giving the scheme a legal and rights-based character, was enacted in the 1990s, decades after the scheme itself had become operational.<br>3. The Maharashtra EGS was financed entirely through central government grants, with the state government bearing no financial responsibility.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All three statements are correct",
+            "Exactly two of the statements are correct",
+            "Exactly one of the statements is correct",
+            "2 only"
+        ],
+        ans: 2,
+        exp: "The Maharashtra EGS of 1972 is indeed considered a pioneering precursor to India's later national employment guarantee framework, making statement 1 correct. Statement 2 is wrong because the Maharashtra Employment Guarantee Act was enacted in 1977-78, only a few years after the scheme began, not in the 1990s, and statement 3 is wrong because the scheme was substantially funded by the state itself through a dedicated cess (including professional tax), not solely by central grants."
+    },
+    {
+        q: "With reference to NITI Aayog, consider the following statements: <br> 1. It is a constitutional body responsible for coordinating cooperative federalism between the Union and the States.<br>2. Unlike the erstwhile Planning Commission, it does not have the power to allocate central plan funds to States.<br>3. It formulates a 15-year vision document, a 7-year strategy paper and 3-year action agendas.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "NITI Aayog is a non-statutory, non-constitutional body set up by an executive resolution in 2015, and unlike the Planning Commission it does not allocate central funds to states; it instead works through a 15-year vision, 7-year strategy and 3-year action agenda. Statement 1 is incorrect because NITI Aayog has no constitutional status."
+    },
+    {
+        q: "Which one of the following best distinguishes 'absolute poverty' from 'relative poverty'?",
+        opts: [
+            "Absolute poverty is measured only in urban areas, while relative poverty is measured only in rural areas",
+            "Absolute poverty can decline only through economic growth, while relative poverty can decline only through taxation policy",
+            "Absolute poverty is defined with reference to a fixed minimum consumption/income threshold, while relative poverty is defined in comparison to the prevailing income or consumption distribution of a society",
+            "Absolute poverty considers only monetary indicators, while relative poverty is measured exclusively through the Multidimensional Poverty Index"
+        ],
+        ans: 2,
+        exp: "Absolute poverty is anchored to a fixed minimum basket of goods/consumption expenditure needed for subsistence, whereas relative poverty is a distributional concept defined with reference to how an individual's income compares to others in the same society. The other options misstate both concepts or wrongly restrict them to specific tools or geographies."
+    },
+    {
+        q: "With reference to the Business Correspondent (BC) model used to further financial inclusion in India, consider the following statements: <br> 1. The BC model enables beneficiaries to draw government subsidies and social security benefits directly in their villages through Direct Benefit Transfer.<br>2. Business Correspondents are permitted to independently sanction and disburse large-ticket, collateralised loans on behalf of banks, with no monetary ceiling on transaction size.<br>3. The Business Correspondent model was introduced for the first time as part of the Pradhan Mantri Jan Dhan Yojana in 2014, having had no prior existence before this scheme.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 only",
+            "3 only"
+        ],
+        ans: 2,
+        exp: "The BC model allows beneficiaries in branchless rural areas to draw government subsidies and social security benefits, such as pensions and MGNREGA wages, directly in their villages through Direct Benefit Transfer, making statement 1 correct. Statement 2 is wrong because BCs handle small-value transactions within prescribed ceilings rather than independently sanctioning large collateralised loans, and statement 3 is wrong because the BC model was actually initiated by the RBI in 2006, well before the 2014 launch of PMJDY."
+    },
+    {
+        q: "Under the Mahatma Gandhi National Rural Employment Guarantee Act (MGNREGA), 2005, if a job-card holder who has applied for work is not provided employment within a specified period, they become entitled to a daily unemployment allowance. What is this specified period?",
+        opts: [
+            "7 days",
+            "15 days",
+            "45 days",
+            "30 days"
+        ],
+        ans: 1,
+        exp: "Under MGNREGA, if employment is not provided within 15 days of an application being made, the applicant becomes entitled to a daily unemployment allowance, making this a legally enforceable right rather than a discretionary benefit. This provision reinforces the Act's demand-driven, rights-based design guaranteeing 100 days of wage employment per household per year."
+    },
+    {
+        q: "With reference to the challenges faced by the microfinance sector in India, consider the following statements: <br> 1. The Andhra Pradesh microfinance crisis of 2010 was partly triggered by multiple lending, with reports indicating an average of more than 10 loan accounts per poor household in the state by early 2010.<br>2. Coercive recovery practices adopted by some MFIs during this period were linked to a wave of borrower suicides in Andhra Pradesh.<br>3. In the aftermath of the crisis, microfinance activity in India became evenly spread across all states, eliminating any regional concentration of MFI operations.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "All three statements are correct",
+            "Both 2 and 3",
+            "None of the statements are correct"
+        ],
+        ans: 0,
+        exp: "The Andhra Pradesh crisis stemmed from unchecked multiple lending, with borrowers often holding more than 10 loan accounts, and coercive recovery methods were directly linked to a spate of borrower suicides, making statements 1 and 2 correct. Statement 3 is wrong because microfinance activity in India continues to show significant regional concentration, historically skewed towards the southern states, rather than being evenly spread."
+    },
+    {
+        q: "Assertion (A): The Worker Population Ratio (WPR) for a given population and reference period is generally lower than or equal to its Labour Force Participation Rate (LFPR).<br>Reason (R): LFPR includes both employed persons and unemployed persons seeking work, while WPR includes only employed persons.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "Both A and R are true but R is not the correct explanation of A",
+            "Both A and R are true and R is the correct explanation of A",
+            "A is false but R is true",
+            "A is true but R is false"
+        ],
+        ans: 1,
+        exp: "Since WPR measures only the employed share of the population while LFPR measures the employed plus those unemployed but seeking work, WPR can never exceed LFPR, confirming Assertion A. Reason R correctly explains why this must be so, since LFPR's additional component (job-seekers) can only add to, never subtract from, the base captured by WPR."
+    },
+    {
+        q: "With reference to the Employment Linked Incentive (ELI) Scheme approved by the Union Cabinet in July 2025, consider the following statements: <br> 1. The scheme provides incentives exclusively to employers, with no direct financial benefit extended to individual employees.<br>2. Eligible first-time employees registered with the EPFO can receive an incentive of up to one month's wage, capped at ₹15,000, disbursed in two instalments.<br>3. The scheme places special emphasis on incentivising additional job creation in the manufacturing sector, with extended incentive periods for employers in that sector.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "Statement 3 alone",
+            "All three statements are correct",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "Under Part A of the ELI Scheme, eligible first-time employees registered with the EPFO can directly receive an incentive of up to one month's wage (capped at ₹15,000) in two instalments, and the scheme gives special, extended emphasis to job creation in the manufacturing sector, making statements 2 and 3 correct. Statement 1 is wrong because the scheme benefits both first-time employees directly (Part A) and employers generating additional jobs (Part B), not employers exclusively."
+    },
+    {
+        q: "With reference to the functions and powers exercised in furtherance of financial inclusion in India, consider the following statements: <br> 1. The RBI mandates a minimum Priority Sector Lending (PSL) target for scheduled commercial banks to ensure credit flow to sectors such as agriculture and micro and small enterprises.<br>2. Banks falling short of their PSL targets are required to contribute the shortfall amount to specified development funds, such as the Rural Infrastructure Development Fund maintained with NABARD.<br>3. Bank credit extended to Self-Help Groups and eligible Micro Finance Institutions for on-lending to the poor is itself counted towards a bank's Priority Sector Lending achievement.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "All three statements are correct: the RBI prescribes minimum PSL targets, mandates shortfall contributions to funds like the RIDF held with NABARD, and explicitly counts bank lending to SHGs and eligible MFIs towards a bank's own PSL achievement. This illustrates how the RBI uses its regulatory powers to channel formal credit towards financially excluded and underserved segments."
+    },
+    {
+        q: "With reference to social security legislation in India, consider the following statements: <br> 1. The Payment of Gratuity Act, 1972 entitles an employee to gratuity after completing a minimum of 10 years of continuous service in the establishment.<br>2. The Unorganised Workers' Social Security Act, 2008 was the first Indian law to specifically provide a legal definition of the term 'unorganised worker'.<br>3. The Employees' Provident Funds and Miscellaneous Provisions Act, 1952 applies uniformly to all establishments in India, irrespective of the number of employees.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "The Unorganised Workers' Social Security Act, 2008 was indeed the first Indian statute to specifically define 'unorganised worker', making statement 2 correct. Statement 1 is wrong because the minimum qualifying period for gratuity is 5 years of continuous service, not 10, and statement 3 is wrong because the EPF Act applies only to establishments employing 20 or more persons in specified classes of industries, not universally to all establishments."
+    },
+    {
+        q: "The Pradhan Mantri Jan Dhan Yojana (PMJDY) was launched primarily with which one of the following objectives?",
+        opts: [
+            "Providing subsidised housing loans to the rural poor",
+            "Providing direct financial assistance to marginalised farmers",
+            "Bringing unbanked households into the formal financial system",
+            "Promoting the formation of women's Self-Help Groups in backward regions"
+        ],
+        ans: 2,
+        exp: "PMJDY, launched in August 2014, was a national mission for financial inclusion, aimed at ensuring access to basic banking, credit, insurance and pension facilities for the unbanked population. It was not designed as a housing loan scheme, an SHG-promotion programme, or a direct farmer assistance scheme, though it does complement broader financial inclusion and welfare delivery efforts."
+    },
+    {
+        q: "With reference to the challenges facing Self-Help Groups (SHGs) in India, consider the following statements: <br> 1. A common challenge faced by SHGs is elite capture, where dominant or better-off members disproportionately influence group decisions and appropriate a larger share of benefits.<br>2. SHGs in India have completely overcome the problem of limited market linkages, with all SHG-produced goods now enjoying assured access to large retail and export markets.<br>3. Concerns around multiple lending and over-indebtedness, as witnessed during the 2010 Andhra Pradesh crisis, have never recurred in India's microfinance-linked SHG ecosystem since then.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "2 only",
+            "1 and 3 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "Elite capture, where more influential or better-off members dominate group decision-making and benefit disproportionately, remains a well-documented challenge within many SHGs, making statement 1 correct. Statement 2 is wrong because limited market access for SHG-produced goods remains an ongoing, unresolved challenge rather than one that has been 'completely overcome,' and statement 3 is wrong because concerns over multiple lending and over-indebtedness have resurfaced periodically in India's microfinance sector even after 2010, including renewed signs of stress in recent years."
+    },
+    {
+        q: "With reference to the Pradhan Mantri Kaushal Vikas Yojana (PMKVY), consider the following statements: <br> 1. It is the flagship skill-training scheme of the Ministry of Labour and Employment.<br>2. It imparts training in soft skills, entrepreneurship, and financial and digital literacy, in addition to technical skills.<br>3. It seeks to align the competencies of the country's unregulated workforce with the National Skills Qualification Framework.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 only",
+            "2 and 3 only"
+        ],
+        ans: 3,
+        exp: "PMKVY does impart training in soft skills, entrepreneurship, and financial and digital literacy, and it aims to align the unregulated workforce with the National Skills Qualification Framework, making statements 2 and 3 correct. Statement 1 is wrong because PMKVY is the flagship scheme of the Ministry of Skill Development and Entrepreneurship, not the Ministry of Labour and Employment."
+    },
+    {
+        q: "With reference to Payments Banks in India, consider the following statements: <br> 1. Payments Banks were established based on the recommendations of the Raghuram Rajan Committee on Financial Sector Reforms.<br>2. Payments Banks are permitted to extend loans and issue credit cards directly to customers, similar to universal commercial banks.<br>3. Payments Banks can accept demand deposits and offer services like remittances and mobile banking, but cannot undertake lending activities on their own balance sheet.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 and 3 only",
+            "None of the statements are correct",
+            "All of the statements are correct"
+        ],
+        ans: 0,
+        exp: "Payments Banks were permitted to accept deposits and provide remittance and mobile banking services, but RBI guidelines explicitly bar them from directly extending loans or issuing credit cards, making statement 3 correct. Statement 1 is wrong because Payments Banks emerged from the recommendations of the Nachiket Mor Committee (2014), not the Raghuram Rajan Committee, and statement 2 is wrong for the reason already explained: lending activities on their own account are precisely what Payments Banks are barred from undertaking."
+    },
+    {
+        q: "With reference to Self-Help Groups (SHGs), consider the following statements: <br> 1. SHGs enable members to mobilise savings and access credit without collateral requirements.<br>2. SHGs are statutory bodies constituted under an Act of Parliament.<br>3. SHGs contribute to building social capital and empowering women through collective decision-making.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "All three statements are correct",
+            "Statement 2 alone",
+            "Only two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "SHGs are informal, voluntary associations centred on thrift and collateral-free credit access, and they have played a significant role in building social capital and empowering women, making statements 1 and 3 correct. Statement 2 is wrong since SHGs have no statutory basis and are not constituted under any Act of Parliament."
+    },
+    {
+        q: "Which of the following organisations is primarily responsible for the annual computation and publication of the Human Development Index (HDI) at the global level?",
+        opts: [
+            "World Bank",
+            "International Labour Organization",
+            "World Trade Organization",
+            "United Nations Development Programme (UNDP)"
+        ],
+        ans: 3,
+        exp: "The UNDP has computed and published the HDI annually since 1990 as part of its Human Development Report, tracking global progress on health, education and living standards. Neither the World Bank, the WTO, nor the ILO is responsible for this particular index, though each publishes its own distinct set of development or labour-related indicators."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-54 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-50</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "With reference to land grant charters in ancient and early medieval India, consider the following statements: <br>1. The Chammak copper-plate grant of the Vakataka ruler Pravarasena II laid down a royal regulation ('sasanasthiti') governing the terms of the grant.<br>2. Instances exist of later rulers, such as the Pratihara king Bhoja I, formally confirming or re-granting agraharas that had been created by earlier rulers.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Neither 1 nor 2",
+            "Both 1 and 2",
+            "2 only",
+            "1 only"
+        ],
+        ans: 1,
+        exp: "The Chammak grant of Pravarasena II is a well-known example of a copper-plate charter that laid down a 'sasanasthiti', or standing regulation, governing the grant's terms. Records also show later rulers, such as Bhoja I of the Pratiharas, confirming or re-granting agraharas established under earlier reigns, confirming both statements."
+    },
+    {
+        q: "With reference to a 2025 reference to ancient Indian local self-governance, consider the following statements: <br>1. During a 2025 visit to Gangaikonda Cholapuram in Tamil Nadu, it was highlighted that the Chola-era Kudavolai system of village self-governance pre-dated England's Magna Carta by centuries.<br>2. The Kudavolai system, described in the Uttaramerur inscriptions, involved selecting village committee members by drawing lots from names written on palm-leaf tickets placed in a pot.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "2 only",
+            "Neither 1 nor 2",
+            "1 only"
+        ],
+        ans: 0,
+        exp: "In 2025, a visit to the Chola capital of Gangaikonda Cholapuram was used to highlight that the Kudavolai ('pot-ticket') system of electing village committees, recorded in the 10th-century Uttaramerur inscriptions, predates the Magna Carta (1215 CE) by centuries. The system indeed involved candidates' names being written on palm-leaf tickets ('olai') and drawn by lot from a pot ('kuda'), making both statements correct."
+    },
+    {
+        q: "Kautilya's Arthashastra describes the 'Saptanga' (seven limbs) theory of the state. Which one of the following is NOT one of the seven limbs (prakritis) identified in this theory?",
+        opts: [
+            "Amatya (the Minister)",
+            "Swami (the King)",
+            "Kosha (the Treasury)",
+            "Purohita (the Chief Priest)"
+        ],
+        ans: 3,
+        exp: "The Saptanga theory identifies seven limbs of the state: Swami (king), Amatya (ministers), Janapada (territory and population), Durga (fort), Kosha (treasury), Danda (army), and Mitra (allies). The Purohita, or chief priest, though an important dignitary in the Mauryan court, is not counted among these seven limbs."
+    },
+    {
+        q: "Which one of the following pairs of dynasty and its associated numismatic feature is INCORRECTLY matched?",
+        opts: [
+            "Gupta — Gold dinars carrying Sanskrit legends, often in verse form",
+            "Satavahana — Extensive issuance of lead coinage, unusual among ancient Indian dynasties",
+            "Kushana — First dynasty in India to issue punch-marked silver coins",
+            "Indo-Greek — Among the first rulers in India to issue coins bearing their own portrait and name"
+        ],
+        ans: 2,
+        exp: "Punch-marked silver coins considerably predate the Kushanas, having originated with the janapadas and mahajanapadas around the 6th century BCE, whereas the Kushanas are instead associated with introducing large-scale gold coinage in India, making this pair incorrectly matched. The Satavahana, Indo-Greek, and Gupta pairs are all correctly matched."
+    },
+    {
+        q: "With reference to the structure and composition of Chola-period village assemblies, consider the following statements: <br>1. The 'Sabha' was found in brahmadeya villages and its membership was restricted to Brahmins.<br>2. The 'Ur' was a general assembly found in non-brahmadeya (vellanvagi) villages, generally open to resident landholders.<br>3. The 'Nagaram' was an assembly of Brahmin priests found in every Chola village and was entrusted with temple management.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "Only two of the statements are correct",
+            "None of the above",
+            "All of the statements are correct"
+        ],
+        ans: 1,
+        exp: "The Sabha was indeed confined to brahmadeya villages and restricted to Brahmins, while the Ur functioned as a more general assembly of landholders in non-brahmadeya villages. The Nagaram, however, was an assembly of merchants and traders found mainly in commercial centres, not an exclusively Brahmin body responsible for temple management, making the third statement incorrect."
+    },
+    {
+        q: "With reference to the institution of 'gotra' in ancient Indian social structure, consider the following statements: <br>1. A gotra denotes a patrilineal descent group whose members trace their ancestry to a common Vedic sage.<br>2. Marriage between men and women belonging to the same gotra was traditionally encouraged in order to preserve lineage purity.<br>3. The application of the gotra system to Shudras and tribal communities is not clearly established in the Brahmanical textual sources that record it.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 3",
+            "None of the above",
+            "1 and 3 only",
+            "Both 1 and 2"
+        ],
+        ans: 2,
+        exp: "Gotra was indeed a patrilineal descent group linked to a common sage-ancestor, and its extension to Shudras and tribal groups is not clearly attested in the elite Brahmanical texts that describe it. However, gotra was an exogamous unit, meaning marriage within the same gotra was traditionally prohibited, not encouraged, making the second statement incorrect."
+    },
+    {
+        q: "With reference to the major land revenue systems introduced by the British in India, consider the following statements: <br>1. Under the Ryotwari System, introduced by Thomas Munro, the entire village community ('mahal') was held collectively responsible for payment of land revenue.<br>2. The Mahalwari System settled revenue directly with individual cultivators ('ryots'), bypassing any village-level collective responsibility.<br>3. The Permanent Settlement of 1793, introduced by Lord Cornwallis in Bengal, fixed the land revenue payable by zamindars in perpetuity and recognised them as owners of the land.<br>Which of the statements given above is correct?",
+        opts: [
+            "3 only",
+            "None of the statements given above is correct",
+            "1 only",
+            "2 only"
+        ],
+        ans: 0,
+        exp: "The Permanent Settlement of 1793 did fix zamindars' revenue obligation in perpetuity while recognising them as land owners. The first and second statements describe the two systems in reverse: it was the Mahalwari System that made the village community (mahal) collectively responsible for revenue, while the Ryotwari System settled revenue directly with individual cultivators (ryots)."
+    },
+    {
+        q: "Which one of the following statements about Lokmata Ahilyabai Holkar, whose 300th birth anniversary was observed in 2025, is correct?",
+        opts: [
+            "She actively enforced the practice of Sati and expanded it as state policy during her reign",
+            "She was the founder of the Holkar dynasty and the first ruler of the Maratha Malwa kingdom",
+            "She was married into the Peshwa family of Pune and administered the Deccan plateau from Pune",
+            "She ruled Malwa from her capital at Maheshwar on the banks of the river Narmada and undertook temple reconstruction across India, including the Kashi Vishwanath temple"
+        ],
+        ans: 3,
+        exp: "Ahilyabai Holkar, whose 300th birth anniversary (born 31 May 1725) was marked in 2025, ruled the Holkar kingdom of Malwa from her capital at Maheshwar on the Narmada and is remembered for rebuilding temples such as Kashi Vishwanath. She was married into the Holkar family (not the Peshwas), was not the dynasty's founder (that was her father-in-law Malhar Rao Holkar), and was herself prevented from committing Sati and later opposed the practice rather than promoting it."
+    },
+    {
+        q: "With reference to the regulation of guilds as recommended in Kautilya's Arthashastra, consider the following statements: <br>1. The Arthashastra recommended that the state should have no role whatsoever in recognising or regulating the internal rules framed by guilds.<br>2. According to the Arthashastra, disputes arising between different guilds were to be resolved through open warfare between the guilds' private armies.<br>3. The Arthashastra recommended that the customary rules and regulations framed by a guild should be legally upheld and enforced by the state.<br>Which of the statements given above is correct?",
+        opts: [
+            "None of the statements given above is correct",
+            "2 only",
+            "1 only",
+            "3 only"
+        ],
+        ans: 3,
+        exp: "The Arthashastra recommended that a guild's own customary rules be given legal recognition and enforced by the state, reflecting a policy of engagement rather than non-involvement. The state was not indifferent to guilds, as the first statement wrongly suggests, and inter-guild disputes were addressed through state-recognised arbitration and courts, not private warfare, as the fabricated second statement claims."
+    },
+    {
+        q: "With reference to the Coinage Act, 2011, consider the following statements: <br>1. It repealed and replaced the earlier Indian Coinage Act, 1906.<br>2. It prohibits the melting or destruction of coins as well as the possession of such molten metal for issue as coin.<br>3. Under this Act, the power to establish or abolish Mints in India rests with the Central Government.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 2 and 3",
+            "Both 1 and 2",
+            "1, 2 and 3",
+            "Statement 3 alone"
+        ],
+        ans: 2,
+        exp: "The Coinage Act, 2011 consolidated and repealed the earlier Indian Coinage Act, 1906; it explicitly prohibits the melting, destruction, or possession of molten coin metal for issue; and it vests the power to establish or abolish Mints in the Central Government. All three statements are therefore correct."
+    },
+    {
+        q: "With reference to the features of the traditional caste system in India, consider the following statements: <br>1. Endogamy (marriage within one's own group) is considered one of the defining features of the traditional caste system.<br>2. Traditional caste society placed no restrictions on inter-dining or social interaction between members of different castes.<br>3. Hereditary association with a particular occupation was a common feature of caste-based social organisation.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 3 only"
+        ],
+        ans: 3,
+        exp: "Endogamy and hereditary occupational association are widely recognised as defining structural features of the traditional caste system. However, caste society was in fact marked by significant restrictions on commensality and social intercourse between different castes, the opposite of what the second statement claims, making it incorrect."
+    },
+    {
+        q: "With reference to Mauryan revenue administration, consider the following statements: <br>1. The 'Samaharta' was responsible for supervising the collection of revenue from the various sources across the kingdom.<br>2. The 'Sannidhata' functioned as the custodian of the royal treasury and stores.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the above",
+            "Only one of the statements is correct",
+            "Neither statement is correct",
+            "Statement 1 alone"
+        ],
+        ans: 0,
+        exp: "The Arthashastra assigns distinct roles to these two high officials: the Samaharta oversaw the collection of revenue from all sources, while the Sannidhata was in charge of safeguarding the accumulated treasury and state stores. Both statements accurately describe their respective functions."
+    },
+    {
+        q: "With reference to the land revenue system of ancient India, particularly under the Mauryas, consider the following statements: <br>1. 'Bhaga' was the standard land tax collected as a share of the agricultural produce.<br>2. 'Sita' denoted revenue derived from crown lands cultivated under the direct supervision of the state.<br>3. 'Hiranya' was invariably collected in kind rather than in cash.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "1 and 3 only",
+            "2 and 3 only",
+            "All of the above"
+        ],
+        ans: 0,
+        exp: "Bhaga was the principal land tax realised as a proportion of the produce, with the rate varying according to land fertility and mode of cultivation. Sita referred to revenue from state/crown lands cultivated directly for the king. Hiranya, in contrast, was a tax paid in cash rather than in kind, making the third statement incorrect."
+    },
+    {
+        q: "With reference to the social structure of ancient India, which one of the following best distinguishes the 'Varna' system from the 'Jati' system?",
+        opts: [
+            "Varna is a fourfold theoretical classification described in Brahmanical texts, whereas Jati refers to numerous localised, endogamous, occupation-based groups that constituted the lived social reality",
+            "Varna and Jati are interchangeable terms referring to the same fourfold division of ancient Indian society",
+            "Varna refers to thousands of localised, endogamous birth-groups, while Jati refers to the fourfold classification found in Vedic texts",
+            "Jati was a construct introduced only during the colonial census, whereas Varna existed in the pre-colonial period"
+        ],
+        ans: 0,
+        exp: "Varna is the theoretical, scriptural fourfold classification (Brahmin, Kshatriya, Vaishya, Shudra) found in Brahmanical texts, while Jati denotes the thousands of localised, endogamous, occupation-linked groups that actually structured everyday social life. Jati predates the colonial period, though colonial census operations helped rigidify and enumerate caste categories rather than create them."
+    },
+    {
+        q: "With reference to challenges in access to education in ancient India, consider the following statements: <br>1. In the classical Brahmanical framework, Shudras were generally excluded from formal Vedic education through denial of the 'Upanayana' (sacred-thread) initiation.<br>2. Access to established centres of higher learning such as Nalanda was entirely free of any entrance screening, admitting all applicants without exception.<br>3. Buddhist monastic centres of learning were, in principle, comparatively more open to admitting students from varied social backgrounds than strictly Brahmanical centres.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "Denial of the Upanayana to Shudras effectively barred them from formal Vedic learning, and Buddhist monastic institutions are generally seen as comparatively more inclusive across social backgrounds than strictly Brahmanical centres. Nalanda, however, is traditionally described as having a gatekeeper-scholar who screened and turned away many aspiring students, so access there was not free of screening, making the second statement incorrect."
+    },
+    {
+        q: "With reference to challenges in interpreting land grants in early medieval India, consider the following statements: <br>1. R.S. Sharma's 'Indian feudalism' thesis links land grants to a decline in long-distance trade and increasing ruralisation in early medieval India.<br>2. Harbans Mukhia has been a prominent critic of applying the European-derived concept of 'feudalism' uncritically to early medieval Indian society.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Neither 1 nor 2",
+            "Both 1 and 2",
+            "1 only",
+            "2 only"
+        ],
+        ans: 1,
+        exp: "R.S. Sharma's influential thesis connects the proliferation of land grants to declining trade, reduced circulation of coinage, and a shift toward a localised agrarian economy. This interpretation, however, has been contested by historians such as Harbans Mukhia, who has questioned the validity of transplanting the European concept of 'feudalism' onto early medieval Indian society, confirming both statements as correct."
+    },
+    {
+        q: "With reference to the recommendations of Kautilya's Arthashastra on revenue administration, consider the following statements: <br>1. Land revenue was to be fixed uniformly at one-tenth of the produce across the empire, irrespective of soil fertility.<br>2. The office of the 'Samaharta' (chief revenue collector) was to be hereditary and free from any royal oversight or audit.<br>3. Revenue from trade routes ('vanikpatha') was to be excluded from the state's income and reserved solely for merchants.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements given above is correct",
+            "1 only",
+            "1 and 2 only",
+            "2 only"
+        ],
+        ans: 0,
+        exp: "The Arthashastra did not fix a uniform revenue rate; assessments varied with the fertility of land and mode of cultivation. Far from being hereditary and unaccountable, the Samaharta's work was subject to detailed record-keeping and scrutiny by other officials. Trade routes (vanikpatha) were explicitly listed among the state's recognised sources of revenue, not excluded from it. Hence, none of the statements is correct."
+    },
+    {
+        q: "With reference to the functions and powers of the 'Mantriparishad' (Council of Ministers) under the Mauryas, consider the following statements: <br>1. Every member of the Mantriparishad held equal status and identical administrative responsibilities as the 'Amatyas' (high officials/executive officers).<br>2. The size of the Mantriparishad was fixed permanently at exactly seven members throughout the Mauryan period, as per the Arthashastra.<br>3. The Mantriparishad served in a purely advisory capacity, and the king was not bound to accept its advice.<br>Which of the statements given above is correct?",
+        opts: [
+            "None of the statements given above is correct",
+            "2 only",
+            "1 only",
+            "3 only"
+        ],
+        ans: 3,
+        exp: "The Arthashastra describes the Mantriparishad as an advisory body whose counsel the king could accept or set aside as he judged fit. It was not identical in status to the wider body of Amatyas, and the Arthashastra does not fix its membership permanently at seven; rather, it suggests the number be decided according to circumstances and need."
+    },
+    {
+        q: "With reference to the organisation of trade and commerce in ancient India, consider the following statements: <br>1. Maritime trade in ancient India was conducted exclusively from ports along the eastern coast, with the western coast playing no role in overseas commerce.<br>2. Ancient Indian merchant caravans undertaking long-distance overland trade were commonly referred to as a 'sartha', led by a caravan leader known as the 'sarthavaha'.<br>3. The 'nigama', a term used for a mercantile guild, referred exclusively to associations of agricultural labourers rather than traders.<br>Which of the statements given above is correct?",
+        opts: [
+            "3 only",
+            "1 only",
+            "None of the statements given above is correct",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "Long-distance overland caravans in ancient India were indeed known as 'sartha', headed by a 'sarthavaha'. Western coast ports such as Bharuch and Muziris were, in fact, central to India's maritime trade, so overseas commerce was not confined to the eastern coast. Similarly, 'nigama' denoted a guild of merchants or traders, not an association of agricultural labourers."
+    },
+    {
+        q: "With reference to the structure and composition of ancient Indian land-grant charters, consider the following statements: <br>1. Copper-plate charters recording land grants were typically composed entirely in prose, with no part of the text rendered in verse.<br>2. The two or more plates of a copper-plate charter were usually joined together by a ring bearing the royal seal of the donor.<br>3. The Sohgaura copper-plate inscription, dated to the Gupta period, is regarded as the earliest known example of such a charter in India.<br>Which of the statements given above is correct?",
+        opts: [
+            "None of the statements given above is correct",
+            "3 only",
+            "1 only",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "Copper-plate charters were typically joined by a ring carrying the donor's royal seal, authenticating the document. They were not composed entirely in prose; the donor's genealogy was usually rendered in ornate verse, while the specific terms of the grant were set out in prose. The Sohgaura copper-plate inscription is dated to around the 3rd century BCE (the Mauryan period), not the Gupta period, making the third statement incorrect as well."
+    },
+    {
+        q: "With reference to institutions of higher learning in ancient and medieval India, consider the following statements: <br>1. Mithila emerged as a noted centre for specialised studies in Nyaya (logic).<br>2. Nalanda is said to have employed a gatekeeper-scholar to examine and screen prospective students before admission.<br>3. All ancient centres of higher learning, including Takshashila, awarded formal degrees to students on completion of a fixed-duration course.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "Only one of the statements is correct",
+            "None of the above",
+            "All of the above"
+        ],
+        ans: 0,
+        exp: "Mithila was renowned as a specialised centre for the study of Nyaya, and traditional accounts describe Nalanda as having a gatekeeper who tested and turned away many aspiring students. Takshashila, however, had no formal admission tests, fixed-duration courses, or degree-awarding system; individual teachers imparted instruction and students left once the teacher was satisfied, making the third statement incorrect."
+    },
+    {
+        q: "With reference to the challenges of ancient Indian revenue administration as discussed in Kautilya's Arthashastra, consider the following statements: <br>1. The Arthashastra describes as many as forty distinct ways in which government officials could embezzle state revenue.<br>2. According to Kautilya, embezzlement of state revenue by government officials was, in practice, an extremely rare occurrence requiring no special vigilance.<br>3. Kautilya recommended that suspected cases of embezzlement be left entirely uninvestigated, since proving the dishonesty of officials was considered altogether impossible.<br>Which of the statements given above is correct?",
+        opts: [
+            "3 only",
+            "2 only",
+            "1 only",
+            "None of the statements given above is correct"
+        ],
+        ans: 2,
+        exp: "The Arthashastra catalogues around forty distinct methods by which officials could embezzle state revenue, reflecting Kautilya's deep concern with administrative corruption. Far from treating it as rare, Kautilya famously compared the difficulty of detecting an official's dishonesty to knowing whether a fish underwater is drinking, precisely to stress the need for constant vigilance and detailed investigative procedures, not their abandonment."
+    },
+    {
+        q: "Consider the following pairs relating to Chola village administration: <br>Term : Meaning<br>1. Perunguri : The full village assembly (Mahasabha)<br>2. Variyaperumakkal : Members of an executive committee constituted by the Sabha<br>3. Urar : Landholding members of the 'Ur' assembly in non-Brahmin villages<br>How many of the above pairs are correctly matched?",
+        opts: [
+            "Only one",
+            "None",
+            "All three",
+            "Only two"
+        ],
+        ans: 2,
+        exp: "All three pairs are correctly matched: the Perunguri referred to the full village assembly (Mahasabha), Variyaperumakkal denoted the members of an executive committee (variyam) constituted from within the Sabha, and Urar referred to the landholding members who made up the Ur assembly in non-Brahmin (vellanvagi) villages."
+    },
+    {
+        q: "Assertion (A): Education in ancient India was imparted predominantly through oral transmission involving recitation and memorisation.<br>Reason (R): The absence of any standardised script in ancient India made written instruction impossible until the medieval period.<br>Select the correct answer using the codes given below:",
+        opts: [
+            "Both A and R are true, but R is not the correct explanation of A",
+            "A is true, but R is false",
+            "Both A and R are true, and R is the correct explanation of A",
+            "A is false, but R is true"
+        ],
+        ans: 1,
+        exp: "Ancient Indian education relied heavily on oral recitation and memorisation of texts, a practice rooted in pedagogical and ritual preference rather than the lack of alternatives. Scripts such as Brahmi and Kharosthi were already in use by the Mauryan period, so the claim that the absence of a script made written instruction 'impossible' is factually incorrect."
+    },
+    {
+        q: "With reference to institutions of higher learning in ancient India, consider the following statements: <br>1. Takshashila functioned as a cluster of individual teacher-led schools rather than a single, centrally administered university.<br>2. Nalanda University is traditionally attributed to the Gupta ruler Kumaragupta I.<br>3. Vikramshila University was established by the Pala ruler Dharmapala.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the above",
+            "1 and 2 only",
+            "None of the statements are correct",
+            "Statement 2 alone"
+        ],
+        ans: 0,
+        exp: "Takshashila had no centralised admission system and was essentially a hub of individual teachers, unlike the more formally organised Nalanda. Nalanda is traditionally credited to Kumaragupta I of the Gupta dynasty, while Vikramshila was founded by the Pala ruler Dharmapala to counter a perceived decline in standards at Nalanda. Hence all three statements are correct."
+    },
+    {
+        q: "Assertion (A): Historians consider a decline in the gold content of later Gupta-period coins as evidence of financial strain within the empire.<br>Reason (R): The earliest punch-marked coins of ancient India carried the name of the issuing ruler and the precise year of issue, allowing for their easy and unambiguous dating.<br>Select the correct answer using the codes given below:",
+        opts: [
+            "Both A and R are true, but R is not the correct explanation of A",
+            "A is true, but R is false",
+            "A is false, but R is true",
+            "Both A and R are true, and R is the correct explanation of A"
+        ],
+        ans: 1,
+        exp: "The debasement of gold coinage in the later Gupta period is a well-recognised indicator used by historians to infer fiscal difficulties. However, the earliest punch-marked coins bore only symbols, not the name of the ruler or a date, which is precisely why attributing and dating them has been historically difficult, making the Reason false."
+    },
+    {
+        q: "With reference to the evolution of coinage in ancient India, consider the following statements: <br>1. Punch-marked coins, among the earliest coins of ancient India, generally carried symbols rather than the name of the issuing ruler.<br>2. Indo-Greek rulers introduced portrait busts and legends, often bilingual, on coins circulating in the north-western subcontinent.<br>3. The debasement (declining purity) of gold coinage in the later Gupta period is cited by historians as a sign of the empire's weakening economy.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All three statements are correct",
+            "Exactly two of the statements are correct",
+            "Only two of the statements are correct",
+            "Only one of the statements is correct"
+        ],
+        ans: 0,
+        exp: "Early punch-marked coins bore only symbols rather than royal names, Indo-Greek rulers pioneered the use of portrait busts and (often bilingual) legends on Indian coinage, and later Gupta gold coins are noted by historians for a decline in purity, widely read as an indicator of fiscal strain. All three statements are therefore correct."
+    },
+    {
+        q: "With reference to the background and evolution of the status of women in ancient and medieval India, consider the following statements: <br>1. Women's participation in Vedic sacrificial rituals alongside their husbands was completely disallowed even in the earliest Vedic period.<br>2. The practice of child marriage and restrictions on women's property rights became progressively less common as India moved from the ancient to the medieval period.<br>3. The position of women in Indian society underwent a marked decline from the relatively higher status of the early Vedic period to increasing restrictions in the later Vedic and subsequent periods.<br>Which of the statements given above is correct?",
+        opts: [
+            "2 only",
+            "3 only",
+            "1 only",
+            "None of the statements given above is correct"
+        ],
+        ans: 1,
+        exp: "Historians generally trace a decline in women's status from the relatively better position of the early Vedic period, when women participated in sacrifices alongside their husbands, to growing restrictions in the later Vedic and subsequent periods. This directly contradicts the first statement, and trends such as child marriage and curbs on property rights are understood to have become more, not less, entrenched moving into the medieval period."
+    },
+    {
+        q: "With reference to the background and evolution of land grants in ancient India, consider the following statements: <br>1. In the early Vedic period, land donations to Brahmins were rare and largely symbolic, often linked to sacrificial rituals.<br>2. The practice of granting land invariably strengthened the direct control of the central king over distant villages.<br>3. Land grants for religious and administrative purposes became a widespread and dominant feature of the socio-political landscape mainly between the 4th and 12th centuries CE.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "Early Vedic land gifts were indeed rare, symbolic, and ritual-linked, and the widespread proliferation of religious and administrative land grants is generally dated to roughly the 4th to 12th centuries CE. However, such grants are usually seen as having reduced, not strengthened, direct royal control over distant villages by creating semi-autonomous, locally powerful grantees, making the second statement incorrect."
+    },
+    {
+        q: "Which one of the following statements regarding India's education sector in 2025-2026 is correct?",
+        opts: [
+            "The ULLAS (Nav Bharat Saaksharta Karyakram) scheme aims to impart foundational literacy and numeracy to individuals aged 15 years and above",
+            "The Samagra Shiksha scheme was launched afresh in 2025 to replace the Sarva Shiksha Abhiyan",
+            "The PM SHRI scheme mandates a uniform curriculum for all schools in India without any role for State Governments",
+            "India participated in the PISA 2025 assessment cycle and obtained an official national ranking for the first time"
+        ],
+        ans: 0,
+        exp: "ULLAS, running from FY 2022-23 to 2026-27, targets adults aged 15 and above and includes foundational literacy and numeracy as one of its core components. India did not take part in the PISA 2025 cycle; Samagra Shiksha has been operational since 2021 as an umbrella scheme rather than a fresh 2025 launch; and PM SHRI only upgrades about 14,500 selected schools into models with State involvement, not a nationwide uniform curriculum."
+    },
+    {
+        q: "With reference to the structure and composition of guilds (shrenis) in ancient India, consider the following statements: <br>1. Guilds were generally headed by an elder or chief known as the 'Shreshthin'.<br>2. Guilds dealing in trade (such as 'nigama' bodies) and those organised around a specific craft represented two broad types of guild organisation.<br>3. Some ancient Indian guilds are recorded as having over a thousand members and as functioning as custodians of deposited wealth.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 3,
+        exp: "Guilds were typically headed by a Shreshthin (elder/chief), and ancient India had both mercantile bodies (such as nigamas) and craft-based guilds (shrenis) as broad organisational types. Some guilds are recorded in inscriptions and texts as having over a thousand members and as accepting deposits, acting much like early banking institutions, making all three statements correct."
+    },
+    {
+        q: "With reference to the functions of village-level committees (variyams) under the Cholas, consider the following statements: <br>1. The 'Eri-variyam' was primarily entrusted with military recruitment and defence preparedness in the village.<br>2. The 'Totta-variyam' was responsible for the management and upkeep of village gardens.<br>3. Membership of the 'Samvatsara-variyam' (annual committee) was restricted to elders who had earlier served on the garden or tank committees.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 3,
+        exp: "The Eri-variyam was in fact the tank (irrigation) committee, not a body concerned with military recruitment, making the first statement incorrect. The Totta-variyam did manage village gardens, and the Samvatsara-variyam's membership was indeed drawn from elders experienced on the garden and tank committees, making the second and third statements correct."
+    },
+    {
+        q: "With reference to the challenges reflected in the administration of Chola-period village assemblies (as recorded in the Uttaramerur inscriptions), consider the following statements: <br>1. Failure to render proper accounts while serving on an earlier committee was grounds for disqualification from future membership.<br>2. Persons found guilty of offences such as incest or theft were, along with their relatives, permanently barred from contesting for a committee.<br>3. Committee members received a fixed government salary for their services, making the post a source of steady income.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "1 and 3 only",
+            "Only one of the statements is correct",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "The Uttaramerur inscriptions disqualified individuals (and their relatives) who had not submitted proper accounts or who had committed grave offences such as incest or theft, reflecting concerns about accountability and moral conduct. However, committee membership was honorary and unpaid, not a salaried post, making the third statement incorrect."
+    },
+    {
+        q: "With reference to the status of women in ancient and medieval India, consider the following statements: <br>1. Gargi and Maitreyi are recorded in Vedic literature as women who participated in philosophical discourses, reflecting a relatively higher social position for women in the early Vedic period.<br>2. The Age of Consent Act, 1891, which raised the minimum age for consummation of marriage, was enacted during the medieval period.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Neither 1 nor 2",
+            "2 only",
+            "Both 1 and 2",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "Gargi and Maitreyi are well-known Vedic-era women associated with philosophical learning, reflecting a comparatively better position for women in the early Vedic period before a later decline. The Age of Consent Act, however, was a colonial-era (modern, not medieval) law of 1891 that raised the age of consent from 10 to 12 years, making the second statement incorrect."
+    },
+    {
+        q: "With reference to religious and social reform movements challenging caste in ancient and medieval India, consider the following statements: <br>1. Buddhism and Jainism rejected birth-based ritual hierarchy and admitted members from different varnas into their monastic orders.<br>2. The Buddha called for the complete and immediate abolition of caste distinctions in society at large, not merely within the monastic order.<br>3. Bhakti saints such as Kabir and Ravidas, associated with 'nirguna' bhakti, rejected caste-based discrimination in their teachings.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 2",
+            "Exactly one of the statements is correct",
+            "1 and 3 only",
+            "3 only"
+        ],
+        ans: 2,
+        exp: "Buddhism and Jainism admitted people across varnas into their monastic orders, rejecting birth-based ritual hierarchy, and Bhakti saints like Kabir and Ravidas explicitly rejected caste discrimination in their nirguna teachings. The Buddha's approach, however, is generally understood as reformist rather than revolutionary: caste distinctions were allowed to persist in wider society outside the Sangha, making the second statement incorrect."
+    },
+    {
+        q: "Assertion (A): The Gramika, as village headman in Mauryan administration, was assisted in his duties by a group of village elders known as 'grama-vriddhas'.<br>Reason (R): The institution of a village headman was entirely a Gupta-period innovation, with no precedent in earlier Mauryan administration.<br>Select the correct answer using the codes given below:",
+        opts: [
+            "A is false, but R is true",
+            "Both A and R are true, and R is the correct explanation of A",
+            "Both A and R are true, but R is not the correct explanation of A",
+            "A is true, but R is false"
+        ],
+        ans: 3,
+        exp: "The Gramika was indeed assisted by village elders (grama-vriddhas) in the discharge of local duties. However, the office of village headman is attested well before the Gupta period, being explicitly described in the Mauryan-era Arthashastra itself, so it was not a Gupta-period innovation, making the Reason false."
+    },
+    {
+        q: "With reference to the historical value of ancient Indian coins, consider the following statements: <br>1. Numismatic evidence has enabled historians to reconstruct the succession of several Indo-Greek rulers not clearly recorded in Indian literary sources.<br>2. The gold content of coins issued during the Gupta period is often cited by historians as an indicator of the empire's economic condition.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Neither statement is correct",
+            "All of the above",
+            "Only statement 2",
+            "1 only"
+        ],
+        ans: 1,
+        exp: "The chronology of over thirty Indo-Greek rulers has been substantially reconstructed from their coins alone, since literary sources are largely silent on them. Similarly, the declining purity of gold in later Gupta coins is widely interpreted by historians as a sign of the empire's growing financial strain, showing how coins function as evidence for both political and economic history."
+    },
+    {
+        q: "With reference to challenges in ancient and medieval Indian social structure, consider the following statements: <br>1. Buddhist and Jain texts of the ancient period universally denied the existence of any occupational group considered ritually 'impure' or excluded from mainstream society.<br>2. The practice of untouchability, involving social ostracism of groups considered ritually impure, existed in various forms in ancient and medieval Indian society.<br>3. Untouchability-based discrimination was completely absent from South India throughout the ancient and medieval periods, being confined only to northern India.<br>Which of the statements given above is correct?",
+        opts: [
+            "1 only",
+            "None of the statements given above is correct",
+            "3 only",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "Untouchability, in various regional forms, is a documented feature of ancient and medieval Indian society across the subcontinent, contradicting the claim that it was confined to the north. Far from universally denying its existence, various ancient textual traditions, including Buddhist and Jain sources, refer to groups regarded as socially excluded or ritually impure."
+    },
+    {
+        q: "With reference to Megasthenes' account of Mauryan administration, consider the following statements: <br>1. Megasthenes describes the municipal committees of Pataliputra as being appointed for life, with no periodic rotation of membership.<br>2. The Arthashastra's discussion of urban superintendents describes an entirely different, unrelated system of city administration bearing no resemblance to Megasthenes' account.<br>3. According to Megasthenes, the municipal administration of Pataliputra was managed by six committees, each comprising five members.<br>Which of the statements given above is correct?",
+        opts: [
+            "1 only",
+            "None of the statements given above is correct",
+            "2 only",
+            "3 only"
+        ],
+        ans: 3,
+        exp: "Megasthenes recorded that Pataliputra's civic administration was carried out by six committees of five members each, overseeing functions such as industry, foreigners, vital registration, trade, manufacturing, and tax collection. There is no basis for the claim that these committees held life appointments, and the Arthashastra's treatment of urban superintendents is generally read as echoing rather than contradicting Megasthenes' account."
+    },
+    {
+        q: "With reference to the legal provisions found in the Manusmriti concerning ancient Indian social structure, consider the following statements: <br>1. The Manusmriti distinguishes between 'anuloma' (a man marrying a woman of lower varna) and 'pratiloma' (a man marrying a woman of higher varna) unions, treating the latter with greater disapproval.<br>2. According to the Manusmriti, the fine prescribed for verbal abuse varied depending on the varna of both the offender and the person abused.<br>3. The Manusmriti prescribed identical punishments for the same offence regardless of the varna of the offender.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "The Manusmriti indeed treats 'pratiloma' unions more harshly than 'anuloma' ones, and its penal provisions graded fines for offences such as verbal abuse according to the varna of both parties involved. This directly contradicts the idea of identical, varna-blind punishment, making the third statement incorrect."
+    },
+    {
+        q: "With reference to the Mandasor (Dashapura) inscription, consider the following statements: <br>1. It records a guild of silk weavers who migrated from Lata (in present-day Gujarat) to Dashapura (Mandsaur), some of whom later diversified into occupations other than weaving.<br>2. The inscription is dated to the Maurya period and records the earliest known reference to a merchant guild in India.<br>3. According to the inscription, the guild of silk weavers was legally barred from ever changing its traditional hereditary occupation.<br>Which of the statements given above is correct?",
+        opts: [
+            "2 only",
+            "3 only",
+            "None of the statements given above is correct",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "The Mandasor inscription, belonging to the Gupta period (5th century CE), records a guild of silk weavers that migrated from Lata to Dashapura, with some members later taking up other occupations such as archery and astrology. It is neither from the Maurya period nor the earliest reference to a merchant guild, and its content shows occupational mobility rather than a legal bar on changing occupation."
+    },
+    {
+        q: "With reference to the evolution of trade and commerce in ancient India, consider the following statements: <br>1. Long-distance trade between the Harappan civilisation and Mesopotamia is attested by archaeological and textual evidence.<br>2. Trade and urban centres are believed to have declined following the end of the Harappan phase, before reviving with the 'second urbanisation' around the 6th century BCE.<br>3. Indo-Roman trade reached its peak only after the decline of the Gupta empire in the 6th century CE.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "1 and 2 only",
+            "2 and 3 only",
+            "Both 1 and 3"
+        ],
+        ans: 1,
+        exp: "Harappan trade contacts with Mesopotamia are well attested, and after the decline of Harappan urbanism, trade and towns are understood to have revived only with the 'second urbanisation' of the 6th century BCE. Indo-Roman trade, however, peaked around the 1st-2nd centuries CE and had already weakened well before the Gupta empire's decline, making the third statement incorrect."
+    },
+    {
+        q: "With reference to the regulation of trade and commerce recommended in Kautilya's Arthashastra, consider the following statements: <br>1. The 'Panyadhyaksha' was tasked with fixing prices of commodities and punishing those found guilty of hoarding or profiteering.<br>2. The 'Sulkadhyaksha' was responsible for collecting tolls and customs duties on goods.<br>3. The Arthashastra envisaged significant state monitoring and regulation of trade rather than leaving it entirely to market forces.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "The Arthashastra prescribed a detailed bureaucratic apparatus for economic regulation: the Panyadhyaksha controlled prices and checked profiteering, the Sulkadhyaksha collected tolls and customs duties, and the text as a whole reflects a strong preference for active state oversight of trade rather than an unregulated market. All three statements are therefore correct."
+    },
+    {
+        q: "With reference to challenges in ancient Indian trade and commerce, consider the following statements: <br>1. Roman writers such as Pliny the Elder lamented the outflow of gold and silver from the Roman Empire to India in exchange for luxury goods.<br>2. The decline of the Roman and Iranian empires, combined with Huna invasions, is associated with a marked scarcity of gold and silver coins in north India between roughly the 7th and 10th centuries CE.<br>3. Trade and commerce in north India saw no revival of any kind until the establishment of British rule in the 18th century.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "Pliny the Elder's writings famously lament the drain of Roman gold to India, and the decline of the Roman and Iranian empires along with Huna invasions is linked to a scarcity of precious-metal coinage in north India between roughly the 7th and 10th centuries. However, trade revived well before British rule, from around the 10th century onward, through the growing activity of Arab traders on India's western coast, making the third statement incorrect."
+    },
+    {
+        q: "With reference to the rules for village committee elections recorded at Uttaramerur, consider the following statements: <br>1. The original set of rules, framed in 919 CE, was revised in 921 CE to address practical difficulties in their implementation.<br>2. Under the revised rules, a person who had already served on a committee could be immediately re-elected for the very next term.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1 only",
+            "Both 1 and 2",
+            "Neither 1 nor 2"
+        ],
+        ans: 1,
+        exp: "The 919 CE rules for electing Uttaramerur's village committees were indeed revised in 921 CE to make them more workable in practice. However, the revised rules barred a person who had served on a committee from contesting again for the next three terms, so immediate re-election was not permitted, making the second statement incorrect."
+    },
+    {
+        q: "The Keeladi archaeological site in Tamil Nadu, whose Open-Air Museum was inaugurated in January 2026, is significant for the study of ancient Indian trade and commerce mainly because it:",
+        opts: [
+            "provided the first evidence anywhere in India of Harappan-style seals being used in trade",
+            "yielded a silver punch-marked coin and other artefacts pointing to established trade links and a monetary economy in the region as early as the 6th century BCE",
+            "proved conclusively that the Ashokan Brahmi script was derived from the Tamil-Brahmi script rather than the other way around",
+            "confirmed continuous and unbroken habitation at the site from the Harappan period to the present day"
+        ],
+        ans: 1,
+        exp: "Excavations at Keeladi have yielded a silver punch-marked coin along with beads, dyeing vats, and other artefacts pointing to a thriving, standardised trade economy in the Vaigai river region by around the 6th century BCE. The findings have prompted debate over long-held script and civilisational timelines, but they do not establish either an origin of Ashokan Brahmi from Tamil-Brahmi or unbroken habitation since Harappan times; in fact, a cultural gap of roughly a thousand years with the Harappan civilisation has been noted."
+    },
+    {
+        q: "With reference to the guilds (shrenis) of ancient India, consider the following statements: <br>1. Guilds were centrally registered with the state, with the king functioning as their chief administrative authority.<br>2. Guilds framed rules regarding wages, working standards, and prices for the goods and services of their members.<br>3. Guilds possessed the authority to adjudicate disputes among their own members.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "Guilds (shrenis) in ancient India were largely autonomous bodies and were not centrally registered under the king as their chief administrator, though the state recognised and occasionally protected them. They did, however, fix wages, standards, and prices for their members' goods and services, and exercised judicial authority to settle internal disputes."
+    },
+    {
+        q: "With reference to the administrative structure of the Mauryan empire, consider the following statements: <br>1. Provincial governors, often called 'Kumaras', were frequently drawn from the royal family.<br>2. The village headman, or 'Gramika', functioned without any oversight from higher officials such as the 'Gopa' or 'Sthanika'.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 2",
+            "Both 1 and 2 are correct",
+            "Statement 1 alone",
+            "None of the above"
+        ],
+        ans: 2,
+        exp: "Mauryan provinces were indeed often governed by 'Kumaras', typically royal princes. However, the village headman (Gramika) was not free of oversight; he functioned within a hierarchy of officials such as the Gopa (in charge of groups of villages) and Sthanika (district-level officer), to whom he was answerable, making the second statement incorrect."
+    },
+    {
+        q: "With reference to land grants in ancient India, consider the following statements: <br>1. Grants such as 'agrahara' typically exempted the grantee from payment of land revenue and other customary dues to the state.<br>2. Copper-plate charters recording land grants often conferred administrative, and sometimes even judicial, authority over the granted village upon the donee.<br>3. Land grants in ancient India were made exclusively to Brahmins and were never extended to temples or other religious institutions.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 and 3 only",
+            "2 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "Agrahara and similar grants typically carried exemptions from land revenue and other dues, and copper-plate charters frequently vested the donee with administrative and judicial rights over the village. However, grants were not confined to Brahmins alone; 'devadana' grants to temples and other religious institutions were also common, making the third statement incorrect."
+    },
+    {
+        q: "With reference to the currency reforms of Sher Shah Suri, consider the following statements: <br>1. He replaced the earlier debased mixed-metal (billon) currency with a standardised tri-metallic system of gold, silver, and copper coins.<br>2. His currency reforms were abandoned by Akbar, who reverted to the earlier Lodi-era billon coinage.<br>3. The silver 'Rupiya' he introduced weighed approximately 178 grains and became the precursor of the modern Indian rupee.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "Both 1 and 2",
+            "Only statement 2",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "Sher Shah Suri replaced debased billon currency with a standardised tri-metallic system, and his silver Rupiya, weighing about 178 grains, went on to become the basis of the modern rupee. Far from abandoning these reforms, Akbar adopted and continued Sher Shah's standardised coinage system, making the second statement incorrect."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-50 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

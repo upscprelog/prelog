@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-31</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "With reference to constitutional and legal provisions relating to public health and communicable diseases in India, consider the following statements: <br> 1. Prevention of the extension from one State to another of infectious or contagious diseases is exclusively a subject in the State List.<br>2. Article 47, which directs the State to raise the level of nutrition and improve public health, is a justiciable Fundamental Right.<br>3. Article 21 expressly mentions the right to health as a Fundamental Right.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "None of the statements is correct",
+            "1 only"
+        ],
+        ans: 2,
+        exp: "Prevention of the spread of infectious diseases between States is in the Concurrent List, while public health and sanitation fall in the State List. Article 47 is a Directive Principle of State Policy and is not enforceable by courts. The right to health is not expressly mentioned in Article 21; it has been read into the right to life by judicial interpretation, so none of the statements is correct."
+    },
+    {
+        q: "With reference to the legal framework governing human organ and tissue donation in India, consider the following statements: <br> 1. The Transplantation of Human Organs and Tissues Act, 1994 gave legal recognition to brain-stem death for the purpose of organ donation.<br>2. The Act permits commercial dealing in human organs if the transaction is approved by an Authorisation Committee.<br>3. The Act regulates only deceased organ donation and does not cover donation by living donors.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 1",
+            "Exactly two of the statements are correct",
+            "Both 2 and 3",
+            "3 only"
+        ],
+        ans: 0,
+        exp: "The 1994 Act legalised organ removal after brain-stem death and prohibited commercial dealing in human organs, with Authorisation Committees scrutinising donations by unrelated living donors rather than approving sales. Statement 3 is wrong because the Act regulates both living and deceased donation, with donation by near relatives being the norm for living donors."
+    },
+    {
+        q: "Which one of the following pairs of plant hormone and its principal function is correct?",
+        opts: [
+            "Gibberellin - Induces and maintains seed dormancy",
+            "Auxin - Promotes ripening of climacteric fruits",
+            "Abscisic acid - Promotes closure of stomata during water stress",
+            "Cytokinin - Promotes apical dominance by suppressing lateral buds"
+        ],
+        ans: 2,
+        exp: "Abscisic acid is the stress hormone that causes stomatal closure during water deficit and helps maintain seed dormancy. Gibberellins break dormancy and promote germination, apical dominance is maintained by auxin while cytokinins promote lateral bud growth, and ripening of climacteric fruits is promoted by ethylene."
+    },
+    {
+        q: "Which one of the following statements regarding the legal and regulatory framework for vaccines in India is correct?",
+        opts: [
+            "The Epidemic Diseases Act, 1897 was repealed in 2020 and replaced by a new national Public Health Act.",
+            "Vaccination of all children under the Universal Immunization Programme is made compulsory by the Epidemic Diseases Act, 1897.",
+            "Vaccines are regulated as drugs under the Drugs and Cosmetics Act, 1940, with the CDSCO headed by the DCGI as the national regulator.",
+            "Vaccines are licensed and regulated by the Food Safety and Standards Authority of India under the Food Safety and Standards Act, 2006."
+        ],
+        ans: 2,
+        exp: "Vaccines are biological products regulated as drugs under the Drugs and Cosmetics Act, 1940 and its Rules, with approvals granted by the CDSCO under the Drugs Controller General of India. The Epidemic Diseases Act, 1897 was amended in 2020 (not repealed) and does not make vaccination compulsory. FSSAI regulates food, not vaccines."
+    },
+    {
+        q: "Fortified rice kernels, supplied by the Government of India under its food-based welfare schemes to address anaemia and micronutrient deficiencies, are fortified with which one of the following sets of micronutrients?",
+        opts: [
+            "Iron, vitamin A and iodine",
+            "Zinc, vitamin D and calcium",
+            "Iron, folic acid and vitamin B12",
+            "Iodine, vitamin C and folic acid"
+        ],
+        ans: 2,
+        exp: "Fortified rice kernels blended with ordinary rice carry iron, folic acid and vitamin B12, which target anaemia and related deficiencies. Iodine is added to salt, not rice, and the other combinations do not form the standard rice fortification package."
+    },
+    {
+        q: "With reference to the BioE3 (Biotechnology for Economy, Environment and Employment) Policy of India, consider the following statements: <br> 1. It was approved by the Union Cabinet in 2024 on the proposal of the Department of Biotechnology.<br>2. It envisages the establishment of Biomanufacturing and Bio-AI hubs and Biofoundries.<br>3. Its thematic sectors are confined to human health and pharmaceuticals.<br>How many of the statements given above are correct?",
+        opts: [
+            "All three",
+            "Only two",
+            "None",
+            "Only one"
+        ],
+        ans: 1,
+        exp: "The BioE3 Policy was cleared by the Union Cabinet in August 2024 on the Department of Biotechnology's proposal and promotes biomanufacturing hubs, Bio-AI hubs and biofoundries. Statement 3 is wrong because its thematic sectors also include bio-based chemicals and enzymes, smart proteins and functional foods, climate-resilient agriculture, carbon capture and utilisation, and marine and space research."
+    },
+    {
+        q: "With reference to the legal framework governing human organ and tissue donation in India, consider the following statements: <br> 1. The Transplantation of Human Organs and Tissues Act, 1994 gave legal recognition to brain-stem death for the purpose of organ donation.<br>2. The Act permits commercial dealing in human organs if the transaction is approved by an Authorisation Committee.<br>3. The Act regulates only deceased organ donation and does not cover donation by living donors.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "2 only",
+            "1 and 3 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "The 1994 Act legalised organ removal after brain-stem death and prohibited commercial dealing in human organs, with Authorisation Committees scrutinising donations by unrelated living donors rather than approving sales. Statement 3 is wrong because the Act regulates both living and deceased donation, with donation by near relatives being the norm for living donors."
+    },
+    {
+        q: "With reference to the National Health Policy, 2017, consider the following statements: <br> 1. It proposes to raise public health expenditure to 2.5 per cent of GDP by 2025.<br>2. It sets a target of reaching elimination status for tuberculosis by 2025.<br>3. It is the third National Health Policy of India, after those of 1983 and 2002.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "All three statements are correct",
+            "Statement 3 alone",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "The National Health Policy, 2017 proposes raising government health expenditure from about 1.15 per cent to 2.5 per cent of GDP by 2025 and aims at TB elimination status by 2025. It followed the earlier policies of 1983 and 2002, making it the third such policy, so all three statements are correct."
+    },
+    {
+        q: "With reference to antimicrobial resistance (AMR) and India's response to it, consider the following statements: <br> 1. The National Action Plan on AMR 2.0, covering 2025-29, follows a One Health approach that includes the environment sector along with human health, animal husbandry and agriculture.<br>2. India's first National Action Plan on AMR was launched in 2017.<br>3. Resistance to drugs can evolve not only in bacteria but also in viruses, fungi and parasites.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "NAP-AMR 2.0 (2025-29) was launched in November 2025 and builds on the first plan of 2017, adopting a One Health approach that recognises the environment as a reservoir of resistance. AMR is a broader concept than antibiotic resistance and covers bacteria, viruses, fungi and parasites, so all three statements are correct."
+    },
+    {
+        q: "With reference to the regulation of genetically modified (GM) and genome-edited crops in India, consider the following statements: <br> 1. In 2022, the Ministry of Environment, Forest and Climate Change exempted genome-edited plants falling under SDN-1 and SDN-2 categories from the stringent provisions of the Rules, 1989 under the Environment (Protection) Act, 1986.<br>2. The Genetic Engineering Appraisal Committee (GEAC) functions under the Ministry of Agriculture and Farmers Welfare.<br>3. Bt brinjal has been approved for commercial cultivation in India.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 only",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "SDN-1 and SDN-2 genome-edited plants, which contain no foreign DNA, were exempted from Rules 7 to 11 of the 1989 Rules in 2022. The GEAC is the apex regulatory body under the Ministry of Environment, Forest and Climate Change, not the Agriculture Ministry. Bt brinjal was put under a moratorium in 2010 and has never been approved for commercial cultivation; Bt cotton remains the only GM crop approved for cultivation."
+    },
+    {
+        q: "Which one of the following is a feature of the Biological Diversity (Amendment) Act, 2023?",
+        opts: [
+            "It makes prior approval of the National Biodiversity Authority mandatory for every Indian citizen collecting biological resources for personal use.",
+            "It decriminalises offences under the Act by replacing imprisonment with monetary penalties.",
+            "It abolishes the State Biodiversity Boards and vests all their powers in the National Biodiversity Authority.",
+            "It extends benefit-sharing obligations to all users of codified traditional knowledge, including AYUSH practitioners."
+        ],
+        ans: 1,
+        exp: "The 2023 amendment decriminalised offences under the Biological Diversity Act, 2002 and replaced imprisonment with monetary penalties imposed through adjudicating officers. It also exempted codified traditional knowledge users and AYUSH practitioners from certain approval and benefit-sharing requirements, which makes the last option the opposite of the truth. State Biodiversity Boards were retained, not abolished."
+    },
+    {
+        q: "RT-PCR tests were widely used in India for detecting SARS-CoV-2, which has an RNA genome. Which one of the following correctly describes the principle of this test?",
+        opts: [
+            "Antibodies in the patient's serum bind to labelled viral antigens, producing a detectable signal.",
+            "Viral RNA is first converted into complementary DNA, which is then amplified using a heat-stable DNA polymerase.",
+            "Viral RNA is directly amplified by Taq polymerase because the enzyme can use RNA as its template.",
+            "Viral proteins are separated by size on a gel and identified using specific antibodies."
+        ],
+        ans: 1,
+        exp: "In RT-PCR, reverse transcriptase first copies the viral RNA into complementary DNA, which is then amplified over repeated heating cycles by a thermostable DNA polymerase such as Taq. Taq cannot efficiently use RNA as a template, so the first option is wrong. The antibody-based and gel-based methods describe serological tests and Western blotting, not RT-PCR."
+    },
+    {
+        q: "With reference to the human immune system, consider the following statements: <br> 1. Antibodies are secreted mainly by T-helper cells.<br>2. MHC class I molecules present antigens to CD4+ helper T cells.<br>3. Vaccination confers protection by generating memory lymphocytes that enable a faster and stronger response on subsequent exposure to the pathogen.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "Only two of the statements are correct",
+            "Exactly two of the statements are correct",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "Vaccines stimulate the adaptive immune system to form memory B and T cells, which produce a quicker and stronger secondary response. Antibodies are secreted by plasma cells derived from B lymphocytes, not by T-helper cells, which only assist them. MHC class I presents antigens to CD8+ cytotoxic T cells, while MHC class II presents to CD4+ helper T cells."
+    },
+    {
+        q: "Consider the following two statements: <br> Assertion (A): Sickle cell disease is more prevalent among population groups living in malaria-endemic regions, including several tribal belts of central and eastern India.<br>Reason (R): Individuals heterozygous for the sickle cell trait have relative protection against severe Plasmodium falciparum malaria.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "Both A and R are correct and R is the correct explanation of A",
+            "A is not correct but R is correct",
+            "A is correct but R is not correct",
+            "Both A and R are correct but R is not the correct explanation of A"
+        ],
+        ans: 0,
+        exp: "The sickle cell allele persists at high frequency in malaria-endemic areas because heterozygous carriers gain a survival advantage against falciparum malaria, an example of balanced polymorphism. R therefore directly explains A. This link is why India's National Sickle Cell Anaemia Elimination Mission (2023) prioritises tribal and malaria-prone districts."
+    },
+    {
+        q: "With reference to vector-borne and parasitic diseases that remain public health challenges in India, consider the following statements: <br> 1. Kala-azar (visceral leishmaniasis) is caused by a protozoan parasite and is transmitted by the sandfly.<br>2. Lymphatic filariasis is caused by a nematode worm and is transmitted by mosquitoes.<br>3. Japanese encephalitis is a viral disease transmitted by Culex mosquitoes.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "1, 2 and 3",
+            "Only two of the statements are correct",
+            "Both 1 and 3"
+        ],
+        ans: 1,
+        exp: "Kala-azar is caused by the protozoan Leishmania donovani and spread by sandflies. Lymphatic filariasis is caused by the nematode Wuchereria bancrofti and spread by mosquitoes. Japanese encephalitis is caused by a flavivirus transmitted mainly by Culex species, so all three statements are correct."
+    },
+    {
+        q: "Har Gobind Khorana, a scientist of Indian origin, shared the 1968 Nobel Prize in Physiology or Medicine for his work on which one of the following?",
+        opts: [
+            "Discovery of the double-helix structure of DNA",
+            "Interpretation of the genetic code and its function in protein synthesis",
+            "Development of the polymerase chain reaction",
+            "Discovery of restriction endonucleases"
+        ],
+        ans: 1,
+        exp: "Khorana shared the 1968 Nobel Prize with Marshall Nirenberg and Robert Holley for interpreting the genetic code and its role in protein synthesis, and he later made the first chemically synthesised artificial gene. The DNA double helix was proposed by Watson and Crick, restriction enzymes were recognised by the 1978 Nobel to Arber, Smith and Nathans, and PCR was developed by Kary Mullis."
+    },
+    {
+        q: "The CRIB antigen, identified in a woman from Kolar, Karnataka and announced at an international transfusion medicine congress in 2025, belongs to which one of the following blood group systems?",
+        opts: [
+            "ABO",
+            "Duffy",
+            "Cromer",
+            "Rhesus (Rh)"
+        ],
+        ans: 2,
+        exp: "CRIB is a new antigen in the Cromer blood group system, and its name stands for Cromer-India-Bangalore. The woman typed as O Rh-positive yet her blood was incompatible with every O-positive unit, and the antigen was confirmed after months of testing at the International Blood Group Reference Laboratory in the UK. It was announced at the ISBT congress in Milan in June 2025."
+    },
+    {
+        q: "Consider the following two statements: <br> Assertion (A): In most cells, genetic information flows from DNA to RNA and then to protein.<br>Reason (R): Reverse transcriptase, the enzyme used by retroviruses such as HIV, synthesises RNA using a DNA template.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "Both A and R are correct but R is not the correct explanation of A",
+            "A is not correct but R is correct",
+            "A is correct but R is not correct",
+            "Both A and R are correct and R is the correct explanation of A"
+        ],
+        ans: 2,
+        exp: "The central dogma describes the usual flow of information from DNA to RNA to protein, so A is correct. R is wrong because reverse transcriptase does the opposite: it synthesises complementary DNA from an RNA template, which is how retroviruses such as HIV integrate into host DNA. This reverse flow is an exception to the usual direction, not an explanation of it."
+    },
+    {
+        q: "With reference to the development of cell biology, consider the following statements: <br> 1. Robert Hooke coined the term 'cell' in 1665 after observing thin slices of cork under a microscope.<br>2. Schleiden and Schwann proposed that all new cells arise from pre-existing cells.<br>3. Anton van Leeuwenhoek was the first to observe living single-celled organisms using a simple microscope.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 and 2 only",
+            "1 and 3 only",
+            "2 only"
+        ],
+        ans: 2,
+        exp: "Hooke named the 'cell' in 1665 from cork, and Leeuwenhoek was the first to see living microorganisms through his simple microscopes. Statement 2 is wrong: Schleiden and Schwann proposed that all plants and animals are made of cells, while the idea that new cells arise from pre-existing cells was added by Rudolf Virchow in 1855."
+    },
+    {
+        q: "The CRIB antigen, identified in a woman from Kolar, Karnataka and announced at an international transfusion medicine congress in 2025, belongs to which one of the following blood group systems?",
+        opts: [
+            "ABO",
+            "Duffy",
+            "Cromer",
+            "Rhesus (Rh)"
+        ],
+        ans: 2,
+        exp: "CRIB is a new antigen in the Cromer blood group system, and its name stands for Cromer-India-Bangalore. The woman typed as O Rh-positive yet her blood was incompatible with every O-positive unit, and the antigen was confirmed after months of testing at the International Blood Group Reference Laboratory in the UK. It was announced at the ISBT congress in Milan in June 2025."
+    },
+    {
+        q: "Under the Rules, 1989 framed under the Environment (Protection) Act, 1986, which one of the following competent authorities functions within the Department of Biotechnology and monitors ongoing research projects involving genetically engineered organisms, including biosafety research level trials?",
+        opts: [
+            "State Biotechnology Coordination Committee",
+            "Institutional Biosafety Committee",
+            "Review Committee on Genetic Manipulation",
+            "Genetic Engineering Appraisal Committee"
+        ],
+        ans: 2,
+        exp: "The Review Committee on Genetic Manipulation, functioning under the Department of Biotechnology, monitors ongoing research involving genetically engineered organisms and clears biosafety research level trials. The Genetic Engineering Appraisal Committee works under the Ministry of Environment, Forest and Climate Change and appraises large-scale use and environmental release. Institutional Biosafety Committees operate at institutional level and State Biotechnology Coordination Committees at State level."
+    },
+    {
+        q: "Consider the following two statements: <br> Assertion (A): The Cry proteins produced by Bacillus thuringiensis, as used in Bt crops, are toxic to specific insect pests but are not toxic to humans.<br>Reason (R): Cry protoxins are converted into active toxins in the alkaline gut of susceptible insects and bind to specific receptors on the gut epithelium, conditions absent in the human digestive system.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "A is not correct but R is correct",
+            "A is correct but R is not correct",
+            "Both A and R are correct and R is the correct explanation of A",
+            "Both A and R are correct but R is not the correct explanation of A"
+        ],
+        ans: 2,
+        exp: "Cry protoxins need an alkaline gut pH to solubilise and activate, and then bind to specific gut receptors, which causes cell lysis and death of the insect. Humans have an acidic stomach and lack these receptors, so R directly explains why A holds. This receptor-specific mechanism is the standard conceptual basis of Bt technology."
+    },
+    {
+        q: "In the CRISPR-Cas9 genome-editing system, the Cas9 protein functions as:",
+        opts: [
+            "an RNA polymerase that transcribes the targeted gene",
+            "a DNA ligase that joins the ends of two DNA fragments",
+            "a reverse transcriptase that copies RNA into complementary DNA",
+            "an endonuclease that cuts both strands of DNA at a site specified by a guide RNA"
+        ],
+        ans: 3,
+        exp: "Cas9 is a nuclease that creates a double-strand break at the DNA sequence matched by the guide RNA. The cell's repair machinery then introduces the edit, either through error-prone repair or through a supplied template. Reverse transcriptase, DNA ligase and RNA polymerase carry out different functions in nucleic acid synthesis and joining."
+    },
+    {
+        q: "Thomas Hunt Morgan's experiments on the fruit fly Drosophila melanogaster provided the first experimental support for which one of the following?",
+        opts: [
+            "The genetic code is read in non-overlapping triplets",
+            "DNA, and not protein, is the genetic material",
+            "DNA replication is semi-conservative",
+            "Genes are located on chromosomes, as shown by the sex-linked inheritance of eye colour"
+        ],
+        ans: 3,
+        exp: "Morgan's work on white-eyed mutant flies showed that the eye-colour gene is inherited together with the X chromosome, giving experimental support to the chromosomal theory of inheritance. Semi-conservative replication was shown by Meselson and Stahl, DNA as genetic material by Avery and by Hershey and Chase, and triplet coding by Crick and colleagues."
+    },
+    {
+        q: "With reference to the draft Seeds Bill, 2025 released by the Ministry of Agriculture and Farmers Welfare, which one of the following statements is correct?",
+        opts: [
+            "It exempts imported seeds from the prescribed germination and purity standards.",
+            "It proposes to repeal the Protection of Plant Varieties and Farmers' Rights Act, 2001 and merge its provisions into the new seed law.",
+            "It removes the right of farmers to sell farm-saved seed under any circumstances.",
+            "It seeks to replace the Seeds Act, 1966 and the Seeds (Control) Order, 1983, and proposes mandatory registration of seed varieties other than farmers' varieties and those meant exclusively for export."
+        ],
+        ans: 3,
+        exp: "The draft Bill, released in November 2025, is meant to replace the Seeds Act, 1966 and the Seeds (Control) Order, 1983, and makes registration of seed varieties mandatory except for farmers' varieties and varieties exclusively for export. It retains farmers' right to save, use, exchange and sell non-branded farm-saved seed, and it requires imported seeds to meet germination and purity standards. It does not repeal the PPV&FR Act, 2001."
+    },
+    {
+        q: "With reference to the C4 pathway of photosynthesis, consider the following statements: <br> 1. Sugarcane and maize are C4 plants and show Kranz anatomy, with chloroplast-containing bundle sheath cells around the vascular bundles.<br>2. In C4 plants, the first stable product of CO2 fixation is the three-carbon compound 3-phosphoglyceric acid.<br>3. C4 plants show higher rates of photorespiration than C3 plants.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "2 only",
+            "1 only",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "Sugarcane and maize are C4 plants with Kranz anatomy, where the bundle sheath cells carry out the Calvin cycle. In C4 plants PEP carboxylase in mesophyll cells fixes CO2 into the four-carbon oxaloacetic acid, so the first stable product is a 4-carbon compound, not PGA. C4 plants concentrate CO2 around RuBisCO and show negligible photorespiration compared with C3 plants."
+    },
+    {
+        q: "Consider the following two statements: <br> Assertion (A): Sickle cell disease is more prevalent among population groups living in malaria-endemic regions, including several tribal belts of central and eastern India.<br>Reason (R): Individuals heterozygous for the sickle cell trait have relative protection against severe Plasmodium falciparum malaria.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "A is correct but R is not correct",
+            "A is not correct but R is correct",
+            "Both A and R are correct but R is not the correct explanation of A",
+            "Both A and R are correct and R is the correct explanation of A"
+        ],
+        ans: 3,
+        exp: "The sickle cell allele persists at high frequency in malaria-endemic areas because heterozygous carriers gain a survival advantage against falciparum malaria, an example of balanced polymorphism. R therefore directly explains A. This link is why India's National Sickle Cell Anaemia Elimination Mission (2023) prioritises tribal and malaria-prone districts."
+    },
+    {
+        q: "Which one of the following is excluded from patentability in India under Section 3(j) of the Patents Act, 1970?",
+        opts: [
+            "A genetically engineered bacterium developed to degrade crude oil",
+            "A novel synthetic compound with proven antibacterial activity",
+            "A new variety of rice, including its seeds",
+            "A new microbial process for producing an antibiotic"
+        ],
+        ans: 2,
+        exp: "Section 3(j) excludes plants and animals in whole or in part, including seeds, varieties and species, and essentially biological processes for their production or propagation. Microorganisms are not covered by this exclusion, so genetically engineered bacteria and microbial processes can be patented if they meet the usual criteria. Plant varieties are instead protected under the PPV&FR Act, 2001."
+    },
+    {
+        q: "Early initiation of breastfeeding is promoted in India partly because colostrum provides the newborn with which one of the following?",
+        opts: [
+            "Active natural immunity, through memory cells produced by the infant",
+            "Passive artificial immunity, through injected antiserum",
+            "Active artificial immunity, through antigens present in the milk",
+            "Passive natural immunity, through maternal antibodies mainly of the IgA class"
+        ],
+        ans: 3,
+        exp: "Colostrum is rich in maternal secretory IgA antibodies that protect the infant's gut and respiratory surfaces, giving passive natural immunity because the baby receives ready-made antibodies rather than making its own. Active immunity requires the infant's own immune response, and artificial immunity involves vaccines or injected antisera."
+    },
+    {
+        q: "With reference to human endocrine physiology, consider the following statements: <br> 1. Insulin is secreted by the alpha cells of the islets of Langerhans in the pancreas.<br>2. In adults, erythropoietin is produced mainly by the liver.<br>3. Antidiuretic hormone (vasopressin) is synthesised in the anterior pituitary gland.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "None of the statements is correct",
+            "2 and 3 only",
+            "1 only"
+        ],
+        ans: 1,
+        exp: "Insulin is secreted by the beta cells; alpha cells secrete glucagon. In adults erythropoietin is produced mainly by the kidneys, with the liver being the major site only in the foetus. ADH is synthesised in the hypothalamus and stored and released from the posterior pituitary, so none of the statements is correct."
+    },
+    {
+        q: "In the context of nutrition challenges in India, the term 'hidden hunger' refers to:",
+        opts: [
+            "seasonal food shortage faced by agricultural labourers during the lean period",
+            "excess calorie intake leading to overweight and obesity among urban populations",
+            "food restriction practised because of social and religious customs",
+            "chronic deficiency of micronutrients such as iron, vitamin A and zinc, even when calorie intake appears adequate"
+        ],
+        ans: 3,
+        exp: "Hidden hunger is a deficiency of essential vitamins and minerals such as iron, vitamin A, zinc and iodine that persists even when people eat enough calories. It is a major cause of anaemia and poor child growth in India, which is why fortification and biofortification are promoted. Seasonal food shortage, obesity and ritual fasting describe other problems."
+    },
+    {
+        q: "In a sample of double-stranded DNA, adenine constitutes 30 per cent of the total nucleotides. What would be the percentage of cytosine in the same sample?",
+        opts: [
+            "30 per cent",
+            "70 per cent",
+            "40 per cent",
+            "20 per cent"
+        ],
+        ans: 3,
+        exp: "By Chargaff's rule, adenine pairs with thymine and guanine pairs with cytosine in double-stranded DNA, so thymine is also 30 per cent. Adenine plus thymine make 60 per cent, leaving 40 per cent for guanine and cytosine together, which gives 20 per cent each. The figure of 40 per cent is the trap, as it is the combined share of G and C."
+    },
+    {
+        q: "Which one of the following institutions functions as the nodal agency for the Integrated Disease Surveillance Programme (IDSP) and for the investigation of disease outbreaks in India?",
+        opts: [
+            "Central Drugs Standard Control Organisation",
+            "National Centre for Disease Control",
+            "National Institute of Health and Family Welfare",
+            "ICMR-National Institute of Virology, Pune"
+        ],
+        ans: 1,
+        exp: "The National Centre for Disease Control, under the Directorate General of Health Services, hosts the Central Surveillance Unit of the IDSP and leads outbreak investigation and response for communicable diseases. ICMR-NIV is mainly a virology research and diagnostic institute, CDSCO regulates drugs and vaccines, and NIHFW is a training and policy institute."
+    },
+    {
+        q: "Which one of the following statements about leprosy, a disease India has targeted for elimination as a public health problem, is correct?",
+        opts: [
+            "It is caused by a fungus that spreads through contaminated soil.",
+            "It is caused by a protozoan parasite transmitted by sandflies.",
+            "It is caused by Mycobacterium leprae and is curable with multidrug therapy.",
+            "It is caused by a virus transmitted by the bite of infected mosquitoes."
+        ],
+        ans: 2,
+        exp: "Leprosy is a chronic bacterial disease caused by Mycobacterium leprae, which mainly affects the skin and peripheral nerves, and it is curable with multidrug therapy provided free under the national programme. A protozoan transmitted by sandflies describes kala-azar, not leprosy, and the disease is neither viral nor fungal."
+    },
+    {
+        q: "With reference to antimicrobial resistance (AMR) and India's response to it, consider the following statements: <br> 1. The National Action Plan on AMR 2.0, covering 2025-29, follows a One Health approach that includes the environment sector along with human health, animal husbandry and agriculture.<br>2. India's first National Action Plan on AMR was launched in 2017.<br>3. Resistance to drugs can evolve not only in bacteria but also in viruses, fungi and parasites.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 1 alone",
+            "Exactly one of the statements is correct",
+            "Statement 2 alone",
+            "All three statements are correct"
+        ],
+        ans: 3,
+        exp: "NAP-AMR 2.0 (2025-29) was launched in November 2025 and builds on the first plan of 2017, adopting a One Health approach that recognises the environment as a reservoir of resistance. AMR is a broader concept than antibiotic resistance and covers bacteria, viruses, fungi and parasites, so all three statements are correct."
+    },
+    {
+        q: "Which one of the following parasitic diseases, once endemic in Rajasthan and several other Indian states, was certified by the WHO in 2000 as having been eradicated from India?",
+        opts: [
+            "Lymphatic filariasis",
+            "Malaria",
+            "Guinea worm disease (dracunculiasis)",
+            "Kala-azar (visceral leishmaniasis)"
+        ],
+        ans: 2,
+        exp: "India launched its Guinea Worm Eradication Programme in 1983-84, reported its last case in Jodhpur, Rajasthan in July 1996, and was certified free of the disease by the WHO in 2000, after smallpox in 1977. Lymphatic filariasis, kala-azar and malaria are still endemic and are targeted for elimination, not eradication."
+    },
+    {
+        q: "With reference to the BioE3 (Biotechnology for Economy, Environment and Employment) Policy of India, consider the following statements: <br> 1. It was approved by the Union Cabinet in 2024 on the proposal of the Department of Biotechnology.<br>2. It envisages the establishment of Biomanufacturing and Bio-AI hubs and Biofoundries.<br>3. Its thematic sectors are confined to human health and pharmaceuticals.<br>How many of the statements given above are correct?",
+        opts: [
+            "Only one",
+            "All three",
+            "None",
+            "Only two"
+        ],
+        ans: 3,
+        exp: "The BioE3 Policy was cleared by the Union Cabinet in August 2024 on the Department of Biotechnology's proposal and promotes biomanufacturing hubs, Bio-AI hubs and biofoundries. Statement 3 is wrong because its thematic sectors also include bio-based chemicals and enzymes, smart proteins and functional foods, climate-resilient agriculture, carbon capture and utilisation, and marine and space research."
+    },
+    {
+        q: "With reference to the evolution of biotechnology governance in India, consider the following statements: <br> 1. The Department of Biotechnology was set up in 1986 as a separate department under the Ministry of Science and Technology.<br>2. Bt cotton was cleared for commercial cultivation in India in 2002 on the approval of the Genetic Engineering Appraisal Committee.<br>3. The Rules, 1989 for the manufacture, use, import, export and storage of hazardous microorganisms and genetically engineered organisms were notified under the Drugs and Cosmetics Act, 1940.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3",
+            "1 only"
+        ],
+        ans: 1,
+        exp: "The Department of Biotechnology was created in 1986 under the Ministry of Science and Technology, and Bt cotton received GEAC approval in 2002, making it the only GM crop cleared for cultivation in India. Statement 3 is wrong because the 1989 Rules were framed under the Environment (Protection) Act, 1986, not the Drugs and Cosmetics Act. The options containing statement 3 are the trap."
+    },
+    {
+        q: "Nafithromycin (marketed as Miqnaf), approved by the CDSCO in January 2025 and described as India's first indigenously developed antibiotic, belongs to which class of antibiotics and is indicated for which condition?",
+        opts: [
+            "Macrolide, for community-acquired bacterial pneumonia",
+            "Carbapenem, for complicated urinary tract infections",
+            "Fluoroquinolone, for drug-resistant tuberculosis",
+            "Glycopeptide, for MRSA bloodstream infections"
+        ],
+        ans: 0,
+        exp: "Nafithromycin, developed by Wockhardt with support from BIRAC (Department of Biotechnology), is a new macrolide-class antibiotic approved for community-acquired bacterial pneumonia in adults, including cases caused by multidrug-resistant pathogens. It is an ultra-short, three-day oral regimen, and the other classes and indications listed are not associated with it."
+    },
+    {
+        q: "With reference to immunisation efforts in India, consider the following statements: <br> 1. The Expanded Programme on Immunization was launched in 1985 and was later renamed the Universal Immunization Programme.<br>2. Mission Indradhanush, launched in 2014, targeted children up to two years of age and pregnant women who were unvaccinated or partially vaccinated.<br>3. Mission Indradhanush is implemented by the Ministry of Women and Child Development.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "3 only",
+            "1 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "Mission Indradhanush (December 2014) aimed to reach children up to two years and pregnant women left out of routine immunisation. Statement 1 reverses the chronology: the Expanded Programme on Immunization began in 1978 and was expanded into the Universal Immunization Programme in 1985. Statement 3 is wrong because the mission is implemented by the Ministry of Health and Family Welfare."
+    },
+    {
+        q: "With reference to the history of plant physiology in India, consider the following statements: <br> 1. J.C. Bose devised the crescograph, an instrument capable of recording extremely small increments in plant growth.<br>2. The Bose Institute in Kolkata was established by J.C. Bose in 1917.<br>3. J.C. Bose isolated and discovered the plant hormone auxin.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "Both 2 and 3",
+            "All of the statements are correct",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 0,
+        exp: "Bose invented the crescograph to measure minute plant growth and responses to stimuli, and he founded the Bose Institute in Kolkata in 1917. Statement 3 is wrong because auxin was first demonstrated by F.W. Went in 1928 through experiments on oat (Avena) coleoptiles, building on earlier work by Darwin and others."
+    },
+    {
+        q: "With reference to immunisation efforts in India, consider the following statements: <br> 1. The Expanded Programme on Immunization was launched in 1985 and was later renamed the Universal Immunization Programme.<br>2. Mission Indradhanush, launched in 2014, targeted children up to two years of age and pregnant women who were unvaccinated or partially vaccinated.<br>3. Mission Indradhanush is implemented by the Ministry of Women and Child Development.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "All of the above",
+            "None of the above",
+            "Only one of the statements is correct"
+        ],
+        ans: 3,
+        exp: "Mission Indradhanush (December 2014) aimed to reach children up to two years and pregnant women left out of routine immunisation. Statement 1 reverses the chronology: the Expanded Programme on Immunization began in 1978 and was expanded into the Universal Immunization Programme in 1985. Statement 3 is wrong because the mission is implemented by the Ministry of Health and Family Welfare."
+    },
+    {
+        q: "With reference to the evolution of biotechnology governance in India, consider the following statements: <br> 1. The Department of Biotechnology was set up in 1986 as a separate department under the Ministry of Science and Technology.<br>2. Bt cotton was cleared for commercial cultivation in India in 2002 on the approval of the Genetic Engineering Appraisal Committee.<br>3. The Rules, 1989 for the manufacture, use, import, export and storage of hazardous microorganisms and genetically engineered organisms were notified under the Drugs and Cosmetics Act, 1940.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 only",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "The Department of Biotechnology was created in 1986 under the Ministry of Science and Technology, and Bt cotton received GEAC approval in 2002, making it the only GM crop cleared for cultivation in India. Statement 3 is wrong because the 1989 Rules were framed under the Environment (Protection) Act, 1986, not the Drugs and Cosmetics Act. The options containing statement 3 are the trap."
+    },
+    {
+        q: "With reference to constitutional and legal provisions relating to public health and communicable diseases in India, consider the following statements: <br> 1. Prevention of the extension from one State to another of infectious or contagious diseases is exclusively a subject in the State List.<br>2. Article 47, which directs the State to raise the level of nutrition and improve public health, is a justiciable Fundamental Right.<br>3. Article 21 expressly mentions the right to health as a Fundamental Right.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 only",
+            "None of the statements is correct",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "Prevention of the spread of infectious diseases between States is in the Concurrent List, while public health and sanitation fall in the State List. Article 47 is a Directive Principle of State Policy and is not enforceable by courts. The right to health is not expressly mentioned in Article 21; it has been read into the right to life by judicial interpretation, so none of the statements is correct."
+    },
+    {
+        q: "RT-PCR tests were widely used in India for detecting SARS-CoV-2, which has an RNA genome. Which one of the following correctly describes the principle of this test?",
+        opts: [
+            "Viral proteins are separated by size on a gel and identified using specific antibodies.",
+            "Viral RNA is directly amplified by Taq polymerase because the enzyme can use RNA as its template.",
+            "Antibodies in the patient's serum bind to labelled viral antigens, producing a detectable signal.",
+            "Viral RNA is first converted into complementary DNA, which is then amplified using a heat-stable DNA polymerase."
+        ],
+        ans: 3,
+        exp: "In RT-PCR, reverse transcriptase first copies the viral RNA into complementary DNA, which is then amplified over repeated heating cycles by a thermostable DNA polymerase such as Taq. Taq cannot efficiently use RNA as a template, so the first option is wrong. The antibody-based and gel-based methods describe serological tests and Western blotting, not RT-PCR."
+    },
+    {
+        q: "With reference to CAR-T cell therapy and its development in India, consider the following statements: <br> 1. NexCAR19, approved by the CDSCO in 2023, is India's first indigenous CAR-T cell therapy, developed with the involvement of IIT Bombay and Tata Memorial Centre.<br>2. CAR-T therapy involves genetically modifying a patient's own T cells to express receptors that recognise specific antigens on cancer cells.<br>3. CAR-T therapy relies on genetically modified natural killer cells taken from an unrelated donor.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "NexCAR19 was developed by ImmunoACT, incubated at IIT Bombay, with Tata Memorial Centre involvement, and approved by CDSCO in 2023. CAR-T therapy reprogrammes the patient's own T cells (autologous) with a chimeric antigen receptor. Statement 3 is wrong because the cells used are T cells, not donor natural killer cells."
+    },
+    {
+        q: "With reference to the structure and functions of cell organelles, consider the following statements: <br> 1. Mitochondria contain their own circular DNA and ribosomes, and can synthesise some of their own proteins.<br>2. Ribosomes are double-membrane-bound organelles found only in eukaryotic cells.<br>3. The Golgi apparatus is involved in the modification, sorting and packaging of proteins for secretion.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "All of the above",
+            "1 and 2 only",
+            "None of the statements are correct"
+        ],
+        ans: 0,
+        exp: "Mitochondria are semi-autonomous organelles with their own circular DNA and ribosomes, and the Golgi apparatus processes, sorts and packages proteins. Statement 2 is wrong because ribosomes are non-membranous and occur in both prokaryotic and eukaryotic cells. The option including statement 2 is the tempting trap."
+    },
+    {
+        q: "Which one of the following diseases is caused by a bacterium transmitted to humans through the bite of larval mites (chiggers)?",
+        opts: [
+            "Chikungunya",
+            "Scrub typhus",
+            "Kyasanur Forest disease",
+            "Kala-azar"
+        ],
+        ans: 1,
+        exp: "Scrub typhus is caused by the bacterium Orientia tsutsugamushi and is transmitted by the bite of larval trombiculid mites, called chiggers. Kyasanur Forest disease is a viral disease spread by ticks, chikungunya is a mosquito-borne viral disease, and kala-azar is a protozoan disease spread by sandflies."
+    },
+    {
+        q: "Neem coating of urea, made mandatory for domestically produced urea in India from 2015, helps improve nitrogen-use efficiency in crops primarily because it:",
+        opts: [
+            "slows the nitrification of ammonium released from urea, reducing nitrogen loss through leaching",
+            "acts as a plant growth hormone that increases nitrate absorption by roots",
+            "enables the fertiliser to fix atmospheric nitrogen directly in the soil",
+            "supplies additional phosphorus to the crop along with nitrogen"
+        ],
+        ans: 0,
+        exp: "Neem oil acts as a nitrification inhibitor, slowing the conversion of ammonium to nitrate by soil bacteria, so nitrogen stays available to plants for longer and less is lost through leaching and volatilisation. The coating does not fix nitrogen, supply phosphorus or act as a hormone. It also makes diversion of subsidised urea to industrial uses harder."
+    },
+    {
+        q: "Which one of the following statements regarding the legal and regulatory framework for vaccines in India is correct?",
+        opts: [
+            "Vaccination of all children under the Universal Immunization Programme is made compulsory by the Epidemic Diseases Act, 1897.",
+            "The Epidemic Diseases Act, 1897 was repealed in 2020 and replaced by a new national Public Health Act.",
+            "Vaccines are regulated as drugs under the Drugs and Cosmetics Act, 1940, with the CDSCO headed by the DCGI as the national regulator.",
+            "Vaccines are licensed and regulated by the Food Safety and Standards Authority of India under the Food Safety and Standards Act, 2006."
+        ],
+        ans: 2,
+        exp: "Vaccines are biological products regulated as drugs under the Drugs and Cosmetics Act, 1940 and its Rules, with approvals granted by the CDSCO under the Drugs Controller General of India. The Epidemic Diseases Act, 1897 was amended in 2020 (not repealed) and does not make vaccination compulsory. FSSAI regulates food, not vaccines."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-31 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

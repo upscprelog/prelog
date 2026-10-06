@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-47</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "With reference to recent developments in genomic data and bioinformatics in India, consider the following statements: <br> 1. In January 2025, whole-genome data of over 10,000 Indians generated under the GenomeIndia Project was released and archived at the Indian Biological Data Centre.<br>2. The GenomeIndia Project was launched by the Indian Council of Medical Research in 2020.<br>3. The GenomeIndia data can be freely downloaded by anyone without any regulated access process.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "3 only",
+            "Only statement 2",
+            "Only one of the statements is correct"
+        ],
+        ans: 3,
+        exp: "The GenomeIndia data of over 10,000 individuals was released in January 2025 and archived at the IBDC, hosted at the Regional Centre for Biotechnology, Faridabad. The project was launched in January 2020 by the Department of Biotechnology and was led by IISc's Centre for Brain Research, not ICMR. Access is controlled through the Framework for Exchange of Data Protocols (FeED) and the Biotech-PRIDE guidelines, so it is not unrestricted."
+    },
+    {
+        q: "With reference to the challenges in bioinformatics and genomic data use in India, consider the following statements: <br> 1. Most global reference genomic datasets are drawn largely from populations of European ancestry, which limits their usefulness for Indian populations.<br>2. The Digital Personal Data Protection Act, 2023 creates a separate category of 'sensitive personal data' that includes genetic data.<br>3. India was a member of the international consortium that completed the Human Genome Project in 2003.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "3 only",
+            "2 only",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "Global reference databases are skewed towards European ancestry, and this is one of the reasons for efforts such as GenomeIndia and the Indian Cancer Genome Atlas. The DPDP Act, 2023 treats all digital personal data alike and has no separate 'sensitive personal data' category. The Human Genome Project consortium consisted of the US, UK, Japan, France, Germany and China, and India was not a member."
+    },
+    {
+        q: "With reference to recent developments in DNA-based and genome-editing therapies in India, consider the following statements: <br> 1. BIRSA 101, India's first indigenous CRISPR-based gene therapy for sickle cell disease, was developed by the ICMR's National Institute of Immunohaematology.<br>2. BIRSA 101 was launched in November 2025 by the Union Minister of Health and Family Welfare.<br>3. The technology for scaling up BIRSA 101 was transferred to Bharat Biotech.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 and 2 only",
+            "None of the statements is correct"
+        ],
+        ans: 3,
+        exp: "BIRSA 101 was developed by CSIR-Institute of Genomics and Integrative Biology, on its enFnCas9 CRISPR platform, and not by ICMR. It was launched on 19 November 2025 by Dr Jitendra Singh, the Union Minister for Science and Technology, and named after Birsa Munda on his 150th birth anniversary. The technology transfer agreement was signed with the Serum Institute of India, not Bharat Biotech, so none of the statements is correct."
+    },
+    {
+        q: "In the context of cloning, which one of the following best describes the Somatic Cell Nuclear Transfer (SCNT) technique used in animal cloning?",
+        opts: [
+            "A foreign gene is injected into the pronucleus of a fertilised egg to produce a transgenic animal",
+            "A sperm and an egg are fused outside the body and the resulting embryo is transferred into the uterus of a surrogate",
+            "The nucleus of a somatic cell of the donor is transferred into an enucleated egg cell, which is then stimulated to develop into an embryo",
+            "An early embryo is divided into several parts, each of which develops into a genetically identical individual"
+        ],
+        ans: 2,
+        exp: "In SCNT the donor somatic nucleus replaces the nucleus of an enucleated oocyte, so the clone is genetically almost identical to the donor. Indian examples such as the buffalo calf Samrupa (NDRI, Karnal, 2009) and the pashmina goat Noori (SKUAST-Kashmir, 2012) were produced through nuclear transfer-based cloning. Option B describes IVF, option C describes embryo splitting, and option D describes pronuclear microinjection for transgenics."
+    },
+    {
+        q: "With reference to genetically modified crops in India, consider the following statements: <br> 1. Bt cotton is the only genetically modified crop approved for commercial cultivation in India.<br>2. Bollgard II cotton contains two Bt genes, Cry1Ac and Cry2Ab.<br>3. The gene used in Bt cotton is obtained from the bacterium Bacillus subtilis.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "Bt cotton, approved by the GEAC in 2002, remains the only GM crop under commercial cultivation in India, and Bollgard II adds the Cry2Ab gene to the original Cry1Ac. The Bt gene comes from the soil bacterium Bacillus thuringiensis, not Bacillus subtilis, so statement 3 is wrong. UPSC has repeatedly tested this theme, including the 2021 question on Bollgard I and II."
+    },
+    {
+        q: "With reference to the legal framework governing stem cell research and therapy in India, consider the following statements: <br> 1. Research on human embryonic stem cells is completely prohibited under the national stem cell guidelines.<br>2. The National Apex Committee for Stem Cell Research and Therapy is a statutory body created by the Drugs and Cosmetics Act, 1940.<br>3. Human reproductive cloning using stem cell techniques is prohibited under the national stem cell guidelines.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "3 only",
+            "1 only",
+            "2 only"
+        ],
+        ans: 1,
+        exp: "The national stem cell guidelines prohibit reproductive cloning. They do not ban embryonic stem cell research outright, and permit it under regulated conditions, so statement 1 is wrong. The NAC-SCRT was created under the ICMR-DBT guidelines and is not a statutory body of the Drugs and Cosmetics Act, and the guidelines themselves are not statutes, so statement 2 is wrong."
+    },
+    {
+        q: "With reference to the evolution of biomedical research institutions in India, consider the following statements: <br> 1. The Indian Research Fund Association, the forerunner of ICMR, was established shortly after Independence in 1947.<br>2. The Indian Research Fund Association was renamed the Indian Council of Medical Research in 1949.<br>3. ICMR is funded through the Ministry of Health and Family Welfare, with the Department of Health Research as the administrative link.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3",
+            "2 and 3 only"
+        ],
+        ans: 3,
+        exp: "The Indian Research Fund Association was set up in 1911, well before Independence, and was renamed ICMR in 1949, which makes it one of the oldest medical research bodies in the world. ICMR is funded by the Ministry of Health and Family Welfare through the Department of Health Research, so statement 1 alone is incorrect."
+    },
+    {
+        q: "With reference to the recent developments in genome editing in agriculture in India, consider the following statements: <br> 1. In 2025, two genome-edited rice varieties developed by ICAR institutions were unveiled, both using the SDN-1 approach.<br>2. DRR Dhan 100 (Kamala) was developed by editing the CKX2 gene to increase the number of grains per panicle.<br>3. Pusa DST Rice 1 is a transgenic variety containing a gene from Bacillus thuringiensis for drought tolerance.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "The two genome-edited rice varieties unveiled in May 2025 were DRR Dhan 100 (Kamala), edited at the CKX2 gene for higher grain number, and Pusa DST Rice 1, edited at the DST gene for drought and salinity tolerance. Both used SDN-1 and carry no foreign DNA. Pusa DST Rice 1 is therefore not transgenic and has no Bt gene, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the legal framework governing DNA technology in India, consider the following statements: <br> 1. The DNA Technology (Use and Application) Regulation Bill, 2019 was enacted by Parliament and established a National DNA Data Bank.<br>2. The Criminal Procedure (Identification) Act, 2022 replaced the Identification of Prisoners Act, 1920 and covers the collection of biological samples of certain persons.<br>3. Article 20(3) of the Constitution bars the taking of DNA samples from an accused in all circumstances.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1 and 3 only",
+            "1 only",
+            "3 only"
+        ],
+        ans: 0,
+        exp: "The DNA Bill was introduced in 2019, examined by a Standing Committee and withdrawn from the Lok Sabha on 24 July 2023, so it never became law. The Criminal Procedure (Identification) Act, 2022 replaced the 1920 Act and covers 'measurements' that include biological samples. Article 20(3) protects against testimonial compulsion, and courts have generally treated physical evidence such as body samples as outside its bar, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to genome sequencing, bioinformatics and related themes tested in UPSC Prelims, consider the following statements: <br> 1. The IndiGen programme of whole-genome sequencing of Indians was implemented by the Indian Council of Medical Research.<br>2. Sequencing the genome of a crop plant can help identify genes associated with traits such as disease resistance.<br>3. DNA barcoding for identifying animal species commonly uses a short region of the mitochondrial COI gene.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "3 only",
+            "1 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "Crop genome sequencing helps locate genes for traits such as disease resistance, a theme tested in the 2017 UPSC question on genome sequencing in agriculture. DNA barcoding, tested in 2022, uses a short standard region, and in animals this is the mitochondrial cytochrome c oxidase I (COI) gene. IndiGen was a programme of CSIR-IGIB and not of ICMR. UPSC has also asked about GenomeIndia, which was led by DBT, so India-specific genomics is a live trend."
+    },
+    {
+        q: "With reference to the challenges in regulating synthetic biology in India, consider the following statements: <br> 1. India has enacted a dedicated statute exclusively to regulate synthetic biology.<br>2. The Weapons of Mass Destruction and their Delivery Systems (Prohibition of Unlawful Activities) Act, 2005 extends to biological weapons and their delivery systems.<br>3. India is not a party to the Biological Weapons Convention.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "Only two of the statements are correct",
+            "Only one of the statements is correct",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 2,
+        exp: "The dual-use character of synthetic biology, which can be misused to create dangerous pathogens, is a major challenge, and India has no dedicated law on it, as the DBT's foresight paper stressed the need for a national policy. The 2005 WMD Act covers nuclear, chemical and biological weapons and their delivery systems. India ratified the Biological Weapons Convention in 1974, so it is a party to it and statement 3 is wrong."
+    },
+    {
+        q: "With reference to the legal and policy framework for biomedical research in India, consider the following statements: <br> 1. The New Drugs and Clinical Trials Rules, 2019 were framed under the Clinical Establishments (Registration and Regulation) Act, 2010.<br>2. The National Ethical Guidelines for Biomedical and Health Research Involving Human Participants, 2017 were issued by ICMR.<br>3. Under the New Drugs and Clinical Trials Rules, 2019, compensation is payable to a trial participant only in case of death and not in case of injury.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 and 2 only",
+            "1 and 3 only",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "The NDCT Rules, 2019 were framed under the Drugs and Cosmetics Act, 1940, not the Clinical Establishments Act, and they require compensation for trial-related injury as well as death. ICMR issued the National Ethical Guidelines in 2017, updating its earlier 2006 guidelines. Only statement 2 is therefore correct."
+    },
+    {
+        q: "In the context of CRISPR-Cas9 genome editing, consider the following statements: <br> 1. Cas9 identifies the target DNA sequence by itself without the help of any RNA.<br>2. Cas9 is a nuclease that cuts both strands of DNA at a site specified by a guide RNA.<br>3. Editing of human germline cells to treat genetic disorders is permitted in clinical practice worldwide.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 only",
+            "1 and 3 only",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "Cas9, described in UPSC 2019 as 'molecular scissors', is a nuclease that makes a double-strand break at the location that the guide RNA points to, so statement 2 is correct and statement 1 is wrong. Germline editing is technically possible, as the 2020 UPSC question on editing embryos and germ cells implied, but it is prohibited for clinical use in India and in many other countries, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the regulatory structure for genetically modified crops in India, consider the following statements: <br> 1. The Genetic Engineering Appraisal Committee is chaired by the Secretary of the Department of Biotechnology.<br>2. The Genetic Engineering Appraisal Committee functions under the Ministry of Science and Technology.<br>3. The Review Committee on Genetic Manipulation functions in the Department of Biotechnology.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 only",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "The GEAC functions under the MoEFCC and is chaired by the Special Secretary or Additional Secretary of that ministry, with a DBT representative as co-chair, so statements 1 and 2 are wrong. The RCGM is housed in the Department of Biotechnology and oversees research-level biosafety. GEAC approval is required for the environmental release of GM organisms."
+    },
+    {
+        q: "Assertion (A): In India, genome-edited plants falling under the SDN-1 and SDN-2 categories have been exempted from the stringent regulatory provisions applicable to genetically modified organisms.<br>Reason (R): SDN-1 and SDN-2 genome-edited plants do not contain foreign genetic material in the final product.<br>In the context of the above statements, which one of the following is correct?",
+        opts: [
+            "A is true, but R is false",
+            "A is false, but R is true",
+            "Both A and R are true, and R is the correct explanation of A",
+            "Both A and R are true, but R is not the correct explanation of A"
+        ],
+        ans: 2,
+        exp: "In 2022 the MoEFCC exempted SDN-1 and SDN-2 genome-edited plants from Rules 7 to 11 of the Environment (Protection) Act Rules, 1989, which govern GMOs. The rationale is that the final product carries no foreign DNA, so it is comparable to conventionally bred or naturally mutated plants. SDN-3 remains under the GMO regulatory regime."
+    },
+    {
+        q: "With reference to the challenges associated with stem cell research and therapy, consider the following statements: <br> 1. Pluripotent stem cells that remain undifferentiated after transplantation can form teratomas, which is a safety concern.<br>2. Allogeneic stem cell products can provoke immune rejection, unlike autologous cells.<br>3. Under the National Guidelines for Stem Cell Research, 2017, use of stem cells in patients outside an approved clinical trial is considered malpractice.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 1",
+            "None of the above",
+            "Both 1 and 3",
+            "All of the above"
+        ],
+        ans: 3,
+        exp: "Undifferentiated pluripotent cells can give rise to teratomas, so tumorigenicity testing is a key safety requirement. Allogeneic cells come from another donor and can be recognised as foreign, while autologous cells come from the patient. The 2017 national guidelines treat any use of stem cells in patients outside an approved trial as malpractice, which is aimed at curbing unproven commercial therapies, so all three statements are correct."
+    },
+    {
+        q: "With reference to the constitutional and legal framework relevant to the use of genomic and bioinformatics data in India, consider the following statements: <br> 1. The right to privacy is expressly enumerated as a Fundamental Right in Part III of the Constitution.<br>2. Article 51A(h), which enjoins the development of scientific temper, is a Directive Principle of State Policy.<br>3. The Digital Personal Data Protection Act, 2023 applies to all non-digital personal data even if it is never digitised.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "None of the statements is correct",
+            "1 only",
+            "2 only"
+        ],
+        ans: 1,
+        exp: "The right to privacy is not expressly listed in Part III; the Supreme Court in Puttaswamy (2017) read it into Article 21. Article 51A(h) is a Fundamental Duty, added by the 42nd Amendment, not a Directive Principle. The DPDP Act, 2023 covers digital personal data and non-digital personal data that is subsequently digitised, so none of the statements is correct."
+    },
+    {
+        q: "With reference to synthetic biology and the kinds of emerging-technology terms asked in UPSC Prelims, consider the following statements: <br> 1. Xenobots are synthetic living machines built from cells taken from the embryos of the African clawed frog.<br>2. Xenobots are made of biodegradable metal alloys.<br>3. The body plans of xenobots were designed by a computer using an evolutionary algorithm.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the statements are correct",
+            "Exactly two of the statements are correct",
+            "Only statement 2",
+            "3 only"
+        ],
+        ans: 1,
+        exp: "Xenobots, first reported in 2020, are built from frog (Xenopus laevis) embryonic cells, and their body plans are generated by an evolutionary algorithm running in a virtual physics simulator before being assembled in the laboratory. They contain no metal, and their biodegradability comes from the cells themselves, so statement 2 is wrong. UPSC regularly frames news-linked biotechnology terms such as DNA barcoding (2022) and aerial metagenomics (2023) in statement form."
+    },
+    {
+        q: "With reference to the types and composition of stem cells, consider the following statements: <br> 1. Adult stem cells are pluripotent and can give rise to all cell types of the body, including the placenta.<br>2. Induced pluripotent stem cells are produced by reprogramming somatic cells.<br>3. Embryonic stem cells are derived from the trophoblast layer of the blastocyst.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 only",
+            "1 and 2 only",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "Induced pluripotent stem cells were first produced by Yamanaka in 2006 by reprogramming somatic cells, and this work won the 2012 Nobel Prize. Adult stem cells are multipotent and form only a limited range of cell types. Embryonic stem cells come from the inner cell mass of the blastocyst, while the trophoblast forms the placenta."
+    },
+    {
+        q: "With reference to the challenges facing biomedical and scientific research in India, consider the following statements: <br> 1. India's Gross Expenditure on Research and Development is above 2 per cent of its GDP.<br>2. The Anusandhan National Research Foundation Act, 2023 subsumed the Science and Engineering Research Board.<br>3. The private sector contributes the largest share of India's total research and development expenditure.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 1 alone",
+            "Both 2 and 3",
+            "Exactly one of the statements is correct",
+            "Both 1 and 2"
+        ],
+        ans: 2,
+        exp: "India's GERD has hovered at roughly 0.64 to 0.7 per cent of GDP, far below the 2 per cent or more spent by many advanced economies, and government sources still account for a larger share of it than the private sector. The ANRF Act, 2023 created the ANRF as an apex body to seed and fund research and to raise private participation, and it subsumed the SERB. Only statement 2 is correct."
+    },
+    {
+        q: "With reference to the composition of animals produced by Somatic Cell Nuclear Transfer (SCNT) cloning, consider the following statements: <br> 1. The mitochondrial DNA of the cloned animal comes entirely from the somatic cell of the donor.<br>2. The nuclear DNA of the cloned animal is almost identical to that of the somatic cell donor.<br>3. Dolly the sheep was produced using the nucleus of a mammary gland cell taken from an adult sheep.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "In SCNT the somatic nucleus is placed into an enucleated egg, so the clone's nuclear genome matches the donor's. Dolly was created from a mammary gland cell nucleus of an adult ewe. The egg cytoplasm still carries its own mitochondria, so the clone's mitochondrial DNA comes from the oocyte donor and not the somatic donor, which makes statement 1 incorrect."
+    },
+    {
+        q: "With reference to the constitutional and legal framework for genetic engineering in India, consider the following statements: <br> 1. Genetically engineered organisms are regulated under a dedicated Act of Parliament enacted specifically for biosafety.<br>2. Article 48A, which directs the State to protect and improve the environment, is a Fundamental Duty.<br>3. 'Biotechnology' is specifically enumerated as a subject in the Union List of the Seventh Schedule.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements is correct",
+            "1 and 3 only",
+            "1 and 2 only",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "GE organisms are regulated through the 1989 Rules under the Environment (Protection) Act, 1986, since the proposed Biotechnology Regulatory Authority of India Bill was never enacted. Article 48A is a Directive Principle, while the corresponding Fundamental Duty is Article 51A(g). Biotechnology is not listed by name in any of the three Lists of the Seventh Schedule, so none of the statements is correct."
+    },
+    {
+        q: "Assertion (A): Bt cotton is the first genetically modified crop to have been approved for commercial cultivation in India.<br>Reason (R): Bt cotton was approved for commercial cultivation by the Genetic Engineering Appraisal Committee in 1996.<br>In the context of the above statements, which one of the following is correct?",
+        opts: [
+            "Both A and R are true, and R is the correct explanation of A",
+            "Both A and R are true, but R is not the correct explanation of A",
+            "A is false, but R is true",
+            "A is true, but R is false"
+        ],
+        ans: 3,
+        exp: "Bt cotton, carrying the cry gene from Bacillus thuringiensis, was the first GM crop approved for commercial cultivation in India, so the assertion is true. The GEAC gave this approval in March 2002, not in 1996, so the reason is false. Bt cotton remains the only GM crop under commercial cultivation."
+    },
+    {
+        q: "With reference to the functions and powers in the governance of stem cell research in India, consider the following statements: <br> 1. As per the March 2024 order of the Department of Health Research, the National Apex Committee for Stem Cell Research and Therapy continues to function as the apex approving body for all stem cell research proposals.<br>2. Under the same order, Institutional Ethics Committees review stem cell research proposals with at least two stem cell experts, of whom at least one is external to the host organisation.<br>3. Under the National Guidelines for Stem Cell Research, 2017, a clinical trial involving stem cells can start on the approval of the institutional committee alone without any permission from CDSCO.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "3 only",
+            "2 only",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "In March 2024 the Department of Health Research disbanded the NAC-SCRT and IC-SCR mechanism and empowered Institutional Ethics Committees to review stem cell research, with at least two stem cell experts, one of them external. This means statement 1 is wrong. The 2017 guidelines made CDSCO approval mandatory before starting any clinical trial with stem cells, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the challenges associated with genetically modified crops in India, consider the following statements: <br> 1. Bt brinjal has been approved for commercial cultivation in India after clearance by the Genetic Engineering Appraisal Committee.<br>2. The Genetic Engineering Appraisal Committee has approved herbicide-tolerant Bt (HTBt) cotton for commercial cultivation.<br>3. Agriculture is a State subject under the Seventh Schedule, which makes State cooperation significant for conducting GM crop field trials.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 2 alone",
+            "Only one of the statements is correct",
+            "Only two of the statements are correct",
+            "None of the above"
+        ],
+        ans: 1,
+        exp: "Agriculture is Entry 14 of the State List, and States have often objected to GM field trials, which makes federal coordination a recurring issue. Bt brinjal was cleared by the GEAC in 2009 but was put under an indefinite moratorium in 2010, so it was never commercialised. HTBt cotton remains unapproved even though its illegal cultivation has been reported. Bt cotton is still the only GM crop under commercial cultivation."
+    },
+    {
+        q: "With reference to the regulation of genome-edited plants in India, consider the following statements: <br> 1. The Rules for the Manufacture, Use, Import, Export and Storage of Hazardous Microorganisms, Genetically Engineered Organisms or Cells, 1989 were notified under the Environment (Protection) Act, 1986.<br>2. The exemption of SDN-1 and SDN-2 genome-edited plants from the GMO rules was notified through an order of the Department of Biotechnology.<br>3. Genome-edited plants falling under the SDN-3 category continue to be regulated as genetically modified organisms.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "2 only",
+            "1 and 3 only"
+        ],
+        ans: 3,
+        exp: "The 1989 Rules were framed under the Environment (Protection) Act, 1986. The exemption for SDN-1 and SDN-2 plants from Rules 7 to 11 was granted by the MoEFCC through an Office Memorandum in March 2022, and DBT then issued the accompanying guidelines and SOPs, so statement 2 is wrong. SDN-3 involves the insertion of foreign or large DNA and therefore stays within the GMO regime."
+    },
+    {
+        q: "With reference to the legal and policy framework for vaccines in India, consider the following statements: <br> 1. The Epidemic Diseases (Amendment) Act, 2020 made vaccination compulsory for all citizens during an epidemic.<br>2. Vaccines are regulated as drugs under the Drugs and Cosmetics Act, 1940.<br>3. Under the Universal Immunisation Programme, vaccines against all twelve targeted diseases are provided nationally in every State.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "All of the above",
+            "Statement 3 alone",
+            "Only statement 2"
+        ],
+        ans: 3,
+        exp: "Vaccines are biologicals regulated as drugs under the Drugs and Cosmetics Act, 1940 and the rules made under it. The 2020 amendment to the Epidemic Diseases Act, 1897 was meant to protect healthcare service personnel and property from violence, and it did not make vaccination compulsory. The UIP gives vaccines against nine diseases nationally, while rotavirus, pneumococcal and Japanese encephalitis vaccines are given sub-nationally, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the biomedical technology transfer initiative organised by the Indian Council of Medical Research in May 2026, consider the following statements: <br> 1. The event, titled Medical Innovations Patent Mitra: Innovators-to-Industry Connect, was organised by the Department of Biotechnology.<br>2. The Indian Council of Medical Research functions under the Ministry of Science and Technology.<br>3. Well-characterised biomaterials such as inactivated Kyasanur Forest Disease and Chandipura viruses were among the items transferred to industry partners.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "Only statement 3",
+            "Statement 2 alone",
+            "Statement 1 alone"
+        ],
+        ans: 1,
+        exp: "ICMR held the Innovators-to-Industry (I2I) Connect in New Delhi in May 2026, transferring 41 health technologies and biomaterials, which included inactivated KFD and Chandipura viruses. ICMR is the apex body for biomedical research and functions under the Department of Health Research in the Ministry of Health and Family Welfare, not under the Ministry of Science and Technology or DBT. Only statement 3 is correct."
+    },
+    {
+        q: "With reference to India's BioE3 (Biotechnology for Economy, Environment and Employment) Policy, consider the following statements: <br> 1. It was approved by the Union Cabinet in 2024.<br>2. Its thematic sectors include marine and space research as well as precision biotherapeutics.<br>3. It is implemented by the Ministry of Environment, Forest and Climate Change as the nodal ministry.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 and 2 only",
+            "3 only",
+            "2 only"
+        ],
+        ans: 1,
+        exp: "The BioE3 Policy was approved by the Union Cabinet in August 2024. It covers thematic sectors such as bio-based chemicals and enzymes, precision biotherapeutics, climate-resilient agriculture, carbon capture and utilisation, and marine and space research, and it promotes biomanufacturing hubs and biofoundries. The nodal agency is the Department of Biotechnology under the Ministry of Science and Technology, not the MoEFCC."
+    },
+    {
+        q: "With reference to India's national HPV vaccination programme launched in 2026, consider the following statements: <br> 1. The nationwide programme was launched on 28 February 2026.<br>2. It provides a single dose of a quadrivalent HPV vaccine free of cost to girls aged 14 years at government facilities.<br>3. It uses the indigenously developed Cervavac as the only vaccine.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "The Prime Minister launched the national HPV programme on 28 February 2026, offering a single dose of the quadrivalent vaccine Gardasil to about 1.15 crore girls aged 14 at government facilities, with procurement supported through Gavi. Cervavac, the indigenous quadrivalent vaccine developed by the Serum Institute of India, is available in the market but is not the vaccine used in the national programme, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the evolution of the stem cell regulatory framework in India, consider the following statements: <br> 1. The first national guidelines for stem cell research and therapy were issued jointly by ICMR and the Department of Biotechnology in 2007.<br>2. Under the New Drugs and Clinical Trials Rules, 2019, a stem cell derived product is included within the definition of a 'new drug'.<br>3. The National Apex Committee for Stem Cell Research and Therapy (NAC-SCRT) was established as the apex oversight body under the national guidelines.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 3",
+            "None of the statements are correct",
+            "All three statements are correct",
+            "Both 1 and 3"
+        ],
+        ans: 2,
+        exp: "ICMR and DBT issued the first Guidelines for Stem Cell Research and Therapy in 2007, revised later and replaced by the 2017 National Guidelines. Both sets place oversight with the NAC-SCRT, supported by Institutional Committees for Stem Cell Research. The NDCT Rules, 2019 explicitly include stem cell derived products in the definition of a new drug, so all three statements are correct."
+    },
+    {
+        q: "With reference to the evolution of genome editing and its regulation in India, consider the following statements: <br> 1. The Nobel Prize in Chemistry in 2020 was awarded for the development of the CRISPR-Cas9 method of genome editing.<br>2. SDN-1 and SDN-2 genome-edited plants were first exempted from the GMO rules in India in 2012.<br>3. In CRISPR-Cas9, a guide RNA directs the Cas9 nuclease to a specific target DNA sequence.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 3 alone",
+            "All of the above",
+            "None of the statements are correct",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "Emmanuelle Charpentier and Jennifer Doudna received the 2020 Nobel Prize in Chemistry for CRISPR-Cas9, in which a guide RNA leads Cas9 to the target sequence. India exempted SDN-1 and SDN-2 plants from Rules 7 to 11 of the 1989 Rules only in March 2022, not in 2012, and before that genome-edited organisms fell within the GMO framework."
+    },
+    {
+        q: "With reference to the structure of India's national repository for life science data, consider the following statements: <br> 1. The Indian Biological Data Centre has a data disaster recovery site at the National Informatics Centre.<br>2. The Indian Biological Data Centre provides nucleotide data submission only through an open-access portal and has no controlled-access portal.<br>3. The Indian Biological Data Centre was established under the Ministry of Electronics and Information Technology.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 3 alone",
+            "Only statement 1",
+            "1 and 3 only",
+            "Both 1 and 2"
+        ],
+        ans: 1,
+        exp: "The IBDC is supported by the Department of Biotechnology and hosted at the Regional Centre for Biotechnology, Faridabad, with a disaster recovery site at the National Informatics Centre in Odisha. It provides nucleotide data submission through two portals, the Indian Nucleotide Data Archive and the Indian Nucleotide Data Archive - Controlled Access, so statement 2 is wrong. It was established under DBT and not MeitY, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the tools of genetic engineering, consider the following statements: <br> 1. Type II restriction endonucleases typically recognise specific palindromic nucleotide sequences in DNA.<br>2. DNA ligase is used to join DNA fragments during the construction of recombinant DNA.<br>3. Agrobacterium tumefaciens can transfer a segment of its plasmid DNA into plant cells and is therefore used as a vector in plant genetic engineering.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "All three statements are correct",
+            "2 only",
+            "Only one of the statements is correct"
+        ],
+        ans: 1,
+        exp: "Type II restriction enzymes cut at specific, mostly palindromic, recognition sites. DNA ligase seals the fragments together, and Agrobacterium transfers T-DNA from its Ti plasmid into plant cells. All three statements are therefore correct, which is why the tempting partial combinations fail."
+    },
+    {
+        q: "With reference to the features of DNA technology and DNA fingerprinting, consider the following statements: <br> 1. DNA fingerprinting was developed by Alec Jeffreys in the mid-1980s.<br>2. DNA fingerprinting is based mainly on polymorphisms in the protein-coding regions of DNA.<br>3. Standard DNA fingerprinting can reliably distinguish between monozygotic (identical) twins.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "Only statement 1",
+            "None of the above",
+            "Only statement 3"
+        ],
+        ans: 1,
+        exp: "Alec Jeffreys developed DNA fingerprinting at the University of Leicester in 1984, and Indian scientists such as Lalji Singh at CCMB, Hyderabad, later pioneered its forensic use in India. The technique relies on variable repeat sequences (VNTRs and STRs) in non-coding regions, not on coding regions. Identical twins arise from a single zygote and share the same STR profile, so standard fingerprinting cannot tell them apart."
+    },
+    {
+        q: "With reference to the functions and powers of biomedical research and regulatory bodies in India, consider the following statements: <br> 1. ICMR is the apex body in India for the formulation, coordination and promotion of biomedical research.<br>2. ICMR grants marketing authorisation for new drugs after the completion of clinical trials.<br>3. Under the New Drugs and Clinical Trials Rules, 2019, ethics committees reviewing clinical trials are required to be registered with the Central Licensing Authority.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 only",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 3,
+        exp: "ICMR is the apex body for formulating, coordinating and promoting biomedical research, and the NDCT Rules, 2019 require ethics committees to be registered with the Central Licensing Authority (CDSCO). Approval of clinical trials and marketing authorisation for new drugs is the statutory function of the CDSCO under the Drugs and Cosmetics Act, 1940, not of ICMR, so statement 2 is incorrect."
+    },
+    {
+        q: "With reference to the regulatory framework for synthetic biology in India, consider the following statements: <br> 1. India has enacted a standalone statute exclusively meant to regulate synthetic biology.<br>2. The Recombinant DNA Advisory Committee constituted by the Department of Biotechnology recommends safety regulations for recombinant DNA research and applications.<br>3. The 1989 Rules require institutions handling genetically engineered organisms to constitute an Institutional Biosafety Committee.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "India has no dedicated law for synthetic biology, and organisms produced through it are governed by the existing biosafety framework under the Environment (Protection) Act, 1986 and the 1989 Rules. Within this framework, the DBT's Recombinant DNA Advisory Committee advises on safety regulation, and Institutional Biosafety Committees oversee research at the institutional level. Only statement 1 is wrong."
+    },
+    {
+        q: "With reference to the features of genetic engineering, consider the following statements: <br> 1. Restriction endonucleases are the enzymes used to join DNA fragments together.<br>2. The Bt toxin used in Bt cotton is effective against sucking pests such as aphids and whiteflies.<br>3. Cloning vectors commonly carry a selectable marker gene, such as an antibiotic resistance gene, to identify transformed cells.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "Only one of the statements is correct",
+            "Only statement 1",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "Selectable markers such as antibiotic resistance genes let researchers pick out the cells that have taken up the vector. Restriction endonucleases cut DNA, while DNA ligase joins fragments, so statement 1 is wrong. Cry proteins from Bacillus thuringiensis in Bt cotton act against lepidopteran bollworms, not sucking pests such as aphids and whiteflies, so statement 2 is wrong."
+    },
+    {
+        q: "With reference to the legal and ethical framework for genome editing in India, consider the following statements: <br> 1. SDN-3 genome-edited plants have been exempted from Rules 7 to 11 of the Environment (Protection) Act Rules, 1989.<br>2. SDN-1 and SDN-2 genome-edited plants require prior approval of the Genetic Engineering Appraisal Committee before commercial release.<br>3. The National Ethical Guidelines for Biomedical and Health Research Involving Human Participants, 2017 prohibit human germline gene editing.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All three statements are correct",
+            "Exactly two of the statements are correct",
+            "Only statement 2",
+            "Statement 3 alone"
+        ],
+        ans: 3,
+        exp: "The 2017 ICMR ethical guidelines prohibit human germline editing and reproductive cloning. The 2022 MoEFCC exemption covers only SDN-1 and SDN-2 plants from Rules 7 to 11, which include the GEAC approval process, so statement 2 is wrong. SDN-3 involves foreign or large DNA insertion and remains within the GMO regime, so statement 1 is wrong."
+    },
+    {
+        q: "Assertion (A): India's status as a centre of origin and diversity for crops such as brinjal and rice makes gene flow from genetically modified crops a key biosafety concern.<br>Reason (R): India is a party to the Cartagena Protocol on Biosafety.<br>In the context of the above statements, which one of the following is correct?",
+        opts: [
+            "A is true, but R is false",
+            "A is false, but R is true",
+            "Both A and R are true, but R is not the correct explanation of A",
+            "Both A and R are true, and R is the correct explanation of A"
+        ],
+        ans: 2,
+        exp: "Gene flow to wild and cultivated relatives is a central concern in centres of crop diversity such as India, which is why Bt brinjal drew strong objections. India also ratified the Cartagena Protocol on Biosafety in 2003, so both statements are true. However, the Protocol's membership does not explain why gene flow is a concern, since that arises from crop biology and diversity, so R is not the correct explanation."
+    },
+    {
+        q: "With reference to the structure of DNA, consider the following statements: <br> 1. Adenine and thymine are held together by three hydrogen bonds.<br>2. The two strands of the DNA double helix run parallel to each other in the same 5' to 3' direction.<br>3. Guanine and cytosine are held together by three hydrogen bonds.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "Both 1 and 3",
+            "None of the above",
+            "Only statement 1"
+        ],
+        ans: 0,
+        exp: "In the Watson-Crick model, guanine pairs with cytosine through three hydrogen bonds, while adenine pairs with thymine through two, which matches Chargaff's rule that A equals T and G equals C. The two polynucleotide strands are antiparallel, with one running 5' to 3' and the other 3' to 5'. Only statement 3 is correct, and the higher G-C content makes DNA more stable against heat denaturation."
+    },
+    {
+        q: "With reference to the regulation of genetically engineered crops in India, consider the following statements: <br> 1. The Government of India imposed a moratorium on the commercial release of Bt brinjal in 2010.<br>2. The Biotechnology Regulatory Authority of India Bill, proposed as a single-window regulator for modern biotechnology, has been enacted into law.<br>3. The Supreme Court's 2024 verdict on GM mustard permitted its immediate commercial cultivation across the country.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 and 2 only",
+            "1 only",
+            "2 only"
+        ],
+        ans: 2,
+        exp: "The then Environment Minister imposed an indefinite moratorium on Bt brinjal in February 2010. The BRAI Bill was introduced but never enacted and lapsed. The Supreme Court's July 2024 verdict on GM mustard was a split verdict, and it directed the Centre to frame a national policy on GM crops, so it did not permit immediate commercial cultivation."
+    },
+    {
+        q: "With reference to the structure and composition of India's apex biomedical research body, consider the following statements: <br> 1. The Governing Body of ICMR is headed by the Union Minister for Science and Technology.<br>2. ICMR is a statutory body constituted by an Act of Parliament.<br>3. The Director-General of ICMR also serves as the Secretary of the Department of Health Research.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "3 only",
+            "1 and 2 only",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "The Director-General of ICMR concurrently holds the post of Secretary, Department of Health Research, in the Ministry of Health and Family Welfare. ICMR is an autonomous society registered under the Societies Registration Act, funded by the Health Ministry, and not a statutory body created by an Act of Parliament. Its Governing Body is presided over by the Union Health Minister, not the Science and Technology Minister."
+    },
+    {
+        q: "In the context of genome editing regulation in India, which one of the following correctly describes the SDN-2 category of site-directed nuclease applications?",
+        opts: [
+            "The nuclease creates a double-strand break that is repaired by the cell without any repair template, producing random small insertions or deletions",
+            "The nuclease is used to insert a large DNA segment or a gene from another organism at the target site",
+            "The nuclease is used only to silence gene expression at the RNA level without altering the DNA sequence",
+            "The nuclease creates a double-strand break and a repair template is supplied to bring about a few specific nucleotide changes"
+        ],
+        ans: 3,
+        exp: "SDN-2 uses a nuclease-induced break together with a repair template to introduce a few specific base changes. Option A describes SDN-1 (no template, repair by NHEJ) and option C describes SDN-3, which involves large or foreign DNA insertion and is treated like a GMO. Option D describes RNA interference, not genome editing."
+    },
+    {
+        q: "With reference to the features of India's biomedical research system, consider the following statements: <br> 1. The Department of Health Research was created in 2007 as a separate department within the Ministry of Health and Family Welfare through an amendment to the Government of India (Allocation of Business) Rules, 1961.<br>2. The Governing Body of ICMR is chaired by the Secretary of the Department of Health Research.<br>3. Administering the ICMR is one of the functions allocated to the Department of Health Research.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 only"
+        ],
+        ans: 2,
+        exp: "The Department of Health Research was created on 17 September 2007 by amending the Allocation of Business Rules, 1961, and it became functional in late 2008. Administering the ICMR is one of the ten business items allocated to it, and it was the only ongoing function when the department was formed. The Governing Body of ICMR is chaired by the Union Health Minister and not by the departmental Secretary, so statement 2 is wrong."
+    },
+    {
+        q: "With reference to the regulation of stem cell research and therapy in India, consider the following statements: <br> 1. The National Guidelines for Stem Cell Research, 2017 were jointly issued by ICMR and the Department of Biotechnology.<br>2. Under these guidelines, clinical use of stem cells for any disease other than haematological disorders is permitted as routine treatment.<br>3. Reproductive cloning using stem cells is prohibited under these guidelines.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 2 and 3",
+            "Exactly two of the statements are correct",
+            "Exactly one of the statements is correct",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "The 2017 National Guidelines were issued jointly by ICMR and DBT, and they prohibit reproductive cloning. Hematopoietic stem cell transplantation for haematological conditions is the only established standard of care. All other clinical uses are investigational and permitted only through approved clinical trials, so statement 2 is wrong, and unproven commercial stem cell therapy is barred."
+    },
+    {
+        q: "With reference to the types of vaccines developed and used in India, consider the following statements: <br> 1. Covaxin is an inactivated whole-virion vaccine.<br>2. Corbevax is an mRNA-based vaccine.<br>3. Covishield is an inactivated whole-virus vaccine.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "Only statement 3",
+            "1 only",
+            "Only statement 2"
+        ],
+        ans: 2,
+        exp: "Covaxin, developed by Bharat Biotech with ICMR-NIV, uses a whole inactivated virus. Corbevax is a recombinant protein sub-unit vaccine, not an mRNA vaccine. Covishield is a recombinant viral vector vaccine that uses a chimpanzee adenovirus to deliver the spike gene, so statements 2 and 3 are wrong. This platform-wise classification is the pattern seen in the 2021 UPSC question on recombinant vector vaccines."
+    },
+    {
+        q: "With reference to the background and evolution of vaccination in India, consider the following statements: <br> 1. The Expanded Programme on Immunisation was launched in India in 1978.<br>2. The Universal Immunisation Programme was launched in 1985.<br>3. Smallpox vaccination was introduced in India in the early nineteenth century.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 1 alone",
+            "Only two of the statements are correct",
+            "Exactly one of the statements is correct",
+            "1, 2 and 3"
+        ],
+        ans: 3,
+        exp: "India began the Expanded Programme on Immunisation in 1978 and broadened it into the Universal Immunisation Programme in 1985, which was extended in phases to all districts. Smallpox vaccination reached India in 1802, when the first vaccination was carried out in Bombay, well before the twentieth-century public health programmes. All three statements are therefore correct."
+    },
+    {
+        q: "With reference to the legal and policy framework relating to bioinformatics and biological data in India, consider the following statements: <br> 1. The Indian Biological Data Centre, the national repository for life science data, is located at the Regional Centre for Biotechnology, Faridabad.<br>2. The Digital Personal Data Protection Act, 2023 exempts all personal data processed for research purposes without any conditions.<br>3. The GenomeIndia Project is led by the Indian Council of Medical Research.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the above",
+            "Exactly two of the statements are correct",
+            "Exactly one of the statements is correct",
+            "Only two of the statements are correct"
+        ],
+        ans: 2,
+        exp: "The Indian Biological Data Centre (IBDC) is hosted at the DBT's Regional Centre for Biotechnology in Faridabad. The DPDP Act, 2023 exempts processing for research, archiving or statistical purposes only if the data is not used to take decisions specific to an individual and prescribed standards are followed, so the exemption is conditional. GenomeIndia is a DBT-led initiative, not an ICMR project."
+    },
+    {
+        q: "With reference to the challenges associated with cloning in India and elsewhere, consider the following statements: <br> 1. Low efficiency, with most cloned embryos failing to develop to term, is a major technical challenge of the SCNT technique.<br>2. Human reproductive cloning is permitted in India under ICMR guidelines subject to ethical clearance.<br>3. Cloned animals such as Dolly are known to live their full natural lifespan free of health complications.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "2 only",
+            "None of the statements are correct",
+            "Only one of the statements is correct"
+        ],
+        ans: 3,
+        exp: "SCNT has very low success rates because many cloned embryos are lost during development. This is seen in India too, since the first cloned buffalo calf Samrupa (2009) survived only a few days. Dolly was euthanised at about six years of age after developing lung disease. Reproductive cloning of humans is prohibited under ICMR's guidelines, so statements 2 and 3 are wrong."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-47 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

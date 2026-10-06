@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-65</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "In December 2025, India and Jordan signed a 'twinning' agreement recognising the shared architectural heritage of two UNESCO World Heritage rock-cut sites. Which pair of sites was involved in this agreement?",
+        opts: [
+            "Badami Caves and Petra",
+            "Elephanta Caves and Palmyra",
+            "Ajanta Caves and Petra",
+            "Ellora Caves and Petra"
+        ],
+        ans: 3,
+        exp: "The agreement, signed during the Prime Minister's visit to Amman, twinned the Ellora Caves in Maharashtra with Petra in Jordan, both renowned for structures carved directly out of solid rock rather than built up from the ground. Ajanta and Elephanta, though also rock-cut, were not part of this particular agreement."
+    },
+    {
+        q: "The Delhi High Court recently criticised the Archaeological Survey of India for delays in surveying encroachments at a fort built in 1321 by the founder of the Tughlaq dynasty. This fort is historically significant as being which of the following?",
+        opts: [
+            "The second extant city of Delhi, built immediately after Lal Kot",
+            "A fort built entirely of marble with no defensive walls",
+            "The third extant city of Delhi, following Lal Kot and Siri",
+            "The first fortified city built by the Delhi Sultanate"
+        ],
+        ans: 2,
+        exp: "Tughlakabad Fort, built by Ghiyasuddin Tughlaq in 1321, is recognised as the third extant city of Delhi, following Lal Kot (built by the Tomar ruler Anangpal II) and Siri (built by Alauddin Khalji). It is a notable example of early Indo-Islamic military architecture, characterised by thick, sloped, rubble-filled walls rather than delicate ornamentation."
+    },
+    {
+        q: "With reference to the megalithic monuments of India, consider the following statements: <br>1. A 'Menhir' is a single upright monolithic stone that may serve as a memorial or an astronomical marker, without necessarily containing a burial.<br>2. Most megalithic monuments in India belong to the Neolithic period and are concentrated mainly in the Indus river valley region.<br>3. A 'Dolmen' typically consists of upright stone slabs supporting a horizontal capstone and served as a burial chamber.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 2 and 3",
+            "1 and 2 only",
+            "Exactly one of the statements is correct",
+            "Only two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "A menhir is indeed a single standing stone that need not mark a burial, and a dolmen is a chamber tomb formed of upright slabs topped by a capstone. However, most Indian megaliths belong to the Iron Age (roughly 1500-500 BCE) and are concentrated mainly in peninsular India, not the Neolithic period or the Indus river valley, making Statement 2 incorrect."
+    },
+    {
+        q: "With reference to copyright protection for paintings under the Copyright Act, 1957, consider the following statements: <br>1. Under Section 22 of the Act, copyright in a painting published within the lifetime of its author subsists for the lifetime of the author plus an additional sixty years.<br>2. This sixty-year period is calculated from the exact date of the author's death, rather than from the beginning of the following calendar year.<br>3. For a painting published anonymously, copyright protection under the Act is granted only for the lifetime of the person who first published it, regardless of when the work was created.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements is correct",
+            "2 only",
+            "1 only",
+            "3 only"
+        ],
+        ans: 2,
+        exp: "Section 22 does grant copyright protection for a painting for the lifetime of its author plus sixty years, confirming Statement 1. However, this sixty-year period runs from the beginning of the calendar year following the author's death, not from the exact date of death, and anonymously published works are protected for sixty years from the year of first publication rather than tied to any person's lifetime, making Statements 2 and 3 incorrect."
+    },
+    {
+        q: "With reference to the Ancient Monuments and Archaeological Sites and Remains (AMASR) Act, 1958, consider the following statements: <br>1. An area within 100 metres of a centrally protected monument is designated as a 'prohibited area' where new construction is not permitted.<br>2. The Act applies to monuments and archaeological sites that are at least 100 years old.<br>3. The National Monuments Authority, constituted under the 2010 amendment to the Act, grants permission for construction-related activities in the 'regulated area' beyond the prohibited zone.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the statements are correct",
+            "None of the statements are correct",
+            "1 and 3 only",
+            "Statement 2 alone"
+        ],
+        ans: 0,
+        exp: "Under the AMASR Act, a 100-metre prohibited area around a monument bars new construction, and the Act covers monuments and sites at least 100 years old. The National Monuments Authority, created by the 2010 amendment, oversees permissions for construction in the regulated area beyond the prohibited zone, so all three statements are correct."
+    },
+    {
+        q: "The paintings in the Ajanta Caves are frequently referred to as 'frescoes', but art historians point out that this is technically inaccurate. What is the primary reason for this?",
+        opts: [
+            "The paintings were added several centuries after the caves were excavated",
+            "The paintings were made using oil-based pigments rather than water-based ones",
+            "The paintings depict secular court scenes rather than religious themes",
+            "The paintings were executed on a completely dry plaster surface rather than on wet plaster"
+        ],
+        ans: 3,
+        exp: "True fresco requires pigments to be applied directly onto wet lime plaster so that they chemically bind with it as it dries, whereas the Ajanta paintings were executed using the tempera technique, with colours applied only after the plaster surface had been allowed to dry completely. This technical distinction is why art historians describe Ajanta's works as tempera rather than true fresco, despite the popular usage."
+    },
+    {
+        q: "With reference to the components of a Hindu temple, consider the following statements: <br>1. The 'Garbhagriha', meaning 'womb-house', is typically a small, windowless sanctum housing the principal deity, with a single entrance usually facing east.<br>2. The 'Antarala' is a vestibule or antechamber that connects the garbhagriha to the mandapa.<br>3. The 'Amalaka', a fluted stone disc shaped like the myrobalan fruit, is a distinguishing feature found atop the towers of Nagara-style temples in North India.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "The Garbhagriha is indeed the small, windowless sanctum housing the main deity, the Antarala is the connecting vestibule between it and the mandapa, and the Amalaka is a characteristic crowning feature of Nagara-style temple towers in North India. All three statements are therefore correct."
+    },
+    {
+        q: "With reference to the World Heritage Committee of UNESCO, consider the following statements: <br>1. The World Heritage Committee is composed of representatives of 33 States Parties, elected by the UNESCO Secretariat.<br>2. The World Heritage Committee is composed of representatives of 21 States Parties to the World Heritage Convention, elected by the General Assembly of States Parties.<br>3. Decisions of the World Heritage Committee regarding the inscription of new sites do not require any technical evaluation from advisory bodies such as ICOMOS or IUCN.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 only",
+            "None of the statements is correct",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "The World Heritage Committee comprises 21 States Parties to the Convention, elected by the General Assembly of States Parties, not 33 States elected by the Secretariat, confirming Statement 2. The Committee relies on technical evaluations from advisory bodies such as ICOMOS, ICCROM and IUCN before deciding on inscriptions, making Statements 1 and 3 incorrect."
+    },
+    {
+        q: "With reference to Indian temple architecture, consider the following statements: <br>1. The temples built under the Hoysala dynasty at Belur and Halebidu are classified under the Dravida style of architecture.<br>2. The Kailasa Temple at Ellora was carved out of a single rock in a top-down manner, unlike the conventional method of tunnelling into a hillside.<br>3. The Brihadeeswarar Temple at Thanjavur, built by the Chola king Rajaraja I, is an example of the Nagara style of temple architecture.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "3 only",
+            "1 only",
+            "None of the statements is correct"
+        ],
+        ans: 0,
+        exp: "Hoysala temples are classified under the Vesara style, not Dravida, and the Brihadeeswarar Temple, with its massive vimana, is a classic example of Dravida, not Nagara, architecture. The Kailasa Temple at Ellora is indeed unique for having been excavated from the top down out of a single rock mass, confirming only Statement 2 as correct."
+    },
+    {
+        q: "With reference to India's UNESCO World Heritage engagement, consider the following statements: <br>1. As of September 2026, India's Tentative List for UNESCO World Heritage inscription includes 73 sites, following the addition of four new cultural sites.<br>2. The Ministry of External Affairs, rather than the Archaeological Survey of India, serves as India's nodal agency for preparing cultural World Heritage nominations.<br>3. Of the four sites recently added to India's Tentative List, only two were classified as cultural properties, with the remaining two being natural sites.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "3 only",
+            "None of the statements is correct",
+            "2 only"
+        ],
+        ans: 0,
+        exp: "India's Tentative List did reach 73 sites in September 2026 with the addition of four new cultural sites, confirming Statement 1. However, it is the Archaeological Survey of India, operating under the Ministry of Culture, that serves as the nodal agency for cultural nominations, and all four newly added sites were classified as cultural properties, not a mix of cultural and natural, making Statements 2 and 3 incorrect."
+    },
+    {
+        q: "With reference to the architecture of Buddhist stupas, consider the following statements: <br>1. The 'Anda' is the hemispherical dome of the stupa that houses the relics of the Buddha or other sacred objects.<br>2. The 'Harmika' is a square platform at the base of the stupa on which the dome rests.<br>3. The ornamental gateways, or 'toranas', at the Sanchi Stupa were added during the Satavahana period.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 1 alone",
+            "Both 2 and 3",
+            "None of the statements are correct",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "The Anda is indeed the relic-housing dome, and the toranas at Sanchi were added later during the Satavahana period. However, the Harmika is not a platform at the base; it is a square railing atop the dome, symbolising the abode of the gods, while the base platform is known as the 'Medhi', making Statement 2 incorrect."
+    },
+    {
+        q: "With reference to recent reform measures concerning archaeological excavations in India, consider the following statements: <br>1. In a Lok Sabha reply of December 2025, the government outlined steps to address staffing and technical gaps across the ASI's six Excavation Branches.<br>2. As part of these reform measures, the government indicated it was moving toward a transparent single-window clearance system for academic and foreign archaeological collaborations.<br>3. The Comptroller and Auditor General (CAG), in its performance audits, has commended the ASI for a consistently high and adequately utilised level of expenditure on excavation and exploration activities.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "Both 2 and 3",
+            "None of the statements are correct",
+            "All of the statements are correct"
+        ],
+        ans: 0,
+        exp: "The government's December 2025 Lok Sabha reply did address staffing and technical gaps in the ASI's Excavation Branches and pointed to a move toward single-window clearance for archaeological collaborations, confirming Statements 1 and 2. However, the CAG has in fact flagged very low and inadequately utilised expenditure on excavation and exploration activities, not commended it, making Statement 3 incorrect."
+    },
+    {
+        q: "With reference to structural techniques introduced by Indo-Islamic architecture in India, consider the following statements: <br>1. Indo-Islamic builders relied exclusively on the trabeate, or post-and-lintel, method of construction and made no use of the true arch or dome.<br>2. In 'true arch' construction, wedge-shaped stones called voussoirs are arranged to radiate from a common centre, with a keystone at the top locking the structure in place.<br>3. Indo-Islamic architecture introduced extensive use of lime mortar as a cementing agent, in contrast to the dry masonry construction more typical of earlier Indian building traditions.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only",
+            "2 and 3 only"
+        ],
+        ans: 3,
+        exp: "Indo-Islamic construction is indeed characterised by the true arch, with voussoirs radiating from a centre and locked by a keystone, and by the extensive use of lime mortar as a binding agent, confirming Statements 2 and 3. However, this was precisely a departure from the earlier trabeate tradition, not an exclusive reliance on it, making Statement 1 incorrect."
+    },
+    {
+        q: "With reference to the 'Shadanga', or Six Limbs of Indian Painting, consider the following statements: <br>1. The Shadanga are first mentioned in Vatsyayana's Kamasutra and were further elaborated in a later commentary known as the 'Jayamangala'.<br>2. 'Pramana', one of the six limbs, refers to the correct measurement, structure and proportion of a figure or object being depicted.<br>3. 'Varnikabhanga', another of the six limbs, refers exclusively to the expression of emotion and mood in a painted figure, and is unrelated to the application of colour.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "The Shadanga are indeed traced to Vatsyayana's Kamasutra and elaborated in the later Jayamangala commentary, and Pramana concerns correct measurement and proportion. However, it is 'Bhava', not 'Varnikabhanga', that deals with the expression of emotion; Varnikabhanga instead concerns colour application and brushwork, making Statement 3 incorrect."
+    },
+    {
+        q: "With reference to penal provisions safeguarding sculptures and carvings at protected sites, including rock-cut monuments, consider the following statements: <br>1. The penal provision under Section 30 of the AMASR Act, 1958 has remained unchanged since the Act's original enactment, with no subsequent enhancement.<br>2. Under Section 30, damaging or defacing a protected monument, including removing a sculpture or carving from it, is punishable with imprisonment which may extend to two years, or with fine, or with both.<br>3. A court convicting a person of unlawfully moving a protected antiquity may direct that the antiquity be restored to the place from which it was moved.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "Section 30 does prescribe imprisonment of up to two years or a fine, or both, for damaging or removing sculptures and carvings from a protected monument, and courts can direct restoration of an unlawfully moved antiquity, confirming Statements 2 and 3. However, this provision was significantly enhanced by the 2010 Amendment Act, which raised the penalty from three months'/₹5,000 to two years'/₹1 lakh, making Statement 1 incorrect."
+    },
+    {
+        q: "With reference to conservation challenges at the Sanchi Buddhist site, consider the following statements: <br>1. A key conservation challenge at Sanchi has been that its demarcated boundary and buffer zone are considered inadequate, with nearby villages having expanded into the buffer zone area.<br>2. To address this, the ASI has proposed extending the property's boundary to include four other nearby Buddhist sites — Satdhara, Sonari, Murelkhurd and Andher.<br>3. Unlike Sanchi, none of these four nearby sites has any independent significance for understanding the development of Buddhist architecture in the region.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "Sanchi's buffer zone has indeed been flagged as inadequate due to encroaching villages, prompting a proposal to extend the property's boundary to include the nearby sites of Satdhara, Sonari, Murelkhurd and Andher, confirming Statements 1 and 2. However, these four sites are considered important in their own right for understanding the process that led to Sanchi's uniqueness, not insignificant, making Statement 3 incorrect."
+    },
+    {
+        q: "With reference to the conservation history of the Ajanta cave paintings, consider the following statements: <br>1. In the 1920s, Italian conservators employed by the Nizam of Hyderabad coated the Ajanta murals with a layer of shellac varnish in an attempt to preserve them.<br>2. This shellac coating proved highly effective, permanently preserving the original brightness and colours of the murals without any adverse long-term effects.<br>3. Since 1999, ASI conservators have used techniques such as micro-emulsion cleaning and infrared imaging to remove old layers of varnish and grime from the murals.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "Italian conservators did coat the Ajanta murals with shellac varnish in the 1920s, and since 1999 ASI conservators have used micro-emulsion and infrared techniques to undo the resulting damage, confirming Statements 1 and 3. However, the shellac coating actually darkened and oxidised over time, obscuring the murals further rather than preserving them, making Statement 2 incorrect."
+    },
+    {
+        q: "With reference to Vijayanagara temple architecture, consider the following statements: <br>1. The construction of 'Kalyana Mandapas,' pavilions built to celebrate the symbolic marriage of a temple's deity to a consort, was a notable feature of Vijayanagara temple architecture.<br>2. Vijayanagara temple pillars are frequently carved with 'yali' figures, a mythical creature combining features of a lion, elephant and horse.<br>3. Vijayanagara builders generally preferred a softer variety of stone, similar to that used by the Hoysalas, which enabled finer and more delicate surface carving.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1, 2 and 3",
+            "2 only",
+            "Both 1 and 2"
+        ],
+        ans: 3,
+        exp: "The Kalyana Mandapa is indeed a hallmark of Vijayanagara temple architecture, as confirmed by a 2019 UPSC Prelims question, and Vijayanagara pillars are well known for their carved yali figures, confirming Statements 1 and 2. However, Vijayanagara builders actually worked in hard local granite rather than the softer stone used by the Hoysalas, favouring bold mass over fine detail, making Statement 3 incorrect."
+    },
+    {
+        q: "With reference to the excavations at Keeladi in Tamil Nadu, consider the following statements: <br>1. Excavations at Keeladi, near Madurai on the banks of the river Vaigai, have yielded carbon-dated evidence suggesting habitation going back to around the 6th century BCE.<br>2. The excavation report on Keeladi was published without any delay or request for revision soon after its submission to the ASI.<br>3. The Keeladi excavations were carried out exclusively by the Tamil Nadu State Department of Archaeology, with no involvement of the ASI at any stage.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 only",
+            "None of the statements is correct",
+            "2 only"
+        ],
+        ans: 1,
+        exp: "Carbon dating of samples from Keeladi has indeed suggested habitation dating back to around the 6th century BCE, confirming Statement 1. In fact, the excavation report faced prolonged delays and requests for revision of its chronological framework, and the ASI itself conducted the initial phases of excavation before the Tamil Nadu State Department of Archaeology took over later phases, making Statements 2 and 3 incorrect."
+    },
+    {
+        q: "With reference to the 'Sacred Ensembles of the Hoysalas', consider the following statements: <br>1. Comprising temples at Belur, Halebid and Somnathapura, it was inscribed on the UNESCO World Heritage List in 2023, becoming India's 42nd World Heritage Site.<br>2. Among the challenges identified by UNESCO's World Heritage Committee for this site is the impact of rising air pollution on the temples' intricate stone sculptures.<br>3. In its 2025 review, the World Heritage Committee found no further need for India to submit any additional conservation-related reports on this site.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "The Sacred Ensembles of the Hoysalas was indeed inscribed in 2023 as India's 42nd World Heritage Site, and the impact of air pollution on the temples' sculptures has been flagged as a concern by UNESCO. However, the World Heritage Committee's 2025 review explicitly asked India to submit an updated conservation report by December 2026, making Statement 3 incorrect."
+    },
+    {
+        q: "With reference to a recent conservation initiative concerning a well-known temple, consider the following statements: <br>1. In May 2025, the Shree Jagannath Temple Administration (SJTA) and the Archaeological Survey of India agreed to collaborate on preserving the architectural heritage and structural integrity of the 12th-century Puri shrine.<br>2. As part of this collaboration, the inventory verification of the temple deities' ornaments is being carried out using only paper-based ledgers, without any digital documentation.<br>3. This collaborative conservation initiative was undertaken because the temple had recently been inscribed on the UNESCO World Heritage List.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "2 only",
+            "None of the statements is correct",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "The SJTA and ASI did agree in May 2025 to jointly work on preserving the Puri shrine's structural integrity, confirming Statement 1. However, the ornament inventory verification is being carried out using 3D mapping, digital documentation and videography rather than paper ledgers alone, and the Jagannath Temple at Puri is not a UNESCO World Heritage Site, making Statements 2 and 3 incorrect."
+    },
+    {
+        q: "With reference to Fundamental Duties under the Constitution of India, consider the following statements: <br>1. Article 51A(f), a Fundamental Duty, casts on every citizen the duty to value and preserve the rich heritage of India's composite culture.<br>2. Fundamental Duties under Article 51A, including clause (f), are directly enforceable in courts of law and can result in criminal penalties if not performed.<br>3. Fundamental Duties were incorporated into the Constitution through the 44th Constitutional Amendment Act, 1978, based on the recommendations of the Sarkaria Commission.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 only",
+            "None of the statements is correct",
+            "3 only"
+        ],
+        ans: 0,
+        exp: "Article 51A(f) does cast on citizens the duty to value and preserve India's composite cultural heritage, confirming Statement 1. However, Fundamental Duties are generally not directly enforceable in courts with penal consequences, and they were added not by the 44th Amendment on the Sarkaria Commission's recommendation but by the 42nd Constitutional Amendment Act, 1976, based on the Swaran Singh Committee's recommendations, making Statements 2 and 3 incorrect."
+    },
+    {
+        q: "With reference to the Archaeological Survey of India's conservation plan for the Sannati-Kanaganahalli Buddhist site in Karnataka, consider the following statements: <br>1. The plan recommends resetting the excavated remains of the Maha Stupa to their original positions, without excessive ornamentation.<br>2. As part of the plan, fallen portions of the Ayaka platforms are to be reconstructed using original ancient bricks retrieved from unrelated sites elsewhere.<br>3. The Kanaganahalli Maha Stupa, part of the Sannati site, was built using locally available limestone.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "1 and 2 only",
+            "Both 1 and 3",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "The conservation plan does recommend resetting the Maha Stupa's remains to their original positions without excessive ornamentation, and the stupa was indeed built of locally available limestone, confirming Statements 1 and 3. However, the plan calls for reconstructing fallen portions of the Ayaka platforms using newly-fabricated bricks matching the original size, shape and texture, not bricks retrieved from other sites, making Statement 2 incorrect."
+    },
+    {
+        q: "With reference to the Antiquities and Art Treasures Act, 1972, consider the following statements: <br>1. The export of any antiquity or art treasure, including a painting meeting the relevant criteria, from India is completely prohibited under all circumstances, with no licensing exception.<br>2. The Act empowers the Director General of the Archaeological Survey of India to grant a licence permitting the export of a registered antiquity in specified circumstances.<br>3. A painting declared an 'art treasure' can be freely exported abroad without any licence, since the Act's export restrictions apply only to 'antiquities' and not to 'art treasures'.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 only",
+            "None of the statements is correct",
+            "3 only"
+        ],
+        ans: 1,
+        exp: "The Act permits export of an antiquity only under a licence granted by the competent authority, such as the Director General of the ASI, in specified circumstances, confirming Statement 2. This means export is not absolutely barred without exception, and the Act's export control regime covers both 'antiquities' and 'art treasures' alike, making Statements 1 and 3 incorrect."
+    },
+    {
+        q: "With reference to the Places of Worship (Special Provisions) Act, 1991, consider the following statements: <br>1. The Act extends to the whole of India, including the State of Jammu and Kashmir, without any territorial exception.<br>2. Section 5 of the Act expressly excludes the Ram Janmabhoomi-Babri Masjid dispute from its application.<br>3. The Act declares that the religious character of a place of worship shall continue to be the same as it existed on 15 August 1947.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "2 only",
+            "All of the above",
+            "Both 1 and 2"
+        ],
+        ans: 0,
+        exp: "Section 5 of the Act does carve out an exception for the Ram Janmabhoomi-Babri Masjid dispute, and Section 4 declares that a place of worship's religious character shall remain as it existed on 15 August 1947, confirming Statements 2 and 3. However, as originally enacted, the Act extended to the whole of India except the State of Jammu and Kashmir, meaning it was not free of territorial exception, making Statement 1 incorrect."
+    },
+    {
+        q: "With reference to the ancient schools of Indian sculpture, consider the following statements: <br>1. The Mathura school of sculpture, unlike the Gandhara school, relied primarily on grey schist stone imported from the northwest.<br>2. The Gandhara school's depiction of the Buddha, with wavy hair and heavy toga-like drapery, reflects the strong Hellenistic influence resulting from Greek contact with the region.<br>3. The Amaravati school of sculpture developed along the Krishna river valley in Andhra Pradesh under the patronage of the Satavahana dynasty.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 2 alone",
+            "All three statements are correct",
+            "Both 2 and 3",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "The Gandhara school's Hellenistic style and the Amaravati school's development under Satavahana patronage in the Krishna valley are both well established facts. However, it was the Gandhara school, not the Mathura school, that used grey schist stone; Mathura sculptures were carved primarily from red, spotted sandstone, making Statement 1 incorrect."
+    },
+    {
+        q: "With reference to Chola bronze sculpture, consider the following statements: <br>1. Chola bronze images, such as the iconic Nataraja, were made using the 'Madhuchchhishta Vidhana', or lost-wax casting technique.<br>2. In this technique, the mould used for casting is destroyed after each casting, meaning that no two images produced this way are ever exactly identical.<br>3. In the standard Nataraja iconography, Shiva's raised right foot presses down upon Apasmara, the demon symbolising ignorance.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the statements are correct",
+            "Only one of the statements is correct",
+            "Only statement 1",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "Chola bronzes were indeed cast using the lost-wax (Madhuchchhishta Vidhana) technique, in which the clay mould is broken to retrieve the finished bronze, making each casting unique. However, in standard Nataraja iconography it is Shiva's standing right foot that presses down on Apasmara, while it is the left foot that is raised, making Statement 3 incorrect as worded."
+    },
+    {
+        q: "With reference to recent measures concerning the illegal trade in Indian antiquities, consider the following statements: <br>1. The Parliamentary Standing Committee on Transport, Tourism and Culture recommended that a 'dedicated cultural heritage squad' for recovering stolen antiquities be set up exclusively within the Ministry of External Affairs.<br>2. The Committee also recommended involving bodies such as INTACH and the National Culture Fund in the documentation of India's antiquities.<br>3. According to a 2026 statement in Parliament, several hundred stolen antiquities have been repatriated to India from multiple countries, including the USA, UK and Australia, over the preceding five years.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "The Parliamentary Standing Committee recommended a multi-departmental task force involving the ASI, Ministry of Home Affairs and Ministry of External Affairs together, not a squad confined to the External Affairs Ministry alone, making Statement 1 incorrect. It did recommend involving bodies like INTACH and the National Culture Fund in documentation, and Parliament was informed in 2026 that several hundred antiquities had been repatriated from countries including the USA, UK and Australia over the preceding five years."
+    },
+    {
+        q: "With reference to the evolution of temple architecture in India, consider the following statements: <br>1. The Dashavatara Temple at Deogarh, associated with the Gupta period, is often cited as one of the earliest surviving examples of a structural (as opposed to rock-cut) Hindu temple in North India.<br>2. Structural temple architecture in India developed prior to, and independently of, rock-cut cave architecture, which emerged only afterward in imitation of structural forms.<br>3. The monolithic rathas at Mahabalipuram were built using cut-and-fit structural masonry techniques, rather than being carved out of single blocks of rock.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "3 only",
+            "1 only",
+            "None of the statements is correct"
+        ],
+        ans: 2,
+        exp: "The Dashavatara Temple at Deogarh is indeed widely cited as one of the earliest surviving structural temples in North India, confirming Statement 1. In fact, rock-cut cave architecture in India considerably predates structural temple-building, and the Mahabalipuram rathas were carved as monolithic (rock-cut) structures imitating structural forms, not built using structural masonry, making Statements 2 and 3 incorrect."
+    },
+    {
+        q: "With reference to India's UNESCO World Heritage properties, consider the following statements: <br>1. As of 2026, India has a total of 45 inscribed UNESCO World Heritage Sites, comprising 37 cultural sites, 7 natural sites, and a single mixed site.<br>2. India's only mixed World Heritage Site, combining both natural and cultural criteria, is the Western Ghats.<br>3. The most recently inscribed World Heritage Site from India, as of 2026, is located in Rajasthan.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "None of the statements is correct",
+            "1 only",
+            "3 only"
+        ],
+        ans: 2,
+        exp: "India's tally of 45 World Heritage Sites, split as 37 cultural, 7 natural and 1 mixed site, confirms Statement 1. However, India's sole mixed site is Khangchendzonga National Park, not the Western Ghats (which is a natural site), and the most recent addition, the Ancient Buddhist Site of Sarnath, is located in Uttar Pradesh, not Rajasthan, making Statements 2 and 3 incorrect."
+    },
+    {
+        q: "With reference to the styles of temple architecture in India, consider the following statements: <br>1. In the Nagara style, the shikhara is curvilinear and the temple complex generally lacks elaborate boundary walls and gopurams.<br>2. In the Dravida style, the temple is typically enclosed within concentric compound walls called prakaras, with monumental entrance gateways known as gopurams.<br>3. The Vesara style, representing a fusion of Nagara and Dravida elements, was primarily developed under the patronage of the Pallava dynasty of Tamil Nadu.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "2 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 2,
+        exp: "The Nagara style is marked by a curvilinear shikhara and generally does not feature gopurams or enclosing walls, while the Dravida style is characterised by pyramidal vimanas set within walled prakaras entered through gopurams. The Vesara style was developed mainly by the Chalukyas, Rashtrakutas and Hoysalas in the Deccan, not by the Pallavas, who are associated with the early Dravida style."
+    },
+    {
+        q: "With reference to the regulation of archaeological excavations in India, consider the following statements: <br>1. Under the AMASR Act, 1958, the power to grant licences for archaeological excavation at any site rests solely with the state government concerned.<br>2. A licence granted for archaeological excavation under the AMASR Act, 1958 can be revoked by the Director-General of the Archaeological Survey of India in case of contravention of its conditions.<br>3. The Treasure Trove Act, 1878 has been repealed and its provisions merged entirely into the AMASR Act, 1958.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "3 only",
+            "2 only",
+            "None of the statements is correct"
+        ],
+        ans: 2,
+        exp: "Excavation licences under the AMASR Act, 1958 are granted (and may be revoked for breach of conditions) by the Director-General of Archaeology, not by state governments, confirming Statement 2. The Treasure Trove Act, 1878, which deals with the reporting of treasure finds, remains a separate, standalone law and has not been merged into the AMASR Act, making Statements 1 and 3 incorrect."
+    },
+    {
+        q: "With reference to India's UNESCO World Heritage engagement, consider the following statements: <br>1. As of September 2026, India's Tentative List for UNESCO World Heritage inscription includes 73 sites, following the addition of four new cultural sites.<br>2. The Ministry of External Affairs, rather than the Archaeological Survey of India, serves as India's nodal agency for preparing cultural World Heritage nominations.<br>3. Of the four sites recently added to India's Tentative List, only two were classified as cultural properties, with the remaining two being natural sites.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "2 only",
+            "None of the statements is correct",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "India's Tentative List did reach 73 sites in September 2026 with the addition of four new cultural sites, confirming Statement 1. However, it is the Archaeological Survey of India, operating under the Ministry of Culture, that serves as the nodal agency for cultural nominations, and all four newly added sites were classified as cultural properties, not a mix of cultural and natural, making Statements 2 and 3 incorrect."
+    },
+    {
+        q: "With reference to the Antiquities and Art Treasures Act, 1972, consider the following statements: <br>1. An object such as a sculpture or coin qualifies as an 'antiquity' if it has been in existence for not less than 100 years, whereas a manuscript or record qualifies if it has existed for not less than 75 years.<br>2. The Act requires both 'antiquities' and 'art treasures' to be compulsorily registered with a registering officer.<br>3. A declaration by the Central Government that a particular work of art is an 'art treasure' cannot be made while the creator of that work is still alive.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the above",
+            "Both 1 and 2",
+            "Exactly two of the statements are correct",
+            "Only one of the statements is correct"
+        ],
+        ans: 2,
+        exp: "The Act sets a 100-year threshold for antiquities such as sculptures and coins, and a 75-year threshold for manuscripts and records, and it bars declaring a work an 'art treasure' while its author is alive. However, only 'antiquities' are subject to compulsory registration under the Act; 'art treasures', being a separately defined category, are not covered by this registration requirement, making Statement 2 incorrect."
+    },
+    {
+        q: "With reference to Article 49 of the Constitution of India, consider the following statements: <br>1. Article 49, a Fundamental Right under Part III, obligates the State to protect every monument, place or object of artistic or historic interest declared by Parliament to be of national importance.<br>2. The obligation under Article 49 extends to protecting such monuments, places or objects from spoliation, disfigurement, destruction, removal, disposal or export.<br>3. Directive Principles of State Policy, including Article 49, are directly enforceable in courts of law in the same manner as Fundamental Rights.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "None of the statements is correct",
+            "1 only",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "Article 49 does impose an obligation on the State to protect monuments, places and objects of artistic or historic interest from spoliation, disfigurement, destruction, removal, disposal or export, confirming Statement 2. However, Article 49 is a Directive Principle of State Policy under Part IV, not a Fundamental Right, and Directive Principles are not directly enforceable in courts, making Statements 1 and 3 incorrect."
+    },
+    {
+        q: "With reference to the constitutional distribution of legislative power over monuments and archaeological sites in India, consider the following statements: <br>1. Ancient and historical monuments and archaeological sites and remains declared by Parliament to be of national importance fall under Entry 67 of the Union List.<br>2. Archaeological sites and remains other than those of national importance fall under Entry 40 of the Concurrent List.<br>3. Ancient and historical monuments not declared to be of national importance fall under Entry 12 of the State List.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 and 2 only",
+            "2 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 3,
+        exp: "The Seventh Schedule distributes this subject across all three lists: Entry 67 of the Union List covers monuments and sites of national importance, Entry 40 of the Concurrent List covers other archaeological sites and remains, and Entry 12 of the State List covers other ancient monuments. All three statements are therefore correct."
+    },
+    {
+        q: "With reference to Geographical Indication (GI) protection for Indian traditional paintings, consider the following statements: <br>1. Madhubani painting, a folk art tradition of the Mithila region of Bihar, was granted GI status in 2006-07 under the Geographical Indications of Goods (Registration and Protection) Act, 1999.<br>2. The Geographical Indications of Goods (Registration and Protection) Act, 1999 came into force in the same year in which it was enacted by Parliament.<br>3. The Geographical Indications Registry, which administers the registration of GI-tagged products including traditional paintings, is located in New Delhi.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 3",
+            "Statement 2 alone",
+            "None of the above",
+            "Only one of the statements is correct"
+        ],
+        ans: 3,
+        exp: "Madhubani painting received its GI tag in 2006-07 under the 1999 Act, confirming Statement 1. However, the Act, though enacted in 1999, came into force only on 15 September 2003, and the Geographical Indications Registry is located in Chennai, not New Delhi, making both Statements 2 and 3 incorrect."
+    },
+    {
+        q: "With reference to the Barabar Hill Caves in Bihar, consider the following statements: <br>1. The Barabar Hill Caves, dating to the Mauryan period, are considered the oldest surviving rock-cut caves in India.<br>2. The caves at Barabar were dedicated for the use of ascetics of the Ajivika sect, founded by Makkhali Gosala.<br>3. The Lomas Rishi Cave at Barabar bears a completed dedicatory inscription of Emperor Ashoka, being the most elaborately inscribed of all the Barabar caves.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 1",
+            "2 and 3 only",
+            "1 and 3 only",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "The Barabar Hill Caves are indeed the oldest surviving rock-cut caves in India and were dedicated to ascetics of the Ajivika sect founded by Makkhali Gosala, confirming Statements 1 and 2. However, the Lomas Rishi Cave was actually left unfinished and bears no Ashokan inscription at all, unlike some of the other Barabar caves, making Statement 3 incorrect."
+    },
+    {
+        q: "With reference to reforms in the procedure for inscription of properties on the UNESCO World Heritage List, consider the following statements: <br>1. Under UNESCO's Operational Guidelines (2023), a State Party may submit an unlimited number of properties for the World Heritage inscription process in a single year.<br>2. As a reform measure, the Operational Guidelines now limit each State Party to submitting only one property for the World Heritage inscription process each year.<br>3. A property becomes eligible for consideration by the World Heritage Committee immediately upon its addition to a country's Tentative List, with no minimum waiting period.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 only",
+            "None of the statements is correct",
+            "3 only"
+        ],
+        ans: 1,
+        exp: "As confirmed by the Culture Ministry in Parliament, the Operational Guidelines (2023) restrict each State Party to submitting only one property per year for the World Heritage inscription process, confirming Statement 2. Contrary to Statements 1 and 3, this rules out unlimited submissions, and a property must remain on a country's Tentative List for at least one year before the Committee will consider it for inscription."
+    },
+    {
+        q: "With reference to the criteria for inscription of a property on the UNESCO World Heritage List, consider the following statements: <br>1. A property must meet at least one of ten selection criteria and also satisfy conditions of integrity and authenticity to be inscribed.<br>2. Until 2004, cultural and natural properties were evaluated using two separate sets of criteria (six for cultural and four for natural sites); since 2005, a single unified set of ten criteria has been used for both.<br>3. A property that meets at least one selection criterion automatically qualifies for inscription, even without an appropriate legal or management framework to ensure its long-term protection.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "Inscription indeed requires meeting at least one of ten selection criteria along with conditions of integrity and authenticity, and the shift to a single unified set of ten criteria (replacing the earlier separate cultural and natural criteria) took place from 2005 onward, confirming Statements 1 and 2. However, a property must also have an adequate protection and management system in place; meeting a criterion alone is not sufficient, making Statement 3 incorrect."
+    },
+    {
+        q: "With reference to important archaeological excavations of the Harappan Civilization, consider the following statements: <br>1. The site of Kalibangan in Rajasthan has provided the earliest evidence of an artificial dockyard used for maritime trade.<br>2. Dholavira in Gujarat has revealed a sophisticated water conservation system comprising large stepped reservoirs.<br>3. Excavations at Lothal have yielded evidence of a ploughed field and fire altars, suggestive of ritual practices.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1, 2 and 3",
+            "1 and 2 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "The dockyard is associated with Lothal, not Kalibangan, making Statement 1 incorrect. Dholavira is well known for its elaborate water harvesting and storage system, and Kalibangan has yielded a ploughed field along with fire altars, not Lothal - making statement 3 incorrect"
+    },
+    {
+        q: "With reference to rock-cut Buddhist architecture in India, consider the following statements: <br>1. A 'Chaitya' is a Buddhist monastery consisting of monks' cells arranged around a central courtyard, rather than a prayer hall.<br>2. A 'Vihara' refers to an apsidal prayer hall with a stupa placed at its rounded rear end, rather than a monastic residence.<br>3. The Chaitya hall at Karla, one of the largest of its kind in India, has an apsidal plan with a nave and side aisles separated by colonnades.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements is correct",
+            "1 only",
+            "3 only",
+            "2 only"
+        ],
+        ans: 2,
+        exp: "The Karla Chaitya hall does indeed have an apsidal plan with a colonnaded nave and side aisles, confirming Statement 3. However, Statements 1 and 2 have swapped the definitions: a 'Chaitya' is actually the apsidal prayer hall with a stupa at its rear, while a 'Vihara' is the monastery with cells arranged around a courtyard, making both incorrect."
+    },
+    {
+        q: "With reference to the 'Adopt a Heritage' scheme, consider the following statements: <br>1. The scheme, launched in 2017 by the Ministry of Tourism in collaboration with the Ministry of Culture and the ASI, invites entities called 'Monument Mitras' to develop tourist amenities at selected heritage sites.<br>2. Monument Mitras are selected by an oversight and vision committee, without any financial bidding by the applicant entities.<br>3. The scheme has since been relaunched in an updated form, 'Adopt a Heritage 2.0', to expand its coverage and strengthen conservation safeguards.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "None of the above",
+            "1, 2 and 3",
+            "Only two of the statements are correct"
+        ],
+        ans: 2,
+        exp: "The Adopt a Heritage scheme, launched in 2017, indeed invites 'Monument Mitras' to develop amenities at heritage sites, with selection made by an oversight and vision committee rather than through financial bidding, and it has since been updated as 'Adopt a Heritage 2.0'. All three statements are therefore correct."
+    },
+    {
+        q: "With reference to the recommendations of the Parliamentary Standing Committee on Transport, Tourism and Culture concerning the Archaeological Survey of India (ASI), consider the following statements: <br>1. The Committee recommended greater use of non-invasive survey technologies such as LiDAR and ground-penetrating radar at protected monuments.<br>2. The Committee's recommendations followed a UNESCO audit that declared several centrally protected monuments as untraceable.<br>3. The Committee recommended separating ASI's core conservation mandate from its revenue-generating functions, proposing a separate body for the latter.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "The Committee recommended wider adoption of technologies like LiDAR and ground-penetrating radar, and also suggested bifurcating ASI's functions by creating a separate body, such as the India Heritage Development Corporation, to handle revenue matters. The finding on missing monuments came from a report of the Comptroller and Auditor General (CAG), not a UNESCO audit, making Statement 2 incorrect."
+    },
+    {
+        q: "With reference to the origin and classification of Buddhist stupas, consider the following statements: <br>1. The tradition of erecting mound-like burial structures in India predates Buddhism, having roots in earlier funerary practices.<br>2. A stupa erected over an object used by the Buddha, such as his alms bowl, is classified as a 'Paribhogika' stupa.<br>3. A 'votive' stupa is one built directly over the bodily relics of the Buddha and is therefore also called a 'Sariraka' stupa.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 3 alone",
+            "Both 2 and 3",
+            "None of the statements are correct",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "The mound-burial tradition indeed predates Buddhism, and a stupa built over an object associated with the Buddha is classified as 'Paribhogika'. However, 'votive' (or 'Uddesika') stupas are commemorative structures built at places associated with the Buddha's presence, not over his bodily relics; stupas containing actual relics are called 'Sariraka' stupas, making Statement 3 incorrect."
+    },
+    {
+        q: "With reference to the treatment of monuments that also serve as places of worship under the Ancient Monuments and Archaeological Sites and Remains (AMASR) Act, 1958, consider the following statements: <br>1. A monument that was being used for religious worship at the time it came under statutory protection continues to enjoy protection of that religious character under Section 16 of the Act.<br>2. The Act empowers a court to permit the revival of worship at a protected monument whenever a community can demonstrate historical religious ownership, regardless of whether such worship was being practised at the time of protection.<br>3. The determination of a monument's religious 'character' under the Act is revised afresh every 25 years to reflect changing community practices.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "3 only",
+            "None of the statements is correct",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "Section 16 of the AMASR Act protects the character of a monument that was already a place of worship at the time it came under protection, confirming Statement 1. However, the Act does not provide for reviving worship not practised at the time of protection, nor does it provide for any periodic revision of a monument's religious character; a monument's character is generally treated as frozen as on the date it came under statutory protection, making Statements 2 and 3 incorrect."
+    },
+    {
+        q: "With reference to the classification of Indo-Islamic architecture in India, consider the following statements: <br>1. The Mughal style of architecture is generally regarded as chronologically earlier than, and a direct precursor to, the Imperial style of the Delhi Sultanate.<br>2. Indo-Islamic architecture built under the Delhi Sultanate is often classified into an 'Imperial style,' associated with dynasties such as the Slave, Khalji, Tughlaq, Sayyid and Lodi.<br>3. Architectural styles that developed under regional Sultanates, such as those of Bengal, Jaunpur, Gujarat and Malwa, are commonly grouped together as the 'Provincial style' of Indo-Islamic architecture.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "The Delhi Sultanate's architecture is indeed classified as the 'Imperial style,' while the architecture of regional Sultanates is grouped as the 'Provincial style,' confirming Statements 2 and 3. However, the Mughal style chronologically followed, rather than preceded, the Imperial style of the Delhi Sultanate, making Statement 1 incorrect."
+    },
+    {
+        q: "With reference to the historical evolution of monument protection legislation in India, consider the following statements: <br>1. The Ancient Monuments Preservation Act, 1904, enacted during the viceroyalty of Lord Curzon, was the first major legislation in India for the preservation of ancient monuments.<br>2. Independent India's first heritage protection legislation was the Ancient and Historical Monuments and Archaeological Sites and Remains (Declaration of National Importance) Act, 1951.<br>3. The concept of a 'prohibited area' and a 'regulated area' around a protected monument was first introduced by the Ancient Monuments Preservation Act, 1904.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "The Ancient Monuments Preservation Act, 1904, passed under Lord Curzon, was indeed the first major heritage legislation in India, and the 1951 Act was the first such legislation of independent India. However, the concepts of 'prohibited' and 'regulated' areas around monuments were introduced only later, by the Ancient Monuments and Archaeological Sites and Remains (AMASR) Act, 1958, making Statement 3 incorrect."
+    },
+    {
+        q: "With reference to the stone chariot at the Vitthala Temple in Hampi, consider the following statements: <br>1. The ASI has installed a protective ring around the stone chariot to prevent tourists from touching or climbing on it.<br>2. The stone chariot is a truly monolithic structure, carved entirely out of a single block of granite with no separate stone pieces assembled together.<br>3. The Vitthala Temple complex, home to the stone chariot, is an example of Vijayanagara-style temple architecture.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "Both 1 and 3",
+            "Statement 2 alone",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "The ASI has indeed placed a protective ring around the iconic stone chariot to shield it from tourists, and the Vitthala Temple is a celebrated example of Vijayanagara-style architecture, confirming Statements 1 and 3. However, though it appears monolithic, the chariot is actually built of separate granite blocks assembled together, not carved from a single block, making Statement 2 incorrect."
+    },
+    {
+        q: "With reference to the Bodh Gaya Temple Act, 1949, consider the following statements: <br>1. The Act, a piece of Bihar state legislation, governs the management of the Mahabodhi Temple, traditionally associated with the site of the Buddha's enlightenment.<br>2. The Act establishes a Bodh Gaya Temple Management Committee with equal representation of four Buddhist and four Hindu members, alongside the District Magistrate of Gaya as ex-officio chairperson.<br>3. A 2013 amendment to the Act removed the earlier requirement that the ex-officio chairperson of the Management Committee must belong to the Hindu community.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "The Bodh Gaya Temple Act, 1949, a Bihar state law, does govern the management of the Mahabodhi Temple through a nine-member Management Committee with equal Buddhist and Hindu representation and the Gaya District Magistrate as ex-officio chairperson, and a 2013 amendment did remove the requirement that this chairperson be Hindu. All three statements are therefore correct."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-65 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

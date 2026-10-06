@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-76</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "India's 79th Independence Day, observed on 15th August 2025, marked the completion of how many years since the Indian Independence Act, 1947 came into force?",
+        opts: [
+            "79 years",
+            "80 years",
+            "77 years",
+            "78 years"
+        ],
+        ans: 3,
+        exp: "The Indian Independence Act, 1947 came into force on 15th August 1947. Since the 79th Independence Day fell on 15th August 2025, it marked the completion of 78 years of independence, with the 80th Independence Day (and 79 completed years) falling due in 2026."
+    },
+    {
+        q: "2025 marked the 100th anniversary of which event associated with early revolutionary organisations in India, commemorated by the Prime Minister and other leaders?",
+        opts: [
+            "The Kakori Train Action",
+            "The Alipore Bomb Case",
+            "The Chittagong Armoury Raid",
+            "The Lahore Conspiracy Case"
+        ],
+        ans: 0,
+        exp: "On 9th August 2025, the Prime Minister and the Uttar Pradesh Chief Minister paid tribute to the revolutionaries of the Kakori Train Action, marking 100 years since the Hindustan Republican Association's seizure of British treasury funds near Kakori on 9th August 1925. The Chittagong Armoury Raid, Alipore Bomb Case, and Lahore Conspiracy Case are distinct events from other years that did not mark a centenary in 2025."
+    },
+    {
+        q: "With reference to the challenges faced by revolutionary organisations in early 20th-century India, consider the following statements:<br>1. A common limitation of these organisations was their narrow social base, being largely confined to educated, middle-class youth rather than the peasantry or industrial workers.<br>2. Organisations such as the Anushilan Samiti and Jugantar were founded on principles of open, non-violent civil disobedience similar to Congress-led movements.<br>3. Heavy British surveillance, the use of informers, and detention without trial under laws such as Regulation III of 1818 posed a persistent challenge to these organisations.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 2 alone",
+            "1 and 3 only",
+            "None of the above",
+            "Only one of the statements is correct"
+        ],
+        ans: 1,
+        exp: "Revolutionary organisations of this period are widely noted for their limited social base among educated middle-class youth, and they faced persistent British surveillance, infiltration by informers, and detention without trial under provisions such as Regulation III of 1818. However, groups like the Anushilan Samiti and Jugantar were secret societies committed to armed revolutionary action, not open non-violent civil disobedience, making statement 2 incorrect."
+    },
+    {
+        q: "Partition Horrors Remembrance Day (Vibhajan Vibhishika Smriti Diwas), observed annually on 14th August, was first instituted by the Government of India in which year?",
+        opts: [
+            "2019",
+            "2020",
+            "2021",
+            "2022"
+        ],
+        ans: 2,
+        exp: "The Prime Minister announced on 14th August 2021 that the date would be observed annually as Partition Horrors Remembrance Day, to honour those who suffered displacement, violence, and loss during the Partition of India in 1947. It is marked a day before Independence Day and continues to be observed in 2025 and 2026."
+    },
+    {
+        q: "With reference to the Hindustan Socialist Republican Association's (HSRA) important actions and policies, consider the following statements:<br>1. The bombing of the Central Legislative Assembly on 8th April 1929 by Bhagat Singh and Batukeshwar Dutt was intended to kill as many legislators as possible to cripple the colonial legislature.<br>2. The bombing was carried out to protest the introduction of the Public Safety Bill and the Trade Disputes Bill.<br>3. Bhagat Singh and Dutt deliberately avoided casualties, throwing the bombs in an empty part of the chamber and courting arrest rather than attempting to escape.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3",
+            "2 and 3 only"
+        ],
+        ans: 3,
+        exp: "The Assembly bombing was staged specifically to protest the repressive Public Safety Bill and Trade Disputes Bill, and Bhagat Singh and Dutt deliberately threw low-intensity bombs into an unoccupied part of the chamber, shouted slogans, and courted arrest rather than fleeing or trying to inflict casualties. The action was meant to draw publicity to their cause through the ensuing trial, not to kill legislators, making statement 1 incorrect."
+    },
+    {
+        q: "With reference to the Indian Independence Act, 1947, consider the following statements:<br>1. The Government of India Act, 1935, as adapted, was to function as the working constitution of each Dominion until a new Constitution was framed.<br>2. The Act empowered the British Parliament to continue enacting laws extending to India even after 15th August 1947.<br>3. The Act fixed a period of one year from the appointed day within which the Constituent Assemblies were required to complete framing the new Constitutions.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 1",
+            "3 only",
+            "All three statements are correct",
+            "Only two of the statements are correct"
+        ],
+        ans: 0,
+        exp: "The Indian Independence Act retained the Government of India Act, 1935 (suitably adapted) as the provisional working constitution for each Dominion. It ended the British Parliament's power to legislate for India and imposed no fixed deadline on the Constituent Assemblies for completing their constitutions, making statements 2 and 3 incorrect."
+    },
+    {
+        q: "With reference to the reforms and recommendations put forward by Bhagat Singh for the future of the revolutionary movement, particularly in his prison writings such as 'To Young Political Workers' (1931), consider the following statements:<br>1. He recommended that the future revolutionary movement organise peasants and workers into a disciplined mass movement rather than rely on individual acts of heroism.<br>2. He recommended that the movement adopt a scientific and rational temper, rejecting revivalist religious sentiment as a basis for mobilisation.<br>3. He recommended that the HSRA formally merge with the Indian National Congress to work exclusively through constitutional means.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "In his prison writings, Bhagat Singh urged the revolutionary movement to shift from individual acts of heroism towards organising peasants and workers into a broad-based mass movement, and he consistently emphasised scientific rationalism over religious sentimentalism. He never called for the HSRA to merge with the Congress or abandon revolutionary methods for purely constitutional ones, making statement 3 incorrect."
+    },
+    {
+        q: "Constitution Day (Samvidhan Diwas), observed on 26th November every year, marked how many years since the adoption of the Constitution of India when celebrated in 2025?",
+        opts: [
+            "75 years",
+            "74 years",
+            "76 years",
+            "77 years"
+        ],
+        ans: 2,
+        exp: "The Constituent Assembly of India adopted the Constitution on 26th November 1949, so Constitution Day in 2025 marked the completion of 76 years since its adoption. The previous year, 2024, had marked the more widely publicised 75th anniversary, launching a year-long series of commemorative events."
+    },
+    {
+        q: "With reference to the structure and composition of the Hindustan Socialist Republican Association (HSRA) after its 1928 reorganisation, consider the following statements:<br>1. A Central Committee was formed, with Chandrashekhar Azad elected as Commander-in-Chief of its military wing in absentia.<br>2. Bhagat Singh was designated as the chief ideologue and inter-provincial coordinator of the organisation.<br>3. Regional units for Punjab, Bihar, Rajputana, and the United Provinces were headed respectively by Sukhdev, Phanindranath Ghosh, Kundan Lal, and Shiv Verma.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "Both 2 and 3",
+            "All three statements are correct",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 2,
+        exp: "The reorganised HSRA established a Central Committee that elected Chandrashekhar Azad as Commander-in-Chief of its military wing while he was in hiding, designated Bhagat Singh as its chief ideologue and inter-provincial coordinator, and appointed regional organisers for Punjab, Bihar, Rajputana, and the United Provinces as named. All three statements accurately reflect the organisation's structure."
+    },
+    {
+        q: "With reference to the organisational structure of revolutionary organisations in early 20th-century India, consider the following statements:<br>1. Most early revolutionary organisations, including the Anushilan Samiti, organised themselves into small secret cells to minimise the risk of mass detection by British intelligence.<br>2. The Ghadar Party had a formal parliamentary structure headed by an elected Prime Minister and a Cabinet responsible to a General Assembly of members.<br>3. The HSRA operated under a rigid, centralised hierarchy that allowed no scope for regional autonomy, unlike the loosely federated structure of the Anushilan Samiti.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 and 2 only",
+            "1 only",
+            "2 only"
+        ],
+        ans: 2,
+        exp: "Early revolutionary societies typically organised themselves into small, compartmentalised secret cells to guard against mass detection and infiltration, making statement 1 correct. The Ghadar Party was headed by a President (such as Sohan Singh Bhakna), not an elected Prime Minister and Cabinet, and the HSRA in fact had a Central Committee with designated regional organisers for provinces like Punjab, Bihar, Rajputana, and the United Provinces, contradicting the claim of a rigid hierarchy with no regional autonomy."
+    },
+    {
+        q: "The Ghadar Party, founded in 1913 with the objective of overthrowing British colonial rule in India through an armed uprising, established its headquarters (the Yugantar Ashram) in which city?",
+        opts: [
+            "Boston",
+            "Washington D.C.",
+            "San Francisco",
+            "Chicago"
+        ],
+        ans: 2,
+        exp: "The Ghadar Party was founded by Indian immigrants, largely Punjabi Sikhs, in 1913 and set up its headquarters at the Yugantar Ashram in San Francisco. Chicago, Washington D.C., and Boston, though home to sizeable Indian diaspora communities, were not the party's organisational base."
+    },
+    {
+        q: "With reference to the features and characteristics of the Cabinet Mission Plan of 1946, consider the following statements:<br>1. The Plan explicitly rejected the Muslim League's demand for a sovereign Pakistan comprising six full provinces, citing the presence of large non-Muslim minorities within it.<br>2. Under the Plan, the proposed Union of India would control all subjects except those specifically reserved for the provinces.<br>3. The Plan's grouping scheme organised provinces into three sections, with Section B comprising Punjab, Sind, the North-West Frontier Province, and Baluchistan.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "The Cabinet Mission Plan rejected a sovereign six-province Pakistan on the ground that it would contain very large non-Muslim minorities, and its grouping scheme placed Punjab, Sind, the North-West Frontier Province, and Baluchistan together in Section B. However, the proposed Union Centre was to be deliberately weak, controlling only defence, foreign affairs, and communications, with all residuary powers vested in the provinces and groups, the reverse of what statement 2 claims."
+    },
+    {
+        q: "With reference to the reforms and recommendations followed for the division of assets and institutions at the time of Partition, consider the following statements:<br>1. The Partition Council, chaired by Lord Mountbatten, included representatives of the Congress and the Muslim League to oversee the division of assets, personnel, and administrative machinery between India and Pakistan.<br>2. Movable, non-liquid government assets were to be divided between India and Pakistan in a fixed ratio of 50:50.<br>3. The division of British Indian Army, Navy, and Air Force personnel and equipment was overseen through a Joint Defence Council mechanism.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "Statement 2 alone",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "The Partition Council, chaired by Mountbatten with Congress and Muslim League representatives, oversaw the division of assets and personnel, and the armed forces were divided through a Joint Defence Council mechanism that met on multiple occasions before and after independence. However, movable, non-liquid assets were actually divided in an 80:20 ratio favouring India, not an equal 50:50 split, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to the constitutional and legal provisions introduced between 1909 and 1935, consider the following statements:<br>1. The Indian Councils Act, 1909 retained an official majority in the Central Legislative Council while granting non-official majorities in most provincial legislative councils.<br>2. The Government of India Act, 1919 vested full control over the central budget in the Central Legislative Assembly, giving it power to reject the entire budget.<br>3. The Government of India Act, 1935 abolished dyarchy at the provincial level and introduced provincial autonomy, while providing for dyarchy at the Centre, which never came into effect.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3",
+            "1 and 3 only"
+        ],
+        ans: 3,
+        exp: "The 1909 Act indeed kept an official majority at the Centre while allowing non-official majorities in most provincial councils, and the 1935 Act replaced provincial dyarchy with provincial autonomy while its central dyarchy scheme never took effect. However, even under the 1919 Act, certain heads of expenditure such as defence remained 'non-votable,' so the Central Legislative Assembly did not have full power to reject the entire budget, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to constitutional developments in India between 1909 and 1947, consider the following statements:<br>1. The Indian Councils Act, 1892 introduced the principle of direct election to Indian legislative councils for the first time.<br>2. The Government of India Act, 1919 established a bicameral central legislature for British India for the first time, comprising the Council of State and the Legislative Assembly.<br>3. The Government of India Act, 1935 established the Federal Court of India as the final court of appeal, superseding the jurisdiction of the Privy Council in London.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 only",
+            "1 only",
+            "3 only"
+        ],
+        ans: 1,
+        exp: "The Government of India Act, 1919 did establish a bicameral central legislature for the first time, consisting of the Council of State and the Legislative Assembly. The Indian Councils Act, 1892 introduced only a limited, indirect mode of selection to councils, not direct election, and although the Government of India Act, 1935 established the Federal Court of India in 1937, appeals from it could still go to the Privy Council in London, which continued to function as the highest court of appeal until after independence."
+    },
+    {
+        q: "With reference to the features and characteristics of the Indian National Army (INA), consider the following statements:<br>1. The INA, reorganised under Subhas Chandra Bose in 1943, was structured into brigades named Gandhi, Nehru, and Azad, along with the all-women Rani of Jhansi Regiment.<br>2. The INA's motto, 'Ittefaq, Itmad aur Qurbani,' translates to 'Unity, Faith, and Sacrifice.'<br>3. The INA's official anthem was an unmodified rendition of 'Vande Mataram' as adopted by the Indian National Congress.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "The reorganised INA was structured into the Gandhi, Nehru, and Azad brigades along with the all-women Rani of Jhansi Regiment, and its motto 'Ittefaq, Itmad aur Qurbani' indeed means 'Unity, Faith, and Sacrifice.' However, its official anthem, 'Subh Sukh Chain,' was a Hindustani adaptation of Rabindranath Tagore's 'Jana Gana Mana,' not an unmodified version of 'Vande Mataram,' making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the background and evolution of revolutionary organisations in India, consider the following statements:<br>1. The Hindustan Republican Association was directly formed as a merger of the Anushilan Samiti and the Ghadar Party in 1924.<br>2. The Anushilan Samiti, one of the earliest revolutionary secret societies, was established in Bengal in the early 20th century, drawing inspiration from Bankim Chandra Chattopadhyay's writings.<br>3. Jugantar emerged as an associated offshoot of the Anushilan Samiti and published a newspaper of the same name advocating armed revolution.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only",
+            "2 and 3 only"
+        ],
+        ans: 3,
+        exp: "The Anushilan Samiti, inspired partly by Bankim Chandra Chattopadhyay's writings, was among the earliest Bengal-based revolutionary secret societies, and Jugantar emerged as an associated offshoot publishing a namesake newspaper advocating armed revolution. The Hindustan Republican Association, however, was founded independently in Kanpur in 1924 by Ram Prasad Bismil and others, not as a formal merger of the Anushilan Samiti and the Ghadar Party, making statement 1 incorrect."
+    },
+    {
+        q: "With reference to the aftermath of the INA (Red Fort) Trials, consider the following statements:<br>1. The transportation-for-life sentences awarded to Shah Nawaz Khan, Prem Sahgal, and Gurbaksh Singh Dhillon were subsequently remitted by the Commander-in-Chief, Claude Auchinleck.<br>2. The wave of nationwide sympathy generated by the INA trials, along with the Royal Indian Navy Mutiny of 1946, contributed to the British decision to send the Cabinet Mission to India.<br>3. Following the trials, the Indian National Congress officially disowned Subhas Chandra Bose and refused any involvement in the defence of the accused officers.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 and 2 only",
+            "None of the statements is correct",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "Commander-in-Chief Claude Auchinleck remitted the sentences of the three INA officers in the face of massive public agitation, and this unrest, combined with the Royal Indian Navy Mutiny, pushed the British towards sending the Cabinet Mission in 1946. Far from disowning Bose, Congress formed a high-profile INA Defence Committee including Bhulabhai Desai, Asaf Ali, and Tej Bahadur Sapru to defend the accused, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the background and evolution of the Mountbatten Plan of 1947, consider the following statements:<br>1. Lord Mountbatten arrived in India as the last Viceroy in March 1947, succeeding Lord Wavell.<br>2. An earlier formula prepared in London, which would have allowed provinces and princely states greater freedom to remain independent, was rejected after Jawaharlal Nehru strongly objected to it.<br>3. V. P. Menon subsequently proposed the alternative of an immediate transfer of power through the grant of Dominion status, which became the basis of the final 3rd June Plan.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "All of the statements are correct",
+            "2 and 3 only",
+            "Only statement 3"
+        ],
+        ans: 1,
+        exp: "Mountbatten took over as Viceroy from Wavell in March 1947, and his initial plan (which risked a 'Balkanisation' of India by allowing units to remain independent) was rejected after Nehru's objections. V. P. Menon then devised the Dominion status formula, providing for an immediate transfer of power, which formed the core of the final Mountbatten Plan announced on 3rd June 1947. All three statements are therefore correct."
+    },
+    {
+        q: "Which of the following best describes the principal mode of action adopted by the Ghadar Party to achieve India's freedom?",
+        opts: [
+            "Petitioning the British Parliament through moderate constitutional methods",
+            "Boycotting British goods and promoting Swadeshi industries",
+            "Negotiating self-rule through the Home Rule League",
+            "Organising a synchronised armed uprising by inciting mutiny among Indian soldiers and mobilising revolutionaries to return to India"
+        ],
+        ans: 3,
+        exp: "The Ghadar Party's programme centred on planning a coordinated armed revolt, distributing revolutionary literature, coordinating with Indian troops stationed abroad, procuring weapons, and encouraging members to return to India to spark a mass uprising and mutiny within the British Indian Army. This distinguished it sharply from moderate, constitutional, or boycott-based methods used by other contemporary movements."
+    },
+    {
+        q: "With reference to the background and evolution of the Indian National Army (INA), consider the following statements:<br>1. Subhas Chandra Bose arrived in Singapore in July 1943 and immediately proclaimed the Azad Hind Government on the same day, reorganising the INA as its army.<br>2. The First Indian National Army was formed in 1942 under Captain Mohan Singh, comprising Indian prisoners of war captured by Japan in Malaya and Singapore.<br>3. The First INA collapsed by December 1942 due to disagreements between Mohan Singh and the Japanese military authorities.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "Statement 1 alone",
+            "Only statement 3",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "The First INA was indeed raised in 1942 under Captain Mohan Singh from among Indian prisoners of war, and it collapsed by December 1942 following disputes between Mohan Singh and the Japanese authorities over the INA's role. Bose arrived in Singapore on 2nd July 1943 and reorganised the INA, but the Provisional Government of Free India (Azad Hind Government) was proclaimed only later, on 21st October 1943, not immediately on his arrival, making statement 1 incorrect."
+    },
+    {
+        q: "With reference to the challenges associated with the Mountbatten Plan of 1947, consider the following statements:<br>1. A major criticism of the Plan was that it drastically advanced the timeline for the transfer of power, leaving little time for orderly administrative and military partition.<br>2. The referendum held in the North-West Frontier Province under the Plan offered voters the choice between joining Pakistan or becoming a fully independent Pashtun state.<br>3. The Radcliffe Boundary Award demarcating the boundaries of Punjab and Bengal was published only after the transfer of power on 15th August 1947.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 2 alone",
+            "None of the above",
+            "Exactly two of the statements are correct",
+            "Only one of the statements is correct"
+        ],
+        ans: 2,
+        exp: "Mountbatten advanced the transfer of power from the originally planned June 1948 to August 1947, a compression widely criticised for leaving too little time for orderly partition; and the Radcliffe Award was indeed withheld until 17th August 1947, two days after independence. However, the NWFP referendum offered voters only the choice of joining India or Pakistan, not independence, which is why the Khudai Khidmatgars boycotted it, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to the features and characteristics of the Hindustan Socialist Republican Association (HSRA), consider the following statements:<br>1. Upon its reconstitution in 1928, the HSRA required its members to discard religious and caste symbols such as the tilak, janeu, or turban, reflecting its secular ideology.<br>2. The HSRA's first major action after reorganisation was the assassination of J. P. Saunders in December 1928, in retaliation for the death of Lala Lajpat Rai.<br>3. The HSRA's founding document explicitly modelled the organisation on the constitutionalist approach of the Servants of India Society.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "Only statement 1",
+            "All of the above",
+            "Only two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "The reconstituted HSRA mandated giving up overt religious and caste markers to project a secular, unified identity, and its first significant action was the assassination of J. P. Saunders to avenge Lala Lajpat Rai's death. The HSRA was a revolutionary, armed-struggle organisation and had no ideological link to the constitutionalist, service-oriented Servants of India Society, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the structure and composition of legislative councils under the Indian Councils Act, 1909, consider the following statements:<br>1. The Act provided for a Central Legislative Council with an elected non-official majority.<br>2. Under the Act, the Central (Imperial) Legislative Council was enlarged from 16 to 60 members.<br>3. Provincial legislative councils under the Act varied in size, with Bengal, Madras, Bombay, and the United Provinces having 50 members each.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "The 1909 Act enlarged the Central Legislative Council from 16 to 60 members, and gave the legislative councils of Bengal, Madras, Bombay, and the United Provinces 50 members each. However, the Central Legislative Council retained an official majority; only the provincial councils were given non-official majorities, and even these were not fully 'elected' majorities since some non-official members were nominated, making statement 1 incorrect."
+    },
+    {
+        q: "With reference to the functions and powers ceded by princely states during their integration into India, consider the following statements:<br>1. Under the original Instrument of Accession signed in 1947, princely states ceded only three subjects to the Dominion of India: Defence, External Affairs, and Communications.<br>2. Under Clause 7 of the Instrument of Accession, princely rulers were assured that they would be bound by whatever constitution the Constituent Assembly of India eventually framed.<br>3. The New Instruments of Accession signed in April 1948 expanded the Union's legislative authority over the acceding states beyond these three original subjects.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "The original 1947 Instrument of Accession restricted the Union's authority over acceding states to just Defence, External Affairs, and Communications, and the New Instruments of Accession of April 1948 expanded this legislative authority further. However, Clause 7 of the original Instrument actually assured princes that they would NOT be automatically bound by the future constitution unless they separately agreed to it, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to the Indian Independence Act, 1947, consider the following statements:<br>1. It provided for the creation of two independent Dominions of India and Pakistan with effect from 15th August 1947.<br>2. It abolished the office of the Secretary of State for India and transferred his functions to the Secretary of State for Commonwealth Relations.<br>3. It continued the paramountcy of the British Crown over the Indian princely states.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 2 alone",
+            "Both 1 and 2",
+            "All of the above",
+            "None of the above"
+        ],
+        ans: 1,
+        exp: "The Act created the Dominions of India and Pakistan from 15 August 1947 and abolished the office of Secretary of State for India, transferring his functions to the newly created Secretary of State for Commonwealth Relations. However, it expressly ended British paramountcy over the princely states, leaving them free to accede to either Dominion, so statement 3 is incorrect."
+    },
+    {
+        q: "A recurring UPSC Prelims fact-check on revolutionary organisations concerns the founders of the Anushilan Samiti. Which of the following correctly identifies one of its founders?",
+        opts: [
+            "Vinayak Damodar Savarkar",
+            "Lala Lajpat Rai",
+            "Pramathanath (P.) Mitra",
+            "Bal Gangadhar Tilak"
+        ],
+        ans: 2,
+        exp: "The Anushilan Samiti was launched in 1902 by Pramathanath (P.) Mitra, along with Barindra Kumar Ghosh and Jatindranath Banerji, as a secret society advocating revolutionary violence in Bengal. Tilak, Savarkar (founder of the separate Abhinav Bharat society), and Lala Lajpat Rai were prominent nationalist or revolutionary figures but were not founders of the Anushilan Samiti."
+    },
+    {
+        q: "UPSC Prelims questions on the Ghadar movement have tested whether candidates can distinguish genuine Ghadar Party associates from revolutionaries of other organisations. Among Barindra Kumar Ghosh, Jogesh Chandra Chatterjee, and Rash Behari Bose, which one was actually associated with Ghadar Party activities in India?",
+        opts: [
+            "Jogesh Chandra Chatterjee",
+            "Rash Behari Bose",
+            "None of them",
+            "Barindra Kumar Ghosh"
+        ],
+        ans: 1,
+        exp: "Rash Behari Bose was closely associated with the Ghadar Party's activities in India, notably helping plan the failed 1915 mutiny conspiracy among Indian soldiers. Barindra Kumar Ghosh and Jogesh Chandra Chatterjee, by contrast, were linked with Bengal-based revolutionary organisations rather than the Ghadar Party."
+    },
+    {
+        q: "UPSC Mains 2015 featured a question noting that the Constituent Assembly could complete drafting India's Constitution in about three years partly due to prior experience with an earlier enactment, substantial provisions of which were also adapted as the interim working constitution under the Indian Independence Act, 1947. Which enactment does this refer to?",
+        opts: [
+            "Regulating Act, 1773",
+            "Government of India Act, 1919",
+            "Indian Councils Act, 1909",
+            "Government of India Act, 1935"
+        ],
+        ans: 3,
+        exp: "The Government of India Act, 1935 provided the detailed federal and provincial framework that the Constituent Assembly drew upon while drafting the Constitution, and it was this very Act, as adapted, that the Indian Independence Act, 1947 retained as the working constitution until new constitutions were framed. This recurring linkage between the two enactments has featured in both Mains and Prelims-style questions on modern Indian constitutional history."
+    },
+    {
+        q: "With reference to the integration of princely states into India, consider the following statements:<br>1. British paramountcy over the princely states lapsed with the passing of the Indian Independence Act, 1947, leaving rulers free to accede to India, accede to Pakistan, or remain independent.<br>2. The Instrument of Accession signed by princely rulers ceded control over Defence, External Affairs, and Communications to the Dominion they joined.<br>3. The States Department, headed by Sardar Patel with V. P. Menon as its Secretary, was set up in July 1947 to oversee the integration process.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "1, 2 and 3",
+            "1 and 3 only",
+            "Only one of the statements is correct"
+        ],
+        ans: 1,
+        exp: "British paramountcy indeed lapsed with the Indian Independence Act, technically leaving princely states free to choose their future; the Instrument of Accession restricted rulers to ceding only Defence, External Affairs, and Communications; and the States Department under Patel, with V. P. Menon as Secretary, was formally established in July 1947 to coordinate integration. All three statements are therefore correct."
+    },
+    {
+        q: "With reference to the Hindustan Socialist Republican Association (HSRA), consider the following statements:<br>1. It was formed in 1928 by reorganising the Hindustan Republican Association (HRA) after several of its leaders were executed in the Kakori Conspiracy Case.<br>2. The pamphlet 'The Philosophy of the Bomb' was authored solely by Bhagat Singh under the HSRA's aegis.<br>3. A major limitation of the HSRA was its continued reliance on individual acts of revolutionary violence rather than sustained mobilisation of peasants and workers.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 3",
+            "All of the above",
+            "2 only",
+            "None of the statements are correct"
+        ],
+        ans: 0,
+        exp: "After the execution of Ram Prasad Bismil and other Kakori convicts in 1927, Chandrashekhar Azad reorganised the HRA into the HSRA in 1928, which continued to rely mainly on individual heroic acts rather than mass mobilisation, limiting its long-term reach. 'The Philosophy of the Bomb' was actually authored by Bhagwati Charan Vohra, not Bhagat Singh alone, making statement 2 incorrect."
+    },
+    {
+        q: "UPSC Mains 2021 asked candidates to assess the main administrative issues and socio-cultural problems in the integration process of India's princely states. Which of the following reflects a genuine administrative challenge faced during this process?",
+        opts: [
+            "Convening a nationwide referendum in each princely state before allowing accession",
+            "Drafting a uniform national language policy for princely states before permitting their accession",
+            "Securing United Nations approval for each state's accession to India",
+            "Harmonising the diverse laws, revenue systems, and administrative practices of hundreds of princely states with those of the British Indian provinces"
+        ],
+        ans: 3,
+        exp: "A genuine and well-documented administrative challenge was reconciling the highly varied legal systems, revenue arrangements, and administrative practices of over 500 princely states with those of British Indian provinces, a process that took years even after political accession. No nationwide referendum, uniform language policy precondition, or UN approval was ever required or sought for accession."
+    },
+    {
+        q: "With reference to constitutional reform proposals in colonial India, consider the following statements:<br>1. The Simon Commission (1927) included prominent Indian leaders such as Motilal Nehru and Tej Bahadur Sapru as full members.<br>2. The Nehru Report (1928) recommended the retention of separate communal electorates as the best safeguard for minority representation.<br>3. The Simon Commission's recommendations directly resulted in the Government of India Act, 1919.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "None of the statements is correct",
+            "1, 2 and 3",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "The Simon Commission was notoriously an all-white body with no Indian members at all, which is precisely why it was boycotted across the country. The Nehru Report, in contrast, explicitly rejected separate communal electorates in favour of joint electorates with reserved seats, and the Simon Commission's recommendations fed into the Government of India Act, 1935, not the 1919 Act, which had already been in force before the Commission was even constituted. None of the statements is therefore correct."
+    },
+    {
+        q: "A recurring fact tested in UPSC Prelims on early 20th-century constitutional reforms concerns the first Indian to be nominated to the Viceroy's Executive Council, Satyendra Prasad Sinha. This was achieved under which enactment?",
+        opts: [
+            "Indian Councils Act, 1909",
+            "Indian Councils Act, 1892",
+            "Government of India Act, 1935",
+            "Government of India Act, 1919"
+        ],
+        ans: 0,
+        exp: "The Indian Councils Act, 1909 (Morley-Minto Reforms) empowered the Governor-General to nominate an Indian to the Executive Council, leading to the appointment of Satyendra Prasad Sinha as the first Indian member, serving as Law Member. This is distinct from the Act's more commonly tested provision on separate electorates."
+    },
+    {
+        q: "Consider the following Assertion (A) and Reason (R) regarding the Cabinet Mission of 1946:<br>Assertion (A): The Cabinet Mission proposed a three-tier constitutional structure comprising a Union at the Centre, groups of provinces, and the provinces themselves.<br>Reason (R): The Mission proposed this grouping arrangement because it had accepted the Muslim League's demand for a fully sovereign and separate Pakistan.<br>Which one of the following is correct in respect of the above Assertion and Reason?",
+        opts: [
+            "Both A and R are true, and R is the correct explanation of A",
+            "Both A and R are true, but R is not the correct explanation of A",
+            "A is true, but R is false",
+            "A is false, but R is true"
+        ],
+        ans: 2,
+        exp: "The Cabinet Mission did propose a three-tier structure of Union, Groups, and Provinces to balance provincial autonomy with limited central authority. However, it explicitly rejected the demand for a separate sovereign Pakistan, offering only a grouping arrangement within a united India, so the reason given is factually incorrect."
+    },
+    {
+        q: "With reference to the Red Fort (INA) Trials of 1945-46, consider the following statements:<br>1. The three principal defendants were tried under Article 22 of the Government of India Act, 1935, which guaranteed them fundamental rights during the proceedings.<br>2. Shah Nawaz Khan, Prem Sahgal, and Gurbaksh Singh Dhillon were charged under Section 302 of the Indian Penal Code exclusively for murder, with no charge of waging war against the King-Emperor.<br>3. The court-martial sentenced all three defendants to death, and the sentences were carried out at the Red Fort.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "2 and 3 only",
+            "None of the statements is correct",
+            "1 only"
+        ],
+        ans: 2,
+        exp: "The Government of India Act, 1935 contained no fundamental rights chapter, so statement 1 is a fabricated claim. The defendants were charged under Section 121 of the IPC for waging war against the King-Emperor in addition to charges of murder and abetment, contrary to statement 2. They were found guilty but sentenced to cashiering and transportation for life, not death, and this sentence was later remitted amid public pressure, making statement 3 incorrect as well."
+    },
+    {
+        q: "With reference to the background and evolution of the Partition of India, consider the following statements:<br>1. The Lahore Resolution of 1940, adopted by the All-India Muslim League, for the first time formally demanded separate, independent states for Muslims in the north-western and eastern zones of India.<br>2. The Cripps Mission of 1942 was the first official British proposal to explicitly allow any province the option to opt out of the proposed Indian Union.<br>3. The Cabinet Mission of 1946 fully accepted the Muslim League's demand for a sovereign Pakistan of six full provinces.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "Only two of the statements are correct",
+            "None of the statements are correct",
+            "All three statements are correct"
+        ],
+        ans: 1,
+        exp: "The Lahore Resolution of 1940 marked the Muslim League's first formal demand for separate Muslim-majority states, and the Cripps Mission of 1942 was indeed the first official British proposal to allow provinces the choice of not joining the proposed Indian Union. The Cabinet Mission of 1946, however, explicitly rejected a sovereign six-province Pakistan, offering only a grouping arrangement within a united India instead, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the Mountbatten Plan of 1947, consider the following statements:<br>1. The Plan was formally announced on 15th August 1947.<br>2. It proposed that the partition of Punjab and Bengal be decided through a joint resolution passed by the central leadership of the Congress and the Muslim League.<br>3. It provided that the princely states of Junagadh and Hyderabad would automatically merge with India irrespective of the wishes of their rulers.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements is correct",
+            "1, 2 and 3",
+            "1 and 2 only",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "The Mountbatten Plan was announced on 3rd June 1947, not 15th August, and it left the decision on partitioning Punjab and Bengal to a vote of members in the respective provincial Legislative Assemblies rather than to party leadership. It also made no automatic provision for Junagadh or Hyderabad, whose accession was resolved later through separate political and military processes, so none of the statements is correct."
+    },
+    {
+        q: "With reference to the background and evolution of the Hindustan Socialist Republican Association (HSRA), consider the following statements:<br>1. The Hindustan Republican Association (HRA), predecessor of the HSRA, was founded in October 1924 in Kanpur.<br>2. The Kakori Train Robbery of August 1925 was carried out by HRA members to raise funds for procuring arms for a planned armed revolution.<br>3. Following the Kakori Conspiracy Case, Ram Prasad Bismil, Ashfaqulla Khan, Roshan Singh, and Rajendra Lahiri were sentenced to transportation for life rather than execution.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "The Hindustan Republican Association was indeed founded in October 1924 at Kanpur, and its members carried out the Kakori Train Robbery in August 1925 specifically to raise funds for arms and revolutionary activity. However, Bismil, Ashfaqulla Khan, Roshan Singh, and Rajendra Lahiri were sentenced to death and hanged in December 1927, not given transportation for life, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the structure and composition of Indian states under the Constitution as it stood in 1950, consider the following statements:<br>1. The Andaman and Nicobar Islands were classified as a Part A state, governed by an elected Governor and state legislature.<br>2. Former princely states with legislatures were generally classified as Part B states, headed by a Rajpramukh appointed by the President of India.<br>3. Part C states included former Chief Commissioners' provinces as well as some smaller princely states, administered by a Chief Commissioner or Lieutenant-Governor.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 3,
+        exp: "Former princely states with legislatures were indeed classified as Part B states under a Rajpramukh appointed by the President, while Part C states combined former Chief Commissioners' provinces with some smaller princely states under a Chief Commissioner or Lieutenant-Governor. The Andaman and Nicobar Islands, however, were the sole Part D territory, administered by a Governor appointed by the President rather than an elected legislature, making statement 1 incorrect."
+    },
+    {
+        q: "Rashtriya Ekta Diwas, observed annually to commemorate Sardar Vallabhbhai Patel's role in the integration of princely states, was celebrated in 2025 to mark which milestone anniversary of his birth?",
+        opts: [
+            "150th birth anniversary",
+            "125th birth anniversary",
+            "140th birth anniversary",
+            "160th birth anniversary"
+        ],
+        ans: 0,
+        exp: "Rashtriya Ekta Diwas 2025, observed on 31st October at Ekta Nagar, Gujarat, marked the 150th birth anniversary of Sardar Vallabhbhai Patel, the chief architect of the political integration of over 560 princely states into the Indian Union. The occasion was commemorated through events such as the Run for Unity and the Sardar@150 Unity March."
+    },
+    {
+        q: "With reference to the challenges and issues faced by the Ghadar Party in executing its revolutionary programme, consider the following statements:<br>1. The Komagata Maru episode ended peacefully, with all passengers allowed to disembark safely at Budge Budge, near Calcutta, without any confrontation with the police.<br>2. A major setback to the Ghadar Party's planned 1915 mutiny was the betrayal of its conspiracy by an informer, Kirpal Singh, leading to widespread arrests before the uprising could occur.<br>3. The passage of the Defence of India Act, 1915 gave British authorities sweeping powers of detention and trial that were used to suppress Ghadar revolutionaries.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 1 alone",
+            "Both 2 and 3",
+            "1 and 3 only",
+            "2 only"
+        ],
+        ans: 1,
+        exp: "The Ghadar Party's plans were badly compromised by the informer Kirpal Singh, whose betrayal led to mass arrests before the planned February 1915 uprising, and the sweeping detention powers granted under the Defence of India Act, 1915 were extensively used to crush the movement. The Komagata Maru's return to Budge Budge in September 1914, however, ended in a violent police firing that killed several passengers, not a peaceful disembarkation, making statement 1 incorrect."
+    },
+    {
+        q: "With reference to the features of the Indian Independence Act, 1947, consider the following statements:<br>1. The Act, with immediate effect from 15th August 1947, abolished the title 'Emperor of India' borne by the British monarch.<br>2. It ended the office of Viceroy, replacing it with a Governor-General in each Dominion, appointed by the Crown on the advice of the respective Dominion Cabinet.<br>3. It provided for the division of the armed forces of British India between the two new Dominions.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "The Act abolished the office of Viceroy in favour of a Governor-General for each Dominion appointed on the advice of the Dominion Cabinet, and it provided for dividing British India's armed forces between the two Dominions. However, the Act only empowered the monarch to drop the title 'Emperor of India'; it was not automatically abolished on 15th August 1947 but through a separate royal proclamation by George VI on 22nd June 1948, making statement 1 incorrect."
+    },
+    {
+        q: "A recurring theme in UPSC Prelims questions on the Partition of India concerns the Radcliffe Committee. This Committee was primarily tasked with:",
+        opts: [
+            "Distributing financial assets and liabilities between India and Pakistan",
+            "Deciding the accession of princely states to India or Pakistan",
+            "Overseeing the transfer of armed forces personnel between the two Dominions",
+            "Drawing the boundary lines between India and Pakistan in Punjab and Bengal"
+        ],
+        ans: 3,
+        exp: "The Radcliffe Committee, headed by Sir Cyril Radcliffe, was constituted to demarcate the boundary lines dividing the provinces of Punjab and Bengal between India and Pakistan. The accession of princely states, division of financial assets, and transfer of armed forces personnel were handled through separate mechanisms, such as the States Department and the Partition Council's expert committees."
+    },
+    {
+        q: "In 2025, tributes were paid nationwide to HSRA revolutionary Bhagat Singh on the occasion of his birth anniversary. Bhagat Singh was born in which year, making 2025 mark his 118th birth anniversary?",
+        opts: [
+            "1909",
+            "1911",
+            "1907",
+            "1905"
+        ],
+        ans: 2,
+        exp: "Bhagat Singh was born on 28th September 1907, and his birth anniversary continues to be marked annually with tributes from political leaders and the public. Accordingly, 2025 marked the completion of 118 years since his birth."
+    },
+    {
+        q: "With reference to constitutional developments in India between 1909 and 1947, consider the following statements:<br>1. The Indian Councils Act, 1909 introduced direct election to the Central Legislative Council for the first time.<br>2. The Government of India Act, 1919 introduced Dyarchy in the provinces, dividing subjects into 'reserved' and 'transferred' categories.<br>3. The All-India Federation envisaged under the Government of India Act, 1935, combining British provinces and princely states, actually came into force in 1937.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 only",
+            "1 and 2 only",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "The Government of India Act, 1919 (Montagu-Chelmsford Reforms) introduced Dyarchy in the provinces by splitting subjects into 'reserved' and 'transferred' categories, so statement 2 is correct. The Indian Councils Act, 1909 is chiefly known for introducing separate electorates for Muslims, not direct central elections, and the All-India Federation proposed by the 1935 Act never came into force since an insufficient number of princely states acceded; only its provincial autonomy provisions took effect in 1937."
+    },
+    {
+        q: "The Ghadar Party's stated long-term political vision for a free India, as reflected in its programme, was the establishment of:",
+        opts: [
+            "A confederation of princely states with limited central authority",
+            "A theocratic state governed by religious leaders",
+            "A national democratic government based on adult franchise, without distinction of caste or religion",
+            "A constitutional monarchy retaining the British Crown as a symbolic head of state"
+        ],
+        ans: 2,
+        exp: "The Ghadar Party's declared aim was to overthrow colonial rule through armed struggle and establish a national democratic government on the subcontinent, envisioned as secular and inclusive rather than organised along religious, monarchical, or princely lines. This distinguished its vision from both the colonial order it sought to replace and other contemporary political proposals."
+    },
+    {
+        q: "With reference to the important legal instruments and policies used in the integration of princely states, consider the following statements:<br>1. The Instrument of Accession was a legal mechanism first introduced under the Government of India Act, 1935, in the context of the proposed All-India Federation.<br>2. The Standstill Agreement was a temporary measure continuing pre-existing administrative arrangements between a state and the Crown, now applicable between the state and the Dominion.<br>3. The Merger Agreement, used mainly for reorganising states into larger administrative units, granted princely rulers broader autonomy than the original Instrument of Accession.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "Both 1 and 3",
+            "Statement 2 alone",
+            "None of the above"
+        ],
+        ans: 0,
+        exp: "The Instrument of Accession as a concept was first introduced under the Government of India Act, 1935, for states wishing to join the proposed All-India Federation, and the Standstill Agreement simply continued pre-existing administrative arrangements under the new Dominion. The Merger Agreement, in contrast, involved a complete surrender of a state's sovereignty and superseded the Instrument of Accession, granting rulers less autonomy, not more, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the structure and composition of the Cabinet Mission of 1946, consider the following statements:<br>1. The Cabinet Mission comprised three members of the British Cabinet: Lord Pethick-Lawrence, Sir Stafford Cripps, and A. V. Alexander.<br>2. The Viceroy, Lord Wavell, was formally one of the three appointed members of the Cabinet Mission.<br>3. The Mission arrived in New Delhi on 24th March 1946.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 3,
+        exp: "The Cabinet Mission consisted of three British Cabinet ministers — Pethick-Lawrence, Cripps, and Alexander — who arrived in New Delhi on 24th March 1946 to negotiate the transfer of power. Lord Wavell, as Viceroy, received and worked alongside the Mission but was not one of its three formally appointed members, making statement 2 incorrect."
+    },
+    {
+        q: "A recurring UPSC Prelims theme on the Mountbatten Plan tests the mechanism prescribed for deciding the partition of Punjab and Bengal. Under the Plan, this decision was to be made through:",
+        opts: [
+            "A country-wide referendum by universal adult franchise",
+            "A unanimous resolution of the Interim Government's cabinet",
+            "Direct arbitration by the Viceroy's Executive Council",
+            "Separate voting by members of the respective Provincial Legislative Assemblies, sitting in two groups by religious majority"
+        ],
+        ans: 3,
+        exp: "Under the Mountbatten Plan, members of the Punjab and Bengal Provincial Legislative Assemblies were to sit separately as representatives of Muslim-majority and non-Muslim-majority districts and vote on whether their province should be partitioned. If either group voted for partition by a simple majority, the province would be divided, rather than the decision resting on a referendum, cabinet resolution, or Viceroy's arbitration."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-76 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

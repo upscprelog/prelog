@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-78</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "With reference to the Right to Information (RTI) Act, 2005 and the Central Information Commission (CIC), consider the following statements:<br>1. Under Section 8(1), Cabinet papers relating to the deliberations of the Council of Ministers become disclosable once the decision has been taken and the matter is complete or over.<br>2. Intelligence and security organisations specified in the Second Schedule to the RTI Act are completely exempt from the Act, including in respect of allegations of corruption and human rights violations.<br>3. The Central Bureau of Investigation was brought within the Second Schedule of organisations exempted under the RTI Act through a notification issued in 2011.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "Section 8(1) does allow Cabinet papers to be disclosed once the underlying decision has been implemented, and the CBI was indeed added to the Second Schedule's list of exempted organisations by a 2011 notification, making statements 1 and 3 correct. However, organisations in the Second Schedule are not completely exempt — the RTI Act carves out an exception for information relating to allegations of corruption and human rights violations, which must still be provided, so statement 2 is incorrect."
+    },
+    {
+        q: "With reference to the background and evolution of the Central Vigilance Commission (CVC), consider the following statements:<br>1. The CVC was granted statutory status for the first time through the CVC Act, 2003, with no prior legal recognition beyond the 1964 executive resolution.<br>2. The CVC Act, 2003 received the assent of the President on 11 September 2003, some years after a 1998 Ordinance had first accorded the Commission statutory status.<br>3. The 1998 Ordinance granting the CVC statutory status was issued in full compliance with, and incorporating all the safeguards recommended in, the Vineet Narain judgment and the Law Commission's 161st Report.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "Exactly two of the statements are correct",
+            "Only two of the statements are correct",
+            "Statement 2 alone"
+        ],
+        ans: 3,
+        exp: "The CVC Act, 2003 was not the CVC's first brush with statutory status — a Central Vigilance Commission Ordinance had already been promulgated on 25 August 1998, before the Act received Presidential assent on 11 September 2003, making statement 2 correct and statement 1 incorrect. However, the 1998 Ordinance was criticised precisely for diluting and overlooking key safeguards recommended in the Vineet Narain judgment and the Law Commission's 161st Report, rather than fully complying with them, so statement 3 is also incorrect."
+    },
+    {
+        q: "Which one of the following statements correctly describes a distinctive feature of the National Commission for Women's (NCW) composition, as compared to bodies such as the NHRC or the CVC?",
+        opts: [
+            "Unlike the NHRC and CVC, the NCW's Chairperson is appointed by the Central Government without going through any statutorily prescribed selection committee, and the Act lays down no specific qualifications for the post beyond being 'committed to the cause of women'",
+            "The NCW Act mandates that its Member-Secretary must always be a retired High Court Judge",
+            "The NCW's five Members are elected by State Legislatures rather than nominated by the Central Government",
+            "Like the NHRC, the NCW's Chairperson must necessarily be a retired Chief Justice of India or a sitting Judge of the Supreme Court"
+        ],
+        ans: 0,
+        exp: "Unlike the NHRC and CVC, whose Chairpersons are appointed on the recommendation of statutorily defined multi-member selection committees and must meet specific judicial qualifications, the NCW Act, 1990 leaves the Chairperson's appointment entirely to the Central Government's discretion, requiring only that the person be 'committed to the cause of women' — with no committee and no defined eligibility criteria. This is a genuine structural distinction often noted as a source of the NCW's relatively weaker institutional insulation."
+    },
+    {
+        q: "With reference to recent developments concerning the Central Information Commission (CIC), consider the following statements:<br>1. In 2025-2026, Raj Kumar Goyal was appointed as the Chief Information Commissioner of the CIC.<br>2. This round of appointments increased the CIC's total sanctioned strength from ten members to eleven members for the first time.<br>3. Prior to this round of appointments, the CIC had remained without its full complement of Commissioners for about nine years.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 3",
+            "1 and 2 only",
+            "Both 2 and 3",
+            "Statement 2 alone"
+        ],
+        ans: 0,
+        exp: "Raj Kumar Goyal was indeed appointed Chief Information Commissioner along with eight new Information Commissioners, ending a prolonged nine-year period during which the CIC lacked its full complement, making statements 1 and 3 correct. However, this only filled existing vacancies; it did not change the CIC's sanctioned strength, which had always allowed for a Chief Information Commissioner and up to ten Information Commissioners, so statement 2 is incorrect."
+    },
+    {
+        q: "With reference to previous UPSC Prelims-style questions on the National Human Rights Commission (NHRC), consider the following statements:<br>1. The NHRC is required to submit its annual report directly to Parliament, bypassing the Central Government.<br>2. The Central Government is not required to give reasons for non-acceptance of any of the NHRC's recommendations while placing its report before Parliament.<br>3. The Chairperson of the NHRC must always be a sitting Chief Justice of India, and cannot be a retired one.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements given above is correct",
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "The NHRC actually submits its annual report to the Central Government, which then places it before Parliament, contradicting statement 1. Under Section 20 of the Protection of Human Rights Act, 1993, the Government must attach a memorandum explaining the reasons for non-acceptance of any recommendation, contradicting statement 2. The Chairperson must be a person who has been Chief Justice of India or a Judge of the Supreme Court — necessarily a retired position, not a sitting one — contradicting statement 3. Hence, none of the statements is correct."
+    },
+    {
+        q: "With reference to the legal provisions governing the Central Bureau of Investigation (CBI), consider the following statements:<br>1. Section 5 of the Delhi Special Police Establishment Act, 1946 empowers the Central Government to extend the powers and jurisdiction of CBI officers to areas beyond Union Territories, but such an extension takes effect within a State only if that State grants its consent under Section 6.<br>2. In R. R. Kishore v. Union of India (2023), the Supreme Court held that its earlier decision striking down Section 6-A of the DSPE Act would apply only prospectively, so investigations conducted under the prior-sanction requirement before 2014 remained valid.<br>3. The CBI's jurisdiction automatically extends, without requiring any State's consent, to Union Territories and railway areas.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "Sections 5 and 6 of the DSPE Act do operate exactly as described — extension of CBI's powers to a State requires that State's consent — and the CBI's jurisdiction does extend automatically to Union Territories and railway areas without needing any consent, making statements 1 and 3 correct. However, in R. R. Kishore, the Supreme Court actually held that the earlier striking down of Section 6-A applied retrospectively, treating it as void from its 2003 insertion, so statement 2 misstates the ruling and is incorrect."
+    },
+    {
+        q: "With reference to the National Commission for Women (NCW), consider the following statements:<br>1. As per Section 3 of the NCW Act, 1990, the Commission consists of a Chairperson, five Members, and a Member-Secretary, all nominated by the Central Government, with each holding office for a term of three years.<br>2. While inquiring into a matter, the NCW enjoys the same powers as a civil court, including summoning and enforcing the attendance of witnesses and receiving evidence on affidavit.<br>3. The recommendations of the NCW are binding on the Central and State Governments, which are legally required to implement them within six months.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 3 alone",
+            "Both 2 and 3",
+            "2 only",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "Section 3 of the NCW Act, 1990 does prescribe this composition and three-year term, and the Commission is indeed vested with civil-court-like powers while investigating complaints, making statements 1 and 2 correct. However, the NCW remains a purely advisory body whose recommendations are not legally binding on any government, so statement 3, with its fabricated six-month enforcement rule, is incorrect."
+    },
+    {
+        q: "With reference to the legal provisions governing the Central Vigilance Commission (CVC), consider the following statements:<br>1. Under Section 8(1)(a) of the CVC Act, 2003, the Commission's superintendence over the Delhi Special Police Establishment (CBI) is confined to the investigation of offences under the Prevention of Corruption Act, 1988, and does not extend to the CBI's other investigations.<br>2. While exercising this power of superintendence, the CVC is expressly empowered under Section 8 to direct the CBI to investigate or dispose of a specific case in a particular manner.<br>3. For offences investigated by the CBI other than those under the Prevention of Corruption Act, 1988, superintendence continues to vest with the CVC rather than the Central Government.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "Section 8(1)(a) does confine the CVC's superintendence over the CBI to Prevention of Corruption Act matters, making statement 1 correct. However, a proviso to Section 8 expressly bars the CVC from directing the CBI to investigate or dispose of any case in a particular manner, contradicting statement 2; and for offences other than those under the PC Act, superintendence rests with the Central Government under Section 4 of the DSPE Act, not the CVC, contradicting statement 3."
+    },
+    {
+        q: "With reference to the legislative history of the National Commission for Backward Classes (NCBC), consider the following statements:<br>1. The NCBC was originally constituted in 1993 as a statutory body, pursuant to the Supreme Court's directions in the Indra Sawhney case (1992).<br>2. The 102nd Constitutional Amendment Act, 2018 conferred constitutional status on the NCBC by inserting Article 338B, and simultaneously repealed the NCBC Act, 1993.<br>3. The 105th Constitutional Amendment Act, 2021 was enacted to restore the power of States and Union Territories to prepare their own list of socially and educationally backward classes, following a Supreme Court ruling that this power had been taken away by the 102nd Amendment.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "Only one of the statements is correct",
+            "Exactly two of the statements are correct",
+            "All of the statements are correct"
+        ],
+        ans: 3,
+        exp: "The NCBC was indeed set up in 1993 following the Indra Sawhney judgment's direction for a permanent body, the 102nd Amendment gave it constitutional status under Article 338B while repealing the 1993 Act, and the 105th Amendment restored States' power to identify their own backward classes after the Supreme Court's 2021 Maratha reservation ruling had taken it away, making all three statements correct."
+    },
+    {
+        q: "With reference to the National Commission for Minorities (NCM) Act, 1992, consider the following statements:<br>1. The Act does not itself define the term 'minority' but empowers the Central Government to notify communities as minorities under Section 2(c).<br>2. Five communities were originally notified as minorities in 1993, and Jains were added as the sixth notified minority community in 2014.<br>3. The Act was amended in 1995 to provide for the office of a Vice-Chairperson in the Commission.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 and 3 only",
+            "1, 2 and 3",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "Section 2(c) of the NCM Act, 1992 leaves 'minority' undefined and instead empowers the Central Government to notify communities, which it did for five communities in 1993 and added Jains as the sixth in 2014. The Act was indeed amended in 1995 to introduce a Vice-Chairperson, so all three statements are factually correct."
+    },
+    {
+        q: "With reference to the Central Administrative Tribunal (CAT), consider the following statements:<br>1. The Central Administrative Tribunal was established under Article 323A of the Constitution, a provision inserted by the 42nd Constitutional Amendment Act, 1976.<br>2. In L. Chandra Kumar v. Union of India (1997), the Supreme Court held that excluding the High Courts' writ jurisdiction over Tribunal orders was unconstitutional, thereby allowing CAT orders to be challenged before the High Courts.<br>3. Since the L. Chandra Kumar judgment, CAT orders can be challenged only directly before the Supreme Court under Article 136, and not before any High Court.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "Both 1 and 2",
+            "3 only",
+            "None of the statements are correct"
+        ],
+        ans: 1,
+        exp: "The CAT does derive its constitutional basis from Article 323A, inserted by the 42nd Amendment, and in L. Chandra Kumar the Supreme Court struck down the clause ousting High Court jurisdiction, restoring the route of a writ petition before the High Court, making statements 1 and 2 correct. This very judgment is what allows CAT orders to first go to the High Courts (with further appeal to the Supreme Court), which contradicts statement 3's claim that only the Supreme Court can be approached directly, making it incorrect. This layering of judicial review, ironically, is often cited as one of the challenges undermining CAT's original goal of speedy, cost-effective justice."
+    },
+    {
+        q: "With reference to recent developments concerning the Central Bureau of Investigation (CBI), consider the following statements:<br>1. CBI Director Praveen Sood, who assumed office in May 2023, received two successive one-year extensions of tenure, in May 2025 and again in May 2026.<br>2. In November 2024, in State of West Bengal v. Union of India, the Supreme Court held that a State's suit challenging the CBI's investigation within its territory without consent is not maintainable before the Court.<br>3. As of 2025, several States had formally withdrawn 'general consent' earlier granted to the CBI to investigate cases within their territory.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 2 alone",
+            "Both 1 and 3",
+            "Statement 3 alone",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "Praveen Sood did receive two successive one-year extensions in May 2025 and May 2026, and by 2025 multiple States had indeed withdrawn general consent to the CBI, making statements 1 and 3 correct. However, in State of West Bengal v. Union of India, the Constitution Bench actually held that West Bengal's suit was maintainable, not inadmissible, so statement 2 misstates the ruling and is incorrect."
+    },
+    {
+        q: "Assertion (A): GANHRI's Sub-Committee on Accreditation has repeatedly recommended that India reform the process for selecting the NHRC's Chairperson and Members to make it more transparent and pluralistic.<br>Reason (R): The Paris Principles require that the composition of a National Human Rights Institution ensure pluralist representation, including through a broad and transparent selection and appointment process involving civil society.<br>Select the correct answer using the codes given below:",
+        opts: [
+            "A is true but R is false",
+            "Both A and R are true and R is the correct explanation of A",
+            "Both A and R are true but R is not the correct explanation of A",
+            "A is false but R is true"
+        ],
+        ans: 1,
+        exp: "GANHRI's Sub-Committee on Accreditation has indeed flagged, on multiple occasions, the lack of broad consultation, publicised vacancies, and civil society involvement in the NHRC's selection process, precisely because the Paris Principles require pluralist, transparent appointment procedures for a National Human Rights Institution. Both the assertion and reason are therefore true, and the reason correctly explains why such recommendations have been made."
+    },
+    {
+        q: "Which one of the following statements about the National Commission for Minorities (NCM) is correct, reflecting a pattern frequently tested in UPSC Prelims regarding the legal status of national commissions in India?",
+        opts: [
+            "The NCM is a constitutional body, like the National Commission for Scheduled Castes",
+            "The NCM, like the National Human Rights Commission and the National Commission for Women, is a statutory body and not a constitutional one",
+            "The NCM is neither a constitutional nor a statutory body; it functions purely as an advisory body created by an executive resolution",
+            "The NCM is a statutory body, unlike the National Human Rights Commission, which is a constitutional body"
+        ],
+        ans: 1,
+        exp: "UPSC frequently tests whether aspirants can correctly classify bodies as constitutional or statutory, and the NCM, NHRC, and NCW are all statutory bodies created by Acts of Parliament rather than by any constitutional provision. The NCSC, by contrast, is a constitutional body under Article 338, which is the kind of distinction such questions are designed to test; the NCM itself moved from a non-statutory Minorities Commission (1978) to a statutory body only with the 1992 Act."
+    },
+    {
+        q: "With reference to previous UPSC Prelims-style questions on NITI Aayog, consider the following statements:<br>1. NITI Aayog was established through a resolution of the Union Cabinet on 1 January 2015 to replace the Planning Commission, and is therefore neither a constitutional nor a statutory body.<br>2. The Governing Council of NITI Aayog is chaired by the Union Minister of Finance and comprises the Chief Ministers of all States and Lieutenant Governors of Union Territories.<br>3. Unlike the erstwhile Planning Commission, NITI Aayog has the power to allocate untied plan funds directly to States as central assistance.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "Exactly one of the statements is correct",
+            "Both 2 and 3",
+            "Only two of the statements are correct"
+        ],
+        ans: 1,
+        exp: "NITI Aayog was indeed set up by a Cabinet resolution on 1 January 2015 to replace the Planning Commission, making it neither a constitutional nor a statutory body, so statement 1 is correct. However, its Governing Council is chaired by the Prime Minister, not the Finance Minister, contradicting statement 2, and a key distinction from the Planning Commission is precisely that NITI Aayog lacks the power to allocate plan funds to States — a function that now largely rests with the Finance Commission and the Union Finance Ministry — contradicting statement 3."
+    },
+    {
+        q: "With reference to the Central Bureau of Investigation (CBI), a frequently tested subject in UPSC Prelims, consider the following statements:<br>1. The CBI is a statutory body directly created by the Delhi Special Police Establishment Act, 1946.<br>2. The CBI presently functions under the administrative control of the Ministry of Home Affairs.<br>3. The CBI can investigate an offence in any State on its own authority in all circumstances, without requiring that State's consent.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "None of the statements given above is correct",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "The CBI is not a statutory body; it derives its investigative powers from the Delhi Special Police Establishment Act, 1946, but was itself set up through a Home Ministry resolution in 1963. It currently functions under the Ministry of Personnel, Public Grievances and Pensions rather than the Ministry of Home Affairs, and it generally requires the concerned State's consent to investigate offences within that State, except in specific court-directed situations. Hence, none of the three statements is correct."
+    },
+    {
+        q: "With reference to recent developments concerning NITI Aayog, consider the following statements:<br>1. In 2026, Ashok Kumar Lahiri was appointed as the Vice-Chairperson of NITI Aayog, succeeding Suman K. Bery.<br>2. The 2026 reconstitution retained NITI Aayog's traditional composition, dominated primarily by career economists, without inducting members from science, technology, or health backgrounds.<br>3. The 11th Governing Council meeting of NITI Aayog was notable for being the first time all 28 State Chief Ministers participated in the meeting.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "Ashok Kumar Lahiri was indeed appointed Vice-Chairperson in 2026, succeeding Suman K. Bery, and the 11th Governing Council meeting was indeed marked by the first-ever participation of all 28 State Chief Ministers, making statements 1 and 3 correct. However, the 2026 reconstitution actually departed from the traditional economist-heavy composition by inducting new full-time members with strong backgrounds in health, biotechnology, and deep-tech, contrary to statement 2."
+    },
+    {
+        q: "With reference to the legal provisions governing the Central Information Commission (CIC), consider the following statements:<br>1. Prior to the Right to Information (Amendment) Act, 2019, the RTI Act, 2005 fixed the tenure of the Chief Information Commissioner and Information Commissioners at five years or till the age of 65 years, whichever was earlier.<br>2. The RTI (Amendment) Act, 2019 removed the parity in salary and service conditions that Information Commissioners earlier enjoyed with the Election Commission, empowering the Central Government to prescribe these terms instead.<br>3. The Chief Information Commissioner and Information Commissioners are appointed by the Prime Minister on the recommendation of a committee headed by the President of India.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1 and 3 only",
+            "1 only"
+        ],
+        ans: 1,
+        exp: "The original RTI Act, 2005 fixed a five-year (or age-65) tenure for the Chief Information Commissioner and Information Commissioners, and the 2019 amendment took away their salary parity with the Election Commission, handing this power to the Central Government, making statements 1 and 2 correct. However, it is the President who appoints them on the recommendation of a committee headed by the Prime Minister, not the other way around, so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to recent developments concerning the Lokpal, consider the following statements:<br>1. As of 2025-2026, Justice Ajay Manikrao Khanwilkar continues to serve as the Chairperson of the Lokpal, having been appointed in March 2024.<br>2. A Parliamentary Standing Committee report around late 2025 flagged that the Lokpal's Inquiry Wing and Prosecution Wing remained largely non-operational years after the Act came into force, and recommended urgent steps to operationalise them.<br>3. In response to this criticism, the Lokpal and Lokayuktas Act was amended in 2025 to abolish the statutory requirement of maintaining separate Inquiry and Prosecution Wings altogether.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "Both 1 and 2",
+            "All three statements are correct",
+            "Statement 2 alone"
+        ],
+        ans: 1,
+        exp: "Justice Khanwilkar has indeed continued as Lokpal Chairperson since his March 2024 appointment, and a Parliamentary Standing Committee report did flag the continued non-operational status of the Inquiry and Prosecution Wings, urging steps to operationalise them, making statements 1 and 2 correct. However, no such 2025 amendment abolishing these wings has been enacted — the criticism was about their non-operationalisation, not their statutory removal, so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to the background and evolution of the Central Administrative Tribunal (CAT), consider the following statements:<br>1. The Swaran Singh Committee (1976) first recommended the creation of Administrative Tribunals to relieve High Courts of the burden of service-related litigation, leading to the insertion of Articles 323A and 323B by the 42nd Constitutional Amendment Act, 1976.<br>2. Article 323B, like Article 323A, empowers only Parliament — and not State Legislatures — to establish tribunals for matters such as taxation, land reforms, and elections.<br>3. In S.P. Sampath Kumar v. Union of India (1987), the Supreme Court upheld the constitutional validity of the Administrative Tribunals Act, 1985, subject to certain safeguards, rather than striking it down.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 3 only",
+            "1 and 2 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "The Swaran Singh Committee did recommend tribunalisation, leading to the 42nd Amendment inserting Articles 323A and 323B, and in S.P. Sampath Kumar the Supreme Court upheld the Administrative Tribunals Act, 1985 with added safeguards rather than invalidating it, making statements 1 and 3 correct. However, unlike Article 323A which is Parliament-exclusive, Article 323B empowers both Parliament and State Legislatures to set up tribunals for matters like taxation and land reforms, so statement 2 is incorrect."
+    },
+    {
+        q: "With reference to the Central Vigilance Commission (CVC), consider the following statements:<br>1. The CVC was originally set up in 1964 through a resolution of the Government of India based on the recommendations of the Santhanam Committee, and was conferred statutory status only in 2003.<br>2. The CVC is a single-member body headed solely by the Central Vigilance Commissioner, without any other Vigilance Commissioners.<br>3. Members of the CVC are appointed by the Prime Minister alone, without requiring any external recommendation committee.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "Statement 2 alone",
+            "Statement 3 alone",
+            "Statement 1 alone"
+        ],
+        ans: 3,
+        exp: "The CVC indeed began as a non-statutory body set up in 1964 on the Santhanam Committee's recommendation and gained statutory status only through the CVC Act, 2003, following the Supreme Court's directions in the Vineet Narain case, making statement 1 correct. However, it is a multi-member body with a Central Vigilance Commissioner and up to two Vigilance Commissioners, and appointments are made by the President on the recommendation of a three-member committee comprising the Prime Minister, the Union Home Minister, and the Leader of the Opposition in the Lok Sabha, so statements 2 and 3 are both incorrect."
+    },
+    {
+        q: "With reference to criticisms of the Central Information Commission (CIC), consider the following statements:<br>1. Section 20 of the RTI Act, 2005 empowers the Information Commissions to penalise the concerned Public Information Officer (PIO) for unjustified delay or denial of information, but does not provide for any penalty on the public authority as an institution.<br>2. The RTI Act, 2005 prescribes a strict statutory timeline within which the CIC must dispose of a second appeal, failing which the appeal is deemed to be allowed in favour of the appellant.<br>3. A frequently cited criticism of the CIC's functioning is the large backlog of pending appeals and complaints, often extending into years, which undermines the RTI Act's objective of timely access to information.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "Section 20 does confine penalties to the erring Public Information Officer rather than the public authority itself, and the resulting backlog of pending appeals, sometimes taking years to resolve, is indeed a well-documented criticism of the CIC, making statements 1 and 3 correct. However, the RTI Act prescribes no fixed statutory deadline for the CIC to dispose of second appeals, nor any 'deemed allowed' consequence for delay — the absence of such a timeline is itself part of the criticism, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to the challenges facing the National Commission for Backward Classes (NCBC), consider the following statements:<br>1. Article 338B(5) of the Constitution is silent on any mandate for periodic revision of the backward classes list in consultation with the NCBC, a gap frequently flagged as a structural weakness.<br>2. The NCBC's composition is expressly required by the Constitution to consist predominantly of social science experts and academic specialists in caste studies, ensuring it functions as a genuine expert body.<br>3. A single, uniform Central List of OBCs applies identically across all States and Union Territories, eliminating any scope for confusion between Central and State-level backward classes lists.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 and 3 only",
+            "1 and 3 only",
+            "2 only"
+        ],
+        ans: 0,
+        exp: "Article 338B(5) is indeed silent on the Supreme Court's expectation of periodic list revision in consultation with the NCBC, a genuine and often-cited gap, making statement 1 correct. However, Article 338B prescribes no specific expert qualifications for NCBC's Members, and the Commission's composition has in fact been criticised for lacking such an expert character, contradicting statement 2; likewise, the Central and State OBC lists frequently differ, creating exactly the dual-list confusion that statement 3 wrongly denies."
+    },
+    {
+        q: "With reference to the functions and powers of the National Commission for Women (NCW), consider the following statements:<br>1. Under Section 10 of the NCW Act, 1990, the Commission's functions include inspecting, or causing to be inspected, a jail, remand home, women's institution, or other place of custody where women are kept as prisoners or otherwise, and taking up the matter with the concerned authorities for remedial action.<br>2. The NCW's functions under Section 10 also include funding litigation involving issues affecting a large body of women.<br>3. Although the NCW's own recommendations are not binding, decisions rendered through its Parivarik Mahila Lok Adalat initiative are treated as final and binding on the parties to the dispute, akin to a Lok Adalat award.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "1 and 3 only",
+            "All of the statements are correct",
+            "Statement 2 alone"
+        ],
+        ans: 2,
+        exp: "Section 10 does empower the NCW to inspect custodial institutions housing women and to fund litigation affecting large groups of women, and its Parivarik Mahila Lok Adalat scheme, modelled on the Lok Adalat mechanism, does produce decisions that are final and binding on the parties, unlike the Commission's own recommendations. All three statements are therefore correct, illustrating a genuinely enforceable mechanism operating alongside the NCW's otherwise advisory role."
+    },
+    {
+        q: "With reference to recent developments concerning the National Commission for Backward Classes (NCBC), consider the following statements:<br>1. Hansraj Gangaram Ahir continues to serve as the Chairperson of the NCBC as of 2025-2026, with no change in leadership since 2023.<br>2. The NCBC's 2025-2026 review of the OBC list in West Bengal concluded that no changes were required and recommended retaining all existing entries dating to 2014.<br>3. The Union Government decided in April 2025 that caste enumeration would not be included in the forthcoming Census, citing the NCBC's advice that such data was unnecessary.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "None of the statements given above is correct",
+            "1, 2 and 3"
+        ],
+        ans: 2,
+        exp: "Sadhvi Niranjan Jyoti, not Hansraj Gangaram Ahir, took over as NCBC Chairperson on 18 March 2026, contradicting statement 1. Far from recommending no change, the NCBC's 2025-2026 review actually recommended removing 35 communities, mostly from the Muslim population, from West Bengal's Central OBC list, contradicting statement 2. And in April 2025, the government decided to include, not exclude, caste enumeration in the forthcoming Census (to be held in two phases in October 2026 and March 2027) — a decision unrelated to any NCBC advice against it — contradicting statement 3. Hence, none of the statements is correct."
+    },
+    {
+        q: "Assertion (A): The National Human Rights Commission (NHRC) cannot directly investigate allegations of human rights violations by members of the Armed Forces.<br>Reason (R): Under the Protection of Human Rights Act, 1993, the NHRC's role regarding the Armed Forces is limited to seeking a report from the Central Government and making recommendations based on it.<br>Select the correct answer using the codes given below:",
+        opts: [
+            "Both A and R are true but R is not the correct explanation of A",
+            "A is false but R is true",
+            "Both A and R are true and R is the correct explanation of A",
+            "A is true but R is false"
+        ],
+        ans: 2,
+        exp: "Section 19 of the Protection of Human Rights Act, 1993 bars the NHRC from directly investigating complaints against the Armed Forces; it can only call for a report from the Central Government and then make recommendations, which correctly explains why the Commission lacks direct investigative power in such cases. Both the assertion and reason are therefore true, and the reason correctly explains the assertion."
+    },
+    {
+        q: "With reference to reforms proposed for the Central Bureau of Investigation (CBI), consider the following statements:<br>1. The Second Administrative Reforms Commission (2007) recommended that the CBI continue to function under the existing Delhi Special Police Establishment Act, 1946, without any need for fresh legislation.<br>2. The Lokpal and Lokayuktas Act, 2013 vested the power to select the CBI Director solely in the Prime Minister, without any statutory selection committee.<br>3. The 2021 amendment to the Delhi Special Police Establishment Act completely removed the possibility of extending the CBI Director's tenure beyond the initial two years.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "None of the statements given above is correct",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "The Second ARC in fact recommended a new, dedicated law to replace the DSPE Act, 1946, to strengthen CBI's independence, contrary to statement 1. The Lokpal and Lokayuktas Act, 2013 created a three-member committee comprising the Prime Minister, the Leader of the Opposition, and the Chief Justice of India (or a nominee) to select the CBI Director, not the Prime Minister alone, contradicting statement 2. The 2021 amendment actually did the opposite of statement 3, allowing the Director's tenure to be extended annually up to a total of five years, so none of the three statements is correct."
+    },
+    {
+        q: "With reference to the composition of the National Human Rights Commission (NHRC) after the Protection of Human Rights (Amendment) Act, 2019, consider the following statements:<br>1. The amendment restricted the office of Chairperson to only a former Chief Justice of India, removing the earlier eligibility of a Supreme Court Judge.<br>2. The amendment increased the number of members appointed for their knowledge of or practical experience in human rights from two to three, with at least one of them being a woman.<br>3. The NHRC is a constitutional body established under Article 338 of the Constitution of India.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 2 alone",
+            "Only statement 3",
+            "Only statement 1",
+            "None of the statements are correct"
+        ],
+        ans: 0,
+        exp: "The 2019 amendment actually widened, not restricted, eligibility for Chairperson by allowing any person who has been a Judge of the Supreme Court, so statement 1 is incorrect. It did raise the human-rights-expert members from two to three, mandating that at least one be a woman, making statement 2 correct. The NHRC is a statutory body under the Protection of Human Rights Act, 1993, not a constitutional body, and Article 338 actually relates to the National Commission for Scheduled Castes."
+    },
+    {
+        q: "With reference to the functions and powers of the National Commission for Backward Classes (NCBC), consider the following statements:<br>1. As per Article 338B, the NCBC's functions include inquiring into complaints relating to non-inclusion, under-inclusion, or over-inclusion of any community in the OBC list, and advising on the socio-economic development of SEBCs.<br>2. The NCBC is required to present its report to the President only once, at the end of its term, rather than annually or periodically.<br>3. Following the 105th Constitutional Amendment Act, 2021, State Governments are no longer required to consult the NCBC while preparing and maintaining their own list of socially and educationally backward classes for State purposes.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "The NCBC's functions do include examining complaints about a community's inclusion, under-inclusion, or over-inclusion in the OBC list and advising on SEBC development, and the 105th Amendment Act, 2021 did exempt States from the consultation requirement for their own SEBC lists, making statements 1 and 3 correct. However, the NCBC presents its report to the President annually, and at such other times as it deems fit — not merely once at the end of its term — so statement 2 is incorrect."
+    },
+    {
+        q: "With reference to the legislative history of the National Human Rights Commission (NHRC), consider the following statements:<br>1. The Protection of Human Rights Act, 1993 was enacted in conformity with the Paris Principles adopted by the United Nations.<br>2. The Protection of Human Rights (Amendment) Act, 2006 was primarily aimed at strengthening the investigative machinery available to the NHRC.<br>3. The Protection of Human Rights (Amendment) Act, 2019 expanded the ex-officio membership of the NHRC to include the Chairpersons of the National Commission for Backward Classes and the National Commission for Protection of Child Rights, along with the Chief Commissioner for Persons with Disabilities.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "The Protection of Human Rights Act, 1993 was indeed framed in line with the UN's Paris Principles, the 2006 amendment strengthened NHRC's investigative capacity, and the 2019 amendment added the NCBC Chairperson, NCPCR Chairperson, and the Chief Commissioner for Persons with Disabilities as new ex-officio members, so all three statements are correct. Together, these amendments trace the NHRC's evolution from its founding statute to its progressively broadened composition and investigative reach."
+    },
+    {
+        q: "Which one of the following statements correctly describes a feature of the Central Bureau of Investigation (CBI)?",
+        opts: [
+            "The CBI's Economic Offences Division is responsible for investigating all terrorism-related offences across India, a mandate it shares exclusively with the National Investigation Agency",
+            "The CBI is India's designated National Central Bureau and nodal police agency for coordinating investigations with INTERPOL member countries",
+            "The CBI is a constitutional body whose composition and powers are directly prescribed under Part XIV of the Constitution",
+            "The CBI's Anti-Corruption Division has the authority to try and convict public servants without reference to any court"
+        ],
+        ans: 1,
+        exp: "The CBI does function as India's National Central Bureau, the nodal point through which Interpol member countries' investigation requests are coordinated domestically. Terrorism-related offences are primarily the domain of the National Investigation Agency rather than the CBI's Economic Offences Division, the CBI is neither a constitutional nor a statutory body but one created by an executive resolution drawing powers from the DSPE Act, 1946, and it can only investigate and prosecute — trial and conviction remain exclusively with the courts."
+    },
+    {
+        q: "With reference to the features and characteristics of the National Commission for Backward Classes (NCBC), consider the following statements:<br>1. Under Article 338B, the NCBC consists of a Chairperson, a Vice-Chairperson, and three other Members, all appointed by the President, with Members holding a rank and salary equivalent to a Secretary to the Government of India.<br>2. While investigating any matter, the NCBC enjoys all the powers of a civil court, including summoning witnesses, requiring the production of documents, and receiving evidence on affidavits.<br>3. Under Article 338B(4), the NCBC is required to follow a procedure prescribed exclusively by the Central Government and has no power to regulate its own procedure.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "Both 1 and 3",
+            "Exactly one of the statements is correct",
+            "3 only"
+        ],
+        ans: 0,
+        exp: "Article 338B does prescribe this five-member composition with Secretary-equivalent rank for Members, and the NCBC does possess civil-court powers while investigating complaints, making statements 1 and 2 correct. However, Article 338B(4) actually empowers the NCBC itself to regulate its own procedure, contrary to statement 3's claim that this is prescribed exclusively by the Central Government."
+    },
+    {
+        q: "With reference to previous UPSC Prelims-style questions on the Central Vigilance Commission (CVC), consider the following statements:<br>1. The salary and service conditions of the Central Vigilance Commissioner are similar to those of the Chairman of the UPSC, and those of the Vigilance Commissioners are similar to a Member of the UPSC; these cannot be varied to their disadvantage after appointment.<br>2. The CVC is required to present an annual report on its performance to the President, who causes it to be laid before each House of Parliament.<br>3. The first Central Vigilance Commissioner was appointed only after the enactment of the CVC Act, 2003, since the post did not exist prior to this statute.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 3",
+            "All three statements are correct",
+            "Exactly one of the statements is correct",
+            "Only two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "The salary parity of the CVC and Vigilance Commissioners with the UPSC Chairman and Members is expressly protected, and the CVC does present an annual performance report to the President, who lays it before both Houses of Parliament, making statements 1 and 2 correct. However, the post of Central Vigilance Commissioner existed from 1964 itself, under an executive resolution based on the Santhanam Committee's recommendation — with Nittoor Srinivasa Rau as the first CVC — long before the CVC Act, 2003 merely conferred statutory status, so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to the National Commission for Minorities (NCM), consider the following statements:<br>1. All key posts in the NCM, including that of the Chairperson, have remained vacant since April 2025.<br>2. The Delhi High Court has sought a response from the Central Government on a public interest litigation concerning the delay in filling vacancies in the NCM.<br>3. The recommendations made by the NCM are binding on the Central and State Governments.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 3 alone",
+            "All of the above",
+            "2 and 3 only",
+            "Only two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "All posts in the NCM, including the Chairperson's, have indeed been vacant since April 2025, and the Delhi High Court has sought the Centre's response on a related PIL, making statements 1 and 2 correct. However, being an advisory statutory body, the NCM's recommendations are not binding on governments, so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to the autonomy of the Central Bureau of Investigation (CBI), consider the following statements:<br>1. In Vineet Narain v. Union of India (1997), the Supreme Court struck down the 1969 'Single Directive', which required prior government sanction before the CBI could investigate senior public officials.<br>2. In Subramanian Swamy v. Director, CBI (2014), the Supreme Court struck down Section 6-A of the Delhi Special Police Establishment Act, 1946, which had reintroduced a similar prior-approval requirement for officers of the rank of Joint Secretary and above.<br>3. Since 'police' falls under the State List of the Seventh Schedule, the CBI does not require the concerned State Government's consent to register a case within that State under normal circumstances.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "The Supreme Court did strike down the 1969 Single Directive in Vineet Narain and, later, the similarly restrictive Section 6-A of the DSPE Act in Subramanian Swamy v. Director, CBI, making statements 1 and 2 correct. However, precisely because police is a State List subject, the CBI ordinarily needs the concerned State's general or case-specific consent to operate within it, so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to constitutional provisions for backward classes, which one of the following correctly distinguishes a commission appointed under Article 340 from the National Commission for Backward Classes (NCBC) under Article 338B?",
+        opts: [
+            "Both Article 340 commissions and the NCBC under Article 338B are, by constitutional design, identical permanent bodies with overlapping jurisdiction",
+            "Article 340 commissions can only be appointed by State Legislatures, while the NCBC under Article 338B is appointed solely by Parliament",
+            "A commission under Article 340 is a permanent body headed by a serving Supreme Court judge, whereas the NCBC under Article 338B is an ad hoc body dissolved after submitting its report",
+            "A commission under Article 340, such as the Kaka Kalelkar Commission (1953) or the Mandal Commission (1979), is an ad hoc body appointed by the President for a specific inquiry, whereas the NCBC under Article 338B is a permanent constitutional body"
+        ],
+        ans: 3,
+        exp: "Article 340 empowers the President to appoint an ad hoc commission of inquiry for a specific purpose — as with the Kaka Kalelkar Commission (1953), the Mandal Commission (1979), or more recently the Rohini Commission (2017) on OBC sub-categorisation — after which the commission ceases to exist. The NCBC under Article 338B, by contrast, is a standing constitutional body created by the 102nd Amendment Act, 2018, that continues in office rather than dissolving after a single report — a distinction that has featured in UPSC's testing of these provisions."
+    },
+    {
+        q: "With reference to the structure and composition of the Central Bureau of Investigation (CBI), consider the following statements:<br>1. The CBI is headed by a Director, an IPS officer of the rank of Director General of Police, whose initial tenure of two years can be extended annually up to a maximum total tenure of five years.<br>2. The CBI Director is appointed by the Appointments Committee of the Cabinet from a panel recommended by a Selection Committee comprising the Prime Minister, the Leader of the Opposition in the Lok Sabha, and the Chief Justice of India (or a Supreme Court Judge nominated by the CJI).<br>3. Appointments of CBI officers of the rank of Superintendent of Police and above are made through a separate Selection Committee headed by the Central Vigilance Commissioner, a provision introduced by the CVC Act, 2003.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All three statements are correct",
+            "None of the statements are correct",
+            "Exactly one of the statements is correct",
+            "1 only"
+        ],
+        ans: 0,
+        exp: "The CBI Director does hold a two-year fixed tenure extendable annually up to a maximum of five years, is appointed by the Appointments Committee of the Cabinet on the recommendation of the PM-LoP-CJI committee introduced via the Lokpal Act, and separately, appointments of Superintendent of Police-rank officers and above are indeed routed through a CVC-headed Selection Committee under a provision added by the CVC Act, 2003. All three statements are therefore correct, reflecting the CBI's layered appointment architecture at different ranks."
+    },
+    {
+        q: "With reference to the legal provisions governing the National Human Rights Commission (NHRC) and State Human Rights Commissions (SHRCs), consider the following statements:<br>1. Under Section 21 of the Protection of Human Rights Act, 1993, State Human Rights Commissions can inquire into violations of human rights relating to subjects covered under the State List and the Concurrent List, but not the Union List.<br>2. A State Human Rights Commission is barred from inquiring into a matter that is already being inquired into by the NHRC or any other statutory commission.<br>3. The expenses of the National Human Rights Commission are met from a separate Human Rights Fund created under the Protection of Human Rights Act, 1993, and are not charged to the Consolidated Fund of India.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "SHRCs are indeed restricted under Section 21 to matters within the State and Concurrent Lists, since Union List subjects fall to the NHRC, and they are also barred from re-inquiring into matters already under inquiry by the NHRC or a similar statutory commission, making statements 1 and 2 correct. However, the NHRC has no separate 'Human Rights Fund'; its expenses are met directly from the Consolidated Fund of India, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the Central Information Commission (CIC), consider the following statements:<br>1. The CIC consists of a Chief Information Commissioner and not more than ten Information Commissioners.<br>2. The CIC is a constitutional body established under Article 315 of the Constitution of India.<br>3. In 2025-2026, the CIC was fully constituted with all its sanctioned posts filled for the first time in nine years.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "The RTI Act, 2005 provides for a Chief Information Commissioner and up to ten Information Commissioners, and after prolonged vacancies the Commission was fully constituted in 2025-2026 for the first time in nine years, making statements 1 and 3 correct. The CIC, however, is a statutory body created under the RTI Act and not a constitutional body; Article 315 in fact deals with Public Service Commissions."
+    },
+    {
+        q: "The National Commission for Women (NCW) was set up as a statutory body pursuant to a recommendation first made in which of the following?",
+        opts: [
+            "The National Policy for the Empowerment of Women, 2001",
+            "The report of the Committee on the Status of Women in India (CSWI), 1974",
+            "The 73rd and 74th Constitutional Amendment Acts, 1992",
+            "The Supreme Court judgment in Vishaka v. State of Rajasthan, 1997"
+        ],
+        ans: 1,
+        exp: "The Committee on the Status of Women in India (CSWI), in its 1974 report, first recommended setting up a National Commission for Women, which eventually led to the NCW Act, 1990 and the Commission's constitution in 1992. The 73rd/74th Amendments dealt with local self-government, the Vishaka judgment laid down workplace harassment guidelines, and the 2001 policy was a later document, so none of these established the NCW."
+    },
+    {
+        q: "With reference to the challenges facing the National Commission for Women (NCW), consider the following statements:<br>1. The NCW's powers are essentially recommendatory in nature; it cannot independently impose penalties on erring authorities or compel them to implement its recommendations.<br>2. A Parliamentary Standing Committee, in its 2023 report on the working of the NCW, recommended empowering the Commission with a degree of accountability over the police to ensure implementation of its directions, along with penalties for non-compliance.<br>3. The NCW's budgetary allocation has consistently been considered more than adequate by Parliamentary Standing Committees to discharge its expanding mandate.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "The NCW does remain a purely recommendatory body unable to enforce compliance, and the 2023 Standing Committee report did call for empowering it with some accountability over the police and a penalty mechanism, making statements 1 and 2 correct. In fact, its budget has repeatedly been flagged as inadequate rather than adequate — for instance, its 2026-27 allocation was criticised by a Parliamentary Standing Committee as insufficient — so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to the functions and powers of the National Commission for Minorities (NCM), consider the following statements:<br>1. Under Section 9(1) of the NCM Act, 1992, the Commission's functions include evaluating the progress of development of minorities under the Union and States, and looking into specific complaints regarding deprivation of their rights.<br>2. As per Section 9(4) of the Act, the Commission enjoys the powers of a civil court while performing all the functions listed under Section 9(1), without exception.<br>3. The NCM's functions also include causing studies to be undertaken into problems arising out of discrimination against minorities and recommending measures for their removal.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 3 only",
+            "1 and 2 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "Section 9(1) does list evaluation of minorities' progress and looking into specific rights-deprivation complaints among the NCM's functions, and it also mandates studies into discrimination-related problems, making statements 1 and 3 correct. However, Section 9(4) confines the Commission's civil-court powers only to the performance of the functions in sub-clauses (a), (b), and (d) of Section 9(1) — not to all of its functions — so statement 2 is incorrect."
+    },
+    {
+        q: "With reference to the challenges facing the National Human Rights Commission (NHRC), consider the following statements:<br>1. In 2023 and 2024, the Global Alliance of National Human Rights Institutions (GANHRI) deferred the NHRC's 'A' status accreditation for two consecutive years for the first time since the Commission's establishment.<br>2. Under Section 36(2) of the Protection of Human Rights Act, 1993, the NHRC cannot inquire into any matter after the expiry of one year from the date on which the alleged human rights violation is said to have occurred.<br>3. The recommendations and orders of the NHRC are legally binding on the concerned Central or State Government authority, which must comply with them without exception.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "All of the above",
+            "Both 1 and 3",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "GANHRI did defer NHRC's accreditation in both 2023 and 2024, marking an unprecedented two-year deferral, and Section 36(2) does impose a strict one-year limitation bar on taking up complaints, making statements 1 and 2 correct. However, the NHRC's powers are essentially recommendatory; it cannot enforce compliance and can, at best, approach the Supreme Court or a High Court for enforcement, so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to reforms and recommendations concerning the National Commission for Backward Classes (NCBC), consider the following statements:<br>1. The Justice G. Rohini Commission, constituted in October 2017 under Article 340 of the Constitution to examine sub-categorisation of OBCs, submitted its report to the President in 2023 after receiving multiple extensions.<br>2. The Rohini Commission's analysis found that a small fraction of the Central List's OBC communities had cornered a disproportionately large share of reservation benefits in central jobs and educational institutions, while a substantial number of communities had availed little or none.<br>3. Acting on the Rohini Commission's recommendations, the Union Government implemented OBC sub-categorisation at the national level in 2024, splitting the Central List into distinct sub-quotas.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the above",
+            "Both 1 and 2",
+            "Both 2 and 3",
+            "Only one of the statements is correct"
+        ],
+        ans: 1,
+        exp: "The Rohini Commission was indeed set up in October 2017 under Article 340, received numerous extensions, and submitted its report in 2023, and its findings did reveal a highly skewed concentration of OBC reservation benefits among a small number of communities, making statements 1 and 2 correct. However, the report's specific recommendations have not been made public or implemented as a nationwide sub-categorisation scheme, so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to legislative and policy contributions associated with the National Commission for Women (NCW), consider the following statements:<br>1. The Protection of Women from Domestic Violence Act, 2005 traces its origins, in part, to a Domestic Violence Against Women Bill that had been proposed by the NCW.<br>2. The NCW Act, 1990 has, as of now, been comprehensively amended to grant the Commission binding powers of enforcement and the authority to impose penalties for non-compliance.<br>3. The NCW's advocacy contributed to the eventual enactment of the Sexual Harassment of Women at Workplace (Prevention, Prohibition and Redressal) Act, 2013.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "Only statement 2",
+            "None of the statements are correct",
+            "Only two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "The NCW's Legal Cell did propose a Domestic Violence Against Women Bill that fed into the eventual 2005 Act, and its advocacy is also credited with contributing to the 2013 workplace-harassment law, making statements 1 and 3 correct. However, the NCW Act, 1990 has not been amended to grant binding enforcement powers — a Parliamentary Standing Committee only recommended such changes in 2023, and they remain under consideration rather than enacted, so statement 2 is incorrect."
+    },
+    {
+        q: "With reference to the challenges facing the Central Vigilance Commission (CVC), consider the following statements:<br>1. The CVC's recommendations are advisory in nature; the concerned Ministry or Department may decline to act on them, though it is expected to record reasons for such disagreement.<br>2. The CVC has no independent investigative wing of its own and depends on the CBI and departmental Chief Vigilance Officers (CVOs) to conduct actual inquiries into complaints.<br>3. The CVC's jurisdiction is confined to Central Government employees and Central public sector undertakings, and does not extend to State government officials, Members of Parliament, or the judiciary.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 2 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "The CVC's advisory-only character, its dependence on the CBI and departmental CVOs for actual investigation, and its jurisdictional limitation to Central Government establishments (excluding States, Parliament, and the judiciary) are all well-documented and frequently cited structural limitations of the Commission. All three statements are therefore correct, together capturing why the CVC is often described as lacking real enforcement teeth."
+    },
+    {
+        q: "With reference to the challenges facing NITI Aayog, consider the following statements:<br>1. NITI Aayog retains the power, inherited from the erstwhile Planning Commission, to allocate untied plan funds to States, giving it strong leverage to ensure compliance with its recommendations.<br>2. Because NITI Aayog's recommendations are legally binding on both the Union and State Governments, no State has ever skipped or boycotted a Governing Council meeting.<br>3. NITI Aayog's various performance indices, used to encourage competitive federalism among States, are updated in real time every month without exception.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "1, 2 and 3",
+            "None of the statements given above is correct"
+        ],
+        ans: 3,
+        exp: "NITI Aayog, unlike the Planning Commission, was deliberately designed without the power to allocate plan funds to States, which is precisely why it is criticised as 'toothless' — contradicting statement 1. Its recommendations are non-binding, and opposition-ruled States have in fact skipped or boycotted Governing Council meetings over the years, contradicting statement 2. Several of its competitive-federalism indices have also gone unupdated for years rather than being refreshed monthly, contradicting statement 3. None of the statements is therefore correct."
+    },
+    {
+        q: "With reference to the background and evolution of the National Human Rights Commission (NHRC), consider the following statements:<br>1. The NHRC was first established through the Protection of Human Rights Ordinance promulgated on 28 September 1993, and formally came into being on 12 October 1993 following the enactment of the Protection of Human Rights Act, 1993.<br>2. The Paris Principles, with which the NHRC's establishment sought to conform, were adopted at the first International Workshop on National Institutions for the promotion and protection of human rights, held in Paris in October 1991, and later endorsed by the UN General Assembly in December 1993.<br>3. Justice M. N. Venkatachalliah, a former Chief Justice of India, was the first Chairperson of the NHRC upon its establishment in 1993.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "The NHRC was indeed first created through a September 1993 ordinance before being placed on a statutory footing on 12 October 1993, and the Paris Principles it conforms to were adopted at the 1991 Paris workshop and later endorsed by the UN General Assembly in December 1993, making statements 1 and 2 correct. However, it was Justice Ranganath Misra, a former Chief Justice of India, who served as the NHRC's first Chairperson from October 1993 — Justice Venkatachalliah held the post only later — so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to the legal and constitutional status of the Lokpal, consider the following statements:<br>1. The Lokpal, being an offshoot of the Right to Information Act, 2005, was established as a constitutional body through the 99th Constitutional Amendment Act.<br>2. The Chairperson and Members of the Lokpal are appointed by the President on the recommendation of a Selection Committee comprising the Prime Minister, the Speaker of the Lok Sabha, the Leader of the Opposition in the Lok Sabha, the Chief Justice of India (or a Judge nominated by the CJI), and an eminent jurist.<br>3. The jurisdiction of the Lokpal excludes the Prime Minister entirely, and no complaint against the Prime Minister can be inquired into under the Act.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "1 and 2 only",
+            "All of the above",
+            "Only statement 2"
+        ],
+        ans: 3,
+        exp: "The Lokpal is a statutory (not constitutional) body created under the Lokpal and Lokayuktas Act, 2013, unrelated to the RTI Act or the 99th Amendment (which actually concerned the now-struck-down NJAC), making statement 1 incorrect. Its Chairperson and Members are indeed appointed by the President on the recommendation of the five-member Selection Committee described, making statement 2 correct; however, the Prime Minister is not entirely excluded but is covered with specific safeguards and exceptions for areas like international relations and security, so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to recent developments concerning the Central Vigilance Commission (CVC), consider the following statements:<br>1. In December 2025, Praveen Vashista, a 1991-batch IPS officer, was appointed as a Vigilance Commissioner in the CVC under Section 4(1) of the CVC Act, 2003.<br>2. In August 2026, following the completion of Praveen Kumar Srivastava's tenure as Central Vigilance Commissioner, Vigilance Commissioner A. S. Rajeev was authorised to discharge the functions of the CVC on an interim basis pending a regular appointment.<br>3. This interim arrangement, authorising a sitting Vigilance Commissioner to discharge the CVC's functions during a vacancy, is expressly provided for under Section 10(1) of the CVC Act, 2003.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "Praveen Vashista was indeed appointed Vigilance Commissioner in December 2025 under Section 4(1), and when Praveen Kumar Srivastava's tenure ended in August 2026, A. S. Rajeev was authorised under Section 10(1) of the CVC Act to discharge the CVC's functions on an interim basis pending a regular appointment. All three statements are therefore correct, reflecting the statutory mechanism for handling vacancies at the top of the Commission."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-78 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

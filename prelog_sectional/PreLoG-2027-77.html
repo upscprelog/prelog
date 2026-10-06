@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-77</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "Which one of the following has been a widely suggested reform regarding the office of the Attorney General of India, aimed at reducing potential conflicts of interest?",
+        opts: [
+            "Fixing a definite constitutional tenure for the Attorney General and placing restrictions on private legal practice during the term of office",
+            "Making the Attorney General a permanent member of the Union Council of Ministers with voting rights in Parliament",
+            "Transferring the power of appointment of the Attorney General from the President to the Chief Justice of India",
+            "Abolishing the office of the Attorney General and merging its functions entirely with that of the Solicitor General"
+        ],
+        ans: 0,
+        exp: "Since the Attorney General currently has no fixed constitutional tenure and may simultaneously engage in private practice, commentators have repeatedly suggested introducing a definite term along with restrictions on private practice to reduce conflicts of interest. The Attorney General is not a Cabinet member with voting rights in Parliament, and proposals to shift the appointing authority to the Chief Justice or to merge the office with that of the Solicitor General are not part of any mainstream reform discourse."
+    },
+    {
+        q: "Consider the following in respect of the Comptroller and Auditor General (CAG) of India: <br> Assertion (A): The effectiveness of CAG audits is often diluted by delays in the tabling of audit reports before State Legislatures.<br>Reason (R): The Constitution fixes a mandatory maximum period of six months within which every audit report must be placed before the concerned Legislature.<br>Which one of the following is correct in respect of the above Assertion (A) and Reason (R)?",
+        opts: [
+            "Both A and R are true and R is the correct explanation of A",
+            "A is true but R is false",
+            "Both A and R are true but R is not the correct explanation of A",
+            "A is false but R is true"
+        ],
+        ans: 1,
+        exp: "Delays in tabling CAG audit reports before State Legislatures are a genuine and often-cited governance concern, making A true. However, the Constitution does not itself prescribe any specific mandatory six-month deadline for tabling such reports; Articles 151 and 202 require reports to be laid before the Legislature without fixing a rigid timeline, making R false."
+    },
+    {
+        q: "Consider the following in respect of the Election Commission of India: <br> Assertion (A): The Election Commission of India is empowered under Article 324 to superintend, direct and control the preparation of electoral rolls and the conduct of elections to Parliament, State Legislatures, and the offices of President and Vice-President.<br>Reason (R): Article 329 bars courts from interfering in electoral matters except through an election petition presented in the manner provided by a law made by the appropriate Legislature.<br>Which one of the following is correct in respect of the above Assertion (A) and Reason (R)?",
+        opts: [
+            "Both A and R are true but R is not the correct explanation of A",
+            "A is false but R is true",
+            "Both A and R are true and R is the correct explanation of A",
+            "A is true but R is false"
+        ],
+        ans: 0,
+        exp: "Article 324 vests the Election Commission with plenary superintending powers over elections, and Article 329 separately restricts judicial interference in electoral matters to election petitions, making both A and R true. However, R does not explain A; the two are independent constitutional safeguards, one empowering the Commission and the other limiting judicial interference, rather than one being the basis for the other."
+    },
+    {
+        q: "With reference to the challenges relating to the Finance Commission and fiscal federalism in India, consider the following statements: <br> 1. Cess and surcharge collected by the Union do not form part of the divisible pool of taxes shared with the States under Article 270.<br>2. The share of cess and surcharge in the Union's gross tax revenue has shown a declining trend over the past decade, thereby increasing the effective share of States in central taxes.<br>3. The Fifteenth Finance Commission recommended a vertical devolution of 41 percent of the divisible pool to the States for the award period 2021-22 to 2025-26.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "Both 1 and 3",
+            "Both 2 and 3",
+            "None of the statements are correct"
+        ],
+        ans: 1,
+        exp: "Cess and surcharge remain outside the divisible pool under Article 270, and the Fifteenth Finance Commission fixed vertical devolution at 41% of the divisible pool for 2021-22 to 2025-26, making statements 1 and 3 correct. In reality, the share of cess and surcharge in gross tax revenue has been rising rather than declining, which has eroded rather than increased the effective share of States, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to the Comptroller and Auditor General's (Duties, Powers and Conditions of Service) Act, 1971, consider the following statements: <br> 1. The Act was enacted under Articles 148(3) and 149 of the Constitution and has since been amended, including in 1976, 1984 and 1987.<br>2. Under Section 19(1) of the Act, audit of the accounts of Government companies is now performed in accordance with Section 143(6) of the Companies Act, 2013, which replaced the earlier Section 619 of the Companies Act, 1956.<br>3. The Act itself provides that no law made by a State Legislature can confer or impose any duty or power on the CAG independent of a law made by Parliament.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements is correct",
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 only"
+        ],
+        ans: 1,
+        exp: "The CAG's (DPC) Act, 1971, enacted under Articles 148(3) and 149, has been amended over the years including in 1976, 1984 and 1987, and Section 19(1) links Government company audits to Section 143(6) of the Companies Act, 2013, which superseded the earlier Section 619 of the 1956 Act. The Act also insulates the CAG's Parliament-derived duties and powers from being conferred, superseded or abridged by any State law, making all three statements correct."
+    },
+    {
+        q: "With reference to a recent Supreme Court ruling on the powers of the National Commission for Scheduled Castes (NCSC) under Article 338, which one of the following best reflects the Court's interpretation?",
+        opts: [
+            "The Commission's recommendations are binding on the Central and State Governments once submitted",
+            "The Commission can overrule a decision of a High Court in matters concerning Scheduled Castes",
+            "The Commission has full adjudicatory powers equivalent to a civil court and can grant binding relief to aggrieved persons",
+            "The Commission may exercise the powers of a civil court only to assist its investigations, and cannot pass enforceable orders granting relief like a court or tribunal"
+        ],
+        ans: 3,
+        exp: "The Supreme Court clarified that although Article 338(8) confers civil-court-like powers such as summoning witnesses and calling for documents, these are meant only to aid the Commission's investigation and inquiry, and it cannot decide disputes or grant relief like a court or tribunal. This confirms that the NCSC's role, as under Article 338(5), remains investigative, monitoring and advisory rather than adjudicatory or binding."
+    },
+    {
+        q: "With reference to recent developments concerning the office of the Attorney General of India, consider the following statements: <br> 1. R. Venkataramani has been serving as the Attorney General of India since 1 October 2022.<br>2. In September 2025, the President re-appointed R. Venkataramani as Attorney General for a further period of five years, extending his term to 2030.<br>3. This reappointment made him the longest-serving Attorney General in India's history, surpassing the tenure of M.C. Setalvad.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "Statement 3 alone",
+            "Only one of the statements is correct",
+            "Statement 2 alone"
+        ],
+        ans: 2,
+        exp: "R. Venkataramani has indeed served as Attorney General since 1 October 2022, making statement 1 correct. However, his September 2025 reappointment was for a further period of only two years, extending his term to 30 September 2027, not five years to 2030, and this shorter extension falls well short of M.C. Setalvad's roughly thirteen-year tenure (1950-63), making statements 2 and 3 incorrect."
+    },
+    {
+        q: "With reference to the National Commission for Scheduled Tribes (NCST), consider the following statements: <br> 1. The Commission consists of a Chairperson, a Vice-Chairperson, and three other Members, all appointed by the President by warrant under his hand and seal.<br>2. The text of Article 338A itself mandates that at least one Member of the Commission must be a woman.<br>3. The Commission has the power to regulate its own procedure.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "None of the statements are correct",
+            "Only two of the statements are correct",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "Article 338A(2)-(3) provides for a Chairperson, Vice-Chairperson and three Members appointed by the President by warrant, and Article 338A(4) empowers the Commission to regulate its own procedure, making statements 1 and 3 correct. The requirement that one Member be a woman comes from the Conditions of Service Rules framed under Article 338A(2), not from the text of Article 338A itself, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to the functions of a State Public Service Commission (SPSC), consider the following statements: <br> 1. It is the duty of an SPSC to conduct examinations for appointment to the services of the State.<br>2. It is the duty of the Union Public Service Commission, and not a State Commission, to assist two or more States, if requested, in framing and operating schemes of joint recruitment for services requiring specially qualified candidates.<br>3. The functions of an SPSC may be extended, in relation to local authorities or other bodies, by a law made by the State Legislature or Parliament under Article 321.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "3 only",
+            "Only two of the statements are correct",
+            "All of the above"
+        ],
+        ans: 3,
+        exp: "Article 320(1) makes it the SPSC's duty to conduct State service examinations, Article 320(2) assigns joint-recruitment assistance for two or more requesting States specifically to the UPSC, and Article 321 permits Parliament or a State Legislature to extend an SPSC's functions to local authorities and other bodies. All three statements are therefore correct."
+    },
+    {
+        q: "With reference to the constitutional provisions relating to the Attorney General of India, consider the following statements: <br> 1. The Attorney General must be a person qualified to be appointed as a Judge of the Supreme Court.<br>2. The Attorney General is entitled to all the privileges and immunities available to a Member of Parliament while participating in parliamentary proceedings, even though he is not a member of either House.<br>3. The Constitution requires the office of the Attorney General to be a whole-time engagement, barring him from private legal practice.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "Article 76(1) requires the Attorney General to be qualified for appointment as a Supreme Court Judge, and under Article 88 read with the privileges applicable to parliamentary participants, he enjoys the same privileges and immunities as a Member of Parliament while taking part in proceedings without being a member. The Constitution, however, does not bar the Attorney General from private legal practice; only certain restrictions, such as not advising against the Government of India, are imposed by convention and government instructions, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the constitutional provisions on the official language of the Union, consider the following statements: <br> 1. Under Article 343(1), the official language of the Union is Hindi in Devanagari script, and the form of numerals for official purposes of the Union is the international form of Indian numerals.<br>2. Under Article 343(2), the fifteen-year continuance period for English could be extended further only through a Presidential Proclamation of Emergency, and by no other means.<br>3. After the expiry of the fifteen-year period, the continued use of English for official purposes automatically lapsed, since Article 343 does not empower Parliament to extend it further.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 only",
+            "1, 2 and 3"
+        ],
+        ans: 2,
+        exp: "Article 343(1) does establish Hindi in Devanagari script as the Union's official language along with international numerals, making statement 1 correct. However, Article 343(3) empowers Parliament, by ordinary law, to extend the use of English and Devanagari numerals beyond the fifteen-year period, which it did through the Official Languages Act, 1963, making statements 2 and 3 incorrect, since no emergency proclamation was needed and English did not automatically lapse."
+    },
+    {
+        q: "Which one of the following correctly distinguishes the constitutional process for removal of the Chairman or a Member of the Union Public Service Commission from that applicable to the Comptroller and Auditor General of India?",
+        opts: [
+            "The UPSC Chairman/Member can be removed only after the Supreme Court, on a reference made by the President, holds an inquiry and reports that removal is warranted on the ground of misbehaviour",
+            "The UPSC Chairman/Member can be removed only through impeachment in the manner applicable to the President of India",
+            "The UPSC Chairman/Member can be removed only through a resolution passed by both Houses of Parliament with a special majority",
+            "The UPSC Chairman/Member holds office during the pleasure of the President and may be removed without any inquiry"
+        ],
+        ans: 0,
+        exp: "Under Article 317, a UPSC Chairman or Member can be removed on the ground of misbehaviour only after the Supreme Court, on a Presidential reference, holds an inquiry and recommends removal. This differs from the CAG, who is removed like a Supreme Court Judge through a resolution of both Houses of Parliament with special majority, without a prior Supreme Court inquiry."
+    },
+    {
+        q: "Which one of the following is NOT among the matters on which the Commission constituted under Article 344(1) of the Constitution is required to make recommendations to the President?",
+        opts: [
+            "The progressive use of the Hindi language for official purposes of the Union",
+            "The form of numerals to be used for one or more specified purposes of the Union",
+            "The specific dates by which each State Legislature must pass a resolution adopting Hindi as its own official language",
+            "Restrictions on the use of the English language for official purposes of the Union"
+        ],
+        ans: 2,
+        exp: "Article 344(2) requires the Commission to make recommendations on the progressive use of Hindi, restrictions on the use of English, the language to be used for purposes under Article 348, and the form of numerals, among other matters referred to it. Prescribing specific dates for State Legislatures to adopt Hindi as their own official language falls outside this mandate, as the choice of a State's official language is a separate matter governed under Article 345."
+    },
+    {
+        q: "Which one of the following statements about the historical evolution of the office of the Attorney General of India is correct?",
+        opts: [
+            "M.C. Setalvad, who assumed office on 28 January 1950, was independent India's first Attorney General and remains its longest-serving holder of the office",
+            "The office was modelled on the American Attorney General, who is a voting member of the Cabinet",
+            "Setalvad simultaneously served as a nominated Member of the Rajya Sabha throughout his tenure as Attorney General",
+            "The office of the Attorney General was created for the first time only in 1973, following the Kesavananda Bharati case"
+        ],
+        ans: 0,
+        exp: "M.C. Setalvad assumed office as India's first Attorney General on 28 January 1950 and, having served until 1963, remains its longest-serving occupant. The office was in fact modelled on the English tradition of the Attorney-General rather than the American Cabinet-level model, has existed since the Constitution's commencement in 1950, and Setalvad's Rajya Sabha membership (1966-72) came only after, not during, his tenure as Attorney General."
+    },
+    {
+        q: "With reference to restrictions on further employment of former Chairmen and Members of Public Service Commissions, consider the following statements: <br> 1. A person who has held office as a Member of a State Public Service Commission is, on ceasing to hold office, eligible for appointment as Chairman of that Commission or as Chairman of the UPSC, but is barred from being appointed Chairman or Member of any other State Public Service Commission.<br>2. A person who has held office as Chairman of a State Public Service Commission is, on ceasing to hold office, eligible for further employment under the Government of that same State, but not under any other State Government.<br>3. These restrictions on further employment of former Chairmen and Members of Public Service Commissions are contained in Article 319 of the Constitution.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "None of the statements are correct",
+            "1 and 3 only",
+            "Only one of the statements is correct"
+        ],
+        ans: 3,
+        exp: "Article 319 does contain these restrictions, making statement 3 correct. However, under Article 319(d) a former State Commission Member is in fact eligible for appointment as Chairman or Member of any other State Public Service Commission as well, and under Article 319(e) a former State Commission Chairman is barred from further employment under that particular State's Government while remaining eligible under the Government of India or another State, exactly the reverse of what statements 1 and 2 claim, making both incorrect."
+    },
+    {
+        q: "Consider the following statements regarding the National Commission for Scheduled Tribes (NCST): <br> Assertion (A): The NCST has often been unable to bring about a substantial, qualitative improvement in the lives of Scheduled Tribes despite its constitutional status.<br>Reason (R): Parliamentary committee reviews have noted that the Commission is understaffed and suffers from a high rate of pendency in resolving the complaints it receives.<br>Which one of the following is correct in respect of the above Assertion (A) and Reason (R)?",
+        opts: [
+            "A is true but R is false",
+            "Both A and R are true and R is the correct explanation of A",
+            "A is false but R is true",
+            "Both A and R are true but R is not the correct explanation of A"
+        ],
+        ans: 1,
+        exp: "Parliamentary standing committee reports have flagged the NCST as being dysfunctional for extended periods, meeting infrequently, and carrying a pendency rate of nearly half of the complaints it receives, largely due to inadequate dedicated staff. These institutional weaknesses directly explain why the constitutional body has struggled to deliver a meaningful qualitative change for Scheduled Tribes, making R a correct explanation of A."
+    },
+    {
+        q: "A candidate serving in a civil post under the Government of India is aggrieved by a disciplinary action taken against him. Which one of the following constitutional provisions makes it obligatory for the government to consult the UPSC before finalising such a disciplinary matter?",
+        opts: [
+            "Article 320(3)(c)",
+            "Article 323",
+            "Article 315",
+            "Article 317"
+        ],
+        ans: 0,
+        exp: "Article 320(3)(c) specifically requires that the UPSC be consulted on all disciplinary matters affecting a person serving under the Government of India or a State in a civil capacity, including memorials or petitions relating to such matters. Article 315 merely establishes the Commission, Article 317 deals with removal of Commission members, and Article 323 concerns the Commission's annual report."
+    },
+    {
+        q: "With reference to the background and evolution of the institutional mechanism for Scheduled Castes at the national level, consider the following statements: <br> 1. A Special Officer for Scheduled Castes and Scheduled Tribes was first appointed under Article 338 in 1950, before any multi-member Commission was created.<br>2. The Constitution (65th Amendment) Act, 1990 provided for a multi-member National Commission for Scheduled Castes and Scheduled Tribes, but this was given effect only from March 1992.<br>3. The National Commission for Scheduled Castes, as a distinct body separate from the earlier combined Commission, has been functioning since the year 2000.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "A Special Officer was appointed under Article 338 as early as 1950, and the 65th Amendment Act, 1990 replaced this with a multi-member Commission, though it was brought into effect only from March 1992, making statements 1 and 2 correct. The separate National Commission for Scheduled Castes, however, has functioned only since 19 February 2004, following the Constitution (89th Amendment) Act, 2003, not since 2000, making statement 3 incorrect."
+    },
+    {
+        q: "Which one of the following is a correct feature of the Commission constituted under Article 344(1) of the Constitution on the official language of the Union?",
+        opts: [
+            "It is headed by the Union Home Minister as an ex-officio Chairman",
+            "It consists of a Chairman and other Members representing the different languages specified in the Eighth Schedule to the Constitution",
+            "It is a permanent body with continuous existence, unlike the periodically-constituted Finance Commission",
+            "Its recommendations are binding on the President and must be implemented without modification"
+        ],
+        ans: 1,
+        exp: "Article 344(1) provides for a Commission consisting of a Chairman and Members representing the different languages specified in the Eighth Schedule, appointed by the President. Like the Finance Commission, it is periodically constituted (initially after five years and thereafter every ten years) rather than being a continuously permanent body, its recommendations are only advisory, and it is distinct from the separate statutory Committee of Parliament on Official Language, which is chaired by the Union Home Minister."
+    },
+    {
+        q: "Consider the following in respect of the Attorney General of India: <br> Assertion (A): The Attorney General of India has faced recurring public criticism over potential conflicts of interest arising from simultaneous private legal practice.<br>Reason (R): The Constitution of India expressly permits the Attorney General to appear for private parties, including in cases directly against the Government of India, without any restriction whatsoever.<br>Which one of the following is correct in respect of the above Assertion (A) and Reason (R)?",
+        opts: [
+            "A is false but R is true",
+            "A is true but R is false",
+            "Both A and R are true and R is the correct explanation of A",
+            "Both A and R are true but R is not the correct explanation of A"
+        ],
+        ans: 1,
+        exp: "Several Attorneys General have faced criticism over private clients and cases creating a perceived conflict with their government role, making A true. However, the Constitution is silent on private practice; it is government-issued instructions and convention, not any express and unrestricted constitutional permission, that bar the Attorney General from appearing against the Government of India, making R false."
+    },
+    {
+        q: "Which of the following Constitutional Amendment Act(s) expanded the mandate of the Finance Commission under Article 280(3) to recommend measures for augmenting the Consolidated Fund of a State to supplement the resources of Panchayats and Municipalities?",
+        opts: [
+            "73rd Constitutional Amendment Act, 1992 alone",
+            "Both the 73rd and 74th Constitutional Amendment Acts, 1992",
+            "74th Constitutional Amendment Act, 1992 alone",
+            "91st Constitutional Amendment Act, 2003"
+        ],
+        ans: 1,
+        exp: "The 73rd Amendment Act, 1992 inserted clause (bb) into Article 280(3) covering resource augmentation for Panchayats, while the 74th Amendment Act, 1992 inserted clause (c) covering Municipalities, together enlarging the Finance Commission's mandate. The 91st Amendment, 2003, dealt with anti-defection and the size of ministries, unrelated to the Finance Commission."
+    },
+    {
+        q: "Consider the following in respect of State Public Service Commissions: <br> Assertion (A): State Public Service Commissions have faced a 'trust deficit' among aspirants in recent years.<br>Reason (R): Recurring issues such as examination paper leaks, evaluation errors, and prolonged litigation have delayed recruitment processes in several States.<br>Which one of the following is correct in respect of the above Assertion (A) and Reason (R)?",
+        opts: [
+            "A is false but R is true",
+            "A is true but R is false",
+            "Both A and R are true but R is not the correct explanation of A",
+            "Both A and R are true and R is the correct explanation of A"
+        ],
+        ans: 3,
+        exp: "Recent national conferences of SPSC chairpersons have themselves flagged a trust deficit among aspirants, making A true. This deficit has been directly attributed to recurring paper leaks, evaluation lapses and prolonged litigation causing recruitment delays, making R a correct and direct explanation of A."
+    },
+    {
+        q: "With reference to the constitutional provisions relating to the Comptroller and Auditor General (CAG) of India, consider the following statements: <br> 1. The CAG holds office for a term of six years or until he attains the age of 65 years, whichever is earlier.<br>2. Once determined, the salary and conditions of service of the CAG cannot thereafter be varied by Parliament in any manner during his tenure.<br>3. The salary of the CAG is charged upon the Consolidated Fund of India and is therefore not subject to the vote of Parliament.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 and 2 only",
+            "2 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "Under the CAG's (Duties, Powers and Conditions of Service) Act, 1971, the CAG's tenure is six years or 65 years of age, whichever is earlier, and his salary is charged on the Consolidated Fund of India, making it non-votable. However, Article 148(3) only bars Parliament from varying his salary, leave, pension or retirement age to his disadvantage after appointment; it does not bar all variation, so statement 2 is incorrect."
+    },
+    {
+        q: "With reference to the structure and composition of the Election Commission of India, consider the following statements: <br> 1. The Election Commission became a multi-member body on a permanent basis with effect from 1 October 1993, comprising the Chief Election Commissioner and two Election Commissioners.<br>2. Under the Chief Election Commissioner and Other Election Commissioners Act, 2023, the Selection Committee that recommends appointments to the President consists of the Prime Minister, the Leader of the Opposition in the Lok Sabha, and the Chief Justice of India.<br>3. The Supreme Court has held that the Chief Election Commissioner and the other Election Commissioners enjoy equal powers in the functioning of the Commission.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "Both 1 and 2",
+            "Only one of the statements is correct"
+        ],
+        ans: 0,
+        exp: "The Commission became a permanent three-member body from 1 October 1993, and in T.N. Seshan v. Union of India, the Supreme Court held that all Election Commissioners enjoy equal powers and status. However, under the CEC Act, 2023, the Selection Committee comprises the Prime Minister, the Leader of the Opposition, and a Union Cabinet Minister nominated by the Prime Minister, not the Chief Justice of India, so statement 2 is incorrect."
+    },
+    {
+        q: "With reference to a recent Supreme Court ruling concerning the National Commission for Scheduled Castes (NCSC), consider the following statements: <br> 1. The Court clarified that the powers of the NCSC under Article 338 are investigative and advisory, and do not extend to passing enforceable orders like a court or tribunal.<br>2. The ruling arose from a case in which a Port Authority's appeal challenged an NCSC order that had earlier been upheld by the Kerala High Court.<br>3. The Court held that the NCSC's civil-court-like powers under Article 338(8) empower it to grant binding monetary compensation to complainants.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements is correct",
+            "1 only",
+            "1 and 3 only",
+            "2 only"
+        ],
+        ans: 1,
+        exp: "The Supreme Court held that the NCSC's civil-court-like powers under Article 338(8) exist only to assist its investigations and inquiries, and it cannot issue enforceable orders or grant relief like a court or tribunal, making statement 1 correct. However, the case actually arose from an appeal against an order of the Bombay High Court, not the Kerala High Court, and the Court did not hold that the NCSC could grant binding monetary compensation, making statements 2 and 3 incorrect."
+    },
+    {
+        q: "With reference to the constitutional provisions relating to the National Commission for Scheduled Tribes (NCST), consider the following statements: <br> 1. The NCST was established by inserting Article 338A through the Constitution (89th Amendment) Act, 2003.<br>2. Clause (9) of Article 338A requires the Union and every State Government to consult the Commission on all major policy matters affecting Scheduled Tribes.<br>3. Reports submitted by the Commission to the President are placed before each House of Parliament without any explanatory memorandum on cases where the Commission's recommendations were not accepted.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "The NCST was created through Article 338A by the 89th Amendment Act, 2003, and Article 338A(9) mandates consultation with the Commission on major policy matters affecting Scheduled Tribes, making statements 1 and 2 correct. However, Article 338A(6) specifically requires the President to lay such reports before Parliament along with a memorandum explaining the reasons for non-acceptance of any recommendations, making statement 3 incorrect."
+    },
+    {
+        q: "Which one of the following is a distinguishing feature of the National Commission for Scheduled Tribes (NCST)?",
+        opts: [
+            "The Commission's tenure is coterminous with that of the Lok Sabha",
+            "Its Chairperson holds the rank of a Union Cabinet Minister, its Vice-Chairperson that of a Minister of State, and its other Members that of a Secretary to the Government of India",
+            "It was established as an ordinary statutory body without any constitutional backing",
+            "Members of the Commission are eligible for reappointment for an unlimited number of terms"
+        ],
+        ans: 1,
+        exp: "Under the rules framed pursuant to Article 338A, the NCST's Chairperson enjoys the rank of a Union Cabinet Minister, the Vice-Chairperson that of a Minister of State, and other Members that of a Secretary to the Government of India. The Commission is a constitutional body under Article 338A, its Members can be reappointed for a maximum of only two terms, and its three-year individual terms are unrelated to the life of the Lok Sabha."
+    },
+    {
+        q: "Which one of the following is a distinguishing constitutional characteristic of the office of the Attorney General of India?",
+        opts: [
+            "He is a member of the Union Council of Ministers with a right to vote in Cabinet decisions",
+            "He is a full-time salaried employee of the Government of India and is barred from all private legal practice",
+            "He is entitled to speak and take part in the proceedings of both Houses of Parliament and any Parliamentary Committee of which he is named a member, without a right to vote",
+            "He must compulsorily retire upon attaining the age of 65 years"
+        ],
+        ans: 2,
+        exp: "Article 88 entitles the Attorney General to participate in the proceedings of either House of Parliament or their Committees without being a member and without a right to vote, a genuine distinguishing feature. He has no fixed retirement age or tenure, is not barred from private practice by the Constitution, and is not a voting member of the Council of Ministers."
+    },
+    {
+        q: "With reference to the structure and composition of the Finance Commission, consider the following statements: <br> 1. It is constituted by the President under Article 280 of the Constitution every five years or at such earlier time as he considers necessary.<br>2. It consists of a Chairman and four other Members appointed by the President, and Parliament has, by the Finance Commission (Miscellaneous Provisions) Act, 1951, prescribed their qualifications and manner of selection.<br>3. The recommendations of the Finance Commission are advisory in nature and are not binding on either the Union or the State Governments.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "1, 2 and 3",
+            "1 and 2 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "The Finance Commission is constituted every five years or earlier under Article 280, consists of a Chairman and four Members whose qualifications are prescribed under the Finance Commission Act, 1951, and its recommendations remain advisory rather than binding on either level of government. All three statements are therefore correct."
+    },
+    {
+        q: "Consider the following in respect of the Union Public Service Commission (UPSC): <br> Assertion (A): Concerns have periodically been raised in Parliament that the UPSC's role needs to be re-examined in view of India's changing administrative and economic landscape.<br>Reason (R): The advice tendered by the UPSC under Article 320 is constitutionally binding on the Union Government in all matters of recruitment and disciplinary action.<br>Which one of the following is correct in respect of the above Assertion (A) and Reason (R)?",
+        opts: [
+            "Both A and R are true and R is the correct explanation of A",
+            "A is true but R is false",
+            "A is false but R is true",
+            "Both A and R are true but R is not the correct explanation of A"
+        ],
+        ans: 1,
+        exp: "Parliamentary questions have genuinely flagged the need to review the UPSC's functioning and role in a changed administrative ecology, making A true. However, UPSC's advice under Article 320 is only advisory and not constitutionally binding on the government, which may decline to accept it, though it must generally record reasons in relevant reports; hence R is false, and the actual concerns arise from the Commission's advisory rather than binding nature."
+    },
+    {
+        q: "With reference to the consultative role of the Union Public Service Commission (UPSC) under Article 320 of the Constitution, consider the following statements: <br> 1. The Commission is required to be consulted on all disciplinary matters affecting a person serving under the Government of India or a State in a civil capacity, including any memorial or petition relating to such matters.<br>2. The President is empowered, by regulations made under a proviso to Article 320(3), to exclude certain services, posts or classes of appointments from the requirement of UPSC consultation.<br>3. UPSC consultation is mandatory even for a purely temporary appointment made for a period not exceeding one year.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 2,
+        exp: "Article 320(3)(c) mandates UPSC consultation on disciplinary matters, and the proviso to Article 320(3) allows the President to frame exemption regulations (the UPSC Exemption from Consultation Regulations, 1958) excluding specified matters from this requirement. However, the same proviso also exempts purely temporary appointments not exceeding one year from mandatory UPSC consultation, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the Attorney General of India, consider the following statements: <br> 1. The Attorney General is appointed by the President and must possess the same qualifications as are required for appointment as a Judge of the Supreme Court.<br>2. The Attorney General is necessarily a nominated member of the Rajya Sabha, by virtue of being the highest law officer of the Union.<br>3. The removal of the Attorney General follows the same impeachment procedure as that applicable to a Judge of the Supreme Court.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements is correct",
+            "3 only",
+            "1 only",
+            "2 only"
+        ],
+        ans: 2,
+        exp: "Under Article 76, the Attorney General is appointed by the President and must have the qualifications required for a Supreme Court Judge, making statement 1 correct. He is not required to be, and is not necessarily, a member of either House of Parliament, and he holds office during the pleasure of the President rather than being removable through any impeachment procedure, making statements 2 and 3 incorrect."
+    },
+    {
+        q: "With reference to the Commission constituted under Article 344(1) of the Constitution on the official language of the Union, consider the following statements: <br> 1. The Commission is required to be constituted by the President at the expiration of five years from the commencement of the Constitution and thereafter at the expiration of every ten years.<br>2. As nearly as may be, one-half of the members of the Commission must be persons who have held office under the Government of India or a State for at least ten years.<br>3. While making its recommendations, the Commission is required to have due regard to the industrial, cultural and scientific advancement of India and to the just claims and interests of persons belonging to non-Hindi-speaking areas in regard to public services.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 2 and 3",
+            "Both 1 and 3",
+            "All of the statements are correct",
+            "None of the statements are correct"
+        ],
+        ans: 1,
+        exp: "Article 344(1) requires the President to constitute the Commission first at the expiration of five years from the Constitution's commencement and thereafter every ten years, and Article 344(3) requires it to have due regard to India's industrial, cultural and scientific advancement and to the interests of non-Hindi-speaking areas. The 'one-half members with ten years of government service' requirement applies to Public Service Commissions under Article 316, not to this Commission, whose members instead represent the different languages specified in the Eighth Schedule, making statement 2 incorrect."
+    },
+    {
+        q: "The Dinesh Goswami Committee on Electoral Reforms (1990) is chiefly associated with which one of the following recommendations?",
+        opts: [
+            "Constitution of separate, independent Election Commissions for each State",
+            "A complete prohibition on independent candidates contesting parliamentary elections",
+            "Introduction of a list system based on proportional representation for elections to the Lok Sabha",
+            "Partial state funding of elections, primarily in kind rather than in cash"
+        ],
+        ans: 3,
+        exp: "The Dinesh Goswami Committee (1990) recommended partial state funding of elections, preferably in kind, along with measures such as fresh polls in case of booth capturing and greater transparency in election expenditure. Proportional representation was associated instead with the earlier Tarkunde Committee (1975), while banning independent candidates and creating separate State-level Election Commissions were never recommendations of any major electoral reforms committee."
+    },
+    {
+        q: "Which one of the following is NOT a function actually performed by the Comptroller and Auditor General of India?",
+        opts: [
+            "Auditing the receipts and expenditure of bodies and authorities substantially financed from the Consolidated Fund of India",
+            "Auditing the accounts related to expenditure from the Consolidated Fund of India and of each State and Union Territory having a Legislative Assembly",
+            "Auditing the trading, manufacturing, and profit and loss accounts and balance sheets kept by any government department",
+            "Acting as the ex-officio Chairperson of the Public Accounts Committee that examines the CAG's own audit reports"
+        ],
+        ans: 3,
+        exp: "Under Article 149 and the CAG's (Duties, Powers and Conditions of Service) Act, 1971, the CAG audits Union and State expenditure, government-financed bodies, and departmental commercial accounts. However, the Public Accounts Committee that scrutinises the CAG's reports is chaired by a Member of Parliament, by convention from the Opposition since 1967, not by the CAG, who is not even a member of the Committee."
+    },
+    {
+        q: "Which one of the following is a distinguishing feature of the office of the Comptroller and Auditor General of India?",
+        opts: [
+            "After ceasing to hold office, the CAG is not eligible for further employment either under the Government of India or under the Government of any State",
+            "The CAG's term of office is renewable indefinitely at the discretion of the President",
+            "The CAG is a member of the Public Accounts Committee that examines his own audit reports",
+            "The CAG is directly elected by the members of both Houses of Parliament sitting together"
+        ],
+        ans: 0,
+        exp: "Article 148(4) bars the CAG from further government employment, whether under the Union or any State, after ceasing to hold office, safeguarding the independence and impartiality of the institution. The CAG does not sit on the Public Accounts Committee that scrutinises the CAG's own reports, has a fixed non-renewable term of six years or 65 years of age, and is appointed by the President rather than elected by Parliament."
+    },
+    {
+        q: "Which one of the following statements correctly describes the composition of the National Commission for Scheduled Castes as provided under Article 338 of the Constitution?",
+        opts: [
+            "A Chairperson, a Vice-Chairperson, and five other Members, of whom at least three must belong to the Scheduled Castes",
+            "A Chairperson alone, assisted by a Secretary-level officer designated as the Commissioner for Scheduled Castes",
+            "A Chairperson, a Vice-Chairperson, and three other Members, all appointed by the President by warrant under his hand and seal",
+            "A Chairperson and five other Members, all nominated by the Union Cabinet"
+        ],
+        ans: 2,
+        exp: "Article 338(2) and (3) provide that the National Commission for Scheduled Castes consists of a Chairperson, a Vice-Chairperson and three other Members, all appointed by the President by warrant under his hand and seal, with conditions of service determined by the President by rule. The single-officer 'Commissioner for Scheduled Castes and Scheduled Tribes' model described in option (d) was the pre-1990 arrangement, replaced by the multi-member Commission after the 65th and later 89th Constitutional Amendments."
+    },
+    {
+        q: "With reference to a State Public Service Commission (SPSC), consider the following statements: <br> 1. The Chairman and members of an SPSC are appointed by the Governor of the State, while those of a Joint State Public Service Commission are appointed by the President of India.<br>2. A member of an SPSC holds office for a term of six years or until he attains the age of 65 years, whichever is earlier, the same as a member of the UPSC.<br>3. The Chairman or a member of an SPSC may be removed from office by the Governor of the State on grounds equivalent to those applicable to a Judge of a High Court.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1 and 3 only",
+            "None of the statements is correct",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "Under Article 316(1), the Chairman and members of a State Commission are appointed by the Governor, while those of a Joint Commission are appointed by the President, making statement 1 correct. However, the retirement age for a State or Joint Commission member is 62 years, not 65 (65 applies only to the Union Commission), and although appointed by the Governor, removal of an SPSC Chairman or member can be effected only by the President under Article 317, never by the Governor, making statements 2 and 3 incorrect."
+    },
+    {
+        q: "With reference to recent developments concerning State Public Service Commissions (SPSCs), consider the following statements: <br> 1. The 2025 national conference of chairpersons of State Public Service Commissions was hosted by the Telangana State Public Service Commission in December 2025.<br>2. Such conferences of SPSC chairpersons are held under a specific constitutional mandate contained in Article 315.<br>3. Concerns raised at such forums have included recurring issues of examination paper leaks, delays in recruitment, and litigation eroding candidates' trust in the SPSCs.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "The Telangana State Public Service Commission hosted the 2025 national conference of SPSC chairpersons in December 2025, where systemic issues such as paper leaks, recruitment delays and litigation-driven trust deficits were discussed, making statements 1 and 3 correct. Article 315 merely provides for the establishment of Public Service Commissions and does not mandate any such periodic conference of chairpersons, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to the features of the Election Commission of India, consider the following statements: <br> 1. It is a permanent and independent constitutional body established under Article 324.<br>2. General elections to the Lok Sabha and every State Legislative Assembly are ordinarily held once every five years, unless the House is dissolved sooner, and the Commission superintends this process.<br>3. The Commission's decisions can be challenged before courts through appropriate legal remedies and are not completely immune from judicial review.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "1, 2 and 3",
+            "1 only",
+            "Both 2 and 3"
+        ],
+        ans: 1,
+        exp: "The Election Commission is indeed a permanent constitutional body under Article 324, superintends elections that are ordinarily held every five years unless a House is dissolved earlier, and while Article 329 restricts pre-election and mid-election judicial interference to election petitions, the Commission's decisions are not completely immune from judicial review, as courts can examine them through writ jurisdiction and election petitions. All three statements are therefore correct."
+    },
+    {
+        q: "Which one of the following correctly distinguishes a feature of a State Public Service Commission (SPSC) from that of the Union Public Service Commission (UPSC)?",
+        opts: [
+            "The expenses of an SPSC are charged on the Consolidated Fund of India rather than the Consolidated Fund of the State",
+            "The retirement age for members of an SPSC is 62 years, compared to 65 years for members of the UPSC",
+            "The annual report of an SPSC is submitted directly to the State Legislature without being routed through the Governor",
+            "Unlike the UPSC, an SPSC's advice on civil service matters is legally binding on the State Government"
+        ],
+        ans: 1,
+        exp: "Under Article 316(2), members of a State or Joint Commission retire at 62 years, whereas UPSC members retire at 65 years, a genuine distinguishing feature. The advice of both Commissions remains advisory rather than binding, the SPSC's annual report goes to the Governor first under Article 323 before being placed before the Legislature, and its expenses are charged on the State's, not the Union's, Consolidated Fund under Article 322."
+    },
+    {
+        q: "Which one of the following statements about Article 338 of the Constitution, dealing with the National Commission for Scheduled Castes, is correct?",
+        opts: [
+            "It mandates that at least half the Members of the Commission must themselves belong to the Scheduled Castes",
+            "It requires the Union and every State Government to consult the Commission on all major policy matters affecting the Scheduled Castes",
+            "It provides for the automatic renewal of the Commission's term without any fresh order of the President",
+            "It allows the Commission to overturn a judicial decision affecting the Scheduled Castes"
+        ],
+        ans: 1,
+        exp: "Article 338(9) obliges the Union and every State Government to consult the Commission on all major policy matters affecting the Scheduled Castes. The Commission has no power to overturn judicial decisions, the Constitution does not itself stipulate that half the Members must belong to the Scheduled Castes, and its composition and tenure are as determined by the President by rule, without automatic renewal."
+    },
+    {
+        q: "Which one of the following is correct regarding the composition of the Union Public Service Commission (UPSC)?",
+        opts: [
+            "At least half of the Members of the Commission are required to be persons who have held office for at least ten years under the Government of India or a State",
+            "All Members of the UPSC must necessarily be retired civil servants",
+            "The Constitution fixes the exact number of Members of the UPSC, leaving it unalterable by the President",
+            "The Chairman of the UPSC is elected by the Members of the Commission from amongst themselves"
+        ],
+        ans: 0,
+        exp: "The proviso to Article 316(1) requires that as nearly as may be, one-half of the Members of the Commission be persons who have held office for at least ten years under the Government of India or a State. The Constitution does not fix the exact strength of the Commission, leaving it to the President's discretion, the Chairman is appointed by the President rather than elected by fellow Members, and there is no requirement that all Members be retired civil servants."
+    },
+    {
+        q: "With reference to the Committee of Parliament on Official Language, consider the following statements: <br> 1. It was constituted under the provisions of the Official Languages Act, 1963, and consists of twenty members from the Lok Sabha and ten from the Rajya Sabha.<br>2. As of 2025, the Union Home Minister has been serving as the Chairperson of this Committee.<br>3. The reports of this Committee are submitted directly to Parliament without requiring any action by the President.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 2,
+        exp: "The Committee of Parliament on Official Language, set up under Section 4 of the Official Languages Act, 1963, has 30 members (20 from the Lok Sabha, 10 from the Rajya Sabha) and has been chaired by the Union Home Minister, a position continued into 2025. However, its reports are submitted to the President, who causes them to be laid before both Houses of Parliament and forwarded to the States, so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to recent developments concerning the Union Public Service Commission (UPSC), consider the following statements: <br> 1. Dr. Ajay Kumar, a former Defence Secretary of India, was appointed as the Chairman of the UPSC in May 2025, succeeding Ms. Preeti Sudan.<br>2. Dr. Ajay Kumar belongs to the 1985 batch of the Indian Police Service (IPS).<br>3. On ceasing to hold office, the Chairman of the UPSC is eligible for appointment as the Chairman of a State Public Service Commission.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "None of the statements is correct",
+            "3 only",
+            "2 only"
+        ],
+        ans: 0,
+        exp: "Dr. Ajay Kumar, a retired IAS officer (not IPS) and former Defence Secretary, was appointed UPSC Chairman in May 2025 after Preeti Sudan's tenure ended. Under Article 319(a), the Chairman of the UPSC is barred from all further government employment, including as Chairman of any State Public Service Commission, unlike ordinary UPSC members who retain limited eligibility."
+    },
+    {
+        q: "Which one of the following has been suggested as a reform to strengthen the institutional framework of the Finance Commission, drawing on the experience of the Goods and Services Tax (GST) Council?",
+        opts: [
+            "Abolishing the Finance Commission and replacing it entirely with the GST Council",
+            "Transferring the power to constitute the Finance Commission from the President to the Prime Minister",
+            "Making the recommendations of the Finance Commission binding on the Union Government through a constitutional amendment",
+            "Establishing a permanent secretariat and a formal mechanism for greater State participation in the Finance Commission's constitution and functioning, on the lines of the GST Council"
+        ],
+        ans: 3,
+        exp: "Given the GST Council's success as a cooperative body with formal Union-State participation, commentators have suggested a similar institutionalised mechanism for State involvement in the Finance Commission's constitution and functioning, along with a permanent secretariat. The Finance Commission's recommendations remain advisory rather than binding, and there is no serious proposal to shift its constituting authority to the Prime Minister or to replace it with the GST Council."
+    },
+    {
+        q: "With reference to recent developments concerning the Comptroller and Auditor General (CAG) of India, consider the following statements: <br> 1. K. Sanjay Murthy assumed office as the CAG of India in November 2024, under Article 148(1) of the Constitution.<br>2. Audit Diwas is observed on 16th November every year to commemorate the assumption of charge by the first Auditor General under the Government of India Act, 1858, in 1860.<br>3. The CAG-Connect portal, launched in 2025, is a physical grievance redressal office set up exclusively in New Delhi for auditee entities to file complaints in person.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "All of the above",
+            "Both 1 and 2",
+            "Both 2 and 3"
+        ],
+        ans: 2,
+        exp: "K. Sanjay Murthy was appointed CAG under Article 148(1) with effect from November 2024, and Audit Diwas on 16th November commemorates Sir Edward Drummond assuming charge as the first Auditor General in 1860 under the Government of India Act, 1858, making statements 1 and 2 correct. However, the CAG-Connect portal launched in 2025 is a unified digital interface for nearly ten lakh auditee entities nationwide, not a physical office confined to New Delhi, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the Chief Election Commissioner and Other Election Commissioners Act, 2023, consider the following statements: <br> 1. The Act replaced the Election Commission (Conditions of Service of Election Commissioners and Transaction of Business) Act, 1991.<br>2. Under the Act, the salary and service conditions of the CEC and Election Commissioners continue to be equivalent to those of a Judge of the Supreme Court, as was the position under the 1991 Act.<br>3. The Chief Election Commissioner can be removed only in the same manner and on the same grounds as a Judge of the Supreme Court, while an Election Commissioner can be removed only on the recommendation of the Chief Election Commissioner.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 3 only"
+        ],
+        ans: 3,
+        exp: "The 2023 Act replaced the 1991 Act and retains the constitutional protection under Article 324(5) that the CEC be removed only like a Supreme Court Judge, with an Election Commissioner removable only on the CEC's recommendation. However, the 2023 Act changed the salary and service conditions of the CEC and Election Commissioners to be equivalent to those of the Cabinet Secretary, departing from the earlier Supreme Court Judge parity under the 1991 Act, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to the structure and composition of the office of the Comptroller and Auditor General (CAG) of India, consider the following statements: <br> 1. The CAG is appointed by the President by warrant under his hand and seal, and holds office for six years or till the age of 65 years, whichever is earlier.<br>2. Unlike many other constitutional posts, the office of the CAG is a multi-member body consisting of a Chairman and several Deputy Comptrollers and Auditors General having equal decision-making powers.<br>3. Before entering upon his office, the CAG must make and subscribe an oath or affirmation before the Chief Justice of India.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "Statement 2 alone",
+            "Both 1 and 2",
+            "Only statement 3"
+        ],
+        ans: 0,
+        exp: "The CAG is indeed appointed by the President by warrant under his hand and seal, with a term of six years or until 65 years of age, whichever is earlier, making statement 1 correct. However, the CAG is a single-member constitutional authority, not a multi-member body with co-equal Deputy CAGs, and Article 148(2) requires the oath to be made before the President or a person appointed by him, not the Chief Justice of India, making statements 2 and 3 incorrect."
+    },
+    {
+        q: "Consider the following in respect of the Election Commission of India: <br> Assertion (A): The Election Commission of India has faced repeated demands for structural reform, including a more insulated mechanism for appointing the Chief Election Commissioner and Election Commissioners.<br>Reason (R): The Supreme Court's Anoop Baranwal judgment (2023) directed that appointments be made by a committee comprising the Prime Minister, the Leader of the Opposition, and the Chief Justice of India until Parliament enacted a law, and this arrangement continues unchanged today.<br>Which one of the following is correct in respect of the above Assertion (A) and Reason (R)?",
+        opts: [
+            "A is false but R is true",
+            "Both A and R are true and R is the correct explanation of A",
+            "Both A and R are true but R is not the correct explanation of A",
+            "A is true but R is false"
+        ],
+        ans: 3,
+        exp: "Demands for a more insulated appointment mechanism for the CEC and Election Commissioners have indeed persisted, making A true. However, R is false in its final part, since Parliament subsequently enacted the Chief Election Commissioner and Other Election Commissioners Act, 2023, which replaced the interim Anoop Baranwal committee by substituting the Chief Justice of India with a Union Cabinet Minister nominated by the Prime Minister, so the original arrangement has not continued unchanged."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-77 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

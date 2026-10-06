@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-45</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "With reference to the reservation of seats for women under the Constitution (106th Amendment) Act, 2023, consider the following statements: <br>1. It reserves one-third of the seats in the Lok Sabha for women, including one-third of the seats reserved for Scheduled Castes and Scheduled Tribes.<br>2. The reservation will come into effect only after a delimitation exercise based on the first Census taken after the commencement of the Act.<br>3. It also reserves one-third of the seats in the Rajya Sabha and the State Legislative Councils for women.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "1 and 2 only",
+            "2 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "The 106th Amendment reserves one-third of seats in the Lok Sabha, State Legislative Assemblies and the Delhi Assembly for women, including within the SC and ST quotas, and links its operation to delimitation after the first Census following the Act. It does not apply to the Rajya Sabha or the State Legislative Councils, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to parliamentary privileges in India, consider the following statements: <br>1. Parliamentary privileges are fully codified in a comprehensive Act of Parliament.<br>2. The freedom from arrest enjoyed by members extends to criminal cases and cases of preventive detention.<br>3. The President of India, as an integral part of Parliament, enjoys the privileges under Article 105.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements is correct",
+            "2 and 3 only",
+            "3 only",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "Parliamentary privileges have not been fully codified; they rest on constitutional provisions, statutes, rules of procedure, parliamentary conventions and judicial interpretation. Freedom from arrest applies only to civil cases, not to criminal matters or preventive detention. The President, though part of Parliament, does not enjoy these privileges, whereas Ministers and the Attorney General do under Article 105(4)."
+    },
+    {
+        q: "With reference to the sessions of Parliament in India, consider the following statements: <br>1. The Constitution itself fixes three sessions of Parliament in a year, namely Budget, Monsoon and Winter.<br>2. Prorogation of a House does not, by itself, cause pending Bills to lapse.<br>3. Prorogation is done by the President, whereas adjournment sine die is declared by the Presiding Officer of the House.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "Only two of the statements are correct",
+            "Exactly one of the statements is correct",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "Article 85 only requires that six months not intervene between two sessions. The three-session calendar is a convention, so statement 1 is wrong. Pending Bills do not lapse on prorogation but only on dissolution of the Lok Sabha, and prorogation is by the President while adjournment sine die is by the Presiding Officer."
+    },
+    {
+        q: "A Money Bill passed by the Lok Sabha is transmitted to the Rajya Sabha, which neither returns it nor makes any recommendation on it within fourteen days. What is the consequence?",
+        opts: [
+            "The Bill lapses and must be reintroduced afresh in the Lok Sabha",
+            "A joint sitting of both Houses is summoned under Article 108 to pass the Bill",
+            "The Bill is sent to the President, who may return it to the Lok Sabha for reconsideration",
+            "The Bill is deemed to have been passed by both Houses in the form in which it was passed by the Lok Sabha"
+        ],
+        ans: 3,
+        exp: "Under Article 109, if the Rajya Sabha does not return a Money Bill within fourteen days, it is deemed to have been passed by both Houses in the form passed by the Lok Sabha. A joint sitting is not available for Money Bills, and the President cannot return a Money Bill for reconsideration."
+    },
+    {
+        q: "Which one of the following statements regarding the term of the Lok Sabha is correct?",
+        opts: [
+            "The 44th Amendment restored the five-year term of the Lok Sabha, which had been extended to six years by the 42nd Amendment",
+            "The 42nd Amendment reduced the term of the Lok Sabha from five years to four years",
+            "The 52nd Amendment extended the term of the Lok Sabha to six years",
+            "The 44th Amendment removed the power of Parliament to extend the term of the Lok Sabha during a National Emergency"
+        ],
+        ans: 0,
+        exp: "The 42nd Amendment (1976) extended the Lok Sabha's term to six years, and the 44th Amendment (1978) restored the five-year term. The 44th Amendment retained Parliament's power to extend the term during a National Emergency, one year at a time, but added the condition that the extension cannot go beyond six months after the Emergency ends. The 52nd Amendment introduced the anti-defection law."
+    },
+    {
+        q: "Which one of the following best describes the constitutional position regarding the powers, privileges and immunities of the Houses of Parliament after the Constitution (Forty-fourth Amendment) Act, 1978?",
+        opts: [
+            "They are those of the British House of Commons as they stood on 26 January 1950, and cannot be altered by Parliament",
+            "They are fully and exhaustively defined in Article 105 itself, leaving no scope for further legislation by Parliament",
+            "They are such as may be defined by Parliament by law, and until so defined, those of the House immediately before the relevant provision of the 44th Amendment came into force",
+            "They are determined by the Supreme Court on a case-by-case basis, and Parliament has no power to define them by law"
+        ],
+        ans: 2,
+        exp: "Article 105(3) originally tied privileges to those of the British House of Commons at the commencement of the Constitution. The 44th Amendment removed this reference, so privileges are now those defined by Parliament by law and, until then, those the House enjoyed immediately before the amendment took effect. Parliament has so far not enacted a comprehensive privileges law, which is why the other options are incorrect."
+    },
+    {
+        q: "Which one of the following is a commonly cited limitation of the Public Accounts Committee (PAC)?",
+        opts: [
+            "It is barred from examining the audit reports of the Comptroller and Auditor General",
+            "It examines expenditure only after it has been incurred, so it can conduct only a post-mortem and cannot prevent wasteful spending",
+            "Its Chairperson is always drawn from the ruling party",
+            "It can issue binding directions to Ministries to recover misspent amounts"
+        ],
+        ans: 1,
+        exp: "The PAC scrutinises the CAG's audit reports on accounts after the money has been spent, so it can point out waste and irregularity but cannot stop it in advance. Its recommendations are advisory and not binding on Ministries. By convention, its Chairperson has been an Opposition member since 1967."
+    },
+    {
+        q: "The provisions of the Indian Constitution limiting the Rajya Sabha's role in Money Bills, including the fourteen-day period for returning them, are modelled on the position of the British House of Lords under which one of the following?",
+        opts: [
+            "The Bill of Rights, 1689",
+            "The Parliament Act, 1949",
+            "The Parliament Act, 1911",
+            "The Government of India Act, 1919"
+        ],
+        ans: 2,
+        exp: "The Parliament Act, 1911 deprived the House of Lords of the power to reject Money Bills and allowed it to delay them only for one month, a model reflected in Article 109 of the Indian Constitution. The 1949 Act reduced the Lords' delaying power over ordinary Bills and did not deal specially with Money Bills."
+    },
+    {
+        q: "Which one of the following provisions, inserted by the Constitution (44th Amendment) Act, 1978, protects the publication of a substantially true report of the proceedings of Parliament from civil or criminal liability, unless the publication is made with malice?",
+        opts: [
+            "Article 361A",
+            "Article 361B",
+            "Article 122",
+            "Article 361"
+        ],
+        ans: 0,
+        exp: "Article 361A protects from liability the publication in a newspaper of a substantially true report of proceedings of Parliament or a State Legislature, unless it is proved to have been made with malice. Article 361 protects the President and Governors, Article 361B deals with disqualification for remunerative political posts, and Article 122 bars courts from questioning parliamentary proceedings for irregularity of procedure."
+    },
+    {
+        q: "With reference to the annual Finance Bill in India, which one of the following statements is correct?",
+        opts: [
+            "It must be passed in the Lok Sabha by a special majority as it imposes new taxes",
+            "Its introduction in the Lok Sabha does not require the recommendation of the President",
+            "It must be passed within 75 days of its introduction so that the provisional collection of taxes under the Provisional Collection of Taxes Act, 1931 remains valid",
+            "It can be introduced in either House of Parliament at the discretion of the Finance Minister"
+        ],
+        ans: 2,
+        exp: "Under the Provisional Collection of Taxes Act, 1931, a declaration allowing taxes to be collected before the Bill is enacted lapses after 75 days from introduction of the Bill, which is why the Finance Bill is passed within that period. A Finance Bill can be introduced only in the Lok Sabha and only on the recommendation of the President, and it needs a simple majority, so the other options are incorrect."
+    },
+    {
+        q: "With reference to the functions and powers of the Presiding Officers of Parliament, consider the following statements: <br>1. The Speaker certifies a Bill as a Money Bill when it is transmitted to the Rajya Sabha and when it is presented to the President for assent.<br>2. The Chairman of the Rajya Sabha presides over a joint sitting of the two Houses under Article 108 in the absence of the Speaker.<br>3. The decision of the Speaker on disqualification under the Tenth Schedule is final and cannot be examined by courts on any ground.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 2 alone",
+            "1 and 2 only",
+            "Only two of the statements are correct",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "Article 110(4) requires the Speaker's certificate on a Money Bill at both stages. Under Article 118 and the rules, the Chairman of the Rajya Sabha never presides over a joint sitting; in the Speaker's absence the Deputy Speaker and then the Deputy Chairman preside. In Kihoto Hollohan (1992), the Supreme Court held that the Speaker's Tenth Schedule decisions are open to limited judicial review, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to Finance Bills in India, consider the following statements: <br>1. A Finance Bill that contains only the matters specified in Article 110 is treated as a Money Bill.<br>2. A Financial Bill under Article 117(3) can be introduced only in the Lok Sabha.<br>3. The Rajya Sabha can amend a Finance Bill that contains only Article 110 matters by a simple majority.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "3 only",
+            "1 only",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "A Bill containing only the matters listed in Article 110 is a Money Bill, so statement 1 is correct. A Financial Bill under Article 117(3) can be introduced in either House, and the Rajya Sabha has full powers over it as over an ordinary Bill, which makes statement 2 wrong. The Rajya Sabha cannot amend a Money Bill and can only recommend changes, which makes statement 3 wrong."
+    },
+    {
+        q: "With reference to the proceedings for the removal of Justice Yashwant Varma initiated in Parliament in 2025, consider the following statements: <br>1. The Speaker of the Lok Sabha admitted a notice of motion signed by 146 members, which exceeds the minimum number of Lok Sabha members required under the Judges (Inquiry) Act, 1968.<br>2. The Inquiry Committee under the Act was constituted by the Chief Justice of India.<br>3. Once the Inquiry Committee finds the Judge guilty of misconduct, the Judge stands removed from office automatically.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 only",
+            "3 only"
+        ],
+        ans: 2,
+        exp: "The Speaker admitted the notice signed by 146 members on 12 August 2025, against a minimum of 100 Lok Sabha members under the Judges (Inquiry) Act. The three-member Inquiry Committee is constituted by the Speaker, not the Chief Justice of India. A Judge can be removed only after each House passes an address supported by a majority of its total membership and two-thirds of members present and voting, followed by the President's order."
+    },
+    {
+        q: "<b>Assertion (A):</b> The Constitution (104th Amendment) Act, 2019 discontinued the nomination of Anglo-Indian members to the Lok Sabha and the State Legislative Assemblies.<br><b>Reason (R):</b> The Constitution (104th Amendment) Act, 2019 extended the reservation of seats for Scheduled Castes and Scheduled Tribes in the Lok Sabha and the State Legislative Assemblies by ten years.<br>In the context of the above, which one of the following is correct?",
+        opts: [
+            "Both A and R are true, but R is not the correct explanation of A",
+            "A is true, but R is false",
+            "Both A and R are true, and R is the correct explanation of A",
+            "A is false, but R is true"
+        ],
+        ans: 0,
+        exp: "The 104th Amendment omitted the provisions for nominating Anglo-Indian members in Articles 331 and 333 and, through Article 334, extended SC and ST reservation in the Lok Sabha and State Assemblies for ten more years, up to 2030. Both changes were made by the same amendment, but the extension of SC and ST reservation does not explain the end of Anglo-Indian nomination."
+    },
+    {
+        q: "With reference to the evolution of the office of the Speaker in India, consider the following statements: <br>1. The offices of Speaker and Deputy Speaker originated in India under the Indian Councils Act, 1909.<br>2. Sir Frederick Whyte, the first President of the Central Legislative Assembly, was elected by the members of the Assembly.<br>3. The Government of India Act, 1935 provided for the designations of Speaker and Deputy Speaker in place of President and Deputy President, though the older titles continued until 1947.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "Only two of the statements are correct",
+            "1 and 2 only",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 3,
+        exp: "The offices originated in 1921 under the Government of India Act, 1919, not the 1909 Act, so statement 1 is wrong. Sir Frederick Whyte was appointed by the Governor-General for the initial term, and Vithalbhai Patel became the first elected President in 1925, so statement 2 is wrong. The 1935 Act changed the designations, although the old titles remained in use until 1947."
+    },
+    {
+        q: "With reference to the Departmentally Related Standing Committees (DRSCs) of Parliament and the scrutiny of Bills, consider the following statements: <br>1. Every Bill introduced in Parliament must compulsorily be referred to a DRSC before it is taken up for consideration.<br>2. The recommendations of a DRSC are advisory in nature and are not binding on the Government.<br>3. Each DRSC consists of 31 members, of whom 21 are from the Lok Sabha and 10 are from the Rajya Sabha.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 2 alone",
+            "1, 2 and 3",
+            "Both 1 and 2",
+            "Both 2 and 3"
+        ],
+        ans: 3,
+        exp: "The DRSC system, set up in 1993 and expanded in 2004, examines Bills referred to it by the Chairman of the Rajya Sabha or the Speaker of the Lok Sabha; referral is not compulsory, so statement 1 is wrong. The reports are only persuasive, and each committee has 21 Lok Sabha and 10 Rajya Sabha members. Ministers cannot be members of these committees."
+    },
+    {
+        q: "With reference to the assent of the President to Bills passed by Parliament under Article 111, consider the following statements: <br>1. The President may return a Money Bill to the Houses for reconsideration.<br>2. If a Bill returned by the President is passed again by the Houses, with or without amendments, and presented again, the President cannot withhold assent.<br>3. Article 111 prescribes that the President must decide on a Bill within six weeks of its presentation.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 only",
+            "3 only",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "Under Article 111, the President may assent, withhold assent, or return a Bill other than a Money Bill for reconsideration, and if the Houses pass it again the President must give assent. Money Bills cannot be returned, so statement 1 is wrong. Article 111 sets no time limit for the President's decision, so statement 3 is wrong."
+    },
+    {
+        q: "<b>Assertion (A):</b> A Constitution Amendment Bill on which the two Houses of Parliament disagree can be resolved through a joint sitting under Article 108.<br><b>Reason (R):</b> A Constitution Amendment Bill must be passed in each House by a majority of the total membership of that House and by a majority of not less than two-thirds of the members present and voting.<br>In the context of the above, which one of the following is correct?",
+        opts: [
+            "Both A and R are true, and R is the correct explanation of A",
+            "Both A and R are true, but R is not the correct explanation of A",
+            "A is true, but R is false",
+            "A is false, but R is true"
+        ],
+        ans: 3,
+        exp: "Article 368 requires each House to pass a Constitution Amendment Bill separately by the special majority, so the Reason is true. The joint sitting under Article 108 is available only for ordinary Bills and Financial Bills, not for Money Bills or Constitution Amendment Bills, so a deadlock on an amendment cannot be resolved this way and the Assertion is false."
+    },
+    {
+        q: "<b>Assertion (A):</b> Courts in India cannot invalidate a proceeding of Parliament merely on the ground of an alleged procedural irregularity, although they may examine proceedings that are illegal or unconstitutional.<br><b>Reason (R):</b> Article 122 of the Constitution provides that the validity of any proceedings in Parliament shall not be called in question on the ground of any alleged irregularity of procedure.<br>In the context of the above, which one of the following is correct?",
+        opts: [
+            "Both A and R are true, and R is the correct explanation of A",
+            "A is false, but R is true",
+            "Both A and R are true, but R is not the correct explanation of A",
+            "A is true, but R is false"
+        ],
+        ans: 0,
+        exp: "Article 122 bars courts from questioning parliamentary proceedings for mere irregularity of procedure, which directly explains the Assertion. In Raja Ram Pal (2007), the Supreme Court clarified that proceedings tainted by illegality or unconstitutionality remain open to judicial review. Article 122 therefore protects only against challenges based on procedural irregularity."
+    },
+    {
+        q: "With reference to the Public Accounts Committee (PAC) of Parliament, consider the following statements: <br>1. It consists of 22 members, of whom 15 are from the Lok Sabha and 7 are from the Rajya Sabha.<br>2. Its members are elected every year by the respective Houses according to the system of proportional representation by means of the single transferable vote.<br>3. By convention, since 1967, the Chairperson of the PAC has been appointed from among the members belonging to the Opposition.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 and 2 only",
+            "2 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 3,
+        exp: "The PAC has 22 members, 15 from the Lok Sabha and 7 from the Rajya Sabha, elected annually by the respective Houses through proportional representation by single transferable vote. A Minister cannot be a member. The Chairperson is appointed by the Speaker from among Lok Sabha members, and since 1967 it has been the convention to choose an Opposition member."
+    },
+    {
+        q: "With reference to Article 105 of the Constitution, which one of the following statements is correct?",
+        opts: [
+            "Members of Parliament enjoy immunity from arrest in cases of preventive detention during a session",
+            "Article 105 exhaustively codifies all privileges of Parliament and forbids any further law on the subject",
+            "No person is liable in any court for the publication of a report, paper, votes or proceedings under the authority of either House",
+            "The President, as a part of Parliament, is entitled to the privileges under Article 105"
+        ],
+        ans: 2,
+        exp: "Article 105(2) protects members from court proceedings for anything said or any vote given in Parliament, and also protects any person from liability for publication of reports, papers, votes or proceedings by or under the authority of a House. Freedom from arrest does not cover preventive detention, the President is not covered by Article 105, and Article 105(3) leaves it to Parliament to define privileges by law."
+    },
+    {
+        q: "With reference to the Constitution (130th Amendment) Bill, 2025 introduced in Parliament, consider the following statements: <br>1. It provides for removal of a Minister who is arrested and detained in custody for thirty consecutive days on a serious criminal charge.<br>2. It seeks to amend Articles 75, 164 and 239AA of the Constitution.<br>3. Under Article 368, a Constitution Amendment Bill can be introduced only in the Lok Sabha.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "Both 1 and 3",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "The Bill proposes removal of the Prime Minister, Chief Ministers and Ministers detained for thirty consecutive days on serious charges, and it amends Articles 75, 164 and 239AA. Statement 3 is incorrect because a Constitution Amendment Bill can be introduced in either House of Parliament; the Rajya Sabha has equal powers in this matter."
+    },
+    {
+        q: "With reference to the election of the Vice-President of India held in September 2025, consider the following statements: <br>1. C. P. Radhakrishnan was elected the 15th Vice-President following the resignation of the previous incumbent before the completion of his term.<br>2. Nominated members of the Rajya Sabha were not entitled to vote in this election.<br>3. A Vice-President elected to fill a vacancy caused by resignation holds office for a full term of five years from the date of entering office.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "C. P. Radhakrishnan was elected the 15th Vice-President on 9 September 2025 after Jagdeep Dhankhar resigned in July 2025, and a person elected to fill a casual vacancy serves a full five-year term under Articles 67 and 68. Statement 2 is wrong because the electoral college for the Vice-President comprises all members of both Houses, including nominated members of the Rajya Sabha, unlike the Presidential election."
+    },
+    {
+        q: "Under the proviso to Article 117(1) of the Constitution, the recommendation of the President is NOT required for moving which one of the following amendments to a Finance Bill?",
+        opts: [
+            "An amendment that would involve expenditure from the Consolidated Fund of India",
+            "An amendment providing for the imposition of a new tax",
+            "An amendment providing for an increase in the rate of an existing tax",
+            "An amendment providing for the reduction or abolition of a tax"
+        ],
+        ans: 3,
+        exp: "The proviso to Article 117(1) exempts an amendment providing for the reduction or abolition of any tax from the requirement of the President's recommendation. Amendments imposing or increasing a tax need the recommendation, and under Article 117(3) a Bill involving expenditure from the Consolidated Fund cannot be passed by a House without the President's recommendation for its consideration."
+    },
+    {
+        q: "The freezing of the allocation of Lok Sabha seats among the States on the basis of the 1971 Census was extended until the first Census taken after the year 2026 by which one of the following Constitutional Amendments?",
+        opts: [
+            "42nd Amendment Act, 1976",
+            "91st Amendment Act, 2003",
+            "52nd Amendment Act, 1985",
+            "84th Amendment Act, 2001"
+        ],
+        ans: 3,
+        exp: "The 42nd Amendment froze the allocation of seats based on the 1971 Census until the year 2000. The 84th Amendment then extended the freeze until the first Census after 2026. The 91st Amendment dealt with the size of Councils of Ministers and the 52nd Amendment introduced the anti-defection law."
+    },
+    {
+        q: "With reference to the constitutional and legal basis of Parliamentary Committees, consider the following statements: <br>1. Article 105 extends the powers, privileges and immunities of Parliament to its committees.<br>2. The Constitution expressly prescribes the composition and functions of the Public Accounts Committee.<br>3. The constitution and functioning of Parliamentary Committees are governed by the rules of procedure framed by each House under Article 118.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1 and 3 only",
+            "1 only"
+        ],
+        ans: 2,
+        exp: "Article 105 covers the privileges of members and committees of Parliament, and Article 118 empowers each House to make rules for regulating its procedure and conduct of business, which govern the committees. The Constitution does not prescribe the composition or functions of the Public Accounts Committee; these come from the rules of the House and parliamentary convention, so statement 2 is wrong."
+    },
+    {
+        q: "In Kuldip Nayar v. Union of India (2006), the Supreme Court examined amendments to the Representation of the People Act, 1951 relating to Rajya Sabha elections. Which one of the following was the Court's holding?",
+        opts: [
+            "It upheld the removal of the State domicile requirement and the introduction of open ballot for Rajya Sabha elections",
+            "It held that Rajya Sabha members must be directly elected by the people of the State",
+            "It struck down the open ballot as a violation of the secrecy of the vote",
+            "It held that State domicile is a constitutional requirement for Rajya Sabha candidates, so the amendment was invalid"
+        ],
+        ans: 0,
+        exp: "The Court held that the residence requirement for Rajya Sabha candidates was statutory and not constitutional, so Parliament could remove it by amending the Act. It also upheld the open ballot, reasoning that secrecy of the ballot is not a constitutional requirement for Rajya Sabha elections, which are held by indirect election through elected legislators."
+    },
+    {
+        q: "The National Commission to Review the Working of the Constitution (2002) made which one of the following recommendations regarding the sittings of Parliament?",
+        opts: [
+            "Lok Sabha should meet for at least 150 days and Rajya Sabha for at least 120 days in a year",
+            "Parliament should meet in three sessions fixed by the Constitution for at least 90 days in total",
+            "Lok Sabha should meet for at least 100 days and Rajya Sabha for at least 80 days in a year",
+            "Lok Sabha should meet for at least 120 days and Rajya Sabha for at least 100 days in a year"
+        ],
+        ans: 3,
+        exp: "The NCRWC recommended minimum annual sittings of 120 days for the Lok Sabha and 100 days for the Rajya Sabha to improve deliberation and accountability. The Constitution only requires under Article 85 that six months not intervene between two sessions, and it does not fix the number of sessions or sitting days. The three-session calendar is only a convention."
+    },
+    {
+        q: "Which one of the following powers is exercisable only by the Rajya Sabha and not by the Lok Sabha?",
+        opts: [
+            "Voting on the demands for grants of Ministries",
+            "Initiating a resolution for the removal of the Vice-President",
+            "Initiating the impeachment of the President",
+            "Approving the continuance of a Proclamation of National Emergency"
+        ],
+        ans: 1,
+        exp: "Under Article 67(b), a resolution for the removal of the Vice-President can be moved only in the Rajya Sabha, and it takes effect once the Lok Sabha agrees. The impeachment of the President can be initiated in either House. A Proclamation of Emergency must be approved by both Houses, and voting on the demands for grants is the exclusive privilege of the Lok Sabha."
+    },
+    {
+        q: "With reference to the Rajya Sabha, consider the following statements: <br>1. It has no power to reject or amend a Money Bill and can only make recommendations on it.<br>2. Nominated members of the Rajya Sabha are entitled to vote in the election of the President of India.<br>3. It can empower Parliament to legislate on a subject in the State List by a resolution supported by a special majority.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "2 and 3 only",
+            "Only two of the statements are correct",
+            "Only statement 3"
+        ],
+        ans: 2,
+        exp: "The Rajya Sabha can only recommend changes to a Money Bill and Lok Sabha may accept or reject them. Under Article 249, a Rajya Sabha resolution supported by two-thirds of members present and voting empowers Parliament to legislate on a State List subject in the national interest. Statement 2 is wrong because nominated members do not vote in the Presidential election, although they can vote in the Vice-President's election."
+    },
+    {
+        q: "With reference to the Lok Sabha, consider the following statements: <br>1. The Speaker exercises a vote in the first instance on all questions before the House.<br>2. The maximum strength of the Lok Sabha prescribed by the Constitution is 552 members.<br>3. During a National Emergency, Parliament may extend the term of the Lok Sabha beyond five years, one year at a time.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "2 only",
+            "1 and 3 only",
+            "1 only"
+        ],
+        ans: 0,
+        exp: "Under Article 83(2), Parliament may extend the term of the Lok Sabha by one year at a time during a National Emergency. The Speaker votes only to break a tie, so statement 1 is wrong. Article 81 prescribes a maximum of 550 members, 530 from States and 20 from Union Territories, since the nomination of Anglo-Indian members was ended, so statement 2 is wrong."
+    },
+    {
+        q: "With reference to the Joint Committee constituted in November 2025 to examine the Constitution (130th Amendment) Bill, 2025, consider the following statements: <br>1. Aparajita Sarangi was appointed as its Chairperson by the Speaker of the Lok Sabha.<br>2. It also examines the Jammu and Kashmir Reorganisation (Amendment) Bill, 2025 and the Government of Union Territories (Amendment) Bill, 2025.<br>3. It is a permanent committee that continues to exist across successive Lok Sabhas.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "1, 2 and 3",
+            "Both 1 and 2",
+            "1 only"
+        ],
+        ans: 2,
+        exp: "The 31-member Joint Committee, chaired by Aparajita Sarangi on appointment by the Speaker, was constituted to examine the three Bills introduced on 20 August 2025. A Joint Committee is an ad hoc body formed for a specific Bill or issue and ceases to exist once it submits its report, so statement 3 is wrong."
+    },
+    {
+        q: "Which one of the following parliamentary committees consists exclusively of members of the Lok Sabha, with no representation from the Rajya Sabha?",
+        opts: [
+            "Departmentally Related Standing Committees",
+            "Estimates Committee",
+            "Committee on Public Undertakings",
+            "Public Accounts Committee"
+        ],
+        ans: 1,
+        exp: "The Estimates Committee has 30 members, all elected by the Lok Sabha from among its own members, and the Rajya Sabha has no representation on it. The Public Accounts Committee and the Committee on Public Undertakings include Rajya Sabha members, as do the Departmentally Related Standing Committees."
+    },
+    {
+        q: "<b>Assertion (A):</b> Under the Tenth Schedule, a person elected as Speaker of the Lok Sabha who voluntarily gives up party membership on account of that election is not disqualified for defection.<br><b>Reason (R):</b> A Speaker who gives up party membership is permanently barred from contesting any future election on a party ticket.<br>In the context of the above, which one of the following is correct?",
+        opts: [
+            "Both A and R are true, but R is not the correct explanation of A",
+            "A is false, but R is true",
+            "A is true, but R is false",
+            "Both A and R are true, and R is the correct explanation of A"
+        ],
+        ans: 2,
+        exp: "Paragraph 5 of the Tenth Schedule exempts presiding officers who voluntarily give up party membership on election to the office, and it allows them to rejoin the party after leaving office. This was meant to strengthen the impartiality of the office. No provision bars such a person from contesting on a party ticket in future, so the Reason is false."
+    },
+    {
+        q: "In the context of ordinance-making under Article 123 of the Constitution, which one of the following statements is correct?",
+        opts: [
+            "The President can promulgate an ordinance only when both Houses of Parliament are in session",
+            "Repeated re-promulgation of ordinances without placing them before the legislature has been held by the Supreme Court to be a fraud on the Constitution",
+            "An ordinance is a legislative act of the President and is therefore immune from judicial review",
+            "An ordinance automatically lapses six months after its promulgation irrespective of when Parliament reassembles"
+        ],
+        ans: 1,
+        exp: "In D. C. Wadhwa v. State of Bihar (1987), the Supreme Court held that repeated re-promulgation of ordinances without placing them before the legislature is a fraud on the Constitution, and the principle was reaffirmed later. An ordinance is open to judicial review, it ceases to operate six weeks after Parliament reassembles or earlier if both Houses disapprove it, and it can be issued only when Parliament is not in session."
+    },
+    {
+        q: "With reference to the functioning of the Houses of Parliament during a session, consider the following statements: <br>1. The quorum to constitute a meeting of either House is one-tenth of the total number of members of that House, including the presiding officer.<br>2. If there is no quorum, the presiding officer must either adjourn the House or suspend the meeting until there is a quorum.<br>3. The presiding officer votes in the first instance on every question before the House.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "1 only",
+            "All of the above",
+            "Only one of the statements is correct"
+        ],
+        ans: 0,
+        exp: "Article 100(3) fixes the quorum at one-tenth of the total membership of the House, including the presiding officer, and Article 100(4) requires the presiding officer to adjourn or suspend the meeting in its absence. Under Article 100(1), the presiding officer does not vote in the first instance and exercises only a casting vote in case of a tie, so statement 3 is wrong."
+    },
+    {
+        q: "On the dissolution of the Lok Sabha, which one of the following Bills would NOT lapse?",
+        opts: [
+            "A Bill originating in the Rajya Sabha, passed by it and pending in the Lok Sabha",
+            "A Bill passed by the Lok Sabha but pending in the Rajya Sabha",
+            "A Bill pending in the Lok Sabha",
+            "A Bill originating in the Rajya Sabha, pending there and not yet passed by the Lok Sabha"
+        ],
+        ans: 3,
+        exp: "A Bill pending in the Rajya Sabha that has not been passed by the Lok Sabha does not lapse, because the Rajya Sabha is a permanent House. Bills pending in the Lok Sabha, and Bills passed by the Lok Sabha but pending in the Rajya Sabha, lapse on dissolution. A Rajya Sabha Bill that has been passed there but is pending in the Lok Sabha also lapses."
+    },
+    {
+        q: "With reference to the evolution of the Rajya Sabha, consider the following statements: <br>1. The Council of State, the predecessor of the Rajya Sabha at the Centre, was first created by the Government of India Act, 1935.<br>2. The name 'Rajya Sabha' was adopted for the Council of States when the Constitution came into force on 26 January 1950.<br>3. Dr. Rajendra Prasad was the first Chairman of the Rajya Sabha.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "None of the statements is correct",
+            "2 and 3 only",
+            "1 only"
+        ],
+        ans: 1,
+        exp: "The Council of State was created under the Government of India Act, 1919, as part of the bicameral Central Legislature. The Constitution named the body the Council of States, and the name Rajya Sabha was adopted only in August 1954. Dr. S. Radhakrishnan, as the first Vice-President, was the first ex-officio Chairman, so none of the statements is correct."
+    },
+    {
+        q: "Which one of the following statements regarding the composition of the Rajya Sabha is correct?",
+        opts: [
+            "Twelve members are nominated by the President from among persons having special knowledge or practical experience in literature, science, art and social service",
+            "All Union Territories are entitled to representation in the Rajya Sabha",
+            "Each State is allotted an equal number of seats irrespective of its population",
+            "The representatives of each State are elected by the Lok Sabha members from that State"
+        ],
+        ans: 0,
+        exp: "Article 80 provides for a maximum of 250 members, of whom 12 are nominated by the President for their special knowledge or practical experience in the specified fields. Seats are allocated to States roughly by population, not equally, and State representatives are elected by the elected members of the State Legislative Assembly through the single transferable vote. Only Delhi, Puducherry and Jammu and Kashmir among the Union Territories have Rajya Sabha seats."
+    },
+    {
+        q: "With reference to the constitutional provisions on membership of Parliament, consider the following statements: <br>1. A person cannot be a member of both Houses of Parliament simultaneously.<br>2. On a question of disqualification under Article 102(1), the President decides after obtaining the opinion of the Election Commission and acts according to that opinion.<br>3. A member is disqualified for holding an office of profit under the Government of India or any State Government, unless Parliament has by law declared that office not to disqualify its holder.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "Article 101(1) bars dual membership of the two Houses, and Article 102(1)(a) disqualifies a member holding an office of profit unless Parliament's law exempts that office. Under Article 103, the President decides disqualification questions after obtaining the Election Commission's opinion and must act according to it. All three statements are therefore correct."
+    },
+    {
+        q: "With reference to the Committees of Privileges of the two Houses of Parliament, consider the following statements: <br>1. The Committee of Privileges of the Lok Sabha consists of 10 members nominated by the Speaker.<br>2. The Committee of Privileges of the Rajya Sabha is chaired by the Chairman of the Rajya Sabha.<br>3. The Committee of Privileges can itself impose punishment on a member found guilty of breach of privilege.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements is correct",
+            "1 only",
+            "3 only",
+            "2 only"
+        ],
+        ans: 0,
+        exp: "The Lok Sabha Committee of Privileges has 15 members nominated by the Speaker, while the Rajya Sabha Committee has 10 members and is chaired by the Deputy Chairman. The Committee only examines cases referred to it and recommends action, and the House decides on any punishment, so none of the statements is correct."
+    },
+    {
+        q: "Consider the following Bills: <br>1. Dowry Prohibition Bill<br>2. Banking Service Commission (Repeal) Bill<br>3. Prevention of Terrorism Bill<br>4. Insolvency and Bankruptcy Code Bill<br>Which of the above were passed at a joint sitting of the two Houses of Parliament under Article 108?",
+        opts: [
+            "2 and 4 only",
+            "1 and 3 only",
+            "1, 2 and 3 only",
+            "1, 2, 3 and 4"
+        ],
+        ans: 2,
+        exp: "Only three joint sittings have been held so far, on the Dowry Prohibition Bill, the Banking Service Commission (Repeal) Bill and the Prevention of Terrorism Bill. The Insolvency and Bankruptcy Code Bill was passed by the two Houses in the normal course, without a joint sitting."
+    },
+    {
+        q: "With reference to the President's address to Parliament, consider the following statements: <br>1. The President addresses both Houses assembled together at the commencement of every session of Parliament.<br>2. The contents of the President's address are decided by the President independently of the Council of Ministers.<br>3. Under Article 87, the President addresses both Houses at the first session after each general election to the Lok Sabha and at the first session of each year.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "Exactly two of the statements are correct",
+            "1 only",
+            "None of the above"
+        ],
+        ans: 0,
+        exp: "Article 87 requires a special address only at the first session after each general election to the Lok Sabha and at the first session of each year, not at every session. The address is prepared by the Government and reflects its policies and programme, so the President does not decide its contents independently. Only statement 3 correctly states Article 87."
+    },
+    {
+        q: "Which one of the following is a feature of the Pre-Legislative Consultation Policy, 2014 of the Government of India?",
+        opts: [
+            "Every Bill must be examined by a Parliamentary Standing Committee before its introduction",
+            "The draft Bill must be placed before the Rajya Sabha for sixty days before introduction",
+            "The draft Bill must be approved by the Leader of the Opposition before it is sent to the Cabinet",
+            "The draft Bill with an explanatory note must be placed in the public domain for a minimum of thirty days to invite comments"
+        ],
+        ans: 3,
+        exp: "Under the 2014 policy, the concerned Ministry or Department must publish the draft legislation, along with an explanatory note on its essential elements and financial implications, in the public domain for at least thirty days for public comments. It does not require committee examination before introduction, and it gives no role to the Rajya Sabha or the Leader of the Opposition at this stage."
+    },
+    {
+        q: "The requirement that the Union Government must enact an annual Finance Bill to give legal backing to its taxation proposals flows most directly from which one of the following constitutional provisions?",
+        opts: [
+            "Article 266",
+            "Article 265",
+            "Article 267",
+            "Article 112"
+        ],
+        ans: 1,
+        exp: "Article 265 provides that no tax shall be levied or collected except by authority of law, so the taxation proposals in the Budget are given legal force through the Finance Bill. Article 266 deals with the Consolidated Fund and Public Account, Article 267 with the Contingency Fund, and Article 112 with the annual financial statement."
+    },
+    {
+        q: "With reference to legislative business in the Winter Session of Parliament held in December 2025, consider the following statements: <br>1. The Viksit Bharat-G RAM G Act, which replaced the MGNREGA, continues to provide for 100 days of guaranteed wage employment.<br>2. The Viksit Bharat Shiksha Adhishthan Bill, 2025 was referred to a Joint Committee of Parliament after its introduction in the Lok Sabha.<br>3. The SHANTI Bill, which opens the civil nuclear sector to private participation, was passed only after examination by a Departmentally Related Standing Committee.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "3 only",
+            "2 only",
+            "1 only"
+        ],
+        ans: 2,
+        exp: "The Viksit Bharat Shiksha Adhishthan Bill, 2025, meant to create a single higher education regulator, was sent to a Joint Committee. The VB-G RAM G Act guarantees 125 days of employment, not 100 days, and the SHANTI Bill was passed in the same session without being sent to a Standing Committee despite Opposition demands. Only statement 2 is therefore correct."
+    },
+    {
+        q: "Which one of the following changes was introduced by the Constitution (91st Amendment) Act, 2003?",
+        opts: [
+            "The ceiling on the Council of Ministers was fixed at 10 per cent of the strength of the Lok Sabha",
+            "Decisions on disqualification for defection were transferred to the Election Commission",
+            "The exemption from disqualification for a split in a legislature party was deleted from the Tenth Schedule",
+            "The minimum number of Ministers in a State Council of Ministers was fixed at 20"
+        ],
+        ans: 2,
+        exp: "The 91st Amendment deleted the Tenth Schedule provision that protected members from disqualification when one-third of a legislature party split, leaving merger with two-thirds support as the only exception. It also capped the Council of Ministers at 15 per cent of the House's strength, fixed a minimum of 12 Ministers in a State, and barred disqualified defectors from ministerial office. Defection decisions remain with the presiding officers."
+    },
+    {
+        q: "Which one of the following statements regarding Zero Hour in the Indian Parliament is correct?",
+        opts: [
+            "It is prescribed in the Rules of Procedure of the Lok Sabha as a mandatory daily item of business",
+            "It is an Indian parliamentary innovation dating from the early 1960s and finds no mention in the Rules of Procedure",
+            "It is held immediately before the Question Hour every day",
+            "It is a practice confined to the Rajya Sabha"
+        ],
+        ans: 1,
+        exp: "Zero Hour emerged in the early 1960s as an Indian innovation that allows members to raise urgent matters without prior notice, and it is not mentioned in the Rules of Procedure. It begins immediately after the Question Hour, not before it, and it is followed in both Houses."
+    },
+    {
+        q: "The FRBM Review Committee (2016-17) headed by N. K. Singh is associated with which one of the following recommendations?",
+        opts: [
+            "Restricting FRBM fiscal targets to State Governments alone",
+            "Retaining elimination of the revenue deficit as the primary fiscal target of the Union Government",
+            "Setting the Union fiscal deficit target at 5 per cent of GDP for the medium term",
+            "Adopting the debt-to-GDP ratio as the principal fiscal anchor and creating an independent Fiscal Council"
+        ],
+        ans: 3,
+        exp: "The N. K. Singh committee recommended a debt-to-GDP ratio as the main fiscal anchor, supported by a fiscal deficit glide path and an independent Fiscal Council. It did not recommend a 5 per cent deficit target, and its proposals covered the Union as well as the States. Its framework was reflected in later amendments to the FRBM Act made through Finance Acts."
+    },
+    {
+        q: "With reference to the Aadhaar (Targeted Delivery of Financial and Other Subsidies, Benefits and Services) Act, 2016, which one of the following statements is correct?",
+        opts: [
+            "It was passed at a joint sitting of both Houses after the Rajya Sabha rejected it",
+            "It was passed by the Lok Sabha as an ordinary Bill and the Rajya Sabha amended it",
+            "The Supreme Court unanimously held that the Speaker's certification of the Bill as a Money Bill was invalid",
+            "It was certified and passed as a Money Bill, and a Constitution Bench of the Supreme Court in 2018 upheld this certification by a majority"
+        ],
+        ans: 3,
+        exp: "The Aadhaar Act was introduced and passed as a Money Bill, so the Rajya Sabha could only recommend amendments, which the Lok Sabha did not accept. In the 2018 Puttaswamy (Aadhaar) judgment, a 4:1 majority upheld the Money Bill certification, with Justice D. Y. Chandrachud dissenting. No joint sitting was held."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-45 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

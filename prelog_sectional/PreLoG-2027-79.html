@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-79</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "Pumped storage hydropower plants are increasingly emphasised in India's energy transition planning mainly because they",
+        opts: [
+            "depend exclusively on perennial glacier-fed rivers, making them unaffected by seasonal variation in rainfall",
+            "eliminate the need for transmission infrastructure by supplying power directly to nearby consumers at all times",
+            "produce net additional electricity because turbines recover more energy than the pumps consume while raising water",
+            "store surplus electricity as water head and return it to the grid at peak demand, balancing variable solar and wind output"
+        ],
+        ans: 3,
+        exp: "A pumped storage plant uses surplus power, for example midday solar, to lift water to an upper reservoir and releases it through turbines at peak demand, giving flexible storage for the grid. Because of conversion losses it is a net consumer of electricity, so the first option is wrong. It still needs transmission, and closed-loop projects can operate without depending on perennial glacial rivers."
+    },
+    {
+        q: "With reference to Energy Efficiency initiatives in India, a recurring theme in UPSC Prelims, consider the following statements: <br> 1. The Perform, Achieve and Trade (PAT) scheme, a component of the National Mission for Enhanced Energy Efficiency, is primarily aimed at promoting energy efficiency rather than water conservation or air pollution control.<br>2. Under the PAT scheme, industrial units that fail to meet their prescribed energy consumption targets can purchase tradable Energy Saving Certificates from units that have exceeded their targets.<br>3. The Energy Conservation Building Code applies uniformly and mandatorily to all residential and commercial buildings across every Indian state without exception.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "As tested in a past UPSC question, the PAT scheme under the National Mission for Enhanced Energy Efficiency is specifically about energy efficiency, and it allows units exceeding targets to sell Energy Saving Certificates to units that fall short. Statement 3 is incorrect since ECBC adoption and notification vary across states, with several states yet to notify the code, so it is neither uniform nor exception-free."
+    },
+    {
+        q: "With reference to India's power sector, consider the following statements:<br>1. Electricity is a subject exclusively in the Union List of the Seventh Schedule.<br>2. The Central Electricity Authority (CEA) is the statutory body that determines tariff for central generating companies and inter-State transmission.<br>3. The Revamped Distribution Sector Scheme (RDSS) is mainly meant to provide free electricity connections to unelectrified rural households.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "None of the statements is correct",
+            "2 and 3 only",
+            "1 only"
+        ],
+        ans: 1,
+        exp: "Electricity is in the Concurrent List (Entry 38 of List III), not the Union List. Tariff for central generating companies and inter-State transmission is determined by the Central Electricity Regulatory Commission, while the CEA mainly advises on planning and technical standards. RDSS aims to reduce distribution losses and improve DISCOM finances through smart metering and network upgrades, whereas free household connections were provided under Saubhagya."
+    },
+    {
+        q: "With reference to coal resources and mining in India, consider the following statements:<br>1. Lignite has a lower carbon content than bituminous coal.<br>2. Jharkhand accounts for the largest share of India's coking coal reserves.<br>3. Commercial coal mining in India is permitted only for captive consumption by end-use industries.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "Lignite is a low-rank coal with less carbon than bituminous coal, and Jharkhand (Jharia, Bokaro) holds the largest share of India's coking coal. Since the 2020 reforms, commercial coal mining is open to eligible entities with sale on the open market, so it is not restricted to captive use. Hence only statements 1 and 2 are correct."
+    },
+    {
+        q: "With reference to the Functions and Powers of institutions governing Battery Technology in India, consider the following statements: <br> 1. ARAI's certification role for electric vehicle batteries is limited only to lithium-ion chemistries, and it does not test or certify emerging chemistries such as sodium-ion batteries.<br>2. The Automotive Research Association of India (ARAI) was established in 1966 in Pune and functions under the administrative control of the Ministry of Heavy Industries as a notified testing agency under the Central Motor Vehicles Rules.<br>3. Battery certification for electric vehicles in India is undertaken exclusively by international agencies, since no domestic institution is authorised to test or certify such batteries.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements is correct",
+            "1 only",
+            "3 only",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "ARAI, established in 1966 in Pune, functions under the Ministry of Heavy Industries as a notified testing and certification agency for automotive components including EV batteries under the Central Motor Vehicles Rules. Statement 1 is wrong because ARAI has also validated emerging chemistries such as sodium-ion battery cells, and statement 3 is wrong because domestic agencies like ARAI, not exclusively international bodies, certify EV batteries in India."
+    },
+    {
+        q: "With reference to important Acts and Policies governing Energy Storage in India, consider the following statements: <br> 1. The Electricity (Amendment) Rules, 2022 formally recognised Energy Storage Systems (ESS) as part of the power system, allowing their use independently or in conjunction with generation, transmission and distribution infrastructure.<br>2. The Energy Storage Obligation (ESO), introduced via a Ministry of Power order in July 2022, requires obligated entities to source a constant 1% of their consumption from storage-linked sources throughout the period up to 2029-30, with no planned increase.<br>3. Guidelines for procurement and utilisation of Battery Energy Storage Systems (BESS) were issued by the Ministry of Power in 2023 to standardise procurement and enhance project bankability.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the above",
+            "Only statement 2",
+            "Statement 3 alone",
+            "Both 1 and 3"
+        ],
+        ans: 3,
+        exp: "The Electricity (Amendment) Rules, 2022 recognised ESS as part of the power system, and the Ministry of Power issued BESS procurement guidelines in 2023 to standardise processes and boost bankability. Statement 2 is incorrect because the ESO trajectory rises gradually from 1% in FY 2023-24 to 4% by FY 2029-30, not a static 1% throughout."
+    },
+    {
+        q: "With reference to the Constitutional and Legal Provisions relevant to Hydropower in India, consider the following statements: <br> 1. Entry 17 of the State List (List II) empowers States to legislate on water supply, irrigation, water storage and hydropower, subject to the provisions of Entry 56 of the Union List.<br>2. Entry 56 of the Union List gives State legislatures exclusive power to regulate and develop inter-State rivers and river valleys, without any role for Parliament.<br>3. Article 262 of the Constitution empowers Parliament to provide, by law, for the adjudication of disputes relating to inter-State river waters, and such a law may bar the jurisdiction of courts, including the Supreme Court.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 1",
+            "1 and 3 only",
+            "2 and 3 only",
+            "None of the statements are correct"
+        ],
+        ans: 1,
+        exp: "Entry 17 of the State List covers hydropower subject to Entry 56 of the Union List, and Article 262 empowers Parliament to legislate for adjudication of inter-State river water disputes, potentially ousting court jurisdiction including that of the Supreme Court. Statement 2 is incorrect because Entry 56 actually empowers Parliament (the Union), not State legislatures, to regulate and develop inter-State rivers and river valleys."
+    },
+    {
+        q: "With reference to India's three-stage nuclear power programme, consider the following statements:<br>1. The first stage is based on Pressurised Heavy Water Reactors using natural uranium as fuel.<br>2. The second stage envisages Fast Breeder Reactors using plutonium recovered from the spent fuel of the first stage.<br>3. The third stage is designed to utilise uranium-233 produced from thorium.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 3,
+        exp: "The three-stage programme conceived by Homi Bhabha begins with natural-uranium PHWRs, moves to plutonium-fuelled fast breeder reactors, and ends with thorium-based systems running on uranium-233. The programme is designed to exploit India's large thorium reserves and limited uranium. All three statements are correct."
+    },
+    {
+        q: "With reference to recent developments concerning Hydrogen Energy in India, consider the following statements: <br> 1. India's National Green Hydrogen Mission targets an annual green hydrogen production of 50 million metric tonnes by 2030.<br>2. The Green Hydrogen Certification Scheme, launched in April 2025, designates the Ministry of Petroleum and Natural Gas as the nodal authority for certifying green hydrogen production.<br>3. Under India's Green Hydrogen Certification Scheme, hydrogen must have zero carbon emissions at every stage of production to qualify for certification as 'green'.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements is correct",
+            "1 only",
+            "3 only",
+            "2 only"
+        ],
+        ans: 0,
+        exp: "The National Green Hydrogen Mission actually targets 5 million metric tonnes (not 50 MMT) of annual production by 2030, and the Green Hydrogen Certification Scheme designates the Bureau of Energy Efficiency (BEE) under the Ministry of Power, not the Ministry of Petroleum and Natural Gas, as the nodal authority. Further, the certification scheme sets a threshold of up to 2 kg of CO2-equivalent emissions per kg of hydrogen produced, rather than requiring absolute zero emissions, making all three statements incorrect."
+    },
+    {
+        q: "With reference to Reforms and Recommendations concerning Smart Grids in India, consider the following statements: <br> 1. India's draft National Electricity Policy (NEP) 2026 proposes the creation of a Distribution System Operator (DSO) to manage the integration of rooftop solar, energy storage and Vehicle-to-Grid (V2G) technologies.<br>2. The draft National Electricity Policy 2026 aims to bring down Aggregate Technical and Commercial (AT&C) losses to single digits through a phased rollout of prepaid smart meters.<br>3. National AT&C losses in India have consistently risen every year since FY 2021, reflecting a worsening trend in distribution sector reforms.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "The draft NEP 2026 proposes a Distribution System Operator to integrate distributed energy resources and targets single-digit AT&C losses through phased prepaid smart metering. Statement 3 is incorrect because national AT&C losses have actually declined, falling from about 21.91% in FY21 to around 15.04% by FY25 as per the Ministry of Power's review, not risen consistently."
+    },
+    {
+        q: "With reference to important Acts and Amendments governing Biofuels in India, consider the following statements: <br> 1. The National Policy on Biofuels, 2018 was amended in 2022 to expand the scope of feedstocks eligible for ethanol production, including sugarcane juice, sugar beet and damaged food grains.<br>2. The 2022 amendment to the National Policy on Biofuels advanced India's ethanol blending target from 2030 to 2025-26.<br>3. Amendments to the National Policy on Biofuels have permitted biofuel production units to operate in both Special Economic Zones and Export Oriented Units for domestic blending purposes.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "All three statements are correct",
+            "1 only",
+            "3 only"
+        ],
+        ans: 1,
+        exp: "The 2022 amendment to the National Policy on Biofuels expanded eligible feedstocks, advanced the ethanol blending target to 2025-26 from the original 2030 deadline, and permitted biofuel production in both SEZs and EOUs for domestic blending. All three statements accurately describe the policy amendments that accelerated India's ethanol blending programme."
+    },
+    {
+        q: "With reference to India's Three-Stage Nuclear Power Programme, a theme frequently tested in UPSC Prelims, consider the following statements: <br> 1. Thorium is a fissile material that can directly sustain a nuclear chain reaction without being converted into any other element.<br>2. In the first stage of India's three-stage nuclear programme, natural uranium-fuelled heavy water reactors are used, but no plutonium is generated as a by-product of this stage.<br>3. India's three-stage nuclear power programme was formulated by Homi J. Bhabha in the 1950s to enable eventual utilisation of the country's substantial thorium reserves.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "None of the statements is correct",
+            "3 only",
+            "2 only"
+        ],
+        ans: 2,
+        exp: "Homi J. Bhabha formulated India's three-stage nuclear programme in the 1950s specifically to enable eventual use of the country's abundant thorium reserves. Statement 1 is incorrect because thorium is fertile, not fissile, and must first be converted into fissile Uranium-233; statement 2 is incorrect because the first-stage heavy water reactors do generate plutonium as a by-product, which feeds into the second stage."
+    },
+    {
+        q: "With reference to the Functions and Powers of institutions governing Energy Storage in India, consider the following statements: <br> 1. Under the Electricity Act, 2003 framework, the Central Electricity Regulatory Commission (CERC) has notified Ancillary Services Regulations that explicitly apply to entities with energy storage resources.<br>2. The Ministry of Power is empowered to specify the Energy Storage Obligation (ESO) trajectory that obligated entities such as distribution licensees must meet, similar to Renewable Purchase Obligations.<br>3. Under the national framework for energy storage, only the Ministry of New and Renewable Energy has the authority to issue guidelines for the procurement and utilisation of Battery Energy Storage Systems (BESS), with no role for the Ministry of Power.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "Both 1 and 2",
+            "Only statement 3",
+            "Only one of the statements is correct"
+        ],
+        ans: 1,
+        exp: "CERC's Ancillary Services Regulations, 2022 explicitly cover entities with energy storage resources, and the Ministry of Power specifies the ESO trajectory analogous to Renewable Purchase Obligations. Statement 3 is incorrect because the Ministry of Power itself issued the 2023 guidelines for BESS procurement and utilisation, not the Ministry of New and Renewable Energy exclusively."
+    },
+    {
+        q: "With reference to the Constitutional and Legal Provisions relevant to Smart Grids in India, consider the following statements: <br> 1. Electricity is placed in the Union List (List I) of the Seventh Schedule, granting Parliament exclusive power to legislate on matters relevant to smart grids, such as metering and distribution.<br>2. In the event of a conflict between a State law and a central law on electricity, the central law prevails over the State law under Article 254 of the Constitution, subject to certain exceptions.<br>3. The Electricity Act, 2003, which provides the legal framework for smart grid-related reforms including smart metering, does not extend to matters governed separately under India's nuclear energy legislation.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 3",
+            "Both 1 and 3",
+            "All of the above",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "Under Article 254, a central law prevails over an inconsistent State law on a Concurrent List subject, and the Electricity Act, 2003 governs electricity matters including smart grids while nuclear energy remains separately governed. Statement 1 is incorrect because electricity is placed in the Concurrent List (List III), not the Union List, allowing both Parliament and State legislatures to legislate on it."
+    },
+    {
+        q: "Consider the following statements:<br>Assertion (A): Second-generation (2G) ethanol is considered less likely to compete with food security than first-generation ethanol.<br>Reason (R): Second-generation ethanol is produced mainly from edible grains such as maize and rice.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "A is false but R is true",
+            "A is true but R is false",
+            "Both A and R are true but R is not the correct explanation of A",
+            "Both A and R are true and R is the correct explanation of A"
+        ],
+        ans: 1,
+        exp: "Second-generation ethanol is made from lignocellulosic biomass such as rice straw, bagasse and other agricultural residues, which is why it is seen as less competitive with food needs. Ethanol from edible grains, sugarcane juice or molasses belongs to the first generation. Hence A is true but R is false."
+    },
+    {
+        q: "With reference to recent developments concerning Wind Energy in India, consider the following statements: <br> 1. As of early-mid 2026, India has commissioned significant offshore wind capacity off the coasts of Gujarat and Tamil Nadu, meeting its initial 5 GW target.<br>2. India's onshore wind installed capacity crossed the 50 GW mark by early 2026, making it the fourth-largest in the world in terms of installed wind capacity.<br>3. The Government of India has introduced a Viability Gap Funding (VGF) scheme to support the first offshore wind energy projects in Gujarat and Tamil Nadu.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 2 only",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 3,
+        exp: "India's onshore wind capacity crossed 50 GW by early 2026, ranking fourth globally, and the government has rolled out a Viability Gap Funding scheme to kick-start offshore wind projects in Gujarat and Tamil Nadu. Statement 1 is incorrect because, despite a policy dating to 2015, India has yet to commission any offshore wind capacity, with initial tenders even having drawn no bids."
+    },
+    {
+        q: "With reference to Battery Technology in India, consider the following statements: <br> 1. India's Production Linked Incentive Scheme for Advanced Chemistry Cell (ACC) battery storage is chemistry-neutral and is open to investment in sodium-ion battery technology.<br>2. Sodium-ion batteries use aluminium as the current collector on both electrodes, unlike lithium-ion batteries, which require copper for the anode.<br>3. The National Critical Minerals Mission, launched in January 2025, aims to build supply chain resilience for critical minerals through exploration, processing and recycling.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "The ACC PLI Scheme is chemistry-neutral and open to sodium-ion investment; sodium-ion batteries use cheaper aluminium current collectors on both electrodes, avoiding the copper needed in lithium-ion anodes; and the National Critical Minerals Mission (launched January 2025) targets supply chain security for minerals used in battery manufacturing. All three statements are factually accurate."
+    },
+    {
+        q: "Consider the following statements regarding wind energy in India:<br>1. The Muppandal wind farm is located in Gujarat.<br>2. Repowering of wind projects involves replacing old, low-capacity turbines with modern, higher-capacity turbines at the same site.<br>3. The National Offshore Wind Energy Policy, 2015 identified the coasts of Odisha and West Bengal as the only zones with offshore wind potential.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1 and 2 only",
+            "3 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "Muppandal in Kanyakumari district is a prominent wind farm of Tamil Nadu, not Gujarat. Repowering replaces ageing smaller turbines with higher-capacity ones to raise output from the same site. The 2015 offshore policy highlighted the coasts of Gujarat and Tamil Nadu as the zones with potential, so only statement 2 is correct."
+    },
+    {
+        q: "With reference to the functions and powers of institutions governing Biofuels in India, consider the following statements: <br> 1. The National Biofuel Coordination Committee (NBCC), which coordinates India's biofuel blending programme, functions under the Ministry of Petroleum and Natural Gas.<br>2. The NBCC has the authority to approve the use of surplus food grains for ethanol production meant for blending with petrol.<br>3. The National Policy on Biofuels, 2018 is administered by the Ministry of New and Renewable Energy, which also handles solar and wind energy policy.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 and 3 only",
+            "2 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "The NBCC, chaired at the level of the Minister for Petroleum and Natural Gas, coordinates the biofuel programme and is empowered to approve the use of surplus food grains for ethanol production. Statement 3 is a common trap: the National Policy on Biofuels is administered by the Ministry of Petroleum and Natural Gas (MoPNG), not the Ministry of New and Renewable Energy, which handles solar and wind separately."
+    },
+    {
+        q: "Consider the following statements regarding solar energy initiatives:<br>1. The PM-KUSUM scheme is primarily aimed at providing rooftop solar systems to residential households.<br>2. Membership of the International Solar Alliance is restricted to countries lying between the Tropic of Cancer and the Tropic of Capricorn.<br>3. Bhadla Solar Park is located in Rajasthan.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 and 2 only",
+            "3 only",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "PM-KUSUM targets farmers through solar pumps and solarisation of agricultural feeders, while rooftop solar for households is the focus of PM Surya Ghar: Muft Bijli Yojana. The ISA Framework Agreement was amended to open membership to all UN member states, not only tropical countries. Bhadla Solar Park is in Jodhpur district, Rajasthan, so only statement 3 is correct."
+    },
+    {
+        q: "Consider the following statements with reference to Smart Grids in India: <br> 1. A defining characteristic of Smart Grids is two-way communication flow between the utility and the consumer, unlike the one-way power flow in conventional grids.<br>2. The National Smart Grid Mission was launched in 2015 to plan, monitor and provide financial support for smart grid-related programmes in India.<br>3. Smart Grids are designed to function independently of renewable energy integration, focusing solely on improving fossil-fuel based generation efficiency.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 3",
+            "Both 1 and 2",
+            "3 only",
+            "Only one of the statements is correct"
+        ],
+        ans: 1,
+        exp: "Smart Grids are characterised by two-way communication and were promoted in India through the National Smart Grid Mission (2015) to accelerate deployment and provide policy support. Statement 3 is incorrect because a core aim of Smart Grids is precisely to make the grid amenable to renewable energy inputs through distributed generation, not to exclude such integration."
+    },
+    {
+        q: "With reference to the Functions and Powers of institutions governing Solar Energy in India, consider the following statements: <br> 1. The Solar Energy Corporation of India (SECI) functions under the administrative control of the Ministry of Power, separate from the Ministry of New and Renewable Energy.<br>2. SECI operates as a Category-I power trading licensee under the Central Electricity Regulatory Commission (CERC), enabling it to trade renewable power.<br>3. SECI serves as the nodal implementing agency for the National Solar Mission and other renewable energy schemes of the government.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "None of the above",
+            "Statement 1 alone",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "SECI operates as a Category-I power trading licensee under CERC and serves as the nodal agency implementing the National Solar Mission and other renewable energy schemes. Statement 1 is incorrect because SECI functions under the administrative control of the Ministry of New and Renewable Energy, not the Ministry of Power."
+    },
+    {
+        q: "With reference to Hydrogen Fuel Cells, a theme tested in UPSC Prelims, consider the following statements: <br> 1. If pure hydrogen is used as fuel in a hydrogen fuel cell, the by-products released are only heat and water.<br>2. Fuel cells can only be used to power large installations such as buildings, and are unsuitable for small portable devices like laptop computers.<br>3. A hydrogen fuel cell generates electricity in the form of alternating current (AC), similar to conventional grid power supply.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "None of the statements is correct",
+            "3 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "As tested in an actual UPSC Prelims question, a hydrogen fuel cell using pure hydrogen releases only heat and water as by-products. Statement 2 is wrong because fuel cells can also power small portable devices like laptops and hearing aids, not just large buildings, and statement 3 is wrong because fuel cells generate direct current (DC), not alternating current."
+    },
+    {
+        q: "With reference to recent developments concerning Solar Energy in India, consider the following statements: <br> 1. India's installed solar capacity crossed 95 GW by early 2026, making it the world's third-largest solar market after China and the United States.<br>2. The PM-Surya Ghar Muft Bijli Yojana aims to promote rooftop solar installations for residential households, providing free electricity up to a certain monthly consumption threshold.<br>3. Solar energy's contribution to India's 500 GW non-fossil fuel capacity target by 2030 is expected to be minimal, with wind and nuclear energy projected to contribute the overwhelming majority of this target instead.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "India's solar capacity crossed 95 GW by early 2026, making it the world's third-largest solar market, and the PM-Surya Ghar Muft Bijli Yojana promotes rooftop solar with free electricity up to a specified monthly threshold. Statement 3 is incorrect because solar energy is actually projected to be the single largest contributor to India's 500 GW non-fossil capacity target by 2030, not a minimal one."
+    },
+    {
+        q: "With reference to recent developments in India's nuclear energy sector, consider the following statements: <br> 1. India's Nuclear Energy Mission, announced in the Union Budget 2025-26, allocated funds for the research and development of Small Modular Reactors with the goal of operationalising at least five indigenously designed SMRs by 2033.<br>2. India's Prototype Fast Breeder Reactor at Kalpakkam attained first criticality in 2026, marking a key milestone in the second stage of India's three-stage nuclear power programme.<br>3. The SHANTI Act, 2025 withdrew the Atomic Energy Regulatory Board's statutory backing and placed nuclear safety regulation directly under the Prime Minister's Office.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "The Nuclear Energy Mission under Budget 2025-26 earmarked funds for SMR R&D targeting five indigenous SMRs by 2033, and the Prototype Fast Breeder Reactor at Kalpakkam achieving first criticality in 2026 is a landmark for Stage 2 of India's three-stage nuclear programme. Statement 3 is incorrect because the SHANTI Act actually conferred statutory status on the AERB for the first time, strengthening rather than weakening its regulatory standing."
+    },
+    {
+        q: "With reference to the Constitutional and legal provisions relevant to Energy Storage in India, consider the following statements: <br> 1. Electricity is placed under the Union List of the Seventh Schedule, empowering only Parliament to legislate on matters of electricity generation, storage and distribution.<br>2. Entry 38 of List III (the Concurrent List) of the Seventh Schedule to the Constitution covers electricity, allowing both Parliament and State legislatures to legislate on the subject.<br>3. The Electricity Act, 2003 was enacted as an amendment to the Atomic Energy Act, 1962, specifically to regulate nuclear-linked electricity storage.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1 only",
+            "3 only",
+            "None of the statements is correct"
+        ],
+        ans: 0,
+        exp: "Electricity is placed at Entry 38 of the Concurrent List (List III), giving both Parliament and State legislatures the power to legislate on it, with central law prevailing in case of conflict under Article 254. Statement 1 is wrong as electricity is not a Union List subject, and statement 3 is wrong as the Electricity Act, 2003 is a standalone consolidating law replacing earlier statutes like the Indian Electricity Act, 1910, unconnected to the separately governed nuclear energy sector."
+    },
+    {
+        q: "With reference to the Structure and Composition of Energy Efficiency initiatives in India, consider the following statements: <br> 1. The Standards and Labelling (S&L) Programme, launched in 2006 under the Energy Conservation Act, 2001, uses a comparative star rating system ranging from one to five stars to indicate energy efficiency.<br>2. The star rating thresholds under the S&L Programme are periodically revised upward, meaning a product previously rated five stars may be downgraded to a lower rating under updated norms even without any change in its own performance.<br>3. Under the S&L Programme, a higher star rating indicates lower energy efficiency and higher electricity consumption for a given level of performance.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "The S&L Programme, launched in 2006 under the Energy Conservation Act, 2001, uses a one-to-five star scale, with thresholds periodically revised upward such that an existing five-star product may be downgraded under new norms. Statement 3 is incorrect because a higher star rating actually indicates greater energy efficiency and lower electricity consumption, not the reverse."
+    },
+    {
+        q: "With reference to Reforms and Recommendations concerning Nuclear Energy in India, consider the following statements: <br> 1. A NITI Aayog-appointed panel has recommended amending India's foreign investment policies to allow domestic and foreign private companies to participate in nuclear power generation alongside public enterprises.<br>2. NITI Aayog has recommended that Small Modular Reactors (SMRs) be developed exclusively by government entities, with no scope for private sector participation, to safeguard national security.<br>3. NITI Aayog has flagged that India's green finance frameworks, such as sovereign green bonds, currently exclude nuclear energy, and has called for their review to unlock financing for the sector.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the statements are correct",
+            "Statement 2 alone",
+            "Statement 3 alone",
+            "Both 1 and 3"
+        ],
+        ans: 3,
+        exp: "A NITI Aayog panel recommended opening nuclear power generation to private companies through amendments to foreign investment policy, and NITI Aayog has separately flagged that green finance instruments like sovereign green bonds exclude nuclear energy, calling for a review. Statement 2 is incorrect because NITI Aayog has actually advocated encouraging private sector participation in SMR deployment, not restricting it exclusively to government entities."
+    },
+    {
+        q: "With reference to the Challenges and Issues facing Battery Technology in India, consider the following statements: <br> 1. Thermal runaway, an uncontrolled self-heating reaction that can lead to fires, remains a key safety challenge associated with damaged or poorly managed lithium-ion batteries.<br>2. The Battery Waste Management Rules, 2022 introduced Extended Producer Responsibility (EPR), requiring producers to ensure collection and recycling or refurbishment of waste batteries.<br>3. India's current battery recycling rate for lithium-ion batteries is estimated to be around 70-80%, reflecting a mature and highly efficient recycling ecosystem.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "Thermal runaway remains a significant safety hazard for damaged lithium-ion batteries, and the Battery Waste Management Rules, 2022 introduced Extended Producer Responsibility to ensure collection and recycling of waste batteries. Statement 3 is incorrect because India's actual lithium-ion battery recycling rate is estimated at only around 5-9%, reflecting an underdeveloped ecosystem rather than a mature one."
+    },
+    {
+        q: "With reference to the Features and Characteristics of Nuclear Energy, consider the following statements: <br> 1. Nuclear fission involves splitting a heavy atomic nucleus, such as Uranium-235, into smaller nuclei, releasing a large amount of energy.<br>2. Nuclear power plants in India predominantly use Pressurised Heavy Water Reactors (PHWRs), which use natural uranium as fuel and heavy water as both moderator and coolant.<br>3. Nuclear power generation produces electricity with a very low carbon footprint during operation compared to fossil-fuel based thermal power plants.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the above",
+            "Statement 1 alone",
+            "Only two of the statements are correct",
+            "Statement 3 alone"
+        ],
+        ans: 0,
+        exp: "Nuclear fission releases large amounts of energy by splitting heavy nuclei such as Uranium-235, India's fleet predominantly comprises Pressurised Heavy Water Reactors using natural uranium and heavy water, and nuclear generation has a very low operational carbon footprint compared to fossil-fuel based plants. All three statements accurately describe the fundamental features and characteristics of nuclear energy as deployed in India."
+    },
+    {
+        q: "With reference to recent developments concerning Energy Efficiency in India, consider the following statements: <br> 1. The Bureau of Energy Efficiency has recently expanded the mandatory star labelling requirement under the Standards and Labelling Programme to cover a wider range of appliances.<br>2. The Bureau of Energy Efficiency has released offset methodologies under India's Carbon Credit Trading Scheme (CCTS) to streamline emission-reduction projects across sectors such as energy, industry and waste.<br>3. The Carbon Credit Trading Scheme was introduced under the Indian Carbon Market framework as part of India's broader effort to meet its Nationally Determined Contributions under the Paris Agreement.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 1",
+            "1 and 3 only",
+            "Exactly two of the statements are correct",
+            "1, 2 and 3"
+        ],
+        ans: 3,
+        exp: "The BEE has recently widened mandatory star labelling to more appliance categories and released offset methodologies under the Carbon Credit Trading Scheme (CCTS), which was introduced under the Indian Carbon Market framework to support India's Nationally Determined Contributions under the Paris Agreement. All three statements are accurate reflections of recent developments in India's energy efficiency and carbon market architecture."
+    },
+    {
+        q: "With reference to recent developments concerning Biofuels in India, consider the following statements: <br> 1. India achieved its 20% ethanol blending (E20) target in petrol in 2025, about five years ahead of the original 2030 deadline.<br>2. India has set targets for blending Sustainable Aviation Fuel (SAF) in aviation turbine fuel, starting at 1% in 2027 and rising to 5% by 2030, initially applicable to international flights.<br>3. India has introduced a phased mandatory Compressed Biogas (CBG) blending obligation in city gas distribution networks, targeting about 5% blending by 2028-29.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "2 only",
+            "All of the above",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 2,
+        exp: "India achieved its E20 target in 2025, well ahead of schedule, while the government has separately notified phased blending obligations for Sustainable Aviation Fuel (starting at 1% in 2027, initially for international flights) and Compressed Biogas in city gas networks (rising to about 5% by 2028-29). All three statements accurately reflect India's expanding biofuel blending roadmap beyond ethanol."
+    },
+    {
+        q: "With reference to important Acts governing nuclear energy in India, consider the following statements: <br> 1. The Atomic Energy Act, 1962 permitted private companies to independently construct and operate nuclear power plants in India.<br>2. The SHANTI Act, 2025 repealed both the Atomic Energy Act, 1962 and the Civil Liability for Nuclear Damage Act, 2010.<br>3. The Civil Liability for Nuclear Damage Act, 2010 held equipment suppliers exclusively liable for nuclear damage, exempting the plant operator from any liability.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 only",
+            "None of the statements is correct",
+            "3 only"
+        ],
+        ans: 1,
+        exp: "The Sustainable Harnessing and Advancement of Nuclear Energy for Transforming India (SHANTI) Act, 2025 repealed and replaced both the Atomic Energy Act, 1962 and the Civil Liability for Nuclear Damage Act, 2010. Statement 1 is wrong as the 1962 Act created a government monopoly over nuclear power, and statement 3 is wrong as the 2010 Act placed strict, no-fault primary liability on the operator, with suppliers liable only through a limited right of recourse."
+    },
+    {
+        q: "With reference to reforms and recommendations concerning Battery Technology in India, consider the following statements: <br> 1. NITI Aayog's National Mission on Transformative Mobility and Battery Storage has already established a legally binding ALMM-like framework for battery components across India.<br>2. The Advanced Chemistry Cell PLI Scheme has already achieved its full target of 50 GWh of domestic battery manufacturing capacity, leading industry bodies to recommend withdrawal of further incentives.<br>3. Industry stakeholders have recommended raising the Goods and Services Tax (GST) on all battery-based energy storage systems to a uniform 28 per cent to fund the PLI scheme.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 only",
+            "None of the statements is correct",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "An ALMM-like framework for battery components remains only a proposal under evaluation by the Ministry of Heavy Industries, not a binding law, and the ACC PLI Scheme has achieved only a small fraction of its 50 GWh target, prompting calls for reform rather than withdrawal of incentives. Industry recommendations actually call for lowering and standardising GST on storage batteries (in the range of 5-10 per cent), not raising it to 28 per cent, making all three statements incorrect."
+    },
+    {
+        q: "With reference to Reforms and Recommendations concerning Energy Storage in India, consider the following statements: <br> 1. The Economic Survey 2025-26 called for addressing high capital costs, land acquisition delays and grid constraints while recommending large-scale deployment of battery storage and pumped storage projects.<br>2. The Union Budget 2026-27 proposed the India Energy Stack (IES) as a Digital Public Infrastructure for the power sector to enable consent-based data sharing and standardised settlement.<br>3. NITI Aayog has recommended that future renewable energy installations be co-located with some form of balancing capacity, such as storage or gas-based plants, to ensure reliable power supply.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 3",
+            "Exactly one of the statements is correct",
+            "All three statements are correct",
+            "Only statement 1"
+        ],
+        ans: 2,
+        exp: "The Economic Survey 2025-26 recommended scaling up battery and pumped storage to manage renewable variability, the Budget 2026-27 introduced the India Energy Stack as a digital public infrastructure for the power sector, and NITI Aayog has proposed co-locating renewable projects with balancing capacity for reliability. All three statements accurately capture recent reform recommendations for India's energy storage sector."
+    },
+    {
+        q: "With reference to the Structure and Composition of Battery Technology, consider the following statements: <br> 1. A lithium-ion battery consists of four key components: an anode, a cathode, an electrolyte and a separator.<br>2. The separator in a lithium-ion battery is a porous membrane that allows lithium ions to pass through while blocking direct contact between the anode and cathode to prevent short-circuiting.<br>3. In most commercial lithium-ion batteries, the anode is typically made of graphite, while the cathode is composed of a lithium metal oxide compound.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "Exactly one of the statements is correct",
+            "All of the above",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "A lithium-ion battery is composed of an anode, cathode, electrolyte and separator; the separator is a porous membrane permitting ion flow while preventing direct anode-cathode contact; and commercial cells typically use graphite anodes with lithium metal oxide cathodes. All three statements accurately describe the fundamental structure and composition of lithium-ion battery technology."
+    },
+    {
+        q: "With reference to Hydropower in India, a theme frequently tested in UPSC Prelims, consider the following statements: <br> 1. Pumped-storage hydropower involves pumping water uphill during periods of low electricity demand and releasing it to generate power during peak demand, making it a recognised form of long-duration energy storage.<br>2. Run-of-the-river hydroelectric projects are typically characterised by large water storage reservoirs that allow significant seasonal regulation of river flow, similar to storage-type dam projects.<br>3. In India, hydropower projects of all capacities, whether small or large, fall exclusively under the administrative jurisdiction of the Ministry of New and Renewable Energy.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "None of the statements is correct",
+            "1 only",
+            "3 only"
+        ],
+        ans: 2,
+        exp: "A recent UPSC Prelims question tested the concept of pumped-storage hydropower as a form of long-duration energy storage, which involves cycling water between reservoirs at different elevations. Statement 2 is wrong since run-of-the-river projects have little to no storage capacity, and statement 3 is wrong as only small hydro projects (up to 25 MW) fall under MNRE, while larger hydro projects are administered by the Ministry of Power."
+    },
+    {
+        q: "With reference to Energy Storage in India, consider the following statements: <br> 1. Pumped hydro storage has been utilised for grid balancing in India since much before the recent emergence of grid-scale battery storage systems.<br>2. The Production Linked Incentive (PLI) Scheme for Advanced Chemistry Cell (ACC) battery storage is administered by the Ministry of New and Renewable Energy.<br>3. The Viability Gap Funding (VGF) Scheme for Battery Energy Storage Systems was approved to make storage-based power more competitive with conventional sources.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 1",
+            "Exactly one of the statements is correct",
+            "Only two of the statements are correct",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "Pumped hydro storage is a decades-old technology in India, predating the recent push for battery storage, and the VGF Scheme was approved to lower BESS costs and improve viability against conventional power. The ACC PLI Scheme, however, is administered by the Ministry of Heavy Industries, not the Ministry of New and Renewable Energy, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to the Functions and Powers of institutions governing Wind Energy in India, consider the following statements: <br> 1. The National Institute of Wind Energy (NIWE), Chennai, functions as a statutory tariff-fixing regulatory body for wind power procurement across Indian states.<br>2. NIWE has been designated as the nodal agency for offshore wind energy development in India, including conducting preliminary resource assessments and facilitating clearances.<br>3. NIWE was established under the administrative control of the Ministry of Power, distinct from the Ministry of New and Renewable Energy, which handles only solar energy.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1 only",
+            "None of the statements is correct",
+            "3 only"
+        ],
+        ans: 0,
+        exp: "NIWE, an autonomous R&D institution established in Chennai in 1998, has been designated the nodal agency for offshore wind development, conducting resource assessments and facilitating clearances. Statement 1 is wrong as NIWE is a technical body, not a tariff-fixing regulator (that role rests with CERC/SERCs), and statement 3 is wrong as NIWE functions under the Ministry of New and Renewable Energy, which handles wind alongside solar and other renewables."
+    },
+    {
+        q: "With reference to important Acts and Amendments governing Energy Efficiency in India, consider the following statements: <br> 1. The Energy Conservation Act, 2001 led to the establishment of the Bureau of Energy Efficiency (BEE) to promote energy efficiency and conservation.<br>2. The Energy Conservation (Amendment) Act, 2022 introduced the concept of a carbon credit trading scheme and mandated a minimum share of consumption from non-fossil sources for designated consumers.<br>3. The Energy Conservation (Amendment) Act, 2022 reduced the number of members in the BEE Governing Council to enable faster decision-making.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "The Energy Conservation Act, 2001 established the BEE, and its 2022 amendment introduced carbon credit trading and mandated minimum non-fossil source consumption for designated consumers to support COP-26 goals. Statement 3 is incorrect because the 2022 amendment actually increased the BEE Governing Council's membership from a range of 20-26 to 31-37, not reduced it."
+    },
+    {
+        q: "With reference to the Features and Characteristics of Battery Technology, consider the following statements: <br> 1. In a lithium-ion battery, during discharge, lithium ions move from the anode to the cathode through the electrolyte, while electrons flow through the external circuit.<br>2. The graphite anode in a lithium-ion battery acts as the positive terminal of the battery during discharge.<br>3. The 2019 Nobel Prize in Chemistry recognised the development of lithium-ion batteries, honouring contributions including those of John Goodenough and Akira Yoshino.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "Only one of the statements is correct",
+            "Only two of the statements are correct",
+            "None of the above"
+        ],
+        ans: 2,
+        exp: "During discharge, lithium ions migrate from the graphite anode to the metal-oxide cathode through the electrolyte, while electrons take the external circuit path, and this innovation was recognised through the 2019 Nobel Prize in Chemistry shared by Goodenough, Whittingham and Yoshino. Statement 2 is incorrect because the graphite anode is the negative terminal during discharge, while the cathode serves as the positive terminal."
+    },
+    {
+        q: "With reference to recent developments concerning Smart Grids in India, consider the following statements: <br> 1. The Revamped Distribution Sector Scheme's original deadline for smart meter installation, initially set for March 2026, has been extended due to slower-than-expected rollout progress.<br>2. Smart meter installation under the RDSS had already exceeded 90 per cent of its target of 25 crore meters by mid-2026.<br>3. The Central Electricity Authority issued amended regulations in 2026 mandating the use of Indian Standards-compliant smart meters in areas with adequate communication network availability.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 2,
+        exp: "Due to slow progress, the RDSS smart meter deadline was extended from March 2026 to March 2028, and the Central Electricity Authority's 2026 amendment regulations mandated Indian Standards-compliant smart meters where communication networks are available. Statement 2 is incorrect since actual installation had reached only a fraction, not over 90 per cent, of the 25-crore target by mid-2026."
+    },
+    {
+        q: "With reference to the Structure and Composition of Hydrogen Energy, consider the following statements: <br> 1. Green hydrogen is produced by the electrolysis of water using electricity generated from renewable sources, releasing only oxygen as a by-product besides hydrogen.<br>2. Grey and green hydrogen differ chemically in their molecular composition, with green hydrogen containing additional oxygen atoms bonded to hydrogen.<br>3. Blue hydrogen is produced by nuclear-powered electrolysis of water, distinguishing it from grey hydrogen's fossil-fuel based production process.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 only",
+            "None of the statements is correct",
+            "2 only"
+        ],
+        ans: 1,
+        exp: "Green hydrogen is produced via electrolysis of water using renewable electricity, yielding hydrogen and oxygen as the only outputs. Statement 2 is wrong because grey and green hydrogen are chemically identical (both H2), differing only in the carbon footprint of their production process; statement 3 is wrong because blue hydrogen uses the same steam methane reforming process as grey hydrogen combined with carbon capture and storage, while nuclear-powered electrolysis actually describes 'pink hydrogen'."
+    },
+    {
+        q: "With reference to the Background and Evolution of Battery Technology, consider the following statements: <br> 1. The first practical electrochemical cell, the Voltaic Pile, was invented by Michael Faraday in the early 1900s using nickel and cadmium electrodes.<br>2. Lithium-ion battery technology was both conceptualised and commercialised in the 1970s, well before the lead-acid battery was developed.<br>3. The 2019 Nobel Prize in Chemistry for lithium-ion battery development was awarded exclusively to Akira Yoshino, with no shared recipients.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements is correct",
+            "3 only",
+            "2 only",
+            "1 only"
+        ],
+        ans: 0,
+        exp: "The Voltaic Pile was actually invented by Alessandro Volta around 1800 using zinc and silver/copper electrodes, not by Michael Faraday. Lithium-ion battery technology was conceptualised in the 1970s but only commercialised in the early 1990s, well after the lead-acid battery (invented in 1859), and the 2019 Nobel Prize in Chemistry for lithium-ion batteries was shared among John Goodenough, M. Stanley Whittingham and Akira Yoshino, making all three statements incorrect."
+    },
+    {
+        q: "Consider the following pairs:<br>Colour label of hydrogen : Typical production route<br>1. Grey hydrogen : Steam methane reforming of natural gas without carbon capture<br>2. Blue hydrogen : Electrolysis of water using electricity from nuclear power<br>3. Brown hydrogen : Gasification of lignite or coal without carbon capture<br>How many of the pairs given above are correctly matched?",
+        opts: [
+            "All three pairs",
+            "Only two pairs",
+            "None of the pairs",
+            "Only one pair"
+        ],
+        ans: 1,
+        exp: "Grey hydrogen comes from natural gas through steam methane reforming without capturing the CO2, and brown hydrogen comes from gasification of lignite or coal without capture. Blue hydrogen is fossil-based hydrogen whose CO2 is captured and stored, whereas electrolysis powered by nuclear electricity is termed pink hydrogen. Hence only pairs 1 and 3 are correct."
+    },
+    {
+        q: "With reference to the challenges facing Nuclear Energy in India, consider the following statements: <br> 1. India's domestic uranium reserves are limited and largely low-grade, necessitating imports from countries such as Russia, Kazakhstan and Canada.<br>2. The high capital cost and long gestation period of nuclear power plants make them more cost-competitive than solar and wind projects in the short term.<br>3. Public opposition and land acquisition issues, as seen in projects like the Kudankulam Nuclear Power Plant, have contributed to delays in India's nuclear expansion.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3",
+            "1 and 3 only"
+        ],
+        ans: 3,
+        exp: "India's uranium resources are scarce and low-grade, requiring import dependence, while land acquisition disputes and public opposition, as seen at Kudankulam, have repeatedly delayed nuclear projects. Statement 2 is incorrect because the high upfront cost and long gestation period of nuclear plants make them less, not more, cost-competitive than increasingly cheaper solar and wind energy in the short term."
+    },
+    {
+        q: "With reference to Wind Energy in India, a theme occasionally tested in UPSC Prelims, consider the following statements: <br> 1. India currently ranks first in the world in terms of total installed wind power capacity, ahead of China and the United States.<br>2. As per assessments by the National Institute of Wind Energy, India's gross wind power potential at a hub height of 120 metres is estimated at over 690 GW, though only a small fraction has been installed.<br>3. Wind energy is considered an intermittent and site-specific resource, necessitating extensive wind resource assessment before selecting project locations.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All three statements are correct",
+            "Statement 3 alone",
+            "Exactly two of the statements are correct",
+            "None of the statements are correct"
+        ],
+        ans: 2,
+        exp: "NIWE's assessments put India's gross wind potential at over 690 GW at 120 metres, and wind, being intermittent and site-specific, requires extensive resource assessment before site selection — both well-established facts in wind energy literature. Statement 1 is incorrect as India ranks fourth globally in installed wind capacity, behind China, the United States and Germany, not first."
+    },
+    {
+        q: "With reference to the Features and Characteristics of Hydrogen Energy, consider the following statements: <br> 1. Hydrogen has a much higher gravimetric energy density (energy per unit mass) than conventional fuels such as petrol or diesel.<br>2. Despite its high energy content, hydrogen has a low volumetric energy density in its gaseous form, requiring compression, liquefaction, or conversion into carriers like ammonia for practical storage and transport.<br>3. A hydrogen fuel cell generates electricity through a combustion reaction between hydrogen and oxygen, similar to how an internal combustion engine operates.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 and 2 only",
+            "2 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "Hydrogen has a high gravimetric energy density (energy per unit mass) but a low volumetric energy density in its gaseous state, necessitating compression, liquefaction or conversion into carriers such as ammonia for practical use. Statement 3 is incorrect because a fuel cell produces electricity through an electrochemical reaction between hydrogen and oxygen, not a combustion process as occurs in an internal combustion engine."
+    },
+    {
+        q: "With reference to the Background and Evolution of Solar Energy in India, consider the following statements: <br> 1. The Jawaharlal Nehru National Solar Mission (JNNSM), launched in January 2010, was one of the eight national missions under the National Action Plan on Climate Change (NAPCC).<br>2. JNNSM originally set a target of 100 GW of grid-connected solar capacity by 2022, a target that was never revised thereafter.<br>3. Solar tariffs in India fell sharply from over ₹17 per unit in the initial phase of JNNSM to below ₹2.50 per unit within about seven years, reflecting rapid cost reduction.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "Both 2 and 3",
+            "Only two of the statements are correct",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "JNNSM, launched in January 2010 as one of the eight NAPCC missions, saw solar tariffs collapse from over ₹17 per unit in its early phase to around ₹2.44 per unit by the 2017 Bhadla auction. Statement 2 is incorrect because the original 2010 target was only 20 GW by 2022, which was revised upward to 100 GW only in 2015, not set at 100 GW from the outset."
+    },
+    {
+        q: "With reference to the Challenges and Issues facing Hydrogen Energy, consider the following statements: <br> 1. Green hydrogen production is currently cheaper than grey hydrogen derived from fossil fuels, mainly due to falling electrolyser costs.<br>2. Hydrogen has a high volumetric energy density in its gaseous form, making its storage and transportation considerably simpler than that of natural gas.<br>3. India's electrolyser manufacturing base is fully self-reliant, with no dependence on imported components for scaling up green hydrogen production.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1 only",
+            "3 only",
+            "None of the statements is correct"
+        ],
+        ans: 3,
+        exp: "Green hydrogen remains significantly costlier than grey hydrogen due to high electrolyser and renewable electricity costs, hydrogen actually has low volumetric energy density in gaseous form (making storage and transport harder, not simpler), and India's electrolyser manufacturing base remains underdeveloped and import-dependent. All three statements misstate the real challenges facing hydrogen energy in India."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-79 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

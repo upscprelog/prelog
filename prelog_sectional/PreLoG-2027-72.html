@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-72</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "With reference to recent developments in global climate governance, consider the following statements: <br> 1. COP30, held in Belém, Brazil in November 2025, concluded with a set of decisions known as the 'Mutirão Decision' or Belém Political Package, which included a call for tripling adaptation finance by 2035.<br>2. COP30 concluded with a legally binding global commitment to a complete phase-out of fossil fuels by a specific target year.<br>3. At COP30, the United States sent a larger official delegation than at any previous COP, reflecting renewed climate engagement.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 3",
+            "2 and 3 only",
+            "2 only",
+            "Statement 1 alone"
+        ],
+        ans: 3,
+        exp: "COP30 in Belém did conclude with the Mutirão Decision, part of the Belém Political Package, calling for tripling adaptation finance by 2035. However, the summit ended without any binding commitment to a complete fossil-fuel phase-out, and for the first time in COP history, the United States did not send an official delegation at all, the opposite of what statement 3 claims."
+    },
+    {
+        q: "With reference to India's Blue Economy, consider the following statements: <br> 1. The Blue Economy encompasses sectors such as fisheries, shipping, tourism and offshore oil and gas exploration.<br>2. Under India's Deep Ocean Mission, exploration of polymetallic nodules is being undertaken in the Central Indian Ocean Region.<br>3. The term 'Blue Carbon' refers exclusively to carbon sequestered in terrestrial forest biomass and agricultural soils.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "Only two of the statements are correct",
+            "All three statements are correct",
+            "None of the statements are correct"
+        ],
+        ans: 1,
+        exp: "India's Blue Economy spans sectors like fisheries, shipping, tourism, and offshore oil and gas, and the Deep Ocean Mission specifically targets exploration and mining technology for polymetallic nodules in the Central Indian Ocean Region. Blue Carbon actually refers to carbon captured by oceans and coastal ecosystems (such as mangroves and seagrasses), not terrestrial forests or agricultural soils, which makes statement 3 incorrect."
+    },
+    {
+        q: "With reference to the National Policy on Biofuels, consider the following statements: <br> 1. The National Policy on Biofuels, 2018 replaced an earlier biofuels policy that had been promulgated in 2009.<br>2. Under this policy, ethanol for blending with petrol can be produced only from sugarcane juice and not from any food grains.<br>3. Under this policy, biodiesel is classified as an 'Advanced Biofuel'.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 and 3 only",
+            "1 only",
+            "2 only"
+        ],
+        ans: 2,
+        exp: "The National Policy on Biofuels, 2018 (notified by the Ministry of Petroleum and Natural Gas) superseded the earlier 2009 policy that had been administered by the Ministry of New and Renewable Energy. The policy permits use of surplus food grains for ethanol production with the approval of the National Biofuel Coordination Committee, and it classifies biodiesel as a 'Basic Biofuel', not an 'Advanced Biofuel'."
+    },
+    {
+        q: "The 'Miyawaki Method', which has gained attention in various Indian cities in recent years, is associated with which one of the following?",
+        opts: [
+            "Vertical farming of vegetables using hydroponics",
+            "Creation of dense, fast-growing miniature forests on small urban plots",
+            "Recycling of construction and demolition waste into building blocks",
+            "Desalination of seawater for urban drinking water supply"
+        ],
+        ans: 1,
+        exp: "The Miyawaki Method, developed by Japanese botanist Akira Miyawaki, involves planting native tree species in dense, multi-layered clusters on small plots to rapidly create self-sustaining miniature forests, which mature far faster than conventionally planted forests. Indian municipal corporations have used it to create urban mini-forests that help reduce the urban heat island effect and improve local air quality, and it has no connection to desalination, hydroponics, or construction waste recycling."
+    },
+    {
+        q: "Assertion (A): The National Biodiversity Authority (NBA) exercises regulatory powers, including the authority to grant or deny approval for access to India's biological resources by foreign individuals or entities for research or commercial use.<br>Reason (R): The NBA is a statutory body established under the Biological Diversity Act, 2002, with its headquarters located in Chennai.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "A is true, but R is false",
+            "Both A and R are true, and R is the correct explanation of A",
+            "A is false, but R is true",
+            "Both A and R are true, but R is not the correct explanation of A"
+        ],
+        ans: 1,
+        exp: "The NBA's power to regulate and approve access to biological resources by foreign entities flows directly from its statutory status under the Biological Diversity Act, 2002, making R a correct explanation of A. The NBA was formally set up in 2003 and is headquartered in Chennai, Tamil Nadu, performing facilitative, regulatory, and advisory functions related to biodiversity conservation and benefit-sharing."
+    },
+    {
+        q: "With reference to the Energy Conservation (Amendment) Act, 2022, consider the following statements: <br> 1. It amended the Energy Conservation Act, 2001 to empower the Central Government to specify a Carbon Credit Trading Scheme.<br>2. The Act mandates that designated consumers may be required to meet a specified minimum share of their energy needs from non-fossil sources.<br>3. The Bureau of Energy Efficiency (BEE) has no administrative role in the Indian Carbon Market and functions purely as a certifying body for individual appliances.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "All of the above",
+            "Both 1 and 3",
+            "Only two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "The Energy Conservation (Amendment) Act, 2022 did empower the government to specify a Carbon Credit Trading Scheme and mandated a minimum share of non-fossil energy consumption for designated consumers, confirming statements 1 and 2. However, the Bureau of Energy Efficiency actually serves as the chief administrator of the Indian Carbon Market, well beyond mere appliance certification, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to India's Deep Ocean Mission, consider the following statements: <br> 1. It has a total outlay of approximately ₹4,077 crore for the period 2021-26 and includes development of a manned submersible capable of reaching depths of about 6,000 metres.<br>2. The Mission is solely focused on developing weapons systems for undersea warfare and has no component related to marine biodiversity or climate services.<br>3. The submersible being developed under the Mission is named 'Matsya 6000'.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3",
+            "1 and 3 only"
+        ],
+        ans: 3,
+        exp: "The Deep Ocean Mission does have an outlay of about ₹4,077 crore over 2021-26 and includes developing the 'Matsya 6000' submersible capable of reaching roughly 6,000-metre depths, confirming statements 1 and 3. However, the Mission is actually a multi-institutional civilian scientific effort covering polymetallic nodule exploration, ocean observation systems, marine biodiversity, and climate services, not an undersea weapons programme, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to the PM Surya Ghar: Muft Bijli Yojana, consider the following statements: <br> 1. The scheme, launched in February 2024, aims to enable rooftop solar installation in one crore households and provide up to 300 units of free electricity per month.<br>2. Under this scheme, the subsidy amount increases proportionally without any upper cap, regardless of the installed rooftop solar capacity.<br>3. The scheme is being implemented exclusively through State Electricity Regulatory Commissions, with no role for any central-level implementation or nodal agency.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 and 3 only",
+            "2 only",
+            "3 only"
+        ],
+        ans: 0,
+        exp: "The PM Surya Ghar: Muft Bijli Yojana, launched in February 2024, does target one crore rooftop solar households with up to 300 units of free electricity monthly. However, the subsidy is actually capped at a maximum amount (around ₹78,000) rather than increasing without limit, and the scheme is implemented through a National Programme Implementation Agency at the central level alongside State Implementation Agencies, not exclusively through State Electricity Regulatory Commissions."
+    },
+    {
+        q: "With reference to the Green Credit Programme (GCP) in India, consider the following statements: <br> 1. It was notified through the Green Credit Rules, 2023 under Section 3 of the Environment (Protection) Act, 1986.<br>2. The Green Credit Programme is implemented by the Central Pollution Control Board (CPCB) rather than any forestry research body.<br>3. The related Global Green Credit Initiative was launched by India at the COP28 climate conference held in Dubai in 2023.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "Exactly two of the statements are correct",
+            "None of the above",
+            "Only statement 2"
+        ],
+        ans: 1,
+        exp: "The Green Credit Rules, 2023 were indeed notified under Section 3 of the Environment (Protection) Act, 1986, and India did launch the Global Green Credit Initiative at COP28 in Dubai in December 2023. However, the Green Credit Programme is actually implemented by the Indian Council of Forestry Research and Education (ICFRE), not the Central Pollution Control Board, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to challenges facing India's transition to a circular economy, consider the following statements: <br> 1. India currently recycles a considerably lower share of its municipal waste (around 30%) compared to many developed nations, largely due to informal-sector dominance and inadequate source segregation.<br>2. India's e-waste management is predominantly handled by the formal, organised recycling sector, with the informal sector playing only a negligible role.<br>3. Informal recycling of e-waste in India typically achieves a higher rate of valuable metal recovery than modern formal recycling facilities, due to traditional expertise.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "3 only",
+            "1 only",
+            "2 only"
+        ],
+        ans: 2,
+        exp: "India does recycle only around 30% of its municipal waste, well below rates in many developed nations, largely due to informal-sector dominance and poor source segregation. However, it is actually the informal sector that dominates e-waste collection and recycling in India, and this informal recycling recovers only about 10-20% of valuable metals due to crude techniques, far lower than formal facilities, making statements 2 and 3 incorrect."
+    },
+    {
+        q: "With reference to the Electricity (Promoting Renewable Energy Through Green Energy Open Access) Rules, 2022, consider the following statements: <br> 1. They reduced the open access transaction limit for green energy from 1 MW to 100 kW for non-captive consumers.<br>2. These Rules abolished the concept of Renewable Purchase Obligation (RPO) altogether, replacing it with a purely voluntary green energy purchase mechanism.<br>3. Under the Electricity Act, 2003 framework referenced by these Rules, the tariff for green energy is determined by the Appropriate (Regulatory) Commission.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 2 only",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "The Rules did lower the green energy open access threshold from 1 MW to 100 kW for non-captive consumers, and the tariff for green energy continues to be determined by the Appropriate Commission as per the Electricity Act, 2003, confirming statements 1 and 3. However, the Rules did not abolish RPOs — they instead introduced a uniform RPO on all obligated entities and even extended it to cover Green Hydrogen and Green Ammonia, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to the Environmental Impact Assessment (EIA) Notification, 2006, consider the following statements: <br> 1. Category 'A' projects under the Notification require clearance from the State Level Environment Impact Assessment Authority (SEIAA) rather than the Central Government.<br>2. Category 'B' projects under the Notification undergo a screening process and are further classified into Category B1 (requiring EIA) and Category B2 (not requiring EIA).<br>3. The EIA Notification, 2006 was issued under the provisions of the Environment (Protection) Act, 1986.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "Category 'A' projects are actually appraised at the national level by the Central Government through the Expert Appraisal Committee, not by the State-level SEIAA, which handles Category 'B' projects instead. Category 'B' projects do undergo screening and are split into B1 (mandatorily requiring EIA) and B2 (not requiring EIA) sub-categories, and the entire Notification was issued under the Environment (Protection) Act, 1986."
+    },
+    {
+        q: "With reference to the challenges associated with India's ethanol blending programme, consider the following statements: <br> 1. A key criticism is that diverting food grains such as rice and maize for ethanol production could raise food security concerns.<br>2. Sugarcane, a major ethanol feedstock in India, is a relatively low water-intensity crop compared to most other crops used for biofuel production.<br>3. Ethanol blending above 10% has faced no reported concerns regarding compatibility with older-generation vehicle engines.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 only",
+            "2 only",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "The diversion of food grains for ethanol production has indeed been flagged as a food security concern, making statement 1 correct. However, sugarcane is actually a highly water-intensive crop, not a low water-intensity one, and higher ethanol blends such as E20 have raised genuine concerns about compatibility, fuel efficiency, and warranty issues in older, non-flex-fuel vehicles, making both statements 2 and 3 incorrect."
+    },
+    {
+        q: "With reference to India's Draft Blue Economy Policy, consider the following statements: <br> 1. It characterises the blue economy as a subset of the national economy encompassing the entire ocean resource system and associated coastal economic infrastructure.<br>2. It identifies exactly three thematic areas covering fisheries, tourism, and shipping alone, leaving out matters of security and ocean governance.<br>3. It positions the blue economy as one of the ten core dimensions of the Government of India's 'Vision of New India by 2030'.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "Both 2 and 3",
+            "All of the above",
+            "Only two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "The Draft Blue Economy Policy, prepared by the Ministry of Earth Sciences, does define the blue economy as a subset of the national economy covering ocean resources and coastal infrastructure, and situates it as one of the ten core dimensions of 'Vision of New India by 2030', confirming statements 1 and 3. However, it actually identifies seven thematic areas — including security, strategic dimensions, and ocean governance — not merely three, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to the structural composition of the 'Green Economy' as conceptualised by UNEP, consider the following statements: <br> 1. UNEP's conceptualisation of the green economy is generally organised around five pillars: wellbeing, justice, planetary boundaries, efficiency and sufficiency, and good governance.<br>2. The green economy framework, as structured by UNEP, treats economic growth and environmental sustainability as fundamentally incompatible objectives that cannot be pursued together.<br>3. The structural composition of the green economy, per UNEP, excludes considerations of social equity and is concerned solely with carbon emissions accounting.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "Exactly two of the statements are correct",
+            "All three statements are correct",
+            "Only two of the statements are correct"
+        ],
+        ans: 0,
+        exp: "UNEP's green economy framework is indeed structured around the five pillars of wellbeing, justice, planetary boundaries, efficiency and sufficiency, and good governance. However, the framework explicitly seeks to align economic growth with environmental sustainability rather than treating them as incompatible, and it incorporates social equity and wellbeing as core pillars rather than being limited solely to carbon accounting, making statements 2 and 3 incorrect."
+    },
+    {
+        q: "With reference to the recommendations of the NITI Aayog's 'Roadmap for Ethanol Blending in India 2020-25' report, consider the following: <br> 1. Phased rollout of E10 (10% ethanol-blended petrol) fuel across the country by April 2022.<br>2. Phased rollout of E20 (20% ethanol-blended petrol) beginning April 2023, to ensure pan-India availability by 2025.<br>3. Raising India's ethanol production capacity from around 700 crore litres to about 1,500 crore litres.<br>4. Restricting ethanol production exclusively to sugarcane-based feedstock, entirely excluding grains.<br>How many of the above are genuine recommendations of the report?",
+        opts: [
+            "Only one",
+            "Only two",
+            "Only three",
+            "All four"
+        ],
+        ans: 2,
+        exp: "The NITI Aayog roadmap did recommend a phased E10 rollout by April 2022, a phased E20 rollout starting April 2023 with pan-India availability by 2025, and raising ethanol production capacity from roughly 700 to 1,500 crore litres. However, the report actually encouraged diversifying feedstock to include grains such as maize alongside sugarcane, rather than restricting production exclusively to sugarcane, making only three of the four statements genuine recommendations."
+    },
+    {
+        q: "With reference to India's 'Green Growth' agenda, consider the following statements: <br> 1. The Union Budget 2023-24 identified 'Green Growth' as one of its seven priorities (referred to as 'Saptarishi'), supporting India's target of net-zero carbon emissions by 2070.<br>2. The Sovereign Green Bond (SGrB) Framework was first introduced through the Union Budget 2023-24.<br>3. Proceeds from India's Sovereign Green Bonds are permitted to be used for financing new nuclear power generation projects.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "Exactly two of the statements are correct",
+            "None of the above",
+            "All of the above"
+        ],
+        ans: 0,
+        exp: "The Union Budget 2023-24 did name 'Green Growth' as one of its seven Saptarishi priorities, tied to India's 2070 net-zero goal. However, the Sovereign Green Bond Framework was actually introduced a year earlier, in the Union Budget 2022-23, and the framework explicitly excludes nuclear power projects from the list of eligible green expenditures, making statements 2 and 3 both incorrect."
+    },
+    {
+        q: "With reference to recent policy measures on circular economy and waste management in India, consider the following statements: <br> 1. The E-Waste (Management) Rules, 2022 replaced the 2016 Rules and significantly expanded the number of covered Electrical and Electronic Equipment categories.<br>2. The Battery Waste Management Rules, 2022 replaced the Batteries (Management and Handling) Rules, 2001 and cover only automotive lead-acid batteries, excluding electric vehicle batteries.<br>3. The Battery Waste Management Rules, 2022 prohibit the disposal of waste batteries through landfilling or incineration.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 2 only",
+            "1 and 3 only"
+        ],
+        ans: 3,
+        exp: "The E-Waste (Management) Rules, 2022 did replace the 2016 Rules while greatly expanding covered equipment categories, and the Battery Waste Management Rules, 2022 do prohibit disposal of waste batteries via landfilling or incineration, confirming statements 1 and 3. However, the Battery Waste Management Rules actually cover all types of batteries — including electric vehicle, portable, automotive, and industrial batteries — not just automotive lead-acid batteries, making statement 2 incorrect."
+    },
+    {
+        q: "Assertion (A): Despite being in operation for several years, the National Clean Air Programme (NCAP) has had limited enforceable impact on reducing air pollution in most of its target cities.<br>Reason (R): NCAP is a non-statutory programme whose city-specific pollution reduction targets are not legally binding.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "A is true, but R is false",
+            "Both A and R are true, but R is not the correct explanation of A",
+            "Both A and R are true, and R is the correct explanation of A",
+            "A is false, but R is true"
+        ],
+        ans: 2,
+        exp: "Progress reports on the NCAP indicate that most of its 131 non-attainment cities still exceed national air quality standards despite years of implementation, confirming Assertion A. This limited enforceable impact is directly explained by Reason R, since NCAP was launched as a non-statutory strategy with city-specific targets that carry no legal force, weakening compliance and accountability."
+    },
+    {
+        q: "With reference to recent developments concerning the Sustainable Development Goals (SDGs), consider the following statements: <br> 1. As per the Sustainable Development Report 2026 released by the UN Sustainable Development Solutions Network (SDSN), India recorded its highest-ever ranking, moving up to around 94th among 167 countries.<br>2. In the NITI Aayog SDG India Index 2023-24, Kerala and Uttarakhand jointly topped the rankings among Indian States.<br>3. India's overall SDG India Index composite score for 2023-24, as per NITI Aayog, showed a decline compared to its 2020-21 score.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 2 only",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "India's rank in the global Sustainable Development Report 2026 improved to its highest-ever position of around 94th out of 167 countries, and Kerala and Uttarakhand jointly led the NITI Aayog's SDG India Index 2023-24. However, India's composite SDG India Index score actually rose to 71 in 2023-24, a 5-point improvement over 2020-21, rather than showing any decline, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the Sagarmala Programme, consider the following statements: <br> 1. The Sagarmala Programme, launched in 2015, functions under the Ministry of Shipping alone and has no institutional linkage with State Governments.<br>2. One of Sagarmala's five pillars specifically focuses on coastal community development.<br>3. The National Sagarmala Apex Committee was constituted to oversee port-led development under the programme.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 3 alone",
+            "2 only",
+            "Both 2 and 3",
+            "1 only"
+        ],
+        ans: 2,
+        exp: "Coastal community development is indeed one of Sagarmala's five pillars, and the National Sagarmala Apex Committee was set up in 2015 to oversee the programme, confirming statements 2 and 3. However, Sagarmala actually operates through a model of cooperative federalism involving close coordination between the Union Ministry of Ports, Shipping and Waterways and coastal State Governments, contrary to statement 1."
+    },
+    {
+        q: "With reference to the Perform, Achieve and Trade (PAT) scheme, consider the following statements: <br> 1. It is implemented by the Bureau of Energy Efficiency under the National Mission for Enhanced Energy Efficiency.<br>2. Industries that exceed their prescribed energy-saving targets under the scheme can trade Energy Saving Certificates on power exchanges.<br>3. The Bureau of Energy Efficiency, which administers the scheme, was constituted under the Energy Conservation Act, 2001.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "Statement 2 alone",
+            "Exactly two of the statements are correct",
+            "1 only"
+        ],
+        ans: 0,
+        exp: "The PAT scheme is a market-based mechanism run by the Bureau of Energy Efficiency (BEE) under the National Mission for Enhanced Energy Efficiency, one of the eight missions under the NAPCC. Industries surpassing their Specific Energy Consumption targets earn tradeable Energy Saving Certificates (ESCerts), and BEE itself was statutorily constituted under the Energy Conservation Act, 2001, making all three statements correct."
+    },
+    {
+        q: "Statement I: Recycling of metals such as aluminium and steel through a circular economy approach significantly reduces the greenhouse gas emissions associated with metal production.<br>Statement II: Producing aluminium from recycled scrap requires substantially less energy than producing it from virgin bauxite ore.<br>Statement III: Steel produced via the electric arc furnace (EAF) route using scrap requires more energy than steel produced from iron ore via the blast furnace route.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "Neither Statement II nor Statement III is correct",
+            "Only one of Statement II and Statement III is correct, and it explains Statement I",
+            "Both Statement II and Statement III are correct, and both of them explain Statement I",
+            "Both Statement II and Statement III are correct, but only one of them explains Statement I"
+        ],
+        ans: 1,
+        exp: "Aluminium recycling requires only a small fraction of the energy needed to produce aluminium from virgin bauxite ore, so Statement II is correct and helps explain the lower emissions in Statement I. Statement III is factually incorrect because the electric arc furnace (scrap-based) route actually consumes considerably less energy than the blast furnace (iron ore-based) route, so only one of the two statements is both correct and explanatory."
+    },
+    {
+        q: "With reference to challenges in achieving the Sustainable Development Goals (SDGs), consider the following statements: <br> 1. India's first Voluntary National Review (VNR) on the SDGs was presented to the UN High-Level Political Forum in 2017, with subsequent VNRs presented in 2020 and 2025.<br>2. As per a UNDP estimate, India needs additional investment of roughly USD 2.6 trillion between 2022 and 2030 to achieve the SDGs.<br>3. The High-Level Political Forum on Sustainable Development, before which VNRs are presented, meets under the exclusive authority of the UN Security Council.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "All of the statements are correct",
+            "Only one of the statements is correct",
+            "Both 1 and 3"
+        ],
+        ans: 0,
+        exp: "India has indeed presented VNRs in 2017, 2020, and most recently in 2025, and a UNDP-linked estimate has pegged India's additional SDG investment requirement at around USD 2.6 trillion for 2022-2030, confirming statements 1 and 2. However, the High-Level Political Forum actually meets annually under the auspices of the UN Economic and Social Council (ECOSOC), not the Security Council, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to environmentally sustainable practices in road and building construction in India, consider the following statements: <br> 1. Fly ash, a by-product of coal-based thermal power plants, can be used to manufacture bricks and as a partial substitute for cement.<br>2. Cold mix asphalt technology reduces energy consumption and carbon emissions compared to hot mix asphalt technology, since it does not require heating of aggregates.<br>3. Waste plastic can be blended with bitumen to strengthen and extend the lifespan of paved roads.<br>4. The manufacturing process of Portland cement is largely carbon-neutral due to natural absorption of carbon dioxide by limestone.<br>How many of the above statements are correct?",
+        opts: [
+            "Only one",
+            "Only two",
+            "Only three",
+            "All four"
+        ],
+        ans: 2,
+        exp: "Fly ash bricks and fly-ash-blended cement, cold mix asphalt technology, and plastic-blended bitumen roads are all recognised environmentally sustainable practices that reduce energy use, emissions, or reliance on virgin materials. Portland cement manufacturing, however, is actually one of the most carbon-intensive industrial processes globally rather than being carbon-neutral, making only three of the four statements correct."
+    },
+    {
+        q: "With reference to recent global efforts to strengthen the Sustainable Development Goals (SDGs), consider the following statements: <br> 1. The SDG Summit held in September 2023 marked the mid-point review of the 2030 Agenda and concluded with the adoption of a Political Declaration.<br>2. The 'Pact for the Future', adopted at the 2024 Summit of the Future, includes the Global Digital Compact and the Declaration on Future Generations as its annexes.<br>3. The annual global financing gap for achieving the SDGs in developing countries was highlighted at the SDG Summit 2023 as having risen to around USD 4.2 trillion.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "The SDG Summit 2023, held at the halfway point to 2030, concluded with a Political Declaration reaffirming commitment to the Goals, while the 2024 Summit of the Future adopted the Pact for the Future along with its two annexes, the Global Digital Compact and the Declaration on Future Generations. The same period also saw the annual SDG financing gap being highlighted as having widened to an estimated USD 4.2 trillion from a lower pre-pandemic figure, making all three statements correct."
+    },
+    {
+        q: "With reference to the core features of sustainable development, consider the following statements: <br> 1. Sustainable development rests on three interconnected pillars: economic, social and environmental sustainability.<br>2. Intergenerational equity, a key feature of sustainable development, refers to equitable distribution of resources among different social classes within the same generation.<br>3. According to the precautionary principle associated with sustainable development, the absence of full scientific certainty is a valid ground for postponing cost-effective measures to prevent environmental degradation.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "3 only",
+            "1 only",
+            "2 only"
+        ],
+        ans: 2,
+        exp: "Sustainable development is indeed built on the three interlinked pillars of economic, social and environmental sustainability. However, equitable distribution of resources within the same generation is termed 'intragenerational equity', not 'intergenerational equity', which instead concerns fairness between present and future generations, and the precautionary principle actually holds the opposite of statement 3 — that lack of full scientific certainty should NOT be used as a reason to postpone preventive measures."
+    },
+    {
+        q: "Assertion (A): In M.K. Ranjitsinh and Others v. Union of India (2024), the Supreme Court recognised a distinct constitutional right to be free from the adverse effects of climate change.<br>Reason (R): The Court derived this right by reading together Article 21 (right to life and personal liberty) and Article 14 (right to equality) of the Constitution.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "Both A and R are true, but R is not the correct explanation of A",
+            "Both A and R are true, and R is the correct explanation of A",
+            "A is true, but R is false",
+            "A is false, but R is true"
+        ],
+        ans: 1,
+        exp: "In this landmark 2024 judgment concerning the Great Indian Bustard's habitat, the Supreme Court explicitly recognised a new right to be free from the adverse effects of climate change, confirming Assertion A. The Court grounded this right precisely by reading Article 21's right to life together with Article 14's right to equality, noting that vulnerable communities face disproportionate climate impacts, making Reason R the correct explanation."
+    },
+    {
+        q: "With reference to the constitutional and legal basis for environmental protection in India, consider the following statements: <br> 1. Article 48A, a Directive Principle of State Policy, directs the State to protect and improve the environment and to safeguard forests and wildlife.<br>2. Article 51A(g), a Fundamental Duty, casts an obligation on every citizen of India to protect and improve the natural environment.<br>3. The Supreme Court of India has held that the right to a healthy and pollution-free environment is not covered under the right to life guaranteed by Article 21.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the statements are correct",
+            "Both 1 and 3",
+            "Exactly two of the statements are correct",
+            "Both 2 and 3"
+        ],
+        ans: 2,
+        exp: "Article 48A obligates the State to protect the environment and wildlife, while Article 51A(g) makes it a Fundamental Duty of every citizen to do the same, confirming statements 1 and 2. However, the Supreme Court, in cases such as Subhash Kumar v. State of Bihar, has actually held that the right to a wholesome, pollution-free environment is implicit within the right to life under Article 21, the opposite of what statement 3 claims."
+    },
+    {
+        q: "With reference to the challenges in achieving global sustainable development targets, consider the following statements: <br> 1. As per the 2024 Sustainable Development Goals Report, more than half of all SDG targets were assessed to be on track for achievement by 2030.<br>2. The annual global financing gap for achieving the SDGs decreased from about USD 4.2 trillion before the pandemic to around USD 2.5 trillion after the SDG Summit 2023.<br>3. Rapid industrialisation in developing countries is not considered to pose any meaningful trade-off with environmental conservation goals under the sustainable development framework.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "None of the statements is correct",
+            "1 and 2 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "In reality, the 2024 SDG Report found that only around 17% of targets were on track, far less than half, making statement 1 false. The financing gap actually widened, rising from about USD 2.5 trillion before the pandemic to around USD 4.2 trillion, the reverse of what statement 2 claims, and balancing rapid industrialisation with environmental conservation is widely recognised as one of the most significant trade-offs and challenges facing developing countries pursuing sustainable development."
+    },
+    {
+        q: "Which one of the following is a defining characteristic that distinguishes 'Green Hydrogen' from 'Blue Hydrogen'?",
+        opts: [
+            "Green Hydrogen is produced through electrolysis of water using renewable electricity, whereas Blue Hydrogen is produced from natural gas reforming with carbon capture and storage",
+            "Green Hydrogen is produced only in India, whereas Blue Hydrogen is produced only in Europe",
+            "Green Hydrogen has a higher carbon footprint than Blue Hydrogen",
+            "Green Hydrogen is a liquid fuel, whereas Blue Hydrogen is a gaseous fuel"
+        ],
+        ans: 0,
+        exp: "Green Hydrogen is defined by its zero-carbon production pathway: electrolysis of water powered by renewable electricity such as solar or wind. Blue Hydrogen, in contrast, is derived from natural gas reforming, with the resulting carbon emissions captured and stored, meaning it is not free of fossil fuel involvement, unlike Green Hydrogen."
+    },
+    {
+        q: "With reference to algae-based (third-generation) biofuels, consider the following statements: <br> 1. Algae-based biofuels can be cultivated using land unsuitable for conventional food crops and on wastewater, unlike many other biofuel feedstocks.<br>2. Commercial-scale production of algae-based biofuels is restricted exclusively to marine (sea) environments and cannot be undertaken using land-based cultivation systems.<br>3. Achieving economically viable, large-scale production of algae-based biofuels typically requires setting up sizeable facilities, which may raise ecological and social concerns.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 2,
+        exp: "Algae-based biofuels can be cultivated on non-arable land and in wastewater or saline water, unlike food-crop-based first-generation biofuels, making statement 1 correct. Statement 2 is incorrect since algae cultivation can also be done through land-based open ponds or closed bioreactor systems, not just at sea; however, achieving economic viability at scale does require large facilities, which can raise genuine ecological and social concerns, as noted in statement 3."
+    },
+    {
+        q: "With reference to Extended Producer Responsibility (EPR) for plastic packaging in India, consider the following statements: <br> 1. It was notified under the Plastic Waste Management (Amendment) Rules, 2022.<br>2. Producers, Importers and Brand Owners (PIBOs) are required to purchase EPR certificates from registered Plastic Waste Processors to meet their obligations.<br>3. Compliance with EPR obligations for plastic packaging is monitored and enforced by the National Green Tribunal rather than the Central Pollution Control Board.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 3 only",
+            "1 and 2 only",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "The EPR framework for plastic packaging was notified under the Plastic Waste Management (Amendment) Rules, 2022, requiring PIBOs to fulfil recycling obligations, including by purchasing EPR certificates from registered Plastic Waste Processors through a centralised portal. Enforcement and monitoring of this compliance mechanism rests with the Central Pollution Control Board, not the National Green Tribunal, which is a judicial body for environmental disputes."
+    },
+    {
+        q: "The Partnership for Action on Green Economy (PAGE), a UN-backed mechanism that assists countries in transitioning towards a greener and more socially inclusive economy, emerged as a direct response to the outcome document of which of the following?",
+        opts: [
+            "The United Nations Conference on Sustainable Development (Rio+20), 2012, Rio de Janeiro",
+            "The World Sustainable Development Summit, 2016, New Delhi",
+            "The World Summit on Sustainable Development, 2002, Johannesburg",
+            "The UN Framework Convention on Climate Change Conference (COP21), 2015, Paris"
+        ],
+        ans: 0,
+        exp: "PAGE was established as a direct response to the outcome document of the 2012 United Nations Conference on Sustainable Development, popularly known as Rio+20, which placed the concept of a 'green economy in the context of sustainable development and poverty eradication' firmly on the global agenda. Neither the 2002 Johannesburg Summit, the 2015 Paris COP21, nor the 2016 New Delhi Summit was the direct trigger for PAGE's creation, though all are related milestones in global sustainable development discourse."
+    },
+    {
+        q: "With reference to the Forest (Conservation) Amendment Act, 2023 and the Wildlife (Protection) Amendment Act, 2022, consider the following statements: <br> 1. The Forest (Conservation) Amendment Act, 2023 renamed the parent 1980 Act as the 'Van (Sanrakshan Evam Samvardhan) Adhiniyam'.<br>2. The Wildlife (Protection) Amendment Act, 2022 increased the number of Schedules under the Act from four to six.<br>3. The Forest (Conservation) Amendment Act, 2023 has been unanimously accepted by all environmental groups and has faced no legal challenge in any court.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1 and 3 only",
+            "1 only",
+            "3 only"
+        ],
+        ans: 2,
+        exp: "The Forest (Conservation) Amendment Act, 2023 did rename the 1980 Act as the 'Van (Sanrakshan Evam Samvardhan) Adhiniyam'. However, the Wildlife (Protection) Amendment Act, 2022 actually reduced the number of Schedules from six to four, the reverse of statement 2, and the 2023 Forest Act amendment has in fact been challenged in the Supreme Court on constitutional grounds, contradicting statement 3."
+    },
+    {
+        q: "With reference to India's Energy Conservation Building Code (ECBC), consider the following statements: <br> 1. It was first launched by the Bureau of Energy Efficiency (BEE) in 2007 and later updated in 2017.<br>2. The Energy Conservation (Amendment) Act, 2022 provides for transitioning the ECBC into an 'Energy Conservation and Sustainability Building Code', incorporating aspects such as embedded carbon and material circularity.<br>3. Compliance with the ECBC is mandatory across all States of India, with no discretion given to State Governments to modify its provisions.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the above",
+            "1 and 2 only",
+            "Statement 1 alone",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "The ECBC was indeed launched by BEE in 2007 and updated in 2017, and the 2022 amendment does envisage its evolution into a broader 'Energy Conservation and Sustainability Building Code' covering embedded carbon and circularity. However, ECBC compliance is voluntary in nature, with State Governments free to adapt and notify the code according to local needs, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to India's institutional approach to circular economy, consider the following statements: <br> 1. NITI Aayog constituted 11 Committees on Circular Economy in March 2021, each headed by a Secretary or Additional Secretary of the concerned Ministry/Department.<br>2. The 11 identified focus areas include end-of-life vehicles, tyre and rubber recycling, and lithium-ion batteries, among others.<br>3. India is a member of the Global Alliance on Circular Economy and Resource Efficiency (GACERE).<br>4. Each of the 11 sectoral action plans on circular economy was finalised and fully implemented within six months of the committees' constitution.<br>How many of the above statements are correct?",
+        opts: [
+            "Only three",
+            "Only two",
+            "All four",
+            "Only one"
+        ],
+        ans: 0,
+        exp: "NITI Aayog did constitute 11 Committees on Circular Economy in March 2021 headed by senior officials, covering focus areas such as end-of-life vehicles, tyre and rubber recycling, and lithium-ion batteries, and India is indeed a member of GACERE, confirming the first three statements. However, the sectoral action plans have been finalised only gradually over several years — with several sectors still pending years after constitution — rather than all being completed within six months, making only three of the four statements correct."
+    },
+    {
+        q: "The Jawaharlal Nehru National Solar Mission (JNNSM), launched in January 2010 with the objective of promoting solar energy in India, was formulated as one of the missions under which of the following?",
+        opts: [
+            "National Mission for Enhanced Energy Efficiency",
+            "National Water Mission",
+            "Panchamrit commitments announced at COP26",
+            "National Action Plan on Climate Change (NAPCC)"
+        ],
+        ans: 3,
+        exp: "The JNNSM was launched in January 2010 as one of the eight national missions under the National Action Plan on Climate Change (NAPCC), aimed at establishing India as a global leader in solar energy. The National Mission for Enhanced Energy Efficiency is a separate NAPCC mission dealing with industrial energy efficiency, not solar promotion, while the Panchamrit commitments came much later, at COP26 in 2021."
+    },
+    {
+        q: "Arrange the following developments in India's biofuels policy in chronological order: <br> 1. Notification of the National Policy on Biofuels, 2018.<br>2. Pilot-scale ethanol blending trials conducted in Maharashtra and Uttar Pradesh.<br>3. Nationwide launch of the Ethanol Blended Petrol (EBP) Programme.<br>4. Approval of India's first National Policy on Biofuels by the Union Cabinet.<br>Select the correct order:",
+        opts: [
+            "1, 3, 2, 4",
+            "3, 2, 1, 4",
+            "2, 4, 3, 1",
+            "2, 3, 4, 1"
+        ],
+        ans: 3,
+        exp: "India first conducted pilot ethanol blending trials in Maharashtra and Uttar Pradesh in 2001, followed by the nationwide launch of the EBP Programme in January 2003. The Union Cabinet approved India's first National Policy on Biofuels in December 2009, and this was eventually replaced by the National Policy on Biofuels, 2018, giving the correct sequence 2, 3, 4, 1."
+    },
+    {
+        q: "With reference to the historical evolution of the Sustainable Development Goals (SDGs), consider the following statements: <br> 1. The SDGs were formally proposed by an 'Open Working Group' established following the 2012 Rio+20 Conference, before being adopted by the UN General Assembly in 2015.<br>2. The SDGs were the first-ever global development goals adopted by the United Nations, with no comparable predecessor framework.<br>3. Unlike the Millennium Development Goals, which applied to all UN member states equally including developed nations, the SDGs apply exclusively to developing countries.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "2 and 3 only",
+            "2 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "The SDGs did originate from an Open Working Group set up after the 2012 Rio+20 Conference before their formal adoption in 2015. However, the SDGs were actually preceded by the Millennium Development Goals (2000-2015), so they were not the UN's first global goals, and it is in fact the SDGs, not the MDGs, that apply universally to all countries including developed ones, the reverse of statement 3."
+    },
+    {
+        q: "With reference to the Commission for Air Quality Management (CAQM) in NCR and Adjoining Areas, consider the following statements: <br> 1. It is a statutory body established under a 2021 Act, replacing the earlier Environment Pollution (Prevention and Control) Authority (EPCA).<br>2. The jurisdiction of the CAQM is limited exclusively to the National Capital Territory of Delhi and does not extend to any neighbouring State.<br>3. The Chairperson of the CAQM is required to be an official of the rank of Secretary or Chief Secretary.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "Statement 1 alone",
+            "Exactly one of the statements is correct",
+            "All of the statements are correct"
+        ],
+        ans: 0,
+        exp: "The CAQM was established as a statutory body under the CAQM in NCR and Adjoining Areas Act, 2021, superseding the erstwhile EPCA, and its Chairperson must hold the rank of Secretary or Chief Secretary, confirming statements 1 and 3. However, its jurisdiction is not limited to Delhi alone — it extends to adjoining areas of Punjab, Haryana, Rajasthan, and Uttar Pradesh as well, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to recent developments in India's ethanol blending programme, consider the following statements: <br> 1. India achieved its E20 (20% ethanol blending in petrol) target in March 2028, exactly as originally scheduled under the National Policy on Biofuels, 2018.<br>2. After achieving the E20 target, India lowered its future ethanol blending ambition, setting a target below 20% for the year 2030.<br>3. As of late 2025, India's installed ethanol production capacity was significantly lower than the quantity required to sustain the E20 mandate, resulting in a supply shortfall.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements is correct",
+            "1 and 2 only",
+            "2 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "In reality, India achieved the E20 target in March 2025, about five years ahead of the original 2030 deadline, not in 2028 as stated. Far from lowering its ambition, India subsequently raised its target to 27% ethanol blending by 2030, and installed ethanol production capacity by late 2025 had actually grown to significantly exceed the quantity required for the E20 mandate, resulting in a capacity surplus rather than a shortfall, making all three statements incorrect."
+    },
+    {
+        q: "The term 'Green Economy' was first coined in a pioneering 1989 report commissioned by the Government of the United Kingdom. What was the title of this report?",
+        opts: [
+            "Our Common Future",
+            "Blueprint for a Green Economy",
+            "Limits to Growth",
+            "Global Green New Deal"
+        ],
+        ans: 1,
+        exp: "The term 'Green Economy' was first used in the 1989 report 'Blueprint for a Green Economy' by David Pearce, Anil Markandya, and Edward Barbier, commissioned to advise the UK Government on measuring sustainable development. 'Our Common Future' was the 1987 Brundtland Report that popularised 'sustainable development', while 'Global Green New Deal' was a later 2009 UNEP-commissioned follow-up report, and 'Limits to Growth' was an unrelated 1972 Club of Rome publication."
+    },
+    {
+        q: "With reference to the constitutional and legal basis in India that aligns with the Sustainable Development Goals (SDGs), consider the following statements: <br> 1. Article 39 of the Directive Principles of State Policy directs the State to ensure adequate means of livelihood for all citizens and equitable distribution of material resources, principles that align with SDG 1 (No Poverty) and SDG 10 (Reduced Inequalities).<br>2. The Directive Principles of State Policy, including those relevant to the SDGs, are justiciable and can be directly enforced by courts against the State.<br>3. Article 47, which deals with the Right to Education, has been directly linked by the Supreme Court as the primary constitutional basis for SDG 4 (Quality Education).<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 3 alone",
+            "Statement 2 alone",
+            "1 only",
+            "Only two of the statements are correct"
+        ],
+        ans: 2,
+        exp: "Article 39 does direct the State towards ensuring livelihood security and equitable resource distribution, aligning naturally with the poverty and inequality-related SDGs. However, the Directive Principles, as per Article 37, are explicitly non-justiciable and cannot be directly enforced by courts, and Article 47 actually deals with public health, nutrition, and prohibition of intoxicants, not the Right to Education, which instead flows from Article 21A and Article 45."
+    },
+    {
+        q: "With reference to the Sustainable Development Goals (SDGs), consider the following statements: <br> 1. The SDGs comprise 17 goals that were adopted by all United Nations member states in the year 2015.<br>2. The implementation period specified for achieving the SDGs is from 2016 to 2030.<br>3. In India, the Ministry of Environment, Forest and Climate Change is designated as the nodal agency for coordinating the achievement of the SDGs.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "The 2030 Agenda comprising 17 SDGs was adopted by the UN General Assembly in 2015, with an implementation window of 2016 to 2030. In India, NITI Aayog, not the Ministry of Environment, Forest and Climate Change, is the nodal agency mandated to coordinate SDG implementation across ministries and states."
+    },
+    {
+        q: "Under the Strategic Interventions for Green Hydrogen Transition (SIGHT) Programme, which two of the following are supported through dedicated financial incentive mechanisms?",
+        opts: [
+            "Construction of coal-based thermal power plants and coal mining",
+            "Export of crude petroleum and import of natural gas",
+            "Domestic manufacturing of electrolysers and production of Green Hydrogen",
+            "Manufacture of internal combustion engine vehicles and diesel generators"
+        ],
+        ans: 2,
+        exp: "The SIGHT Programme, launched under the National Green Hydrogen Mission, provides two distinct financial incentive mechanisms: one targeting domestic manufacturing of electrolysers and another targeting the actual production of Green Hydrogen. It has no incentive component related to fossil fuel trade, coal-based power, or conventional combustion engine vehicles, which fall outside the Mission's clean-energy mandate."
+    },
+    {
+        q: "With reference to India's renewable energy framework, consider the following statements: <br> 1. In 2019, the Government of India reclassified large hydropower projects (above 25 MW) as a source of renewable energy.<br>2. The entire installed capacity of nuclear power in India is officially included within the country's 'renewable energy' capacity figures.<br>3. The National Green Hydrogen Mission, approved in 2023, is implemented by the Ministry of Power.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "3 only",
+            "1 only",
+            "2 only"
+        ],
+        ans: 2,
+        exp: "In 2019, the Cabinet Committee on Economic Affairs approved classifying large hydropower projects as a renewable energy source, correcting their earlier separate treatment. Nuclear power is officially tracked as part of India's 'non-fossil' capacity but is kept distinct from 'renewable energy' figures, and the National Green Hydrogen Mission is implemented by the Ministry of New and Renewable Energy, not the Ministry of Power."
+    },
+    {
+        q: "With reference to the challenges associated with Green Hydrogen production, consider the following statements: <br> 1. Producing 1 kg of green hydrogen through electrolysis typically requires around 9 to 11 litres of high-purity water, raising concerns in water-stressed regions.<br>2. As per recent estimates, the production cost of green hydrogen in India is generally lower than that of hydrogen produced through natural gas reforming (grey hydrogen).<br>3. Hydrogen's tendency to make steel pipelines brittle is one of the technical challenges associated with its large-scale storage and transportation.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "Both 2 and 3",
+            "Only statement 1",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "Electrolysis-based green hydrogen production does require a substantial amount of high-purity water per kilogram, and hydrogen's tendency to embrittle steel makes safe storage and transportation technically challenging, confirming statements 1 and 3. However, green hydrogen currently remains considerably costlier to produce than grey hydrogen derived from natural gas reforming, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to challenges facing India's renewable energy sector, consider the following statements: <br> 1. The intermittent nature of solar and wind generation, combined with inadequate transmission and storage infrastructure, has led to significant curtailment of renewable energy in some Indian States.<br>2. As per Grid India data, several gigawatts of renewable energy capacity had to be curtailed between May and November 2025 to maintain grid safety, particularly in high-generation States such as Rajasthan and Gujarat.<br>3. The poor financial health of power Distribution Companies (DISCOMs) is generally not considered a significant factor affecting the pace of renewable energy investment in India.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "None of the above",
+            "All of the statements are correct",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "Intermittency combined with transmission and storage gaps has indeed led to notable renewable energy curtailment, with Grid India data showing significant curtailment between May and November 2025 concentrated in high-generation States like Rajasthan and Gujarat, confirming statements 1 and 2. However, the poor financial health of DISCOMs is actually widely recognised as a major challenge, causing payment delays that discourage renewable energy investment, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to Renewable Energy Certificates (RECs) and Renewable Purchase Obligations (RPOs) in India, consider the following statements: <br> 1. The Central Electricity Regulatory Commission (CERC) fixes a single uniform national price for RECs, with no price band or range.<br>2. One Renewable Energy Certificate is treated as equivalent to one Gigawatt-hour of electricity generated from a renewable source.<br>3. Renewable Purchase Obligations apply only to Central Government departments and not to power distribution companies.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "None of the statements is correct",
+            "1 and 2 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "CERC does not fix a single fixed price; instead it prescribes a 'floor price' and a 'forbearance price' between which RECs are traded based on market demand. One REC actually corresponds to one Megawatt-hour, not a Gigawatt-hour, of renewable electricity, and RPOs under the Electricity Act, 2003 are primarily enforced on distribution licensees (including private DISCOMs) and open access consumers, not merely Central Government departments."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-72 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-35</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "With reference to the classification of big cats found in India, consider the following statements:<br>1. The cheetah belongs to the genus Panthera.<br>2. The clouded leopard belongs to the genus Panthera.<br>3. The snow leopard belongs to the genus Panthera.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "3 only",
+            "2 only",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "The genus Panthera includes the tiger, lion, leopard, jaguar and snow leopard. The cheetah belongs to the genus Acinonyx, and the clouded leopard belongs to the genus Neofelis. Only statement 3 is correct."
+    },
+    {
+        q: "With reference to the reforms in the protected area network under the Wild Life (Protection) Act, 1972, consider the following statements:<br>1. A Conservation Reserve may be declared by the State Government on government-owned land, particularly areas adjacent to or connecting protected areas.<br>2. A Community Reserve can be declared only on land owned by the State Government.<br>3. The Conservation Reserve Management Committee is constituted by the Central Government.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "Only statement 2",
+            "Only statement 3",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 0,
+        exp: "Conservation Reserves and Community Reserves were introduced by the 2002 amendment to bring participatory conservation to areas outside national parks and sanctuaries. A Conservation Reserve is declared by the State Government on government land, often as a corridor. A Community Reserve is declared on private or community land where the owners volunteer to conserve wildlife, so statement 2 is incorrect. The Management Committee is constituted by the State Government, not the Central Government, so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to the challenges of disaster management in the Himalayan region, consider the following statements:<br>1. The India Meteorological Department defines a cloudburst as rainfall of 50 mm within an hour over a small area.<br>2. The 2023 South Lhonak Lake outburst occurred in Himachal Pradesh.<br>3. Glacial Lake Outburst Floods can be triggered by moraine dam failure caused by avalanches or heavy rainfall.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 2 and 3",
+            "Statement 1 alone",
+            "Both 1 and 3",
+            "3 only"
+        ],
+        ans: 3,
+        exp: "A cloudburst, as defined by the IMD, is rainfall of about 100 mm per hour over a small area of roughly 20 to 30 sq km, not 50 mm. The South Lhonak Lake outburst of October 2023 occurred in Sikkim and damaged the Teesta-III dam. Glacial lake outbursts can be triggered by failure of the moraine dam due to avalanches, landslides or heavy rainfall. Only statement 3 is correct."
+    },
+    {
+        q: "With reference to India's climate commitments under the Paris Agreement framework, consider the following statements:<br>1. Parties are required to communicate successive Nationally Determined Contributions (NDCs) every five years.<br>2. The Global Stocktake of collective progress is conducted every ten years.<br>3. India's updated NDC of 2022 commits to reducing the emissions intensity of its GDP by 45 per cent by 2030 from the 2005 level.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "The Paris Agreement requires Parties to communicate successive NDCs every five years. India's updated NDC (August 2022) sets a 45 per cent reduction in emissions intensity of GDP by 2030 from the 2005 level, along with 50 per cent cumulative non-fossil installed electric power capacity. The Global Stocktake takes place every five years, not ten, with the first concluded at COP28 in 2023, so statement 2 is incorrect."
+    },
+    {
+        q: "With reference to the evolution of the protected area network in India, which one of the following statements is correct?",
+        opts: [
+            "Conservation Reserves and Community Reserves formed part of the Wild Life (Protection) Act, 1972 as originally enacted.",
+            "The Nilgiri Biosphere Reserve, designated in 1986, was the first biosphere reserve in India under UNESCO's Man and the Biosphere Programme.",
+            "Project Tiger was launched in 1973 with Kaziranga as the first tiger reserve to be notified.",
+            "The Indian Board for Wild Life was established in 1972 under the Wild Life (Protection) Act."
+        ],
+        ans: 1,
+        exp: "The Nilgiri Biosphere Reserve, designated in 1986, was India's first biosphere reserve under UNESCO's MAB Programme. Project Tiger began in 1973 with nine reserves, including Corbett and Ranthambore, but Kaziranga was not among them. Conservation and Community Reserves came only with the 2002 amendment to the Act. The Indian Board for Wild Life was set up in 1952 and was later replaced by the National Board for Wild Life."
+    },
+    {
+        q: "With reference to the background and evolution of pollution control legislation in India, consider the following statements:<br>1. The Air (Prevention and Control of Pollution) Act, 1981 was the first comprehensive law on pollution control in India.<br>2. The Environment (Protection) Act, 1986 was enacted under Article 253 of the Constitution to implement the decisions of the Stockholm Conference of 1972.<br>3. The Central Pollution Control Board was established under the Environment (Protection) Act, 1986.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 only",
+            "1 and 3 only",
+            "3 only"
+        ],
+        ans: 1,
+        exp: "The Environment (Protection) Act, 1986, passed after the Bhopal gas tragedy, was enacted under Article 253, which empowers Parliament to legislate to implement international decisions. The Water Act of 1974 was the first comprehensive pollution control law, not the Air Act of 1981. The CPCB was set up in 1974 under the Water Act and was later given powers under the Air Act, not the 1986 Act. Only statement 2 is correct."
+    },
+    {
+        q: "With reference to the Plastic Waste Management Rules in India, consider the following statements:<br>1. The identified single-use plastic items were prohibited with effect from 1 July 2022 under an amendment to the Rules.<br>2. The Extended Producer Responsibility obligation applies only to plastic manufacturers and not to brand owners or importers.<br>3. The Rules have been notified under the Water (Prevention and Control of Pollution) Act, 1974.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 and 3 only",
+            "Statement 1 alone",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "The Plastic Waste Management (Amendment) Rules, 2021 banned identified single-use plastic items from 1 July 2022. Extended Producer Responsibility under the Rules applies to producers, importers and brand owners, so statement 2 is incorrect. The Rules are made under the Environment (Protection) Act, 1986, not the Water Act, so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to the Disaster Management (Amendment) Act, 2025, consider the following statements:<br>1. It grants statutory status to the National Crisis Management Committee and the High-Level Committee.<br>2. It requires the Union Government to constitute Urban Disaster Management Authorities for all state capitals and municipal corporation cities.<br>3. It enables State Governments to constitute their own State Disaster Response Forces.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "Exactly two of the statements are correct",
+            "Statement 3 alone",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "The 2025 Amendment gives statutory backing to the NCMC, chaired by the Cabinet Secretary, and the High-Level Committee, and it enables States to raise their own SDRFs. Under the new Section 41A, it is the State Governments, not the Union Government, who may constitute Urban Disaster Management Authorities for state capitals and municipal corporation cities. Statement 2 is therefore incorrect."
+    },
+    {
+        q: "With reference to the evolution of renewable energy policy in India, consider the following statements:<br>1. The Jawaharlal Nehru National Solar Mission was launched in 2010 as one of the missions under the National Action Plan on Climate Change.<br>2. The Mission's initial target of 20,000 MW of solar power by 2022 was revised to 100 GW in 2015.<br>3. The Ministry of New and Renewable Energy was created as a separate ministry in 1982.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "The National Solar Mission, launched in 2010 under the NAPCC, originally aimed at 20,000 MW by 2022 and was scaled up fivefold to 100 GW in 2015. The renewable energy administration began as the Department of Non-Conventional Energy Sources in 1982, became the Ministry of Non-Conventional Energy Sources in 1992 and was renamed MNRE in 2006. Statement 3 is therefore incorrect."
+    },
+    {
+        q: "Consider the following statements regarding the Western Ghats expert reports:<br><br>Assertion (A): The Kasturirangan High-Level Working Group proposed a less extensive ecologically sensitive area in the Western Ghats than the Gadgil panel.<br>Reason (R): The Kasturirangan group distinguished cultural landscapes from natural landscapes and restricted the ecologically sensitive area to about 37 per cent of the Western Ghats, leaving out areas of settlements and plantations.<br><br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "Both A and R are true and R is the correct explanation of A",
+            "A is false but R is true",
+            "A is true but R is false",
+            "Both A and R are true but R is not the correct explanation of A"
+        ],
+        ans: 0,
+        exp: "The Gadgil panel recommended treating the entire Western Ghats as ecologically sensitive, with three graded zones. The Kasturirangan group separated the human-dominated cultural landscape from the natural landscape and proposed about 37 per cent of the region as ecologically sensitive area. This narrower scope explains why it is regarded as less extensive, so R correctly explains A."
+    },
+    {
+        q: "With reference to the Wetlands (Conservation and Management) Rules, 2017, consider the following statements:<br>1. They have been framed under the Wild Life (Protection) Act, 1972.<br>2. They prohibit activities such as conversion of wetlands for non-wetland uses and dumping of solid waste in wetlands.<br>3. They apply to paddy fields and human-made water bodies created for irrigation.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "Statement 1 alone",
+            "Only statement 2",
+            "Statement 3 alone"
+        ],
+        ans: 2,
+        exp: "The Rules were notified under the Environment (Protection) Act, 1986, not the Wild Life (Protection) Act, so statement 1 is incorrect. They list prohibited activities in notified wetlands, including conversion for non-wetland uses, dumping of solid waste and discharge of untreated effluents. River channels, paddy fields and human-made water bodies for purposes such as irrigation and drinking water are excluded from their scope, so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to the Kigali Amendment to the Montreal Protocol, consider the following statements:<br>1. It seeks to phase down the production and consumption of hydrofluorocarbons (HFCs).<br>2. HFCs were brought under it because they are among the most potent ozone-depleting substances.<br>3. India's HFC phase-down under the Amendment is scheduled to begin in 2032.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 only"
+        ],
+        ans: 1,
+        exp: "The Kigali Amendment (2016) extended the Montreal Protocol to the phase-down of HFCs, which were the substitutes for ozone-depleting CFCs and HCFCs. HFCs do not deplete the ozone layer, but they are potent greenhouse gases, so statement 2 is incorrect. India ratified the Amendment in 2021 and, as a Group 2 country, will start its phase-down in 2032 in four steps ending in 2047."
+    },
+    {
+        q: "Under the Wild Life (Protection) Act, 1972, which one of the following activities is prohibited inside a national park but may be regulated or permitted by the Chief Wildlife Warden in a wildlife sanctuary?",
+        opts: [
+            "Collection of scientific specimens under a permit",
+            "Habitat improvement works approved by the State Government",
+            "Entry of tourists under a permit",
+            "Grazing of livestock"
+        ],
+        ans: 3,
+        exp: "The Act prohibits grazing of livestock in a national park, while in a sanctuary the Chief Wildlife Warden may regulate, control or prohibit grazing. Entry under permit, scientific collection under permit and habitat improvement works approved by the State Government are all allowed in both categories, subject to the conditions of the Act."
+    },
+    {
+        q: "With reference to the reforms for tackling air pollution in India, consider the following statements:<br>1. The Commission for Air Quality Management in the National Capital Region and Adjoining Areas was set up by a statute in 2021, replacing the Environment Pollution (Prevention and Control) Authority.<br>2. The Commission is chaired by the Union Minister of Environment, Forest and Climate Change.<br>3. Bharat Stage VI emission norms were rolled out nationwide in April 2020, with India skipping Bharat Stage V.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "Both 2 and 3",
+            "All of the above",
+            "None of the above"
+        ],
+        ans: 0,
+        exp: "The CAQM was created by the 2021 Act and replaced the court-appointed EPCA as the statutory body for air quality management in the NCR and adjoining areas. India moved directly from BS-IV to BS-VI nationwide on 1 April 2020. The CAQM is headed by a full-time chairperson drawn from the senior bureaucracy, not by the Union Minister, so statement 2 is incorrect."
+    },
+    {
+        q: "With reference to the reforms in disaster financing in India, consider the following statements:<br>1. The Fifteenth Finance Commission recommended merging the State Disaster Response Fund and the National Disaster Response Fund into a single national fund.<br>2. Under the State Disaster Response Fund, the Centre's share is 50 per cent for general category States.<br>3. The Fifteenth Finance Commission recommended National and State Disaster Mitigation Funds in addition to the response funds.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "3 only",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "The Fifteenth Finance Commission retained separate National and State Disaster Response Funds and added National and State Disaster Mitigation Funds, with a larger focus on preparedness and mitigation. The Centre contributes 75 per cent of the SDRF for general category States and 90 per cent for the North-Eastern and Himalayan States, not 50 per cent. Only statement 3 is correct."
+    },
+    {
+        q: "With reference to the institutions concerned with tiger conservation and wildlife crime in India, consider the following statements:<br>1. The National Tiger Conservation Authority was part of the Wild Life (Protection) Act, 1972 as originally enacted.<br>2. The Wildlife Crime Control Bureau is a statutory multi-disciplinary body under the Wild Life (Protection) Act, 1972.<br>3. The National Tiger Conservation Authority is chaired by the Prime Minister.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1 and 2 only",
+            "1 and 3 only",
+            "3 only"
+        ],
+        ans: 0,
+        exp: "Both the NTCA and the WCCB were given statutory status by the 2006 amendment to the Wild Life (Protection) Act, following the Tiger Task Force recommendations, so statement 1 is incorrect. The WCCB is a statutory body tasked with combating organised wildlife crime. The NTCA is chaired by the Union Minister in charge of Environment, Forest and Climate Change; it is the National Board for Wildlife that the Prime Minister chairs, so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to the snow leopard, consider the following statements:<br>1. It is listed in Appendix I of CITES.<br>2. It is the State animal of Uttarakhand.<br>3. It is categorised as Endangered on the IUCN Red List.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "Only statement 2",
+            "Only two of the statements are correct",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 3,
+        exp: "The snow leopard is listed in Appendix I of CITES and in Schedule I of the Wild Life (Protection) Act, 1972. On the IUCN Red List it is categorised as Vulnerable, not Endangered. It is the State animal of Himachal Pradesh and the Union Territory animal of Ladakh, whereas Uttarakhand's State animal is the Alpine musk deer. Only statement 1 is correct."
+    },
+    {
+        q: "With reference to the Ganges River Dolphin, consider the following statements:<br>1. It was declared the National Aquatic Animal of India in 2009.<br>2. It is categorised as Critically Endangered on the IUCN Red List.<br>3. It relies mainly on eyesight to navigate and locate prey in turbid river water.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 1",
+            "Only statement 2",
+            "Only two of the statements are correct",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 0,
+        exp: "The Ganges River Dolphin was declared the National Aquatic Animal in 2009. The IUCN lists it as Endangered, not Critically Endangered. The species is effectively blind and navigates and hunts by echolocation, not eyesight, which suits turbid river water. Only statement 1 is correct."
+    },
+    {
+        q: "With reference to the Wild Life (Protection) Amendment Act, 2022, consider the following statements:<br>1. It increased the number of schedules in the Act from four to six.<br>2. It empowers the Central Government to regulate or prohibit the import, trade, possession and proliferation of invasive alien species.<br>3. It abolished the National Board for Wild Life.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1 only",
+            "3 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "The 2022 amendment rationalised the schedules by reducing them from six to four, so statement 1 reverses the change. It also added provisions to regulate invasive alien species, and it gave effect to CITES. The National Board for Wild Life and its Standing Committee continue to exist, and the amendment only restructured the State Board's Standing Committee provisions. Only statement 2 is correct."
+    },
+    {
+        q: "With reference to the Convention on International Trade in Endangered Species of Wild Fauna and Flora (CITES), consider the following statements:<br>1. It is legally binding on the Parties, but it does not take the place of national laws.<br>2. Commercial trade in wild-caught specimens of species listed in Appendix I is generally prohibited and permitted only in exceptional circumstances.<br>3. A species is included in Appendix III at the request of a Party that already regulates trade in it and needs the cooperation of other Parties to prevent unsustainable exploitation.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All three statements are correct",
+            "Only statement 1",
+            "Only two of the statements are correct",
+            "None of the statements are correct"
+        ],
+        ans: 0,
+        exp: "CITES is binding on Parties, but each Party must adopt its own domestic legislation to implement it. Appendix I covers species threatened with extinction, so commercial trade is generally barred. Appendix III species are listed unilaterally by a Party seeking international cooperation to control trade. All three statements are correct."
+    },
+    {
+        q: "With reference to the PM Surya Ghar: Muft Bijli Yojana, consider the following statements:<br>1. It aims to install rooftop solar systems in two crore households.<br>2. Central financial assistance under the scheme is capped at Rs 1 lakh per household.<br>3. It is implemented by the Ministry of Power.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements given above is correct",
+            "1 only",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "The scheme, launched in February 2024, targets rooftop solar installation in one crore households, not two crore. Central financial assistance is Rs 30,000 per kW for up to 2 kW and Rs 18,000 for the third kW, capped at Rs 78,000, not Rs 1 lakh. It is a scheme of the Ministry of New and Renewable Energy, not the Ministry of Power. None of the statements is correct."
+    },
+    {
+        q: "With reference to the International Solar Alliance (ISA), which one of the following statements is correct?",
+        opts: [
+            "It functions as a financial mechanism under the Kyoto Protocol.",
+            "It was launched by India and France at the Paris climate conference in 2015, with its secretariat in Gurugram.",
+            "It is a specialised agency of the United Nations with its secretariat at Abu Dhabi.",
+            "Membership is restricted to countries lying between the Tropic of Cancer and the Tropic of Capricorn."
+        ],
+        ans: 1,
+        exp: "The ISA was launched jointly by India and France at COP21 in Paris in 2015, and its secretariat is at Gurugram, Haryana. Membership was originally limited to sunshine-rich countries between the Tropics but was opened to all UN member states through an amendment to its Framework Agreement in 2020. IRENA, not the ISA, is headquartered in Abu Dhabi, and the ISA has no role under the Kyoto Protocol."
+    },
+    {
+        q: "With reference to the provisions on human-wildlife conflict under the Wild Life (Protection) Act, 1972, consider the following statements:<br>1. A State Government may declare any wild animal, including those in Schedule I, as vermin for a specified period.<br>2. The Chief Wildlife Warden may permit the hunting of a Schedule I animal merely because it is damaging standing crops.<br>3. The Chief Wildlife Warden may permit the hunting of a Schedule I animal that has become dangerous to human life or is so disabled or diseased as to be beyond recovery.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 3",
+            "1 and 2 only",
+            "1, 2 and 3",
+            "Only two of the statements are correct"
+        ],
+        ans: 0,
+        exp: "The Chief Wildlife Warden may permit the hunting of a Schedule I animal only if it has become dangerous to human life or is disabled or diseased beyond recovery. Damage to crops or property is a ground for permitting hunting only for animals in the lower schedules. The power to declare animals as vermin rests with the Central Government and excludes Schedule I species, so statement 1 is incorrect."
+    },
+    {
+        q: "With reference to Project Cheetah in India, consider the following statements:<br>1. The cheetah was officially declared extinct in India in 1952.<br>2. The cheetahs brought from Namibia and South Africa belong to the Asiatic subspecies.<br>3. In 2013, the Supreme Court cleared the plan to introduce African cheetahs into Kuno.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "Only statement 1",
+            "2 and 3 only",
+            "Statement 2 alone"
+        ],
+        ans: 1,
+        exp: "India officially declared the cheetah extinct in 1952. The cheetahs brought from Namibia (2022) and South Africa (2023) are African cheetahs, not the Asiatic subspecies, which survives only in Iran. In 2013 the Supreme Court actually set aside the proposal to bring African cheetahs to Kuno and directed lion translocation there. It permitted an experimental introduction of African cheetahs only in January 2020. Only statement 1 is correct."
+    },
+    {
+        q: "With reference to India's policy and legal framework relating to energy transition, consider the following statements:<br>1. The Bureau of Energy Efficiency, established under the Energy Conservation Act, 2001, functions under the Ministry of New and Renewable Energy.<br>2. The Energy Conservation (Amendment) Act, 2022 empowers the Central Government to specify a carbon credit trading scheme.<br>3. The National Green Hydrogen Mission is a scheme of the Ministry of New and Renewable Energy.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "Statement 3 alone",
+            "1 only",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "The 2022 amendment to the Energy Conservation Act enabled the carbon credit trading scheme and allowed the Centre to set a minimum share of non-fossil energy use for designated consumers. The National Green Hydrogen Mission is administered by the MNRE. The Bureau of Energy Efficiency, however, is a statutory body under the Ministry of Power, so statement 1 is incorrect."
+    },
+    {
+        q: "With reference to the structure of the disaster management authorities under the Disaster Management Act, 2005, consider the following statements:<br>1. The State Disaster Management Authority is chaired by the Governor of the State.<br>2. The State Executive Committee is chaired by the Chief Minister.<br>3. The District Disaster Management Authority is chaired by the District Magistrate, with an elected representative of the local authority as co-chairperson.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 3 alone",
+            "None of the above",
+            "Only two of the statements are correct",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "The District Authority is chaired by the Collector or District Magistrate, with an elected representative of the local authority, such as the Zilla Parishad chairperson, as co-chairperson. The State Authority is headed by the Chief Minister, not the Governor. The State Executive Committee is headed by the Chief Secretary, not the Chief Minister. Only statement 3 is correct."
+    },
+    {
+        q: "With reference to the Biological Diversity (Amendment) Act, 2023, consider the following statements:<br>1. It transferred the administration of the Biological Diversity Act, 2002 from the Ministry of Environment, Forest and Climate Change to the Ministry of AYUSH.<br>2. It shifted the headquarters of the National Biodiversity Authority from Chennai to Dehradun.<br>3. It exempts codified traditional knowledge from the benefit-sharing obligations under the Act.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 3 alone",
+            "None of the above",
+            "Exactly two of the statements are correct",
+            "All of the statements are correct"
+        ],
+        ans: 0,
+        exp: "The 2023 amendment eased compliance under the Act by exempting codified traditional knowledge and AYUSH practitioners from the benefit-sharing and prior intimation requirements, and it decriminalised several offences. The Act continues to be administered by the Ministry of Environment, Forest and Climate Change, and the National Biodiversity Authority remains headquartered in Chennai. Only statement 3 is correct."
+    },
+    {
+        q: "With reference to major international and national environmental reports, consider the following statements:<br>1. The India State of Forest Report is published every two years by the Forest Survey of India.<br>2. The Global Forest Resources Assessment is published by the United Nations Environment Programme.<br>3. The Emissions Gap Report is published by the UNFCCC Secretariat.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "3 only",
+            "1 and 3 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "The India State of Forest Report is a biennial assessment by the Forest Survey of India under the Ministry of Environment, Forest and Climate Change. The Global Forest Resources Assessment is produced by the Food and Agriculture Organization (FAO), not UNEP. The Emissions Gap Report is an annual UNEP publication, not a UNFCCC one. Only statement 1 is correct."
+    },
+    {
+        q: "With reference to the institutional structure for renewable energy in India, consider the following statements:<br>1. The National Institute of Wind Energy is located in Gandhinagar, Gujarat.<br>2. The Solar Energy Corporation of India is a Central Public Sector Undertaking under the Ministry of New and Renewable Energy and is the nodal agency for implementing the National Solar Mission.<br>3. The Indian Renewable Energy Development Agency is a government-owned non-banking financial institution under the Ministry of New and Renewable Energy that finances renewable energy projects.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 only",
+            "1, 2 and 3",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "SECI is a CPSU under the MNRE and the implementing agency for the National Solar Mission, while IREDA is the MNRE's government-owned non-banking financial institution for financing renewable energy. The National Institute of Wind Energy is an autonomous R&D institution of the MNRE located in Chennai, not Gandhinagar, so statement 1 is incorrect."
+    },
+    {
+        q: "With reference to the background of disaster management in India, consider the following statements:<br>1. The National Disaster Management Authority was established in 2001 in the aftermath of the Gujarat earthquake.<br>2. The Disaster Management Act, 2005 was enacted on the recommendation of the Second Administrative Reforms Commission.<br>3. The National Policy on Disaster Management was approved by the Union Cabinet in 2005, soon after the enactment of the Act.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements given above is correct",
+            "1 only",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "The NDMA came into being only after the Disaster Management Act, 2005, and was formally constituted in 2006. The Act followed the High Powered Committee of 1999 and the Task Force set up after the 2004 tsunami, and it preceded the Second ARC's recommendations on crisis management. The National Policy on Disaster Management was approved in October 2009. None of the statements is correct."
+    },
+    {
+        q: "With reference to the Living Planet Report 2024, consider the following statements:<br>1. It reported an average decline of about 73 per cent in monitored wildlife population sizes between 1970 and 2020.<br>2. Among terrestrial, freshwater and marine populations, freshwater populations showed the steepest decline.<br>3. The Living Planet Index on which the report is based is compiled by the Zoological Society of London in collaboration with WWF.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "Statement 3 alone",
+            "Both 1 and 2",
+            "All of the statements are correct"
+        ],
+        ans: 3,
+        exp: "The Living Planet Report 2024 found an average 73 per cent fall in monitored wildlife populations from 1970 to 2020. Freshwater populations fell the most, at about 85 per cent, compared with roughly 69 per cent for terrestrial and 56 per cent for marine populations. The Living Planet Index is compiled by the Zoological Society of London and published by WWF. All three statements are correct."
+    },
+    {
+        q: "With reference to the evolution of national parks in India, consider the following statements:<br>1. Kaziranga was the first national park established in India.<br>2. Under the Wild Life (Protection) Act, 1972, a national park is declared by the State Government through a notification.<br>3. The boundaries of a national park can be altered only on a resolution passed by the State Legislature.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 2 only",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 3,
+        exp: "Under Section 35 of the Wild Life (Protection) Act, 1972, the State Government notifies an area as a national park, and its boundaries can be altered only on a resolution of the State Legislature. The first national park in India was Jim Corbett, established in 1936 as Hailey National Park, not Kaziranga, which became a national park in 1974. Statement 1 is therefore incorrect."
+    },
+    {
+        q: "With reference to the national parks of India, consider the following statements:<br>1. Keibul Lamjao National Park in Manipur, situated on Loktak Lake, is the world's only floating national park.<br>2. Silent Valley National Park in Kerala forms part of the core area of the Nilgiri Biosphere Reserve.<br>3. Kaziranga National Park in Assam is a UNESCO World Heritage Site and holds the largest population of the Indian one-horned rhinoceros.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "1 and 2 only",
+            "None of the above",
+            "All of the above"
+        ],
+        ans: 3,
+        exp: "Keibul Lamjao, on the floating phumdis of Loktak Lake, is the last natural habitat of the Sangai deer and the only floating national park in the world. Silent Valley lies within the core of the Nilgiri Biosphere Reserve. Kaziranga was inscribed as a World Heritage Site in 1985 and has the world's largest population of the Indian one-horned rhinoceros. All three statements are correct."
+    },
+    {
+        q: "With reference to the institutional framework under the Disaster Management Act, 2005, consider the following statements:<br>1. The National Disaster Management Authority is chaired by the Prime Minister.<br>2. The National Disaster Response Force is constituted by the Central Government under the Act, with its general superintendence, direction and control vested in the National Disaster Management Authority.<br>3. The National Executive Committee under the Act is chaired by the Cabinet Secretary.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "Both 1 and 3",
+            "None of the above",
+            "All of the above"
+        ],
+        ans: 0,
+        exp: "The NDMA is headed by the Prime Minister as ex-officio chairperson. The NDRF is constituted under Section 44, and the NDMA exercises general superintendence, direction and control over it. The National Executive Committee is chaired by the Union Home Secretary, not the Cabinet Secretary. The Cabinet Secretary heads the National Crisis Management Committee, which is the likely source of confusion, so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to the conservation of the Asian elephant in India, consider the following statements:<br>1. Project Elephant was launched in 1992 by the Ministry of Environment and Forests.<br>2. The Asian elephant is categorised as Critically Endangered on the IUCN Red List.<br>3. Elephant Reserves notified by State Governments enjoy the status of statutory protected areas under the Wild Life (Protection) Act, 1972.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "All of the statements are correct",
+            "Statement 1 alone",
+            "Only two of the statements are correct"
+        ],
+        ans: 2,
+        exp: "Project Elephant, launched in 1992, aims to protect elephants, their habitats and corridors and to address human-elephant conflict. The Asian elephant is listed as Endangered, not Critically Endangered, on the IUCN Red List. Elephant Reserves are administrative units notified by the State Governments and carry no statutory protected-area status in themselves, although they may overlap national parks or sanctuaries. Only statement 1 is correct."
+    },
+    {
+        q: "With reference to the policy framework for disaster management, consider the following statements:<br>1. The Sendai Framework for Disaster Risk Reduction 2015–2030 is a legally binding international treaty.<br>2. Under the Disaster Management Act, 2005, the National Disaster Management Plan is prepared by the National Disaster Management Authority and approved by the National Executive Committee.<br>3. The secretariat of the Coalition for Disaster Resilient Infrastructure (CDRI) is located in Geneva.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 and 3 only",
+            "None of the statements given above is correct",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "The Sendai Framework is a voluntary, non-binding agreement and the successor to the Hyogo Framework for Action. Under Section 11 of the DM Act, the National Plan is prepared by the National Executive Committee and approved by the NDMA, which is the reverse of what statement 2 says. The CDRI, launched by India in 2019, has its secretariat in New Delhi, not Geneva, where UNDRR is based. None of the statements is correct."
+    },
+    {
+        q: "With reference to the institutional structure for wildlife protection in India, consider the following statements:<br>1. The National Board for Wild Life is chaired by the Prime Minister.<br>2. The Standing Committee of the National Board for Wild Life is chaired by the Prime Minister.<br>3. The State Board for Wild Life is chaired by the Chief Minister of the State.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 and 2 only",
+            "2 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "The National Board for Wild Life is the apex advisory body, chaired by the Prime Minister, with the Union Environment Minister as Vice-Chairperson. Its Standing Committee is headed by the Vice-Chairperson, not the Prime Minister. The State Board for Wild Life is chaired by the Chief Minister. Statement 2 is therefore incorrect."
+    },
+    {
+        q: "With reference to the biosphere reserves of India, consider the following statements:<br>1. The Cold Desert Biosphere Reserve is located in Himachal Pradesh.<br>2. The Gulf of Mannar Biosphere Reserve is located on the coast of Kerala.<br>3. A biosphere reserve is a statutory category of protected area under the Wild Life (Protection) Act, 1972.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "2 and 3 only",
+            "2 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "The Cold Desert Biosphere Reserve covers the Spiti Valley and neighbouring areas of Lahaul and Spiti in Himachal Pradesh. The Gulf of Mannar Biosphere Reserve lies off the coast of Tamil Nadu, not Kerala. Biosphere reserves are designated under the UNESCO Man and the Biosphere Programme and are not a statutory category under the Wild Life (Protection) Act, although their core zones are often national parks or sanctuaries. Only statement 1 is correct."
+    },
+    {
+        q: "With reference to the structure of tiger reserves, many of which are anchored in national parks, consider the following statements:<br>1. Critical Tiger Habitats are notified by the Central Government.<br>2. Buffer areas of a tiger reserve are kept inviolate and free from all human activity.<br>3. A State Government cannot de-notify a tiger reserve except in public interest and with the approval of the National Tiger Conservation Authority and the National Board for Wild Life.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 and 2 only",
+            "1 and 3 only",
+            "2 only"
+        ],
+        ans: 0,
+        exp: "Under the 2006 amendment to the Wild Life (Protection) Act, the State Government notifies tiger reserves on the recommendation of the NTCA, as well as Critical Tiger Habitats in consultation with an expert committee. So statement 1 is incorrect. The core or Critical Tiger Habitat is inviolate, while the buffer is meant for coexistence of wildlife and human use, so statement 2 is incorrect. De-notification needs the approval of both the NTCA and the NBWL, in public interest."
+    },
+    {
+        q: "With reference to the global warming potential (GWP) of greenhouse gases over a 100-year horizon, consider the following statements:<br>1. Methane has a higher GWP than carbon dioxide.<br>2. Nitrous oxide has a higher GWP than methane.<br>3. Sulphur hexafluoride has the highest GWP among the gases in the basket covered by the original Kyoto Protocol.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 3,
+        exp: "GWP compares the warming effect of a gas with that of carbon dioxide, which is set at 1. On a 100-year basis methane is roughly 28 to 30, nitrous oxide is roughly 265 to 273, and sulphur hexafluoride is over 23,000, the highest among the original Kyoto gases (CO2, CH4, N2O, HFCs, PFCs and SF6). All three statements are correct."
+    },
+    {
+        q: "Consider the following statements in the context of air pollution:<br><br>Assertion (A): Ground-level ozone is classified as a secondary air pollutant.<br>Reason (R): Ground-level ozone is emitted directly from vehicle exhaust and industrial chimneys.<br><br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "Both A and R are true and R is the correct explanation of A",
+            "A is false but R is true",
+            "Both A and R are true but R is not the correct explanation of A",
+            "A is true but R is false"
+        ],
+        ans: 3,
+        exp: "Ground-level ozone is a secondary pollutant because it is not emitted directly. It forms when nitrogen oxides and volatile organic compounds react in the presence of sunlight. The Reason is therefore false, since vehicles and industries emit only the precursors, not ozone itself."
+    },
+    {
+        q: "With reference to the evolution of the global climate regime, consider the following statements:<br>1. The Kyoto Protocol was adopted at the third Conference of the Parties in 1997 and entered into force in 2005.<br>2. The Kyoto Protocol imposed legally binding emission reduction targets on all its Parties.<br>3. The Paris Agreement entered into force in 2016.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 2,
+        exp: "The Kyoto Protocol was adopted at COP3 in 1997 and became effective in 2005, while the Paris Agreement, adopted at COP21 in 2015, entered into force on 4 November 2016. Kyoto's binding targets applied only to developed countries listed in Annex I, in line with common but differentiated responsibilities, so statement 2 is incorrect."
+    },
+    {
+        q: "With reference to the institutional structure of the United Nations Framework Convention on Climate Change (UNFCCC), whose 30th Conference of the Parties was held at Belém in 2025, which one of the following statements is correct?",
+        opts: [
+            "The UNFCCC Secretariat is headquartered in Geneva under the World Meteorological Organization.",
+            "The Conference of the Parties is the supreme body, supported by two subsidiary bodies, SBSTA and SBI.",
+            "The Intergovernmental Panel on Climate Change is a subsidiary body of the UNFCCC and reports to the COP.",
+            "The Green Climate Fund is a permanent subsidiary body advising the COP on scientific matters."
+        ],
+        ans: 1,
+        exp: "The COP, on which all Parties are represented, is the supreme decision-making body of the UNFCCC. It is assisted by the Subsidiary Body for Scientific and Technological Advice and the Subsidiary Body for Implementation. The IPCC was set up by the WMO and UNEP and is not a UNFCCC body. The Secretariat is in Bonn, and the Green Climate Fund is an operating entity of the financial mechanism, not a scientific advisory body."
+    },
+    {
+        q: "With reference to the Ramsar Convention and the challenges to wetlands in India, consider the following statements:<br>1. Chilika Lake continues to remain on the Montreux Record.<br>2. The Montreux Record is a register of Ramsar sites where changes in ecological character have occurred, are occurring or are likely to occur.<br>3. A Ramsar site can be added to the Montreux Record by the Ramsar Secretariat without the consent of the concerned country.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "3 only",
+            "1 only",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "The Montreux Record identifies Ramsar sites facing adverse changes in ecological character from human interference, pollution or technological developments. A site is added only with the approval of the Contracting Party concerned, so statement 3 is incorrect. Chilika Lake was removed from the Record in 2002 after restoration, whereas Keoladeo and Loktak remain on it, so statement 1 is incorrect."
+    },
+    {
+        q: "With reference to the constitutional and legal provisions for conservation in India, consider the following statements:<br>1. Article 48A, which directs the State to protect and improve the environment and safeguard forests and wildlife, is a Fundamental Duty of citizens.<br>2. 'Forests' continue to be an entry in the State List of the Seventh Schedule.<br>3. The Wild Life (Protection) Amendment Act, 2022 provides for implementation of CITES in India.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 only",
+            "3 only",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "Article 48A is a Directive Principle of State Policy, and the corresponding Fundamental Duty is in Article 51A(g), so statement 1 is incorrect. The 42nd Amendment, 1976 moved 'Forests' and 'Protection of wild animals and birds' from the State List to the Concurrent List, so statement 2 is also incorrect. The 2022 amendment to the Wild Life (Protection) Act, 1972 gives effect to CITES, which makes statement 3 correct."
+    },
+    {
+        q: "With reference to the National Air Quality Index (AQI) used to trigger graded responses to winter pollution in Delhi-NCR, which one of the following pollutants is NOT among those considered for computing the index?",
+        opts: [
+            "Ozone",
+            "Lead",
+            "Ammonia",
+            "Carbon dioxide"
+        ],
+        ans: 3,
+        exp: "The National AQI, launched by the CPCB in 2014, covers eight pollutants: PM10, PM2.5, nitrogen dioxide, sulphur dioxide, carbon monoxide, ozone, ammonia and lead. Carbon dioxide is a greenhouse gas, not a criteria air pollutant, and is not part of the index; it is easily confused with carbon monoxide."
+    },
+    {
+        q: "With reference to the management of national parks and protected areas in India, consider the following statements:<br>1. Eco-sensitive zones around protected areas are notified by the State Governments under the Wild Life (Protection) Act, 1972.<br>2. The Forest Rights Act, 2006 provides for recognition of forest rights even within national parks and sanctuaries.<br>3. Relocation of rights holders from Critical Wildlife Habitats under the Forest Rights Act requires the free informed consent of the Gram Sabhas concerned.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 and 3 only",
+            "2 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 2,
+        exp: "Eco-sensitive zones are notified by the Union Ministry of Environment, Forest and Climate Change under the Environment (Protection) Act, 1986, not by the States under the Wild Life (Protection) Act, so statement 1 is incorrect. The Forest Rights Act applies to all forest land, including national parks and sanctuaries. Resettlement from Critical Wildlife Habitats can follow only after the rights are recognised and the Gram Sabhas give free informed consent."
+    },
+    {
+        q: "With reference to the Forest Survey of India (FSI), consider the following statements:<br>1. It is headquartered at Dehradun and functions under the Ministry of Environment, Forest and Climate Change.<br>2. In its forest cover classification, Very Dense Forest refers to areas with a canopy density of 40 per cent and above.<br>3. It functions under the Ministry of Agriculture and Farmers Welfare.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "Only one of the statements is correct",
+            "1 and 3 only",
+            "Both 2 and 3"
+        ],
+        ans: 1,
+        exp: "The Forest Survey of India is an organisation of the Ministry of Environment, Forest and Climate Change, headquartered at Dehradun, which prepares the biennial India State of Forest Report. In its classification, Very Dense Forest means a canopy density of 70 per cent and above, while Moderately Dense Forest covers 40 to 70 per cent. Only statement 1 is correct."
+    },
+    {
+        q: "With reference to the Intergovernmental Panel on Climate Change (IPCC), consider the following statements:<br>1. It was established in 1992 by the UNFCCC Secretariat.<br>2. It does not conduct original research but assesses published scientific literature.<br>3. Its reports prescribe country-specific emission reduction targets.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "Statement 1 alone",
+            "Both 1 and 2",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 0,
+        exp: "The IPCC was established in 1988 by the World Meteorological Organization and the United Nations Environment Programme, four years before the UNFCCC. Its role is to assess published scientific, technical and socio-economic literature, not to conduct new research. Its reports are policy-relevant but policy-neutral, so they do not prescribe country-specific targets. Only statement 2 is correct."
+    },
+    {
+        q: "With reference to the Great Indian Bustard, consider the following statements:<br>1. It is categorised as Critically Endangered on the IUCN Red List.<br>2. Collision with overhead power transmission lines is a major threat to its survival.<br>3. It is protected under Schedule IV of the Wild Life (Protection) Act, 1972.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 only",
+            "1, 2 and 3",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "The Great Indian Bustard is Critically Endangered on the IUCN Red List, and its small remaining population in arid grasslands faces heavy mortality from collisions with overhead power lines. It is listed in Schedule I of the Wild Life (Protection) Act, 1972, the highest level of protection, and not in Schedule IV. Statement 3 is therefore incorrect."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-35 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

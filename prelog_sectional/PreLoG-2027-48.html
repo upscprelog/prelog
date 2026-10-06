@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-48</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "Assertion (A): Building practical, large-scale quantum computers remains one of the foremost challenges under India's National Quantum Mission. <br> Reason (R): Qubits are inherently fragile and prone to decoherence, making them difficult to control and measure accurately at scale. <br> Which one of the following is correct in respect of the above Assertion (A) and Reason (R)?",
+        opts: [
+            "A is true but R is false",
+            "Both A and R are true and R is the correct explanation of A",
+            "A is false but R is true",
+            "Both A and R are true but R is not the correct explanation of A"
+        ],
+        ans: 1,
+        exp: "Quantum bits (qubits) are extremely sensitive to environmental disturbances, causing them to lose their quantum state (decoherence), which makes precise control and measurement difficult. This fragility is precisely why scaling up to practical, fault-tolerant quantum computers is a major technical challenge under missions like India's National Quantum Mission."
+    },
+    {
+        q: "Which one of the following bodies is recognised by the Department of Telecommunications as India's Standards Development Organisation for telecom, and developed the '5Gi' radio interface technology that was later merged into the global 3GPP 5G specifications?",
+        opts: [
+            "Centre for Development of Telematics (C-DOT)",
+            "National Centre for Communication Security (NCCS)",
+            "Telecommunications Standards Development Society, India (TSDSI)",
+            "Telecommunication Engineering Centre (TEC)"
+        ],
+        ans: 2,
+        exp: "TSDSI is an autonomous, not-for-profit body recognised by the DoT as India's telecom Standards Development Organisation. Its 5Gi technology, designed to extend coverage in rural and remote areas, was approved as part of the ITU's IMT-2020 family in 2020 and later incorporated into 3GPP's Release 17. TEC handles national standards adoption and certification, C-DOT focuses on telecom R&D, and NCCS deals with communication security assurance."
+    },
+    {
+        q: "With reference to the structure and composition of machine learning systems used in digital applications, consider the following statements: <br> 1. In an artificial neural network, the output layer receives the raw input features directly from the dataset.<br>2. Deep learning models are neural networks that have multiple hidden layers between the input and output layers.<br>3. The training data used in supervised machine learning consists only of unlabelled examples.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "2 only",
+            "1 and 3 only",
+            "1 only"
+        ],
+        ans: 1,
+        exp: "A neural network's input layer receives the raw features, while the output layer produces the final prediction, so statement 1 is wrong. Deep learning refers to neural networks with several hidden layers that build progressively abstract representations. Supervised learning requires labelled examples (inputs paired with known outputs), so statement 3 is also incorrect."
+    },
+    {
+        q: "In the context of the structural characteristics used to define 'Big Data', which of the following 'V's' specifically refers to the trustworthiness, quality, and accuracy of data obtained from diverse sources?",
+        opts: [
+            "Veracity",
+            "Volume",
+            "Variety",
+            "Velocity"
+        ],
+        ans: 0,
+        exp: "Veracity refers to the reliability, quality, and accuracy of data, addressing biases, inconsistencies, and noise that may arise from diverse sources. Volume relates to the scale of data, Variety to the diversity of data types and formats, and Velocity to the speed at which data is generated and processed."
+    },
+    {
+        q: "With reference to reforms and recommendations for strengthening India's Digital Public Infrastructure (DPI), consider the following statements: <br> 1. DPI should be shifted to proprietary and closed platforms in order to attract greater private investment.<br>2. All citizen data should be centralised in a single government database, dispensing with consent-based data sharing.<br>3. Extending broadband connectivity and digital literacy programmes such as the Pradhan Mantri Gramin Digital Saksharta Abhiyan is among the measures needed to make DPI more inclusive.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "2 and 3 only",
+            "3 only",
+            "1 only",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "India's DPI is built on open, interoperable and consent-driven principles, so moving it to closed proprietary platforms or centralising all data without consent would run against its design. Widely recommended reforms instead focus on closing the digital divide through broadband expansion and digital literacy, alongside strong data protection. Hence only statement 3 is correct."
+    },
+    {
+        q: "With reference to India's policy initiatives on quantum technologies, consider the following statements: <br> 1. The National Quantum Mission, approved in April 2023, is implemented by the Department of Atomic Energy.<br>2. A Task Force constituted under the National Quantum Mission released a report in February 2026 laying out a roadmap for migration to post-quantum cryptography, with Critical Information Infrastructure targeted to complete migration by 2029.<br>3. The roadmap proposes a national testing and certification framework for quantum-safe products, prepared by a sub-group led by the Telecommunication Engineering Centre (TEC).<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "Exactly one of the statements is correct",
+            "Exactly two of the statements are correct",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "The National Quantum Mission (outlay of about Rs 6,003.65 crore for 2023-24 to 2030-31) is implemented by the Department of Science and Technology, not the Department of Atomic Energy. The DST published the Task Force report 'Implementation of Quantum Safe Ecosystem in India' in February 2026, targeting Critical Information Infrastructure migration by 2029, with a TEC-led sub-group designing the testing and certification framework. Hence only statements 2 and 3 are correct."
+    },
+    {
+        q: "Under India's National Quantum Mission, which one of the following Thematic Hubs (T-Hubs) is correctly matched with the vertical it anchors?",
+        opts: [
+            "IIT Madras (with C-DOT) - Quantum Sensing and Metrology",
+            "IIT Delhi - Quantum Communication",
+            "IIT Bombay - Quantum Materials and Devices",
+            "IISc Bengaluru - Quantum Computing"
+        ],
+        ans: 3,
+        exp: "The National Quantum Mission follows a hub-and-spoke model with four verticals: IISc Bengaluru anchors Quantum Computing, IIT Madras (with C-DOT) anchors Quantum Communication, IIT Bombay anchors Quantum Sensing and Metrology, and IIT Delhi anchors Quantum Materials and Devices. The other pairs mix up these verticals."
+    },
+    {
+        q: "A farmer's field is fitted with soil-moisture sensors, each carrying a unique identifier, which transmit readings through a gateway to a server. The server automatically switches on the irrigation pump whenever moisture falls below a set threshold, without any human involvement in the data exchange. This arrangement is best described as an application of:",
+        opts: [
+            "Blockchain-based smart contracts",
+            "3D printing",
+            "Augmented reality",
+            "Internet of Things"
+        ],
+        ans: 3,
+        exp: "The Internet of Things is a network of physical objects fitted with sensors and unique identifiers that can transfer data and trigger actions without human-to-human or human-to-computer interaction. UPSC has repeatedly tested IoT through such everyday application scenarios and through its security implications, as in a CSAT passage on insecure low-end IoT devices. The other options do not involve networked sensing and automated actuation."
+    },
+    {
+        q: "With reference to India's recent developments in 6G technology, consider the following statements: <br> 1. The Bharat 6G Alliance was launched in 2023 by the Ministry of Electronics and Information Technology.<br>2. The Bharat 6G Alliance functions through three working groups.<br>3. A three-year 6G Terahertz testbed project has been approved under the Telecom Technology Development Fund, to be set up at SAMEER, Kolkata in collaboration with IITs.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "3 only",
+            "1 and 2 only",
+            "2 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "The Bharat 6G Alliance was formed in July 2023 under the Ministry of Communications, not MeitY, and it works through seven working groups covering areas such as spectrum, technology, devices and applications. A 6G Terahertz testbed under the Telecom Technology Development Fund, funded through Digital Bharat Nidhi, has been approved at SAMEER, Kolkata with IIT partners, so only statement 3 is correct."
+    },
+    {
+        q: "With reference to recent developments in IoT security regulation in India, consider the following statements: <br> 1. The Indian Telecom Security Assurance Requirements (ITSAR) are developed by the Bureau of Indian Standards.<br>2. The Mandatory Testing and Certification of Telecom Equipment (MTCTE) regime, administered by the Telecommunication Engineering Centre under the Department of Telecommunications, covers devices such as IoT gateways and the telecom communication modules of smart meters.<br>3. The Government has mandated security certification for internet-enabled CCTV cameras under the Standardisation Testing and Quality Certification (STQC) framework.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 and 2 only",
+            "2 and 3 only",
+            "Statement 2 alone"
+        ],
+        ans: 2,
+        exp: "ITSAR are developed by the National Centre for Communication Security, a unit of the DoT, and not by the Bureau of Indian Standards, so statement 1 is wrong. MTCTE, administered by TEC, applies to IoT gateways and the communication modules of smart meters, and internet-enabled CCTV cameras have been brought under a mandatory security certification framework through STQC. The Government is now weighing a similar framework for a wider range of IoT devices."
+    },
+    {
+        q: "Assertion (A): In a typical three-layer IoT architecture, the application layer delivers services such as smart metering or remote health monitoring to end users. <br> Reason (R): The application layer is the layer that physically senses environmental parameters through sensors. <br> Which one of the following is correct in respect of the above Assertion (A) and Reason (R)?",
+        opts: [
+            "A is false but R is true",
+            "Both A and R are true and R is the correct explanation of A",
+            "A is true but R is false",
+            "Both A and R are true but R is not the correct explanation of A"
+        ],
+        ans: 2,
+        exp: "The application layer provides user-facing services built on the data collected and processed by the lower layers, so the Assertion is true. Physical sensing is the function of the perception layer, which comprises sensors and actuators, while the network layer transmits the data. Hence the Reason is false."
+    },
+    {
+        q: "With reference to the constitutional and legal provisions relating to cyber security in India, consider the following statements: <br> 1. Section 66A of the Information Technology Act, 2000 was struck down as unconstitutional by the Supreme Court in Shreya Singhal v. Union of India (2015).<br>2. The Indian Computer Emergency Response Team (CERT-In) has been constituted under Section 70B of the Information Technology Act, 2000.<br>3. In the same judgment, the Supreme Court also struck down Section 69A of the Information Technology Act as unconstitutional.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All three statements are correct",
+            "Both 2 and 3",
+            "Exactly two of the statements are correct",
+            "Statement 3 alone"
+        ],
+        ans: 2,
+        exp: "In Shreya Singhal v. Union of India (2015), the Supreme Court struck down Section 66A for being vague and violative of free speech under Article 19(1)(a), while CERT-In derives its statutory mandate from Section 70B of the IT Act. However, the Court upheld Section 69A (blocking of information) as constitutionally valid, subject to procedural safeguards, so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to the functions and institutional architecture of the IndiaAI Mission, consider the following statements: <br> 1. The IndiaAI Safety Institute has been constituted as a statutory regulator under an Act of Parliament, with the power to penalise AI developers.<br>2. The compute pillar of the IndiaAI Mission requires that all AI models developed in India be trained exclusively on government-owned GPU clusters.<br>3. The IndiaAI Safety Institute functions on a hub-and-spoke model under the Safe and Trusted AI pillar of the IndiaAI Mission.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "2 only",
+            "1 and 2 only",
+            "3 only",
+            "1 only"
+        ],
+        ans: 2,
+        exp: "The IndiaAI Safety Institute, announced in January 2025, is incubated under the Safe and Trusted AI pillar of the IndiaAI Mission and follows a hub-and-spoke model engaging academia, startups, industry and government. It is not a statutory regulator with penal powers. The compute pillar has been built largely by empanelling private AI cloud providers to make GPUs available, not by mandating exclusive use of government-owned clusters."
+    },
+    {
+        q: "With reference to the National Data and Analytics Platform (NDAP), consider the following statements: <br> 1. NITI Aayog's NDAP provides standardised government datasets on a common schema, enabling users to merge datasets and carry out cross-sectoral analysis.<br>2. NDAP is a statutory body constituted under an Act of Parliament to regulate the use of all government data.<br>3. Access to NDAP is restricted to Central government officials, and researchers and journalists are barred from using it.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "1 only",
+            "3 only",
+            "2 and 3 only",
+            "2 only"
+        ],
+        ans: 0,
+        exp: "NDAP is a flagship data platform of NITI Aayog that hosts government datasets standardised to a common schema, making them interoperable and easy to merge for cross-sectoral analysis. It is a platform, not a statutory regulator. It was launched for open public use, serving government, academia, journalism, civil society and the private sector, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the constitutional and legal aspects of quantum technologies in India, consider the following statements: <br> 1. The National Quantum Mission has been established by a specific Act of Parliament, which confers statutory powers on it.<br>2. Article 51A(h) of the Constitution makes it a fundamental duty of every citizen to develop scientific temper and the spirit of inquiry.<br>3. Quantum technology research falls exclusively within the State List of the Seventh Schedule, so Parliament cannot legislate on it.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "2 only",
+            "1 and 3 only",
+            "3 only",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "Article 51A(h), a Fundamental Duty in Part IVA, requires citizens to develop scientific temper, humanism and the spirit of inquiry and reform. The National Quantum Mission was approved by the Union Cabinet as an executive mission implemented by the Department of Science and Technology; it is not a creature of statute. Since quantum technology is not enumerated in the State List, Parliament retains residuary legislative power under Article 248, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the challenges and issues in the development of Artificial Intelligence in India, consider the following statements: <br> 1. India has abundant, well-curated datasets in all its scheduled languages, so data scarcity is not a challenge for Indian AI development.<br>2. Algorithmic bias arising from unrepresentative training data can lead to discriminatory outcomes in the Indian context.<br>3. AI adoption poses no concerns regarding energy consumption or job displacement.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "2 only",
+            "1 and 3 only",
+            "3 only",
+            "1 only"
+        ],
+        ans: 0,
+        exp: "Bias from unrepresentative data is a recognised risk, and India faces data gaps in linguistically diverse, high-quality datasets, which is why efforts like the IndiaAI datasets platform and indigenous models have been pursued. Discussions around the AI Impact Summit 2026 also acknowledged job disruption, bias and rising energy costs as key concerns, so statements 1 and 3 are incorrect."
+    },
+    {
+        q: "Assertion (A): Security is one of the major challenges in the large-scale deployment of the Internet of Things. <br> Reason (R): Many low-cost IoT devices have limited processing power and memory, which makes it difficult to build in strong security and to provide regular updates. <br> Which one of the following is correct in respect of the above Assertion (A) and Reason (R)?",
+        opts: [
+            "A is true but R is false",
+            "Both A and R are true but R is not the correct explanation of A",
+            "A is false but R is true",
+            "Both A and R are true and R is the correct explanation of A"
+        ],
+        ans: 3,
+        exp: "IoT devices are numerous, widely dispersed and often inexpensive, and their constrained computing resources make strong encryption and routine security updates difficult, leaving them vulnerable to attacks. This weakness is a direct reason why security is a major IoT challenge, so R correctly explains A."
+    },
+    {
+        q: "With reference to India's recent developments in Artificial Intelligence (2025-2026), consider the following statements: <br> 1. The IndiaAI Mission, approved in March 2024, is being implemented through the IndiaAI Independent Business Division under the Digital India Corporation.<br>2. India hosted the AI Impact Summit in February 2026, becoming the first country to host a global AI summit on two separate occasions.<br>3. The AI Impact Summit 2026 was organised by the United Nations as its first global summit dedicated exclusively to artificial intelligence.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 and 2 only",
+            "1 only",
+            "2 only"
+        ],
+        ans: 2,
+        exp: "The IndiaAI Mission is implemented via the IndiaAI Independent Business Division under the Digital India Corporation. The February 2026 AI Impact Summit at Bharat Mandapam was India's first such summit (not a repeat hosting) and the fourth in a series after the UK, Seoul, and Paris summits, organised by India's Ministry of Electronics and IT, not the United Nations."
+    },
+    {
+        q: "Consider the following statements regarding the features of cloud computing, as promoted for government use under India's MeghRaj initiative: <br> 1. 'Resource pooling' means each user is allotted dedicated physical hardware that cannot be shared with any other user.<br>2. 'Rapid elasticity' means computing resources can be scaled up or down quickly according to demand.<br>3. 'Measured service' means users must pay a fixed annual fee irrespective of the resources they actually use.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "3 only",
+            "1 and 2 only",
+            "1 only",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "Rapid elasticity is a defining cloud characteristic, allowing resources to expand or contract with demand. Resource pooling refers to a shared, multi-tenant pool of resources dynamically assigned to users, not dedicated hardware. Measured service means usage is metered and billed on a pay-per-use basis, not as a fixed fee."
+    },
+    {
+        q: "With reference to the challenges and issues associated with blockchain technology in India, consider the following statements: <br> 1. MeitY's National Strategy on Blockchain proposes to remove all regulatory oversight of cryptocurrencies in order to promote blockchain adoption.<br>2. Public blockchains such as Bitcoin can process transactions faster than centralized payment systems like card networks.<br>3. The National Blockchain Framework launched by MeitY is based on an open, permissionless blockchain accessible to any anonymous user without authentication.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 and 3 only",
+            "1 and 2 only",
+            "None of the statements is correct"
+        ],
+        ans: 3,
+        exp: "MeitY's blockchain strategy treats RBI's cautious stance on cryptocurrencies as a regulatory challenge to be addressed, not something to be eliminated. Public blockchains like Bitcoin process only a few transactions per second compared to tens of thousands for centralized payment networks, illustrating a scalability challenge. Further, the National Blockchain Framework uses a permissioned architecture with authenticated access, not an open anonymous one, so all three statements are incorrect."
+    },
+    {
+        q: "In an IoT-enabled smart streetlight system, lamps dim automatically when ambient-light readings and traffic-flow data cross set thresholds. Which one of the following components converts the control command into the physical action of dimming the lamp?",
+        opts: [
+            "Sensor",
+            "Gateway",
+            "Actuator",
+            "Cloud analytics engine"
+        ],
+        ans: 2,
+        exp: "An actuator converts a control signal into physical action, such as dimming a lamp or opening a valve. Sensors only detect and measure conditions like light or traffic, gateways aggregate and relay data between devices and the network, and cloud analytics engines process the data and decide what command to send."
+    },
+    {
+        q: "Under the Government of India's cloud initiative 'MeghRaj' (GI Cloud), the audit of cloud service offerings of private Cloud Service Providers for empanelment by MeitY is carried out by which one of the following?",
+        opts: [
+            "Standardisation Testing and Quality Certification (STQC) Directorate",
+            "National Informatics Centre (NIC)",
+            "Indian Computer Emergency Response Team (CERT-In)",
+            "Centre for Development of Advanced Computing (C-DAC)"
+        ],
+        ans: 0,
+        exp: "MeitY empanels cloud service providers under MeghRaj, and the compliance audit for empanelment is conducted by the STQC Directorate, with services required to be hosted within India. NIC runs the government's National Cloud and data centres, whereas C-DAC and CERT-In do not conduct this empanelment audit."
+    },
+    {
+        q: "With reference to the features and characteristics of India's Digital Public Infrastructure (DPI), consider the following statements: <br> 1. DPI is characterised by open and interoperable standards on which multiple public and private players can build services.<br>2. In India's DPI, the Unified Payments Interface forms the identity layer, while Aadhaar forms the payments layer.<br>3. The Account Aggregator framework enables the sharing of financial data without the consent of the customer.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "3 only",
+            "2 only",
+            "1 only",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "DPI is conceived as open, interoperable, population-scale infrastructure on which both government and private actors can innovate. The layers are mismatched in statement 2, since Aadhaar is the identity layer and UPI the payments layer. The Account Aggregator framework is a consent-based data-sharing mechanism, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the features and characteristics of the Internet of Things (IoT), consider the following statements: <br> 1. Heterogeneity implies that all IoT devices must be built on a single, standardized hardware platform to ensure interoperability.<br>2. Scalability refers to the capacity of an IoT architecture to handle a continuously increasing number of connected devices without a significant decline in performance.<br>3. The 'Dynamic and Self-Adapting' nature of IoT means a device's state, such as its connectivity or location, can change automatically without manual intervention.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "Heterogeneity in IoT actually refers to devices built on different hardware platforms and networks being able to interact with one another, not a requirement for a single standardized platform. Scalability correctly denotes the ability to manage a growing number of connected devices, and IoT devices are indeed described as dynamic and self-adapting, automatically changing state such as sleeping, waking, or connecting."
+    },
+    {
+        q: "In the context of the Previous Year Questions of UPSC on India's Digital Public Infrastructure, especially digital payments, consider the following statements: <br> 1. The Unified Payments Interface (UPI) is built on the existing IMPS infrastructure and enables instant fund transfers between bank accounts using virtual payment addresses.<br>2. The BHIM app is a UPI-based payment app developed by the National Payments Corporation of India.<br>3. A user of the BHIM app can transfer money to anyone who holds a UPI-enabled bank account.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 1",
+            "Exactly one of the statements is correct",
+            "1, 2 and 3",
+            "Both 1 and 2"
+        ],
+        ans: 2,
+        exp: "UPI, developed by NPCI, runs over the IMPS infrastructure and lets users send money instantly between bank accounts using virtual payment addresses. BHIM is NPCI's UPI-based app and allows transfers to anyone with a UPI-enabled bank account. UPSC has tested this theme repeatedly, with a UPI question in Prelims 2017 and a BHIM question in Prelims 2018, so all three statements are correct."
+    },
+    {
+        q: "With reference to blockchain technology, consider the following statements: <br> 1. In a blockchain, the record of transactions is maintained across multiple nodes instead of by a single central authority.<br>2. Blockchain can be used for applications beyond cryptocurrency, such as land records, academic certificates and supply chains.<br>3. Blockchain platforms can be designed as public, permissionless networks or as private, permissioned networks.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "Blockchain is a distributed ledger maintained by many nodes, is not confined to cryptocurrency, and can be built in either public permissionless or private permissioned forms. UPSC has repeatedly tested these basics, in the 2018 pairs question that linked blockchain with digital currency and in the 2020 statements question on its public, permissionless and non-cryptocurrency features. All three statements are correct."
+    },
+    {
+        q: "Which of the following best describes a major technical challenge in the widespread rollout of 5G's high-band (mmWave) spectrum in India?",
+        opts: [
+            "Its low propagation range and poor penetration through physical obstacles necessitate a much denser network of small cells for adequate coverage",
+            "It cannot be used to support Internet of Things applications due to bandwidth constraints",
+            "It offers lower data speeds than 4G, limiting its practical utility",
+            "Its extremely long wavelength allows signals to travel very long distances with minimal loss"
+        ],
+        ans: 0,
+        exp: "High-band mmWave spectrum (such as the 26 GHz band) suffers from significant propagation losses and weak penetration through walls and obstacles, meaning that, unlike sub-6 GHz spectrum, it requires a dense deployment of small cells to provide reliable coverage. This is why most commercial 5G traffic in India still relies on sub-6 GHz spectrum rather than mmWave."
+    },
+    {
+        q: "With reference to the legal framework governing machine learning and artificial intelligence in India, consider the following statements: <br> 1. India has enacted a standalone statute specifically regulating AI and machine learning systems.<br>2. The India AI Governance Guidelines released in November 2025 are legally binding and impose mandatory compliance on all AI developers.<br>3. The Guidelines propose a new statutory AI Regulatory Authority with penal powers.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "None of the statements is correct",
+            "1 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "India has no standalone AI law; the India AI Governance Guidelines issued by MeitY in November 2025 take a light-touch, voluntary approach and rely on existing laws such as the IT Act, 2000 and the Digital Personal Data Protection Act, 2023. They are not legally binding and do not create a statutory regulator with penal powers, so none of the statements is correct."
+    },
+    {
+        q: "With reference to reforms and recommendations for governing data in India, consider the following statements about the Expert Committee on Non-Personal Data Governance Framework: <br> 1. The Committee was constituted by NITI Aayog.<br>2. The Committee recommended that the algorithms and proprietary knowledge of firms be compulsorily shared as high-value datasets.<br>3. The Committee recommended the creation of a Non-Personal Data Authority and the sharing of high-value datasets for public-good purposes through data trustees.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 only",
+            "3 only",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "The Committee, chaired by Kris Gopalakrishnan, was constituted by the Ministry of Electronics and Information Technology, not NITI Aayog, and submitted its report in July 2020, followed by a revised draft in December 2020. It recommended a Non-Personal Data Authority and data trustees to share high-value datasets for public good, while stating that algorithms and proprietary knowledge should not be considered for data sharing."
+    },
+    {
+        q: "In a blockchain, which one of the following elements of a block links it to the block preceding it, so that any tampering with earlier records becomes evident?",
+        opts: [
+            "Timestamp of the block",
+            "Nonce of the block",
+            "Number of transactions in the block",
+            "Hash of the preceding block"
+        ],
+        ans: 3,
+        exp: "Each block stores the cryptographic hash of the previous block, forming a chain; altering an earlier block changes its hash and breaks the link with every later block. The timestamp records when the block was created, the nonce is used in the consensus process, and the transaction count merely describes block content."
+    },
+    {
+        q: "With reference to the Digital Personal Data Protection Rules, 2025, consider the following statements: <br> 1. The Rules came into force in full on the date of their notification, with no phased compliance period.<br>2. Provisions relating to the registration and obligations of Consent Managers come into force one year after the publication of the Rules.<br>3. The constitution of the Data Protection Board was deferred until 18 months after the publication of the Rules.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "Only one of the statements is correct",
+            "1, 2 and 3",
+            "1 only"
+        ],
+        ans: 1,
+        exp: "The DPDP Rules, 2025, notified in November 2025, follow a phased rollout. The provisions on the Data Protection Board came into effect immediately, the Consent Manager provisions take effect after one year, and the main obligations on Data Fiduciaries, such as notice, consent, security safeguards and breach reporting, apply after 18 months. Hence only statement 2 is correct."
+    },
+    {
+        q: "With reference to reforms and recommendations for India's 5G and 6G ecosystem, consider the following statements: <br> 1. The Telecommunications Act, 2023 renamed the Universal Service Obligation Fund as Digital Bharat Nidhi, whose use extends to supporting research and development in telecom technologies.<br>2. The Bharat 6G Alliance aims to secure about 10 per cent of global 6G patents, compared with a much smaller Indian share in 5G.<br>3. The Bharat 6G Vision targets the commencement of commercial 6G services in India only by 2040.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "The Telecommunications Act, 2023 converted the Universal Service Obligation Fund into Digital Bharat Nidhi, which can also fund telecom R&D, and the Bharat 6G Alliance seeks a far larger share of global 6G patents than India held in 5G. The Bharat 6G Vision aims for 6G deployment around 2030, not 2040, so statement 3 is incorrect."
+    },
+    {
+        q: "A State government analyses unlabelled household electricity-consumption records to discover natural consumer segments, without any predefined categories. Which one of the following machine learning functions is being performed?",
+        opts: [
+            "Classification",
+            "Reinforcement learning",
+            "Clustering",
+            "Regression"
+        ],
+        ans: 2,
+        exp: "Clustering is an unsupervised learning function that groups unlabelled data points into segments based on similarity, without predefined categories. Classification and regression are supervised functions requiring labelled data, to assign categories or predict numerical values respectively. Reinforcement learning involves an agent learning through rewards and penalties from interaction with an environment."
+    },
+    {
+        q: "With reference to the challenges facing India's Digital Public Infrastructure (DPI), consider the following statements: <br> 1. The Digital Personal Data Protection Act, 2023 has not yet been enacted by Parliament, leaving DPI without any statutory data protection framework.<br>2. India's DPI is designed as proprietary platforms owned exclusively by private firms, which restricts interoperability.<br>3. Uneven rural connectivity, low digital literacy and rising social-engineering fraud on digital payment platforms remain key challenges to DPI adoption.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 and 2 only",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "The DPDP Act was enacted in 2023, so statement 1 is wrong even though its implementation is still being rolled out. DPI is conceived as open, interoperable, population-scale public-good infrastructure, not exclusively private proprietary platforms. Connectivity gaps, digital literacy deficits and payment fraud are widely recognised challenges, making only statement 3 correct."
+    },
+    {
+        q: "With reference to the features and characteristics of machine learning systems, consider the following statements: <br> 1. A machine learning model must be explicitly programmed with fixed rules for every possible input and cannot generalise to inputs it has not seen before.<br>2. A model that performs very well on its training data but poorly on new, unseen data is said to be overfitting.<br>3. Machine learning models trained on historical data can inherit and even amplify biases present in that data.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 2 and 3",
+            "Statement 3 alone",
+            "None of the above",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 0,
+        exp: "Machine learning models learn patterns from data and generalise to new inputs instead of relying on fixed hand-coded rules for every case, so statement 1 is wrong. Overfitting describes precisely the condition of doing well on training data but poorly on unseen data. Models trained on historical data can carry forward and magnify existing biases, a key concern in AI governance discussions in India."
+    },
+    {
+        q: "With reference to the constitutional and legal provisions relating to 5G and 6G in India, consider the following statements: <br> 1. The Telecommunications Act, 2023 mandates that all spectrum be assigned exclusively through auctions.<br>2. The Telecommunications Act, 2023 leaves the Indian Telegraph Act, 1885 and the Indian Wireless Telegraphy Act, 1933 intact as the governing statutes.<br>3. The Telecommunications (Right of Way) Rules, 2024, framed under the Act, came into force on 1 January 2025 to ease the deployment of telecom infrastructure.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "1 and 3 only",
+            "3 only",
+            "2 only",
+            "1 only"
+        ],
+        ans: 1,
+        exp: "The Telecommunications Act, 2023 replaces the Indian Telegraph Act, 1885 and the Indian Wireless Telegraphy Act, 1933, and it allows spectrum assignment by auction as well as by administrative assignment for specified uses such as national security and satellite services. The Right of Way Rules, 2024 took effect on 1 January 2025 to speed up infrastructure rollout, including for 5G. Only statement 3 is correct."
+    },
+    {
+        q: "With reference to the structure and composition of cloud computing and the Government of India's 'MeghRaj' (GI Cloud) initiative, which one of the following statements is correct?",
+        opts: [
+            "A private cloud is shared openly among unrelated organisations and owned by a commercial provider",
+            "GI Cloud comprises discrete cloud environments across multiple locations, following common standards and protocols",
+            "Platform as a Service (PaaS) delivers complete ready-to-use applications directly to end users",
+            "The National Cloud under MeghRaj is operated by the Centre for Development of Advanced Computing"
+        ],
+        ans: 1,
+        exp: "The GI Cloud under MeghRaj is conceived as a set of discrete cloud environments spread across multiple locations and built on common protocols, guidelines and standards. Delivery of ready-to-use applications describes SaaS, whereas PaaS provides a platform for developers. A private cloud is dedicated to a single organisation, and the National Cloud is run by the National Informatics Centre, not C-DAC."
+    },
+    {
+        q: "With reference to the reforms and recommendations for governing machine learning and AI in India, consider the following statements: <br> 1. The India AI Governance Guidelines recommend targeted amendments to existing laws, such as reviewing the definition of 'intermediary' under the Information Technology Act, 2000, to address AI systems.<br>2. The Guidelines recommend enacting a comprehensive standalone AI Act on the lines of the European Union's AI Act as the immediate first step.<br>3. The Guidelines recommend mandatory pre-approval by a government licensing body before any machine learning model can be deployed.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 only",
+            "3 only"
+        ],
+        ans: 2,
+        exp: "The Guidelines released by MeitY in November 2025 adopt a light-touch, voluntary approach that relies on existing laws while proposing targeted refinements, such as revisiting the IT Act's definition of 'intermediary' for AI systems. They expressly avoid an immediate standalone AI law and do not prescribe a mandatory licensing regime, so only statement 1 is correct."
+    },
+    {
+        q: "Assertion (A): The Digital Personal Data Protection Act, 2023 is relevant to big data analytics that involves the personal data of individuals in India. <br> Reason (R): The DPDP Act, 2023 applies only to personal data in non-digital form and not to digital personal data. <br> Which one of the following is correct in respect of the above Assertion (A) and Reason (R)?",
+        opts: [
+            "Both A and R are true but R is not the correct explanation of A",
+            "A is false but R is true",
+            "A is true but R is false",
+            "Both A and R are true and R is the correct explanation of A"
+        ],
+        ans: 2,
+        exp: "The DPDP Act, 2023 governs the processing of digital personal data, which makes it directly relevant to big data analytics that uses personal data and raises compliance challenges such as consent and purpose limitation. However, it applies to digital personal data, including non-digital data that is later digitised, so the Reason is false."
+    },
+    {
+        q: "Which one of the following regulators in India has used Distributed Ledger Technology (DLT), the technology underlying blockchain, to curb spam and fraud in commercial SMS communication?",
+        opts: [
+            "Indian Computer Emergency Response Team (CERT-In)",
+            "Reserve Bank of India (RBI)",
+            "Telecom Regulatory Authority of India (TRAI)",
+            "Securities and Exchange Board of India (SEBI)"
+        ],
+        ans: 2,
+        exp: "TRAI has integrated DLT into its framework for regulating commercial communication, so that senders, templates and consent are recorded on a tamper-proof shared ledger to curb spam and fraud in SMS transmission. SEBI, RBI and CERT-In perform different regulatory or cyber security functions."
+    },
+    {
+        q: "Which of the following Indian States unveiled a dedicated 'Artificial Intelligence and Machine Learning Policy, 2026' to promote the development and ethical use of AI/ML, including in the education sector?",
+        opts: [
+            "Telangana",
+            "Tamil Nadu",
+            "Rajasthan",
+            "Karnataka"
+        ],
+        ans: 2,
+        exp: "The Rajasthan government unveiled its Artificial Intelligence and Machine Learning Policy, 2026, with the Chief Minister emphasising the expansion of AI use in education as a tool for human progress. While other states have their own IT/AI initiatives, this specific 2026 policy was launched by Rajasthan."
+    },
+    {
+        q: "With reference to the legal framework applicable to the Internet of Things (IoT) in India, consider the following statements: <br> 1. Digital personal data generated by IoT devices and processed in India is subject to the Digital Personal Data Protection Act, 2023.<br>2. Parliament has enacted a dedicated Internet of Things Regulation Act that exclusively governs all IoT devices and services.<br>3. The right to privacy is not protected under the Constitution, and hence IoT devices may collect personal data without any constitutional limitation.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "3 only",
+            "2 and 3 only",
+            "1 only",
+            "2 only"
+        ],
+        ans: 2,
+        exp: "India has no standalone IoT statute; IoT is governed through general laws such as the IT Act, 2000, telecom laws and the DPDP Act, 2023, which applies to digital personal data processed by IoT systems. The Supreme Court in K.S. Puttaswamy (2017) held that privacy is a fundamental right under Article 21, so statement 3 is wrong. Only statement 1 is correct."
+    },
+    {
+        q: "With reference to the background and evolution of the Internet of Things (IoT), consider the following statements: <br> 1. The term 'Internet of Things' was coined by Tim Berners-Lee in 1989.<br>2. The evolution of IoT drew on earlier technologies such as RFID tagging and machine-to-machine (M2M) communication.<br>3. The Smart Cities Mission, launched in 2015 to develop 100 smart cities in India, is one of the major drivers of IoT adoption in the country.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "The term 'Internet of Things' was coined by Kevin Ashton in 1999, not by Tim Berners-Lee, so statement 1 is wrong. IoT grew out of RFID tracking and M2M communication, and India's Smart Cities Mission (2015) provided a major impetus for deploying connected sensors in urban services."
+    },
+    {
+        q: "With reference to the cyber incident reporting norms in India, consider the following statements: <br> 1. The CERT-In directions issued in April 2022 under Section 70B of the Information Technology Act, 2000 require specified cyber incidents to be reported within six hours of noticing them.<br>2. Under these directions, service providers, intermediaries, data centres and body corporates must maintain ICT system logs securely for a rolling period of 180 days within Indian jurisdiction.<br>3. The mandatory reporting obligation applies only to government organisations and not to private body corporates.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "Only statement 3",
+            "All of the above",
+            "Both 1 and 3"
+        ],
+        ans: 0,
+        exp: "CERT-In's 2022 directions mandate reporting of specified incidents within six hours and require logs to be kept for a rolling 180 days within India. The obligation covers service providers, intermediaries, data centres, body corporates and government organisations, so statement 3 is incorrect. UPSC has tested CERT-In's mandatory reporting obligations before, notably in Prelims 2017."
+    },
+    {
+        q: "With reference to important Acts and policy documents governing 5G and 6G technology in India, consider the following statements: <br> 1. The Telecommunications Act, 2023 streamlined provisions relating to spectrum assignment and simplified Right of Way (RoW) procedures for telecom infrastructure.<br>2. The Bharat 6G Vision document, released in 2023, is based on the guiding principles of affordability, sustainability, and ubiquity.<br>3. The Bharat 6G Vision document envisages a two-phase roadmap, with commercial deployment of 6G targeted around 2030.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 3",
+            "Exactly one of the statements is correct",
+            "All three statements are correct",
+            "Only statement 2"
+        ],
+        ans: 2,
+        exp: "The Telecommunications Act, 2023 modernised spectrum administration and eased infrastructure rollout, while the Bharat 6G Vision (2023) rests on affordability, sustainability, and ubiquity, and lays out an exploratory phase followed by a commercialisation phase aiming for deployment by 2030. All three statements are therefore correct."
+    },
+    {
+        q: "With reference to the institutional features of India's cyber security architecture, consider the following statements: <br> 1. The National Critical Information Infrastructure Protection Centre (NCIIPC) has been designated under Section 70A of the Information Technology Act, 2000 as the nodal agency for the protection of Critical Information Infrastructure.<br>2. CERT-In functions under the Ministry of Electronics and Information Technology and serves as the national agency for cyber security incident response.<br>3. The Indian Cyber Crime Coordination Centre (I4C) has been set up under the Ministry of Electronics and Information Technology to coordinate action against cybercrime.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "All of the statements are correct",
+            "Both 1 and 3"
+        ],
+        ans: 1,
+        exp: "NCIIPC is the nodal agency for Critical Information Infrastructure protection under Section 70A of the IT Act, while CERT-In, under MeitY, handles national-level incident response and issues alerts and advisories. However, the Indian Cyber Crime Coordination Centre (I4C) was set up by the Ministry of Home Affairs, not MeitY, so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to recent developments in quantum computing in India, consider the following statements: <br> 1. The Andhra Pradesh Government, IBM and Tata Consultancy Services have entered into a partnership to deploy an IBM Quantum System Two with a 156-qubit Heron processor at the Quantum Valley Tech Park in Amaravati.<br>2. The system planned for Amaravati is a 1,000-qubit processor, which would make it the largest quantum computer in the world.<br>3. The Quantum Valley initiative at Amaravati is being implemented by the Department of Atomic Energy under the National Quantum Mission.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 and 3 only",
+            "3 only",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "The IBM, TCS and Andhra Pradesh partnership plans a 156-qubit IBM Quantum System Two at the Quantum Valley Tech Park in Amaravati, billed as the largest quantum computer in India, not in the world. Quantum Valley is a flagship initiative of the Andhra Pradesh Government with industry partners, and not a Department of Atomic Energy project, so only statement 1 is correct."
+    },
+    {
+        q: "Quantum communication is one of the four verticals of India's National Quantum Mission. In this context, which one of the following best describes the primary function of Quantum Key Distribution (QKD)?",
+        opts: [
+            "It sends messages instantly between two points by using entanglement to carry information faster than light",
+            "It encrypts data by relying on the difficulty of factorising very large numbers on classical computers",
+            "It stores all users' encryption keys in a central quantum server that can be accessed simultaneously",
+            "It lets two distant parties share a secret key, with any eavesdropping revealed by disturbance to the quantum states"
+        ],
+        ans: 3,
+        exp: "QKD uses quantum states, typically of photons, to distribute a secret key, and any attempt at interception disturbs those states and is therefore detectable. It distributes keys rather than transmitting messages, and entanglement cannot be used to send information faster than light. Factorisation-based security describes classical public-key cryptography such as RSA. The Mission's communication vertical aims at satellite-based secure quantum communication over 2,000 km within India."
+    },
+    {
+        q: "With reference to cloud computing, consider the following statements: <br> 1. In the Infrastructure as a Service (IaaS) model, the provider supplies complete ready-to-use application software, and the user merely accesses it through a browser.<br>2. In the Software as a Service (SaaS) model, users access software over the internet, usually on subscription, without managing the underlying infrastructure.<br>3. Cloud computing requires every user to own and maintain physical servers on their own premises.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "1 only",
+            "2 only",
+            "1 and 3 only",
+            "3 only"
+        ],
+        ans: 1,
+        exp: "In SaaS the provider hosts and manages the application and infrastructure, and users simply access it over the internet. Delivery of ready-to-use applications describes SaaS, not IaaS, which offers virtualised computing, storage and networking resources. Cloud computing removes the need for users to maintain their own servers. UPSC often tests such technology terminology through definition-style statements."
+    },
+    {
+        q: "Assertion (A): When a qubit in superposition is measured, a definite value of either 0 or 1 is obtained. <br> Reason (R): Measurement leaves the qubit's superposition unchanged, so that all possible states remain simultaneously accessible after the reading. <br> Which one of the following is correct in respect of the above Assertion (A) and Reason (R)?",
+        opts: [
+            "Both A and R are true but R is not the correct explanation of A",
+            "A is false but R is true",
+            "Both A and R are true and R is the correct explanation of A",
+            "A is true but R is false"
+        ],
+        ans: 3,
+        exp: "A qubit can exist in a superposition of 0 and 1, but measuring it yields a single definite outcome, either 0 or 1, so the Assertion is true. Measurement, however, collapses the superposition into that outcome and destroys the earlier state, so the Reason is false. This collapse is one reason why extracting results from quantum computers requires carefully designed algorithms."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-48 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

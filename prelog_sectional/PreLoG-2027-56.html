@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-56</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "With reference to important acts, amendments and policies relating to Environmental Impact Assessment (EIA) in India, consider the following statements: <br> 1. The EIA Notification, 2006 was issued under Section 3 of the Environment (Protection) Act, 1986.<br>2. The Jan Vishwas (Amendment of Provisions) Act, 2023 amended Section 15 of the Environment (Protection) Act, 1986 to replace mandatory imprisonment for first-time offences with a graded monetary penalty.<br>3. The EIA Notification, 2006 replaced an earlier notification issued in 1994.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "The EIA Notification, 2006 was issued in exercise of powers under Section 3 of the Environment (Protection) Act, 1986 and replaced the earlier EIA Notification of 1994, decentralising many clearances to the State level through State Environment Impact Assessment Authorities. The Jan Vishwas Act, 2023, effective from April 2024, amended Section 15 to substitute criminal imprisonment for first-time offences with administrative penalties ranging from Rs 10,000 to Rs 15 lakh, with imprisonment applying only if the penalty remains unpaid. All three statements are correct."
+    },
+    {
+        q: "Consider the following events in the evolution of wildlife conservation in India: <br> 1. Enactment of the Wild Life (Protection) Act<br>2. Constitution of the Indian Board for Wildlife<br>3. Grant of statutory status to the National Tiger Conservation Authority<br>4. Launch of Project Tiger<br>Which one of the following is the correct chronological order of these events, starting from the earliest?",
+        opts: [
+            "1-2-4-3",
+            "2-1-3-4",
+            "2-1-4-3",
+            "2-4-1-3"
+        ],
+        ans: 2,
+        exp: "The Indian Board for Wildlife was constituted in 1952, the Wild Life (Protection) Act was enacted in 1972, Project Tiger was launched in 1973, and the 2006 amendment gave the National Tiger Conservation Authority statutory status. The correct order is therefore 2-1-4-3, and the tempting options wrongly place Project Tiger before the Act or the NTCA before Project Tiger."
+    },
+    {
+        q: "With reference to compensatory afforestation in India, consider the following statements: <br> 1. A large corpus collected under the ad hoc CAMPA arrangement remained substantially unutilised before the Compensatory Afforestation Fund Act, 2016 was enacted.<br>2. Non-availability of suitable non-forest land, especially in States with high forest cover, has led to compensatory afforestation being taken up on degraded forest land.<br>3. Audits by the Comptroller and Auditor General have flagged instances of CAMPA funds being spent on activities not permitted under the Compensatory Afforestation Fund Rules, 2018.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "Large sums collected under the ad hoc CAMPA, set up after Supreme Court directions, lay largely unspent until the 2016 Act and 2018 Rules created statutory National and State Funds. Scarcity of non-forest land pushes compensatory afforestation onto degraded forest land, which raises ecological concerns, and CAG audits in States such as Uttarakhand have flagged diversion of funds. All three statements are correct, so options that leave out any one of them are incorrect."
+    },
+    {
+        q: "With reference to the powers and functions of authorities under the Wild Life (Protection) Act, 1972, consider the following statements: <br> 1. The Chief Wild Life Warden can permit the hunting of a wild animal that has become dangerous to human life or is disabled or diseased beyond recovery.<br>2. The Chief Wild Life Warden of a State is appointed by the Central Government in consultation with the State Government.<br>3. The State Government can declare Government-owned land adjoining a national park or sanctuary as a conservation reserve after consulting the local communities.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 only",
+            "2 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "Section 11 lets the Chief Wild Life Warden permit hunting of a wild animal that is dangerous to human life or disabled or diseased beyond recovery, and Section 36A lets the State Government notify Government-owned land adjoining protected areas as a conservation reserve after consulting local communities. Statement 2 is incorrect because the Chief Wild Life Warden is appointed by the State Government under Section 4; the Centre appoints only the Director of Wildlife Preservation (Section 3)."
+    },
+    {
+        q: "With reference to State Biodiversity Boards (SBBs) constituted under the Biological Diversity Act, 2002, which one of the following statements is correct?",
+        opts: [
+            "It is constituted by the Central Government, in consultation with the National Biodiversity Authority, separately for each State.",
+            "It is constituted by the State Government and regulates the commercial use of biological resources by Indian citizens and companies.",
+            "It approves applications for intellectual property rights based on biological resources obtained from the State.",
+            "It grants prior approval to foreign nationals, foreign companies and non-resident Indians for obtaining biological resources from the State."
+        ],
+        ans: 1,
+        exp: "Under Section 22 of the Act, SBBs are established by State Governments, and under Section 7 Indian citizens and Indian companies must give them prior intimation before obtaining biological resources for commercial use. Prior approval for foreign nationals, foreign companies and NRIs (Section 3) and approval relating to intellectual property rights (Section 6) rest with the National Biodiversity Authority, so options 2 and 3 wrongly attribute NBA functions to the SBB."
+    },
+    {
+        q: "With reference to State Biodiversity Boards (SBBs) constituted under the Biological Diversity Act, 2002, consider the following statements: <br> 1. The Act itself specifies the exact number of expert members to be nominated to each State Biodiversity Board.<br>2. A State Biodiversity Board can be constituted for a Union Territory in the same manner as for a State.<br>3. Every State Biodiversity Board is required to be headed by a Chairperson having adequate knowledge and experience in the conservation and sustainable use of biological diversity.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 1 alone",
+            "Exactly one of the statements is correct",
+            "All three statements are correct",
+            "Both 1 and 2"
+        ],
+        ans: 1,
+        exp: "Section 22 requires the Chairperson of a State Biodiversity Board to have adequate knowledge and experience in the conservation and sustainable use of biological diversity and its components. Statement 1 is incorrect because the Act leaves the exact composition, including the number of expert members, to be prescribed by State Governments through rules, not fixed in the Act itself; statement 2 is incorrect because Union Territories, having no State Biodiversity Board, are instead served directly by the National Biodiversity Authority, which exercises the powers of a State Board there."
+    },
+    {
+        q: "According to the National Green Tribunal Act, 2010, which one of the following correctly describes the composition of the Tribunal?",
+        opts: [
+            "A full-time Chairperson with Judicial Members and Expert Members numbering at least five but not more than fifteen in each category.",
+            "A full-time Chairperson with five Judicial Members and five Expert Members, all appointed by the President of India.",
+            "A part-time Chairperson assisted by up to ten Judicial Members and up to ten Expert Members, all serving part time.",
+            "A full-time Chairperson with full-time Judicial Members and Expert Members numbering at least ten but not more than twenty in each category."
+        ],
+        ans: 3,
+        exp: "Section 4 of the NGT Act provides for a full-time Chairperson, at least ten and at most twenty full-time Judicial Members, and at least ten and at most twenty full-time Expert Members, the numbers being notified by the Central Government from time to time. The Chairperson must be a serving or former Supreme Court Judge or a High Court Chief Justice, and appointments are made by the Central Government, so the other options misstate the structure."
+    },
+    {
+        q: "With reference to the Biological Diversity Act, 2002, consider the following statements: <br> 1. Human genetic material, including that of tribal communities, is regulated as a biological resource under the Act.<br>2. The National Biodiversity Authority is the authority that approves the environmental release of genetically modified crops in India.<br>3. The National Biodiversity Authority can take measures to oppose the grant of intellectual property rights in other countries on biological resources or associated knowledge obtained from India illegally.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All three statements are correct",
+            "Only statement 2",
+            "3 only",
+            "1 only"
+        ],
+        ans: 2,
+        exp: "Under Section 18(4), the National Biodiversity Authority must take measures to oppose the grant of intellectual property rights abroad on biological resources or knowledge obtained from India illegally, which is a key anti-biopiracy function. The Act expressly excludes human genetic material from the definition of biological resources, and the release of genetically modified crops is regulated by the Genetic Engineering Appraisal Committee under rules framed under the Environment (Protection) Act, 1986, not by the NBA."
+    },
+    {
+        q: "Consider the following statements: <br> Assertion (A): A State Government cannot, on its own, de-notify a tiger reserve declared under the Wild Life (Protection) Act, 1972.<br>Reason (R): A tiger reserve is notified by the Central Government on the recommendation of the National Tiger Conservation Authority.<br>In the context of the above, which one of the following is correct?",
+        opts: [
+            "A is correct, but R is incorrect",
+            "A is incorrect, but R is correct",
+            "Both A and R are correct, but R is not the correct explanation of A",
+            "Both A and R are correct and R is the correct explanation of A"
+        ],
+        ans: 0,
+        exp: "Section 38W(2) bars a State Government from de-notifying a tiger reserve except in public interest and with the approval of the National Tiger Conservation Authority and the National Board for Wild Life, so A is correct. However, under Section 38V(1) a tiger reserve is notified by the State Government on the recommendation of the National Tiger Conservation Authority, not by the Central Government, so R is incorrect. The Centre's role lies in recommending and approving, not in notifying."
+    },
+    {
+        q: "With reference to the structure of the Compensatory Afforestation Fund Management and Planning Authority (CAMPA) under the Compensatory Afforestation Fund Act, 2016, consider the following statements: <br> 1. At the national level, the governing body of the National Authority is chaired by the Union Minister for Environment, Forest and Climate Change.<br>2. Each State Authority functions through a three-tier structure comprising a Governing Body, a Steering Committee and an Executive Committee.<br>3. The Governing Body of a State Authority is chaired by the Chief Secretary of the State.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "Under the Act, the governing body of the National CAMPA Authority is chaired by the Union Minister for Environment, Forest and Climate Change, and each State Authority operates through a Governing Body, a Steering Committee and an Executive Committee. Statement 3 is incorrect because the Governing Body of a State Authority is headed by the Chief Minister (or the Lieutenant Governor in a Union Territory), while the Chief Secretary chairs the Steering Committee and the Principal Chief Conservator of Forests chairs the Executive Committee."
+    },
+    {
+        q: "With reference to the functions and powers of State Biodiversity Boards under the Biological Diversity Act, 2002, consider the following statements: <br> 1. A State Biodiversity Board may, by order, prohibit or restrict an activity for which prior intimation has been given if it is found detrimental to conservation, sustainable use or equitable benefit sharing.<br>2. State Biodiversity Boards advise the Central Government, and not the State Government, on the conservation and sustainable use of biological diversity.<br>3. Local people, vaids and hakims must obtain approval from the State Biodiversity Board before using biological resources for their own use.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 only",
+            "2 only"
+        ],
+        ans: 2,
+        exp: "State Biodiversity Boards can restrict or prohibit activities that run against the Act's objectives of conservation, sustainable use and equitable benefit sharing. Under Section 23 they advise the State Government, not the Centre, and local people, vaids and hakims are exempt from the access provisions for their own use, so statements 2 and 3 are incorrect."
+    },
+    {
+        q: "With reference to important Acts, amendments and policies affecting State Biodiversity Boards (SBBs), consider the following statements: <br> 1. The Biological Diversity (Amendment) Act, 2023 exempted registered practitioners of the AYUSH systems of medicine from certain access-related restrictions applicable to commercial users.<br>2. The Biological Diversity Rules, 2024 replaced the Biological Diversity Rules of 2004 and operationalised procedures under the 2023 Amendment Act.<br>3. The 2023 Amendment Act empowered SBBs to unilaterally amend the Biological Diversity Act through subordinate legislation.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 only",
+            "2 only",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "The Biological Diversity (Amendment) Act, 2023 exempted registered AYUSH practitioners and certain other users from some access restrictions, and the Biological Diversity Rules, 2024, notified in October 2024, replaced the 2004 Rules to operationalise the amended Act's procedures. Statement 3 is incorrect and describes something no subordinate body can do: SBBs can frame regulations only within powers delegated to them by the Act and cannot amend the parent statute itself, which remains the exclusive preserve of Parliament."
+    },
+    {
+        q: "With reference to recent developments (2025-2026) relating to the Biological Diversity Act, 2002, consider the following statements: <br> 1. The Biological Diversity (Access and Benefit Sharing) Regulations, 2025 replaced the 2014 Guidelines and, for the first time, brought Digital Sequence Information within the scope of benefit sharing.<br>2. Under the 2025 Regulations, benefit sharing is linked to the annual turnover of the user, with no benefit sharing required for very small turnovers.<br>3. The 2025 Regulations require the same rate of benefit sharing for high-value biological resources like red sanders and sandalwood as for other, more common biological resources.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "Both 1 and 2",
+            "Exactly one of the statements is correct",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "The Biological Diversity (Access to Biological Resources and Knowledge Associated thereto and Fair and Equitable Sharing of Benefits) Regulations, 2025 replaced the 2014 Guidelines and extended benefit sharing to Digital Sequence Information, while introducing turnover-based slabs that exempt users with turnover up to a small threshold. Statement 3 is incorrect because the Regulations prescribe a significantly higher rate of benefit sharing for biological resources of high conservation or economic value, such as red sanders, sandalwood and agarwood, compared with other resources."
+    },
+    {
+        q: "With reference to recent developments concerning the National Green Tribunal (NGT), consider the following statements: <br> 1. In February 2026, the Supreme Court closed its suo motu proceedings on the remediation of polluted rivers and transferred primary monitoring responsibility to the NGT.<br>2. The NGT cannot take up an environmental matter on its own and can act only on an application filed by an aggrieved party.<br>3. In its 2025 assessment of polluted river stretches, the Central Pollution Control Board treats a stretch as polluted when its Biochemical Oxygen Demand exceeds 30 mg/L.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 only",
+            "2 only"
+        ],
+        ans: 2,
+        exp: "On 24 February 2026, a Supreme Court bench led by the Chief Justice closed its 2021 suo motu case on polluted rivers and left continuous monitoring to the NGT. Statement 2 is incorrect because in Municipal Corporation of Greater Mumbai v. Ankita Sinha (2021) the Supreme Court held that the NGT can exercise suo motu jurisdiction in environmental matters. Statement 3 is incorrect because a polluted river stretch is identified by BOD exceeding 3 mg/L, not 30 mg/L."
+    },
+    {
+        q: "With reference to the functions and powers of the National Biodiversity Authority (NBA) under the Biological Diversity Act, 2002, which one of the following is correct?",
+        opts: [
+            "It grants prior approval to Indian companies with more than 51 percent Indian participation before they access biological resources for research within India.",
+            "It fixes the minimum support price payable to farmers for biological resources supplied to seed companies.",
+            "It grants prior approval before any person obtains an intellectual property right, in or outside India, based on research conducted on biological resources obtained from India.",
+            "It notifies eco-sensitive zones around national parks and wildlife sanctuaries."
+        ],
+        ans: 2,
+        exp: "Section 6 of the Act requires prior approval of the NBA before a person applies for any intellectual property right, in India or abroad, based on research on biological resources obtained from India. Indian citizens and Indian companies (including those with more than 51 percent Indian participation) need only give prior intimation to the State Biodiversity Board, not the NBA's approval, for research, so option 1 is wrong; fixing MSP and notifying eco-sensitive zones are not NBA functions."
+    },
+    {
+        q: "With reference to the structure and composition of the National Biodiversity Authority (NBA) under the Biological Diversity Act, 2002, consider the following statements: <br> 1. The NBA consists of a Chairperson, ten ex officio members and five non-official members.<br>2. Among its ex officio members, the NBA has one representative each from the Ministries dealing with Tribal Affairs and Panchayati Raj.<br>3. The headquarters of the National Biodiversity Authority is located in Chennai.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "Only one of the statements is correct",
+            "Statement 3 alone"
+        ],
+        ans: 1,
+        exp: "Section 8 provides for a Chairperson, ten ex officio members (three from Tribal Affairs and Environment and Forests, and seven from other named ministries) and five non-official specialist members, and the NBA has been headquartered in Chennai since it began functioning in 2003. Statement 2 is incorrect because the NBA's ex officio composition includes one representative from the Ministry dealing with Tribal Affairs and two from Environment and Forests, not one from Panchayati Raj, which does not have a designated seat on the Authority."
+    },
+    {
+        q: "With reference to the functions and powers of the National Green Tribunal (NGT), consider the following statements: <br> 1. The NGT can award compensation to the victims of pollution and other environmental damage under the head of restitution of the damaged property.<br>2. Every order made by the NGT is directly enforceable by it in the same manner as an order of a Civil Court, without needing to be executed by a Civil Court.<br>3. The NGT has the power to review its own final orders and judgments at any time on the application of any aggrieved party, without any limitation period.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "3 only",
+            "2 only",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "Section 15 empowers the Tribunal to provide relief, compensation and restitution of property damaged and of the environment, for such area as it thinks fit. Statement 2 is incorrect because, under Section 25, an NGT order is executed as a decree of a Civil Court, which means it is enforced through the Civil Court's executing mechanism. Statement 3 is incorrect because a review application under Section 19 read with the relevant rules must ordinarily be filed within thirty days of the order, not at any time."
+    },
+    {
+        q: "With reference to the background and evolution of the Biological Diversity Act, 2002, consider the following statements: <br> 1. The Act was enacted primarily to give domestic legal effect to India's obligations as a party to the Convention on Biological Diversity, 1992.<br>2. India signed the Nagoya Protocol on Access and Benefit Sharing before the Biological Diversity Act, 2002 was enacted, and the Act was drafted specifically to implement that Protocol.<br>3. Before the 2002 Act, there was no central legislation in India directly regulating access to biological resources and associated traditional knowledge for commercial use.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 3,
+        exp: "The Biological Diversity Act, 2002 was enacted to implement India's commitments under the CBD, 1992, and before its enactment there was no dedicated central law regulating access to biological resources and traditional knowledge for commercial use. Statement 2 is incorrect because the Nagoya Protocol was adopted only in 2010 and entered into force in 2014, well after the 2002 Act; the Act predates the Protocol and has a broader scope than what the Protocol later required."
+    },
+    {
+        q: "With reference to the constitutional and legal basis of the Biological Diversity Act, 2002, consider the following statements: <br> 1. It was enacted by Parliament to give effect to India's obligations under the Convention on Biological Diversity.<br>2. 'Biological diversity' and 'wildlife' fall under the Union List of the Seventh Schedule, which is why only Parliament could enact this law.<br>3. The Act draws upon Article 48A and Article 51A(g) of the Constitution as guiding principles for conserving biological resources.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All three statements are correct",
+            "Statement 2 alone",
+            "Both 1 and 3",
+            "Both 1 and 2"
+        ],
+        ans: 2,
+        exp: "The Act was enacted in 2002 to implement India's commitments under the Convention on Biological Diversity, 1992, and it reflects the Directive Principle in Article 48A and the Fundamental Duty in Article 51A(g) on protecting the environment. Statement 2 is incorrect because, after the 42nd Amendment, 'forests' and 'protection of wild animals and birds' lie in the Concurrent List (Entries 17A and 17B), while biological diversity as such is not a separately named List entry; Parliament's competence rests on its treaty-implementing power under Article 253, not on an exclusive Union List entry."
+    },
+    {
+        q: "With reference to the Environment (Protection) Act, 1986, in the context of UPSC's previous years' questions on this theme, consider the following statements: <br> 1. It empowers the Central Government to lay down standards for the quality of environment in its various aspects.<br>2. The Act incorporates a specific statutory provision mandating public participation through referenda before granting environmental clearance to a project.<br>3. It allows any person to file a complaint before a court about an offence under the Act after giving at least sixty days' notice to the Central Government.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "Only one of the statements is correct",
+            "Both 2 and 3",
+            "Both 1 and 3"
+        ],
+        ans: 3,
+        exp: "Section 3 empowers the Central Government to lay down environmental quality standards, and Section 19 allows a citizen to file a complaint after giving the Central Government at least sixty days' notice of the alleged offence. The Act does not provide for referenda; public participation in environmental clearance is instead built into the EIA Notification framed under the Act, so statement 2 is incorrect."
+    },
+    {
+        q: "With reference to the challenges facing implementation of the Wild Life (Protection) Act, 1972, consider the following statements: <br> 1. A large proportion of India's captive elephants continue to lack formal ownership certificates, resulting in legal ambiguity around their status.<br>2. The Act provides an unambiguous, judicially settled definition of 'forest' that leaves no scope for disputes over the boundaries of protected areas.<br>3. Enforcement of the Act is the exclusive responsibility of the Wildlife Crime Control Bureau, with no role for state forest departments.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 only",
+            "3 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "Field studies have found that only a minority of India's captive elephants hold formal ownership certificates, leaving the rest in a legal grey zone, which is a recognised implementation challenge. Statement 2 is incorrect because the definition of 'forest' is a matter dealt with under the Forest Conservation Act and related case law (the Godavarman line of cases), not the Wild Life (Protection) Act, and it remains contested rather than settled. Statement 3 is incorrect because enforcement of the Act is carried out mainly by state forest departments, with the Wildlife Crime Control Bureau playing a coordinating and intelligence role alongside them."
+    },
+    {
+        q: "With reference to the Eco-Sensitive Zones (ESZs) around protected areas in India, consider the following statements: <br> 1. ESZs around national parks and wildlife sanctuaries are notified by the State Governments under the Wild Life (Protection) Act, 1972.<br>2. The Environment (Protection) Act, 1986 expressly defines the term 'Eco-Sensitive Zone' and prescribes a uniform width of 10 km around every protected area.<br>3. Under the Seventh Schedule, 'forests' and 'protection of wild animals and birds' are exclusively State List subjects, so Parliament cannot legislate on them.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 only",
+            "2 and 3 only",
+            "None of the statements given above is correct"
+        ],
+        ans: 3,
+        exp: "ESZs are notified by the Central Government (MoEFCC) using its powers under Section 3 of the Environment (Protection) Act, 1986 and the rules made under it; the Act does not use the term ESZ, and the width is protected-area specific, with 10 km only a general principle. The 42nd Amendment (1976) moved forests and the protection of wild animals and birds to the Concurrent List (Entries 17A and 17B), so Parliament can legislate on them. None of the three statements is correct."
+    },
+    {
+        q: "With reference to reforms concerning State Biodiversity Boards (SBBs) under the Biological Diversity (Amendment) Act, 2023, consider the following statements: <br> 1. The Amendment Act empowered SBBs, for the first time, to grant approval for the environmental release of genetically modified organisms.<br>2. The Amendment Act exempted codified traditional knowledge and registered AYUSH practitioners from certain access-related restrictions, thereby easing the compliance burden that fell partly on SBBs.<br>3. The Amendment Act transferred the power to declare Biodiversity Heritage Sites from the State Governments to the SBBs.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 2 alone",
+            "None of the statements are correct",
+            "Only two of the statements are correct",
+            "3 only"
+        ],
+        ans: 0,
+        exp: "The 2023 amendment exempted registered AYUSH practitioners and users of codified traditional knowledge from certain access restrictions and approval requirements, which had a bearing on the compliance load handled through SBBs. Statement 1 is incorrect since environmental release of genetically modified organisms is regulated by the Genetic Engineering Appraisal Committee, a function untouched by this amendment; statement 3 is incorrect because the power to notify Biodiversity Heritage Sites continues to rest with State Governments in consultation with local bodies, not with SBBs."
+    },
+    {
+        q: "With reference to important amendments to the Wild Life (Protection) Act, 1972, consider the following statements: <br> 1. The Wild Life (Protection) Amendment Act, 2022 increased the number of schedules under the Act from four to six.<br>2. The Wild Life (Protection) Amendment Act, 2022 inserted provisions to regulate or prohibit the introduction, trade, possession or proliferation of invasive alien species.<br>3. The Wild Life (Protection) Amendment Act, 2022 completely prohibited any transfer of captive elephants under all circumstances.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the above",
+            "Both 2 and 3",
+            "None of the above",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 3,
+        exp: "The 2022 amendment introduced, for the first time, a mechanism empowering the Central Government to regulate or prohibit the import, trade, possession or proliferation of invasive alien species. Statement 1 is incorrect because the amendment reduced schedules from six to four, not the other way around, and statement 3 is incorrect because it inserted a proviso to Section 43 that actually permits the transfer or transport of a captive elephant for religious or other purposes, subject to prescribed conditions, rather than banning all transfers."
+    },
+    {
+        q: "With reference to recent developments (2025-2026) concerning the National Biodiversity Authority (NBA), consider the following statements: <br> 1. Virendra R. Tiwari took charge as Chairperson of the NBA in September 2025, succeeding C. Achalender Reddy.<br>2. In FY 2025-26, the NBA realised several crores of rupees through the Access and Benefit Sharing mechanism.<br>3. The NBA's cumulative Access and Benefit Sharing disbursements crossed Rs 200 crore only after 2030, as per official data.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "None of the statements are correct",
+            "Statement 1 alone",
+            "Statement 3 alone"
+        ],
+        ans: 0,
+        exp: "Virendra R. Tiwari, a retired Indian Forest Service officer, took charge as NBA Chairperson in September 2025 in succession to C. Achalender Reddy, and the NBA realised over Rs 21 crore through the Access and Benefit Sharing mechanism in FY 2025-26. Statement 3 is incorrect because the NBA's cumulative ABS disbursements crossed Rs 200 crore in September 2026 itself, not after 2030."
+    },
+    {
+        q: "With reference to the challenges and issues in implementing the Biological Diversity Act, 2002, consider the following statements: <br> 1. Overlapping jurisdiction between State Biodiversity Boards and Biodiversity Management Committees has been identified as a source of delay in processing access applications.<br>2. Very few Biodiversity Management Committees across India have actually prepared People's Biodiversity Registers, despite the statutory mandate.<br>3. The exemption of local people, including vaids and hakims, from the Act's access provisions has completely eliminated all instances of biopiracy involving traditional knowledge.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "2 only",
+            "Statement 1 alone",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 1,
+        exp: "A recognised implementation gap is that a large number of Biodiversity Management Committees, despite the statutory requirement, have either not been constituted or have not completed People's Biodiversity Registers, weakening the documentation base for benefit-sharing claims. Statement 1 overstates the issue, since the more commonly flagged institutional weakness is capacity and staffing constraints within SBBs and NBA rather than a jurisdictional overlap with BMCs; statement 3 is incorrect because the local-use exemption has not eliminated biopiracy, and cases of external entities patenting traditional knowledge, as in the well-known turmeric and neem disputes, have continued to be reported."
+    },
+    {
+        q: "With reference to the Environment (Protection) Act, 1986, consider the following statements: <br> 1. It was enacted by Parliament under Article 249 on the basis of a resolution passed by the Rajya Sabha.<br>2. The standards for emission or discharge of environmental pollutants are prescribed exclusively by the State Pollution Control Boards, with no role for the Central Government.<br>3. It empowers the Central Government to issue directions for the closure, prohibition or regulation of an industry, and for the stoppage or regulation of electricity or water supply to it.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "2 and 3 only",
+            "1, 2 and 3",
+            "Only one of the statements is correct"
+        ],
+        ans: 3,
+        exp: "Section 5 empowers the Central Government to issue such directions, including closure of an industry and stoppage of its electricity or water supply. The Act was enacted under Article 253 to give effect to the decisions of the 1972 Stockholm Conference, not under Article 249, so statement 1 is wrong. The Central Government lays down environmental standards under Sections 3 and 6 and the rules framed under the Act, while State Boards mainly enforce them, so statement 2 is also wrong."
+    },
+    {
+        q: "With reference to the challenges in the functioning of the National Green Tribunal, consider the following statements: <br> 1. The NGT Act prescribes no limitation period, so an application can be filed at any time after the cause of action arises.<br>2. The Supreme Court has held that the NGT, while exercising appellate jurisdiction, cannot strike down rules or regulations made under the laws in its Schedule I.<br>3. The NGT is a constitutional body established under Article 323B, and appeals against its orders lie before the High Courts.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "2 only",
+            "1 only"
+        ],
+        ans: 2,
+        exp: "In the Vedanta-Sterlite case (2019) the Supreme Court held that the Tribunal, in its appellate jurisdiction, cannot strike down rules or regulations, which limits its role compared with the High Courts under Article 226. Under Section 14(3) an application must be filed within six months of the cause of action, extendable by up to sixty days, so statement 1 is wrong. The NGT is a statutory body created by the 2010 Act, and its orders are appealable to the Supreme Court under Section 22, not to the High Courts."
+    },
+    {
+        q: "With reference to recent developments (2025-2026) concerning wildlife protection in India, consider the following statements: <br> 1. In 2025, the National Biodiversity Authority notified new Access and Benefit Sharing Regulations that also apply to certain threatened species notified under the Biological Diversity Act, 2002.<br>2. The Wildlife (Protection) Act, 1972 and the rules framed under it require online registration of living CITES-listed specimens kept in captivity.<br>3. The Chief Wildlife Warden of a State is empowered under the Act to permit the capture of a wild animal that has become dangerous to human life, without needing any further sanction.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the above",
+            "Only statement 3",
+            "None of the statements are correct",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 0,
+        exp: "The 2025 Access and Benefit Sharing Regulations prescribe a higher benefit-sharing rate for threatened species notified under Section 38 of the Biological Diversity Act, and Rules notified in February 2024 under the Wildlife (Protection) Act require online registration and reporting for living CITES-listed scheduled specimens. Under Section 11, the Chief Wildlife Warden can permit the capture or killing of a dangerous, disabled or incurably diseased wild animal on his or her own satisfaction, without further sanction, so all three statements are correct."
+    },
+    {
+        q: "With reference to the salient features of the Wild Life (Protection) Act, 1972, as amended in 2022, consider the following statements: <br> 1. The Act now has four schedules instead of the earlier six, and the separate schedule for vermin species has been removed.<br>2. It provides for the constitution of a Management Authority and a Scientific Authority to regulate international trade in specimens covered under CITES.<br>3. It permits the Central Government to designate any wetland as a community reserve for the conservation of migratory birds.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "The Wild Life (Protection) Amendment Act, 2022 reduced the schedules from six to four (Schedule I for highest-protection animals, II for other protected animals, III for plants, IV for CITES specimens) and removed the separate vermin schedule; it also created a Management Authority and a Scientific Authority to implement CITES obligations for regulating international trade. Statement 3 is incorrect because a community reserve is declared by the State Government over community or private land under Section 36C, not by the Central Government over wetlands specifically."
+    },
+    {
+        q: "With reference to the National Biodiversity Authority (NBA) and the implementation of the Biological Diversity Act, 2002, consider the following statements: <br> 1. The Biological Diversity (Amendment) Act, 2023 strengthened deterrence by increasing the terms of imprisonment for contraventions of the Act.<br>2. The NBA can directly constitute Biodiversity Management Committees in local bodies that fail to do so.<br>3. Under the 2023 amendment, the NBA's approval for intellectual property rights based on Indian biological resources is still required before the application is filed.<br>How many of the statements given above are correct?",
+        opts: [
+            "Only two",
+            "None",
+            "All three",
+            "Only one"
+        ],
+        ans: 1,
+        exp: "The 2023 amendment decriminalised offences by replacing imprisonment with monetary penalties decided by an adjudicating officer, which critics say weakens deterrence. Biodiversity Management Committees are constituted by local bodies under Section 41, and the NBA has no power to constitute them directly. The amendment also shifted the NBA's approval for intellectual property rights from the application stage to the stage before grant, so none of the statements is correct."
+    },
+    {
+        q: "With reference to the features and characteristics of the National Green Tribunal (NGT), consider the following statements: <br> 1. The NGT is required to dispose of an application or appeal finally within six months of the date of its filing, as far as possible.<br>2. New Delhi is the only place of sitting of the Tribunal, and it does not hold circuit hearings elsewhere.<br>3. The Chairperson of the NGT must necessarily be a person who has held the office of a Judge of a High Court, and prior Supreme Court judgeship disqualifies a candidate.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 3",
+            "Exactly two of the statements are correct",
+            "Statement 1 alone",
+            "None of the above"
+        ],
+        ans: 2,
+        exp: "The NGT Act directs the Tribunal to make an endeavour to dispose of applications or appeals finally within six months of filing, in keeping with its object of expeditious environmental justice. Statement 2 is incorrect because, besides New Delhi as the Principal Place of Sitting, the Tribunal also sits at other places such as Bhopal, Pune, Kolkata and Chennai on a circuit basis. Statement 3 is incorrect because the Chairperson may be a sitting or former Judge of the Supreme Court or the Chief Justice of a High Court, so prior Supreme Court judgeship is an eligible qualification, not a disqualification."
+    },
+    {
+        q: "With reference to the functions and powers of the National Biodiversity Authority (NBA), consider the following statements: <br> 1. While granting approvals for access to biological resources, it can impose terms and conditions to secure the equitable sharing of benefits.<br>2. It notifies areas of biodiversity importance as Biodiversity Heritage Sites in consultation with local bodies.<br>3. It exercises the powers and performs the functions of a State Biodiversity Board in respect of the Union Territories.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 only",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "Section 21 requires the NBA to secure benefit sharing through conditions attached to its approvals, and since Union Territories have no State Biodiversity Boards, the NBA discharges Board functions there. Notifying Biodiversity Heritage Sites under Section 37 is a power of the State Government in consultation with local bodies; the NBA only advises States on selecting such areas, so statement 2 is incorrect."
+    },
+    {
+        q: "With reference to the institutional framework under the Biological Diversity Act, 2002, consider the following statements: <br> 1. The People's Biodiversity Register for a State is prepared and maintained by the concerned State Biodiversity Board.<br>2. Every local body is required to constitute a Biodiversity Management Committee within its area of jurisdiction.<br>3. The National Biodiversity Authority and the State Biodiversity Boards are required to consult the Biodiversity Management Committee before taking decisions on the use of biological resources occurring within its jurisdiction.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "Only statement 2",
+            "Exactly one of the statements is correct",
+            "Only two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "Section 41 requires every local body to constitute a Biodiversity Management Committee, and the NBA and SBBs must consult it before taking decisions on the use of biological resources or associated knowledge in its area. The People's Biodiversity Register is prepared by the Biodiversity Management Committee in consultation with local people, not by the State Biodiversity Board, so statement 1 is incorrect."
+    },
+    {
+        q: "With reference to important amendments to the Biological Diversity Act, 2002, consider the following statements: <br> 1. The Biological Diversity (Amendment) Act, 2023 restored imprisonment as the primary punishment for all offences under the Act.<br>2. The Biological Diversity (Amendment) Act, 2023 introduced a requirement for a Certificate of Registration from the National Biodiversity Authority before certain persons seek intellectual property rights based on Indian biological resources.<br>3. The Biological Diversity (Amendment) Act, 2023 abolished the three-tier structure of the National Biodiversity Authority, State Biodiversity Boards and Biodiversity Management Committees.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All three statements are correct",
+            "Statement 2 alone",
+            "1 only",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 1,
+        exp: "The 2023 amendment introduced a Certificate of Registration requirement from the NBA before certain applicants can seek intellectual property rights based on biological resources obtained from India. Statement 1 is incorrect because the amendment moved in the opposite direction, decriminalising most offences and substituting imprisonment with monetary penalties determined by an adjudicating officer; statement 3 is incorrect because the three-tier NBA-SBB-BMC structure was retained and, in fact, strengthened."
+    },
+    {
+        q: "With reference to reforms and recommendations concerning compensatory afforestation in India, consider the following statements: <br> 1. The Compensatory Afforestation Fund Act, 2016 was enacted on the recommendation of the Comptroller and Auditor General to abolish the practice of compensatory afforestation altogether.<br>2. The Act and the Compensatory Afforestation Fund Rules, 2018 created a statutory institutional mechanism to ensure more transparent and efficient utilisation of funds collected from user agencies, which had earlier remained largely unspent under an ad hoc arrangement.<br>3. The Comptroller and Auditor General has recommended that State Governments be barred from receiving any share of the compensatory afforestation funds, with the entire corpus retained at the national level.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 only",
+            "2 only",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "The 2016 Act and 2018 Rules were reforms meant to formalise and improve upon the ad hoc CAMPA arrangement, under which large sums had lain unutilised, by creating a statutory National and State fund structure with defined governance and accountability. Statement 1 is incorrect since the reform strengthened, rather than abolished, compensatory afforestation. Statement 3 is incorrect because the Act's structure does the opposite of what it describes: the bulk of the collected funds (around 90 percent) is meant to be transferred to the States, with only a smaller share retained at the national level."
+    },
+    {
+        q: "With reference to the constitutional and legal basis of the Van (Sanrakshan Evam Samvardhan) Adhiniyam, 1980 (the Forest Conservation Act), consider the following statements: <br> 1. It was enacted by Parliament using the exclusive power to legislate on 'forests' available under the Union List of the Seventh Schedule.<br>2. It restricts the power of State Governments to de-reserve forest land or to use forest land for non-forest purposes without the prior approval of the Central Government.<br>3. Its constitutional basis flows from the placement of 'forests' in the Union List by the Constitution (Forty-second Amendment) Act, 1976.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 3",
+            "Both 1 and 3",
+            "Exactly one of the statements is correct",
+            "None of the statements are correct"
+        ],
+        ans: 2,
+        exp: "Section 2 of the Act restricts a State Government from de-reserving forest land or permitting non-forest use of forest land without prior approval of the Central Government, which is the Act's core operative provision. Statements 1 and 3 are incorrect because the 42nd Amendment placed 'forests' and 'protection of wild animals and birds' in the Concurrent List, as Entries 17A and 17B, not the Union List, giving both Parliament and State legislatures concurrent competence over the subject."
+    },
+    {
+        q: "With reference to reforms and recommendations relating to the Wild Life (Protection) Act, 1972, consider the following statements: <br> 1. The Elephant Task Force (2010) had recommended amendments to prevent the misuse of provisions allowing transfer of captive elephants.<br>2. The Parliamentary Standing Committee that examined the 2021 Bill recommended that transfer of captive elephants for religious purposes be allowed for any institution, without any restriction to religious trusts.<br>3. The 2022 amendment, as recommended by the Standing Committee, mandated that a Gram Sabha need not be consulted while preparing the management plan for a wildlife sanctuary.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "Exactly one of the statements is correct",
+            "2 only",
+            "None of the statements are correct"
+        ],
+        ans: 1,
+        exp: "The Elephant Task Force's 2010 report had flagged the misuse of captive-elephant transfer provisions and recommended amendments to check it. Statement 2 is incorrect because the Standing Committee, under Jairam Ramesh, in fact recommended restricting the exception to religious institutions specifically, whereas the enacted provision was criticised for being broader; statement 3 is incorrect because the 2022 amendment made Gram Sabha consultation mandatory while preparing the management plan for wildlife sanctuaries, not optional or excluded."
+    },
+    {
+        q: "With reference to the background and evolution of the National Biodiversity Authority (NBA), consider the following statements: <br> 1. The NBA was established in 2003 under the Biological Diversity Act, 2002, to help India meet its obligations under the Convention on Biological Diversity.<br>2. The NBA directly monitors and supervises scientific research relating to the genetic modification of crop plants in India.<br>3. An application for an intellectual property right based on biological resources obtained from India cannot be made without prior approval of the NBA.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 and 3 only",
+            "1, 2 and 3",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "The NBA was set up in 2003 under Section 8 of the Biological Diversity Act, 2002 to operationalise India's commitments under the CBD, and Section 6 of the Act requires prior NBA approval before a person applies for any IPR based on biological resources obtained from India. Statement 2 is incorrect because oversight of genetically modified crop research rests with the Genetic Engineering Appraisal Committee under rules framed under the Environment (Protection) Act, 1986, not with the NBA."
+    },
+    {
+        q: "With reference to the constitutional and legal basis of the Environment (Protection) Act, 1986, consider the following statements: <br> 1. It was enacted by Parliament in exercise of the power under Article 253 of the Constitution to implement the decisions of the 1972 Stockholm Conference.<br>2. It permits the Central Government to constitute additional authorities to whom its powers under the Act may be delegated.<br>3. The Act is a Union List enactment and overrides other environmental laws only where a specific inconsistency with the Water Act, 1974 or the Air Act, 1981 is shown.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "The Act was enacted under Article 253, using Parliament's treaty-implementing power, to give effect to decisions taken at the 1972 UN Conference on the Human Environment at Stockholm, and Section 3(3) lets the Central Government constitute authorities to exercise its powers, as was done for the Dahanu Taluka Environment Protection Authority. Statement 3 is incorrect because the Act generally prevails over other environmental laws to the extent of any inconsistency, without requiring the inconsistency to be specifically with only the Water Act or the Air Act."
+    },
+    {
+        q: "With reference to the constitutional and legal basis of compensatory afforestation in India, consider the following statements: <br> 1. The obligation to undertake compensatory afforestation originates from a specific provision in the original Forest (Conservation) Act, 1980, and not from any judicial direction.<br>2. The Compensatory Afforestation Fund Act, 2016 was enacted by Parliament in the exercise of its legislative competence over 'forests', a subject placed in the Concurrent List by the 42nd Constitutional Amendment.<br>3. Compensatory afforestation funds collected from user agencies are required to be kept outside the Public Account of India and the States, in privately managed trusts.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 only",
+            "3 only",
+            "1 only"
+        ],
+        ans: 1,
+        exp: "The Compensatory Afforestation Fund Act, 2016 draws its legislative competence from the Concurrent List placement of 'forests' (Entry 17A) after the 42nd Amendment, 1976. Statement 1 is incorrect because compensatory afforestation as a practice originated from Supreme Court directions in the T.N. Godavarman case (2002), well before the 2016 Act gave it statutory backing; statement 3 is incorrect because the Act specifically requires the funds to be held in the Public Account of India and of each State, not in private trusts."
+    },
+    {
+        q: "With reference to the challenges in implementing Eco-Sensitive Zones (ESZs) around protected areas in India, consider the following statements: <br> 1. Notification of an ESZ involves a State proposal, a Zonal Master Plan and public consultation before final notification by the Central Government, and delays by States have left many protected areas without a notified ESZ.<br>2. Following the Supreme Court's April 2023 modification of its 2022 order, the mandatory minimum one-km ESZ does not apply where the MoEFCC has already issued draft or final ESZ notifications or where the protected area lies on an inter-state boundary.<br>3. Densely populated settlements adjoining sanctuary boundaries, as in Kerala, have led to protests against uniform ESZ norms.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "ESZ notification under the MoEFCC guidelines of 2011 requires a State proposal, a Zonal Master Plan and public consultation, and slow State action left many protected areas without notified zones. The Supreme Court's June 2022 order for a uniform minimum one-km ESZ was modified in April 2023 to exclude areas with draft or final notifications and inter-state boundary areas, after protests in places such as Kerala over settlements near sanctuary boundaries. All three statements are correct."
+    },
+    {
+        q: "With reference to the constitutional and legal provisions concerning wildlife protection in India, consider the following statements: <br> 1. Under the Wild Life (Protection) Act, 1972, wild animals found in India are declared to be the sole and absolute property of the Central Government.<br>2. Legal protection given to a species under the Schedules of the Wild Life (Protection) Act, 1972 applies to that species wherever it is found, whether inside or outside a designated protected area.<br>3. 'Protection of wild animals and birds' was placed in the Concurrent List of the Seventh Schedule by the Constitution (Forty-second Amendment) Act, 1976.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "None of the above",
+            "Exactly two of the statements are correct",
+            "All three statements are correct"
+        ],
+        ans: 2,
+        exp: "Legal protection under the Schedules attaches to a species and travels with it wherever it is found, and the 42nd Amendment placed 'protection of wild animals and birds' in the Concurrent List as Entry 17B. Statement 1 is incorrect because, under Section 39, every wild animal (other than vermin) is the property of the State Government, not the Central Government, and even this is closer to State custody for conservation than absolute private-style ownership."
+    },
+    {
+        q: "With reference to the Supreme Court's recent rulings on ex post facto environmental clearance under the Environmental Impact Assessment Notification, 2006, consider the following statements: <br> 1. In May 2025, a two-judge Bench struck down the 2017 Notification and the 2021 Office Memorandum that allowed clearance to be considered for projects started without prior environmental clearance.<br>2. In November 2025, a three-judge Bench, by a 2:1 majority, recalled the May 2025 judgment.<br>3. In July 2026, the Court upheld the 2021 Office Memorandum as a valid administrative mechanism for granting ex post facto clearance on a continuing basis.<br>How many of the statements given above are correct?",
+        opts: [
+            "None",
+            "All three",
+            "Only one",
+            "Only two"
+        ],
+        ans: 3,
+        exp: "The May 2025 judgment in Vanashakti v. Union of India struck down both instruments, and a three-judge Bench recalled it by a 2:1 majority on 18 November 2025. In July 2026 the three-judge Bench headed by the Chief Justice held that prior clearance remains the rule, treated the 2017 Notification as a time-bound amnesty and invalidated the 2021 Memorandum, since ex post facto clearance can be allowed only through a valid statutory notification and not an administrative memorandum. Statement 3 is therefore incorrect and only two statements are correct."
+    },
+    {
+        q: "With reference to the features and characteristics of the Environmental Impact Assessment (EIA) process in India, consider the following statements: <br> 1. Category 'A' projects require prior environmental clearance from the Central Government based on the recommendations of an Expert Appraisal Committee.<br>2. Category 'B2' projects are exempted from undertaking public consultation but must still prepare a detailed Environmental Impact Assessment report.<br>3. The Environment Impact Assessment Notification, 2006 was issued in supersession of an EIA notification issued in 1994.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only",
+            "1 and 3 only"
+        ],
+        ans: 3,
+        exp: "Category A projects are appraised and cleared by the Central Government (MoEFCC) on the recommendation of an Expert Appraisal Committee, and the EIA Notification, 2006 replaced the earlier EIA notification of 1994, decentralising many decisions to the State level. Statement 2 is incorrect because Category B2 projects are exempted not only from public consultation but also from preparing a full Environmental Impact Assessment report; they are appraised on the basis of Form 1 alone."
+    },
+    {
+        q: "With reference to the National Green Tribunal Act, 2010, consider the following statements: <br> 1. An appeal against an order of the National Green Tribunal lies to the Supreme Court within ninety days of communication of the order.<br>2. The Tribunal is not bound by the procedure laid down in the Code of Civil Procedure, 1908 and is guided by the principles of natural justice.<br>3. Disputes arising under the Wild Life (Protection) Act, 1972 fall within the Tribunal's original jurisdiction because the Act is listed in Schedule I of the NGT Act.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1 only",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "Section 22 of the NGT Act provides for an appeal to the Supreme Court within ninety days, and Section 19 states that the Tribunal is not bound by the Code of Civil Procedure but is guided by natural justice. Schedule I lists seven laws, including the Water Act, the Air Act, the Environment (Protection) Act and the Biological Diversity Act, but not the Wild Life (Protection) Act, 1972, the Indian Forest Act, 1927 or the Forest Rights Act, 2006, so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to the challenges in the Environmental Impact Assessment (EIA) process in India, consider the following statements: <br> 1. Projects that commenced construction or operation without obtaining prior environmental clearance can be granted 'ex post facto' clearance under a valid mechanism at present.<br>2. Category B2 projects under the EIA Notification, 2006 are exempted from preparing a detailed Environmental Impact Assessment report.<br>3. Public hearing is mandatory for all Category A and Category B projects without exception.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "1 and 3 only",
+            "Statement 2 alone",
+            "All of the above"
+        ],
+        ans: 2,
+        exp: "Category B2 projects, such as small-scale mining of minor minerals, are screened by a District or State-level committee and do not require a full EIA report, unlike Category B1 projects. Statement 1 is incorrect because, as of July 2026, the Supreme Court has held that ex post facto clearance can be granted only through a valid statutory notification and has struck down the administrative mechanism that was being used; and public hearing is not mandatory for certain exempted categories, such as projects in notified industrial estates or those falling under item 8(a) exemptions, so statement 3 is also incorrect."
+    },
+    {
+        q: "With reference to the challenges surrounding the Van (Sanrakshan Evam Samvardhan) Adhiniyam, 1980 (formerly the Forest (Conservation) Act, 1980) as amended in 2023, consider the following statements: <br> 1. Its Section 1A confines the Act largely to land recorded or notified as forest, raising concern that unrecorded 'deemed forests' recognised through the dictionary meaning adopted in the Godavarman case may lose protection.<br>2. In February 2024, the Supreme Court directed States and Union Territories to continue following the Godavarman definition of forest until they compile records of forest-like land under the 2023 Rules.<br>3. The Adhiniyam requires prior Central Government approval for diverting forest land even for strategic linear projects of national importance located within 100 km of international borders or Lines of Control.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the statements are correct",
+            "1 and 3 only",
+            "1 and 2 only",
+            "Only statement 1"
+        ],
+        ans: 2,
+        exp: "The 2023 amendment limits the Act mainly to recorded or notified forests, which critics say strips protection from unrecorded deemed forests, and in the Ashok Kumar Sharma case (February 2024) the Supreme Court directed States and UTs to keep following the Godavarman definition until they complete the records exercise under Rule 16 of the 2023 Rules. Statement 3 is incorrect because strategic linear projects of national importance within 100 km of international borders or Lines of Control are exempted from the Act's requirements, which is itself a major criticism."
+    },
+    {
+        q: "With reference to the background and evolution of the National Green Tribunal (NGT), consider the following statements: <br> 1. The National Green Tribunal Act, 2010 was the first Indian law to provide for a dedicated tribunal to adjudicate environmental disputes, with no earlier legislative attempt in this regard.<br>2. The National Environmental Tribunal Act, 1995, though enacted, was never brought into effective operation.<br>3. On the establishment of the NGT in 2010, the National Environment Appellate Authority set up under the 1997 Act continued to function in parallel with the Tribunal.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 only",
+            "1 and 2 only",
+            "3 only"
+        ],
+        ans: 1,
+        exp: "The National Environmental Tribunal Act, 1995, dealing with liability for accidents involving hazardous substances, was passed but never operationalised. Statement 1 is incorrect because two earlier laws, the National Environment Tribunal Act, 1995 and the National Environment Appellate Authority Act, 1997, preceded the NGT Act; statement 3 is incorrect because both those Acts were repealed by Section 38 of the NGT Act, 2010, and the National Environment Appellate Authority was dissolved, with its pending cases transferred to the NGT."
+    },
+    {
+        q: "Consider the following statements: <br> Assertion (A): A person aggrieved by a determination of benefit sharing made by a State Biodiversity Board can appeal to the National Green Tribunal.<br>Reason (R): The National Green Tribunal is an appellate body only for disputes arising under the Biological Diversity Act, 2002.<br>In the context of the above, which one of the following is correct?",
+        opts: [
+            "Both A and R are correct, but R is not the correct explanation of A",
+            "A is incorrect, but R is correct",
+            "A is correct, but R is incorrect",
+            "Both A and R are correct and R is the correct explanation of A"
+        ],
+        ans: 2,
+        exp: "Section 52A of the Biological Diversity Act, inserted after the NGT Act, 2010, provides an appeal to the National Green Tribunal against benefit-sharing determinations or orders of the NBA or a State Biodiversity Board, replacing the earlier appeal to the High Court, so A is correct. R is incorrect because the NGT has original and appellate jurisdiction over civil cases with a substantial environmental question arising under all the laws listed in Schedule I of its Act."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-56 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-38</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "With reference to the constitutional and legal framework relevant to Ease of Doing Business in India, consider the following statements: <br> 1. Article 301 declares that trade, commerce and intercourse throughout the territory of India shall be free.<br>2. Article 19(1)(g) is available to both citizens and foreigners.<br>3. The freedom under Article 301 is absolute and cannot be restricted by Parliament or State Legislatures.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 only",
+            "3 only",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "Article 301 declares freedom of trade, commerce and intercourse throughout India. Article 19(1)(g), the right to practise any profession or carry on any trade or business, is available only to citizens, so statement 2 is wrong. The freedom under Article 301 is subject to restrictions under Articles 302 to 304 (for example, Parliament may impose restrictions in the public interest), so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the challenges faced by the startup ecosystem in India, consider the following statements: <br> 1. The 'angel tax' on the premium received by unlisted startups from resident investors continues to apply in full after April 2025.<br>2. Recognition of startups is granted by the Ministry of Micro, Small and Medium Enterprises.<br>3. Early-stage startups often face a shortage of follow-on funding after the seed stage, and venture funding is concentrated in a few metropolitan hubs.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1 and 2 only",
+            "1 and 3 only",
+            "3 only"
+        ],
+        ans: 3,
+        exp: "The angel tax under Section 56(2)(viib) of the Income-tax Act was abolished for all classes of investors with effect from April 2025, so statement 1 is wrong. Startup recognition is granted by the Department for Promotion of Industry and Internal Trade (DPIIT), not the MSME Ministry. A shortage of follow-on funding and the concentration of capital in a few metros are widely recognised challenges, and are what schemes like the Startup India Fund of Funds 2.0 try to address."
+    },
+    {
+        q: "With reference to reforms in the disinvestment policy of India, consider the following statements: <br> 1. The Atmanirbhar Bharat policy for Public Sector Enterprises requires complete privatisation of CPSEs, even in strategic sectors.<br>2. Since 2016, NITI Aayog has been entrusted with identifying CPSEs for strategic disinvestment.<br>3. The Department of Investment and Public Asset Management is a statutory body established under an Act of Parliament.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 2",
+            "Exactly two of the statements are correct",
+            "Only statement 1",
+            "Only two of the statements are correct"
+        ],
+        ans: 0,
+        exp: "In 2016 the Government decided that NITI Aayog would identify CPSEs for strategic disinvestment, with the decision taken forward through the Alternative Mechanism. The Atmanirbhar Bharat PSE policy keeps a minimum presence of PSEs in strategic sectors and does not require their complete privatisation, so statement 1 is wrong. DIPAM is a department of the Ministry of Finance, not a statutory body, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the structure and composition of the manufacturing sector in India, consider the following statements: <br> 1. The Annual Survey of Industries is conducted by the Ministry of Commerce and Industry.<br>2. The Annual Survey of Industries covers only factories registered under the Companies Act, 2013.<br>3. The unincorporated non-agricultural enterprises, including informal manufacturing units, are covered by the Annual Survey of Unincorporated Sector Enterprises conducted by the National Statistics Office.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "None of the above",
+            "Statement 3 alone",
+            "Only statement 1"
+        ],
+        ans: 2,
+        exp: "The Annual Survey of Industries is conducted by the National Statistics Office under the Ministry of Statistics and Programme Implementation, not by the Commerce Ministry. It covers factories registered under the Factories Act, 1948 (and the Bidi and Cigar Workers Act), not the Companies Act. The informal, unincorporated segment is surveyed separately through the Annual Survey of Unincorporated Sector Enterprises (ASUSE), so only statement 3 is correct."
+    },
+    {
+        q: "With reference to the features of different forms of Public Sector Enterprises in India, consider the following statements: <br> 1. A Government company is one in which not less than 51 per cent of the paid-up share capital is held by the Central Government, one or more State Governments, or both.<br>2. Departmental undertakings have a legal personality separate from the Government.<br>3. Statutory corporations are incorporated under the Companies Act, 2013, like Government companies.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "2 and 3 only",
+            "3 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "Under the Companies Act, 2013, a Government company is one with at least 51 per cent government shareholding, so statement 1 is correct. Departmental undertakings (e.g. Indian Railways) are part of the Government and have no separate legal identity, so statement 2 is wrong. Statutory corporations are created by a special Act of Parliament or a State legislature, not under the Companies Act, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to reforms for Micro, Small and Medium Enterprises (MSMEs) in India, consider the following statements: <br> 1. Udyam Registration is a paperless process based on self-declaration, with data linked to the PAN and GSTIN systems.<br>2. The Udyam Assist Platform enables informal micro enterprises to obtain Udyam registration, which helps them access priority sector lending benefits.<br>3. Under Section 43B(h) of the Income-tax Act, 1961, a buyer's deduction for payments to micro and small enterprises beyond the time limit under the MSMED Act, 2006 is allowed only in the year of actual payment.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "Only two of the statements are correct",
+            "Only one of the statements is correct",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 0,
+        exp: "Udyam Registration replaced Udyog Aadhaar and works on self-declaration without document uploads, with information linked to the PAN and GSTIN systems. The Udyam Assist Platform, launched in 2023, brings informal micro enterprises into the formal fold so that they can access priority sector lending. Section 43B(h) addresses delayed payments by allowing the deduction only on actual payment when the MSMED Act's time limits (at most 45 days) are exceeded, so all three statements are correct."
+    },
+    {
+        q: "With reference to the structure and composition of the industrial sector in India, consider the following statements: <br> 1. In the national accounts, 'industry' comprises mining and quarrying, manufacturing, electricity-gas-water supply and construction.<br>2. The Index of Eight Core Industries includes sugar and textiles.<br>3. Electricity has the highest weight among the eight core industries.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 3",
+            "2 only",
+            "1 only",
+            "Only two of the statements are correct"
+        ],
+        ans: 2,
+        exp: "In the national accounts, the industrial sector covers mining and quarrying, manufacturing, electricity, gas, water supply and other utility services, and construction. The eight core industries are coal, crude oil, natural gas, refinery products, fertilisers, steel, cement and electricity; sugar and textiles are not among them. Refinery products, not electricity, carries the highest weight in the index."
+    },
+    {
+        q: "Consider the following statements regarding the policy for Public Sector Enterprises (PSEs) announced under the Atmanirbhar Bharat initiative: <br> Assertion (A): CPSEs in non-strategic sectors are to be privatised or, failing that, closed.<br>Reason (R): The policy requires the Government to retain at least one CPSE in every sector of the economy, including non-strategic sectors.<br>Which one of the following is correct in the context of the above statements?",
+        opts: [
+            "A is true, but R is false",
+            "Both A and R are true, but R is not the correct explanation of A",
+            "A is false, but R is true",
+            "Both A and R are true and R is the correct explanation of A"
+        ],
+        ans: 0,
+        exp: "The policy, announced in Union Budget 2021-22, keeps a bare minimum presence of PSEs only in notified strategic sectors, while PSEs in non-strategic sectors are to be privatised or else closed, so A is true. It does not require a CPSE to be retained in every sector, so R is false. The strategic sectors are limited to four broad areas, including atomic energy, space and defence and banking, insurance and financial services."
+    },
+    {
+        q: "In May 2025, the Cabinet Committee on Economic Affairs approved the 4-lane Badvel-Nellore corridor in Andhra Pradesh on a Design-Build-Finance-Operate-Transfer (DBFOT) basis, to connect important nodes of three industrial corridors. In this context, consider the following statements: <br> 1. The Kopparthy node lies on the Visakhapatnam-Chennai Industrial Corridor.<br>2. The Orvakal node lies on the Hyderabad-Bengaluru Industrial Corridor.<br>3. The Krishnapatnam node lies on the Hyderabad-Bengaluru Industrial Corridor.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "None of the above",
+            "Exactly one of the statements is correct",
+            "Both 1 and 3"
+        ],
+        ans: 0,
+        exp: "The Badvel-Nellore corridor links the Kopparthy node on the Visakhapatnam-Chennai Industrial Corridor, the Orvakal node on the Hyderabad-Bengaluru Industrial Corridor and the Krishnapatnam node on the Chennai-Bengaluru Industrial Corridor. Krishnapatnam port is a priority node of the Chennai-Bengaluru corridor, not the Hyderabad-Bengaluru corridor, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the important Acts governing industrial policy in India, consider the following statements: <br> 1. The Industries (Development and Regulation) Act, 1951 empowers the Central Government to regulate industries listed in its First Schedule.<br>2. The Foreign Exchange Regulation Act, 1973 was replaced by the Competition Act, 2002.<br>3. The Competition Commission of India was established under the Monopolies and Restrictive Trade Practices Act, 1969.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the statements are correct",
+            "Only one of the statements is correct",
+            "Both 1 and 3",
+            "Only statement 3"
+        ],
+        ans: 1,
+        exp: "The IDR Act, 1951 is the main law for industrial licensing and regulation, and it applies to the industries in its First Schedule. FERA, 1973 was replaced by the Foreign Exchange Management Act, 1999, not the Competition Act. The Competition Commission of India was set up under the Competition Act, 2002, which replaced the MRTP Act (the MRTP Commission was the earlier body)."
+    },
+    {
+        q: "With reference to the structure and composition of the startup funding ecosystem in India, consider the following statements: <br> 1. Venture capital funds are regulated as Category I Alternative Investment Funds under SEBI regulations.<br>2. Angel funds are regulated as Category III Alternative Investment Funds.<br>3. Under the Startup India Seed Fund Scheme, DPIIT disburses grants directly to every recognised startup that applies.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "Statement 3 alone",
+            "1, 2 and 3",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 3,
+        exp: "Under the SEBI (Alternative Investment Funds) Regulations, 2012, venture capital funds fall under Category I, and angel funds are a sub-category of Category I too, so statement 2 is wrong. Category III covers funds such as hedge funds that use complex trading strategies. The Seed Fund Scheme routes money through incubators chosen by an Experts Advisory Committee, not directly to startups."
+    },
+    {
+        q: "With reference to the institutional framework for industrial corridors in India, consider the following statements: <br> 1. The National Industrial Corridor Development and Implementation Trust (NICDIT) was created by re-designating the Delhi Mumbai Industrial Corridor Project Implementation Trust Fund as an apex body for the coordinated development of industrial corridors.<br>2. NICDIT is a statutory body established under an Act of Parliament.<br>3. Projects under the National Industrial Corridor Development Programme are planned in alignment with the PM GatiShakti National Master Plan and follow 'plug-n-play' and 'walk-to-work' concepts.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 only",
+            "1, 2 and 3",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "The Union Government expanded the mandate of the DMIC Project Implementation Trust Fund and re-designated it NICDIT, an apex body under the Department for Promotion of Industry and Internal Trade (formerly DIPP). It is created through an executive decision and not by an Act of Parliament, so statement 2 is wrong. The corridor programme is aligned with PM GatiShakti and builds greenfield industrial cities on plug-n-play and walk-to-work concepts."
+    },
+    {
+        q: "With reference to the disinvestment programme of the Government of India in 2025-26, consider the following statements: <br> 1. In the strategic disinvestment of IDBI Bank, only the Government's stake is on sale and the Life Insurance Corporation of India is not a seller.<br>2. The Union Budget 2026-27 pegged the disinvestment target at about Rs 80,000 crore under miscellaneous capital receipts.<br>3. The Department of Investment and Public Asset Management functions under the Ministry of Corporate Affairs.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "2 only",
+            "1 and 2 only",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "In the IDBI Bank strategic sale, both the Government (about 30.48 per cent) and LIC (about 30.24 per cent) are selling stakes, together about 60.72 per cent, with transfer of management control. DIPAM works under the Ministry of Finance, not the Ministry of Corporate Affairs. The Union Budget 2026-27 set the target at around Rs 80,000 crore under miscellaneous capital receipts, so only statement 2 is correct."
+    },
+    {
+        q: "In the context of the challenges facing Indian manufacturing, what is meant by the 'inverted duty structure'?",
+        opts: [
+            "Export duties on finished goods being higher than those on raw materials",
+            "Import duty on inputs being higher than on the finished goods made from them",
+            "Central taxes on manufactured goods being higher than State taxes on them",
+            "Customs duties on capital goods being lower than on consumer goods"
+        ],
+        ans: 1,
+        exp: "An inverted duty structure arises when the duty or tax on inputs and intermediate goods is higher than that on the finished products. This raises production costs for domestic manufacturers, can leave them with accumulated unutilised credit, and makes them less competitive against imports of finished goods. The other options describe different tax-rate relationships that do not match this definition."
+    },
+    {
+        q: "With reference to recent efforts to improve Ease of Doing Business in India, consider the following statements: <br> 1. The Jan Vishwas (Amendment of Provisions) Bill, 2025 was introduced in the Lok Sabha in August 2025 and referred to a Select Committee.<br>2. It seeks to decriminalise minor offences in several central Acts, largely by replacing imprisonment clauses with monetary penalties.<br>3. It amends the same 42 central Acts that were covered by the Jan Vishwas Act, 2023.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "Only two of the statements are correct",
+            "All of the above",
+            "Both 1 and 3"
+        ],
+        ans: 1,
+        exp: "The 2025 Bill was introduced in the Lok Sabha on 18 August 2025 and sent to a Select Committee; it aims to decriminalise minor offences mainly through monetary penalties. It covers 16 central Acts, not the 42 Acts amended by the Jan Vishwas Act, 2023 (only four Acts overlap), so statement 3 is wrong. The Government later withdrew the Bill to incorporate the Select Committee's recommendations before reintroducing it."
+    },
+    {
+        q: "With reference to the Make in India initiative, consider the following statements: <br> 1. It was launched in September 2011 along with the National Manufacturing Policy.<br>2. One of its stated objectives is to raise the growth rate of the manufacturing sector to 12-14 per cent per annum over the medium term.<br>3. It involved the liberalisation of Foreign Direct Investment (FDI) norms in sectors such as defence and railways.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 3 only",
+            "Statement 3 alone",
+            "Only two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "Make in India was launched on 25 September 2014, while the National Manufacturing Policy dates from 2011, so statement 1 is wrong. The initiative aimed at 12-14 per cent annual growth in manufacturing and was accompanied by FDI liberalisation in sectors such as defence, railway infrastructure and medical devices. Statements 2 and 3 are therefore correct."
+    },
+    {
+        q: "With reference to manufacturing-related announcements under Make in India in the Union Budget 2026-27, consider the following statements: <br> 1. The outlay of the Electronics Components Manufacturing Scheme, launched in April 2025 with Rs 22,919 crore, was proposed to be raised to Rs 40,000 crore.<br>2. Biopharma SHAKTI was announced with an outlay of Rs 10,000 crore over ten years.<br>3. A Container Manufacturing Scheme was announced with an allocation of Rs 2,000 crore over five years.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 and 3 only",
+            "2 only",
+            "3 only"
+        ],
+        ans: 0,
+        exp: "The Union Budget 2026-27 proposed to raise the outlay of the Electronics Components Manufacturing Scheme from Rs 22,919 crore to Rs 40,000 crore. Biopharma SHAKTI carries an outlay of Rs 10,000 crore over five years, not ten, and the Container Manufacturing Scheme has an allocation of about Rs 10,000 crore over five years, not Rs 2,000 crore. Only statement 1 is correct."
+    },
+    {
+        q: "With reference to the reforms introduced under the Startup India Action Plan, consider the following statements: <br> 1. Recognised startups are allowed to self-certify their compliance with certain labour and environmental laws.<br>2. Recognised startups are given relaxation from the prior experience and prior turnover requirements in public procurement.<br>3. Eligible startups can claim a profit-linked tax deduction under Section 80-IAC for any five consecutive years out of their first ten years.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 only",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "The Startup India Action Plan (2016) allowed self-certification of compliance under select labour and environmental laws and relaxed the prior experience and turnover norms for startups in public procurement, so statements 1 and 2 are correct. The Section 80-IAC deduction is available for any three consecutive years out of the permitted period, not five, so statement 3 is wrong."
+    },
+    {
+        q: "Arrange the following events in the evolution of India's disinvestment policy in chronological order: <br> 1. Constitution of the National Investment Fund<br>2. Renaming of the Department of Disinvestment as DIPAM<br>3. Setting up of the Disinvestment Commission under G.V. Ramakrishna<br>Select the correct answer using the code given below.",
+        opts: [
+            "3 - 2 - 1",
+            "3 - 1 - 2",
+            "2 - 3 - 1",
+            "1 - 3 - 2"
+        ],
+        ans: 1,
+        exp: "The Disinvestment Commission was set up in 1996, the National Investment Fund was constituted in 2005 to channel disinvestment proceeds, and the Department of Disinvestment was renamed the Department of Investment and Public Asset Management (DIPAM) in 2016. The correct sequence is therefore 3, 1, 2."
+    },
+    {
+        q: "Which one of the following best describes the National Single Window System (NSWS) launched by the Government of India in 2021?",
+        opts: [
+            "An online platform to identify, apply for and track approvals from central and State authorities",
+            "A platform run by the RBI to settle foreign exchange transactions of exporters",
+            "A tribunal that adjudicates disputes between investors and State governments",
+            "A statutory regulator that fixes tariffs for utilities used by industry"
+        ],
+        ans: 0,
+        exp: "The NSWS, run under the Department for Promotion of Industry and Internal Trade (DPIIT), is a digital one-stop platform where investors can identify the approvals they need, apply for them and track their status across central and State departments. It is an administrative facilitation platform and has no adjudicatory or tariff-setting powers, nor any role in foreign exchange settlement."
+    },
+    {
+        q: "Consider the following statements regarding the Startup India Fund of Funds 2.0, approved by the Union Cabinet in February 2026: <br> Assertion (A): The Fund of Funds 2.0 gives priority to deep-tech and tech-driven innovative manufacturing startups, which typically need patient, long-term capital.<br>Reason (R): Under the scheme, the Government directly purchases equity in individual startups without any intermediary investment fund.<br>Which one of the following is correct in the context of the above statements?",
+        opts: [
+            "A is false, but R is true",
+            "A is true, but R is false",
+            "Both A and R are true, but R is not the correct explanation of A",
+            "Both A and R are true and R is the correct explanation of A"
+        ],
+        ans: 1,
+        exp: "The Cabinet approved a corpus of Rs 10,000 crore for the Fund of Funds 2.0, with priority for deep-tech, tech-driven manufacturing and early-growth startups, so A is true. The scheme works on a 'fund of funds' model: government capital goes into SEBI-registered Alternative Investment Funds, which then invest in eligible startups. It does not buy equity in startups directly, so R is false."
+    },
+    {
+        q: "With reference to the structure and composition of ease of doing business assessments by the World Bank, consider the following statements: <br> 1. The Doing Business rankings were based on 12 sets of indicators.<br>2. Labour market regulation was one of the indicator sets used to compute the ranking.<br>3. B-READY, the successor project, assesses the business environment across the three pillars of regulatory framework, public services and operational efficiency.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "2 only",
+            "1 and 2 only",
+            "1 only"
+        ],
+        ans: 0,
+        exp: "The Doing Business rankings were computed from 10 sets of indicators (such as starting a business, getting credit, paying taxes and resolving insolvency), not 12, so statement 1 is wrong. Labour market regulation was collected but excluded from the ranking, so statement 2 is wrong. B-READY, which replaced Doing Business, evaluates the regulatory framework, public services and operational efficiency."
+    },
+    {
+        q: "Consider the following statements: <br> Statement-I: Manufacturing is considered to have a higher potential than agriculture for absorbing surplus labour productively in a developing economy like India.<br>Statement-II: Manufacturing has strong backward and forward linkages with other sectors and offers scope for economies of scale and technological upgradation.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "Both Statement-I and Statement-II are correct, but Statement-II does not explain Statement-I",
+            "Statement-I is correct, but Statement-II is incorrect",
+            "Both Statement-I and Statement-II are correct and Statement-II explains Statement-I",
+            "Statement-I is incorrect, but Statement-II is correct"
+        ],
+        ans: 2,
+        exp: "Manufacturing generates strong linkages with agriculture, services and other industries and benefits from economies of scale and technology adoption. These features allow it to absorb surplus labour at higher productivity than low-productivity agriculture, so Statement-II explains Statement-I."
+    },
+    {
+        q: "With reference to the constitutional and legal provisions relevant to the development of industrial corridors in India, consider the following statements: <br> 1. 'Acquisition and requisitioning of property' is an item in the Concurrent List of the Seventh Schedule.<br>2. The right to property continues to be a fundamental right under Article 19(1)(f) of the Constitution.<br>3. The Dholera Special Investment Region, part of the Delhi-Mumbai Industrial Corridor, was developed under the Gujarat Special Investment Region Act, 2009.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 only",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 3,
+        exp: "Acquisition and requisitioning of property is Entry 42 of the Concurrent List, so both the Centre and the States can legislate on it. The 44th Amendment (1978) removed the right to property from the fundamental rights (Article 19(1)(f) was repealed), and it is now only a constitutional right under Article 300A, so statement 2 is wrong. Dholera SIR was set up under the Gujarat Special Investment Region Act, 2009."
+    },
+    {
+        q: "With reference to the Production Linked Incentive (PLI) schemes for manufacturing in India, consider the following statements: <br> 1. The incentive is paid on incremental sales of goods manufactured in India over a base year.<br>2. The schemes are open only to Indian-owned companies and exclude foreign companies registered in India.<br>3. The schemes announced from 2020 cover 14 key sectors, with a total outlay of about Rs 1.97 lakh crore.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "3 only",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 3,
+        exp: "PLI schemes reward incremental sales of goods manufactured in India over a base year, and the schemes announced from 2020 cover 14 sectors with a combined outlay of about Rs 1.97 lakh crore. They are not restricted to Indian-owned companies; foreign firms with a presence in India can participate, so statement 2 is wrong."
+    },
+    {
+        q: "With reference to the challenges faced by Micro and Small Enterprises in India, consider the following statements: <br> 1. Disputes over delayed payments to micro and small enterprises are adjudicated by the National Company Law Tribunal.<br>2. Under the MSMED Act, 2006, interest on delayed payments to micro and small enterprises is payable at three times the bank rate notified by the RBI, with monthly compounding.<br>3. The MSME Samadhaan portal for delayed payments is administered by the Reserve Bank of India.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "Statement 2 alone",
+            "1 only",
+            "None of the above"
+        ],
+        ans: 1,
+        exp: "Section 16 of the MSMED Act, 2006 provides for compound interest with monthly rests at three times the bank rate notified by the RBI on delayed payments to micro and small enterprises. Such disputes go to the Micro and Small Enterprises Facilitation Councils, not the NCLT. The MSME Samadhaan portal is run by the Ministry of MSME, not the RBI."
+    },
+    {
+        q: "With reference to the evolution of disinvestment and privatisation policy in India, consider the following statements: <br> 1. The Disinvestment Commission was first set up in 1996 under the chairmanship of G.V. Ramakrishna.<br>2. The Department of Disinvestment was renamed the Department of Investment and Public Asset Management (DIPAM) in 2016.<br>3. A separate Ministry of Disinvestment was created in 2001 and was later converted into a Department under the Ministry of Finance in 2004.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "The Disinvestment Commission was constituted in 1996 under G.V. Ramakrishna to advise on public sector disinvestment. A Ministry of Disinvestment was created in 2001, was brought back into the Finance Ministry as a Department in 2004, and was renamed DIPAM in 2016. UPSC often tests such institutional milestones, so all three statements are correct."
+    },
+    {
+        q: "Critics argue that the Government's reliance on disinvestment to bridge the fiscal gap is problematic because such proceeds are one-off. In the Government's accounts, receipts from disinvestment of shares in public sector enterprises are classified as:",
+        opts: [
+            "Revenue receipts, because they are non-tax in nature",
+            "Capital receipts, because they reduce Government assets without creating any liability",
+            "Capital receipts, because they create a liability that must be repaid later",
+            "Revenue receipts, because they are earned from public enterprises every year"
+        ],
+        ans: 1,
+        exp: "Disinvestment proceeds are non-debt capital receipts: the Government sells part of its asset (equity) and incurs no liability to repay. They are not recurring income, which is why using them to fund current expenditure is criticised. Options treating them as revenue receipts or as liability-creating receipts are incorrect."
+    },
+    {
+        q: "With reference to the Pradhan Mantri MUDRA Yojana and the Prime Minister's Employment Generation Programme (PMEGP) for MSMEs, consider the following statements: <br> 1. MUDRA Ltd lends directly to individual micro enterprises without involving banks or financial institutions.<br>2. The Khadi and Village Industries Commission is the nodal agency for implementing PMEGP at the national level.<br>3. The Shishu category of MUDRA loans covers loans up to Rs 1 lakh.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "1 and 3 only",
+            "3 only",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "PMEGP, a credit-linked subsidy scheme, is implemented by the Khadi and Village Industries Commission as the nodal agency at the national level. MUDRA does not lend directly; it refinances banks, NBFCs and microfinance institutions that lend to borrowers. The Shishu category covers loans up to Rs 50,000, not Rs 1 lakh."
+    },
+    {
+        q: "Which one of the following best describes 'strategic disinvestment' of a Central Public Sector Enterprise (CPSE), as distinguished from a minority stake sale?",
+        opts: [
+            "Sale of a small minority stake through an Offer for Sale on stock exchanges, with no change in management control",
+            "Merger of one CPSE with another CPSE to create a larger entity under the same government ownership",
+            "Sale of a substantial portion of the Government's stake along with transfer of management control to a strategic buyer",
+            "Conversion of a departmental undertaking into a statutory corporation without any change in ownership"
+        ],
+        ans: 2,
+        exp: "In strategic disinvestment the Government sells a substantial stake and also hands over management control to a strategic partner, as in the sale of Air India to Tata Sons. A minority stake sale through an Offer for Sale leaves control with the Government, which makes the first option tempting but wrong. Mergers and conversions of the organisational form do not involve a change in ownership or control."
+    },
+    {
+        q: "With reference to reforms that support Ease of Doing Business in India, consider the following statements: <br> 1. Under the Insolvency and Bankruptcy Code, 2016, the corporate insolvency resolution process is to be completed within a maximum of 330 days, including extensions and litigation.<br>2. Under the Commercial Courts Act, 2015, pre-institution mediation is optional for all commercial suits.<br>3. Under the Mediation Act, 2023, pre-litigation mediation is compulsory for all civil and commercial disputes.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 only",
+            "3 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "The IBC sets a time-bound resolution process of 180 days, extendable by 90 days, with an overall outer limit of 330 days including litigation. Section 12A of the Commercial Courts Act makes pre-institution mediation mandatory for suits that do not seek urgent interim relief, so statement 2 is wrong. The Mediation Act, 2023 provides for pre-litigation mediation on a voluntary basis, so statement 3 is also wrong."
+    },
+    {
+        q: "With reference to the Make in India initiative, consider the following statements: <br> 1. It is a statutory programme established under a dedicated Act of Parliament.<br>2. Invest India, the national investment promotion and facilitation agency, functions as a statutory body under the Foreign Exchange Management Act, 1999.<br>3. It sets a target of raising the share of manufacturing in India's GDP to 40 per cent.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 only",
+            "None of the statements is correct",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "Make in India, launched in September 2014 and coordinated by the Department for Promotion of Industry and Internal Trade (DPIIT), is a policy and administrative initiative, not a statutory programme. Invest India is a non-profit investment promotion agency under DPIIT and is not a statutory body under FEMA. The manufacturing targets associated with the initiative aim at 25 per cent of GDP, not 40 per cent."
+    },
+    {
+        q: "With reference to the policy framework for the startup ecosystem in India, consider the following statements about the DPIIT notification of February 2026: <br> 1. Deep-tech startups can retain recognition for up to 15 years from incorporation.<br>2. Cooperative societies are excluded from the definition of a startup.<br>3. The turnover ceiling for recognition of regular startups was raised from Rs 100 crore to Rs 200 crore.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 2 alone",
+            "Only two of the statements are correct",
+            "Statement 3 alone",
+            "1 only"
+        ],
+        ans: 2,
+        exp: "The February 2026 notification doubled the turnover ceiling for regular startups to Rs 200 crore, while keeping their recognition period at 10 years. It created a separate deep-tech category with recognition for up to 20 years (not 15) and a turnover cap of Rs 300 crore. It also extended recognition to cooperative societies, so statement 2 is wrong."
+    },
+    {
+        q: "With reference to the constitutional and legal framework relating to disinvestment of Public Sector Enterprises in India, consider the following statements: <br> 1. The Constitution contains a specific Article that lays down the procedure for disinvestment of Central Public Sector Enterprises.<br>2. Article 298 empowers the executive power of the Union and the States to carry on any trade or business.<br>3. In the BALCO Employees' Union case, the Supreme Court treated disinvestment as a matter of government policy in which courts should interfere only in limited circumstances.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 only",
+            "1 and 2 only",
+            "2 and 3 only"
+        ],
+        ans: 3,
+        exp: "The Constitution has no Article that deals specifically with disinvestment, so statement 1 is wrong. Article 298 gives the Union and the States the power to carry on trade or business, which is the constitutional basis for government-owned enterprises. In BALCO Employees' Union v. Union of India (2001), the Supreme Court held that disinvestment is a policy decision and that courts should not interfere unless the decision is arbitrary or mala fide."
+    },
+    {
+        q: "With reference to the structure and classification of Central Public Sector Enterprises (CPSEs) in India, consider the following statements: <br> 1. The Department of Public Enterprises classifies CPSEs into Schedules A, B, C and D, which are used to determine the pay scales of their executives.<br>2. Miniratna Category-I CPSEs enjoy greater financial autonomy than Miniratna Category-II CPSEs.<br>3. Navratna CPSEs enjoy greater investment autonomy than Miniratna CPSEs.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "The DPE places CPSEs in Schedules A to D, and this classification determines the pay scales of their executives. Delegation of financial powers rises with the Ratna category: Miniratna Category-II has the least autonomy, Category-I more, and Navratna and Maharatna still higher investment limits without Government approval. All three statements are therefore correct."
+    },
+    {
+        q: "With reference to the classification of Central Public Sector Enterprises (CPSEs) into Ratna categories, consider the following statements: <br> 1. A CPSE must already hold Navratna status and be listed on an Indian stock exchange to be considered for Maharatna status.<br>2. A CPSE must be a Miniratna Category-I and a Schedule 'A' enterprise to be considered for Navratna status.<br>3. The Government has been considering a revision of the Ratna framework, with proposed new evaluation parameters such as corporate governance and succession planning.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "Maharatna status requires an existing Navratna CPSE that is listed and meets the prescribed thresholds for turnover, net worth and net profit. Navratna status requires Miniratna Category-I and Schedule 'A' status along with good MoU ratings and a composite score of 60 or more. Recent reports on the Government's planned review of the Ratna guidelines mention governance and succession planning among the new parameters, so all three statements are correct."
+    },
+    {
+        q: "With reference to the legal framework relating to privatisation of public sector entities in India, consider the following statements: <br> 1. The Banking Companies (Acquisition and Transfer of Undertakings) Acts require the Central Government to hold at least 51 per cent of the paid-up capital of the nationalised banks.<br>2. The General Insurance Business (Nationalisation) Amendment Act, 2021 made it mandatory for the Government to hold at least 76 per cent in public sector general insurers.<br>3. The listing of the Life Insurance Corporation of India in 2022 was possible without any amendment to the LIC Act, 1956.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "Only statement 3",
+            "None of the above",
+            "All of the above"
+        ],
+        ans: 0,
+        exp: "The Banking Companies Acts of 1970 and 1980, as amended, require the Central Government to hold not less than 51 per cent in nationalised banks, which is why a bank privatisation needs a change in law. The 2021 amendment to the General Insurance Business (Nationalisation) Act removed the Government's 51 per cent holding requirement rather than raising it. The LIC Act, 1956 was amended through the Finance Act, 2021 to enable listing and dilution, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the evolution of the startup ecosystem in India, consider the following statements: <br> 1. The Startup India Action Plan was announced in January 2016.<br>2. The Startup India Seed Fund Scheme was launched in 2016 along with the Fund of Funds for Startups.<br>3. The Atal Innovation Mission was set up in 2016 under NITI Aayog to promote innovation and entrepreneurship.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "Only statement 3",
+            "Both 1 and 2",
+            "1 and 3 only"
+        ],
+        ans: 3,
+        exp: "The Startup India Action Plan was unveiled in January 2016, and the Atal Innovation Mission was set up the same year under NITI Aayog. The Startup India Seed Fund Scheme came much later, in 2021, while the Fund of Funds for Startups dates from 2016, so statement 2 is wrong."
+    },
+    {
+        q: "With reference to the background and evolution of the Ease of Doing Business rankings, consider the following statements: <br> 1. India's rank in the World Bank's Doing Business 2019 report was 100.<br>2. The Doing Business report was first published by the International Monetary Fund.<br>3. India ranked 63 among 190 economies in the Doing Business 2020 report.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 only",
+            "2 only",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "India ranked 63 among 190 economies in Doing Business 2020, up from 77 in the 2019 edition. The rank of 100 relates to Doing Business 2018, so statement 1 is wrong. The Doing Business series was a World Bank (not IMF) publication, first released in 2003, and was discontinued in 2021."
+    },
+    {
+        q: "With reference to the constitutional and legal aspects of privatisation of public sector entities in India, consider the following statements: <br> 1. In Centre for Public Interest Litigation v. Union of India (2003), the Supreme Court held that privatisation of HPCL and BPCL, which were formed under Acts of Parliament, required Parliament's sanction.<br>2. Article 19(1)(g) guarantees the State the right to carry on any trade or business.<br>3. Incorporation and winding up of trading corporations is exclusively a State List subject.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "1 and 2 only",
+            "3 only",
+            "2 only"
+        ],
+        ans: 0,
+        exp: "In the 2003 HPCL/BPCL case, the Supreme Court held that companies that came into being through Acts of Parliament could not be privatised without Parliament's approval. Article 19(1)(g) is a fundamental right of citizens, not of the State; the State's power to carry on trade comes from Article 298. Incorporation, regulation and winding up of trading corporations is Entry 43 of the Union List, not the State List."
+    },
+    {
+        q: "With reference to the National Manufacturing Policy (NMP), 2011 and the National Investment and Manufacturing Zones (NIMZs) in India, consider the following statements: <br> 1. A NIMZ is required to have a minimum area of only 500 hectares.<br>2. NIMZs are notified as Special Economic Zones under the Special Economic Zones Act, 2005.<br>3. NIMZs are meant to be declared as industrial townships under Article 243Q of the Constitution so that they can function as self-governing bodies.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the above",
+            "Only two of the statements are correct",
+            "None of the above",
+            "3 only"
+        ],
+        ans: 3,
+        exp: "Under the NMP 2011, a NIMZ must have an area of at least 5,000 hectares, so statement 1 is wrong. NIMZs are a separate instrument from SEZs and are not notified under the SEZ Act, 2005, so statement 2 is wrong. Under Article 243Q(1)(c), the State Government declares a NIMZ an 'industrial township', which lets it function as a self-governing and autonomous body."
+    },
+    {
+        q: "With reference to the functions and powers of the institutions overseeing industrial corridors in India, consider the following statements: <br> 1. The National Industrial Corridor Development Corporation (NICDC) is a statutory body established under an Act of Parliament.<br>2. The Apex Monitoring Authority of the National Industrial Corridor Development and Implementation Trust (NICDIT) is chaired by the Union Finance Minister.<br>3. NICDIT functions under the administrative control of the Ministry of Micro, Small and Medium Enterprises.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "Both 1 and 2",
+            "All of the above",
+            "Only two of the statements are correct"
+        ],
+        ans: 0,
+        exp: "The Apex Monitoring Authority of NICDIT reviews progress of the corridor projects and is chaired by the Union Finance Minister. NICDC is a company incorporated under the Companies Act (earlier DMICDC), not a statutory body. NICDIT functions under the Department for Promotion of Industry and Internal Trade (earlier DIPP) of the Ministry of Commerce and Industry, not the MSME Ministry."
+    },
+    {
+        q: "With reference to the background and evolution of industrial policy in India, consider the following statements: <br> 1. The 1991 industrial policy abolished industrial licensing for all industries.<br>2. The Monopolies and Restrictive Trade Practices Act, 1969 was repealed in 1991.<br>3. The Industrial Policy Resolution, 1956 classified industries into three schedules, with Schedule A listing 17 industries as the exclusive responsibility of the State.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "All of the above",
+            "1 only",
+            "Both 1 and 3"
+        ],
+        ans: 0,
+        exp: "The Industrial Policy Resolution of 1956 divided industries into Schedule A (17 industries, exclusively State-owned), Schedule B (progressively State-owned, with private participation) and Schedule C (the rest, open to the private sector). The 1991 policy delicensed most industries but retained licensing for a small list, so statement 1 is wrong. The MRTP Act was repealed only in 2009 when the Competition Act, 2002 took over, although the 1991 policy removed its pre-approval requirements."
+    },
+    {
+        q: "With reference to the structure of the Make in India initiative, consider the following statements: <br> 1. It is built on four pillars: New Processes, New Infrastructure, New Sectors and New Mindset.<br>2. Make in India 2.0 covers 27 sectors, of which 15 are manufacturing sectors and 12 are service sectors.<br>3. Action plans for all 27 sectors are coordinated by the Department for Promotion of Industry and Internal Trade (DPIIT).<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 2 only",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "Make in India rests on the four pillars of New Processes, New Infrastructure, New Sectors and New Mindset, and the original 25 sectors were later expanded to 27 (15 manufacturing and 12 service sectors). DPIIT coordinates the 15 manufacturing sectors, while the Department of Commerce coordinates the 12 service sectors, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the Bharat 22 ETF, used by the Government of India as a route for disinvestment, which one of the following best describes its composition?",
+        opts: [
+            "Twenty-two stocks of CPSEs, public sector banks and strategic holdings held through SUUTI",
+            "Twenty-two stocks drawn only from listed private sector companies",
+            "Twenty-two stocks drawn only from Maharatna CPSEs",
+            "Twenty-two bonds issued by Navratna and Miniratna CPSEs"
+        ],
+        ans: 0,
+        exp: "The Bharat 22 ETF, launched in 2017, holds 22 stocks drawn from CPSEs, public sector banks and the Government's strategic holdings in certain private companies held through the Specified Undertaking of the Unit Trust of India (SUUTI). It is an equity product, so the bond option is wrong. It is not limited to Maharatna CPSEs or to purely private companies."
+    },
+    {
+        q: "With reference to the Ease of Doing Business rankings and related reform exercises, consider the following statements: <br> 1. The World Bank discontinued its Doing Business report in 2021 because of the COVID-19 pandemic.<br>2. India's rank improved from 77 in Doing Business 2019 to 63 in Doing Business 2020.<br>3. The States' Business Reform Action Plan (BRAP) is administered by the Ministry of Micro, Small and Medium Enterprises.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "Exactly two of the statements are correct",
+            "Only two of the statements are correct",
+            "Statement 2 alone"
+        ],
+        ans: 3,
+        exp: "The World Bank discontinued the Doing Business report in 2021 after data irregularities were found in earlier editions, not because of the pandemic. India's rank rose from 77 in the 2019 edition to 63 in the 2020 edition, so statement 2 is correct. The Business Reform Action Plan is run by the Department for Promotion of Industry and Internal Trade (DPIIT), not the MSME Ministry."
+    },
+    {
+        q: "In the strategic disinvestment of a Central Public Sector Enterprise, the 'in-principle' approval for the sale is given by which one of the following?",
+        opts: [
+            "The Reserve Bank of India, as the manager of public debt",
+            "The Securities and Exchange Board of India, as the capital market regulator",
+            "The Cabinet or CCEA, acting on advice from NITI Aayog and DIPAM",
+            "Parliament, through a resolution passed by both Houses"
+        ],
+        ans: 2,
+        exp: "Under the framework in place since 2016, NITI Aayog identifies CPSEs for strategic disinvestment and DIPAM processes the proposal. The Cabinet or CCEA then gives in-principle approval, after which the Alternative Mechanism decides the modalities such as method, quantum and price. Parliament does not pass a resolution for each sale, and neither SEBI nor the RBI approves such decisions."
+    },
+    {
+        q: "With reference to the constitutional and legal provisions governing manufacturing and industry in India, consider the following statements: <br> 1. Entry 24 of the State List deals with industries, subject to the provisions of Entries 7 and 52 of the Union List.<br>2. Entry 52 of the Union List covers industries declared by Parliament by law to be necessary for the purposes of defence or for the prosecution of war.<br>3. Article 43 of the Constitution directs the State to promote cottage industries on an individual or co-operative basis in rural areas.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "Only two of the statements are correct",
+            "1 and 2 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "Entry 24 of the State List places industries under State legislation, subject to Entries 7 and 52 of the Union List. Entry 7 (not Entry 52) covers industries declared necessary for defence or war, while Entry 52 covers industries whose control by the Union Parliament has declared expedient in the public interest, so statement 2 is wrong. Article 43, a Directive Principle, directs the State to promote cottage industries in rural areas."
+    },
+    {
+        q: "With reference to the revised classification of Micro, Small and Medium Enterprises (MSMEs) effective from 1 April 2025, consider the following statements: <br> 1. A medium enterprise may have investment in plant and machinery or equipment of up to Rs 125 crore and annual turnover of up to Rs 500 crore.<br>2. The revised monetary limits were notified under the Micro, Small and Medium Enterprises Development Act, 2006.<br>3. Classification of an enterprise as micro, small or medium is now based solely on its annual turnover.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 2,
+        exp: "Following the Union Budget 2025-26 announcement, the Ministry of MSME raised the limits: investment up to Rs 125 crore and turnover up to Rs 500 crore for medium enterprises. The revision amends the earlier notification issued under the MSMED Act, 2006. Classification still depends on both investment and turnover, not on turnover alone, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the functions and powers under India's industrial policy framework, consider the following statements: <br> 1. State Governments issue industrial licences for all industries listed in the First Schedule of the Industries (Development and Regulation) Act, 1951.<br>2. The Industries (Development and Regulation) Act, 1951 empowers the Central Government to take over the management of an industrial undertaking in specified circumstances.<br>3. The Department for Promotion of Industry and Internal Trade is the nodal department for the formulation of industrial policy.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 3",
+            "2 and 3 only",
+            "Only statement 2",
+            "All three statements are correct"
+        ],
+        ans: 1,
+        exp: "Under the IDR Act, 1951, licensing of scheduled industries is a Central Government function, so statement 1 is wrong. The Act contains provisions allowing the Central Government to take over the management or control of an industrial undertaking in specified circumstances such as serious mismanagement or public interest. DPIIT, under the Ministry of Commerce and Industry, is the nodal department for industrial policy."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-38 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

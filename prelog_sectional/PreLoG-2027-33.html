@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-33</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "With reference to the revenue and fiscal arrangements of the Sangam polity, consider the following statements: <br> 1. Sangam kings levied no taxes and met their expenses solely from war booty.<br>2. Ulku was the term for the tax levied on agricultural produce.<br>3. Ulku was the term for customs duties levied on traded goods.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "Only statement 1",
+            "Only two of the statements are correct",
+            "None of the statements are correct"
+        ],
+        ans: 0,
+        exp: "Sangam literature uses the term ulku for customs duties on goods, which was significant given the flourishing maritime and inland trade. Kings also relied on land revenue and on tribute from subordinate chiefs, so the claim that they depended solely on booty is incorrect. Ulku was not an agricultural tax."
+    },
+    {
+        q: "With reference to the decline of the Gupta Empire, consider the following statements: <br> 1. Chandragupta II was the first Gupta ruler to confront the Hunas.<br>2. Mihirakula was decisively defeated at Kannauj by Harshavardhana.<br>3. The Bhitari pillar inscription of Skandagupta records his success against the Hunas.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 only",
+            "2 and 3 only",
+            "3 only"
+        ],
+        ans: 3,
+        exp: "The Bhitari pillar inscription records Skandagupta's success against the Hunas, who were first confronted during his reign. Chandragupta II ruled earlier and did not face the Hunas. Mihirakula's power was broken in the early sixth century, long before Harsha's rule began in the early seventh century."
+    },
+    {
+        q: "With reference to the Kushana dynasty, consider the following statements: <br> 1. Kanishka convened the Fourth Buddhist Council at Pataliputra.<br>2. Kushana coinage carried deities from Greek, Iranian and Indian traditions.<br>3. Vima Kadphises was the founder of the Kushana dynasty.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "1 and 3 only",
+            "3 only",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "Kushana coins show a mix of Greek, Iranian and Indian deities, reflecting the dynasty's cultural syncretism. Kanishka's Fourth Buddhist Council was held at Kundalvana in Kashmir, not Pataliputra. The dynasty was founded by Kujula Kadphises, and Vima Kadphises was his successor, so statements 1 and 3 are incorrect."
+    },
+    {
+        q: "With reference to the Satavahana dynasty, consider the following statements: <br> 1. Satavahana kings used metronymics, adding the mother's name to their own, as in Gautamiputra Satakarni.<br>2. Their inscriptions were composed mainly in Sanskrit.<br>3. The district-level administrative unit under them was called ahara.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "Both 1 and 3",
+            "All of the statements are correct",
+            "Both 2 and 3"
+        ],
+        ans: 1,
+        exp: "Satavahana rulers used metronymics such as Gautamiputra and Vasisthiputra, and the ahara was their district-level unit. Their inscriptions were mainly in Prakrit written in the Brahmi script, not Sanskrit, so statement 2 is incorrect."
+    },
+    {
+        q: "With reference to the difficulties that followed the reign of Harshavardhana, consider the following statements: <br> 1. Harsha's empire remained politically intact under his successors for more than a century after his death.<br>2. Harsha allied with Shashanka of Gauda against Bhaskaravarman of Kamarupa.<br>3. After Harsha died in 647 CE without a direct heir, a minister named Arunashva (Arjuna) is said to have seized the throne.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 only",
+            "3 only",
+            "2 only"
+        ],
+        ans: 2,
+        exp: "Chinese accounts record that after Harsha's death in 647 CE a minister named Arunashva (Arjuna) usurped the throne and attacked the Chinese mission led by Wang Hiuen-tse. Harsha's empire broke up soon after his death because it had no heir and depended on personal loyalty. Harsha allied with Bhaskaravarman of Kamarupa against Shashanka, not with Shashanka."
+    },
+    {
+        q: "With reference to the administrative practices of the post-Mauryan dynasties, consider the following statements: <br> 1. The Kushanas abolished the satrapal system and ruled only through officials directly appointed from the capital.<br>2. The Indo-Greek rulers introduced military governors known as strategoi.<br>3. Kushana kings adopted the title Devaputra, projecting a divine status for the monarch.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "Exactly two of the statements are correct",
+            "Both 1 and 2",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "The Indo-Greeks introduced the practice of appointing military governors (strategoi), and the Kushanas used the title Devaputra to claim divine status. Statement 1 is incorrect because the Kushanas continued and expanded the satrapal system, appointing kshatrapas and mahakshatrapas to provinces."
+    },
+    {
+        q: "With reference to the officials of the Gupta administration and their functions, consider the following statements: <br> 1. The Dandapashika was the head of the royal treasury.<br>2. The Sandhivigrahika was the minister in charge of matters of war and peace.<br>3. The Mahabaladhikrita was the chief judicial officer of the realm.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 and 3 only",
+            "1 only",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "The Sandhivigrahika handled war and peace, and Harishena, the composer of the Prayaga Prashasti, held this office. The Dandapashika was associated with the police, not the treasury, and the Mahabaladhikrita was a senior military officer, not the chief judge."
+    },
+    {
+        q: "Recent archaeological work at Zehanpora in Baramulla district (Jammu and Kashmir) has drawn attention to Buddhist remains reported to belong to the Kushana period. With reference to the Kushanas, consider the following statements: <br> 1. The Fourth Buddhist Council associated with Kanishka is traditionally held to have taken place in Kashmir.<br>2. The Rabatak inscription of Kanishka is written in the Bactrian language using the Greek script.<br>3. Mathura was the first capital of the Kushanas, and Purushapura (Peshawar) was the second.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "3 only",
+            "1 and 2 only",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "Tradition places Kanishka's Fourth Buddhist Council in Kashmir, and the Rabatak inscription is in Bactrian written in Greek script, which also traces his genealogy. Statement 3 is reversed: Purushapura was the first capital and Mathura the second. Kushana-period Buddhist remains in the Kashmir valley fit the dynasty's links with the region."
+    },
+    {
+        q: "Questions on the Mahajanapadas often test the capitals of the sixteen states listed in early Buddhist texts. Which one of the following pairs of Mahajanapada and its capital is NOT correctly matched?",
+        opts: [
+            "Chedi : Suktimati",
+            "Anga : Champa",
+            "Kuru : Indraprastha",
+            "Matsya : Mathura"
+        ],
+        ans: 3,
+        exp: "Anga had its capital at Champa, Chedi at Suktimati and Kuru at Indraprastha. The capital of Matsya was Viratanagara. Mathura was the capital of Surasena, which is the likely source of confusion."
+    },
+    {
+        q: "The Piprahwa relics, associated with the Buddha, were repatriated to India in July 2025 after a planned auction in Hong Kong. In this context, which one of the following statements is correct?",
+        opts: [
+            "They were found at Sanchi in the nineteenth century, and a Brahmi inscription on a casket links them with the Sakya clan.",
+            "They were found in 1898 near Kapilavastu, and a Kharosthi inscription on a casket links them with the Licchavi clan.",
+            "They were found at Sarnath in the early twentieth century, and a Brahmi inscription on a casket links them with Emperor Ashoka.",
+            "They were found in 1898 at a stupa in Piprahwa in Siddharthnagar district of Uttar Pradesh, and a Brahmi inscription on a casket links them with the Sakya clan."
+        ],
+        ans: 3,
+        exp: "The relics were unearthed in 1898 by William Claxton Peppe at the Piprahwa stupa in Siddharthnagar district near ancient Kapilavastu. A Brahmi inscription on one casket associates the deposit with the Sakya clan, the Buddha's own clan. The other options misstate the find-site, the script or the clan."
+    },
+    {
+        q: "With reference to the Persian and Greek influences on early India, as frequently tested in the UPSC Prelims, consider the following statements: <br> 1. Alexander's campaign led to permanent Macedonian rule over the whole of Punjab for several centuries.<br>2. The word dipi, used for writing in the Ashokan edicts, is believed to be of Old Persian origin.<br>3. Alexander's troops refused to advance beyond the Jhelum (Hydaspes).<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "None of the above",
+            "Statement 2 alone",
+            "Only statement 3"
+        ],
+        ans: 2,
+        exp: "The Ashokan term for writing, dipi, is believed to derive from Old Persian, reflecting Achaemenid administrative influence. Alexander's rule in India was short-lived, and he withdrew without establishing lasting Macedonian control over Punjab. His army refused to go further at the Hyphasis (Beas), not at the Jhelum."
+    },
+    {
+        q: "With reference to the legal and judicial system of the Mauryan Empire, consider the following statements: <br> 1. The Arthashastra distinguishes between Dharmasthiya courts for civil disputes and Kantakashodhana courts for criminal matters and the suppression of anti-social elements.<br>2. Ashoka abolished capital punishment completely after the Kalinga war.<br>3. Ashoka's Pillar Edict IV granted the rajukas authority in matters of reward and punishment.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "Only statement 2",
+            "Both 2 and 3",
+            "Both 1 and 3"
+        ],
+        ans: 3,
+        exp: "The Arthashastra describes Dharmasthiya courts for civil cases and Kantakashodhana courts for criminal cases, and Pillar Edict IV empowers the rajukas in rewards and punishments. Ashoka did not abolish capital punishment; he retained it but gave condemned prisoners three days' respite, so statement 2 is incorrect."
+    },
+    {
+        q: "With reference to the diplomacy and conflicts among the Mahajanapadas, consider the following statements: <br> 1. Bimbisara annexed Kosala after defeating Prasenajit.<br>2. Udayana of Vatsa ruled from Ujjain.<br>3. Ajatashatru's conflict with Prasenajit of Kosala is said to have ended with his marriage to Prasenajit's daughter Vajira.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "3 only",
+            "2 only",
+            "1 only"
+        ],
+        ans: 1,
+        exp: "Buddhist sources record that Ajatashatru's conflict with Prasenajit ended in a settlement sealed by marriage to Vajira. Kosala was absorbed by Magadha only in a later phase of the rivalry, and Bimbisara's relations with it rested on marriage ties, not annexation. Udayana's capital was Kaushambi, while Ujjain was the capital of Avanti."
+    },
+    {
+        q: "Consider the following pairs: <br> Mahajanapada : Capital <br> 1. Vatsa : Kaushambi<br>2. Kamboja : Taxila<br>3. Surasena : Mathura<br>How many of the above pairs are correctly matched? <br> Select the correct answer using the code given below:",
+        opts: [
+            "1 and 3 only",
+            "1 and 2 only",
+            "2 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "Vatsa had its capital at Kaushambi and Surasena at Mathura. Taxila was the capital of Gandhara, not Kamboja. Pair 2 is therefore wrongly matched, so the correct code is 1 and 3 only."
+    },
+    {
+        q: "Consider the following two statements: <br> Assertion (A): Persian rule in north-western India led to the spread of the Kharosthi script in that region.<br>Reason (R): Kharosthi was derived from the Aramaic script, which was widely used in the administration of the Achaemenid empire.<br>In the context of the above statements, which one of the following is correct?",
+        opts: [
+            "A is true, but R is false",
+            "Both A and R are true, and R is the correct explanation of A",
+            "A is false, but R is true",
+            "Both A and R are true, but R is not the correct explanation of A"
+        ],
+        ans: 1,
+        exp: "Achaemenid control of the north-west brought Aramaic, the empire's administrative script, into the region. Kharosthi evolved from Aramaic and was written right to left, and it was later used in Ashoka's north-western edicts. Both statements are true, and R explains how Kharosthi arose and spread there."
+    },
+    {
+        q: "With reference to the structure and composition of the Mahajanapadas, consider the following statements: <br> 1. The Malla republic was one of the constituent clans of the Vajji confederacy.<br>2. Kosala, Avanti, Vatsa and Magadha were all gana-sanghas.<br>3. The Vajji confederacy included clans such as the Licchavis of Vaishali and the Videhas.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "Exactly two of the statements are correct",
+            "Both 1 and 2",
+            "None of the statements are correct"
+        ],
+        ans: 0,
+        exp: "The Vajji confederacy was a union of clans, including the Licchavis and the Videhas, with Vaishali as an important centre. The Mallas, with their centres at Kushinara and Pava, were a separate gana-sangha. Kosala, Avanti, Vatsa and Magadha were monarchies."
+    },
+    {
+        q: "With reference to the governance and legal-political practices of the Mahajanapadas, consider the following statements: <br> 1. In gana-sanghas such as that of the Shakyas, important matters were deliberated in an assembly hall called the santhagara.<br>2. The head of a gana-sangha was always a hereditary king whose office passed by primogeniture.<br>3. According to Buddhist tradition, the Buddha advised the Vajjis that holding frequent and full assemblies was a condition for their prosperity.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 and 3 only",
+            "2 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "Gana-sanghas took decisions collectively in assemblies held in a santhagara, and in the Mahaparinibbana Sutta the Buddha lists regular and full assemblies among the conditions that kept the Vajjis from decline. Statement 2 is incorrect because gana heads were chosen from among the ruling clans and the office was not a hereditary monarchy, which is what distinguished gana-sanghas from monarchical states like Magadha and Kosala."
+    },
+    {
+        q: "With reference to the Chinese pilgrim Xuanzang (Hiuen Tsang), who visited India during the reign of Harshavardhana, consider the following statements: <br> 1. He studied Buddhist philosophy at Nalanda under the scholar Shilabhadra.<br>2. His travel account is known as Indica.<br>3. His account suggests that Nalanda taught only Buddhist doctrines and excluded other subjects.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the above",
+            "Only statement 1",
+            "Exactly two of the statements are correct",
+            "2 only"
+        ],
+        ans: 1,
+        exp: "Xuanzang studied at Nalanda Mahavihara under Shilabhadra, so statement 1 is correct. Indica was written by Megasthenes, while Xuanzang's account is Si-Yu-Ki (Great Tang Records on the Western Regions). His record also shows that Nalanda taught logic, grammar and medicine alongside non-Buddhist systems, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the Achaemenid rule in north-western India, consider the following statements: <br> 1. Persian control over Gandhara began under Xerxes I.<br>2. Hindush mentioned in Persian inscriptions corresponds to the Ganga-Yamuna doab.<br>3. The Indian provinces were exempt from heavy tribute and paid only token gifts to the Persian king.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "None of the statements is correct",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "Gandhara appears among Darius I's provinces in the Behistun inscription, so Persian rule predates Xerxes. Hindush corresponds to the lower Indus (Sindh) region, not the Ganga-Yamuna doab. Herodotus records that the Indian satrapy paid a heavy tribute of gold dust, so none of the statements is correct."
+    },
+    {
+        q: "Consider the following statements about the Gupta period, as repeatedly tested in the UPSC Prelims: <br> 1. The Chinese pilgrim Fa-hien visited India during the reign of Chandragupta II.<br>2. The Prayaga Prashasti on the Allahabad pillar was composed by Harishena, a court poet of Samudragupta.<br>3. Kulyavapa and Dronavapa, mentioned in Gupta-period inscriptions, were units of land measurement.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 2 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "Fa-hien travelled in India during the reign of Chandragupta II (Vikramaditya). Harishena composed the Prayaga Prashasti, which records Samudragupta's conquests. Kulyavapa and Dronavapa were land-measurement units found in Gupta-era land-grant records, so all three statements are correct."
+    },
+    {
+        q: "With reference to the legal system under Harshavardhana, as described by Hiuen Tsang and in contemporary records, consider the following statements: <br> 1. Ordeals such as those by water, fire, weighing and poison were used to determine guilt in doubtful cases.<br>2. Penalties were generally milder than in the Gupta period, with imprisonment and mutilation unknown.<br>3. The Banskhera and Madhuban copper plate grants were issued by Harsha's brother Rajyavardhana.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "Both 1 and 3",
+            "Exactly two of the statements are correct",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "Hiuen Tsang describes ordeals by water, fire, weighing and poison used to test the accused. He also records harsher penalties than in the Gupta period, including imprisonment and mutilation, so statement 2 is incorrect. The Banskhera and Madhuban plates were issued in Harsha's own name, which makes statement 3 incorrect."
+    },
+    {
+        q: "With reference to the administration of early Magadha under Bimbisara, consider the following statements: <br> 1. Bimbisara abolished the village headmen (gramikas) and replaced them with officials sent from Rajagriha.<br>2. Buddhist texts classify the high officers (mahamattas) of the Magadhan state into executive, judicial and military categories.<br>3. Magadha's armies relied only on infantry, and elephants were not used in warfare.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "3 only",
+            "Statement 2 alone",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 2,
+        exp: "Early Buddhist sources describe the officers of Bimbisara's state as sabbatthaka (general administration), voharika (judicial) and senanayaka (military). Village headmen continued as the base of local administration and were not abolished. Elephants, available from Magadha's forests, were an important part of its army."
+    },
+    {
+        q: "With reference to the political relations among the Mahajanapadas, consider the following statements: <br> 1. The rivalry between Avanti and Vatsa was eased by the marriage of Udayana of Vatsa with Vasavadatta, daughter of Pradyota of Avanti.<br>2. Vidudabha of Kosala is said to have destroyed the Licchavi republic of Vaishali.<br>3. Kashi was annexed by Avanti before it came under Kosala.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "None of the above",
+            "Only statement 1",
+            "Statement 3 alone"
+        ],
+        ans: 2,
+        exp: "Tradition and later literature record the marriage of Udayana of Vatsa with Vasavadatta, daughter of Chanda Pradyota of Avanti, which eased the Avanti-Vatsa rivalry. Vidudabha of Kosala is associated with the destruction of the Shakyas of Kapilavastu, not the Licchavis. Kashi was absorbed by Kosala and later by Magadha, not by Avanti."
+    },
+    {
+        q: "With reference to the problems faced by the Mauryan state, consider the following statements: <br> 1. Rock Edict XIII records that about one hundred and fifty thousand people were deported and about one hundred thousand were killed in the Kalinga war.<br>2. After the Kalinga war, Ashoka disbanded the Mauryan army and gave up all military activity.<br>3. The last Mauryan ruler, Brihadratha, was killed by the Kanva minister Vasudeva.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "2 only",
+            "2 and 3 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "Rock Edict XIII records the deportation of about 1,50,000 people and the killing of about 1,00,000 in Kalinga, with many more dying afterwards. Ashoka did not disband the army; he shifted the emphasis from conquest to Dhamma. Brihadratha was killed by his commander-in-chief Pushyamitra Shunga, who founded the Shunga dynasty, not by a Kanva minister."
+    },
+    {
+        q: "With reference to the legal and social policies of the Satavahanas, consider the following statements: <br> 1. The Nashik inscription of Gautamiputra Satakarni records land grants to religious beneficiaries that carried immunities from interference by royal officers.<br>2. Satavahana land grants were made exclusively to Buddhist monks, and Brahmanas never received such grants.<br>3. Gautamiputra Satakarni is described in an inscription issued by his mother as having checked the intermixture of the four varnas.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "The Nashik inscriptions record grants with immunities, and the prashasti issued by Gautamiputra's mother claims that he stopped the mixing of varnas, reflecting the king's role as upholder of the social order. Statement 2 is incorrect because the Satavahanas granted land to both Brahmanas and Buddhist monks."
+    },
+    {
+        q: "With reference to the empire of Harshavardhana, consider the following statements: <br> 1. The religious assembly at Kannauj in 643 CE was presided over by the Nalanda abbot Shilabhadra.<br>2. Harsha's southward expansion was checked by the Chalukya ruler Pulakeshin II on the banks of the Narmada.<br>3. Harsha authored the Sanskrit prose romance Kadambari.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "Pulakeshin II halted Harsha's advance towards the Deccan near the Narmada, as recorded in the Aihole inscription, so statement 2 is correct. The Kannauj assembly was presided over by Hiuen Tsang, not Shilabhadra. Kadambari was composed by Banabhatta, whereas Harsha authored plays such as Ratnavali, Priyadarshika and Nagananda."
+    },
+    {
+        q: "Consider the following rulers associated with the rise of Magadha: <br> 1. Udayin<br>2. Mahapadma Nanda<br>3. Shishunaga<br>4. Ajatashatru<br>Which one of the following is the correct chronological order of their rule, from earliest to latest?",
+        opts: [
+            "4 - 1 - 2 - 3",
+            "1 - 4 - 3 - 2",
+            "4 - 1 - 3 - 2",
+            "4 - 3 - 1 - 2"
+        ],
+        ans: 2,
+        exp: "Ajatashatru and his successor Udayin belonged to the Haryanka dynasty. The Shishunaga dynasty followed the Haryankas, and Mahapadma Nanda then founded the Nanda dynasty, which preceded the Mauryas. The correct order is therefore Ajatashatru, Udayin, Shishunaga and Mahapadma Nanda."
+    },
+    {
+        q: "With reference to the Sangam Age, consider the following statements: <br> 1. The Chola king Karikala made Madurai his capital and strengthened it through irrigation works.<br>2. Karikala is traditionally credited with building the Kallanai (Grand Anicut) across the Kaveri to expand irrigation.<br>3. The Kallanai was built across the Vaigai river by the Pandya king Nedunjeliyan.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "Only two of the statements are correct",
+            "Exactly two of the statements are correct",
+            "Both 1 and 3"
+        ],
+        ans: 0,
+        exp: "Tradition credits Karikala with the Kallanai across the Kaveri, an early irrigation work that supported agricultural expansion in the Chola country. Karikala's centres were Uraiyur and Puhar, not Madurai, which was the Pandya capital. The Kallanai is on the Kaveri, not the Vaigai."
+    },
+    {
+        q: "With reference to the Mahajanapadas of the sixth century BCE, consider the following statements: <br> 1. Assaka was situated in the Gandhara region of the north-west.<br>2. Several Mahajanapadas, such as the Vajjis and Mallas, were gana-sanghas governed by assemblies of clan heads.<br>3. Avanti, Vatsa and Kosala were monarchical states.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "1 and 3 only",
+            "1 and 2 only",
+            "2 and 3 only"
+        ],
+        ans: 3,
+        exp: "Gana-sanghas like the Vajjis and Mallas were governed by assemblies of clan chiefs, while Avanti, Vatsa and Kosala were monarchies. Assaka (Ashmaka) was located on the Godavari in the south and was the only Mahajanapada south of the Vindhyas, not in Gandhara, so statement 1 is incorrect."
+    },
+    {
+        q: "Recent epigraphic surveys by the Archaeological Survey of India at Gundaram in Peddapalli district of Telangana have drawn attention to inscriptions linked with the Satavahana period. In this context, consider the following statements: <br> 1. The inscriptions are in early Brahmi script and are associated with the Satavahana period.<br>2. The inscriptions are written in the Kharosthi script.<br>3. The finds indicate that Telangana was part of the Avanti Mahajanapada.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 only",
+            "2 only",
+            "3 only"
+        ],
+        ans: 1,
+        exp: "The Gundaram inscriptions are in early Brahmi and are linked with the Satavahana period, adding to evidence of Buddhist patronage by regional elites in the Deccan. Kharosthi was used in the north-west, not in Telangana. The region is linked with the Asmaka (Assaka) Mahajanapada, not Avanti."
+    },
+    {
+        q: "With reference to the structure of the Gupta administration, consider the following statements: <br> 1. Records of the district administration mention a council including the nagara-shreshthi, sarthavaha, prathama-kulika and prathama-kayastha, representing banking, trade, crafts and writing.<br>2. A bhukti was divided into districts called vishayas, each headed by a vishayapati.<br>3. Under the Guptas, feudatory rulers (samantas) paid tribute and retained internal autonomy.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "1, 2 and 3",
+            "Only one of the statements is correct",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 1,
+        exp: "Gupta-era copper plates from Bengal show district boards that included the heads of bankers, traders, artisans and scribes. A bhukti was divided into vishayas headed by a vishayapati, and the Guptas ruled over a mix of directly administered territory and tribute-paying feudatories. All three statements are therefore correct."
+    },
+    {
+        q: "With reference to the background and evolution of Harshavardhana's rule, consider the following statements: <br> 1. The Pushyabhuti dynasty originally ruled from Kannauj.<br>2. Harsha's father Prabhakaravardhana belonged to the Maukhari dynasty.<br>3. Harsha came to the throne in 606 CE after the death of his elder brother Rajyavardhana.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "Statement 1 alone",
+            "Both 1 and 2",
+            "All of the statements are correct"
+        ],
+        ans: 0,
+        exp: "Harsha succeeded Rajyavardhana in 606 CE, a date from which the Harsha era is traditionally reckoned. The Pushyabhuti (Vardhana) dynasty originally ruled from Thanesar and only later made Kannauj its main seat. Prabhakaravardhana belonged to the Pushyabhuti dynasty, whereas the Maukharis, into whom Harsha's sister Rajyashri married, ruled at Kannauj."
+    },
+    {
+        q: "Consider the following statements regarding the problems faced by post-Mauryan dynasties: <br> 1. The Kalinga ruler Kharavela killed the Shunga king Devabhuti and ended Shunga rule.<br>2. Patanjali's Mahabhashya refers to a Yavana attack on Saketa during the Shunga period.<br>3. The Ayodhya inscription of Dhanadeva records the performance of Ashvamedha sacrifices by Pushyamitra Shunga.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 2 and 3",
+            "Both 1 and 3",
+            "Exactly one of the statements is correct",
+            "None of the statements are correct"
+        ],
+        ans: 0,
+        exp: "Patanjali, a contemporary of Pushyamitra, mentions a Yavana attack on Saketa, and the Ayodhya inscription of Dhanadeva records his Ashvamedha sacrifices. Shunga rule ended when Devabhuti was overthrown by his Kanva minister Vasudeva, not by Kharavela, so statement 1 is incorrect."
+    },
+    {
+        q: "With reference to the functions of the state in the Mahajanapada period, consider the following statements: <br> 1. Bhaga was a voluntary offering to the king, while bali was a fixed one-sixth share of the produce.<br>2. The gramabhojaka was the officer in charge of the king's treasury.<br>3. Gana-sanghas had no executive or military functions and acted only as debating societies.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 and 2 only",
+            "2 and 3 only",
+            "None of the statements is correct"
+        ],
+        ans: 3,
+        exp: "Bhaga was the king's share of agricultural produce, whereas bali began as a voluntary offering, so statement 1 reverses the two. The gramabhojaka was the village headman, not the treasurer. Gana-sanghas had their own executive heads, assemblies and military leaders, so none of the statements is correct."
+    },
+    {
+        q: "With reference to the administration and revenue system of Harshavardhana's empire, consider the following statements: <br> 1. According to Hiuen Tsang, the royal revenue was divided into four parts, including shares for scholars and for religious endowments.<br>2. Provinces were known as bhukti and were further divided into vishayas.<br>3. Officials were paid entirely in cash, and land grants were never used to remunerate them.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "1 and 2 only",
+            "Statement 3 alone",
+            "Only one of the statements is correct"
+        ],
+        ans: 1,
+        exp: "Hiuen Tsang records that Harsha's revenue was split into four parts for state expenses, officials, scholars and religious gifts, and Harsha's inscriptions mention bhuktis and vishayas as administrative units. Statement 3 is incorrect because land grants were widely used to reward officials, a feature that strengthened feudal tendencies in this period."
+    },
+    {
+        q: "After the Battle of the Hydaspes (326 BCE), Alexander dealt with the defeated Indian ruler Porus in a manner that reflected his wider policy in north-western India. Which one of the following best describes this policy?",
+        opts: [
+            "He restored Porus to his throne as a subordinate ally and enlarged his territory.",
+            "He took Porus to Babylon as a hostage to ensure the loyalty of his kingdom.",
+            "He annexed Porus's kingdom and placed it under a Macedonian satrap.",
+            "He divided Porus's kingdom between Ambhi of Taxila and Abhisara."
+        ],
+        ans: 0,
+        exp: "Alexander was impressed by Porus's courage and reinstated him as a vassal-ally, adding neighbouring territory to his kingdom. This pragmatic policy of using local rulers as intermediaries, rather than annexing every kingdom, helped Alexander hold the Punjab with limited garrisons. The other options misstate what Alexander did with Porus."
+    },
+    {
+        q: "With reference to the administrative and fiscal measures of the Gupta rulers, consider the following statements: <br> 1. A bhukti (province) was governed by an official called uparika.<br>2. Samudragupta's policy towards the rulers of Dakshinapatha, as recorded in the Prayaga Prashasti, was of capturing them, releasing them and reinstating them.<br>3. Chandragupta II issued silver coins after conquering the territories of the Western Kshatrapas.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "Provincial governors under the Guptas were called uparikas. The Prayaga Prashasti describes grahana-moksha-anugraha towards the southern kings, meaning capture, release and favour. Chandragupta II issued silver coins of Western Kshatrapa type after annexing Malwa and Gujarat, so all three statements are correct."
+    },
+    {
+        q: "With reference to the social and political composition of the Sangam Age, consider the following statements: <br> 1. The Tamil country was divided into five ecological regions called tinais, namely Kurinji, Mullai, Marutham, Neithal and Palai.<br>2. Puhar (Kaveripattinam) was the principal port of the Cheras.<br>3. Sangam society was organised into four rigid varnas, with Brahmins as the dominant landholding class.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the statements are correct",
+            "Statement 3 alone",
+            "Statement 1 alone",
+            "2 only"
+        ],
+        ans: 2,
+        exp: "The five tinais (Kurinji, Mullai, Marutham, Neithal and Palai) were the basic ecological and social divisions of Sangam literature. Puhar was the main port of the Cholas, while the Cheras had ports such as Muziris and Tondi. Sangam society was largely organised around tinai-based occupations and kinship, not a rigid four-fold varna order, so statements 2 and 3 are incorrect."
+    },
+    {
+        q: "With reference to the post-Mauryan kingdoms of ancient India, consider the following statements: <br> 1. The Shunga dynasty was founded by Agnimitra after he overthrew the last Mauryan ruler.<br>2. The Kanva dynasty directly succeeded the Satavahanas in Magadha.<br>3. The Hathigumpha inscription at Udayagiri was issued by a Satavahana king.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements is correct",
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "The Shunga dynasty was founded by Pushyamitra Shunga, who overthrew Brihadratha. Agnimitra was his son and successor. The Kanvas succeeded the Shungas and were later overthrown by the Satavahanas. The Hathigumpha inscription was issued by Kharavela of Kalinga, so none of the statements is correct."
+    },
+    {
+        q: "Consider the following statements regarding the challenges faced by Magadha during its rise: <br> 1. Ajatashatru's conquest of the Vajji confederacy was aided by the diplomacy of his minister Vassakara, who sowed dissension among the Vajjis.<br>2. Bimbisara annexed the kingdom of Avanti after defeating Chanda Pradyota.<br>3. Pataliputra was the capital of Magadha from the reign of Bimbisara.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 3 only",
+            "1 only",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "Buddhist tradition credits Vassakara's divisive diplomacy with helping Ajatashatru defeat the Vajjis. Avanti was a long-standing rival and its power was broken later, in the Shishunaga period, not by Bimbisara. Bimbisara ruled from Rajagriha, and Pataliputra was developed as the capital later, under Udayin, so statements 2 and 3 are incorrect."
+    },
+    {
+        q: "With reference to the factors behind the rise of Magadha under the Haryanka dynasty, consider the following statements: <br> 1. Bimbisara strengthened Magadha through matrimonial alliances with neighbouring states such as Kosala, the Licchavis and Madra.<br>2. Magadha's proximity to iron-ore deposits and elephant-rich forests gave it a military and economic advantage.<br>3. Bimbisara annexed the neighbouring kingdom of Anga.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "Bimbisara married princesses from Kosala, the Licchavi clan and Madra, and annexed Anga by defeating Brahmadatta. Magadha's access to iron ores and forest elephants is a standard explanation for its military edge over rival mahajanapadas. All three statements are therefore correct."
+    },
+    {
+        q: "With reference to the Gupta-period temple remains found in recent archaeological discoveries, consider the following statements: <br> 1. Gupta-period structural temples such as the Dashavatara temple at Deogarh were built in the Dravida style.<br>2. The shankhalipi inscription at Bilsarh (Etah, Uttar Pradesh) refers to Samudragupta by the title Mahendraditya.<br>3. The Bhitargaon temple in Uttar Pradesh is a brick-built structural temple of the Gupta period.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "3 only",
+            "1 and 2 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "Bhitargaon (Kanpur Dehat) is a well-known Gupta brick temple, so statement 3 is correct. Gupta temples such as Deogarh are early Nagara-type structures, not Dravida. The title Mahendraditya at Bilsarh refers to Kumaragupta I, not Samudragupta, so statements 1 and 2 are incorrect."
+    },
+    {
+        q: "In the context of recent archaeological developments relating to the Sangam Age, consider the following statements: <br> 1. Keeladi, an excavated early historic site, is situated on the banks of the Vaigai river in Sivaganga district of Tamil Nadu.<br>2. Pottery bearing Tamil-Brahmi inscriptions has been recovered from Keeladi.<br>3. The date of 800 BCE for the Sangam Age, suggested in the ASI report on the early Keeladi excavations, has been conclusively accepted by the Union Ministry of Culture.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "Exactly one of the statements is correct",
+            "Both 2 and 3",
+            "None of the statements are correct"
+        ],
+        ans: 0,
+        exp: "Keeladi lies on the Vaigai river near Madurai, and its excavations have yielded Tamil-Brahmi inscribed potsherds, so statements 1 and 2 are correct. Statement 3 is incorrect because the Union Culture Minister said the report is not yet technically well-supported and needs further scientific studies. The 800 BCE date is therefore still a proposal, not an accepted conclusion."
+    },
+    {
+        q: "Questions on Ashokan inscriptions are common in the UPSC Prelims. With reference to them, consider the following statements: <br> 1. The Minor Rock Edict at Maski in Karnataka mentions Ashoka by name along with the title Devanampiya.<br>2. All the Ashokan inscriptions are written in the Brahmi script.<br>3. The Ashokan Brahmi script was first deciphered by William Jones.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "2 and 3 only",
+            "1 only",
+            "2 only"
+        ],
+        ans: 2,
+        exp: "The Maski edict is among the few that name Ashoka explicitly, which helped confirm that Devanampiya Piyadasi of the other edicts was Ashoka. Ashokan inscriptions are also in Kharosthi, Greek and Aramaic in the north-west, so not all are in Brahmi. Brahmi was deciphered by James Prinsep in 1837, not by William Jones."
+    },
+    {
+        q: "Taxila, whose Bhir Mound and Sirkap remains are a staple of discussions on heritage conservation, features prominently in the history of the Persian and Greek contacts with India. In this context, consider the following statements: <br> 1. Bhir Mound at Taxila preserves early urban layers associated with the Achaemenid period.<br>2. The ruler of Taxila submitted to Alexander in 326 BCE without offering battle.<br>3. Taxila was the capital of the Kamboja Mahajanapada.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "3 only",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "Bhir Mound is the earliest city at Taxila, with layers linked to the Achaemenid period, and Ambhi of Taxila submitted to Alexander without a fight. Taxila was the capital of Gandhara in Buddhist sources, not of Kamboja, so statement 3 is incorrect."
+    },
+    {
+        q: "Gautamiputra Satakarni is regarded as the greatest ruler of the Satavahana dynasty. Which one of the following achievements is correctly attributed to him?",
+        opts: [
+            "He defeated the Kushana emperor Kanishka and annexed Gandhara.",
+            "He founded the Satavahana dynasty and made Pratishthana its capital.",
+            "He defeated the Shaka ruler Nahapana and restored Satavahana prestige by overstriking his silver coins.",
+            "He composed the Prakrit anthology Gatha Saptasati."
+        ],
+        ans: 2,
+        exp: "Gautamiputra Satakarni defeated the Kshaharata Shaka ruler Nahapana in western India, and Nahapana's coins were overstruck with the Satavahana king's own types. The dynasty's founder is traditionally Simuka, and Gatha Saptasati is attributed to the Satavahana king Hala. Gautamiputra's conflicts were with the Shakas, not the Kushanas."
+    },
+    {
+        q: "With reference to the dynasties and structure of the Magadhan state, consider the following statements: <br> 1. The early capital Rajagriha (Girivraja) was surrounded by seven hills.<br>2. The Puranas describe Mahapadma Nanda as the sole sovereign (ekarat) who uprooted the Kshatriya ruling families.<br>3. The Second Buddhist Council, held under Kalashoka of the Shishunaga dynasty, met at Pataliputra.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 1 alone",
+            "Only one of the statements is correct",
+            "Both 2 and 3",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "The Puranas call Mahapadma Nanda ekarat and credit him with destroying the Kshatriya dynasties, which is why the Nandas are seen as a low-born, strongly centralising dynasty. Rajagriha was surrounded by five hills, not seven. The Second Buddhist Council under Kalashoka was held at Vaishali, not Pataliputra."
+    },
+    {
+        q: "With reference to the policies and cultural patronage of the post-Mauryan period, consider the following statements: <br> 1. Heliodorus, who set up the Garuda pillar at Besnagar, was an ambassador of the Shaka ruler Maues.<br>2. Indo-Greek kings issued coins bearing royal portraits and bilingual legends in Greek and Kharosthi.<br>3. Kharavela of Kalinga patronised Jainism, as indicated in the Hathigumpha inscription.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All three statements are correct",
+            "2 and 3 only",
+            "3 only",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "Indo-Greek coinage with portraits and Greek-Kharosthi legends is well attested, and the Hathigumpha inscription begins with an invocation to the Arihantas, indicating Kharavela's Jain leanings. Heliodorus was an envoy of the Indo-Greek king Antialcidas to the Shunga court, not of a Shaka ruler, so statement 1 is incorrect."
+    },
+    {
+        q: "With reference to the events leading to Harshavardhana's accession, which have been a recurring theme in UPSC Prelims, consider the following statements: <br> 1. Grahavarman Maukhari, husband of Harsha's sister Rajyashri, was killed by the Malwa ruler Devagupta.<br>2. Harsha's elder brother Rajyavardhana was killed by the Chalukya ruler Pulakeshin II.<br>3. Shashanka, the Shaiva king of Gauda, is said to have destroyed the Bodhi tree at Bodh Gaya.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "Devagupta of Malwa killed Grahavarman of Kannauj and imprisoned Rajyashri. Shashanka of Gauda, a Shaiva ruler, is accused of cutting down the Bodhi tree at Bodh Gaya. Rajyavardhana was killed by Shashanka, not by Pulakeshin II, who was a rival Harsha met later on the Narmada frontier."
+    },
+    {
+        q: "With reference to the policies and religious assemblies associated with Harshavardhana, consider the following statements: <br> 1. Harsha distributed his accumulated wealth at an assembly held at Prayaga every year.<br>2. Harsha shifted his seat of rule from Thanesar to Kannauj.<br>3. The assembly at Kannauj was convened primarily to promote the Hinayana school of Buddhism.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "Both 1 and 3",
+            "2 only",
+            "Only statement 3"
+        ],
+        ans: 2,
+        exp: "Harsha made Kannauj his principal capital, so statement 2 is correct. The Prayaga assembly (Mahamokshaparishad) was held once every five years, not annually. The Kannauj assembly of 643 CE was organised to showcase the Mahayana doctrine championed by Hiuen Tsang, not Hinayana."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-33 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

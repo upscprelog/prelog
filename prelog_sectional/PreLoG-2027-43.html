@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-43</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "The Bombay Plan of 1944, put forward by leading Indian industrialists, advocated which one of the following?",
+        opts: [
+            "Substantial state ownership and control of basic and key industries alongside private enterprise, with priority to capital goods industries",
+            "Prohibition of foreign capital and technology in all industries",
+            "Collectivisation of agriculture on Soviet lines",
+            "Complete withdrawal of the state from industry to allow free-market development"
+        ],
+        ans: 0,
+        exp: "The Bombay Plan, authored by industrialists including J.R.D. Tata and G.D. Birla, proposed a fifteen-year plan to double per capita income, with emphasis on basic and capital goods industries and a large role for the state in planning and controlling key sectors. It did not seek the withdrawal of the state, collectivisation of agriculture, or a ban on foreign capital."
+    },
+    {
+        q: "With reference to the peasant economy and agrarian distress in colonial India, consider the following statements: <br> 1. The Punjab Land Alienation Act, 1900 restricted the transfer of land from agricultural tribes to non-agricultural classes such as moneylenders.<br>2. The Deccan Agriculturists' Relief Act, 1879 was enacted in the aftermath of the Deccan riots of 1875.<br>3. The Deccan riots of 1875 were directed mainly against the zamindars of Bengal.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only",
+            "3 only"
+        ],
+        ans: 2,
+        exp: "The Punjab Land Alienation Act, 1900 sought to stop the transfer of peasant land to moneylenders, and the Deccan Agriculturists' Relief Act, 1879 followed the 1875 Deccan riots. Statement 3 is wrong because the riots took place in the Poona and Ahmednagar districts of the Bombay Deccan and were aimed at moneylenders, not at Bengal zamindars."
+    },
+    {
+        q: "Under the Seventh Schedule of the Constitution of India, 'trade and commerce in, and the production, supply and distribution of, raw cotton and raw jute' is placed in which one of the following?",
+        opts: [
+            "State List",
+            "Union List",
+            "Concurrent List",
+            "Residuary powers of Parliament, as it is not mentioned in any list"
+        ],
+        ans: 2,
+        exp: "Entry 33 of the Concurrent List covers trade and commerce in, and production, supply and distribution of, foodstuffs, cattle fodder, raw cotton and cotton seed, and raw jute. Both Parliament and State legislatures can therefore legislate on these commercial crops, with Union law prevailing in case of conflict. The State List's entry on trade within the State is expressly subject to Entry 33."
+    },
+    {
+        q: "With reference to reforms and recommendations concerning land revenue in colonial India, consider the following statements: <br> 1. The Floud Commission recommended the abolition of the Permanent Settlement in Bengal.<br>2. The Ryotwari settlements were made permanent, with no provision for periodic revision of revenue.<br>3. Under the Permanent Settlement, a zamindar who failed to pay the revenue by the fixed date risked the sale of his estate.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 only",
+            "1 and 2 only",
+            "1 and 3 only"
+        ],
+        ans: 3,
+        exp: "The Floud Commission (1938-40) recommended ending the Permanent Settlement in Bengal. Under the Permanent Settlement, the 'sunset' rule meant that default on the due date led to auction of the estate. Statement 2 is wrong because Ryotwari settlements were temporary and revised periodically, usually after 20 to 30 years."
+    },
+    {
+        q: "The Orissa famine of 1866 led to the appointment of an inquiry commission headed by which one of the following?",
+        opts: [
+            "James Lyall",
+            "George Campbell",
+            "Antony MacDonnell",
+            "Richard Strachey"
+        ],
+        ans: 1,
+        exp: "The Orissa famine of 1866 led to an inquiry under Sir George Campbell, which criticised official neglect and prepared the ground for later famine policy. Richard Strachey headed the Famine Commission of 1880, James Lyall the commission of 1898 and Antony MacDonnell that of 1901, so each belongs to a later famine."
+    },
+    {
+        q: "With reference to the banks established in India during the colonial period, consider the following statements: <br> 1. The Bank of Bombay and the Bank of Madras were set up in 1840 and 1843 respectively, and along with the Bank of Bengal formed the Presidency Banks.<br>2. Punjab National Bank was founded in 1894 at Lahore as an Indian-managed joint-stock bank.<br>3. Bank of Baroda was established in 1908 by the Maharaja of Baroda, Sayajirao Gaekwad III.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "The three Presidency Banks were the Bank of Bengal, the Bank of Bombay (1840) and the Bank of Madras (1843). Punjab National Bank (1894, Lahore) was among the early Indian-managed joint-stock banks. Bank of Baroda was founded in 1908 by Maharaja Sayajirao Gaekwad III during the Swadeshi period, so all three statements are correct."
+    },
+    {
+        q: "Which one of the following was the earliest bank established in India on European banking lines, before the creation of the Presidency Banks?",
+        opts: [
+            "General Bank of India",
+            "Bank of Bombay",
+            "Bank of Bengal",
+            "Bank of Hindustan"
+        ],
+        ans: 3,
+        exp: "The Bank of Hindustan, set up in 1770 by the agency house Alexander and Company in Calcutta, was the earliest European-style bank in India. The General Bank of India (1786) came later, which makes it the most tempting wrong option. The Bank of Bengal and the Bank of Bombay were Presidency Banks set up in the nineteenth century."
+    },
+    {
+        q: "Which one of the following best describes the effect of deindustrialization on the occupational structure of colonial India?",
+        opts: [
+            "Displaced artisans and weavers moved to agriculture, increasing pressure on land and the share of the population dependent on it",
+            "The share of the workforce dependent on agriculture declined steadily during the nineteenth century",
+            "Traditional urban centres such as Dacca, Murshidabad and Surat grew rapidly as handicraft exports expanded",
+            "Artisans were largely absorbed into modern factory industry in the port cities"
+        ],
+        ans: 0,
+        exp: "The decline of handicrafts, driven by competition from cheap British manufactures and loss of princely patronage, pushed artisans back to the land. Modern industry was too small to absorb them, so dependence on agriculture and pressure on land rose. This process is often called ruralisation, and it was accompanied by the decay of towns such as Dacca, Murshidabad and Surat."
+    },
+    {
+        q: "Consider the following events related to the peasant movements in colonial India: <br> 1. Pabna Agrarian Leagues<br>2. Champaran Satyagraha<br>3. Indigo Revolt (Blue Mutiny)<br>4. Bardoli Satyagraha<br>Which one of the following is the correct chronological order of the above events, starting from the earliest?",
+        opts: [
+            "1, 2, 3, 4",
+            "3, 1, 4, 2",
+            "3, 1, 2, 4",
+            "1, 3, 2, 4"
+        ],
+        ans: 2,
+        exp: "The Indigo Revolt took place in 1859-60 in Bengal, the Pabna Agrarian Leagues were active from 1873, the Champaran Satyagraha occurred in 1917, and the Bardoli Satyagraha was held in 1928. The earlier risings were largely against zamindars and planters, while the later ones were linked to the national movement, which makes the sequence 3, 1, 2, 4."
+    },
+    {
+        q: "Consider the following pairs: <br> Land revenue system : Feature<br> 1. Permanent Settlement : Revenue settled with zamindars, who were recognised as owners of the land<br>2. Ryotwari System : Revenue settled directly with the cultivators in the Madras and Bombay Presidencies<br>3. Mahalwari System : Revenue settled with individual cultivators in the Bengal Presidency<br>How many of the above pairs are correctly matched?",
+        opts: [
+            "All three pairs",
+            "None of the pairs",
+            "Only two pairs",
+            "Only one pair"
+        ],
+        ans: 2,
+        exp: "The Permanent Settlement made zamindars the owners responsible for paying a fixed revenue, and the Ryotwari System dealt directly with cultivators in Madras and Bombay. The Mahalwari System settled revenue with village communities (mahals) through their headmen in the North-Western Provinces, Punjab and parts of Central India, not with individual cultivators in Bengal."
+    },
+    {
+        q: "Which one of the following currency denominations in India is issued by the Government of India and not by the Reserve Bank of India?",
+        opts: [
+            "Rs 10 note",
+            "Rs 1 note",
+            "Rs 100 note",
+            "Rs 20 note"
+        ],
+        ans: 1,
+        exp: "Under the Coinage Act and the RBI Act, 1934, the Reserve Bank issues banknotes of Rs 2 and above, while one-rupee notes and all coins are issued by the Government of India through the Ministry of Finance. Rs 1 notes bear the signature of the Finance Secretary, unlike other notes, which carry the RBI Governor's signature."
+    },
+    {
+        q: "With reference to banking and monetary developments in British India, consider the following statements: <br> 1. The Hilton Young Commission (1926) recommended the establishment of a central bank for India.<br>2. The Paper Currency Act, 1861 transferred the monopoly of note issue to the Presidency Banks.<br>3. The Imperial Bank of India was formed in 1921 by amalgamating the three Presidency Banks.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "The Hilton Young Commission (1926) recommended a central bank, which led to the RBI Act, 1934. The Imperial Bank of India was created in 1921 by merging the Banks of Bengal, Bombay and Madras. Statement 2 is wrong because the Paper Currency Act, 1861 gave the Government of India the monopoly of note issue, taking it away from the Presidency Banks."
+    },
+    {
+        q: "The remark that 'the bones of the cotton-weavers are bleaching the plains of India' is associated with which one of the following Governor-Generals of India?",
+        opts: [
+            "Lord Curzon",
+            "Lord Cornwallis",
+            "William Bentinck",
+            "Lord Dalhousie"
+        ],
+        ans: 2,
+        exp: "William Bentinck, Governor-General from 1828 to 1835, is credited with this observation in the mid-1830s, describing the distress of Indian weavers after the influx of British machine-made cloth. It is widely quoted as evidence of the deindustrialization of Indian handicrafts. The other Governor-Generals or Viceroys are not associated with the remark."
+    },
+    {
+        q: "Which one of the following best explains why Indian nationalists described the colonial drain of wealth as an 'unrequited' transfer?",
+        opts: [
+            "Indian merchants invested their export profits in industries in Britain",
+            "India imported more goods than it exported, and the gap was paid in gold sent by Britain",
+            "India ran a large export surplus whose proceeds did not come back as imports or investment in India but were used for Home Charges and other remittances to Britain",
+            "Britain exported to India capital goods equal in value to each rupee of exports from India"
+        ],
+        ans: 2,
+        exp: "Naoroji and R.C. Dutt pointed out that India's exports far exceeded imports of goods, but the surplus did not return as goods, gold or capital. It went to pay Home Charges, interest and profits of British capital and the salaries and pensions of British officials, a transfer for which India received no economic return. The other options describe flows that were not the case."
+    },
+    {
+        q: "Which one of the following best describes a criticism made by Indian nationalists of the railway policy of the colonial government?",
+        opts: [
+            "Railways were built mainly in the Himalayan region, neglecting the Gangetic plains",
+            "Railway construction, financial guarantees and freight rates served British commercial and strategic interests more than the Indian economy",
+            "Railways were built entirely with Indian capital, which drained domestic savings",
+            "Railways were opposed by the colonial government as a threat to its control over the interior"
+        ],
+        ans: 1,
+        exp: "Nationalists such as Dadabhai Naoroji and R.C. Dutt argued that the guarantee system burdened Indian revenues, that equipment and steel were imported from Britain, and that freight rates favoured the export of raw materials and import of finished goods. Lines were also planned with military and port connectivity in mind. The other options contradict the historical record, since railways were financed mainly by British capital and built mostly in the plains."
+    },
+    {
+        q: "Which one of the following bodies, constituted in 1948 by the Indian National Congress and not by any government, recommended the abolition of intermediaries, the principle of 'land to the tiller' and ceilings on land holdings?",
+        opts: [
+            "Zamindari Abolition Committee",
+            "Congress Agrarian Reforms Committee",
+            "Floud Commission",
+            "Royal Commission on Agriculture"
+        ],
+        ans: 1,
+        exp: "The Congress Agrarian Reforms Committee, chaired by J.C. Kumarappa, reported in 1949 and recommended ending zamindari, giving land to the tiller, imposing ceilings and promoting cooperative farming. The Floud Commission (1938-40) and the Royal Commission on Agriculture (1926) were colonial bodies, and the Zamindari Abolition Committee (1947) was a provincial government body in the United Provinces."
+    },
+    {
+        q: "With reference to the railways in British India, consider the following statements: <br> 1. Under the guarantee system, private British companies were assured a fixed rate of interest, generally 5 per cent, on their invested capital.<br>2. Following the recommendations of the Acworth Committee, the railway budget was separated from the general budget in 1924.<br>3. By the end of the nineteenth century, most locomotives and rolling stock used on Indian railways were manufactured in India.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "Only statement 1",
+            "None of the above",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "Under the guarantee system, British companies raised capital with an assured return of about 5 per cent, with losses borne by Indian revenues. The Acworth Committee (1921) led to the separation of the railway budget in 1924. Statement 3 is wrong because locomotives, rails and equipment were largely imported from Britain, so railways did little to stimulate Indian engineering industries."
+    },
+    {
+        q: "With reference to the Imperial Bank of India, consider the following statements: <br> 1. It was given the right to issue currency notes under the Imperial Bank of India Act, 1920.<br>2. It was permitted to carry on foreign exchange business from the time of its establishment.<br>3. It was nationalised in 1969 along with fourteen other major commercial banks.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "3 only",
+            "1 and 2 only",
+            "None of the statements given above is correct"
+        ],
+        ans: 3,
+        exp: "Note issue remained with the Government of India under the Paper Currency Act, 1861 and passed to the RBI in 1935, so statement 1 is wrong. The Imperial Bank was barred from foreign exchange business, leaving it to the exchange banks, so statement 2 is wrong. It was taken over in 1955 and became the State Bank of India, while the 1969 nationalisation covered fourteen other private commercial banks, so statement 3 is wrong."
+    },
+    {
+        q: "Which one of the following formed part of the 'Home Charges' that made up an important component of the drain of wealth from India?",
+        opts: [
+            "Expenditure on famine relief works carried out in India",
+            "Land revenue collected and spent within the provinces",
+            "Interest on sterling public debt and guaranteed interest on railways paid in London",
+            "Salaries paid in India to Indian members of the Imperial Legislative Council"
+        ],
+        ans: 2,
+        exp: "Home Charges were the expenses incurred by the Government of India in Britain, including the cost of the India Office, interest on sterling debt, guaranteed interest on railway capital, pensions and furlough allowances of British officers, and stores purchased in England. Spending incurred and paid within India, such as relief works, council salaries and provincial spending, did not form part of them."
+    },
+    {
+        q: "Which one of the following changes in India's foreign trade was characteristic of the nineteenth century under British rule?",
+        opts: [
+            "Imports of machinery exceeded imports of consumer goods throughout the century",
+            "India's foreign trade shifted from Britain to continental Europe",
+            "India became the leading exporter of finished cotton textiles to Britain",
+            "India shifted from being an exporter of manufactured goods to a supplier of raw materials such as raw cotton, jute and indigo, and an importer of British finished goods"
+        ],
+        ans: 3,
+        exp: "As handicrafts declined, India's exports shifted to raw materials and plantation crops such as cotton, jute, indigo, tea and opium, while it imported manufactured goods, especially cotton cloth, from Britain. Machinery formed a small share of imports because the colonial state did little to promote industrialisation. Trade remained oriented to Britain, not to continental Europe."
+    },
+    {
+        q: "Which one of the following policies of the British most directly contributed to the decline of Indian cotton and silk handicrafts in the early nineteenth century?",
+        opts: [
+            "Nationalisation of weaving workshops by the East India Company",
+            "Imposition of very high import duties on Indian textiles entering Britain, while British goods entered India at nominal duties",
+            "Prohibition of cotton cultivation in India so that raw material was diverted to British mills",
+            "Compulsory closure of Indian ports to all non-British ships"
+        ],
+        ans: 1,
+        exp: "After the Industrial Revolution, Britain protected its mills with prohibitive duties on Indian cloth, while British machine-made goods entered India at very low duties, especially after the Charter Act of 1813 opened Indian trade. Cheap imports undercut handicrafts, and the effect was worsened by the loss of princely patronage. India's raw cotton cultivation was in fact encouraged for export, and the Company did not nationalise weaving workshops."
+    },
+    {
+        q: "Which one of the following was a recommendation of the Narasimham Committee on the financial system (1991)?",
+        opts: [
+            "Fixation of lending rates for all banks directly by the Reserve Bank",
+            "Merger of all public sector banks into a single national bank",
+            "Raising the priority sector lending target to 50 per cent of net bank credit",
+            "Phased reduction of the Statutory Liquidity Ratio to 25 per cent"
+        ],
+        ans: 3,
+        exp: "The Narasimham Committee (1991) recommended bringing down the SLR in phases from the then 38.5 per cent to 25 per cent of net demand and time liabilities, as part of financial sector liberalisation. It favoured deregulating interest rates rather than administered rates, and it proposed reducing, not raising, the priority sector target. It did not recommend a single national bank."
+    },
+    {
+        q: "With reference to the policies that led to the deindustrialization of India under British rule, consider the following statements: <br> 1. The Charter Act of 1813 abolished the East India Company's monopoly over both Indian trade and the tea and China trade.<br>2. The Charter Act of 1833 restored the Company's commercial monopoly over Indian trade.<br>3. After 1813, Britain lowered import duties on Indian cotton and silk goods to encourage their entry into the British market.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "None of the statements given above is correct",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "The Charter Act of 1813 ended the Company's trade monopoly in India but retained its monopoly over the tea and China trade, so statement 1 is wrong. The Charter Act of 1833 ended the Company's commercial functions altogether, so statement 2 is wrong. Britain imposed very high duties on Indian textiles while British goods entered India at low duties, which undermined Indian handicrafts, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the legal measures concerning the peasantry in colonial India, consider the following statements: <br> 1. The Champaran Agrarian Act, 1918 abolished the tinkathia system.<br>2. The Bengal Tenancy Act, 1885 gave occupancy tenants a measure of protection against arbitrary eviction and rent enhancement.<br>3. Following the Champaran Satyagraha, an official enquiry committee was appointed on which Mahatma Gandhi served as a member.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the statements are correct",
+            "Exactly two of the statements are correct",
+            "None of the above",
+            "Only one of the statements is correct"
+        ],
+        ans: 0,
+        exp: "The Champaran Agrarian Committee, of which Gandhi was a member, recommended reforms that led to the Champaran Agrarian Act, 1918, ending the tinkathia system of compulsory indigo cultivation. The Bengal Tenancy Act, 1885 gave occupancy tenants protection against arbitrary eviction and enhancement of rent. All three statements are therefore correct."
+    },
+    {
+        q: "Which one of the following was a feature of the relief system laid down in the Famine Codes framed after the Famine Commission of 1880?",
+        opts: [
+            "Compulsory purchase of all surplus grain by the state",
+            "A ban on private trade in foodgrains in the affected districts",
+            "Relief works for the able-bodied and gratuitous relief for those unable to work",
+            "Free distribution of foodgrains to the entire affected population, irrespective of ability to work"
+        ],
+        ans: 2,
+        exp: "The Famine Commission of 1880, headed by Richard Strachey, recommended Famine Codes under which the state provided employment on relief works for the able-bodied and gratuitous relief to the infirm and destitute, along with suspension and remission of revenue. Official policy remained reluctant to interfere with the private grain trade, and the codes did not provide for free distribution to all or compulsory state procurement."
+    },
+    {
+        q: "Which one of the following statements about banking in the Seventh Schedule of the Constitution of India is correct?",
+        opts: [
+            "Both banking and money-lending are in the Union List",
+            "Banking is in the State List, while the Reserve Bank of India is in the Union List",
+            "Banking is in the Concurrent List",
+            "Banking is in the Union List, while money-lending and moneylenders are in the State List"
+        ],
+        ans: 3,
+        exp: "'Banking' is Entry 45 of the Union List, and the Reserve Bank of India is Entry 38 of the same list. 'Money-lending and moneylenders; relief of agricultural indebtedness' is Entry 30 of the State List. The other options place these subjects in the wrong lists."
+    },
+    {
+        q: "Which one of the following pairs of famine and the Viceroy during whose tenure it occurred is correctly matched?",
+        opts: [
+            "Famine of 1896-97 : Lord Curzon",
+            "Orissa famine of 1866 : Lord Lytton",
+            "Great Famine of 1876-78 : Lord Lytton",
+            "Famine of 1899-1900 : Lord Elgin"
+        ],
+        ans: 2,
+        exp: "The Great Famine of 1876-78 occurred under Lord Lytton, who was criticised for holding the Delhi Durbar of 1877 during the famine. The Orissa famine of 1866 took place under John Lawrence, the famine of 1896-97 under Lord Elgin, and the famine of 1899-1900 under Lord Curzon, so the other pairs are mismatched."
+    },
+    {
+        q: "The imposition of an excise duty on Indian mill-made cloth in 1896 was criticised by Indian nationalists mainly because",
+        opts: [
+            "it prohibited the establishment of new cotton mills in India",
+            "it compelled Indian mills to buy raw cotton from Britain",
+            "it abolished the import duty on British cotton goods while taxing exports of Indian raw cotton",
+            "it taxed Indian mill cloth at a rate equal to the import duty on British cotton goods, protecting the competitive position of Lancashire"
+        ],
+        ans: 3,
+        exp: "The 1896 arrangement imposed a countervailing excise of 3.5 per cent on Indian mill cloth equal to the import duty, so that Indian mills enjoyed no protection against Lancashire. Nationalists saw this as a sacrifice of Indian industry to British commercial interests. It did not abolish the import duty, ban new mills or force Indian mills to buy British raw cotton."
+    },
+    {
+        q: "With reference to the trade and tariff policies in colonial India, consider the following statements: <br> 1. Until the 1860s, the colonial government imposed high protective tariffs on British manufactured goods to shield Indian handicrafts.<br>2. The Ottawa Agreement of 1932 provided for imperial preference, giving British goods favourable treatment in the Indian market.<br>3. The Indian Tariff Board was set up in 1923 following the recommendations of the Fiscal Commission.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 and 3 only",
+            "2 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 2,
+        exp: "The Fiscal Commission of 1921-22 recommended discriminating protection, and the Tariff Board followed in 1923. The Ottawa Agreement of 1932 extended imperial preference for British goods in India. Statement 1 is wrong because colonial policy for most of the nineteenth century was free trade that favoured British imports, with low duties on British goods."
+    },
+    {
+        q: "Consider the following statements regarding the commercialization of agriculture in colonial India: <br> Assertion (A): Commercialization of agriculture in colonial India was accompanied by a rise in rural indebtedness among peasants.<br>Reason (R): Land revenue had to be paid in cash at rigid and high rates, which compelled peasants to sell their crops early or borrow from moneylenders.<br>In the context of the above, which one of the following is correct?",
+        opts: [
+            "Both A and R are correct but R is not the correct explanation of A",
+            "Both A and R are correct and R is the correct explanation of A",
+            "A is correct but R is not correct",
+            "A is not correct but R is correct"
+        ],
+        ans: 1,
+        exp: "Rigid cash revenue demands forced peasants to sell produce immediately after harvest, often at low prices to traders, and to borrow from moneylenders in bad years. This deepened indebtedness, and the Deccan riots of 1875 were one result. The reason therefore directly explains the assertion, so the other options are incorrect."
+    },
+    {
+        q: "Which one of the following pairs of commercial crop and its major region of cultivation in colonial India is correctly matched?",
+        opts: [
+            "Opium : Bihar and Malwa",
+            "Jute : Gujarat",
+            "Tea : Deccan plateau",
+            "Coffee : Assam"
+        ],
+        ans: 0,
+        exp: "Opium was grown mainly in Bihar (the Patna and Benares agencies) and Malwa, and was exported to China. Coffee plantations were concentrated in the southern hills, such as Coorg, Mysore and the Nilgiris, while tea was grown in Assam, Darjeeling and the Nilgiris. Jute was a crop of Bengal, so the other pairs are wrongly matched."
+    },
+    {
+        q: "Consider the following statements: <br> Assertion (A): The modern cotton textile industry in western India developed largely with Indian capital and entrepreneurship.<br>Reason (R): The Bombay cotton industry was financed mainly by British capital and managed by British agency houses.<br>In the context of the above, which one of the following is correct?",
+        opts: [
+            "Both A and R are correct but R is not the correct explanation of A",
+            "A is correct but R is not correct",
+            "A is not correct but R is correct",
+            "Both A and R are correct and R is the correct explanation of A"
+        ],
+        ans: 1,
+        exp: "The cotton mills of Bombay and Ahmedabad were mainly financed and run by Indian entrepreneurs such as Parsis, Gujaratis and Bhatias, beginning with C.N. Davar's mill of 1854. It was the jute industry of Bengal that was dominated by British capital and agency houses. Assertion A is therefore correct, while Reason R is incorrect."
+    },
+    {
+        q: "Who was the first Indian to be appointed Governor of the Reserve Bank of India?",
+        opts: [
+            "Osborne Smith",
+            "Benegal Rama Rau",
+            "James Taylor",
+            "C.D. Deshmukh"
+        ],
+        ans: 3,
+        exp: "C.D. Deshmukh became the first Indian Governor of the RBI in 1943 and served until 1949. Osborne Smith was the first Governor when the RBI began functioning in 1935 and James Taylor was the second, both British. Benegal Rama Rau succeeded Deshmukh in 1949, so he was not the first Indian Governor."
+    },
+    {
+        q: "Which one of the following gave the Indian legislature a considerable say in framing the country's tariff policy, with the Secretary of State refraining from interference where the Government of India and the legislature agreed?",
+        opts: [
+            "Fiscal Autonomy Convention, following the Government of India Act, 1919",
+            "Charter Act, 1833",
+            "Indian Tariff Act, 1894",
+            "Sea Customs Act, 1878"
+        ],
+        ans: 0,
+        exp: "The Joint Select Committee on the Government of India Bill, 1919 recommended that the Secretary of State should not interfere in fiscal matters where the Government of India and the Indian legislature agreed. This became known as the Fiscal Autonomy Convention. The Sea Customs Act consolidated customs administration and the Tariff Act of 1894 imposed cotton import duties, while the Charter Act of 1833 predates any legislature of this kind."
+    },
+    {
+        q: "With reference to famine policy in colonial India, consider the following statements: <br> 1. The Famine Commission of 1880 was headed by Sir Antony MacDonnell.<br>2. The Famine Commission of 1880 recommended the preparation of provincial Famine Codes laying down principles of relief.<br>3. The Lyall Commission of 1898 was appointed in the aftermath of the famine of 1876-78.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All three statements are correct",
+            "Both 1 and 3",
+            "Only one of the statements is correct",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 2,
+        exp: "The Famine Commission of 1880, headed by Richard Strachey, was appointed after the famine of 1876-78 and recommended Famine Codes, which provinces prepared in the 1880s. Statement 1 is wrong because Antony MacDonnell headed the Commission of 1901. Statement 3 is wrong because the Lyall Commission (1898) followed the famines of 1896-97."
+    },
+    {
+        q: "Which one of the following is regarded as the first successful modern cotton textile mill in India?",
+        opts: [
+            "Shahpur Mill at Ahmedabad, established in 1861",
+            "Fort Gloster Mill near Calcutta, established in 1818",
+            "Bombay Spinning and Weaving Company, established in 1854",
+            "Empress Mills at Nagpur, established in 1877"
+        ],
+        ans: 2,
+        exp: "C.N. Davar's Bombay Spinning and Weaving Company (1854) was the first successful modern cotton mill. The Fort Gloster mill (1818) is the earliest attempt, which makes it the most tempting option, but it was not a commercial success. The Ahmedabad mill of 1861 and the Empress Mills of 1877 came later and helped spread the industry to western and central India."
+    },
+    {
+        q: "The Council Bills, in the context of colonial economic relations between India and Britain, were",
+        opts: [
+            "Bills passed by the Imperial Legislative Council to regulate the currency",
+            "Budget proposals presented by the Secretary of State to the House of Commons",
+            "Bills of exchange issued by the Presidency Banks to finance indigo exports",
+            "Drafts sold by the Secretary of State for India in London, payable from Indian revenues, to meet the Home Charges"
+        ],
+        ans: 3,
+        exp: "The Secretary of State for India sold Council Bills in London in exchange for sterling, and the buyers, often importers of Indian goods, were paid in rupees from Indian revenues. The sterling raised financed the Home Charges. They were not legislative measures, bank instruments or parliamentary budgets."
+    },
+    {
+        q: "With reference to recent developments in India's manufacturing sector, consider the following statements: <br> 1. The Union Budget 2025-26 announced a National Manufacturing Mission to support the Make in India initiative.<br>2. The India Semiconductor Mission functions under the Ministry of Heavy Industries.<br>3. The Production Linked Incentive (PLI) schemes were first introduced in 2020, beginning with the electronics sector.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "Exactly one of the statements is correct",
+            "All three statements are correct",
+            "None of the above"
+        ],
+        ans: 0,
+        exp: "The Union Budget 2025-26 announced the National Manufacturing Mission under Make in India, and the PLI schemes began in 2020 with large-scale electronics manufacturing before extending to other sectors. Statement 2 is wrong because the India Semiconductor Mission is under the Ministry of Electronics and Information Technology, as part of the Digital India Corporation."
+    },
+    {
+        q: "With reference to railways in India, consider the following statements: <br> 1. 'Railways' is an entry in the Union List of the Seventh Schedule of the Constitution.<br>2. The Railway Board was established in 1924 on the recommendations of the Acworth Committee.<br>3. The Indian Railways Act, 1890 continues to be the principal legislation governing the Indian Railways today.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "Exactly two of the statements are correct",
+            "3 only",
+            "Only one of the statements is correct"
+        ],
+        ans: 3,
+        exp: "Railways is a Union List subject (Entry 22). The Railway Board was created in 1905 during Curzon's tenure, while the Acworth Committee (1921) led to the separation of the railway budget in 1924, so statement 2 is wrong. The Indian Railways Act, 1890 was replaced by the Railways Act, 1989, which makes statement 3 wrong."
+    },
+    {
+        q: "A sharp collapse of cotton prices in the Deccan in the 1860s, which left many cultivators heavily indebted, followed the end of which one of the following?",
+        opts: [
+            "The Crimean War",
+            "The Great Depression",
+            "The American Civil War",
+            "The Russo-Japanese War"
+        ],
+        ans: 2,
+        exp: "The American Civil War (1861-65) disrupted American cotton supplies to Lancashire and created a boom in Indian cotton, and peasants borrowed to expand cultivation. When the war ended, prices collapsed, leaving cultivators indebted while revenue demands stayed high, which contributed to the Deccan riots of 1875. The other events are unrelated to this boom and bust."
+    },
+    {
+        q: "With reference to the challenges faced by modern industries in colonial India, consider the following statements: <br> 1. Before 1919, the colonial government followed a policy of tariff protection to nurture infant Indian industries.<br>2. The Fiscal Commission of 1921-22 recommended a policy of discriminating protection.<br>3. The managing agency system concentrated control of many industrial enterprises in the hands of a few agency houses.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 only"
+        ],
+        ans: 1,
+        exp: "The Fiscal Commission (1921-22) recommended discriminating protection, and the managing agency system concentrated industrial control in a few agency houses. Statement 1 is wrong: until 1919 the colonial government followed a free-trade policy that favoured British imports, and the cotton excise duty hurt Indian mills."
+    },
+    {
+        q: "The Railway Minute of 1853, which laid out the plan for a network of trunk railway lines connecting the major ports and regions, was written by which one of the following?",
+        opts: [
+            "Lord Dalhousie",
+            "Lord Lytton",
+            "Lord Canning",
+            "Lord Mayo"
+        ],
+        ans: 0,
+        exp: "Lord Dalhousie wrote the Railway Minute of 1853, proposing trunk lines linking Bombay, Calcutta, Madras and the interior, to be built by private companies under a guarantee of returns. The first passenger train ran between Bombay and Thane in April 1853. Canning, Lytton and Mayo served as Governor-General or Viceroy after Dalhousie."
+    },
+    {
+        q: "Which one of the following was a structural feature of the agrarian economy under colonial rule, particularly in areas of the Permanent Settlement?",
+        opts: [
+            "Steady consolidation of holdings in the hands of peasant cultivators",
+            "Abolition of the practice of subletting by colonial legislation by 1900",
+            "Sub-infeudation, with several layers of rent-receiving intermediaries between the zamindar and the actual cultivator",
+            "A decline in the number of landless agricultural labourers"
+        ],
+        ans: 2,
+        exp: "Under the Permanent Settlement, zamindars often sublet their rights, creating chains of intermediaries who lived on rents without cultivating, a process known as sub-infeudation. Colonial agrarian structure also saw growing landlessness and a rise in agricultural labourers, as peasants lost land to moneylenders. Subletting was not abolished by 1900, and holdings became more fragmented, not consolidated."
+    },
+    {
+        q: "Which Article of the Constitution of India directs the State to make effective provision for public assistance in cases of unemployment, old age, sickness, disablement and other cases of undeserved want?",
+        opts: [
+            "Article 43",
+            "Article 38",
+            "Article 47",
+            "Article 41"
+        ],
+        ans: 3,
+        exp: "Article 41, a Directive Principle of State Policy, directs the State to provide public assistance in cases of unemployment, old age, sickness, disablement and other undeserved want, within the limits of its economic capacity. Article 38 concerns a social order promoting welfare, Article 43 a living wage, and Article 47 nutrition and public health. Famine relief in the colonial period had no such constitutional basis."
+    },
+    {
+        q: "Which one of the following was set up as a direct result of the recommendations of the Royal Commission on Agriculture (1926)?",
+        opts: [
+            "Establishment of the Imperial Agricultural Research Institute at Pusa",
+            "Enactment of the Co-operative Credit Societies Act",
+            "Establishment of the Imperial Council of Agricultural Research",
+            "Creation of the Famine Insurance Grant"
+        ],
+        ans: 2,
+        exp: "The Royal Commission on Agriculture, chaired by Lord Linlithgow, recommended a central body to coordinate agricultural research, which led to the Imperial Council of Agricultural Research in 1929. The Pusa institute dates from the Curzon era (1905), the Co-operative Credit Societies Act from 1904, and the Famine Insurance Grant from 1878, so all predate the Commission."
+    },
+    {
+        q: "With reference to the Indian Industrial Commission (1916-18), consider the following statements: <br> 1. It was chaired by Sir Thomas Holland.<br>2. It recommended that the Government should withdraw from direct assistance to industries and leave them to private initiative.<br>3. It was appointed in 1921 after the acceptance of the Fiscal Autonomy Convention.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 2 alone",
+            "Statement 3 alone",
+            "Both 2 and 3",
+            "Statement 1 alone"
+        ],
+        ans: 3,
+        exp: "The Indian Industrial Commission was chaired by Sir Thomas Holland and was appointed in 1916, during the First World War, which had exposed India's industrial weakness. It recommended an active role for the state, including provincial Departments of Industries and technical and financial support, which makes statement 2 the opposite of its findings. Statement 3 is wrong because the Commission predates both 1921 and the Fiscal Autonomy Convention."
+    },
+    {
+        q: "Which one of the following Regulations laid the foundation of the Mahalwari settlement in the North-Western Provinces?",
+        opts: [
+            "Pitt's India Act of 1784",
+            "Charter Act of 1833",
+            "Regulation VII of 1822",
+            "The Bengal Code of 1793, which introduced the Permanent Settlement"
+        ],
+        ans: 2,
+        exp: "Regulation VII of 1822, associated with Holt Mackenzie, provided for settlement of revenue with village communities in the North-Western Provinces, and it was later refined by Regulation IX of 1833. The Bengal Code of 1793 governed the Permanent Settlement. Pitt's India Act of 1784 and the Charter Act of 1833 were constitutional measures and did not lay down land revenue settlements."
+    },
+    {
+        q: "With reference to the land revenue systems and the peasant economy of British India, consider the following statements: <br> 1. Under the Permanent Settlement, the state retained the right to revise the revenue demand periodically.<br>2. Under the Ryotwari System, the revenue settlement was made directly with the cultivators.<br>3. The Mahalwari System was introduced in the Bengal Presidency.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 only",
+            "2 and 3 only",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "Under the Ryotwari System, associated with Munro and Read in Madras and Bombay, the state settled revenue directly with the cultivators. The Permanent Settlement (1793) fixed the revenue demand permanently, so statement 1 is wrong. The Mahalwari System was introduced in the North-Western Provinces, parts of Central India and Punjab, with revenue settled with village communities, so statement 3 is wrong."
+    },
+    {
+        q: "Which one of the following is a feature of the Mahalwari System of land revenue?",
+        opts: [
+            "The village was the unit of assessment, with the village community jointly responsible, and revenue was paid through its headmen subject to periodic revision",
+            "Individual cultivators were given pattas and paid revenue directly to the government",
+            "Zamindars were recognised as absolute owners of the land and collected rent from the peasants",
+            "The revenue demand was fixed in perpetuity, irrespective of changes in production"
+        ],
+        ans: 0,
+        exp: "Under the Mahalwari System, introduced in the North-Western Provinces, Punjab and parts of Central India, the revenue was assessed on the mahal (village or estate) and was jointly the responsibility of the village community, with headmen collecting it. Settlements were revised periodically. A permanent fixed demand and zamindar ownership belong to the Permanent Settlement, while pattas to individual cultivators are a feature of the Ryotwari System."
+    },
+    {
+        q: "Which one of the following best describes the 'Drain of Wealth' as argued by early Indian nationalist thinkers such as Dadabhai Naoroji and R.C. Dutt?",
+        opts: [
+            "The migration of skilled Indian labour to British colonies under the indenture system",
+            "A continuous transfer of India's resources to Britain without equivalent economic return, through items such as Home Charges, pensions and profits of foreign capital",
+            "The outflow of Indian capital due to large-scale private investment by Indian businessmen in foreign countries",
+            "The loss of gold reserves caused by heavy import of luxury goods by the Indian princely states"
+        ],
+        ans: 1,
+        exp: "Naoroji, in works such as Poverty and Un-British Rule in India, and R.C. Dutt, in his Economic History of India, argued that India's surplus was transferred to Britain without a matching return. Home Charges, civil and military salaries, pensions and profits of foreign capital made up the drain. The other options describe unrelated phenomena and do not reflect the nationalist critique."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-43 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

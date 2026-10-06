@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-73</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "With reference to challenges facing the Isthmus of Panama and the strait-like waterway that crosses it, consider the following statements:<br>1. The Panama Canal experienced a severe drought in 2023-24 that forced authorities to sharply cut daily ship transits and reduce permissible vessel draft.<br>2. By mid-2025, the Panama Canal Authority confirmed that transit volumes had fully recovered to pre-drought (2022) levels even as water levels returned to full capacity.<br>3. In 2026, renewed below-average rainfall linked to an intensifying El Nino forced the Canal Authority to again tighten draft limits and reduce the number of daily transit slots.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "All of the above",
+            "Only statement 2",
+            "1 and 3 only"
+        ],
+        ans: 3,
+        exp: "The 2023-24 drought did force the Panama Canal Authority to cut daily transits and vessel draft sharply, and in 2026 renewed below-average rainfall linked to a strong El Nino again forced tighter draft limits and fewer daily transit slots. However, although the Canal returned to full water capacity by mid-2025, transit volumes at that time had not yet fully recovered to pre-drought levels, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to important seas of the world, consider the following statements:<br>1. The Caspian Sea, bordered by Russia, Kazakhstan, Turkmenistan, Iran, and Azerbaijan, is the largest inland body of water on Earth by area, though it is landlocked with no natural outlet to the world ocean.<br>2. The Dead Sea, bordering Israel and Jordan, lies at the lowest elevation of any point on Earth's land surface and is among the most hypersaline water bodies in the world.<br>3. The Sargasso Sea, located in the North Atlantic Ocean, is unique in having no coastline, instead being bounded entirely by ocean currents rather than by land.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 3,
+        exp: "All three statements are accurate: the Caspian Sea is the world's largest inland water body and is landlocked; the Dead Sea sits at the lowest point on Earth's land surface and is exceptionally hypersaline; and the Sargasso Sea is uniquely bounded not by any coastline but by the encircling currents of the North Atlantic Gyre."
+    },
+    {
+        q: "With reference to the United Nations Convention to Combat Desertification (UNCCD), consider the following statements:<br>1. The UNCCD, established in 1994, is the sole legally binding international agreement that specifically links environmental protection with sustainable land management in drylands.<br>2. The Conference of the Parties (COP) to the UNCCD held its first session in 1994, the same year the Convention was adopted.<br>3. The 16th session of the UNCCD COP, held in Riyadh, was historic as the first UNCCD COP to be hosted in the Asia-Pacific region.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "Both 2 and 3",
+            "All of the above",
+            "2 only"
+        ],
+        ans: 0,
+        exp: "The UNCCD, adopted in 1994, is indeed the only legally binding international agreement specifically linking environmental protection with sustainable land management in drylands. However, its Conference of the Parties first met only in 1997 in Rome, three years after adoption, and the 16th COP held in Riyadh was notable as the first UNCCD COP hosted in the Middle East and North Africa (MENA) region, not the Asia-Pacific."
+    },
+    {
+        q: "With reference to the Panama Canal Authority (ACP), the body governing the strait-like waterway across the Isthmus of Panama, consider the following statements:<br>1. The ACP operates as a department directly under Panama's Ministry of Finance, with its annual budget requiring approval from the national legislature before implementation.<br>2. The ACP took over administration of the canal from the United States-led Panama Canal Commission in 1977, immediately following the signing of the Torrijos-Carter Treaties.<br>3. The ACP, established under Title XIV of Panama's Constitution, is an autonomous public-law entity with exclusive responsibility for the operation, administration, and maintenance of the Panama Canal.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "2 and 3 only",
+            "Exactly one of the statements is correct",
+            "All of the above"
+        ],
+        ans: 2,
+        exp: "The ACP is indeed an autonomous, financially and administratively independent public-law entity established under Title XIV of Panama's Constitution, with exclusive charge over the canal's operation and maintenance. It is not a department of the Ministry of Finance requiring legislative budget approval, and the actual transfer of canal administration from the US-led Panama Canal Commission to the ACP took place on 31 December 1999, not in 1977, which merely marked the signing of the Torrijos-Carter Treaties that set the transfer process in motion."
+    },
+    {
+        q: "With reference to recent developments concerning the Indus river system, consider the following statements:<br>1. In April 2025, India placed the Indus Waters Treaty of 1960 in abeyance following a terrorist attack in Jammu and Kashmir.<br>2. In 2026, the Permanent Court of Arbitration at The Hague ruled that the Treaty remains fully binding on India, a ruling that India rejected as void.<br>3. As part of the suspension, India paused hydrological data-sharing with Pakistan and meetings of the Permanent Indus Commission.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "India placed the 1960 Indus Waters Treaty in abeyance on 23 April 2025, a day after the Pahalgam terror attack, and has since paused cooperative mechanisms such as hydrological data-sharing and Permanent Indus Commission meetings. In 2026, the Permanent Court of Arbitration ruled that the Treaty remains fully in force and binding on India, but India rejected this ruling, maintaining that the tribunal was illegally constituted; all three statements are therefore correct."
+    },
+    {
+        q: "Myanmar's military government relocated the country's capital from the coastal city of Yangon to a newly built inland city in 2005, citing strategic and administrative considerations. What is this new capital called?",
+        opts: [
+            "Mandalay",
+            "Bagan",
+            "Nay Pyi Taw",
+            "Taunggyi"
+        ],
+        ans: 2,
+        exp: "Nay Pyi Taw (also spelt Naypyidaw), meaning 'abode of kings', was built as a planned inland city and became Myanmar's capital in 2005, replacing Yangon, reportedly for reasons including centrality, security, and reduced vulnerability to naval attack. Mandalay, Bagan, and Taunggyi are historically and culturally significant Myanmarese cities but have never served as the national capital."
+    },
+    {
+        q: "The final closure of the Central American Seaway and the emergence of the Isthmus of Panama, widely dated to around three million years ago, is most closely associated with which of the following consequences?",
+        opts: [
+            "The permanent merging of the Atlantic and Pacific Ocean's salinity into a single uniform value",
+            "The formation of the Mid-Atlantic Ridge as a new tectonic plate boundary",
+            "The intensification of the Gulf Stream and the onset of the Great American Biotic Interchange between North and South American fauna",
+            "The complete disappearance of the Gulf Stream and cooling of Western Europe"
+        ],
+        ans: 2,
+        exp: "The rise of the Isthmus of Panama severed the direct oceanic connection between the Atlantic and Pacific, rerouting ocean currents in a way that strengthened the Gulf Stream and warmed north-western Europe, while also creating a land bridge that triggered the Great American Biotic Interchange between North and South American species. It caused the Atlantic and Pacific to diverge in salinity rather than merge, and it is unrelated to the Mid-Atlantic Ridge, which is a separate, pre-existing tectonic feature."
+    },
+    {
+        q: "Assertion (A): Under Article 371A of the Constitution, no Act of Parliament relating to the religious or social practices of the Nagas, Naga customary law, or the ownership and transfer of land in Nagaland applies to the state unless its Legislative Assembly decides otherwise by a resolution.<br>Reason (R): Article 371A was inserted following the Sixteen-Point Agreement of 1960 between the Government of India and the Naga People's Convention, which paved the way for the creation of Nagaland as a separate state in 1963.<br>Select the correct answer using the codes given below.",
+        opts: [
+            "A is false but R is true",
+            "Both A and R are true and R is the correct explanation of A",
+            "Both A and R are true but R is not the correct explanation of A",
+            "A is true but R is false"
+        ],
+        ans: 1,
+        exp: "Article 371A does grant Nagaland's Legislative Assembly the power to withhold the applicability of central laws on specified matters concerning Naga identity and land, and this special safeguard was precisely a negotiated outcome of the 1960 Sixteen-Point Agreement that preceded Nagaland's statehood in 1963. Both statements are correct, and the reason directly explains the constitutional and historical origin of the assertion."
+    },
+    {
+        q: "With reference to recent developments in the Red Sea region, consider the following statements:<br>1. The Bab-el-Mandeb Strait, connecting the Red Sea to the Gulf of Aden, lies between Yemen on the Arabian Peninsula and Djibouti/Eritrea on the African coast.<br>2. In response to Houthi attacks on commercial shipping, the UN Security Council adopted Resolution 2722 in January 2024 demanding an immediate end to such attacks.<br>3. The disruption of shipping through the Bab-el-Mandeb Strait led several shipping companies to divert vessels through the Suez Canal to avoid delays.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the statements are correct",
+            "2 and 3 only",
+            "None of the statements are correct",
+            "Only two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "The Bab-el-Mandeb Strait does lie between Yemen and the Horn of Africa, and the UN Security Council's Resolution 2722 (January 2024) demanded that Houthi attacks on merchant vessels cease immediately. However, the disruption caused shipping companies to avoid the Red Sea-Suez route altogether, diverting instead around the Cape of Good Hope in South Africa, a much longer route, making statement 3 incorrect."
+    },
+    {
+        q: "Adam's Bridge (Ram Setu), a geological feature linking India and Sri Lanka, separates the Gulf of Mannar from the Palk Strait. It is best described as a chain of what kind of formations?",
+        opts: [
+            "Glacial moraines deposited by retreating ice sheets",
+            "Coral atolls encircling a sunken volcanic crater",
+            "Natural limestone shoals and sandbanks built up by coral growth and sediment deposition",
+            "Volcanic islands formed by basaltic lava flows"
+        ],
+        ans: 2,
+        exp: "Adam's Bridge is a roughly 48-km chain of natural limestone shoals and sandbanks, built up over thousands of years through coral growth atop sand deposits and continued sediment accumulation from currents and rivers such as the Kaveri. It has no volcanic or glacial origin, distinguishing it from lava-formed islands, glacial moraines, or coral atolls around a volcanic crater."
+    },
+    {
+        q: "With reference to important lakes of India, consider the following statements:<br>1. Wular Lake in Jammu and Kashmir is the largest freshwater lake in India, formed by tectonic activity and fed by the Jhelum river.<br>2. Chilika Lake in Odisha is a freshwater lake and was the first Indian wetland to be designated as a Ramsar site.<br>3. Sambhar Lake in Rajasthan is a freshwater lake famous for supporting extensive paddy cultivation in its basin.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "2 only",
+            "1 and 2 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "Wular Lake, formed by tectonic activity and fed by the Jhelum, is indeed the largest freshwater lake in India. Chilika Lake, however, is a brackish-water lagoon rather than a freshwater lake (though it was correctly India's first Ramsar site), and Sambhar Lake is a saline inland lake known for salt production, not freshwater paddy cultivation, making both statements 2 and 3 incorrect."
+    },
+    {
+        q: "With reference to the governance of Antarctica under the Antarctic Treaty System, consider the following statements:<br>1. The Antarctic Treaty Consultative Meeting (ATCM) has, since the Treaty's entry into force, been empowered to adopt legally binding Measures that automatically apply to all Consultative Parties without requiring separate domestic approval.<br>2. Only the twelve original signatories of the Antarctic Treaty (1959) currently hold Consultative Party status at the ATCM.<br>3. The 46th ATCM, held in Kochi in 2024, concluded by adopting a binding international convention imposing a complete moratorium on tourism in Antarctica.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements is correct",
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 only"
+        ],
+        ans: 0,
+        exp: "Measures adopted by the ATCM, a mechanism introduced only from 1995 onward and not since the Treaty's inception, require approval by each Consultative Party before becoming effective for that Party, so statement 1 is wrong. Consultative Party status has expanded well beyond the original twelve signatories to 29 countries that conduct substantial Antarctic research, and the Kochi ATCM in 2024 ended its discussion on tourism regulation without adopting any binding moratorium, only setting up a working group for further study."
+    },
+    {
+        q: "Consider the following rivers of India: Ganga, Chambal, Indus, Yamuna. Which one of these is classified in physical geography as an 'antecedent river', having originated prior to the upliftment of the Himalayas and having maintained its original course through deep gorges by continuous down-cutting as the mountains rose?",
+        opts: [
+            "Ganga",
+            "Indus",
+            "Yamuna",
+            "Chambal"
+        ],
+        ans: 1,
+        exp: "The Indus is a classic example of an antecedent river that existed before the Himalayan orogeny and cut deep gorges by eroding downward at the same pace as the mountains were uplifted. The Ganga and Yamuna are consequent rivers that originated after the Himalayas had already formed, while the Chambal is a peninsular river unrelated to Himalayan uplift."
+    },
+    {
+        q: "With reference to recent scientific findings on the Thar Desert, consider the following statements:<br>1. The 'greening' of the Thar Desert has been attributed exclusively to large-scale afforestation drives undertaken by the Rajasthan state government, with no role played by changes in rainfall patterns.<br>2. Recent studies have found a 'greening' trend in parts of the Thar Desert, attributed to a combination of increased monsoon rainfall and expanded agricultural activity, raising concerns over long-term groundwater sustainability.<br>3. Studies indicate that the greening trend in the Thar Desert reflects a permanent, risk-free transformation of the region into a water-abundant zone, with no associated environmental or sustainability concerns.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "3 only",
+            "2 only",
+            "1 only"
+        ],
+        ans: 2,
+        exp: "Recent studies have documented a paradoxical 'greening' of parts of the Thar Desert, driven jointly by increased monsoon rainfall and expanded agriculture, while cautioning about long-term sustainability challenges such as groundwater depletion. The trend is not attributed solely to state afforestation efforts, nor is it described as a risk-free or permanent transformation; rather, it is explicitly flagged as raising long-term concerns."
+    },
+    {
+        q: "With reference to legal and policy frameworks governing India's lakes and wetlands, consider the following statements:<br>1. The Wetlands (Conservation and Management) Rules, 2017, notified under the Environment (Protection) Act, 1986, replaced the earlier Wetland Rules of 2010.<br>2. Under these Rules, the power to identify and notify wetlands, including lakes, rests exclusively with the Central Government, with no role for State/UT authorities.<br>3. The National Plan for Conservation of Aquatic Ecosystems (NPCA) was launched in 2015 as an entirely new scheme with no linkage to any pre-existing central conservation programme.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "2 only",
+            "1 and 3 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "The 2017 Wetlands Rules, notified under the Environment (Protection) Act, 1986, did replace the earlier 2010 Rules. However, these Rules delegate the power to identify and notify wetlands to State/UT Wetland Authorities rather than reserving it exclusively for the Centre, and the NPCA was not an entirely new scheme but was created in 2015 by merging two pre-existing programmes, the National Lake Conservation Plan and the National Wetlands Conservation Programme."
+    },
+    {
+        q: "The plains of Punjab are often referred to as the 'Land of Five Doabs'. Which of the following best defines the term 'Doab' as used in this context?",
+        opts: [
+            "A stretch of fertile land lying between two converging rivers",
+            "A depression formed by wind erosion in an arid plain",
+            "A narrow gorge where a river cuts through a young fold mountain",
+            "A terrace of older alluvium found above the flood level of a river"
+        ],
+        ans: 0,
+        exp: "A 'Doab' (from Persian, meaning 'land of two waters') refers to the fertile tract of land lying between two converging rivers, and Punjab's plains are traditionally divided into five such doabs formed by its rivers. The other options describe unrelated landforms: a wind-eroded depression, an older alluvial terrace (Bhangar), and an antecedent river gorge, none of which define a doab."
+    },
+    {
+        q: "With reference to the Government of National Capital Territory of Delhi (Amendment) Act, 2021, consider the following statements:<br>1. The Act removed the requirement for the Lieutenant Governor's opinion before the Delhi Council of Ministers could implement any executive decision.<br>2. The Act expanded the Delhi Legislative Assembly's rule-making powers to include oversight and inquiry into the day-to-day administrative decisions of the NCT government.<br>3. The Act amended the GNCTD Act, 1991 to define the term 'government', as used in any law made by the Delhi Legislative Assembly, to mean the Lieutenant Governor.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 only",
+            "3 only",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "The 2021 Amendment Act did redefine 'government' in laws made by the Delhi Assembly to mean the Lieutenant Governor, strengthening his position vis-a-vis the elected government. It in fact required, rather than removed, the necessity of obtaining the LG's opinion before the Council of Ministers could implement executive decisions, and it explicitly barred, rather than expanded, the Assembly's power to make rules concerning day-to-day administration or to inquire into administrative decisions."
+    },
+    {
+        q: "With reference to recent developments concerning the Suez Canal, consider the following statements:<br>1. Following a sharp decline in traffic caused by Houthi attacks on Red Sea shipping, the Suez Canal Authority introduced a 15% discount on transit fees for large container ships in May 2025 to lure carriers back to the canal.<br>2. Suez Canal revenue declined by roughly 60%, falling from a record USD 10.3 billion in 2023 to about USD 4 billion in 2024, primarily due to vessels rerouting around the Cape of Good Hope.<br>3. The 2025 discount scheme succeeded in fully restoring Suez Canal traffic to pre-crisis (2023) levels by early 2026, prompting the Authority to make the discount permanent.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "The Suez Canal Authority did introduce a 15% transit fee discount for large container ships from May 2025 to win back traffic lost to Houthi-driven disruptions, and canal revenue had indeed collapsed by roughly 60% between 2023 and 2024. However, the discount failed to restore traffic to pre-crisis levels, and the Authority actually withdrew the scheme in April 2026 rather than making it permanent, making statement 3 incorrect."
+    },
+    {
+        q: "A geologist surveying a stretch of the Ganga plain finds a belt of newer, less consolidated alluvial deposits confined to the river's floodplain, renewed almost every monsoon season by fresh silt and largely lacking calcareous concretions. Which of the following terms used in Indian physiography best describes such a tract?",
+        opts: [
+            "Bhangar",
+            "Bhabar",
+            "Khadar",
+            "Tarai"
+        ],
+        ans: 2,
+        exp: "Khadar refers to the newer alluvium found in the low-lying floodplains of rivers in the Indo-Gangetic Plain, which is renewed by fresh silt deposition during annual floods and is finer and less calcareous than the older alluvium. Bhangar, in contrast, is the older, terraced alluvium lying above the flood level and containing calcareous nodules called kankar, while Bhabar and Tarai are narrow belts found near the Himalayan foothills."
+    },
+    {
+        q: "With reference to the regional divisions of India's Northern Plains, consider the following statements:<br>1. The Punjab Plains, formed mainly by the Satluj, Beas, and Ravi rivers, lie to the north of the Rajasthan Plains and are known for extensive wheat and rice cultivation.<br>2. The Rajasthan Plains lie entirely to the east of the Aravalli Range and receive the heaviest rainfall among all sub-divisions of India's Northern Plains.<br>3. The Brahmaputra Plains, confined mostly to the state of Assam, are marked by frequent channel shifting, riverine islands called 'chars', and annual flooding.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "1 and 3 only",
+            "1, 2 and 3",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 1,
+        exp: "The Punjab Plains, fed by the Satluj, Beas, and Ravi, are indeed known for extensive cultivation, and the Brahmaputra Plains, confined mainly to Assam, are correctly characterised by shifting channels, riverine 'chars', and recurring floods. However, the Rajasthan Plains lie to the west, not east, of the Aravalli Range and are largely arid, receiving among the lowest rainfall of any sub-division of the Northern Plains, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to lakes and wetlands recently added to India's list of Ramsar Sites, consider the following statements:<br>1. Siliserh Lake, declared a Ramsar site in 2025, is a natural lake formed by tectonic subsidence in the Aravalli range.<br>2. Kopra Reservoir, designated a Ramsar site in Chhattisgarh in 2025, became that state's first wetland recognised under the Ramsar Convention.<br>3. Glaw Lake in Arunachal Pradesh was designated in 2026 as India's 101st Ramsar site.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "Kopra Reservoir became Chhattisgarh's first-ever Ramsar site when it was designated in December 2025, and Glaw Lake in Arunachal Pradesh was subsequently designated as India's 101st Ramsar site in August 2026. Siliserh Lake, however, is not a natural tectonic lake but a human-made lake constructed in 1845 by Maharaja Vinay Singh through an embankment on a tributary of the Ruparel River."
+    },
+    {
+        q: "Assertion (A): In its 2024 judgment in M.K. Ranjitsinh v. Union of India, the Supreme Court of India recognised a right of people to be free from the adverse effects of climate change, linking it to Articles 14 and 21 of the Constitution.<br>Reason (R): The Court held that undergrounding all high-voltage transmission lines across the Great Indian Bustard's desert habitat in Rajasthan and Gujarat, as mandated by its blanket 2021 order, was the only constitutionally permissible way to protect the species.<br>Select the correct answer using the codes given below.",
+        opts: [
+            "Both A and R are true but R is not the correct explanation of A",
+            "A is false but R is true",
+            "Both A and R are true and R is the correct explanation of A",
+            "A is true but R is false"
+        ],
+        ans: 3,
+        exp: "The Supreme Court's March 2024 judgment did recognise a distinct right against the adverse effects of climate change, grounded in Articles 14 and 21. However, far from upholding the blanket 2021 undergrounding order as the only permissible solution, the Court modified and relaxed it, citing technical infeasibility and grid safety concerns, and instead appointed an expert committee to devise a calibrated approach, making the reason false."
+    },
+    {
+        q: "With reference to the formation of the world's major deserts, consider the following statements:<br>1. The Atacama Desert in South America is primarily a rain-shadow desert, formed due to its location on the leeward side of the Andes mountains blocking moisture-laden winds.<br>2. The Sahara and Arabian Deserts owe their formation primarily to their location beneath the subtropical high-pressure belts, where descending, warming air inhibits cloud formation and precipitation.<br>3. The Thar Desert of India is classified as a mid-latitude desert, situated far from the direct influence of subtropical high-pressure belts.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "3 only",
+            "1  and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "The Sahara and Arabian Deserts lie beneath the subtropical high-pressure belts, where subsiding, warming air suppresses cloud formation and rainfall, producing hot, arid conditions. The Atacama's extreme aridity is primarily attributed to the cold offshore Humboldt (Peru) Current rather than a rain-shadow effect, and the Thar Desert lies within, not far from, the subtropical high-pressure zone, making it a subtropical rather than mid-latitude desert."
+    },
+    {
+        q: "Assertion (A): In 2013, the Supreme Court of India upheld the right of local Gram Sabhas to decide on a proposed bauxite mining project on the Niyamgiri hills, a plateau region in Odisha.<br>Reason (R): The Forest Rights Act, 2006 recognises the religious and cultural rights of forest-dwelling communities over hills and forests that they consider sacred.<br>Select the correct answer using the codes given below.",
+        opts: [
+            "Both A and R are true but R is not the correct explanation of A",
+            "A is true but R is false",
+            "Both A and R are true and R is the correct explanation of A",
+            "A is false but R is true"
+        ],
+        ans: 2,
+        exp: "The Supreme Court's 2013 verdict directed that the Gram Sabhas of villages around the Niyamgiri hills be consulted on the Vedanta bauxite mining project, grounding this requirement in the religious and cultural rights of the Dongria Kondh community over their sacred hill, as recognised under the Forest Rights Act, 2006. The Gram Sabhas subsequently voted against the project, making both the assertion and reason correct, with the reason directly explaining the assertion."
+    },
+    {
+        q: "An oxbow lake, a common feature seen along the lower course of meandering rivers such as the Ganga, is formed through which of the following processes?",
+        opts: [
+            "The collapse of a volcanic crater which subsequently fills with rainwater",
+            "Deposition of sediment across a river mouth forming a lagoon cut off from the sea",
+            "The gradual erosion of a meander's outer bank until the neck of the loop is cut off, isolating the curved channel as a standing water body",
+            "The scouring action of a valley glacier carving a deep basin later filled by meltwater"
+        ],
+        ans: 2,
+        exp: "An oxbow lake forms when continuous lateral erosion widens the neck of a meander loop until the river cuts through it, abandoning the loop, which is then isolated from the main channel as a crescent-shaped standing water body. The other options describe the formation of a lagoon, a crater lake, and a cirque or glacial lake respectively, which are distinct landforms formed by different processes."
+    },
+    {
+        q: "With reference to the Territorial Waters, Continental Shelf, Exclusive Economic Zone and other Maritime Zones Act, 1976, which governs India's maritime boundaries including its straits and coastal waters, consider the following statements:<br>1. Under the Act, India's territorial waters extend up to twelve nautical miles from the appropriate baseline.<br>2. The Act confers upon all foreign warships, including submarines, an unconditional right of innocent passage through India's territorial waters.<br>3. Any notification altering the limit of India's territorial waters requires prior approval through resolutions passed by both Houses of Parliament.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "Only one of the statements is correct",
+            "Both 1 and 2",
+            "1 and 3 only"
+        ],
+        ans: 3,
+        exp: "The Act fixes India's territorial waters at twelve nautical miles from the baseline and requires that any change to this limit be approved by resolutions of both Houses of Parliament. However, the right of innocent passage under the Act is available to foreign ships other than warships and submarines, which require prior notice or authorisation from the Central Government, making statement 2 incorrect."
+    },
+    {
+        q: "Which of the following countries is distinctive for having three capital cities, each serving a different branch of government -- an executive capital, a legislative capital, and a judicial capital?",
+        opts: [
+            "Bolivia",
+            "Sri Lanka",
+            "South Africa",
+            "Netherlands"
+        ],
+        ans: 2,
+        exp: "South Africa has three capitals: Pretoria serves as the executive capital (seat of the government), Cape Town as the legislative capital (seat of Parliament), and Bloemfontein as the judicial capital (seat of the Supreme Court of Appeal). Bolivia, in contrast, has only two seats of government (La Paz and Sucre), while the Netherlands and Sri Lanka each have a single capital."
+    },
+    {
+        q: "Which of the following continents is characterised as being simultaneously the coldest, driest (in terms of average annual precipitation), and windiest on Earth, while also holding nearly seventy percent of the planet's fresh water reserves in frozen form?",
+        opts: [
+            "Asia",
+            "Africa",
+            "Australia",
+            "Antarctica"
+        ],
+        ans: 3,
+        exp: "Antarctica records the lowest temperatures, receives extremely little precipitation (making it a polar desert), and experiences powerful katabatic winds that make it the windiest continent. It also contains the largest ice sheet on Earth, storing about 70% of the world's fresh water."
+    },
+    {
+        q: "With reference to challenges facing the plains of Punjab and Haryana, consider the following statements:<br>1. The Central Ground Water Board (CGWB) has classified all groundwater blocks in the Punjab plains as 'safe', indicating stable and sustainable groundwater extraction levels.<br>2. The excessive groundwater extraction in Punjab is primarily attributed to the cultivation of traditional rain-fed millets rather than paddy, which requires comparatively little irrigation.<br>3. The intensive rice-wheat cropping pattern adopted during the Green Revolution in the Punjab and Haryana plains has led to a sharp decline in groundwater tables, with a large number of blocks categorised as 'over-exploited' by the CGWB.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 1 alone",
+            "2 only",
+            "Both 2 and 3",
+            "Only one of the statements is correct"
+        ],
+        ans: 3,
+        exp: "The intensive rice-wheat cropping system that took root during the Green Revolution has driven a sharp fall in groundwater tables across Punjab and Haryana, with a majority of the region's blocks officially categorised by the CGWB as 'over-exploited'. This is the opposite of statement 1, and it is the water-intensive irrigated paddy crop, not rain-fed millets, that drives this over-extraction, making statement 2 incorrect as well."
+    },
+    {
+        q: "Which of the following straits connects the Mediterranean Sea to the Atlantic Ocean, separating the Iberian Peninsula in Europe from Morocco in North Africa?",
+        opts: [
+            "Strait of Malacca",
+            "Bosphorus Strait",
+            "Strait of Hormuz",
+            "Strait of Gibraltar"
+        ],
+        ans: 3,
+        exp: "The Strait of Gibraltar is the narrow waterway separating Spain (Iberian Peninsula) from Morocco, forming the sole natural connection between the Mediterranean Sea and the Atlantic Ocean. The Strait of Hormuz links the Persian Gulf to the Gulf of Oman, the Bosphorus connects the Black Sea to the Sea of Marmara, and the Strait of Malacca links the Indian and Pacific Oceans, all in entirely different regions."
+    },
+    {
+        q: "With reference to the structure and composition of the Deccan Plateau, consider the following statements:<br>1. The Deccan Traps basalt formations are the product of extensive limestone deposition in a shallow marine environment during the Mesozoic era.<br>2. The Deccan Plateau is composed predominantly of basaltic rock formed through successive lava flows, resulting from massive volcanic eruptions around 66 million years ago.<br>3. The weathering of Deccan Trap basalts under India's tropical climate has resulted in the formation of extensive alluvial soil cover across the plateau.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "Exactly two of the statements are correct",
+            "All of the above",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 3,
+        exp: "The Deccan Traps are a vast sequence of basaltic lava flows produced by massive volcanic eruptions around the Cretaceous-Palaeogene boundary, roughly 66 million years ago. They are volcanic in origin rather than the result of marine limestone deposition, and their weathering under a tropical climate with alternating wet and dry seasons produces black, cotton-like regur soil (and laterite in high-rainfall zones), not alluvial soil, which forms instead from river-borne sediments in plains."
+    },
+    {
+        q: "With reference to the Panchayats (Extension to Scheduled Areas) Act, 1996 (PESA), which governs local self-governance in India's mineral-rich tribal plateau regions, consider the following statements:<br>1. PESA applies uniformly to both the Fifth Schedule Areas and the Sixth Schedule tribal areas of Assam, Meghalaya, Tripura, and Mizoram.<br>2. PESA extends the provisions of Part IX of the Constitution relating to Panchayats to the Fifth Schedule Areas, which include large parts of the mineral-rich plateau regions of central and eastern India.<br>3. PESA was enacted in 1996 based on the recommendations of the Dhebar Commission on tribal welfare.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "3 only",
+            "1 and 3 only",
+            "1 only"
+        ],
+        ans: 0,
+        exp: "PESA does extend Part IX provisions on Panchayats to the Fifth Schedule Areas, which cover much of the tribal, mineral-rich plateau belt of states like Jharkhand, Chhattisgarh, Odisha, and Madhya Pradesh. It does not apply to the Sixth Schedule areas of Assam, Meghalaya, Tripura, and Mizoram, which instead have their own autonomous councils, and PESA was based on the Bhuria Committee's recommendations, not the Dhebar Commission's."
+    },
+    {
+        q: "With reference to the 2023 land subsidence crisis in Joshimath, a town in the Garhwal Himalaya of Uttarakhand, consider the following statements:<br>1. The crisis was conclusively attributed by all government agencies to a single cause: excessive tourist footfall in the town.<br>2. The National Disaster Management Authority's post-disaster assessment report on Joshimath formally identified the NTPC Tapovan-Vishnugad hydropower project's tunnelling as the primary and sole cause of the subsidence.<br>3. Warnings about unregulated construction and blasting activity in the Joshimath area had already been raised by an expert committee as early as the 1970s, decades before the 2023 crisis.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "Statement 1 alone",
+            "Statement 3 alone",
+            "Both 2 and 3"
+        ],
+        ans: 2,
+        exp: "The 1976 Mishra Committee had indeed warned decades in advance about unplanned construction and blasting activity destabilising the Joshimath area, making statement 3 correct. However, no single cause was conclusively established by all agencies (multiple factors like construction, groundwater loss, and drainage were cited), and notably, the NDMA's own post-disaster assessment report did not even mention the NTPC hydropower project, let alone identify it as the sole cause."
+    },
+    {
+        q: "The continental crust, which forms the core of Earth's continents, is composed of relatively light rocks rich in silica and aluminium, and is geologically referred to by which of the following terms?",
+        opts: [
+            "NIFE",
+            "SIMA",
+            "SIAL",
+            "Moho"
+        ],
+        ans: 2,
+        exp: "The continental crust, composed mainly of granitic rocks rich in silica and aluminium, is termed SIAL, while the denser oceanic crust, rich in silica and magnesium, is termed SIMA. NIFE refers to the nickel-iron composition of Earth's core, and the Moho (Mohorovicic discontinuity) is the boundary separating the crust from the mantle, not a compositional layer itself."
+    },
+    {
+        q: "Alfred Wegener's theory of Continental Drift, proposed in 1912, postulated that all present-day continents were once joined together in a single supercontinent that later broke apart. What was this supercontinent called?",
+        opts: [
+            "Gondwanaland",
+            "Rodinia",
+            "Laurasia",
+            "Pangaea"
+        ],
+        ans: 3,
+        exp: "Wegener proposed that all continents were once fused into a single supercontinent called Pangaea, surrounded by a vast ocean, which subsequently broke apart into fragments that drifted to their present positions. Gondwanaland and Laurasia were the two major landmasses into which Pangaea itself later split, while Rodinia refers to an even earlier, distinct supercontinent proposed for the Precambrian era."
+    },
+    {
+        q: "With reference to challenges facing the Amazon rainforest of South America, consider the following statements:<br>1. The entire Amazon rainforest, including its western and central regions, has been scientifically confirmed to have already become a net emitter of carbon dioxide rather than a carbon sink.<br>2. In November 2025, Brazil hosted the 30th Conference of the Parties (COP30) to the UNFCCC in the city of Belem, marking the first time a COP was held within the Amazon region.<br>3. COP30 concluded with an agreement to scale up climate finance, including a call to triple adaptation finance, though without securing explicit language on a fossil fuel phase-out roadmap.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "Both 1 and 3",
+            "Exactly one of the statements is correct",
+            "Only two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "COP30 was indeed held in Belem, Brazil in November 2025, the first UN climate summit held within the Amazon region, and it concluded with a finance-focused agreement, including a call to triple adaptation finance, but without a specific commitment on phasing out fossil fuels. However, it is only parts of the eastern Amazon, not the entire rainforest, that studies have found have shifted to becoming a net carbon emitter, making statement 1 an overgeneralisation and incorrect."
+    },
+    {
+        q: "With reference to the geological history of the Mediterranean Sea, consider the following statements:<br>1. The Mediterranean Sea is considered a geological remnant of the ancient Tethys Ocean, having been reduced in size due to the northward movement and collision of the African Plate with the Eurasian Plate.<br>2. The Mediterranean Sea was formed entirely within the last 10,000 years due to post-glacial sea level rise following the last Ice Age.<br>3. The Mediterranean Sea is expanding in area over geological time as the African and Eurasian plates continue to move apart from each other.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 and 3 only",
+            "2 only",
+            "3 only"
+        ],
+        ans: 0,
+        exp: "The Mediterranean Sea is a remnant of the vast ancient Tethys Ocean, progressively shrunk as the African Plate moved north and collided with the Eurasian Plate over tens of millions of years, the process behind the Alpine mountain-building episode. Its formation long predates the last 10,000 years, and since the two plates are converging rather than diverging, the Mediterranean is generally understood to be shrinking, not expanding, over geological time."
+    },
+    {
+        q: "Assertion (A): Bougainville, an autonomous region of Papua New Guinea, is widely regarded as a leading contender to become the world's newest sovereign nation in the near future.<br>Reason (R): In a 2019 referendum, an overwhelming majority of Bougainvilleans voted in favour of full independence from Papua New Guinea, though the result remains non-binding pending ratification by the PNG Parliament.<br>Select the correct answer using the codes given below.",
+        opts: [
+            "Both A and R are true and R is the correct explanation of A",
+            "Both A and R are true but R is not the correct explanation of A",
+            "A is true but R is false",
+            "A is false but R is true"
+        ],
+        ans: 0,
+        exp: "The overwhelming pro-independence result of the 2019 Bougainville referendum, followed by a 2021 roadmap targeting independence by 2027, is precisely why Bougainville is seen as a strong contender to become a new country, subject to ratification by PNG's Parliament. Both the assertion and reason are factually correct, and the reason directly explains the assertion."
+    },
+    {
+        q: "With reference to the legal regime governing the continental shelf under the UN Convention on the Law of the Sea (UNCLOS), consider the following statements:<br>1. India submitted its claim for an extended continental shelf beyond 200 nautical miles to the UN Commission on the Limits of the Continental Shelf (CLCS) in 2009.<br>2. Under Article 76 of UNCLOS, a coastal state's continental shelf automatically extends to a uniform 200 nautical miles for every state, with no possibility of extension beyond this limit.<br>3. The Commission on the Limits of the Continental Shelf (CLCS) has the authority to resolve maritime boundary disputes between neighbouring coastal states over overlapping continental shelf claims.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All three statements are correct",
+            "Exactly one of the statements is correct",
+            "Exactly two of the statements are correct",
+            "Statement 2 alone"
+        ],
+        ans: 1,
+        exp: "India did submit its extended continental shelf claim to the CLCS in 2009, seeking recognition of shelf areas beyond the standard 200 nautical mile limit. UNCLOS Article 76 in fact allows coastal states to claim an extended shelf up to 350 nautical miles (or 100 nautical miles from the 2,500-metre isobath) based on geological criteria, and the CLCS's mandate is limited to making technical recommendations on the outer limits of the shelf, not to adjudicating boundary disputes between states."
+    },
+    {
+        q: "With reference to legal and institutional frameworks governing India's inter-state rivers, consider the following statements:<br>1. The Inter-State River Water Disputes (Amendment) Bill, 2019, which proposed replacing multiple ad hoc tribunals with a single permanent tribunal and mandatory Dispute Resolution Committees, lapsed in 2024 without being enacted.<br>2. The River Boards Act, 1956, which provides for the establishment of river boards for the coordinated development of inter-state river basins, has led to the successful constitution of multiple functioning river boards across the country.<br>3. Under the (unamended) Inter-State River Water Disputes Act, 1956, the decisions of a duly constituted tribunal may be appealed before the Supreme Court of India.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "1 and 3 only",
+            "Exactly one of the statements is correct",
+            "3 only"
+        ],
+        ans: 2,
+        exp: "The 2019 Amendment Bill, intended to streamline dispute resolution through a single permanent tribunal, indeed lapsed in 2024 without being passed, leaving the older ad hoc tribunal system in place. In practice, the River Boards Act, 1956 has never been operationalised, with no river board ever constituted under it, and the 1956 Act explicitly bars the jurisdiction of the Supreme Court and other courts over a tribunal's decision, making it final and binding rather than appealable."
+    },
+    {
+        q: "Which of the following straits is regarded as the world's most critical oil chokepoint, situated between Iran and the Arabian Peninsula and connecting the Persian Gulf to the Gulf of Oman?",
+        opts: [
+            "Strait of Malacca",
+            "Strait of Gibraltar",
+            "Strait of Hormuz",
+            "Bosphorus Strait"
+        ],
+        ans: 2,
+        exp: "The Strait of Hormuz, lying between Iran and the Arabian Peninsula, is the sole sea passage connecting the oil-rich Persian Gulf to the Gulf of Oman and the wider Arabian Sea, making it the world's most important oil transit chokepoint. The Strait of Malacca, though vital for Asian trade, connects the Indian and Pacific Oceans rather than the Persian Gulf, while the Bosphorus and Gibraltar straits serve entirely different regions."
+    },
+    {
+        q: "The District Mineral Foundation (DMF), relevant to India's mineral-rich plateau districts such as those in the Chota Nagpur region, was established under the Mines and Minerals (Development and Regulation) Amendment Act, 2015. Which of the following best describes its primary statutory objective?",
+        opts: [
+            "To regulate the market price and export of minerals extracted from plateau regions",
+            "To work for the interest and benefit of persons and areas affected by mining-related operations in the district",
+            "To conduct geological surveys to estimate mineral reserves for future auctions",
+            "To grant new mining leases and prospecting licences in tribal plateau areas"
+        ],
+        ans: 1,
+        exp: "Under Section 9B of the MMDR Act, 1957 (as amended in 2015), a DMF is a non-profit trust set up in every mining-affected district specifically to work for the interest and benefit of persons and areas affected by mining-related operations, funded through additional contributions from mining lease holders. It has no role in granting mining leases, regulating mineral prices, or conducting geological surveys, which fall under other bodies such as state governments and the Geological Survey of India."
+    },
+    {
+        q: "With reference to recent findings highlighted in the World Meteorological Organization's (WMO) State of Global Water Resources reports on the Indo-Gangetic Plain (IGP), consider the following statements:<br>1. The reports attributed the decline in the region's terrestrial water storage solely to reduced rainfall, ruling out groundwater over-extraction as a contributing factor.<br>2. The Indo-Gangetic Plain has been identified as one of the global hotspots showing a long-term negative trend in terrestrial water storage, even as streamflow in the Ganga and Indus basins rose due to glacial melt.<br>3. Bangladesh and Nepal, into which the Indo-Gangetic Plain also extends, were found to lie outside the geographic scope of the reports' assessment.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 only",
+            "1 and 3 only",
+            "3 only"
+        ],
+        ans: 1,
+        exp: "The WMO reports list the Ganges-Indus headwaters among global hotspots with a negative long-term trend in terrestrial water storage, noting that increased streamflow from glacial melt has occurred alongside this decline. The reports explicitly cite groundwater over-abstraction for irrigation as a contributing factor (making statement 1 false), and the IGP assessment covers all the countries it straddles, including Nepal and Bangladesh (making statement 3 false)."
+    },
+    {
+        q: "With reference to the National Commission on Farmers (Swaminathan Commission) and its recommendations relevant to agriculture in India's fertile plains, consider the following statements:<br>1. The Commission, constituted in 2004, submitted a single comprehensive report to the government in 2006.<br>2. The Commission recommended that the Minimum Support Price (MSP) be fixed at a level equal to the comprehensive cost of cultivation (C2) plus at least fifty percent.<br>3. The Commission's recommendations included a specific legal mandate compelling the government to procure all crops from all farmers at the recommended MSP.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "All of the above",
+            "3 only",
+            "1 only"
+        ],
+        ans: 0,
+        exp: "The Swaminathan Commission's well-known 'C2+50%' recommendation proposed that MSP be set at least fifty percent above the comprehensive cost of cultivation, making statement 2 correct. However, the Commission submitted five separate reports between December 2004 and October 2006, not a single report, and its recommendations did not include a specific legal mandate compelling universal MSP-based procurement of all crops from all farmers."
+    },
+    {
+        q: "With reference to national capitals around the world, consider the following statements:<br>1. The capital of Australia is Sydney, its largest and most populous city.<br>2. Astana, the capital of Kazakhstan, has retained its original name without any change since the country's independence in 1991.<br>3. Switzerland has never had an officially designated capital city; Bern serves only as the seat of the federal government by long-standing convention, not by constitutional declaration.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 and 2 only",
+            "1 only",
+            "2 only"
+        ],
+        ans: 0,
+        exp: "Switzerland's constitution does not designate any city as its official capital; Bern functions as the seat of the federal government purely by convention. Australia's capital is Canberra, not Sydney, and Kazakhstan's capital has changed names multiple times since independence, from Akmola to Astana in 1998, to Nur-Sultan in 2019, and back to Astana in 2022."
+    },
+    {
+        q: "With reference to the Kasturirangan Committee (2013) report on the Western Ghats, consider the following statements:<br>1. The Committee recommended declaring nearly 64% of the total Western Ghats area as an Ecologically Sensitive Area (ESA).<br>2. The Committee recommended permitting new thermal power plants and mining operations within the proposed Ecologically Sensitive Area, subject to environmental clearance.<br>3. The Committee classified the Western Ghats into a 'Natural Landscape' and a 'Cultural Landscape', recommending stricter regulation primarily for the Natural Landscape portion.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1 only",
+            "3 only",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "The Kasturirangan Committee did divide the Western Ghats into a 'Natural Landscape' and a 'Cultural Landscape', proposing stricter regulation mainly for the former. The 64% figure was actually recommended by the earlier Gadgil Committee, with Kasturirangan proposing a smaller area of about 37%, and the Committee in fact recommended a blanket ban on new mining, quarrying, and thermal power projects within the ESA, not conditional permission."
+    },
+    {
+        q: "With reference to the Coastal Regulation Zone (CRZ) Notification, 2019, which governs India's seas and coastline, consider the following statements:<br>1. The CRZ Notification, 2019 abolished the concept of the No Development Zone (NDZ) altogether, permitting construction right up to the High Tide Line in all categories.<br>2. The CRZ Notification, 2019 reduced the No Development Zone (NDZ) for densely populated rural areas (CRZ-III A) to 50 metres from the High Tide Line, as against 200 metres under the 2011 notification.<br>3. The CRZ Notification, 2019 classifies the entire Indian coastline uniformly under a single category, CRZ-I, irrespective of ecological sensitivity or extent of existing development.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "Only statement 2",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "The CRZ Notification, 2019 retained the concept of the No Development Zone but reduced it to 50 metres from the High Tide Line for densely populated rural areas (CRZ-III A), down from 200 metres under the 2011 notification, making statement 2 correct. The NDZ was not abolished, and the coastline continues to be classified into four broad categories (CRZ-I to CRZ-IV) with further sub-classifications based on ecological sensitivity and development status, not a single uniform category."
+    },
+    {
+        q: "With reference to the physical geography of the world's continents, consider the following statements:<br>1. Africa is the only continent through which the Equator, the Tropic of Cancer, and the Tropic of Capricorn all pass.<br>2. Asia is the only continent that lies entirely within the Northern and Eastern Hemispheres, with no territory south of the Equator.<br>3. South America is the only continent crossed by both the Equator and the Antarctic Circle.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1 only",
+            "1 and 3 only",
+            "3 only"
+        ],
+        ans: 1,
+        exp: "Africa is uniquely positioned astride the Equator and both the Tropic of Cancer and the Tropic of Capricorn, a distinction no other continent shares. Parts of the Indonesian archipelago, often reckoned within Asia, extend south of the Equator, making statement 2 incorrect, and the Antarctic Circle passes only through Antarctica and its surrounding waters, not through South America, making statement 3 incorrect as well."
+    },
+    {
+        q: "With reference to the Ken-Betwa Link Project, India's first river interlinking project, consider the following statements:<br>1. A significant portion of the project's Daudhan Dam and reservoir submergence zone falls within the Panna Tiger Reserve in Madhya Pradesh, raising concerns over the loss of tiger habitat.<br>2. The Ken-Betwa Link Project involves transferring water from the Betwa river (Madhya Pradesh) to the Ken river (Uttar Pradesh) to address water scarcity in Bundelkhand.<br>3. The Ken-Betwa Link Project was implemented without any central government funding, being financed entirely through a loan raised jointly by the Madhya Pradesh and Uttar Pradesh state governments.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "3 only",
+            "2 only",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "A large part of the Daudhan Dam's submergence zone does lie within the Panna Tiger Reserve, a central point of controversy around the project. However, water is transferred from the Ken river (not Betwa) to the water-deficit Betwa basin, the reverse of statement 2, and the Union Cabinet approved central government funding for the project in December 2021, so it was not financed solely through a state-government loan."
+    },
+    {
+        q: "With reference to Indonesia's plan to relocate its national capital, consider the following statements:<br>1. Indonesia's planned new capital, Nusantara, is being built in East Kalimantan on the island of Borneo, primarily to relieve the overcrowded and rapidly sinking city of Jakarta.<br>2. Under President Prabowo Subianto, state funding allocated to the Nusantara project for 2026 was substantially increased compared to 2024, reflecting an accelerated commitment to the project.<br>3. In 2026, Indonesia's Constitutional Court ruled that Jakarta legally remains the country's capital until the President issues a final decision formally shifting the capital to Nusantara.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "Exactly one of the statements is correct",
+            "Only statement 2",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "Nusantara is indeed being built in East Kalimantan to relieve Jakarta, which suffers from overcrowding and severe land subsidence, and Indonesia's Constitutional Court ruled in 2026 that Jakarta remains the legal capital pending a final presidential decision on relocation. However, funding for the project was sharply cut, not increased, under President Prabowo, falling from around USD 2 billion in 2024 to a fraction of that by 2026, making statement 2 incorrect."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-73 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

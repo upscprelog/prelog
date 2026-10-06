@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-40</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "With reference to the Plastic Waste Management Rules, 2016 and their subsequent amendments, consider the following statements: <br> 1. The responsibility for setting up infrastructure for segregation, collection, storage, transportation, processing and disposal of plastic waste rests solely with producers, importers and brand owners.<br>2. Waste generators are not required to segregate plastic waste at source under the Rules.<br>3. Local bodies are responsible for the development and setting up of infrastructure for segregation, collection, storage, transportation, processing and disposal of plastic waste.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "3 only",
+            "1 only",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "The Rules place on local bodies the duty to set up the infrastructure for managing plastic waste, while waste generators must segregate and store waste and hand it over to the local body. Producers, importers and brand owners carry Extended Producer Responsibility, but they are not solely responsible for infrastructure, so statements 1 and 2 are incorrect."
+    },
+    {
+        q: "With reference to the features of the Bio-Medical Waste Management Rules, 2016, consider the following statements: <br> 1. Contaminated recyclable plastic items such as tubing, catheters and urine bags are to be collected in red bags.<br>2. Waste sharps including needles are to be collected in white translucent puncture-proof containers.<br>3. Broken or discarded glassware and medicine vials are to be collected in yellow bags.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 only",
+            "3 only",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "Under the 2016 Rules, contaminated recyclable plastics go into red bags and sharps into white translucent puncture-proof containers. Glassware, vials and metallic body implants are collected in blue cardboard boxes with a blue marking, while yellow bags are meant for anatomical, soiled and similar waste, so statement 3 is incorrect."
+    },
+    {
+        q: "Assertion (A): Enterprises engaged in hazardous or inherently dangerous activities in India are held absolutely liable for harm caused by such activities.<br>Reason (R): In M.C. Mehta v. Union of India (Oleum gas leak case), the Supreme Court held that such enterprises are liable irrespective of negligence and without the exceptions available under the rule in Rylands v. Fletcher.<br>In the context of the above statements, which one of the following is correct?",
+        opts: [
+            "Both A and R are true, but R is not the correct explanation of A",
+            "A is false, but R is true",
+            "Both A and R are true, and R is the correct explanation of A",
+            "A is true, but R is false"
+        ],
+        ans: 2,
+        exp: "The principle of absolute liability for hazardous industries was evolved by the Supreme Court in the Oleum gas leak case (1987), which declined to apply the exceptions of the Rylands v. Fletcher rule. The Court's holding is exactly the reason such enterprises are treated as absolutely liable in India."
+    },
+    {
+        q: "Consider the following plastics: <br> 1. Polylactic acid (PLA)<br>2. Polyhydroxyalkanoates (PHA)<br>3. Polyethylene terephthalate (PET)<br>4. Polystyrene (PS)<br>Which of the above are biodegradable bioplastics?",
+        opts: [
+            "1 and 2 only",
+            "3 and 4 only",
+            "2 and 3 only",
+            "1, 2 and 3 only"
+        ],
+        ans: 0,
+        exp: "PLA is made from renewable biomass such as corn starch or sugarcane, and PHAs are produced by microbial fermentation; both are biodegradable bioplastics. PET and polystyrene are conventional fossil-based plastics that do not biodegrade in any meaningful timeframe."
+    },
+    {
+        q: "With reference to the regulation of noise pollution in India, consider the following statements: <br> 1. The Noise Pollution (Regulation and Control) Rules, 2000 were framed under the Air (Prevention and Control of Pollution) Act, 1981.<br>2. Under these Rules, 'night time' is defined as the period between 10:00 p.m. and 6:00 a.m.<br>3. A silence zone is an area comprising not less than 100 metres around hospitals, educational institutions and courts.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 2 and 3",
+            "Exactly one of the statements is correct",
+            "1, 2 and 3",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "The Noise Pollution (Regulation and Control) Rules, 2000 define night time as 10 p.m. to 6 a.m. and a silence zone as an area of at least 100 metres around hospitals, educational institutions and courts. The Rules were framed under the Environment (Protection) Act, 1986, not the Air Act, so statement 1 is incorrect."
+    },
+    {
+        q: "With reference to the legal framework for pollution control in India, consider the following statements: <br> 1. The Environment (Protection) Act, 1986 was enacted to implement the decisions of the UN Conference on the Human Environment held at Stockholm in 1972.<br>2. The Act empowers the Central Government to take measures for coordinating the actions of State Governments and other authorities in environmental matters.<br>3. The Central Pollution Control Board was first constituted under the Environment (Protection) Act, 1986.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "The preamble of the EPA 1986 refers to the Stockholm Conference, and the Act empowers the Centre to coordinate and take all measures for protecting the environment. The CPCB, however, was constituted in 1974 under the Water Act, 1974, and was later given powers under the Air Act, 1981, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the composition of the Central Pollution Control Board (CPCB) under the Water (Prevention and Control of Pollution) Act, 1974, which one of the following statements is correct?",
+        opts: [
+            "The Member-Secretary is appointed by the State Government of the State in which the Board's headquarters is located.",
+            "The Chairman is elected by the members of the Board from among themselves for a fixed term.",
+            "The Board consists exclusively of serving government officials, with no provision for non-official members.",
+            "The Chairman is nominated by the Central Government, and the Board includes persons nominated from among the members of State Pollution Control Boards."
+        ],
+        ans: 3,
+        exp: "Under Section 3 of the Water Act, the Central Government nominates the Chairman and appoints the Member-Secretary, and the Board includes nominees from among the members of State Boards, non-officials representing interests such as agriculture, fishery and industry, and representatives of Central Government companies. The Board is therefore not made up only of officials, and neither its Chairman nor its Member-Secretary is elected or appointed by a State."
+    },
+    {
+        q: "With reference to electronic waste in India, consider the following statements: <br> 1. The E-Waste (Management) Rules place Extended Producer Responsibility obligations on producers of electrical and electronic equipment.<br>2. Urban mining refers to the recovery of valuable metals from discarded electronics and similar products.<br>3. A significant share of e-waste in India is handled by the informal recycling sector.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 and 2 only",
+            "2 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 3,
+        exp: "The e-waste rules rest on EPR, under which producers must ensure collection and environmentally sound recycling of their end-of-life products. Urban mining recovers metals such as gold, silver and copper from e-waste, and informal recyclers still handle a large share of e-waste in India, often with hazardous practices."
+    },
+    {
+        q: "With reference to the legal and policy framework on hazardous wastes, consider the following statements: <br> 1. The Hazardous Wastes (Management and Handling) Rules were first notified in 1989 under the Environment (Protection) Act, 1986.<br>2. India is a party to the Basel Convention on the Control of Transboundary Movements of Hazardous Wastes and their Disposal.<br>3. The Basel Convention prohibits all transboundary movement of hazardous wastes between countries.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the above",
+            "Exactly one of the statements is correct",
+            "Both 1 and 2",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "The first hazardous waste rules were notified in 1989 under the EPA 1986, and India acceded to the Basel Convention in 1992. The Convention regulates and controls transboundary movement through prior informed consent and environmentally sound management; it does not impose a blanket prohibition, so statement 3 is incorrect."
+    },
+    {
+        q: "Producer Responsibility Organisations (PROs) and the Deposit Refund Scheme were introduced as new instruments in India's e-waste regulation by which one of the following?",
+        opts: [
+            "Hazardous Wastes (Management, Handling and Transboundary Movement) Rules, 2008",
+            "E-Waste (Management and Handling) Rules, 2011",
+            "E-Waste (Management) Rules, 2022",
+            "E-Waste (Management) Rules, 2016"
+        ],
+        ans: 3,
+        exp: "The E-Waste (Management) Rules, 2016 introduced PROs, e-retailers, refurbishers and the Deposit Refund Scheme, brought CFLs and other mercury-containing lamps within their scope, and shifted to pan-India EPR authorisation by the CPCB. The 2011 Rules did not contain these instruments, and the 2022 Rules later added EPR certificates."
+    },
+    {
+        q: "With reference to the National Green Tribunal (NGT), which adjudicates environmental disputes and helps enforce pollution control laws in India, consider the following statements: <br> 1. It has jurisdiction over civil cases arising under the Wildlife (Protection) Act, 1972.<br>2. It is not bound by the procedure of the Code of Civil Procedure, 1908, and is guided by the principles of natural justice.<br>3. Appeals against its orders lie before the concerned High Court.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All three statements are correct",
+            "1 and 2 only",
+            "Exactly one of the statements is correct",
+            "None of the statements are correct"
+        ],
+        ans: 2,
+        exp: "Under the NGT Act, 2010 the Tribunal is not bound by the Code of Civil Procedure and follows principles of natural justice. Its jurisdiction covers seven specified laws, which do not include the Wildlife (Protection) Act, 1972, and appeals against its orders lie to the Supreme Court, so statements 1 and 3 are incorrect."
+    },
+    {
+        q: "With reference to the powers of authorities under the Air (Prevention and Control of Pollution) Act, 1981, consider the following statements: <br> 1. The State Government, in consultation with the State Pollution Control Board, may declare any area within the State as an air pollution control area.<br>2. State Pollution Control Boards lay down standards for emission of air pollutants from industrial plants and automobiles in consultation with the Central Pollution Control Board.<br>3. In an air pollution control area, the State Government may prohibit the use of any fuel other than an approved fuel.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "Under the Air Act, the State Government declares air pollution control areas after consulting the SPCB and can restrict fuels to approved ones in such areas. The SPCB lays down emission standards in consultation with the CPCB, which itself sets the ambient air quality standards. All three statements are therefore correct."
+    },
+    {
+        q: "With reference to the management of municipal solid waste, consider the following statements: <br> 1. Anaerobic decomposition of organic waste in landfills and dumpsites produces methane, a potent greenhouse gas.<br>2. Composting of organic waste is primarily an anaerobic process that requires the complete absence of oxygen.<br>3. Incineration of mixed municipal waste has no potential to cause air pollution if the waste is burnt at high temperatures.<br>How many of the statements given above are correct?",
+        opts: [
+            "Only two statements",
+            "None of the statements",
+            "Only one statement",
+            "All three statements"
+        ],
+        ans: 2,
+        exp: "Landfills and dumpsites are significant anthropogenic sources of methane because organic waste decomposes without oxygen. Composting is chiefly an aerobic process, and incineration of mixed waste can still emit particulates, acid gases, heavy metals and dioxins, so only statement 1 is correct."
+    },
+    {
+        q: "With reference to the evolution of biomedical waste regulation in India, consider the following statements: <br> 1. The first rules on bio-medical waste in India were framed in 1998 under the Water (Prevention and Control of Pollution) Act, 1974.<br>2. The Bio-Medical Waste Management Rules, 2016 extended their coverage to vaccination camps, blood donation camps and surgical camps.<br>3. The 2016 Rules prescribe a colour-coded segregation system with yellow, red, white and blue categories.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 and 2 only",
+            "3 only",
+            "2 and 3 only"
+        ],
+        ans: 3,
+        exp: "The 2016 Rules widened coverage to camps and replaced the earlier ten-category system with four colour-coded categories. The first Bio-Medical Waste (Management and Handling) Rules of 1998 were notified under the Environment (Protection) Act, 1986, not the Water Act, so statement 1 is incorrect."
+    },
+    {
+        q: "With reference to the challenges in biomedical waste management in India, consider the following statements: <br> 1. Poor segregation at source leads to mixing of infectious and general waste, increasing the quantity of waste that needs costly treatment.<br>2. Deep burial of biomedical waste is permitted in all urban areas where a common treatment facility is not available.<br>3. Incineration of chlorinated plastics can release dioxins and furans.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 1",
+            "None of the above",
+            "Only two of the statements are correct",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "Mixing of waste streams multiplies the volume needing special treatment, and burning chlorinated plastics produces dioxins and furans, which is why the Rules phase them out. Deep burial is allowed only in rural or remote areas with prior approval and only for certain categories such as anatomical waste, so statement 2 is incorrect."
+    },
+    {
+        q: "With reference to the National Clean Air Programme (NCAP) of India, consider the following statements: <br> 1. It was launched in 2019 as a time-bound, national-level strategy to tackle air pollution in the country.<br>2. It is a statutory framework that prescribes penal action against cities failing to meet the targets.<br>3. Its targets are confined only to the cities of the Delhi National Capital Region.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 only",
+            "2 only",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "NCAP was launched in January 2019 as a time-bound national strategy, initially aiming at a 20-30% reduction in particulate matter concentrations by 2024 over the 2017 base year, with targets later revised. It is not legally binding and has no penal provisions, and it covers non-attainment cities across the country rather than only Delhi-NCR."
+    },
+    {
+        q: "With reference to the evolution of air pollution control in India, consider the following statements: <br> 1. The Air (Prevention and Control of Pollution) Act, 1981 was enacted in the backdrop of decisions taken at the Stockholm Conference of 1972.<br>2. The Air Act, 1981 was enacted before the Water Act, 1974.<br>3. Under the Air Act, 1981, the Central Pollution Control Board declares the air pollution control areas in a State.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "3 only",
+            "2 only",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "The preamble of the Air Act, 1981 refers to the Stockholm Conference decisions. The Water Act of 1974 came first, and air pollution control areas are declared by the State Government in consultation with the State Pollution Control Board, not by the CPCB."
+    },
+    {
+        q: "With reference to the Hazardous and Other Wastes (Management and Transboundary Movement) Rules, 2016, consider the following statements: <br> 1. Authorisation to occupiers for handling hazardous waste is granted in all cases by the Central Pollution Control Board.<br>2. The State Pollution Control Board or the Pollution Control Committee grants and renews authorisation to the occupier for generation, storage, treatment and disposal of hazardous waste.<br>3. An occupier may store hazardous waste at the generation site for an indefinite period without any time limit.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 only",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "Under the 2016 Rules, authorisation is granted by the SPCB or PCC, which is also the primary enforcing authority at the State level. The CPCB plays a coordinating and guideline role rather than granting authorisations in all cases, and the Rules restrict storage of hazardous waste to a fixed period, so statements 1 and 3 are incorrect."
+    },
+    {
+        q: "Which one of the following pairs of hazardous waste and its typical hazardous constituent is NOT correctly matched?",
+        opts: [
+            "Chrome plating baths : Hexavalent chromium",
+            "Used lead-acid batteries : Lead and sulphuric acid",
+            "Spent fluorescent lamps : Mercury",
+            "Spent pot lining of aluminium smelters : Polychlorinated biphenyls"
+        ],
+        ans: 3,
+        exp: "Spent pot lining from aluminium smelters is hazardous because it contains fluorides and cyanides, not PCBs, which are associated with old transformer and capacitor oils. Used lead-acid batteries contain lead and acid, chrome plating baths contain hexavalent chromium, and fluorescent lamps contain mercury."
+    },
+    {
+        q: "Consider the following pairs of areas and the ambient noise standards for day time (6:00 a.m. to 10:00 p.m.) under the Noise Pollution (Regulation and Control) Rules, 2000: <br>Area : Day time limit<br>1. Residential area : 55 dB(A)<br>2. Silence zone : 50 dB(A)<br>3. Industrial area : 70 dB(A)<br>How many of the pairs given above are correctly matched?",
+        opts: [
+            "All three pairs",
+            "Only one pair",
+            "None of the pairs",
+            "Only two pairs"
+        ],
+        ans: 3,
+        exp: "The day time limits are 75 dB(A) for industrial areas, 65 dB(A) for commercial areas, 55 dB(A) for residential areas and 50 dB(A) for silence zones. Pairs 1 and 2 are correct, while 70 dB(A) is the night time limit for industrial areas, so pair 3 is wrong."
+    },
+    {
+        q: "Assertion (A): The Bio-Medical Waste Management Rules, 2016 require the phasing out of chlorinated plastic bags and gloves used for bio-medical waste.<br>Reason (R): Burning of chlorinated plastics releases dioxins and furans, which are persistent and toxic pollutants.<br>In the context of the above statements, which one of the following is correct?",
+        opts: [
+            "A is true, but R is false",
+            "Both A and R are true, and R is the correct explanation of A",
+            "A is false, but R is true",
+            "Both A and R are true, but R is not the correct explanation of A"
+        ],
+        ans: 1,
+        exp: "The 2016 Rules, as amended in 2018, require chlorinated plastic bags (excluding blood bags) and gloves to be phased out. The purpose is to eliminate dioxin and furan emissions when such waste is incinerated, so R directly explains A."
+    },
+    {
+        q: "With reference to soil pollution, consider the following statements: <br> 1. India has a dedicated Soil Pollution (Prevention and Control) Act on the lines of the Air Act and the Water Act.<br>2. Phytoremediation relies exclusively on microorganisms to degrade contaminants in soil.<br>3. Persistent heavy metals in soil can accumulate in crops and enter the food chain.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "3 only",
+            "Both 1 and 3",
+            "Only statement 1"
+        ],
+        ans: 1,
+        exp: "Heavy metals such as cadmium and lead persist in soils, are taken up by crops and bioaccumulate along the food chain. India has no dedicated soil pollution law, which is dealt with under the EPA 1986 and waste rules. Phytoremediation uses plants, not microorganisms alone (that would be bioremediation)."
+    },
+    {
+        q: "With reference to the Solid Waste Management Rules, 2026, consider the following statements: <br> 1. The Rules exempt rural local bodies and apply only to urban local bodies.<br>2. Every State and Union Territory is required to constitute a State-level committee, chaired by the Chief Secretary or administrator, to coordinate implementation.<br>3. State Pollution Control Boards and Pollution Control Committees are empowered to levy environmental compensation for violations.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "All of the above",
+            "Statement 2 alone",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "The 2026 Rules provide for a State or UT level committee under the Chief Secretary or administrator and empower SPCBs and PCCs to levy environmental compensation on the polluter pays principle. They define roles for both urban and rural local bodies, so statement 1 is incorrect."
+    },
+    {
+        q: "Consider the following: <br> 1. Ammonia<br>2. Lead<br>3. Carbon dioxide<br>4. Ground-level ozone<br>Which of the above are among the pollutants for which the National Air Quality Index (AQI) of India is calculated?",
+        opts: [
+            "1 and 3 only",
+            "1, 2 and 4 only",
+            "1, 2, 3 and 4",
+            "2, 3 and 4 only"
+        ],
+        ans: 1,
+        exp: "The National AQI, launched in 2014, covers eight pollutants: PM10, PM2.5, nitrogen dioxide, sulphur dioxide, carbon monoxide, ozone, ammonia and lead. Carbon dioxide, a greenhouse gas, is not one of the pollutants included in the AQI computation."
+    },
+    {
+        q: "With reference to the reforms in plastic waste regulation in India, consider the following statements: <br> 1. The ban on identified single-use plastic items effective from 1 July 2022 extends to all forms of plastic packaging.<br>2. The minimum thickness of plastic carry bags was raised from 50 microns to 75 microns in September 2021 and to 120 microns from December 2022.<br>3. The Extended Producer Responsibility guidelines of 2022 classify plastic packaging into four categories.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 only",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "The Plastic Waste Management Amendment Rules raised carry bag thickness in two stages, and the 2022 EPR guidelines divide plastic packaging into four categories (rigid, flexible single-layer, multilayered and compostable). The July 2022 ban applies only to a list of identified single-use plastic items, not to all plastic packaging, so statement 1 is incorrect."
+    },
+    {
+        q: "With reference to the challenges of air pollution in India, consider the following statements: <br> 1. Ground-level ozone is a primary pollutant directly emitted from vehicle exhausts.<br>2. A temperature inversion helps in the vertical dispersal of pollutants by allowing warm air near the surface to rise freely.<br>3. Stubble burning is the principal source of particulate pollution in Delhi throughout the year.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1, 2 and 3",
+            "None of the statements is correct",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "Ground-level ozone is a secondary pollutant formed by photochemical reactions between NOx and volatile organic compounds in sunlight. A temperature inversion acts as a lid that traps pollutants near the surface, and stubble burning is a seasonal contributor mainly in the post-monsoon period, not a year-round principal source."
+    },
+    {
+        q: "With reference to the constitutional and legal provisions relevant to plastic waste in India, consider the following statements: <br> 1. Article 48A, which directs the State to protect and improve the environment, is a Fundamental Duty contained in Part IV-A of the Constitution.<br>2. The Twelfth Schedule lists 'public health, sanitation conservancy and solid waste management' among the functions of municipalities.<br>3. Parliament has enacted a dedicated Plastic Waste Management Act specifically to regulate plastic waste.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 only",
+            "1 only",
+            "3 only"
+        ],
+        ans: 1,
+        exp: "Entry 6 of the Twelfth Schedule assigns public health, sanitation conservancy and solid waste management to municipalities. Article 48A is a Directive Principle in Part IV, while the corresponding Fundamental Duty is Article 51A(g). Plastic waste is regulated through the Plastic Waste Management Rules framed under the EPA 1986, not by a dedicated parliamentary Act."
+    },
+    {
+        q: "With reference to the legal and policy framework for biomedical waste in India, consider the following statements: <br> 1. Under the Bio-Medical Waste Management Rules, 2016, an occupier shall not set up an on-site treatment and disposal facility if a common bio-medical waste treatment facility is available within a distance of 75 km.<br>2. The Bio-Medical Waste Management (Amendment) Rules, 2018 extended the deadline for phasing out chlorinated plastic bags (excluding blood bags) and gloves to 27 March 2019.<br>3. The 2016 Rules apply to all persons who generate, collect, receive, store, transport, treat, dispose or handle bio-medical waste in any form.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1 only",
+            "Statement 3 alone",
+            "All three statements are correct"
+        ],
+        ans: 3,
+        exp: "The 2016 Rules bar on-site treatment where a CBWTF exists within 75 km and apply to every person handling bio-medical waste in any form. The 2018 Amendment moved the phase-out date for chlorinated plastic bags (excluding blood bags) and gloves from March 2018 to 27 March 2019, so all three statements are correct."
+    },
+    {
+        q: "With reference to plastics, consider the following statements: <br> 1. Polyethylene terephthalate (PET) is a thermoplastic polyester.<br>2. Thermosetting plastics can be repeatedly melted and remoulded on heating.<br>3. Microplastics are generally defined as plastic particles smaller than 5 millimetres.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 1 alone",
+            "Only two of the statements are correct",
+            "None of the statements are correct",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "PET is a thermoplastic polyester widely used in bottles and fibres, and microplastics are conventionally defined as particles below 5 mm. Thermosetting plastics such as Bakelite set permanently after the first moulding and cannot be remelted, so statement 2 is incorrect."
+    },
+    {
+        q: "Consider the following pairs: <br>Component of electronic waste : Associated hazardous substance<br>1. Glass of cathode ray tubes : Lead<br>2. Rechargeable nickel-cadmium batteries : Cadmium<br>3. Lithium-ion battery cells : Mercury<br>How many of the pairs given above are correctly matched?",
+        opts: [
+            "Only two pairs",
+            "Only one pair",
+            "All three pairs",
+            "None of the pairs"
+        ],
+        ans: 0,
+        exp: "Leaded glass in CRT monitors and televisions is a major source of lead, and Ni-Cd batteries contain cadmium. Mercury is typically associated with items such as switches, relays and fluorescent backlights, not with lithium-ion cells, so pair 3 is incorrectly matched."
+    },
+    {
+        q: "With reference to the evolution of solid waste management regulation in India, consider the following statements: <br> 1. The Municipal Solid Wastes (Management and Handling) Rules, 2000 were notified under the Environment (Protection) Act, 1986.<br>2. These Rules were framed following the directions of the Supreme Court in the Almitra H. Patel case on municipal solid waste.<br>3. The Swachh Bharat Mission (Urban) was launched in 2014 by the Ministry of Environment, Forest and Climate Change.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "2 and 3 only",
+            "Statement 2 alone",
+            "Both 1 and 3"
+        ],
+        ans: 0,
+        exp: "The 2000 MSW Rules were notified under the EPA 1986 in the wake of the Supreme Court's directions in the Almitra H. Patel litigation on urban waste. The Swachh Bharat Mission (Urban) is run by the Ministry of Housing and Urban Affairs, not the MoEFCC, so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to the regulation of water pollution in India, consider the following statements: <br> 1. Consent to discharge sewage or trade effluent into a stream under the Water Act, 1974 is granted by the Central Pollution Control Board in all States.<br>2. The Water (Prevention and Control of Pollution) Cess Act, 1977 provides for levying a cess on water consumed by specified industries and local authorities.<br>3. State Pollution Control Boards can issue directions to close an industry or stop its electricity or water supply for violation of the Act.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 3",
+            "Statement 3 alone",
+            "Only one of the statements is correct",
+            "2 and 3 only"
+        ],
+        ans: 3,
+        exp: "The Cess Act, 1977 allows a cess on water consumption to augment the resources of the Pollution Control Boards. Under Section 33A of the Water Act, Boards can direct closure, prohibition or regulation of an industry and stoppage of electricity or water. Consent to discharge is granted by the State Boards, so statement 1 is wrong."
+    },
+    {
+        q: "Which one of the following is a distinctive feature introduced by the Solid Waste Management Rules, 2026 as compared with the Solid Waste Management Rules, 2016?",
+        opts: [
+            "Replacement of the Environment (Protection) Act, 1986 as the parent law by a dedicated Solid Waste Management Act passed by Parliament.",
+            "A reduction in source segregation requirements from the earlier three streams to only two streams, namely wet and dry waste.",
+            "Permission for existing legacy dumpsites to continue operating indefinitely without any timeline for biomining or remediation.",
+            "Extended Bulk Waste Generator Responsibility, under which bulk generators must process wet waste on-site or obtain a certificate of responsibility for off-site processing."
+        ],
+        ans: 3,
+        exp: "The 2026 Rules, notified under the EPA 1986 and effective from 1 April 2026, introduce Extended Bulk Waste Generator Responsibility along with environmental compensation on the polluter pays principle. They expand segregation to four streams and mandate time-bound biomining and bioremediation of legacy waste, so the other options misstate the changes."
+    },
+    {
+        q: "With reference to the evolution of hazardous waste regulation in India, consider the following statements: <br> 1. The first Hazardous Wastes Rules were notified before the Bhopal gas tragedy of 1984.<br>2. The Hazardous Wastes (Management and Handling) Rules, 1989 were framed under the Factories Act, 1948.<br>3. The Hazardous and Other Wastes Rules, 2016 superseded the Hazardous Wastes Rules of 2008.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 only",
+            "1 and 3 only",
+            "3 only"
+        ],
+        ans: 3,
+        exp: "The 2016 Rules superseded the Hazardous Wastes (Management, Handling and Transboundary Movement) Rules, 2008. The first hazardous waste rules came in 1989, after the Bhopal tragedy and under the Environment (Protection) Act, 1986, not the Factories Act, so statements 1 and 2 are incorrect."
+    },
+    {
+        q: "With reference to the legal framework relevant to soil pollution in India, consider the following statements: <br> 1. The Insecticides Act, 1968 was enacted under the Environment (Protection) Act, 1986.<br>2. The Fertiliser (Control) Order, 1985 is issued under the Environment (Protection) Act, 1986.<br>3. The Soil Health Card Scheme was launched in 2005.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements is correct",
+            "2 and 3 only",
+            "1 and 2 only",
+            "3 only"
+        ],
+        ans: 0,
+        exp: "The Insecticides Act, 1968 predates the EPA 1986 and so cannot have been enacted under it. The Fertiliser (Control) Order, 1985 is issued under the Essential Commodities Act, 1955, and the Soil Health Card Scheme was launched in 2015, not 2005, so none of the statements is correct."
+    },
+    {
+        q: "Which one of the following statements best reflects the evolution of water pollution regulation in India?",
+        opts: [
+            "The Water Cess Act, 1977 was enacted before the Water Act, 1974 to fund pollution control activities.",
+            "The Water Act, 1974 was enacted after the Environment (Protection) Act, 1986 to fill gaps in the umbrella legislation.",
+            "The Central Pollution Control Board was established before the enactment of the Water Act, 1974 and later got statutory backing under it.",
+            "The Water Act, 1974 was the first comprehensive legislation for prevention and control of water pollution, and it led to the creation of the Central and State Pollution Control Boards."
+        ],
+        ans: 3,
+        exp: "The Water Act, 1974 was the first comprehensive law on water pollution in India, and it created the CPCB (1974) and State Boards. The Cess Act followed in 1977 and the EPA in 1986, so the other options reverse the sequence."
+    },
+    {
+        q: "With reference to the Hazardous and Other Wastes (Management and Transboundary Movement) Rules, 2016, consider the following statements: <br> 1. They have been framed under the Environment (Protection) Act, 1986.<br>2. They prohibit the import of hazardous wastes for final disposal.<br>3. They place responsibility on the 'occupier' for safe and environmentally sound management of the hazardous waste generated.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "The 2016 Rules are subordinate legislation under the EPA 1986. They prohibit import of hazardous waste for disposal, and the occupier who generates or handles such waste bears the responsibility for its safe management. All three statements are therefore correct."
+    },
+    {
+        q: "With reference to the efforts to clean the river Ganga, consider the following statements: <br> 1. The National Mission for Clean Ganga is the implementing arm of the National Council for Rejuvenation, Protection and Management of River Ganga.<br>2. The Namami Gange Programme is a Centrally Sponsored Scheme in which the cost is shared between the Centre and the States.<br>3. The National Ganga Council is chaired by the Prime Minister.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 3 alone",
+            "1 and 3 only",
+            "None of the statements are correct",
+            "All three statements are correct"
+        ],
+        ans: 1,
+        exp: "The NMCG implements the programmes of the National Ganga Council, which is headed by the Prime Minister. Namami Gange, launched in 2014, is a Central Sector Scheme funded by the Centre rather than a Centrally Sponsored Scheme with cost-sharing, so statement 2 is incorrect."
+    },
+    {
+        q: "With reference to the Central Pollution Control Board (CPCB) of India, consider the following statements: <br> 1. It was established under the Environment (Protection) Act, 1986.<br>2. It is empowered to lay down standards for the quality of air.<br>3. Its Chairman is appointed by the State Government of the State where its headquarters is located.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "All three statements are correct",
+            "Only two of the statements are correct",
+            "None of the above"
+        ],
+        ans: 0,
+        exp: "Under the Air (Prevention and Control of Pollution) Act, 1981, the CPCB lays down standards for the quality of air. It was constituted in 1974 under the Water Act, not the EPA 1986, and its Chairman is nominated by the Central Government, so statements 1 and 3 are incorrect."
+    },
+    {
+        q: "With reference to the characteristics of hazardous wastes, consider the following statements: <br> 1. Hazardous wastes may exhibit characteristics such as ignitability, corrosivity, reactivity and toxicity.<br>2. Waste generated from households can never be classified as hazardous waste.<br>3. A waste is hazardous only when it is in liquid form.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 2",
+            "None of the above",
+            "Only one of the statements is correct",
+            "Both 1 and 2"
+        ],
+        ans: 2,
+        exp: "Hazardous waste is identified by properties such as ignitability, corrosivity, reactivity and toxicity. Hazardous waste can be solid, liquid or gaseous, and households also generate it (for example batteries, paints and medicines), which is why solid waste rules recognise domestic hazardous waste as a category."
+    },
+    {
+        q: "With reference to air pollution governance in the National Capital Region, consider the following statements: <br> 1. The Commission for Air Quality Management in National Capital Region and Adjoining Areas was established through an Act of Parliament in 2021.<br>2. The Commission's jurisdiction is limited to the National Capital Territory of Delhi.<br>3. The Commission's constitution led to the dissolution of the Central Pollution Control Board.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "3 only",
+            "1 and 3 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "The Commission for Air Quality Management Act, 2021 created a statutory Commission for the NCR and adjoining areas of Haryana, Punjab, Rajasthan and Uttar Pradesh. It replaced the Environment Pollution (Prevention and Control) Authority but did not affect the CPCB, and its jurisdiction extends well beyond Delhi."
+    },
+    {
+        q: "With reference to the evolution of e-waste regulation in India, consider the following statements: <br> 1. The first rules specifically dealing with e-waste were notified in 2016.<br>2. The E-Waste (Management) Rules, 2022 did away with the principle of Extended Producer Responsibility.<br>3. The 2022 Rules introduced a system of EPR certificates linked to the recycling and refurbishing of e-waste.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "3 only",
+            "Only two of the statements are correct",
+            "Both 2 and 3"
+        ],
+        ans: 1,
+        exp: "The E-Waste (Management) Rules, 2022, effective from April 2023, strengthened EPR by introducing EPR certificates generated through recycling and refurbishing. The first dedicated e-waste rules were the E-Waste (Management and Handling) Rules, 2011 (in force from 2012), which themselves introduced EPR, so statements 1 and 2 are incorrect."
+    },
+    {
+        q: "Assertion (A): The Water (Prevention and Control of Pollution) Act, 1974 was enacted by Parliament even though the subject of water falls primarily in the State List.<br>Reason (R): Under Article 252 of the Constitution, Parliament can legislate on a State List subject for the States concerned if the legislatures of two or more States pass resolutions requesting it.<br>In the context of the above statements, which one of the following is correct?",
+        opts: [
+            "A is true, but R is false",
+            "Both A and R are true, and R is the correct explanation of A",
+            "Both A and R are true, but R is not the correct explanation of A",
+            "A is false, but R is true"
+        ],
+        ans: 1,
+        exp: "Parliament enacted the Water Act, 1974 after several State legislatures passed resolutions under Article 252 empowering it to do so. The Act could then be adopted by other States through their own resolutions. Article 252 therefore directly explains how Parliament was able to legislate on this matter."
+    },
+    {
+        q: "Which one of the following statements about the evolution of plastic waste regulation in India is correct?",
+        opts: [
+            "The Plastic Waste Rules of 2016 extended their application from municipal areas to rural areas and brought producers, importers and brand owners under Extended Producer Responsibility.",
+            "The Plastic Waste Management Rules, 2016 confined their applicability to municipal areas and excluded rural areas.",
+            "The Recycled Plastics (Manufacture and Usage) Rules, 1999 were the first rules to make Extended Producer Responsibility mandatory for brand owners.",
+            "The Plastic Waste (Management and Handling) Rules, 2011 were notified under the Water (Prevention and Control of Pollution) Act, 1974."
+        ],
+        ans: 0,
+        exp: "The Plastic Waste Management Rules, 2016 widened the jurisdiction beyond municipal limits to rural areas and introduced EPR for producers, importers and brand owners. The 1999 Rules dealt with recycled plastic carry bags and containers, and the 2011 Rules, like the others, were notified under the EPA 1986 and not the Water Act."
+    },
+    {
+        q: "With reference to the constitutional provisions on environmental protection in India, consider the following statements: <br> 1. The right to a clean environment is expressly mentioned in the text of Article 21.<br>2. Article 48A, which directs the State to protect and improve the environment, is enforceable through courts.<br>3. Article 48A was inserted into the Constitution by the Forty-fourth Amendment.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 only",
+            "2 and 3 only",
+            "None of the statements is correct"
+        ],
+        ans: 3,
+        exp: "The right to a clean environment is not expressly stated in Article 21; the Supreme Court has read it into the right to life. Article 48A is a Directive Principle and hence non-justiciable, and it was inserted by the Forty-second Amendment (1976) along with Article 51A(g). None of the statements is therefore correct."
+    },
+    {
+        q: "Assertion (A): The dominance of the informal recycling sector is a major challenge in India's e-waste management.<br>Reason (R): The informal sector in India is legally bound by Extended Producer Responsibility obligations at par with producers of electrical and electronic equipment.<br>In the context of the above statements, which one of the following is correct?",
+        opts: [
+            "Both A and R are true, but R is not the correct explanation of A",
+            "A is true, but R is false",
+            "A is false, but R is true",
+            "Both A and R are true, and R is the correct explanation of A"
+        ],
+        ans: 1,
+        exp: "A large share of e-waste in India is handled by informal recyclers, who often use open burning and acid leaching that release toxic substances and lose valuable materials. EPR obligations under the E-Waste Rules fall on producers, not on informal recyclers, who operate outside the authorised system, so the Reason is false."
+    },
+    {
+        q: "Which one of the following best describes the shift in approach introduced by the Hazardous and Other Wastes (Management and Transboundary Movement) Rules, 2016 compared to the earlier regime?",
+        opts: [
+            "Replacement of the Environment (Protection) Act, 1986 as the parent law with a separate dedicated Act for hazardous wastes.",
+            "Transfer of all authorisation powers from State Boards to the Central Pollution Control Board for uniform enforcement across States.",
+            "Greater emphasis on a waste hierarchy of prevention, reuse, recycling and recovery, and the inclusion of 'other wastes' within the regulatory framework.",
+            "A complete ban on all industrial processes that generate hazardous waste, with immediate closure of units already operating."
+        ],
+        ans: 2,
+        exp: "The 2016 Rules moved from a disposal-centred approach towards resource recovery and the waste hierarchy, and extended the framework to 'other wastes' such as waste tyres and certain scrap. They remain subordinate legislation under the EPA 1986, SPCBs continue to grant authorisations, and no blanket ban on waste-generating industries was imposed."
+    },
+    {
+        q: "Which one of the following statements regarding the global effort to address plastic pollution is correct?",
+        opts: [
+            "The treaty text was finalised and adopted at the fifth negotiating session held at Busan in late 2024 and was opened for signature.",
+            "The negotiations originate from a 2022 resolution of the United Nations Environment Assembly that set up an intergovernmental negotiating committee to develop a legally binding instrument on plastic pollution, including in the marine environment.",
+            "Negotiations are conducted under the Basel Convention Secretariat, and the proposed instrument is meant to cover only hazardous plastic waste moving across borders.",
+            "The negotiations are led by the International Maritime Organization and are limited to plastic litter discharged from ships at sea."
+        ],
+        ans: 1,
+        exp: "UNEA resolution 5/14 (March 2022) mandated an Intergovernmental Negotiating Committee to develop an international legally binding instrument on plastic pollution, covering the full life cycle of plastics. The process is run under UNEP, not the Basel Convention or the IMO, and the Busan session in 2024 ended without a finalised treaty."
+    },
+    {
+        q: "With reference to the Solid Waste Management Rules, 2026, consider the following statements: <br> 1. They have been notified under the Environment (Protection) Act, 1986 and supersede the Solid Waste Management Rules, 2016.<br>2. They make four-stream segregation of solid waste at source mandatory.<br>3. They permit landfilling of all categories of waste, including recyclable waste, without restriction.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "3 only",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "The SWM Rules, 2026, notified by the MoEFCC under the EPA 1986 and effective from 1 April 2026, replace the 2016 Rules and require segregation into four streams (wet, dry, sanitary and special care waste). They restrict landfilling to inert and non-recoverable waste and mandate remediation of legacy dumpsites, so statement 3 is incorrect."
+    },
+    {
+        q: "Under the Noise Pollution (Regulation and Control) Rules, 2000, a State Government may permit the use of loudspeakers or public address systems during night hours on cultural or religious festive occasions, subject to which one of the following limits?",
+        opts: [
+            "Not beyond 12 midnight, for a period not exceeding 15 days in all during a calendar year",
+            "Not beyond 12 midnight, for a period not exceeding 30 days in all during a calendar year",
+            "Not beyond 1 a.m., for a period not exceeding 15 days in all during a calendar year",
+            "Not beyond 11 p.m., for a period not exceeding 10 days in all during a calendar year"
+        ],
+        ans: 0,
+        exp: "The Rules prohibit loudspeakers at night (10 p.m. to 6 a.m.) except in closed premises, but allow the State Government to relax this on cultural or religious festive occasions up to 12 midnight for not more than 15 days in a calendar year. The other options alter either the time limit or the number of days."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-40 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

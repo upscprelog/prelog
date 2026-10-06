@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-46</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "With reference to the office of the Vice-President of India, consider the following statements: <br> 1. He is the ex-officio Chairman of the Rajya Sabha but is not a member of it.<br>2. He has a casting vote in the Rajya Sabha, which he can exercise only when there is an equality of votes.<br>3. While acting as the President, he continues to perform the duties of the Chairman of the Rajya Sabha.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 2,
+        exp: "The Vice-President is the ex-officio Chairman of the Rajya Sabha without being its member, and he votes only to break a tie (casting vote). When he acts as President or discharges the President's functions, he does not perform the duties of the Rajya Sabha Chairman and receives the President's emoluments. Hence statement 3 is incorrect."
+    },
+    {
+        q: "With reference to the Attorney General of India, consider the following statements: <br> 1. He has the right to vote in the proceedings of the Houses of Parliament in which he speaks.<br>2. Only a sitting or retired Judge of a High Court can be appointed as Attorney General.<br>3. He holds office during the pleasure of the President and has no fixed term of office.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "3 only",
+            "1 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "Under Article 88, the Attorney General may speak in and take part in the proceedings of either House and joint sittings, but has no right to vote. Under Article 76, a person qualified to be a Supreme Court Judge, which includes a distinguished jurist or an advocate of ten years' standing in a High Court, is eligible. He holds office during the pleasure of the President and the Constitution fixes no term for him."
+    },
+    {
+        q: "With reference to the appointment of Ministers in the Union Government, consider the following statements: <br> 1. A person who is not a member of either House of Parliament can be appointed a Minister for a maximum period of one year.<br>2. A Minister who is not a member of either House for six consecutive months ceases to be a Minister at the end of that period.<br>3. Only a member of the Lok Sabha is eligible to be appointed as a Minister.<br>Which one of the statements given above is correct?",
+        opts: [
+            "1 and 3 only",
+            "2 only",
+            "1 only",
+            "3 only"
+        ],
+        ans: 1,
+        exp: "Article 75(5) provides that a Minister who for any period of six consecutive months is not a member of either House of Parliament ceases to be a Minister at the end of that period. The limit is six months, not one year, and a Minister may be drawn from either House, so statements 1 and 3 are incorrect."
+    },
+    {
+        q: "When the Vice-President is acting as the President of India, who performs the duties of the Chairman of the Rajya Sabha?",
+        opts: [
+            "The senior-most member of the Rajya Sabha",
+            "The Leader of the House in the Rajya Sabha",
+            "The Speaker of the Lok Sabha",
+            "The Deputy Chairman of the Rajya Sabha"
+        ],
+        ans: 3,
+        exp: "Under Article 91, when the office of Chairman is vacant or he is acting as President, the Deputy Chairman performs the duties of the Chairman. The Deputy Chairman is elected by the Rajya Sabha from among its members. The Speaker belongs to the Lok Sabha and has no role in the Rajya Sabha's presiding arrangements."
+    },
+    {
+        q: "With reference to the reforms relating to the Council of Ministers introduced by the 91st Constitutional Amendment Act, 2003, consider the following statements: <br> 1. The ceiling on the size of the Council of Ministers applies to the Union and the States alike, with no minimum size prescribed for the Council of Ministers of any State.<br>2. A member of the legislature disqualified on the ground of defection can be appointed a Minister immediately after disqualification.<br>3. The Amendment retained the protection against disqualification in case of a split by one-third of the members of a legislature party.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "1 and 3 only",
+            "None of the statements is correct",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "The 91st Amendment prescribes a ceiling of 15 per cent for the Union and States, but Article 164(1A) also fixes a minimum of 12 ministers for a State. A member disqualified for defection is barred from holding a ministerial post until re-elected or until the term ends (Articles 75(1B), 164(1B)). The Amendment also deleted the exemption for a one-third split, retaining only the two-thirds merger provision. Hence none is correct."
+    },
+    {
+        q: "With reference to the Presidential Reference under Article 143 made by the President of India in 2025 on the assent to Bills by Governors and the President, consider the following statements: <br> 1. The President sought the opinion of the Supreme Court after the Court had prescribed timelines for Governors and the President to act on Bills in the Tamil Nadu case.<br>2. The Supreme Court held that a Bill can be treated as having received 'deemed assent' if the authority fails to act within the timelines fixed by the Court.<br>3. The Supreme Court held that the President and Governors may sit indefinitely on Bills since no timeline can be judicially prescribed.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 only",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "President Droupadi Murmu invoked Article 143 in May 2025 after the April 2025 Tamil Nadu verdict which had fixed timelines and granted deemed assent. In its advisory opinion of 20 November 2025, the Supreme Court held that courts cannot impose rigid timelines and that 'deemed assent' is alien to the Constitution, though the President and Governors cannot sit on Bills indefinitely. Statements 2 and 3 are therefore incorrect."
+    },
+    {
+        q: "With reference to the Lokpal and Lokayuktas Act, 2013, consider the following statements: <br> 1. The Prime Minister is entirely outside the jurisdiction of the Lokpal.<br>2. Any inquiry by the Lokpal against the Prime Minister must be conducted in open proceedings.<br>3. The Prime Minister is within the Lokpal's jurisdiction, except for allegations relating to international relations, external and internal security, public order, atomic energy and space.<br>Which one of the statements given above is correct?",
+        opts: [
+            "1 only",
+            "3 only",
+            "2 only",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "The Lokpal Act, 2013 brings the Prime Minister within the Lokpal's ambit, but excludes allegations on international relations, external and internal security, public order, atomic energy and space. Inquiries against the Prime Minister are held in camera, not in open proceedings, so statements 1 and 2 are incorrect."
+    },
+    {
+        q: "With reference to the office of the Cabinet Secretary of India, consider the following statements: <br> 1. T.V. Somanathan, who took charge as Cabinet Secretary in August 2024, is an IAS officer of the Kerala cadre.<br>2. The Cabinet Secretary is appointed by the Appointments Committee of the Cabinet.<br>3. His predecessor, Rajiv Gauba, held the office for five years after successive extensions of an initial two-year term.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1, 2 and 3",
+            "None of the above",
+            "Only two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "T.V. Somanathan, a 1987-batch IAS officer, belongs to the Tamil Nadu cadre, not Kerala, so statement 1 is incorrect. The Cabinet Secretary is appointed by the Appointments Committee of the Cabinet for a fixed two-year term that can be extended. Rajiv Gauba took office in August 2019 and, after three one-year extensions, handed over to Somanathan in August 2024."
+    },
+    {
+        q: "With reference to Article 74 of the Constitution of India, consider the following statements: <br> 1. As originally enacted, Article 74(1) expressly made the President bound by the advice of the Council of Ministers.<br>2. The 44th Amendment Act empowered the President to reject the advice of the Council of Ministers after reconsideration.<br>3. The question whether any, and if so what, advice was tendered by the Ministers to the President cannot be inquired into by any court.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1 and 2 only",
+            "1 and 3 only",
+            "3 only"
+        ],
+        ans: 3,
+        exp: "The original Article 74 only said the Council of Ministers would 'aid and advise' the President; the 42nd Amendment made such advice binding. The 44th Amendment allowed the President to send the advice back for reconsideration once, but he must act on the advice tendered after reconsideration. Article 74(2) bars courts from inquiring into the advice tendered, so only statement 3 is correct."
+    },
+    {
+        q: "With reference to the proposals for reform relating to the Chairman of the Rajya Sabha and other Presiding Officers in matters of defection, consider the following statements: <br> 1. The Dinesh Goswami Committee recommended that disqualification for defection should continue to be decided by the Presiding Officer.<br>2. In Kihoto Hollohan (1992), the Supreme Court held that the decisions of the Presiding Officer under the Tenth Schedule are subject to judicial review.<br>3. The 91st Amendment transferred the power to decide defection-based disqualification to the Election Commission.<br>Which one of the statements given above is correct?",
+        opts: [
+            "1 only",
+            "1 and 3 only",
+            "2 only",
+            "3 only"
+        ],
+        ans: 2,
+        exp: "In Kihoto Hollohan v. Zachillhu (1992), the Supreme Court upheld the Tenth Schedule but held that the Presiding Officer's decisions are subject to judicial review on limited grounds. The Dinesh Goswami Committee, among others, recommended that disqualification be decided by the President or Governor on the advice of the Election Commission. The 91st Amendment did not shift this power, which remains with the Presiding Officer."
+    },
+    {
+        q: "Consider the following two statements: <br> Assertion (A): The Cabinet is regarded as the highest decision-making authority in India's politico-administrative system.<br>Reason (R): The Cabinet is collectively responsible to both Houses of Parliament.<br>In the context of the above statements, which one of the following is correct?",
+        opts: [
+            "A is not correct but R is correct",
+            "A is correct but R is not correct",
+            "Both A and R are correct but R is not the correct explanation of A",
+            "Both A and R are correct and R is the correct explanation of A"
+        ],
+        ans: 1,
+        exp: "The Cabinet is the nucleus of the Council of Ministers and is the top decision-making body in the Union executive, so the Assertion is correct. Under Article 75(3), however, collective responsibility is owed only to the Lok Sabha and not to the Rajya Sabha, so the Reason is incorrect."
+    },
+    {
+        q: "With reference to the removal of the Vice-President of India under Article 67, consider the following statements: <br> 1. A resolution for his removal can be initiated in either House of Parliament.<br>2. The resolution must be passed by a two-thirds majority in both Houses.<br>3. The resolution must be passed by a majority of all the then members of the Rajya Sabha and agreed to by the Lok Sabha.<br>Which one of the statements given above is correct?",
+        opts: [
+            "1 only",
+            "3 only",
+            "2 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "Article 67(b) provides that the Vice-President may be removed by a resolution of the Rajya Sabha passed by a majority of all the then members and agreed to by the Lok Sabha, after at least fourteen days' notice. The resolution can be initiated only in the Rajya Sabha, and a two-thirds majority is not required."
+    },
+    {
+        q: "With reference to the evolution of Cabinet Committees in India, consider the following statements: <br> 1. In 2014, the functions of the Cabinet Committee on Prices were transferred to the Cabinet Committee on Parliamentary Affairs.<br>2. In 2014, the Cabinet Committee on Prices was retained and strengthened while others were scrapped.<br>3. In 2014, the Cabinet Committee on Management of Natural Calamities was scrapped and its work was assigned to a committee under the Cabinet Secretary.<br>Which one of the statements given above is correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1 only",
+            "3 only"
+        ],
+        ans: 3,
+        exp: "In June 2014 the new government scrapped four Cabinet Committees (on Prices, Management of Natural Calamities, WTO Matters and UIDAI) to streamline decision-making. The functions of the Prices Committee passed to the Cabinet Committee on Economic Affairs, not Parliamentary Affairs, and natural calamities are handled by a committee under the Cabinet Secretary. Only statement 3 is correct."
+    },
+    {
+        q: "With reference to the Constitution (130th Amendment) Bill, 2025 introduced in the Lok Sabha in August 2025, consider the following statements: <br> 1. It provides that a Prime Minister who is arrested and detained for 30 consecutive days for an offence punishable with imprisonment of five years or more must resign by the 31st day, failing which he ceases to hold office.<br>2. It permanently bars a Prime Minister or Minister removed under its provisions from being appointed again after release from custody.<br>3. It was introduced in the Rajya Sabha and passed by both Houses in the same session.<br>Which one of the statements given above is correct?",
+        opts: [
+            "2 and 3 only",
+            "2 only",
+            "3 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "The Bill proposes changes to Articles 75, 164 and 239AA so that a Prime Minister, Chief Minister or Minister held in custody for 30 consecutive days on a serious charge loses office. It expressly places no bar on reappointment after release. It was introduced in the Lok Sabha and referred to a Joint Parliamentary Committee, not passed in the same session."
+    },
+    {
+        q: "With reference to the decision of the Union Cabinet in April 2025 on the upcoming Census, consider the following statements: <br> 1. The decision to include caste enumeration was taken by the Cabinet Committee on Economic Affairs.<br>2. The last enumeration of all castes in a Census was conducted in 1951.<br>3. The Cabinet Committee on Political Affairs decided that caste enumeration would be included in the forthcoming Census.<br>Which one of the statements given above is correct?",
+        opts: [
+            "1 only",
+            "1 and 2 only",
+            "3 only",
+            "2 only"
+        ],
+        ans: 2,
+        exp: "On 30 April 2025 the Cabinet Committee on Political Affairs, chaired by the Prime Minister, decided to include caste enumeration in the forthcoming Census. It was not a decision of the Cabinet Committee on Economic Affairs. The last Census to enumerate all castes was in 1931, and after independence only Scheduled Castes and Scheduled Tribes were counted."
+    },
+    {
+        q: "Under which one of the following Articles of the Constitution of India is the Prime Minister duty-bound to communicate to the President all decisions of the Council of Ministers relating to the administration of the affairs of the Union and proposals for legislation?",
+        opts: [
+            "Article 75",
+            "Article 88",
+            "Article 74",
+            "Article 78"
+        ],
+        ans: 3,
+        exp: "Article 78 lays down the duties of the Prime Minister to communicate the Council's decisions on administration and legislative proposals, to furnish information the President calls for, and to submit for the Council's consideration any matter decided by a Minister but not considered by the Council, if the President so requires. Article 75 deals with appointment and other provisions relating to Ministers, Article 74 with the Council of Ministers to aid and advise the President, and Article 88 with the rights of Ministers regarding the Houses."
+    },
+    {
+        q: "With reference to the background of the office of the Vice-President of India, consider the following statements: <br> 1. The first Vice-President of India was Dr Zakir Husain.<br>2. The Constituent Assembly provided for the Vice-President to be directly elected by the people.<br>3. The office of the Vice-President is modelled on the office of the Vice-President of the United States of America.<br>Which one of the statements given above is correct?",
+        opts: [
+            "1 and 2 only",
+            "1 only",
+            "2 only",
+            "3 only"
+        ],
+        ans: 3,
+        exp: "The Indian office of Vice-President, including his role as ex-officio presiding officer of the upper House, is modelled on the American Vice-Presidency. The first Vice-President was Dr S. Radhakrishnan, not Dr Zakir Husain, and the Constitution provides for election by an electoral college of Members of Parliament, not direct election."
+    },
+    {
+        q: "With reference to the criticisms of and proposed reforms to the office of the Attorney General of India, consider the following statements: <br> 1. The Attorney General is barred from private legal practice during his tenure.<br>2. The Constitution neither fixes a term for the Attorney General nor prescribes a procedure for his removal.<br>3. The remuneration of the Attorney General is charged on the Consolidated Fund of India.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the above",
+            "Exactly two of the statements are correct",
+            "2 only",
+            "Only two of the statements are correct"
+        ],
+        ans: 2,
+        exp: "Article 76(4) states that the Attorney General holds office during the pleasure of the President and receives remuneration as the President determines, so no tenure or removal procedure is laid down, a frequent criticism. He is not barred from private practice, only from advising or holding a brief against the Government of India, and this absence of a full-time bar is another concern. His remuneration is not charged on the Consolidated Fund of India."
+    },
+    {
+        q: "With reference to the background of the office of the Attorney General of India, consider the following statements: <br> 1. Motilal Chimanlal Setalvad was the first Attorney General of India.<br>2. The office was created by an Act of Parliament enacted in 1950.<br>3. The office was inserted into the Constitution by the 42nd Amendment Act, 1976.<br>Which one of the statements given above is correct?",
+        opts: [
+            "3 only",
+            "2 and 3 only",
+            "1 only",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "M.C. Setalvad was the first Attorney General of independent India and held the post for about thirteen years from 1950. The office is a constitutional one, provided for under Article 76 in the original Constitution, and was not created by a statute or by the 42nd Amendment."
+    },
+    {
+        q: "With reference to the functioning of Cabinet Committees in India, consider the following statements: <br> 1. Non-Cabinet Ministers are not debarred from being members of Cabinet Committees.<br>2. Cabinet Committees can be headed only by the Prime Minister.<br>3. The decisions taken by a Cabinet Committee are final and cannot be reviewed by the Cabinet.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All three statements are correct",
+            "None of the above",
+            "Statement 2 alone",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "Cabinet Committees usually include Cabinet Ministers, but non-Cabinet Ministers are not debarred from membership. They are mostly headed by the Prime Minister, yet other senior Ministers such as the Home or Finance Minister sometimes chair them, so statement 2 is incorrect. The Cabinet can review the decisions of its Committees, so statement 3 is also incorrect."
+    },
+    {
+        q: "The portfolio system in the Governor-General's Executive Council, an important step in the evolution of the Cabinet system in India, was given legal recognition by which one of the following Acts?",
+        opts: [
+            "Government of India Act, 1909",
+            "Regulating Act, 1773",
+            "Indian Councils Act, 1861",
+            "Charter Act, 1833"
+        ],
+        ans: 2,
+        exp: "Lord Canning introduced the portfolio system, under which each member of the Viceroy's Executive Council was put in charge of a department, and the Indian Councils Act, 1861 gave it legal recognition. The Regulating Act, 1773 and the Charter Act, 1833 dealt with the structure and powers of the Governor-General's Council, and the 1909 Act (Morley-Minto reforms) expanded legislative councils."
+    },
+    {
+        q: "With reference to the constitutional provisions relating to the Attorney General of India, consider the following statements: <br> 1. The office of the Attorney General of India is provided for under Article 165 of the Constitution.<br>2. In the performance of his duties, the Attorney General has the right of audience in all courts in the territory of India.<br>3. The President is constitutionally required to consult the Chief Justice of India before appointing the Attorney General.<br>Which one of the statements given above is correct?",
+        opts: [
+            "3 only",
+            "1 only",
+            "1 and 3 only",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "Article 76(3) gives the Attorney General the right of audience in all courts in India. Article 165 provides for the Advocate General of a State, not the Attorney General, and the Constitution does not require consultation with the Chief Justice before the President appoints the Attorney General."
+    },
+    {
+        q: "Consider the following statements regarding the office of the Vice-President of India, in light of the vacancy that arises when the incumbent resigns: <br> 1. A person elected to fill a vacancy caused by the resignation of the Vice-President holds office only for the remainder of the predecessor's term.<br>2. The Constitution does not provide for any person to act as the Vice-President during a vacancy in the office.<br>3. The Vice-President resigns by writing under his hand addressed to the President.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "Only two of the statements are correct",
+            "Both 1 and 2",
+            "None of the above"
+        ],
+        ans: 1,
+        exp: "Under Article 67(a), the Vice-President resigns by addressing a letter to the President. The Constitution provides no acting Vice-President; during a vacancy the Deputy Chairman presides over the Rajya Sabha. Under Article 68(2), a person elected to fill a casual vacancy serves a full five-year term, so statement 1 is incorrect."
+    },
+    {
+        q: "The Lok Sabha currently has 543 elected members. Under the provisions inserted by the 91st Constitutional Amendment Act, 2003, what is the maximum number of members (including the Prime Minister) that the Union Council of Ministers can have?",
+        opts: [
+            "91",
+            "81",
+            "82",
+            "78"
+        ],
+        ans: 1,
+        exp: "Article 75(1A) caps the total number of ministers, including the Prime Minister, at 15 per cent of the total strength of the Lok Sabha. 15 per cent of 543 is 81.45, and since the ceiling cannot be exceeded, the maximum is 81. The figure 91 is the amendment number, not the limit."
+    },
+    {
+        q: "With reference to the functions and powers of the President of India, consider the following statements: <br> 1. The President constitutes the Finance Commission every fifth year or earlier, as necessary.<br>2. The President can return a Money Bill to the Lok Sabha for reconsideration.<br>3. The President presently nominates two members of the Anglo-Indian community to the Lok Sabha.<br>Which one of the statements given above is correct?",
+        opts: [
+            "3 only",
+            "2 only",
+            "1 only",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "Under Article 280, the President constitutes the Finance Commission at the expiry of every fifth year or earlier. Under Article 111, the President can return a Bill for reconsideration except a Money Bill. The 104th Amendment ended the nomination of Anglo-Indian members to the Lok Sabha, so statements 2 and 3 are incorrect."
+    },
+    {
+        q: "With reference to the Rules governing the conduct of business of the Union Government, consider the following statements: <br> 1. The rules for allocation of business among Ministers are made by Parliament through a law.<br>2. Under Article 77(3), the President makes rules for the more convenient transaction of Government business and its allocation among Ministers.<br>3. The Cabinet Secretariat is responsible for the administration of the Government of India (Transaction of Business) Rules, 1961 and the Government of India (Allocation of Business) Rules, 1961.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "1 and 2 only",
+            "Both 1 and 3",
+            "All three statements are correct"
+        ],
+        ans: 0,
+        exp: "Article 77(3) empowers the President, not Parliament, to make rules for the convenient transaction of Government business and its allocation among Ministers; the two 1961 Rules are framed on this basis. The Cabinet Secretariat administers both sets of Rules and also provides secretarial assistance to the Cabinet and its Committees. Statement 1 is wrong because these are executive rules, not a parliamentary law."
+    },
+    {
+        q: "Consider the following statements regarding the Cabinet Secretariat and the Prime Minister's Office (PMO): <br> 1. Both the Cabinet Secretariat and the PMO find explicit mention in the Constitution of India.<br>2. The Cabinet Secretariat is headed by the Cabinet Secretary, whereas the PMO is headed by the Principal Secretary to the Prime Minister.<br>3. The Cabinet Secretariat is a part of the Prime Minister's Office.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 1 alone",
+            "Exactly one of the statements is correct",
+            "3 only",
+            "Both 1 and 2"
+        ],
+        ans: 1,
+        exp: "Neither body is mentioned in the Constitution, and their overlapping roles in coordination and advice to the Prime Minister raise concerns of accountability. The Cabinet Secretariat, headed by the Cabinet Secretary, is a separate organisation from the PMO, which is headed by the Principal Secretary. Statements 1 and 3 are therefore incorrect."
+    },
+    {
+        q: "With reference to the reforms proposed on the size of the Council of Ministers, consider the following statements: <br> 1. The National Commission to Review the Working of the Constitution recommended a ceiling of 10 per cent of the strength of the popular House, but the 91st Amendment fixed the ceiling at 15 per cent.<br>2. The National Commission to Review the Working of the Constitution recommended that the size should be left to the Prime Minister without any constitutional limit.<br>3. The 91st Amendment fixed the ceiling for the Union Council of Ministers at 10 per cent of the strength of the Lok Sabha.<br>Which one of the statements given above is correct?",
+        opts: [
+            "3 only",
+            "2 and 3 only",
+            "1 only",
+            "2 only"
+        ],
+        ans: 2,
+        exp: "The Venkatachaliah Commission (NCRWC, 2002) observed that abnormally large ministries were being formed and recommended a maximum of 10 per cent of the popular House. Parliament enacted the 91st Amendment (2003) with a ceiling of 15 per cent under Articles 75(1A) and 164(1A). Statements 2 and 3 misstate both the recommendation and the law."
+    },
+    {
+        q: "With reference to the Right to Information Act, 2005 and the records of the Council of Ministers handled by the Cabinet Secretariat, consider the following statements: <br> 1. Cabinet papers, including records of deliberations of the Council of Ministers, Secretaries and other officers, are exempt from disclosure.<br>2. The decisions of the Council of Ministers, the reasons thereof and the material on which the decisions were based are to be made public after the decision has been taken and the matter is complete, subject to other exemptions under the Act.<br>3. The records of deliberations of the Council of Ministers must be disclosed on request even before a decision is taken.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 3",
+            "Only two of the statements are correct",
+            "Only statement 1",
+            "None of the statements are correct"
+        ],
+        ans: 1,
+        exp: "Section 8(1)(i) of the RTI Act exempts Cabinet papers, including records of deliberations of the Council of Ministers, Secretaries and other officers. The proviso requires that decisions of the Council of Ministers, the reasons and the supporting material be made public once the decision is taken and the matter is complete or over, subject to other exemptions. Disclosure of deliberations before a decision is taken is not permitted, so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to the responsibility of the Council of Ministers, consider the following statements: <br> 1. Article 75(3) makes each Minister individually responsible to the Lok Sabha for his own department.<br>2. Under the principle of collective responsibility, a Minister who disagrees with a Cabinet decision must either support it publicly or resign.<br>3. A motion of no-confidence against the Council of Ministers can be moved in either House of Parliament.<br>Which one of the statements given above is correct?",
+        opts: [
+            "1 and 2 only",
+            "2 only",
+            "1 only",
+            "3 only"
+        ],
+        ans: 1,
+        exp: "Collective responsibility means the Council sinks or swims together, so a dissenting Minister must defend the decision or resign. Article 75(3) establishes collective responsibility to the Lok Sabha, not individual responsibility, and a no-confidence motion can be moved only in the Lok Sabha."
+    },
+    {
+        q: "With reference to the powers of the Prime Minister of India, consider the following statements: <br> 1. The Prime Minister can be removed from office by the Rajya Sabha through a vote of no confidence.<br>2. The President can dismiss the Prime Minister at his discretion even when the Prime Minister enjoys the confidence of the Lok Sabha.<br>3. The Prime Minister can dissolve the Lok Sabha directly without any involvement of the President.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 and 3 only",
+            "1 and 2 only",
+            "None of the statements is correct"
+        ],
+        ans: 3,
+        exp: "The Council of Ministers, headed by the Prime Minister, is collectively responsible only to the Lok Sabha, so the Rajya Sabha cannot remove the Prime Minister. The President holds power over the Prime Minister only in a formal sense and cannot dismiss one who commands a Lok Sabha majority. The Lok Sabha is dissolved by the President under Article 85(2)(b), in practice on the Prime Minister's advice, so he cannot dissolve it directly."
+    },
+    {
+        q: "Consider the following two statements: <br> Assertion (A): Although the Cabinet was not mentioned in the original text of the Constitution of India, it now finds express constitutional recognition.<br>Reason (R): The 44th Constitutional Amendment Act, 1978 introduced the term 'Cabinet' in Article 352 in connection with the proclamation of National Emergency.<br>In the context of the above statements, which one of the following is correct?",
+        opts: [
+            "Both A and R are correct and R is the correct explanation of A",
+            "A is correct but R is not correct",
+            "A is not correct but R is correct",
+            "Both A and R are correct but R is not the correct explanation of A"
+        ],
+        ans: 0,
+        exp: "The original Constitution referred only to the 'Council of Ministers' (Article 74). The 44th Amendment (1978) inserted the term 'Cabinet' in Article 352, allowing the President to proclaim a National Emergency only on the written recommendation of the Cabinet. This is the reason the Cabinet now has express constitutional mention, so R correctly explains A."
+    },
+    {
+        q: "With reference to the election to the office of the Vice-President of India, consider the following statements: <br> 1. Nominated members of the Rajya Sabha are eligible to vote in the election.<br>2. Elected members of the State Legislative Assemblies form a part of the electoral college.<br>3. All doubts and disputes arising out of the election are inquired into and decided by the Supreme Court.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "Under Article 66, the Vice-President is elected by an electoral college consisting of all members (elected as well as nominated) of both Houses of Parliament, unlike the President's election. State legislatures play no role, so statement 2 is incorrect. Under Article 71, the Supreme Court decides all doubts and disputes relating to the election."
+    },
+    {
+        q: "With reference to the structure and composition of the Cabinet in India, consider the following statements: <br> 1. The Cabinet is a larger body than the Council of Ministers.<br>2. The Constitution prescribes a separate numerical ceiling for the Cabinet.<br>3. All members of the Cabinet are members of the Council of Ministers, but not all members of the Council of Ministers are in the Cabinet.<br>Which one of the statements given above is correct?",
+        opts: [
+            "1 only",
+            "2 only",
+            "1 and 3 only",
+            "3 only"
+        ],
+        ans: 3,
+        exp: "The Cabinet is the smaller inner body of Cabinet-rank Ministers within the wider Council of Ministers, which also includes Ministers of State and Deputy Ministers. The Constitution, through Article 75(1A), fixes a ceiling only for the entire Council of Ministers, not separately for the Cabinet."
+    },
+    {
+        q: "Which one of the following is NOT a Cabinet Committee of the Government of India?",
+        opts: [
+            "Cabinet Committee on Judicial Affairs",
+            "Cabinet Committee on Parliamentary Affairs",
+            "Cabinet Committee on Political Affairs",
+            "Cabinet Committee on Accommodation"
+        ],
+        ans: 0,
+        exp: "The standing Cabinet Committees include those on Appointments, Accommodation, Economic Affairs, Parliamentary Affairs, Political Affairs and Security, along with others such as Investment and Growth or Employment and Skill Development from time to time. There is no Cabinet Committee on Judicial Affairs."
+    },
+    {
+        q: "With reference to the functions and powers of the Council of Ministers in India, consider the following statements: <br> 1. The Ministers hold office during the pleasure of the President.<br>2. The Council of Ministers is collectively responsible to the Lok Sabha.<br>3. A Minister who is a member of one House of Parliament has the right to speak and take part in the proceedings of the other House, but cannot vote there.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "All of the statements are correct",
+            "Both 1 and 2",
+            "None of the statements are correct"
+        ],
+        ans: 1,
+        exp: "Article 75(2) provides that Ministers hold office during the pleasure of the President, and Article 75(3) makes the Council collectively responsible to the Lok Sabha. Under Article 88, every Minister may speak and take part in the proceedings of either House without a right to vote in the House of which he is not a member. All three statements are correct."
+    },
+    {
+        q: "With reference to the office of the Vice-President of India, consider the following statements: <br> 1. The Vice-President holds office for five years but continues in office until his successor enters upon office.<br>2. The Vice-President must be qualified for election as a member of the Lok Sabha.<br>3. The Vice-President takes the oath of office before the Chief Justice of India.<br>Which one of the statements given above is correct?",
+        opts: [
+            "1 only",
+            "2 and 3 only",
+            "2 only",
+            "3 only"
+        ],
+        ans: 0,
+        exp: "Under Article 67, the Vice-President holds office for five years and continues until his successor enters upon office. He must be qualified for election as a member of the Rajya Sabha, not the Lok Sabha, and he takes the oath before the President or a person appointed by the President, not the Chief Justice."
+    },
+    {
+        q: "With reference to the structure of Cabinet Committees in India, consider the following statements: <br> 1. Cabinet Committees are of two types, namely standing and ad hoc.<br>2. The Cabinet Committee on Political Affairs is often described as a 'Super-Cabinet'.<br>3. The Prime Minister determines the number and membership of Cabinet Committees, which vary from time to time.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 3,
+        exp: "Cabinet Committees are extra-constitutional and are of two types: standing (permanent) and ad hoc (temporary, set up for specific purposes). The Prime Minister sets up these committees and fixes their functions and membership, which change with each new government or reshuffle. The Cabinet Committee on Political Affairs is regarded as the most powerful and is often called a Super-Cabinet. All three statements are correct."
+    },
+    {
+        q: "With reference to the Cabinet Secretariat in India, consider the following statements: <br> 1. The Constitution of India expressly provides for the establishment of the Cabinet Secretariat.<br>2. The Cabinet Secretary is the ex-officio Chairman of the Civil Services Board.<br>3. The Cabinet Secretariat functions under the administrative control of the Ministry of Home Affairs.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 only"
+        ],
+        ans: 0,
+        exp: "The Cabinet Secretariat has no express constitutional basis; it functions under the Government of India (Transaction of Business) Rules and (Allocation of Business) Rules, 1961, and is under the direct charge of the Prime Minister, not the Ministry of Home Affairs. The Cabinet Secretary, the senior-most civil servant, is the ex-officio head of the Civil Services Board, so only statement 2 is correct."
+    },
+    {
+        q: "With reference to the Cabinet Committees of the Union Government as reconstituted after the formation of the current government in June 2024, consider the following statements: <br> 1. Cabinet Committees are extra-constitutional bodies constituted by the Prime Minister.<br>2. The Appointments Committee of the Cabinet consists of only the Prime Minister and the Union Home Minister.<br>3. The Cabinet Committee on Security comprises the Prime Minister and the Ministers in charge of Defence, Home Affairs, Finance and External Affairs.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 2 only",
+            "2 and 3 only",
+            "3 only"
+        ],
+        ans: 0,
+        exp: "Cabinet Committees are not mentioned in the Constitution and are set up by the Prime Minister, who defines their functions. The two-member Appointments Committee comprises the Prime Minister and the Home Minister (Amit Shah). The Cabinet Committee on Security includes the Prime Minister and the Defence, Home, Finance and External Affairs Ministers. All three statements are correct."
+    },
+    {
+        q: "With reference to the Council of Ministers in India, consider the following statements: <br> 1. The Council of Ministers is a constitutional body, its provisions being contained in Articles 74 and 75.<br>2. The Council of Ministers meets as a body more frequently than the Cabinet to take policy decisions.<br>3. Ministers of State who are not in the Cabinet attend Cabinet meetings only when specially invited.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "3 only",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "Articles 74 and 75 give constitutional status to the Council of Ministers, which comprises Cabinet Ministers, Ministers of State and Deputy Ministers. The larger Council rarely meets as a body; the Cabinet, its smaller inner core, meets regularly and takes the decisions, so statement 2 is incorrect. Ministers who are not of Cabinet rank attend Cabinet meetings only on invitation."
+    },
+    {
+        q: "Which one of the following statements about the Prime Minister of India is correct?",
+        opts: [
+            "The Prime Minister must necessarily be a member of the Lok Sabha at the time of appointment.",
+            "The Prime Minister is appointed by the President on the recommendation of the Speaker of the Lok Sabha.",
+            "The Prime Minister holds office for a fixed tenure of five years.",
+            "The death or resignation of the Prime Minister automatically dissolves the Council of Ministers."
+        ],
+        ans: 3,
+        exp: "Since the Council of Ministers is headed by the Prime Minister, his resignation or death automatically dissolves it, whereas the exit of any other Minister only creates a vacancy. The Prime Minister may be a member of either House (as with Deve Gowda and Manmohan Singh from the Rajya Sabha), has no fixed tenure and holds office as long as he enjoys the confidence of the Lok Sabha, and is appointed by the President under Article 75(1)."
+    },
+    {
+        q: "With reference to the organisational structure of the Cabinet Secretariat, consider the following statements: <br> 1. The Aviation Research Centre functions under the Cabinet Secretariat.<br>2. The Intelligence Bureau functions under the Cabinet Secretariat.<br>3. The National Technical Research Organisation functions under the Cabinet Secretariat.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1 and 3 only",
+            "All of the above",
+            "Statement 1 alone"
+        ],
+        ans: 3,
+        exp: "The Aviation Research Centre, which provides aerial reconnaissance support, is part of the Cabinet Secretariat structure along with the Research and Analysis Wing. The Intelligence Bureau functions under the Ministry of Home Affairs, and the National Technical Research Organisation operates under the National Security Adviser in the Prime Minister's Office. Only statement 1 is correct."
+    },
+    {
+        q: "With reference to the background and evolution of the office of the President of India, consider the following statements: <br> 1. The procedure for impeachment of the President was borrowed from the Constitution of Ireland.<br>2. The Constituent Assembly adopted a system of direct election of the President by the people.<br>3. Dr Rajendra Prasad is the only person to have been re-elected to the office of the President.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 only",
+            "3 only",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "The impeachment procedure was borrowed from the US Constitution, while the method of election (and the nomination of Rajya Sabha members) was borrowed from Ireland. The Constituent Assembly opted for indirect election through an electoral college, not direct popular election. Dr Rajendra Prasad, the first President, was elected for a second term in 1957 and remains the only person to be re-elected."
+    },
+    {
+        q: "With reference to the Cabinet Secretariat in India, consider the following statements: <br> 1. It provides secretarial assistance to the Cabinet and its Committees.<br>2. It is a statutory body established by an Act of Parliament.<br>3. The Cabinet Secretary chairs the Committees of Secretaries that help ensure inter-ministerial coordination.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 3",
+            "Only one of the statements is correct",
+            "Exactly two of the statements are correct",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "The Cabinet Secretariat provides secretarial assistance to the Cabinet and its Committees and facilitates inter-ministerial coordination through standing and ad hoc Committees of Secretaries, which the Cabinet Secretary heads. It is not a statutory body; it functions under the Rules of Business framed under Article 77, which it administers. Statement 2 is therefore incorrect."
+    },
+    {
+        q: "With reference to the Prime Minister of India and the institutions associated with the office, consider the following statements: <br> 1. The salaries and allowances of Ministers are determined by Parliament by law under Article 75(6).<br>2. The Prime Minister is the Chairperson of NITI Aayog.<br>3. NITI Aayog was established through a Cabinet resolution and not through an Act of Parliament.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 2 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "Article 75(6) provides that the salaries and allowances of Ministers shall be such as Parliament determines by law, which is the basis of the Salaries and Allowances of Ministers Act, 1952. NITI Aayog, which replaced the Planning Commission, was set up in January 2015 by a Union Cabinet resolution, with the Prime Minister as its Chairperson. All three statements are correct."
+    },
+    {
+        q: "With reference to the features of the office of the President of India, consider the following statements: <br> 1. The Constitution prohibits a person from being elected as President more than twice.<br>2. A Member of Parliament elected as President continues to hold his seat in Parliament during his term.<br>3. A resolution for the impeachment of the President can be initiated only in the Lok Sabha.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "None of the statements is correct",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "Article 57 allows a person to be re-elected any number of times, so there is no two-term bar. Under Article 59, a Member of Parliament elected as President is deemed to have vacated his seat on the date he enters office. The impeachment charge under Article 61 may be preferred by either House. Hence none of the statements is correct."
+    },
+    {
+        q: "With reference to the evolution of the Council of Ministers in India, consider the following statements: <br> 1. In the Interim Government formed in 1946, Jawaharlal Nehru functioned as the Vice-President of the Viceroy's Executive Council.<br>2. The first Indian member of the Viceroy's Executive Council was appointed under the Government of India Act, 1919.<br>3. Dyarchy at the Centre under the Government of India Act, 1935 was fully operational before independence.<br>Which one of the statements given above is correct?",
+        opts: [
+            "1 only",
+            "2 and 3 only",
+            "3 only",
+            "2 only"
+        ],
+        ans: 0,
+        exp: "The Interim Government of September 1946 was headed by Jawaharlal Nehru as Vice-President of the Viceroy's Executive Council. The first Indian member, S.P. Sinha, was appointed in 1909 (Morley-Minto period), not under the 1919 Act. The federal scheme and dyarchy at the Centre under the 1935 Act never came into operation, so only statement 1 is correct."
+    },
+    {
+        q: "With reference to the office of Deputy Prime Minister in India, consider the following statements: <br> 1. Article 75 of the Constitution provides for the appointment of a Deputy Prime Minister.<br>2. The Deputy Prime Minister automatically becomes the Prime Minister on the death of the incumbent Prime Minister.<br>3. The designation of Deputy Prime Minister does not confer any additional constitutional powers on the holder.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "All of the statements are correct",
+            "Only two of the statements are correct",
+            "Statement 3 alone"
+        ],
+        ans: 3,
+        exp: "The Constitution does not mention the office of Deputy Prime Minister; it has been used in practice (for example for Sardar Patel and Morarji Desai) for political reasons. The holder is a Cabinet Minister carrying an additional designation with no extra constitutional powers. On the death of the Prime Minister, the President appoints a new Prime Minister; there is no automatic succession."
+    },
+    {
+        q: "Which one of the following agencies functions under the Cabinet Secretariat of the Government of India?",
+        opts: [
+            "Intelligence Bureau",
+            "Central Bureau of Investigation",
+            "National Investigation Agency",
+            "Research and Analysis Wing"
+        ],
+        ans: 3,
+        exp: "The Research and Analysis Wing (R&AW), India's external intelligence agency, functions under the Cabinet Secretariat and its head reports to the Prime Minister. The Intelligence Bureau and the National Investigation Agency function under the Ministry of Home Affairs, while the Central Bureau of Investigation functions under the Department of Personnel and Training."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-46 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

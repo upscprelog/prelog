@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-69</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "Within the International Monetary Fund (IMF), a member country's voting power is primarily determined by which one of the following?",
+        opts: [
+            "An equal one-country-one-vote system regardless of economic size",
+            "The size of the member's population relative to the global total",
+            "The member's total foreign exchange reserves held independently of the IMF",
+            "The member's quota subscription, which also determines its access to Fund resources and its Special Drawing Rights allocation"
+        ],
+        ans: 3,
+        exp: "IMF voting power is directly tied to a member's quota, which is itself based on the country's relative weight in the global economy and simultaneously determines its subscription, borrowing access, and share of any general SDR allocation. Unlike the UN's one-country-one-vote system, the IMF combines basic votes common to all members with additional votes proportional to quota size, and population or independently-held reserves do not directly determine voting power."
+    },
+    {
+        q: "With reference to recent developments in the Asian Infrastructure Investment Bank (AIIB), consider the following statements:<br>1. Zou Jiayi is the first person from outside China to head the AIIB as its President.<br>2. She succeeded Jin Liqun, the founding President, whose tenure concluded in January 2026 after two five-year terms.<br>3. The AIIB President is elected by the Bank's Board of Governors for a five-year term, renewable only once.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 3",
+            "Both 2 and 3",
+            "1 and 2 only",
+            "All of the statements are correct"
+        ],
+        ans: 1,
+        exp: "Zou Jiayi, a former Chinese Vice Minister of Finance, took charge as AIIB President on 16 January 2026, succeeding founding President Jin Liqun, who had completed two five-year terms since 2016, making statements 2 and 3 correct. Statement 1 is false since Zou Jiayi is a Chinese national, not the first non-Chinese head of the Bank."
+    },
+    {
+        q: "With reference to the functions of the World Trade Organization (WTO), consider the following statements:<br>1. The WTO's dispute settlement system, as originally designed, provides for a two-tier structure comprising panels for first-instance rulings and a standing Appellate Body for appeals on points of law.<br>2. Under the WTO's Dispute Settlement Understanding, arbitration under Article 25 is compulsory for all disputes and cannot proceed without formal consent from the Dispute Settlement Body.<br>3. The WTO's primary function is limited exclusively to resolving trade disputes between member states, with no role in negotiating new trade rules or reviewing national trade policies.<br>Which of the statements given above is correct?",
+        opts: [
+            "3 only",
+            "2 only",
+            "None of the statements is correct",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "The WTO's dispute settlement system was indeed designed as a two-tier process, with panels issuing first-instance rulings and a standing Appellate Body hearing appeals on legal questions, making statement 1 correct. Statement 2 is wrong because Article 25 arbitration proceeds only through the parties' own mutual agreement rather than compulsion, and statement 3 is wrong because the WTO also serves as a forum for negotiating trade agreements and conducts regular reviews of members' trade policies."
+    },
+    {
+        q: "With reference to the institutional structure of the World Trade Organization (WTO), consider the following statements:<br>1. The Ministerial Conference is the WTO's highest decision-making body and is required to meet at least once every two years.<br>2. The General Council conducts the WTO's day-to-day business and also convenes separately as the Dispute Settlement Body and the Trade Policy Review Body.<br>3. The WTO Secretariat, headed by the Director-General, is empowered to issue binding rulings on trade disputes independent of the Dispute Settlement Body.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "All three statements are correct",
+            "None of the statements are correct",
+            "Both 1 and 2"
+        ],
+        ans: 3,
+        exp: "The Ministerial Conference sits atop the WTO's structure and must meet at least every two years, while the General Council handles routine functions and doubles up as both the Dispute Settlement Body and the Trade Policy Review Body, making statements 1 and 2 correct. Statement 3 is incorrect because the Secretariat performs administrative and technical support functions and has no independent power to issue binding dispute rulings; that authority rests with dispute panels and the Dispute Settlement Body."
+    },
+    {
+        q: "With reference to the stages of regional economic integration, consider the following statements:<br>1. A Free Trade Area requires member countries to adopt a common external tariff towards non-member countries.<br>2. An Economic Union represents a lower stage of integration than a Common Market, requiring less policy harmonisation among members.<br>3. A Common Market, unlike a Customs Union, additionally permits the free movement of factors of production such as labour and capital among member countries.<br>Which of the statements given above is correct?",
+        opts: [
+            "3 only",
+            "1 only",
+            "2 only",
+            "All three are correct"
+        ],
+        ans: 0,
+        exp: "A Common Market does indeed build on a Customs Union by adding free movement of factors of production such as labour and capital, making statement 3 correct. Statement 1 is wrong because adopting a common external tariff is the defining feature of a Customs Union, not a Free Trade Area, and statement 2 is wrong because an Economic Union is a higher, not lower, stage of integration than a Common Market, requiring greater policy harmonisation."
+    },
+    {
+        q: "With reference to the World Bank Group, consider the following statements:<br>1. The World Bank's first-ever loan, sanctioned in 1947, was extended to India for post-war reconstruction.<br>2. A country must first be a member of the International Monetary Fund (IMF) before it can join the International Bank for Reconstruction and Development (IBRD).<br>3. Voting power within the IBRD is distributed equally among all member countries, irrespective of their capital subscription.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 only",
+            "2 only",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "IBRD membership is conditional on a country first joining the International Monetary Fund, making statement 2 correct. Statement 1 is wrong because the World Bank's first loan in 1947 went to France, not India, and statement 3 is wrong because IBRD voting power is weighted according to each member's capital subscription rather than distributed equally."
+    },
+    {
+        q: "With reference to the governance structure of the International Monetary Fund (IMF), consider the following statements:<br>1. The Board of Governors, comprising one governor and one alternate governor from each member country, is the IMF's highest decision-making authority.<br>2. The IMF's Managing Director, who chairs the Executive Board after being elected by it, is entitled to vote on every matter that comes before the Board.<br>3. India's Finance Minister serves as the ex-officio Governor on the IMF's Board of Governors, with the Governor of the Reserve Bank of India as the Alternate Governor.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "The Board of Governors, with one governor and alternate per member, indeed sits atop the IMF's governance structure, and India is represented there by its Finance Minister as ex-officio Governor with the RBI Governor as Alternate Governor, confirming statements 1 and 3. Statement 2 is incorrect because the Managing Director, while chairing the Executive Board, may vote only to break a tie and does not otherwise participate in its regular voting."
+    },
+    {
+        q: "With reference to the features of the New Development Bank (NDB), consider the following statements:<br>1. Unlike the World Bank and IMF, the NDB does not impose external economic or political conditionalities, instead accepting borrowers' own environmental and social standards for compliance.<br>2. The NDB carries the same AAA credit rating as the AIIB, reflecting identical shareholder support for both institutions.<br>3. The NDB exclusively lends in US dollars to maintain uniformity and reduce currency-conversion costs for its borrowing members.<br>Which of the statements given above is correct?",
+        opts: [
+            "All three are correct",
+            "2 only",
+            "3 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "The NDB does indeed avoid imposing external conditionalities of the kind associated with the World Bank and IMF, instead recognising borrowers' own environmental and social standards, making statement 1 correct. Statement 2 is wrong because the NDB is rated AA+, one notch below the AAA rating held by the AIIB, and statement 3 is wrong because the NDB actively promotes lending in local currencies to reduce members' dependence on the US dollar."
+    },
+    {
+        q: "With reference to the New Development Bank (NDB), also known as the BRICS Bank, consider the following statements:<br>1. The Agreement establishing the NDB was signed in July 2014 at the 6th BRICS Summit held in Fortaleza, Brazil.<br>2. As per Article 2 of its founding Agreement, membership in the NDB is open to all members of the United Nations and is not restricted to BRICS countries alone.<br>3. The NDB's founding capital was fixed at USD 50 billion, of which USD 100 billion was initially subscribed equally among the five founding members.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "Only one of the statements is correct",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 2,
+        exp: "The NDB's founding Agreement was indeed signed in July 2014 at the Fortaleza Summit, and its Articles allow membership to any UN member state, not just the original BRICS founders, making statements 1 and 2 correct. Statement 3 reverses the actual figures: the Bank's authorized capital was set at USD 100 billion, of which only USD 50 billion was initially subscribed, divided equally among the five founding members."
+    },
+    {
+        q: "With reference to the functioning of the G20, consider the following statements:<br>1. The G20's Finance Track, led by finance ministers and central bank governors, focuses on issues such as financial regulation, international taxation, and macroeconomic policy coordination.<br>2. The G20's Finance Track is led by Sherpas, personal envoys of national leaders, and deals primarily with broader political issues such as anti-corruption and health.<br>3. Engagement Groups such as B20, C20, and T20 form an official negotiating track whose outcomes are directly binding on G20 member governments.<br>Which of the statements given above is correct?",
+        opts: [
+            "None of the statements is correct",
+            "3 only",
+            "1 only",
+            "2 only"
+        ],
+        ans: 2,
+        exp: "The Finance Track, headed by finance ministers and central bank governors, does concentrate on fiscal and monetary matters such as financial regulation, international taxation, and macroeconomic coordination, making statement 1 correct. Statement 2 wrongly attributes Sherpa-led broader political issues to the Finance Track, and statement 3 is wrong because Engagement Groups belong to an unofficial track that feeds recommendations into the process without producing outcomes binding on governments."
+    },
+    {
+        q: "Consider the following statements regarding the origin of the G20:<br>1. The G20 originated as a forum exclusively for Finance Ministers and Central Bank Governors, and was elevated to the level of Heads of State/Government only in response to the 2008 global financial crisis.<br>2. The G20 maintains a permanent secretariat headquartered in Basel, Switzerland, in a manner similar to the Bank for International Settlements.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Neither 1 nor 2",
+            "2 only",
+            "Both 1 and 2",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "The G20 was set up in 1999 as a forum of Finance Ministers and Central Bank Governors following the Asian financial crisis, and was only upgraded to a Leaders' Summit format after the 2008 global financial crisis, so statement 1 is correct. Statement 2 is incorrect since the G20 has no permanent secretariat at all; administrative functions rotate annually with the country holding the presidency."
+    },
+    {
+        q: "Consider the following:<br>Assertion (A): The Asian Development Bank (ADB) has struggled to scale up its nonsovereign (private sector) operations in frontier markets in line with its stated ambitions.<br>Reason (R): Under ADB's shareholding structure, China alone holds a voting share large enough to unilaterally veto major policy decisions, similar to the position the United States holds at the World Bank.<br>Which one of the following is correct in respect of the above Assertion (A) and Reason (R)?",
+        opts: [
+            "A is true but R is false",
+            "Both A and R are true and R is the correct explanation of A",
+            "Both A and R are true but R is not the correct explanation of A",
+            "A is false but R is true"
+        ],
+        ans: 0,
+        exp: "Independent assessments of ADB's operations have flagged persistent difficulty in scaling up nonsovereign investment in frontier and fragile markets, making A true. However, R is false: ADB's largest shareholders, Japan and the United States, each hold roughly equal voting shares of about 15.6 percent, while China holds around 6.4 percent, so China does not possess a unilateral veto comparable to the US position at the World Bank."
+    },
+    {
+        q: "With reference to the background of the Organisation for Economic Co-operation and Development (OECD), consider the following statements:<br>1. The OECD was formally established through a Convention signed in Paris on 14 December 1960, which entered into force on 30 September 1961.<br>2. The predecessor organisation, the OEEC, was established in 1948 primarily to coordinate the administration of American assistance under the Marshall Plan.<br>3. The transformation from OEEC to OECD in 1961 expanded full membership beyond OEEC's European founders to include the United States and Canada.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 2 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "The OECD Convention was indeed signed in Paris in December 1960 and entered into force in September 1961, replacing the OEEC, which itself had been created in 1948 to administer Marshall Plan aid in Europe. The 1961 transformation also formally brought in the United States and Canada as full members alongside the European founding countries, so all three statements are correct."
+    },
+    {
+        q: "With reference to the International Monetary Fund's 16th General Review of Quotas, consider the following statements:<br>1. The Review, concluded in December 2023, approved a 50 percent increase in quotas allocated equiproportionally, leaving the relative distribution of voting shares among members largely unchanged.<br>2. Any quota increase under the 16th Review requires the consent of members holding not less than 85 percent of total quotas for it to become effective.<br>3. The 16th Review resulted in a substantial realignment of quota shares to better reflect the increased economic weight of emerging market and developing economies.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 3",
+            "None of the above",
+            "Only two of the statements are correct",
+            "All three statements are correct"
+        ],
+        ans: 2,
+        exp: "The 16th General Review, concluded in December 2023, delivered only an equiproportional 50 percent quota increase that kept the existing distribution of shares intact, and its effectiveness required consent from members holding at least 85 percent of total quotas, confirming statements 1 and 2. Statement 3 is incorrect because, despite calls for realignment towards emerging economies, the 16th Review notably failed to change the relative distribution of quota shares among members."
+    },
+    {
+        q: "Consider the following:<br>Assertion (A): India's Economic Survey has described the current global trade environment as one marked by 'geo-economic fragmentation'.<br>Reason (R): Between 2020 and 2024, governments worldwide imposed more than 24,000 new trade and investment restrictions, reflecting a marked shift away from multilateralism towards protectionism and bilateral arrangements.<br>Which one of the following is correct in respect of the above Assertion (A) and Reason (R)?",
+        opts: [
+            "A is false but R is true",
+            "Both A and R are true and R is the correct explanation of A",
+            "Both A and R are true but R is not the correct explanation of A",
+            "A is true but R is false"
+        ],
+        ans: 1,
+        exp: "The Economic Survey has indeed used the term 'geo-economic fragmentation' to characterise the present global trade order, and this diagnosis is grounded precisely in the surge of over 24,000 trade and investment restrictions imposed globally between 2020 and 2024, which reflects the retreat from multilateral rules towards protectionist and bilateral approaches. Both statements are factually accurate, and the scale of restrictive measures described in R is the direct evidentiary basis for the characterisation made in A."
+    },
+    {
+        q: "With reference to the lending functions of the World Bank, consider the following statements:<br>1. Eligibility for IDA support is determined primarily by a country's Gross National Income (GNI) per capita falling below an annually updated operational threshold.<br>2. 'Blend' countries are those with a GNI per capita above the IDA operational threshold that remain entirely ineligible for any IBRD borrowing.<br>3. IBRD lending decisions rely purely on a country's income classification and involve no separate assessment of a country's creditworthiness.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "3 only",
+            "2 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "IDA eligibility is indeed based chiefly on a country's GNI per capita staying below an operational cut-off that is revised annually, making statement 1 correct. Statement 2 is wrong because 'blend' countries are precisely those that remain IDA-eligible by income while also being creditworthy for some IBRD borrowing, and statement 3 is wrong because IBRD lending depends heavily on a separate creditworthiness assessment by its credit risk department, not on income criteria alone."
+    },
+    {
+        q: "With reference to recent developments concerning the International Monetary Fund (IMF), consider the following statements:<br>1. Kristalina Georgieva was reappointed for a second five-year term as IMF Managing Director, extending her tenure to October 2029.<br>2. Gita Gopinath, IMF's First Deputy Managing Director, continues to serve in that position as of September 2025.<br>3. The IMF's October 2025 World Economic Outlook update lowered India's 2025 growth forecast to below 6 percent, citing the impact of new tariffs.<br>Which of the statements given above is correct?",
+        opts: [
+            "2 only",
+            "3 only",
+            "None of the statements is correct",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "Kristalina Georgieva was indeed reappointed by the IMF's Executive Board for a second five-year term, extending her leadership to October 2029, making statement 1 correct. Statement 2 is wrong because Gita Gopinath's term as First Deputy Managing Director ended on 31 August 2025, and statement 3 is wrong because the IMF actually raised, not lowered, India's 2025 growth forecast to 6.6 percent despite tariff pressures."
+    },
+    {
+        q: "With reference to recent developments in the World Trade Organization (WTO), consider the following statements:<br>1. The 14th WTO Ministerial Conference (MC14) was held in Yaoundé, Cameroon, in March 2026.<br>2. MC14 concluded with a consensus outcome that extended the moratorium on customs duties on electronic transmissions indefinitely.<br>3. Comoros and Timor-Leste became the WTO's 165th and 166th members following the 13th Ministerial Conference held in Abu Dhabi.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "MC14 was indeed held in Yaoundé, Cameroon, from 26 to 30 March 2026, and Comoros and Timor-Leste had earlier joined as the WTO's 165th and 166th members at MC13 in Abu Dhabi, making statements 1 and 3 correct. Statement 2 is false because MC14 actually ended without consensus, precisely due to disagreements among members over the e-commerce moratorium."
+    },
+    {
+        q: "With reference to recent institutional changes at the Asian Development Bank (ADB), consider the following statements:<br>1. In November 2025, ADB's Board of Governors approved the first amendment to the ADB Charter since 1966, removing a lending limitation and enabling a 50 percent increase in annual lending capacity.<br>2. The 2025 ADB Charter amendment required shareholders to approve a general capital increase before the enhanced lending capacity could take effect.<br>3. Amendments to the ADB Charter can be approved by a simple majority of the Board of Governors, representing any proportion of total voting power.<br>Which of the statements given above is correct?",
+        opts: [
+            "All three are correct",
+            "2 only",
+            "1 only",
+            "3 only"
+        ],
+        ans: 2,
+        exp: "ADB's Board of Governors did approve, in November 2025, the first amendment to the Bank's Charter since its founding, removing the lending limitation in Article 12.1 to allow a 50 percent increase in annual lending, making statement 1 correct. Statement 2 is wrong because the amendment was specifically designed to avoid any need for a general capital increase from shareholders, and statement 3 is wrong because Charter amendments require two-thirds of Governors representing at least three-fourths of total voting power, not a simple majority."
+    },
+    {
+        q: "Which one of the following best distinguishes a 'customs union' from a 'free trade area' under the WTO's regional trade framework?",
+        opts: [
+            "A customs union applies only to trade in services, whereas a free trade area applies only to trade in goods",
+            "A customs union requires members to adopt a common external tariff towards non-members, whereas a free trade area allows members to maintain independent tariff schedules towards non-members",
+            "A customs union is notified under the WTO's Enabling Clause, whereas a free trade area is notified under GATT Article XXIV",
+            "A customs union allows free movement of labour and capital among members, while a free trade area does not permit any factor mobility"
+        ],
+        ans: 1,
+        exp: "The defining feature separating a customs union from a free trade area is that customs union members commit to a common external tariff on imports from non-members, while free trade area members simply remove barriers among themselves but retain their own independent tariff schedules towards outsiders. The other options describe features, such as factor mobility, notification provisions, or sectoral scope, that are not the actual legal distinction drawn under GATT Article XXIV."
+    },
+    {
+        q: "With reference to the Organisation for Economic Co-operation and Development (OECD), consider the following statements:<br>1. The OECD evolved from the Organisation for European Economic Co-operation (OEEC), which was originally set up to help administer the Marshall Plan.<br>2. India has been a full member of the OECD since 2007.<br>3. Decisions of the OECD Council are taken by consensus among all member countries.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "The OECD traces its origins to the OEEC, formed in 1948 to coordinate Marshall Plan aid, and its Council, comprising ambassadors of member states, indeed operates through consensus, making statements 1 and 3 correct. Statement 2 is incorrect since India has never joined the OECD as a full member; it has instead been one of the organisation's 'Key Partner' countries since 2007."
+    },
+    {
+        q: "With reference to Regional Trade Agreements involving India, consider the following statements:<br>1. India is a party to the ASEAN-India Free Trade Area (AIFTA).<br>2. India is among the signatory members of the Regional Comprehensive Economic Partnership (RCEP).<br>3. India has signed a Comprehensive Economic Partnership Agreement (CEPA) with the United Arab Emirates.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 0,
+        exp: "India is a founding participant in the ASEAN-India Free Trade Area and signed a Comprehensive Economic Partnership Agreement with the UAE, which came into effect in 2022, making statements 1 and 3 correct. Statement 2 is incorrect because India withdrew from RCEP negotiations in November 2019 and is not a signatory to the agreement."
+    },
+    {
+        q: "With reference to recent policies of the Asian Infrastructure Investment Bank (AIIB), consider the following statements:<br>1. Under its updated Corporate Strategy approved in 2025, AIIB aims to reduce its annual financing to USD 17 billion by 2030 as part of a broader consolidation of operations.<br>2. AIIB's Climate Action Plan, covering the period 2024-2030, was adopted jointly with the World Bank as a single shared climate strategy applicable to both institutions.<br>3. Since 1 July 2023, AIIB has required all its new financing operations to be aligned with the goals of the Paris Agreement on climate change.<br>Which of the statements given above is correct?",
+        opts: [
+            "None of the statements is correct",
+            "2 only",
+            "3 only",
+            "1 only"
+        ],
+        ans: 2,
+        exp: "AIIB did commit that, from 1 July 2023, all its new financing operations would align with the Paris Agreement's climate goals, making statement 3 correct. Statement 1 is wrong because the 2025 Corporate Strategy actually aims to double annual financing to USD 17 billion by 2030, not reduce it, and statement 2 is wrong because the Climate Action Plan is AIIB's own standalone strategy, not a joint plan with the World Bank."
+    },
+    {
+        q: "With reference to the governance framework of the International Bank for Reconstruction and Development (IBRD), consider the following statements:<br>1. Amending the IBRD's Articles of Agreement requires approval representing eighty-five percent of the total voting power.<br>2. The United States is the only IBRD member whose individual voting share exceeds fifteen percent, giving it an effective veto over such amendments.<br>3. Approval of individual lending projects requires only a simple majority of the total voting power, a lower threshold than that needed to amend the Articles of Agreement.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 and 3 only",
+            "1, 2 and 3",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "Major policy changes at the IBRD, including amendments to its Articles of Agreement, require eighty-five percent of the total voting share, and since the United States alone holds a voting share above fifteen percent, it can block such changes single-handedly. Ordinary decisions, such as sanctioning specific projects, need only a simple majority, a considerably lower threshold, so all three statements hold true."
+    },
+    {
+        q: "Which one of the following best characterizes the functioning of the G20 as an international grouping?",
+        opts: [
+            "Its decisions are legally binding on all member states under international law",
+            "It operates without a permanent secretariat, with administrative functions performed by the country holding the rotating presidency",
+            "It functions through a permanent secretariat based in Paris that coordinates its annual agenda",
+            "Membership is limited strictly to sovereign nation-states, excluding regional organisations"
+        ],
+        ans: 1,
+        exp: "The G20 has no permanent secretariat or headquarters; the country holding the annually rotating presidency, supported by a 'troika' of the previous, current, and next presidencies, handles administrative and agenda-setting functions. Its outcomes are consensus-based and not legally binding, and its membership includes the European Union and, since 2023, the African Union as permanent regional-bloc members, ruling out the other options."
+    },
+    {
+        q: "With reference to important G20 policy initiatives, consider the following statements:<br>1. The G20 Common Framework for Debt Treatment, launched in November 2020, involves coordination between traditional Paris Club creditors and newer creditors such as China and India.<br>2. Under the two-pillar solution endorsed by the OECD/G20 Inclusive Framework in October 2021, Pillar One primarily concerns setting a global minimum corporate tax rate, while Pillar Two concerns reallocating taxing rights over large multinational enterprises' profits.<br>3. The G20 Common Framework requires private-sector creditors to provide debt treatment on terms comparable to those extended by official creditors.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 3 alone",
+            "Exactly one of the statements is correct",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "The G20 Common Framework, launched in November 2020, does bring together Paris Club creditors alongside China and India, and it explicitly requires private creditors to participate on comparable terms to ensure fair burden-sharing, confirming statements 1 and 3. Statement 2 reverses the actual allocation: Pillar One deals with reallocating taxing rights over large multinational enterprises' profits to market jurisdictions, while Pillar Two establishes the global minimum corporate tax rate."
+    },
+    {
+        q: "With reference to the organisational structure of the Asian Development Bank (ADB), consider the following statements:<br>1. ADB's Board of Directors comprises 12 Directors, of whom eight are elected from non-regional members and four from regional Asia-Pacific members.<br>2. By long-standing convention, the President of ADB has always been a national of Japan, reflecting Japan's position as one of the Bank's two largest shareholders.<br>3. Masato Kanda, who assumed the ADB presidency in February 2025, was directly appointed by the Government of Japan without any requirement of election by ADB's Board of Governors.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "Exactly one of the statements is correct",
+            "Only statement 1"
+        ],
+        ans: 2,
+        exp: "Every ADB President to date has indeed been Japanese, consistent with Japan's status as a top shareholder alongside the United States, making statement 2 correct. Statement 1 reverses the actual composition, which allots eight of the twelve Board seats to regional members and only four to non-regional ones, and statement 3 is wrong because Kanda, like every ADB President, was elected by the Board of Governors rather than simply appointed by Japan."
+    },
+    {
+        q: "With reference to the functions of the Asian Infrastructure Investment Bank (AIIB), consider the following statements:<br>1. AIIB's Board of Directors functions as a resident board permanently based in Beijing, mirroring the World Bank's Board of Executive Directors structure.<br>2. AIIB is prohibited under its Articles of Agreement from financing any project located outside the Asia-Pacific region under any circumstances.<br>3. AIIB provides both sovereign-backed and non-sovereign-backed financing, with the latter including direct equity investments in private or public sector companies.<br>Which of the statements given above is correct?",
+        opts: [
+            "3 only",
+            "None of the statements is correct",
+            "2 only",
+            "1 only"
+        ],
+        ans: 0,
+        exp: "AIIB does extend both sovereign-backed and non-sovereign-backed financing, with the latter permitting direct equity investments in private or public enterprises, making statement 3 correct. Statement 1 is wrong because AIIB deliberately adopts a non-resident Board of Directors model, unlike the World Bank's resident board, and statement 2 is wrong because AIIB can finance projects outside Asia if they support connectivity with the region or serve as a global public good."
+    },
+    {
+        q: "The Articles of Agreement establishing the Asian Infrastructure Investment Bank (AIIB), signed by its founding members, entered into force in which of the following years, prior to the Bank commencing operations in January 2016?",
+        opts: [
+            "2013",
+            "2016",
+            "2014",
+            "2015"
+        ],
+        ans: 3,
+        exp: "The AIIB's Articles of Agreement, a multilateral treaty among its founding members, entered into force on 25 December 2015, after which the Bank formally began operations in January 2016. The idea of the Bank itself was floated by China in 2013, but that is distinct from the treaty's entry into force."
+    },
+    {
+        q: "With reference to G20-led reforms of multilateral development banks (MDBs), consider the following statements:<br>1. Under Brazil's 2023 G20 Presidency, an Independent Expert Group was formed to recommend reforms to strengthen Multilateral Development Banks.<br>2. The Independent Expert Group's 'Triple Agenda' report, co-convened by Lawrence Summers and N.K. Singh, recommended a triple mandate for MDBs and called for tripling their sustainable lending levels by 2030.<br>3. The Triple Agenda report was formally adopted as a binding treaty amending the Articles of Agreement of all major MDBs simultaneously.<br>Which of the statements given above is correct?",
+        opts: [
+            "None of the statements is correct",
+            "3 only",
+            "2 only",
+            "1 only"
+        ],
+        ans: 2,
+        exp: "The Independent Expert Group's 'Triple Agenda' report, co-convened by Lawrence Summers and N.K. Singh, did recommend a triple mandate for MDBs alongside a call to triple sustainable lending levels by 2030, making statement 2 correct. Statement 1 is wrong because the Expert Group was constituted under India's 2023 G20 Presidency, not Brazil's, and statement 3 is wrong because the report is a set of recommendations, not a binding treaty amendment to any MDB's Articles of Agreement."
+    },
+    {
+        q: "Consider the following:<br>Assertion (A): The G20 has often struggled to present a unified, actionable response to major geopolitical crises, such as the Russia-Ukraine conflict.<br>Reason (R): G20 decisions require consensus among all its members, and the forum has no permanent secretariat, budget, or enforcement mechanism to compel compliance with its declarations.<br>Which one of the following is correct in respect of the above Assertion (A) and Reason (R)?",
+        opts: [
+            "Both A and R are true but R is not the correct explanation of A",
+            "A is true but R is false",
+            "Both A and R are true and R is the correct explanation of A",
+            "A is false but R is true"
+        ],
+        ans: 2,
+        exp: "The G20's consensus-based, non-binding format, coupled with its lack of a permanent secretariat or enforcement authority, has repeatedly led to diluted or generalized language on divisive issues, which correctly explains why the forum has struggled to produce unified responses to geopolitical crises. Both the assertion and the reason are factually accurate, and the institutional weakness described in R is precisely the mechanism that produces the outcome described in A."
+    },
+    {
+        q: "With reference to the organisational structure of the New Development Bank (NDB), consider the following statements:<br>1. The NDB's structure comprises a Board of Governors, a Board of Directors, and a President assisted by four Vice-Presidents drawn from the other founding member countries.<br>2. The President of the NDB, while sitting as a member of the Board of Directors, does not vote on matters except to break a tie.<br>3. The NDB's Africa Regional Center, its first regional office outside its Shanghai headquarters, was established in Johannesburg in 2017.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 3,
+        exp: "The NDB's governance does rest on a Board of Governors, a Board of Directors, and a President supported by four Vice-Presidents representing the other founding members, with the President voting only to break a tie, and its first regional office, the Africa Regional Center, opened in Johannesburg in 2017. All three statements accurately describe the Bank's organisational set-up."
+    },
+    {
+        q: "With reference to the legal bases under which Regional Trade Agreements (RTAs) are notified to the WTO, consider the following statements:<br>1. Preferential trade arrangements in goods exclusively among developing-country members are governed by the 1979 'Enabling Clause', adopted during the Tokyo Round.<br>2. RTAs covering trade in services are governed by Article V of the General Agreement on Trade in Services (GATS), applicable to both developed and developing country members.<br>3. Under the Transparency Mechanism established in 2006, RTAs falling under GATT Article XXIV and GATS Article V are considered by the Committee on Regional Trade Agreements, while those under the Enabling Clause are considered by the Committee on Trade and Development.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 3,
+        exp: "RTAs among developing countries alone can be notified under the 1979 Enabling Clause, service-sector RTAs fall under GATS Article V for all members, and the 2006 Transparency Mechanism indeed splits oversight between the Committee on Regional Trade Agreements for Article XXIV/GATS V cases and the Committee on Trade and Development for Enabling Clause cases. All three statements accurately describe the distinct legal channels through which RTAs are notified and examined at the WTO."
+    },
+    {
+        q: "With reference to the evolution of the post-war international economic architecture, consider the following statements:<br>1. The Bretton Woods Conference, formally titled the United Nations Monetary and Financial Conference, was held in July 1944 and led to the creation of the IMF and the IBRD.<br>2. The Bretton Woods Conference also directly led to the establishment of the International Trade Organisation (ITO), which began functioning as planned from 1948 onward.<br>3. The General Agreement on Tariffs and Trade, signed in 1947, eventually evolved into the World Trade Organization, which came into being in 1995 following the Uruguay Round negotiations.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "Exactly two of the statements are correct",
+            "Exactly one of the statements is correct",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "The July 1944 Bretton Woods Conference produced the Articles of Agreement for the IMF and the IBRD, and the GATT signed in 1947 later formed the basis for the WTO's creation in 1995 after the Uruguay Round, confirming statements 1 and 3. Statement 2 is incorrect because the proposed International Trade Organisation, envisaged under the Havana Charter, never came into force due to non-ratification by key countries, leaving GATT to govern global trade in its place."
+    },
+    {
+        q: "With reference to the origins of the Asian Infrastructure Investment Bank (AIIB), consider the following statements:<br>1. Chinese President Xi Jinping first proposed the establishment of the AIIB in October 2013 during a visit to Southeast Asia, including a speech to the Indonesian parliament.<br>2. The AIIB's authorised capital was fixed at USD 50 billion when it commenced operations in January 2016.<br>3. Fifty countries signed the AIIB's Articles of Agreement in Beijing on 29 June 2015, ahead of the Bank's formal establishment later that year.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "Exactly one of the statements is correct",
+            "Only one of the statements is correct",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "Xi Jinping did first float the AIIB proposal in October 2013 during his Southeast Asia trip, and fifty countries did sign the Articles of Agreement in Beijing on 29 June 2015 ahead of the Bank's formal establishment, confirming statements 1 and 3. Statement 2 is incorrect because the AIIB's authorised capital was set at USD 100 billion, of which only USD 50 billion formed the initial subscribed capital."
+    },
+    {
+        q: "With reference to the ASEAN Charter, consider the following statements:<br>1. Under the ASEAN Charter, decisions on economic commitments are taken strictly by majority voting, with no scope for flexible or differentiated participation among members.<br>2. The ASEAN Charter, signed in November 2007, entered into force in December 2008 and conferred legal personality on ASEAN as an inter-governmental organisation.<br>3. The ASEAN Charter replaced the 1976 Treaty of Amity and Cooperation as ASEAN's primary instrument governing the principle of non-interference.<br>Which of the statements given above is correct?",
+        opts: [
+            "1 only",
+            "2 only",
+            "None of the statements is correct",
+            "3 only"
+        ],
+        ans: 1,
+        exp: "The ASEAN Charter was indeed signed in November 2007 and entered into force in December 2008, conferring legal personality on ASEAN as an inter-governmental organisation, making statement 2 correct. Statement 1 is wrong because ASEAN's basic decision-making principle is consultation and consensus, with the 'ASEAN Minus X' formula allowing flexible participation in economic commitments, and statement 3 is wrong because the 1976 Treaty of Amity and Cooperation remains a distinct instrument that the Charter did not replace."
+    },
+    {
+        q: "With reference to the WTO's legal framework governing Regional Trade Agreements (RTAs), consider the following statements:<br>1. GATT Article XXIV permits WTO members to form customs unions and free trade areas as an exception to the Most-Favoured-Nation principle.<br>2. In a free trade area, unlike in a customs union, member countries retain the right to maintain independent tariff schedules towards non-member countries.<br>3. RTAs notified under Article XXIV are required to eliminate duties and other restrictive trade regulations on substantially all trade among their constituent members.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 2 and 3",
+            "Only one of the statements is correct",
+            "Exactly two of the statements are correct",
+            "All of the statements are correct"
+        ],
+        ans: 3,
+        exp: "GATT Article XXIV carves out an explicit exception to the MFN obligation for customs unions and free trade areas, and further requires that such arrangements cover substantially all trade among their members, confirming statements 1 and 3. Statement 2 is also correct since the defining difference between the two forms is that a customs union adopts a common external tariff while a free trade area lets each member keep its own tariff schedule towards outsiders, so all three statements hold true."
+    },
+    {
+        q: "With reference to a recent Asian Development Bank (ADB) initiative, consider the following statements:<br>1. The Nature Solutions Finance Hub for Asia and the Pacific was jointly launched by ADB and the International Monetary Fund as a co-sponsored initiative.<br>2. The Hub focuses exclusively on financing hydropower projects across the Asia-Pacific region, to the exclusion of all other nature-based solutions.<br>3. ADB launched the 'Nature Solutions Finance Hub for Asia and the Pacific', aiming to mobilise at least USD 2 billion in investments for nature-based solutions projects.<br>Which of the statements given above is correct?",
+        opts: [
+            "None of the statements is correct",
+            "1 only",
+            "2 only",
+            "3 only"
+        ],
+        ans: 3,
+        exp: "ADB did launch the Nature Solutions Finance Hub for Asia and the Pacific with the aim of mobilising at least USD 2 billion in investment for nature-based solutions projects, making statement 3 correct. Statement 1 is wrong because ADB launched the Hub on its own rather than jointly with the IMF, and statement 2 is wrong because the Hub's scope covers nature-based solutions broadly, addressing climate change and biodiversity loss, not hydropower alone."
+    },
+    {
+        q: "With reference to the features of the Asian Development Bank (ADB), consider the following statements:<br>1. ADB classifies its developing member countries into three groups based solely on population size, without reference to income levels or creditworthiness.<br>2. The Asian Development Fund (ADF), established in 1974, has been a grant-only concessional assistance facility since January 2017, after its loan portfolio was merged into ADB's Ordinary Capital Resources.<br>3. ADB's debt securities carry a below-investment-grade credit rating, reflecting the relatively higher risk profile of its regional membership.<br>Which of the statements given above is correct?",
+        opts: [
+            "3 only",
+            "All three are correct",
+            "1 only",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "The ADF, established in 1974, did become a grant-only facility from January 2017 once its concessional loan portfolio was folded into ADB's Ordinary Capital Resources, making statement 2 correct. Statement 1 is wrong because ADB classifies member countries using GNI per capita and creditworthiness, not population size, and statement 3 is wrong because ADB's debt securities carry the highest possible investment-grade ratings from major credit agencies."
+    },
+    {
+        q: "With reference to the Bay of Bengal Initiative for Multi-Sectoral Technical and Economic Cooperation (BIMSTEC), consider the following statements:<br>1. BIMSTEC was established in 1997 through the Bangkok Declaration and groups together seven countries from South and Southeast Asia.<br>2. Pakistan and Maldives are members of BIMSTEC, just as they are members of SAARC.<br>3. BIMSTEC formally replaced SAARC as South Asia's primary vehicle for regional economic integration immediately upon SAARC's formal dissolution in 2016.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "3 only",
+            "1 and 2 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "BIMSTEC was indeed established through the 1997 Bangkok Declaration and comprises seven member states spanning South and Southeast Asia, making statement 1 correct. Statement 2 is wrong because BIMSTEC specifically excludes Pakistan and Maldives, unlike SAARC, and statement 3 is wrong because SAARC has only remained stalled and suspended since 2016, not formally dissolved, so BIMSTEC has gained prominence alongside it rather than through any formal replacement."
+    },
+    {
+        q: "With reference to the functions of the Asian Development Bank (ADB) under its founding Charter, consider the following statements:<br>1. ADB's Charter mandates that the Bank must finance any development project within a member's territory even if that member formally objects to such financing.<br>2. Under Article 2 of its Charter, one of ADB's core functions is to assist member countries in coordinating their development policies and plans to promote the orderly expansion of trade, particularly intra-regional trade.<br>3. ADB's Charter restricts its functions exclusively to extending loans, explicitly barring it from providing technical assistance or equity investments.<br>Which of the statements given above is correct?",
+        opts: [
+            "All three are correct",
+            "2 only",
+            "1 only",
+            "3 only"
+        ],
+        ans: 1,
+        exp: "Article 2 of the ADB Charter does list assisting members in coordinating their development policies and plans, with a view to expanding trade including intra-regional trade, as a core function, making statement 2 correct. Statement 1 is wrong because the Charter explicitly bars ADB from financing an undertaking in a member's territory if that member objects, and statement 3 is wrong because ADB's functions explicitly include technical assistance and equity investments alongside loans."
+    },
+    {
+        q: "With reference to recent challenges facing the World Bank, consider the following statements:<br>1. In the run-up to the 2025 World Bank-IMF Annual Meetings, discussions on revising the Bank's shareholding structure reportedly reached a stalemate over enlarging China's voting share.<br>2. The 2018 shareholding reform resulted in a substantial reallocation of voting power, shifting more than five percentage points towards emerging economies.<br>3. The 2015 shareholding review, associated with the 'Lima Principles', led to an immediate and substantial reallocation of voting shares among member countries.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 and 3 only",
+            "2 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "Analyses of the 2025 shareholding review confirm that talks stalled largely because of resistance to any meaningful increase in China's voting share, making statement 1 correct. Statements 2 and 3 are both incorrect: the 2018 reform delivered a shift of only about 0.5 percentage points, and the 2015 review, while producing the 'Lima Principles', amounted to little more than a statement of intent without any substantial reallocation of votes."
+    },
+    {
+        q: "With reference to the historical evolution of the World Trade Organization (WTO), consider the following statements:<br>1. GATT was signed in 1947 by 23 founding contracting parties as a provisional arrangement, pending the creation of the International Trade Organisation.<br>2. The Uruguay Round was the first and only GATT round of negotiations to address non-tariff barriers to trade.<br>3. The Marrakesh Agreement of 1994 dissolved GATT 1947 entirely, after which it ceased to have any legal relevance following the WTO's establishment.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "2 only",
+            "1 and 2 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "GATT was indeed signed in 1947 by 23 contracting parties as a stop-gap measure meant to last only until the proposed International Trade Organisation came into being, making statement 1 correct. Statement 2 is wrong because it was the Tokyo Round (1973-79), not the Uruguay Round, that first tackled non-tariff barriers, and statement 3 is wrong because GATT 1994, an updated version of the original text, continues to exist as the WTO's umbrella treaty on trade in goods rather than having been dissolved."
+    },
+    {
+        q: "With reference to the crisis affecting the World Trade Organization's (WTO) dispute settlement system, consider the following statements:<br>1. All WTO members have joined the Multi-Party Interim Appeal Arbitration Arrangement (MPIA), making it a universal and binding substitute for the defunct Appellate Body.<br>2. Since December 2019, the WTO's Appellate Body has been unable to hear new appeals because a sufficient number of judges could not be appointed, a situation attributable to one member blocking such appointments.<br>3. The paralysis of the Appellate Body has led to a significant increase in the WTO's dispute settlement caseload, as members increasingly favour resolving disputes through the WTO rather than bilateral means.<br>Which of the statements given above is correct?",
+        opts: [
+            "3 only",
+            "None of the statements is correct",
+            "1 only",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "The Appellate Body has indeed been unable to hear new appeals since December 2019 because the United States blocked the appointment of new judges, leaving it without the quorum needed to function, making statement 2 correct. Statement 1 is wrong because only a subset of WTO members have joined the MPIA workaround, not the entire membership, and statement 3 is wrong because the Appellate Body's paralysis has caused the WTO's dispute caseload to fall sharply, not rise, as losing parties increasingly 'appeal into the void'."
+    },
+    {
+        q: "With reference to recent developments concerning the World Bank, consider the following statements:<br>1. Ajay Banga, an Indian-born American business executive, has been President of the World Bank Group since June 2023, succeeding David Malpass.<br>2. In January 2026, the World Bank Group and India announced a new Country Partnership Framework (CPF) for FY26-31 to support India's 'Viksit Bharat' vision.<br>3. The World Bank's plan to expand its lending capacity by 50 percent through balance sheet optimisation is aimed at reducing its overall lending to developing countries over the next decade.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "Both 2 and 3",
+            "Statement 3 alone",
+            "All of the above"
+        ],
+        ans: 0,
+        exp: "Ajay Banga has indeed led the World Bank Group since June 2023, and the Bank announced a new India Country Partnership Framework for FY26-31 in January 2026 aligned with the Viksit Bharat vision, making statements 1 and 2 correct. Statement 3 is incorrect because the balance sheet optimisation initiative is intended to expand, not reduce, lending capacity, aiming to provide roughly USD 150 billion in additional financing over the next decade."
+    },
+    {
+        q: "With reference to the origins of the Asian Development Bank (ADB), consider the following statements:<br>1. The idea of a regional development bank for Asia was formalized through a resolution at the first Ministerial Conference on Asian Economic Cooperation, held under the UN Economic Commission for Asia and the Far East (ECAFE) in 1963.<br>2. Manila was selected over Tokyo as ADB's headquarters through a vote among prospective member countries, even though Japan was the principal driving force behind the Bank's creation.<br>3. Takeshi Watanabe, ADB's first President, was a national of the Philippines.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "Only statement 1",
+            "None of the statements are correct",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "ADB's creation was formalized through a 1963 ECAFE resolution, and although Japan drove the initiative and initially expected to host the Bank, a vote among prospective members chose Manila over Tokyo, confirming statements 1 and 2. Statement 3 is incorrect because Takeshi Watanabe, ADB's first President elected in 1966, was a Japanese national, not a Filipino."
+    },
+    {
+        q: "With reference to the organisational structure of the World Bank, consider the following statements:<br>1. Under the IBRD's Articles of Agreement, each of the five members with the largest shareholding appoints its own Executive Director, while the remaining members elect the rest of the Board's Executive Directors.<br>2. India is not a member of the International Centre for Settlement of Investment Disputes (ICSID), even though it participates in the IBRD, IDA, IFC, and MIGA.<br>3. By long-standing convention, the President of the World Bank Group has traditionally been a national of Japan, reflecting Japan's position as the Bank's largest shareholder.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "Both 1 and 3",
+            "1 and 2 only",
+            "None of the statements are correct"
+        ],
+        ans: 2,
+        exp: "The IBRD's five largest shareholders each appoint their own Executive Director while other members elect the remaining ones, and India indeed sits out of ICSID despite belonging to the other four World Bank Group institutions, confirming statements 1 and 2. Statement 3 is incorrect because the World Bank presidency has conventionally gone to an American national, not a Japanese one; the Japanese-presidency convention instead applies to the Asian Development Bank."
+    },
+    {
+        q: "With reference to the legal provisions of the Agreement on the New Development Bank, consider the following statements:<br>1. A member's voting power corresponds to the shares it holds in the Bank's subscribed capital, and founding BRICS members must collectively retain no less than 55 percent of total voting power at all times.<br>2. A 'qualified majority' under the Agreement is defined as an affirmative vote of two-thirds of the total voting power of members.<br>3. Amendments to the Agreement take immediate effect upon Board of Governors approval, without requiring further ratification by individual member governments.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "Under the NDB Agreement, voting power tracks subscribed capital shares with a guaranteed 55 percent floor for founding BRICS members, and a 'qualified majority' is explicitly defined as two-thirds of total voting power, confirming statements 1 and 2. Statement 3 is incorrect because amendments only enter into force after being accepted or ratified by two-thirds of members, becoming effective three months after that formal communication, not immediately upon Board approval."
+    },
+    {
+        q: "With reference to the legal framework of the Organisation for Economic Co-operation and Development (OECD), consider the following statements:<br>1. Article 5 of the Convention on the OECD empowers the Council to adopt both Decisions and Recommendations, jointly termed 'Acts of the Organisation'.<br>2. Decisions of the OECD Council are legally binding on all member countries that do not abstain at the time of their adoption.<br>3. Recommendations of the OECD Council are legally binding instruments carrying the same enforceability as international treaties.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "None of the above",
+            "Only statement 3"
+        ],
+        ans: 0,
+        exp: "Under Article 5 of the OECD Convention, the Council may adopt both Decisions and Recommendations, and Decisions carry binding legal force on member countries that do not abstain when they are adopted, confirming statements 1 and 2. Statement 3 is incorrect because Recommendations are explicitly not legally binding; they instead carry political and moral weight, and members unwilling to comply typically abstain during adoption rather than being bound against their will."
+    },
+    {
+        q: "Which one of the following best describes the functional distinction between the International Monetary Fund (IMF) and the World Bank within the global economic architecture?",
+        opts: [
+            "The IMF finances long-term infrastructure and poverty-reduction projects, while the World Bank addresses short-term balance-of-payments support",
+            "The IMF and World Bank both exclusively provide non-concessional loans to middle-income countries, with no distinction in mandate",
+            "The IMF primarily addresses short-term balance-of-payments and exchange-rate stability, while the World Bank focuses on long-term development financing and poverty reduction",
+            "The IMF regulates international trade disputes, while the World Bank sets exchange-rate policy for member states"
+        ],
+        ans: 2,
+        exp: "The IMF's core mandate is monetary cooperation and short-term support for balance-of-payments and exchange-rate difficulties, whereas the World Bank concentrates on long-term development financing, infrastructure, and poverty reduction, which is the functional line separating the two Bretton Woods institutions. The other options reverse this division or attribute functions, such as trade dispute settlement, that belong to neither institution."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-69 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

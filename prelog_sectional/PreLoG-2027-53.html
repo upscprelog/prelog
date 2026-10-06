@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-53</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "With reference to the Warehousing (Development and Regulation) Act, 2007, consider the following statements: <br> 1. The Warehousing Development and Regulatory Authority (WDRA) was constituted immediately in 2007, the same year the Act was enacted.<br>2. The Act provides for the issuance of Negotiable Warehouse Receipts (NWRs), which can be used as collateral for bank loans.<br>3. Registration under the Act is mandatory only for warehouses that wish to issue Negotiable Warehouse Receipts, not for all warehouses.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 3",
+            "2 only",
+            "2 and 3 only",
+            "3 only"
+        ],
+        ans: 2,
+        exp: "The WDR Act, 2007 enables registered warehouses to issue Negotiable Warehouse Receipts, which farmers and depositors can use as collateral for loans; registration is required only for warehouses seeking to issue such receipts. However, the Act came into force only in October 2010, and the WDRA itself was constituted on 26 October 2010, not in 2007."
+    },
+    {
+        q: "With reference to the PM-WANI (PM Wi-Fi Access Network Interface) framework, consider the following statements: <br> 1. It was launched by the Union Cabinet in December 2020 to expand public Wi-Fi hotspots through Public Data Offices (PDOs) without requiring any licence fee.<br>2. Public Data Office Aggregators (PDOAs) are required to obtain a licence from TRAI before onboarding any Public Data Office.<br>3. The Department of Telecommunications' 2026 reforms under PM-WANI removed QR-based authentication in favour of SMS-based OTP login for all devices.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 only",
+            "2 only",
+            "3 only"
+        ],
+        ans: 1,
+        exp: "PM-WANI was launched by the Union Cabinet in December 2020 precisely to enable licence-free public Wi-Fi hotspots through PDOs and PDOAs. Neither PDOs nor PDOAs require a TRAI licence under this framework, and the Department of Telecommunications' 2026 reforms introduced (not removed) QR-based authentication for secondary devices."
+    },
+    {
+        q: "With reference to the institutional mechanism for logistics coordination under the PM GatiShakti National Master Plan, consider the following statements: <br> 1. The Empowered Group of Secretaries (EGoS) is headed by the Cabinet Secretary.<br>2. The Network Planning Group (NPG) has the exclusive power to approve amendments to the National Master Plan.<br>3. The Logistics Division of the DPIIT functions as the Secretariat and Technical Support Unit for the Network Planning Group.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "The EGoS, chaired by the Cabinet Secretary, is the apex body empowered to review and approve changes to the Master Plan, while the NPG only examines and recommends proposals to the EGoS — it does not have exclusive approval power. The Logistics Division of DPIIT serves as the Secretariat and Technical Support Unit backing the NPG's work."
+    },
+    {
+        q: "With reference to the features of India's power sector, consider the following statements: <br> 1. Coal-based thermal power has been entirely phased out as a source of electricity generation in India.<br>2. India's power sector is structurally divided into three broad segments — generation, transmission and distribution.<br>3. The share of thermal power in India's overall generation mix has risen continuously every year since 2015, outpacing the growth of renewable energy.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "Exactly one of the statements is correct",
+            "1 only",
+            "None of the statements are correct"
+        ],
+        ans: 1,
+        exp: "India's power sector is conventionally organised into three functional segments — generation, transmission and distribution. Thermal power has certainly not been phased out; in fact it remains the single largest source of installed capacity even as its share has gradually declined in recent years due to faster renewable energy capacity addition, not risen."
+    },
+    {
+        q: "With reference to the Multimodal Transportation of Goods Act, 1993, consider the following statements: <br> 1. The Act, in its original form, applied only to the domestic transportation of goods within India and did not cover cross-border movement.<br>2. It governs carriage of goods by at least two different modes of transport under a single multimodal transport contract.<br>3. Entities other than shipping companies, such as freight forwarding companies, may also be registered as Multimodal Transport Operators (MTOs) under the Act.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "Statement 2 alone",
+            "2 and 3 only",
+            "All of the above"
+        ],
+        ans: 2,
+        exp: "The Act governs multimodal transport contracts covering at least two modes of transport, and recognises multiple categories of entities, including shipping companies and freight forwarding companies, as eligible MTOs. In its original 1993 form, however, the Act applied to transportation from a place in India to a place outside India, not purely domestic movement."
+    },
+    {
+        q: "With reference to the Motor Vehicles (Amendment) Act, 2019, consider the following statements: <br> 1. It introduced a scheme for cashless treatment of road accident victims during the 'Golden Hour'.<br>2. It abolished the requirement of third-party insurance for motor vehicles in India.<br>3. It provided for the constitution of a National Road Safety Board to advise governments on road safety and traffic management.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "The 2019 Amendment introduced the 'Golden Hour' cashless treatment scheme for accident victims and provided for a National Road Safety Board under Section 215D. It did not abolish third-party insurance; rather, it strengthened provisions relating to insurance and compensation for accident victims."
+    },
+    {
+        q: "With reference to the structure and composition of India's power sector, consider the following statements: <br> 1. NTPC Limited is a Central Public Sector Undertaking primarily engaged in the generation of electricity.<br>2. POWERGRID Corporation of India is primarily responsible for last-mile retail distribution of electricity to household consumers.<br>3. The Central Electricity Authority (CEA) is a statutory body whose primary function is retail electricity distribution in Union Territories.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 and 3 only",
+            "2 only",
+            "3 only"
+        ],
+        ans: 0,
+        exp: "NTPC is a Central PSU primarily engaged in electricity generation. POWERGRID's core mandate is inter-state and inter-regional bulk power transmission, not retail distribution, and the CEA is a technical planning and advisory body under the Ministry of Power, not a distribution agency."
+    },
+    {
+        q: "With reference to the constitutional and legal framework governing telecommunications in India, consider the following statements: <br> 1. Entry 31 of the Union List in the Seventh Schedule empowers Parliament to legislate on posts, telegraphs, telephones, wireless and broadcasting.<br>2. The Telecommunications Act, 2023 repealed the Indian Telegraph Act, 1885.<br>3. The Telecommunications Act, 2023 renamed the Universal Service Obligation Fund as the 'Digital Bharat Nidhi'.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "Only two of the statements are correct",
+            "1, 2 and 3",
+            "2 only"
+        ],
+        ans: 2,
+        exp: "Entry 31 of the Union List gives Parliament exclusive legislative competence over posts, telegraphs, telephones, wireless and broadcasting. The Telecommunications Act, 2023 repealed the Indian Telegraph Act, 1885 (along with two other colonial-era laws) and renamed the Universal Service Obligation Fund as the Digital Bharat Nidhi, widening its permissible uses to include R&D."
+    },
+    {
+        q: "With reference to the functions of transport-related Ministries in India, consider the following statements: <br> 1. The Ministry of Road Transport and Highways (MoRTH) is responsible for the development, maintenance and management of National Highways.<br>2. The Ministry of Civil Aviation itself directly operates air traffic control services across Indian airspace, without delegating this function to any other body.<br>3. Non-major ports in India fall under the direct administrative control of the Union Ministry of Ports, Shipping and Waterways, with no role for State Governments.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 only",
+            "2 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "MoRTH is the nodal Ministry for development and maintenance of National Highways. Air traffic control services are actually provided by the Airports Authority of India (AAI), not directly by the Ministry, and non-major (minor) ports fall under State jurisdiction through State Maritime Boards, not the Union Ministry."
+    },
+    {
+        q: "With reference to India's National Waterways, consider the following statements: <br> 1. The National Waterways Act, 2016 declared a total of 50 inland waterways in India as National Waterways.<br>2. The Inland Waterways Authority of India (IWAI) was established under the National Waterways Act, 2016 itself.<br>3. National Waterway-1, covering the Ganga-Bhagirathi-Hooghly river system, is being developed exclusively for tourism purposes, with no cargo movement permitted.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 only",
+            "None of the statements is correct",
+            "3 only"
+        ],
+        ans: 2,
+        exp: "The National Waterways Act, 2016 declared 111 (not 50) inland waterways as National Waterways. The Inland Waterways Authority of India was established much earlier, in 1986, under the Inland Waterways Authority of India Act, 1985. National Waterway-1 is being developed under the Jal Marg Vikas Project primarily for cargo and passenger movement, not exclusively for tourism."
+    },
+    {
+        q: "With reference to the UDAN (Ude Desh ka Aam Nagrik) Regional Connectivity Scheme, consider the following statements: <br> 1. UDAN mandates that every domestic airline must operate at least one loss-making route each year.<br>2. The Airports Authority of India (AAI) is the implementing agency for the scheme.<br>3. Airline operators are selected for UDAN routes through a competitive bidding mechanism.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 2 and 3",
+            "None of the statements are correct",
+            "Only one of the statements is correct",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 0,
+        exp: "UDAN, launched under the National Civil Aviation Policy, 2016, is implemented by the AAI, and routes are allocated to airline operators through a competitive bidding mechanism supported by viability gap funding. There is no blanket mandate requiring every airline to run a loss-making route each year."
+    },
+    {
+        q: "Assertion (A): The National Green Hydrogen Mission envisages an associated addition of about 125 GW of renewable energy capacity in India.<br>Reason (R): Green hydrogen is produced through electrolysis of water using renewable electricity, so scaling up green hydrogen production requires a corresponding scale-up of renewable power generation capacity.<br>Select the correct answer using the codes given below:",
+        opts: [
+            "Both A and R are true and R is the correct explanation of A",
+            "A is false but R is true",
+            "Both A and R are true but R is not the correct explanation of A",
+            "A is true but R is false"
+        ],
+        ans: 0,
+        exp: "Green hydrogen is produced by electrolysing water using electricity from renewable sources; hence, meeting the Mission's target of at least 5 MMT of annual green hydrogen production by 2030 necessitates the associated addition of about 125 GW of renewable energy capacity, directly explaining the Mission's renewable capacity target."
+    },
+    {
+        q: "With reference to the constitutional and legal position of ports in India, consider the following statements: <br> 1. Entry 27 of the Union List empowers Parliament to declare and govern ports as 'major ports'.<br>2. Entry 27 also empowers State Governments to override the Central classification of a port as 'major' if it lies within their maritime boundary.<br>3. The Major Port Authorities Act, 2021 replaced the earlier Major Port Trusts Act, 1963.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "Entry 27 of the Union List gives Parliament exclusive power over the declaration, delimitation and governance of major ports, and the Major Port Authorities Act, 2021 replaced the Major Port Trusts Act, 1963. States have no constitutional power to override this Central classification; ports not declared 'major' simply fall under State jurisdiction by default."
+    },
+    {
+        q: "With reference to the classification and administration of roads in India, consider the following statements: <br> 1. National Highways in India are constructed, developed and maintained solely by the National Highways Authority of India (NHAI), with no role for any other agency.<br>2. The classification of Indian roads into National Highways, State Highways, Major District Roads and Village Roads traces its origins to the Nagpur Plan of 1943.<br>3. Under the Constitution, 'National Highways' are placed in the State List, giving State Legislatures exclusive power to legislate on them.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 1 alone",
+            "Statement 2 alone",
+            "None of the statements are correct",
+            "Statement 3 alone"
+        ],
+        ans: 1,
+        exp: "The present classification of Indian roads originated in the Nagpur Plan of 1943. However, NHAI is not the sole agency for National Highways — the National Highways Infrastructure Development Corporation Limited (NHIDCL) and State PWDs also execute national highway works under MoRTH. Further, National Highways are a Union List subject, not a State List one."
+    },
+    {
+        q: "With reference to the evolution of India's road network, consider the following statements: <br> 1. The Nagpur Plan of 1943 was the first to classify Indian roads into categories such as national highways, state highways, district roads and village roads.<br>2. The National Highways Authority of India (NHAI) was created through an Act of Parliament in 1988 and became operational in 1995.<br>3. The Golden Quadrilateral project connects the four metro cities of Delhi, Mumbai, Chennai and Bengaluru.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "The Nagpur Plan (1943) first classified Indian roads into national highways, state highways, district roads and village roads, and NHAI was constituted under the NHAI Act, 1988, becoming operational in February 1995. The Golden Quadrilateral connects Delhi, Mumbai, Chennai and Kolkata, not Bengaluru."
+    },
+    {
+        q: "With reference to challenges facing India's logistics sector, consider the following statements: <br> 1. A highly fragmented trucking industry, dominated by small, single-truck owner-operators, is a recognised structural challenge.<br>2. Inadequate and non-standardised warehousing infrastructure remains a significant challenge.<br>3. High inventory carrying costs, arising partly from suboptimal warehouse locations and weak supply chain planning, add to overall logistics costs.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1, 2 and 3",
+            "Exactly two of the statements are correct",
+            "3 only"
+        ],
+        ans: 1,
+        exp: "India's logistics sector faces multiple, interlinked structural challenges: a highly fragmented trucking industry dominated by small operators, inadequate and non-standardised warehousing, and high inventory carrying costs stemming from poor warehouse placement and weak supply chain coordination — all contributing to India's relatively high logistics costs as a share of GDP."
+    },
+    {
+        q: "With reference to the Dedicated Freight Corridors (DFCs) in India, consider the following statements: <br> 1. The DFCs are designed to handle a lower axle load than the conventional Indian Railways network, to reduce track wear.<br>2. The Eastern and Western Dedicated Freight Corridors, built by the Dedicated Freight Corridor Corporation of India (DFCCIL), together span about 3,300 route km.<br>3. The Eastern Dedicated Freight Corridor connects Ludhiana in Punjab towards Sonnagar/Dankuni, while the Western corridor connects Dadri to Mumbai.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "Only two of the statements are correct",
+            "1, 2 and 3",
+            "Statement 1 alone"
+        ],
+        ans: 1,
+        exp: "The Eastern and Western DFCs, built by DFCCIL, together span about 3,300 route km, with the Eastern corridor running from Ludhiana towards Sonnagar/Dankuni and the Western corridor from Dadri to Mumbai. The DFCs are designed for a higher axle load of 32.5 tonnes, not a lower one, to enable heavier and longer freight trains than on the conventional network."
+    },
+    {
+        q: "With reference to the Telecommunications Act, 2023, consider the following statements: <br> 1. It allows a person with at least 30 years of professional experience to be appointed as TRAI Chairperson, even without prior government service.<br>2. It empowers TRAI to direct telecom entities to refrain from predatory pricing practices.<br>3. It mandates that all telecom licences issued before the Act's commencement lapse immediately once the Act comes into force.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "2 only",
+            "Exactly two of the statements are correct",
+            "Both 1 and 3"
+        ],
+        ans: 2,
+        exp: "The Act allows individuals with 30 years of professional experience (not necessarily government service) to become TRAI Chairperson, and empowers TRAI to check predatory pricing. However, existing licences continue to be valid for the period originally granted, or for five years where no period is specified — they do not lapse immediately."
+    },
+    {
+        q: "Assertion (A): India's logistics costs, estimated at around 13-14% of GDP, are significantly higher than the global benchmark of about 8-9% seen in most developed economies.<br>Reason (R): The Indian logistics sector is characterised by a highly fragmented and largely unorganised set of service providers, with limited standardisation across warehousing and transportation.<br>Select the correct answer using the codes given below:",
+        opts: [
+            "Both A and R are true but R is not the correct explanation of A",
+            "A is true but R is false",
+            "A is false but R is true",
+            "Both A and R are true and R is the correct explanation of A"
+        ],
+        ans: 3,
+        exp: "India's high logistics cost as a share of GDP is widely attributed, including in the National Logistics Policy, 2022, to the fragmented and unorganised nature of the logistics sector, which leads to inefficiencies, poor inter-modal coordination and a lack of standardisation, directly explaining the higher cost burden."
+    },
+    {
+        q: "With reference to the 'Road Accidents in India 2023' report released by the Ministry of Road Transport and Highways (MoRTH), consider the following statements: <br> 1. Two-wheeler riders accounted for the highest share of road accident deaths among all road-user categories.<br>2. Highways with only about 5% of the total road network accounted for less than 10% of total road accidents.<br>3. The report recorded a decline in the total number of road accidents in 2023 compared to 2022.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "Statement 1 alone",
+            "Only two of the statements are correct",
+            "All of the statements are correct"
+        ],
+        ans: 1,
+        exp: "The 2023 report found two-wheeler riders accounted for the highest share (about 45%) of road accident deaths. However, highways comprising just ~5% of the road network actually accounted for over 53% of total accidents and 59% of fatalities, and total accidents rose by 4.2% in 2023 compared to 2022, rather than declining."
+    },
+    {
+        q: "With reference to 'Kavach', India's indigenously developed train protection system, consider the following statements: <br> 1. It was developed by the Research Design and Standards Organisation (RDSO).<br>2. It only alerts the loco pilot and has no capability to apply train brakes automatically.<br>3. It has already been rolled out to cover the entire Indian Railways network of over 68,000 route km.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "3 only",
+            "1 and 2 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "Kavach was indigenously developed by RDSO and is validated to Safety Integrity Level 4 (SIL-4). It automatically applies brakes to prevent collisions when a loco pilot fails to act, such as in a 'Signal Passed at Danger' situation — it does not merely alert. Its rollout remains progressive and partial, covering only a few thousand route km so far, not the entire network."
+    },
+    {
+        q: "Tidal energy is generally harnessed by constructing a barrage across a narrow estuary or bay and using the movement of water to drive turbines. Which characteristic of a coastal site is most critical for making tidal power generation commercially viable there?",
+        opts: [
+            "High annual rainfall in the coastal catchment area",
+            "Continuous flow of freshwater rivers into the sea at that location",
+            "Presence of geothermal gradients beneath the seabed",
+            "A large difference between the high tide and low tide levels (tidal range)"
+        ],
+        ans: 3,
+        exp: "Tidal power generation depends on the potential energy created by the difference between high and low tide levels; a large tidal range, as found in the Gulf of Kutch and Gulf of Khambhat, makes barrage-based tidal energy viable in India. Rainfall, freshwater river flow and geothermal gradients have no bearing on tidal power generation."
+    },
+    {
+        q: "With reference to recent developments in India's civil aviation sector, consider the following statements: <br> 1. In its very first phase of operations, Noida International Airport was designed to handle more than 70 million passengers annually.<br>2. Noida International Airport is being developed and operated directly by the Airports Authority of India (AAI), without any private partner.<br>3. Noida International Airport at Jewar began commercial flight operations in June 2026, becoming Delhi NCR's second major international airport.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1 and 2 only",
+            "1 only",
+            "3 only"
+        ],
+        ans: 3,
+        exp: "Noida International Airport began commercial operations in June 2026, becoming the second major international airport serving the National Capital Region after Delhi's IGI Airport. It is developed and operated by Yamuna International Airport Pvt Ltd, a subsidiary of Zurich Airport International AG, under a public-private partnership, and its first phase was designed for about 12 million passengers annually, with 70 million being a much later, multi-phase target."
+    },
+    {
+        q: "With reference to the Central Electricity Regulatory Commission (CERC), consider the following statements: <br> 1. CERC regulates the tariff of generating companies owned or controlled by the Central Government.<br>2. CERC was constituted under the Electricity Act, 2003 itself, with no separate predecessor legislation.<br>3. CERC functions in a quasi-judicial manner and possesses the powers of a civil court.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "Both 1 and 2",
+            "None of the above",
+            "Both 1 and 3"
+        ],
+        ans: 3,
+        exp: "CERC regulates the tariff of centrally-owned generating companies and functions in a quasi-judicial manner with civil court powers. However, CERC was originally constituted in July 1998 under the Electricity Regulatory Commissions Act, 1998, and was only later recognised as the Central Commission under the Electricity Act, 2003."
+    },
+    {
+        q: "With reference to reforms under India's National Logistics Policy (NLP), 2022, consider the following statements: <br> 1. It seeks to reduce India's logistics cost from around 13-14% of GDP to single digits comparable to developed economies.<br>2. The 'Services Improvement Group' (SIG) was constituted under the Network Planning Group to address regulatory bottlenecks.<br>3. The Unified Logistics Interface Platform (ULIP) was set up to replace the Ministry of Railways as the nodal authority for freight movement.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 only",
+            "1 and 2 only",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "The NLP, 2022 aims to bring down India's logistics cost from roughly 13-14% of GDP closer to global benchmarks. The Services Improvement Group was constituted under the EGoS (on the pattern of the NPG), not under the NPG itself, and ULIP is a digital data-integration platform, not a body replacing any ministry's authority."
+    },
+    {
+        q: "With reference to challenges facing India's transport sector, consider the following statements: <br> 1. Since independence, the share of freight movement carried by railways in India has declined significantly relative to road transport.<br>2. Multimodal integration in India's transport sector is considered fully seamless, with negligible transhipment delays between modes.<br>3. India's transport sector faces no significant challenge from traffic congestion in urban areas, given uniformly excellent last-mile connectivity.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1 only",
+            "Both 2 and 3",
+            "None of the above"
+        ],
+        ans: 1,
+        exp: "A well-recognised structural challenge is the steady long-term shift of freight movement from railways to roads since independence, raising logistics costs. Poor multimodal integration (with transhipment delays) and severe urban traffic congestion, especially with weak last-mile connectivity, remain persistent challenges rather than solved problems."
+    },
+    {
+        q: "With respect to the organisational structure of Indian Railways, which of the following statements is correct?",
+        opts: [
+            "Railway zones are constituted through executive orders of the Ministry of Finance",
+            "Zonal reorganisation of Indian Railways began only after the enactment of the Railways Act, 1989",
+            "Each railway zone is headed by a General Manager and is further sub-divided into divisions headed by a Divisional Railway Manager (DRM)",
+            "The Konkan Railway Corporation functions as one of the operational zones of Indian Railways"
+        ],
+        ans: 2,
+        exp: "Each railway zone is headed by a General Manager and comprises several divisions, each headed by a Divisional Railway Manager. Zones are created by gazette notification under the Railways Act, 1989, but zonal reorganisation itself began much earlier, in 1951. The Konkan Railway Corporation is a separate corporate entity and not a zone of Indian Railways."
+    },
+    {
+        q: "With reference to the Energy Conservation (Amendment) Act, 2022, consider the following statements: <br> 1. It empowers the Central Government to notify a carbon credit trading scheme.<br>2. It empowers only State Governments, and not the Central Government, to mandate a minimum share of non-fossil energy consumption for designated consumers.<br>3. It expanded the Energy Conservation Building Code to cover office and residential buildings with a connected load of 100 kilowatt or above.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "1 and 2 only",
+            "Only two of the statements are correct",
+            "Both 2 and 3"
+        ],
+        ans: 2,
+        exp: "The 2022 Amendment empowers the Central Government (not just States) to specify a carbon credit trading scheme and to mandate minimum non-fossil energy consumption by designated consumers, and it extended the Energy Conservation Building Code to office and residential buildings with a connected load of 100 kW or above."
+    },
+    {
+        q: "With reference to the background and evolution of India's institutional framework for renewable energy, consider the following statements: <br> 1. The Ministry of New and Renewable Energy (MNRE) was created as a direct response to India's 1998 Pokhran nuclear tests.<br>2. The Department of Non-Conventional Energy Sources (DNES), the precursor to today's MNRE, was established directly under the Ministry of Finance in 1982.<br>3. The MNRE was established in 1992 as the Ministry of Non-Conventional Energy Sources and adopted its current name in October 2006.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 only",
+            "1 and 2 only",
+            "2 only"
+        ],
+        ans: 0,
+        exp: "India's renewable energy institutional framework evolved from the Department of Non-Conventional Energy Sources (created in 1982 under the then Ministry of Energy, not the Ministry of Finance) into the Ministry of Non-Conventional Energy Sources in 1992, later renamed the Ministry of New and Renewable Energy in October 2006. It was a response to the 1970s oil shocks, not the 1998 Pokhran tests."
+    },
+    {
+        q: "With reference to recurring UPSC prelims themes on logistics in India, consider the following statements: <br> 1. India's Logistics Performance Index (LPI) ranking is compiled solely on the basis of the average speed of freight trains, excluding all other indicators.<br>2. The PM Gati Shakti National Master Plan was launched in the year 2025.<br>3. The Logistics Performance Index (LPI) is published by the World Bank to benchmark countries on trade-related logistics performance, based on indicators such as customs, infrastructure and timeliness.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 only",
+            "3 only",
+            "2 only"
+        ],
+        ans: 2,
+        exp: "The World Bank's LPI benchmarks countries using multiple indicators — including customs efficiency, infrastructure quality, and timeliness of shipments — not merely freight train speed. PM Gati Shakti National Master Plan was launched in October 2021, not 2025."
+    },
+    {
+        q: "With reference to the National Bank for Financing Infrastructure and Development (NBFID) Act, 2021, consider the following statements: <br> 1. It established NaBFID as a private company incorporated under the Companies Act, 2013.<br>2. NaBFID's authorised share capital under the Act is Rs. 10,000 crore.<br>3. The Central Government is prohibited from holding any equity shares in NaBFID.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "None of the statements is correct",
+            "2 only",
+            "1 only"
+        ],
+        ans: 1,
+        exp: "NaBFID was established as a statutory Development Finance Institution under a dedicated Act, not as a company under the Companies Act. Its authorised share capital is Rs. 1 lakh crore (not Rs. 10,000 crore), and far from being prohibited, the Central Government initially holds 100% of its shares and must hold at least 26% at all times."
+    },
+    {
+        q: "With reference to the LEADS (Logistics Ease Across Different States) 2025 report, consider the following statements: <br> 1. It was released by the NITI Aayog.<br>2. It is the seventh edition of the index and covers the performance of States/UTs for the financial year 2024-25.<br>3. Under this report, States and Union Territories are categorized only into two groups — Coastal States and Landlocked States.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "Exactly two of the statements are correct",
+            "Both 2 and 3",
+            "Only two of the statements are correct"
+        ],
+        ans: 0,
+        exp: "The LEADS 2025 report, the seventh edition of the exercise covering FY 2024-25, was released by the Department for Promotion of Industry and Internal Trade (DPIIT), not NITI Aayog. States and UTs were classified into four categories — Coastal, Landlocked, North-Eastern, and Union Territories — not just two."
+    },
+    {
+        q: "With reference to the distribution of legislative powers over infrastructure-related subjects under the Seventh Schedule to the Constitution, consider the following statements: <br> 1. 'Railways' is placed under the Union List (Entry 22).<br>2. 'Electricity' is placed under the Concurrent List (Entry 38).<br>3. 'Mechanically propelled vehicles' are placed under the Concurrent List (Entry 35).<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "'Railways' falls under Entry 22 of the Union List, over which only Parliament can legislate, while both 'Electricity' (Entry 38) and 'Mechanically propelled vehicles' (Entry 35) fall under the Concurrent List, allowing both Parliament and State Legislatures to legislate, subject to Central law prevailing in case of conflict."
+    },
+    {
+        q: "With reference to the Indian Ports Act, 2025, consider the following statements: <br> 1. It repealed the colonial-era Indian Ports Act, 1908.<br>2. It abolished the Major Port Authorities Act, 2021, bringing major ports also under State Maritime Boards.<br>3. Under the Act, the Maritime State Development Council is chaired by the Chief Justice of India.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "2 only",
+            "1 only",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "The Indian Ports Act, 2025 replaced the century-old Indian Ports Act, 1908. It left the Major Port Authorities Act, 2021 (governing major ports) intact, while giving statutory recognition to State Maritime Boards for non-major ports. The Maritime State Development Council it establishes is chaired by the Union Minister of Ports, Shipping and Waterways, not the Chief Justice of India."
+    },
+    {
+        q: "Which of the following best characterises India's civil aviation sector in recent years?",
+        opts: [
+            "It has been among the fastest-growing domestic aviation markets in the world, with low-cost carriers commanding a dominant share of passenger traffic",
+            "It has seen a continuous decline in passenger traffic over the past decade due to market saturation",
+            "It remains entirely closed to private airline operators, with only state-owned carriers permitted to operate",
+            "It is dominated by full-service carriers, with low-cost carriers accounting for a negligible share of domestic traffic"
+        ],
+        ans: 0,
+        exp: "India has been among the fastest-growing domestic aviation markets globally over the past decade, driven by rising incomes and expanding airport infrastructure, with low-cost carriers (LCCs) such as IndiGo commanding a dominant share of domestic passenger traffic. Private airlines have operated in India since the mid-1990s, following the repeal of the Air Corporations Act, 1953's monopoly provisions."
+    },
+    {
+        q: "With reference to the evolution of the legal framework governing India's power sector, consider the following statements: <br> 1. The Indian Electricity Act, 1910 provided the basic framework for growth of the sector through licensees.<br>2. The Electricity (Supply) Act, 1948 mandated the creation of State Electricity Boards (SEBs) and the Central Electricity Authority (CEA).<br>3. The Electricity Act, 2003 consolidated the 1910, 1948 and 1998 laws and introduced open access in transmission.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 3",
+            "All of the statements are correct",
+            "Exactly one of the statements is correct",
+            "Only one of the statements is correct"
+        ],
+        ans: 1,
+        exp: "The 1910 Act enabled licensee-based private electricity supply; the 1948 Act mandated the creation of SEBs and the CEA; and the Electricity Act, 2003 consolidated these along with the Electricity Regulatory Commissions Act, 1998, into a single comprehensive law that also introduced open access in transmission and distribution."
+    },
+    {
+        q: "With reference to the background and evolution of Indian Railways, consider the following statements: <br> 1. The first passenger train in India ran between Bombay (Bori Bunder) and Thane in 1853.<br>2. The Railway Board was constituted in 1905 to manage railway administration in India.<br>3. Zonal reorganisation of Indian Railways began in 1947, immediately after independence, with the formation of Southern Railway as the first zone.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 2,
+        exp: "India's first passenger train ran in 1853 between Bombay and Thane, and the Railway Board was set up in 1905. However, zonal reorganisation of Indian Railways began only in 1951, not immediately in 1947, when Southern Railway became the first zone, formally constituted on 14 April 1951."
+    },
+    {
+        q: "With reference to the constitutional position of 'electricity' in India, consider the following statements: <br> 1. 'Electricity' is placed exclusively in the Union List (List I), giving only Parliament the power to legislate on it.<br>2. 'Electricity' is a subject placed in the Concurrent List (List III) of the Seventh Schedule, at Entry 38.<br>3. Since electricity is a State List subject, State Legislatures alone can enact laws on it, without any role for Parliament.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 3 alone",
+            "None of the statements are correct",
+            "Only one of the statements is correct",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "'Electricity' is placed at Entry 38 in the Concurrent List (List III) of the Seventh Schedule, meaning both Parliament and State Legislatures can legislate on it, with Central law prevailing in case of conflict. It is therefore neither an exclusively Union List subject nor an exclusively State List subject."
+    },
+    {
+        q: "With reference to the background and evolution of civil aviation in India, consider the following statements: <br> 1. The Air Corporations Act, 1953 remains in force today, continuing to bar private participation in India's airline industry.<br>2. Tata Airlines, founded by JRD Tata in 1932, was renamed 'Air India' in 1946.<br>3. The Air Corporations Act, 1953 nationalised India's airline industry, creating Indian Airlines for domestic operations and Air India International for international operations.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "Tata Airlines, founded in 1932, was renamed Air India in 1946, and the Air Corporations Act, 1953 nationalised the airline industry into Indian Airlines and Air India International. However, this Act was repealed in 1994, ending the government monopoly and paving the way for private carriers to re-enter the sector from 1995 onwards."
+    },
+    {
+        q: "With reference to the functions of regulatory institutions in India's energy sector, consider the following statements: <br> 1. The Petroleum and Natural Gas Regulatory Board (PNGRB) regulates refining, processing, storage, transportation, distribution, marketing and sale of petroleum, petroleum products and natural gas.<br>2. The PNGRB also regulates the exploration and production (E&P) of crude oil and natural gas in India.<br>3. The PNGRB was established under the PNGRB Act, 2006, with the objective of protecting consumer interests and promoting competitive markets in the downstream petroleum and natural gas sector.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 and 3 only",
+            "2 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "The PNGRB, established under the PNGRB Act, 2006, regulates the downstream segment — refining, processing, storage, transportation, distribution, marketing and sale of petroleum and natural gas — to protect consumer interests and foster competition. Exploration and production (E&P) activities remain outside its purview, being governed separately under the Ministry of Petroleum and Natural Gas."
+    },
+    {
+        q: "With reference to reforms in India's power sector, consider the following statements: <br> 1. The Electricity (Rights of Consumers) Rules, 2020 enable more than one distribution licensee to operate in the same area, subject to conditions.<br>2. The Electricity Act, 2003 removed the licensing requirement for setting up most types of generation capacity (except certain hydro projects), to promote competition.<br>3. Under the Electricity Act, 2003, tariffs can be fixed unilaterally by generation and distribution companies, without any oversight from Electricity Regulatory Commissions.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "The Electricity (Rights of Consumers) Rules, 2020 allow multiple distribution licensees in the same area to promote competition, and the Electricity Act, 2003 de-licensed most generation activity to encourage private participation. However, tariff determination remains a regulatory function performed by CERC/SERCs, not something generation or distribution companies can fix unilaterally."
+    },
+    {
+        q: "With reference to recent developments in India's road infrastructure, consider the following statements: <br> 1. As per Ministry of Road Transport and Highways updates, the National Highway network grew from about 91,287 km in 2014 to over 1,46,572 km by FY 2025-26.<br>2. Under the Bharatmala Pariyojana, all 34,800 km of originally envisaged national highway corridors had been fully constructed and commissioned by March 2026.<br>3. The Delhi-Mumbai Expressway, once complete, will be shorter than the Golden Quadrilateral's Delhi-Mumbai stretch, making it a minor addition to the network.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 1",
+            "Exactly two of the statements are correct",
+            "Only statement 2",
+            "Both 1 and 3"
+        ],
+        ans: 0,
+        exp: "The National Highway network has indeed grown substantially, from about 91,287 km in 2014 to over 1,46,572 km by FY 2025-26. However, as of March 2026 only about 22,590 km of the 34,800 km envisaged under Bharatmala had been constructed, not the full length, and the approximately 1,386 km Delhi-Mumbai Expressway is set to become India's longest access-controlled expressway, a major addition rather than a minor one."
+    },
+    {
+        q: "In the decades immediately following India's independence, investment in transport infrastructure initially prioritised which mode of transport over roads, owing to its established colonial-era network and suitability for bulk freight movement?",
+        opts: [
+            "Coastal Shipping",
+            "Railways",
+            "Inland Waterways",
+            "Civil Aviation"
+        ],
+        ans: 1,
+        exp: "Railways inherited an extensive network from the colonial period and were treated as the premier mode for freight and long-distance passenger movement for the first few decades after independence, while investment in roads remained comparatively modest despite plans like the Nagpur Plan (1943), Bombay Plan (1961) and Lucknow Plan (1981)."
+    },
+    {
+        q: "Which of the following best describes a characteristic feature of India's National Highway network?",
+        opts: [
+            "National Highways constitute more than half of India's total road network by length",
+            "India has the smallest road network among major economies, by total length",
+            "National Highways are exclusively financed and maintained by State Governments",
+            "National Highways, though only a small share of India's total road length, carry a disproportionately large share of road traffic"
+        ],
+        ans: 3,
+        exp: "National Highways make up only a small fraction of India's total road network by length, yet they carry a disproportionately large share of road traffic due to their role as primary arterial routes. India has the second-largest road network in the world by length, and National Highways are primarily developed and funded by the Union Government through MoRTH and NHAI, not exclusively by States."
+    },
+    {
+        q: "Assertion (A): The National Bank for Financing Infrastructure and Development (NBFID) was established to catalyse long-term, non-recourse debt financing for infrastructure projects in India.<br>Reason (R): Commercial banks in India face asset-liability mismatches that constrain their ability to provide long-tenure infrastructure loans.<br>Select the correct answer using the codes given below:",
+        opts: [
+            "A is false but R is true",
+            "Both A and R are true and R is the correct explanation of A",
+            "Both A and R are true but R is not the correct explanation of A",
+            "A is true but R is false"
+        ],
+        ans: 1,
+        exp: "The NBFID was set up as a Development Finance Institution precisely because commercial banks, which primarily raise short-term deposits, face asset-liability mismatches that make it difficult for them to extend long-tenure infrastructure financing, creating the need for a dedicated infrastructure-financing institution."
+    },
+    {
+        q: "With reference to Multi-Modal Logistics Parks (MMLPs) envisaged under the Bharatmala Pariyojana, consider the following statements: <br> 1. MMLPs are designed to function on a hub-and-spoke model integrating multiple modes of transport.<br>2. All 35 MMLPs envisaged under Bharatmala Phase I have been fully completed and made operational.<br>3. MMLPs are developed exclusively by State Governments, with no role for any Central agency or Special Purpose Vehicle.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "Statement 2 alone",
+            "Only one of the statements is correct",
+            "None of the above"
+        ],
+        ans: 2,
+        exp: "MMLPs are conceived as hub-and-spoke freight aggregation and distribution centres integrating road, rail, waterways and air. However, only a limited number have been prioritised and are under various stages of development, not all 35, and Central agencies such as National Highways Logistics Management Limited (a wholly-owned NHAI subsidiary) play a key role in their development."
+    },
+    {
+        q: "With reference to the structure and composition of civil aviation regulation in India, consider the following statements: <br> 1. The Directorate General of Civil Aviation (DGCA) is the primary regulatory body responsible for aviation safety oversight, including airworthiness and licensing of pilots.<br>2. The Bureau of Civil Aviation Security (BCAS) is responsible for economic regulation of airport tariffs in India.<br>3. The Airports Authority of India (AAI) has no role in air navigation services and is confined only to airport ground handling.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 only",
+            "3 only",
+            "2 only"
+        ],
+        ans: 1,
+        exp: "The DGCA is India's principal civil aviation safety regulator, overseeing airworthiness certification and licensing of aviation personnel. Economic regulation of airport tariffs is the mandate of the Airports Economic Regulatory Authority (AERA), not BCAS (which handles aviation security), and the AAI plays a central role in providing air navigation services across Indian airspace, in addition to managing airports."
+    },
+    {
+        q: "With reference to the Major Port Authorities Act, 2021, consider the following statements: <br> 1. The Board of Major Port Authority is empowered to fix tariffs for services and use of port assets, including port land.<br>2. The Adjudicatory Board constituted under the Act handles residual dispute-resolution functions earlier performed by the Tariff Authority for Major Ports (TAMP).<br>3. Prior approval of the Central Government remains mandatory before a Board of Major Port Authority can raise any loan from a scheduled bank, exactly as under the 1963 Act.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the statements are correct",
+            "Only statement 1",
+            "Only two of the statements are correct",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "The Major Port Authorities Act, 2021 empowers Boards of Major Port Authorities to fix their own tariffs, ending the centralised role of TAMP, while the Adjudicatory Board handles residual dispute resolution. Unlike the 1963 Act, the 2021 Act removed the requirement of prior Central Government approval for raising loans, granting Boards greater financial autonomy."
+    },
+    {
+        q: "With reference to challenges in India's power sector, consider the following statements: <br> 1. The Ujwal DISCOM Assurance Yojana (UDAY), launched in 2015, aimed at the financial turnaround of power generation companies rather than distribution companies.<br>2. High Aggregate Technical and Commercial (AT&C) losses remain a major challenge for India's electricity distribution companies (DISCOMs).<br>3. India's DISCOMs are, as a general rule, financially self-sufficient and do not require government support or periodic bailouts.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "2 only",
+            "Statement 1 alone",
+            "Only two of the statements are correct"
+        ],
+        ans: 1,
+        exp: "High AT&C losses continue to be a chronic challenge for Indian DISCOMs, contributing to their weak financial health and recurring need for government support and bailout packages. UDAY (2015) specifically targeted the financial turnaround of distribution companies, not generation companies."
+    },
+    {
+        q: "With reference to the constitutional position of transport-related subjects, consider the following statements: <br> 1. 'Railways' is placed under the Concurrent List, allowing both Parliament and State Legislatures to legislate on it.<br>2. 'Mechanically propelled vehicles,' including the principles of their taxation, fall under the Concurrent List (Entry 35).<br>3. Taxes on vehicles suitable for use on roads fall under the State List (Entry 57), subject to the provisions of Entry 35 of the Concurrent List.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 3 only",
+            "1 and 2 only",
+            "2 and 3 only"
+        ],
+        ans: 3,
+        exp: "'Mechanically propelled vehicles' (Entry 35) is a Concurrent List subject, and State List Entry 57 (taxes on vehicles) is expressly made subject to it. However, 'Railways' is placed under the Union List (Entry 22), not the Concurrent List, so only Parliament — not State Legislatures — can legislate on it."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-53 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

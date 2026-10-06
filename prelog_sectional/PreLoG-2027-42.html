@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-42</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "With reference to the 2026 southwest monsoon season in India, consider the following statements: <br> 1. The monsoon set in over Kerala on 4 June 2026, three days later than the normal onset date of 1 June.<br>2. In its end-May update, IMD raised its seasonal rainfall forecast above its April estimate of 92 per cent of the Long Period Average.<br>3. IMD cited the emergence of El Nino conditions as a key factor behind its forecast of below-normal rainfall.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 1 alone",
+            "Only statement 2",
+            "Both 1 and 2",
+            "Both 1 and 3"
+        ],
+        ans: 3,
+        exp: "The 2026 monsoon reached Kerala on 4 June, later than the normal date of 1 June, and IMD pointed to developing El Nino conditions as a reason for expecting below-normal rainfall. Statement 2 is incorrect because IMD revised its forecast downward, from 92 per cent to 90 per cent of LPA."
+    },
+    {
+        q: "With reference to the hazards associated with local winds, consider the following statements: <br> 1. Dust storms (Aandhi) over northwest India are most frequent during the post-monsoon season.<br>2. Nor'westers (Kalbaisakhi) over eastern and north-eastern India occur mainly in the winter season.<br>3. Santa Ana winds are hot, dry downslope winds that can intensify wildfires in southern California.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "3 only",
+            "All three statements are correct",
+            "None of the above"
+        ],
+        ans: 1,
+        exp: "Santa Ana winds are hot, dry offshore winds that dry vegetation and fan wildfires in southern California. Statements 1 and 2 are wrong because both Aandhi dust storms and Nor'westers are pre-monsoon phenomena, most frequent from March to June."
+    },
+    {
+        q: "A district in India received near-normal total rainfall during the kharif season. However, a long dry spell during the flowering stage caused soil moisture to fall below crop requirements and led to widespread crop failure, while reservoirs and groundwater levels in the district remained adequate. Which type of drought does this situation best represent?",
+        opts: [
+            "Hydrological drought",
+            "Agricultural drought",
+            "Meteorological drought",
+            "Socio-economic drought"
+        ],
+        ans: 1,
+        exp: "Agricultural drought is defined by a soil moisture deficit that fails to meet crop needs at critical growth stages, even when seasonal rainfall totals look near normal. It is not meteorological drought, since seasonal rainfall was near normal, and not hydrological drought, since reservoirs and groundwater were adequate."
+    },
+    {
+        q: "With reference to the 2025 southwest monsoon in India, consider the following statements: <br> 1. The monsoon set in over Kerala on 24 May, about eight days ahead of its normal onset date of 1 June.<br>2. Seasonal rainfall for the country as a whole was about 108% of the Long Period Average, which IMD categorises as 'above normal'.<br>3. The monsoon covered the entire country by 29 June, earlier than its normal date of 8 July.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 2 only",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "IMD reported that the 2025 monsoon arrived in Kerala on 24 May, covered the whole country by 29 June (normal date 8 July), and gave seasonal rainfall of 108% of LPA. This falls in the above-normal category (105-110% of LPA), so all three statements are correct."
+    },
+    {
+        q: "The Central Water Commission classifies flood situations at its forecasting sites with reference to the warning level, danger level and highest flood level. In this context, consider the following statements: <br> 1. A site is in an 'Above Normal' flood situation when the river level touches or crosses the danger level.<br>2. A site is in a 'Severe' flood situation when the river level touches or crosses the danger level but remains below the highest flood level.<br>3. A site is in an 'Extreme' flood situation when the river level touches or crosses the highest flood level recorded at that site so far.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only",
+            "2 and 3 only"
+        ],
+        ans: 3,
+        exp: "CWC treats a level at or above the danger level but below the highest flood level as Severe, and a level at or above the highest flood level as Extreme. Statement 1 is wrong because 'Above Normal' applies when the level touches or crosses the warning level but stays below the danger level."
+    },
+    {
+        q: "With reference to the institutional framework for agro-climatic zone-based agricultural planning in India, consider the following statements: <br> 1. The Indian Council of Agricultural Research (ICAR), which coordinates agricultural research and education, functions under the Department of Agricultural Research and Education in the Ministry of Agriculture and Farmers Welfare.<br>2. Agromet Field Units, working with the India Meteorological Department, ICAR institutes and State Agricultural Universities, provide district-level agro-meteorological advisories to farmers.<br>3. Since agriculture is a State List subject, State Governments are primarily responsible for implementing zone-specific crop planning and extension services.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the above",
+            "None of the above",
+            "Both 2 and 3",
+            "Both 1 and 2"
+        ],
+        ans: 0,
+        exp: "ICAR operates under DARE, Agromet Field Units supply district-level advisories under the Gramin Krishi Mausam Sewa, and agriculture is Entry 14 of the State List, so States carry out zone-specific planning and extension with Central support. All three statements are therefore correct."
+    },
+    {
+        q: "With reference to the geological background and evolution of the physiographic divisions of India, consider the following statements:<br>1. The Peninsular Plateau is a part of the ancient Gondwanaland and is among the oldest and most stable landmasses of India.<br>2. The Northern Plains have been formed by the infilling of a trough between the Himalayas and the Peninsular Plateau with alluvium brought by the Indus, Ganga and Brahmaputra systems.<br>3. The Deccan Traps were formed by volcanic activity during the Pleistocene epoch.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "1 only",
+            "Exactly one of the statements is correct",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "The Peninsular Plateau is a remnant of Gondwanaland made of ancient crystalline rocks, and it has remained largely stable. The Northern Plains are an alluvial fill of the foredeep that formed as the Himalayas rose. The Deccan Traps were formed by massive fissure eruptions at the end of the Cretaceous and into the Eocene, not in the Pleistocene, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the theories explaining the origin and mechanism of the Indian monsoon, consider the following statements: <br> 1. Flohn's concept explains the monsoon as a seasonal shift of the Inter-Tropical Convergence Zone (ITCZ) and planetary wind belts rather than merely a large-scale land-sea breeze.<br>2. The onset of the southwest monsoon over India is associated with the establishment of the subtropical westerly jet stream to the south of the Himalayas.<br>3. The Tropical Easterly Jet over peninsular India during summer is linked to the intense heating of the Tibetan Plateau.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 and 3 only",
+            "2 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "Flohn's air-mass concept treats the monsoon as the seasonal migration of the ITCZ and wind belts, and the Tropical Easterly Jet is attributed to strong summer heating of the Tibetan Plateau. Statement 2 is wrong because the monsoon bursts when the subtropical westerly jet withdraws from south of the Himalayas and shifts to the north of the Tibetan Plateau."
+    },
+    {
+        q: "In October 2025, Cyclone Montha crossed the Andhra Pradesh coast between Machilipatnam and Kalingapatnam with maximum sustained winds of about 90-100 km/h, gusting up to 110 km/h. According to the India Meteorological Department's classification of tropical disturbances, this intensity at landfall corresponds to which category?",
+        opts: [
+            "Cyclonic storm",
+            "Severe cyclonic storm",
+            "Very severe cyclonic storm",
+            "Extremely severe cyclonic storm"
+        ],
+        ans: 1,
+        exp: "IMD classifies a system with sustained winds of roughly 89-117 km/h as a Severe Cyclonic Storm, and Montha crossed the Andhra coast in this category. A cyclonic storm has weaker winds (about 62-88 km/h), while very severe and extremely severe categories start well above 117 km/h."
+    },
+    {
+        q: "With reference to heat-related preparedness in India, consider the following statements: <br> 1. The Ahmedabad Heat Action Plan of 2013 is regarded as the first early-warning and response system for extreme heat in South Asia.<br>2. In IMD's colour-coded heat warnings, yellow denotes 'take action' for extreme heat conditions.<br>3. The National Action Plan on Heat-Related Illness was issued by the National Disaster Management Authority.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements is correct",
+            "1 only",
+            "2 only",
+            "3 only"
+        ],
+        ans: 1,
+        exp: "Ahmedabad's 2013 plan, drawn up after the deadly 2010 heat wave, was the first heat early-warning system in South Asia. Statement 2 is wrong because red denotes 'take action', while yellow means 'be updated' and orange 'be prepared'. Statement 3 is wrong because the Action Plan on Heat-Related Illness comes from the health ministry, not NDMA."
+    },
+    {
+        q: "With reference to reforms for cyclone risk reduction in India, consider the following statements: <br> 1. The National Cyclone Risk Mitigation Project is a World Bank-assisted project implemented through the National Disaster Management Authority, with its first phase covering Andhra Pradesh and Odisha.<br>2. Under IMD's four-stage cyclone warning system, the 'Cyclone Warning' is issued at least 48 hours before expected landfall.<br>3. The National Cyclone Risk Mitigation Project funds only the dissemination of early warnings and excludes structural works such as shelters and embankments.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1 only",
+            "1 and 2 only",
+            "3 only"
+        ],
+        ans: 1,
+        exp: "NCRMP began with Andhra Pradesh and Odisha and was later extended to other coastal States. Statement 2 is wrong because the cyclone alert is issued about 48 hours ahead and the cyclone warning about 24 hours ahead of landfall. Statement 3 is wrong because the project also finances cyclone shelters, embankments, roads and underground cabling."
+    },
+    {
+        q: "With reference to the evolution of cyclone warning and naming over the North Indian Ocean, consider the following statements: <br> 1. IMD began naming cyclones over the North Indian Ocean in 1988, when its New Delhi centre was designated a Regional Specialised Meteorological Centre.<br>2. A name is assigned when a system reaches sustained winds of 62 km/h or more, and a name once used is not repeated in the region.<br>3. The 2020 list of 169 cyclone names was drawn solely from the eight original members of the WMO/ESCAP Panel on Tropical Cyclones.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 2",
+            "Statement 1 alone",
+            "Only two of the statements are correct",
+            "All of the above"
+        ],
+        ans: 0,
+        exp: "Names are assigned at sustained winds of about 62 km/h and are never reused over the North Indian Ocean. Statement 1 is wrong because the New Delhi centre became an RSMC in 1988 but naming began only in September 2004 with Onil. Statement 3 is wrong because the 2020 list has 13 names from each of 13 members, including Iran, Qatar, Saudi Arabia, the UAE and Yemen."
+    },
+    {
+        q: "Which one of the following statements about the structure of a mature tropical cyclone is correct?",
+        opts: [
+            "Tropical cyclones have fronts separating warm and cold air masses, as mid-latitude cyclones do",
+            "The eye is the zone of heaviest rainfall because of intense ascent of air within it",
+            "Air within the eye subsides and warms, giving relatively clear and calm conditions, while the strongest winds lie in the eyewall around it",
+            "In the Northern Hemisphere, winds blow clockwise around the centre of a cyclone"
+        ],
+        ans: 2,
+        exp: "A tropical cyclone has a warm core, with subsiding air in the eye giving clear, calm conditions and the ring of deep convection (eyewall) carrying the strongest winds and heaviest rain. It has no fronts, unlike mid-latitude cyclones, and in the Northern Hemisphere winds circulate anticlockwise around the centre."
+    },
+    {
+        q: "With reference to weather forecasting and the Western Disturbances in India, consider the following statements: <br> 1. The Bharat Forecast System, developed by IITM Pune, is a deterministic model with a 6 km grid that provides forecasts for the tropical belt between 30 degrees South and 30 degrees North.<br>2. The Bharat Forecast System is run on high-performance computers such as Arka at IITM Pune and Arunika at NCMRWF.<br>3. Interaction of Western Disturbances with the monsoon circulation has been linked to extreme rainfall events in the Himalayan region, such as the 2013 Uttarakhand floods.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "The Bharat Forecast System, adopted by IMD on 26 May 2025, is a 6 km deterministic model for the tropics that runs on the Arka and Arunika supercomputers. Interaction between Western Disturbances and the monsoon was a key factor in the 2013 Uttarakhand floods, which is why better high-resolution forecasting of such interactions is an important reform area. All three statements are correct."
+    },
+    {
+        q: "With reference to flood management in the Northern Plains, consider the following statements:<br>1. The Rashtriya Barh Ayog (National Flood Commission) was set up in 1976 and submitted its report in 1980.<br>2. The Brahmaputra Board was set up under an Act of Parliament to prepare master plans for flood management in the Brahmaputra and Barak basins.<br>3. Flood management is primarily within the purview of the State Governments, with the Centre providing technical and financial assistance.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "All of the above",
+            "Only two of the statements are correct",
+            "Only statement 2"
+        ],
+        ans: 1,
+        exp: "The Rashtriya Barh Ayog was constituted in 1976 after the National Flood Control Programme of 1954 failed to deliver, and it reported in 1980. The Brahmaputra Board, statutorily constituted and functional from 1982, prepared master plans for the Brahmaputra and Barak basins. Flood control remains a State subject, and the Centre supports it through bodies such as the Ganga Flood Control Commission and assistance schemes."
+    },
+    {
+        q: "Rainfall distribution in India shapes the legal and constitutional framework for water and agriculture. In this context, consider the following statements: <br> 1. Water is an exclusive subject of the Union Government under the Seventh Schedule.<br>2. Article 262 enables Parliament to provide by law for the adjudication of disputes relating to the waters of inter-State rivers or river valleys.<br>3. Agriculture is a subject in the Concurrent List of the Seventh Schedule.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 and 3 only",
+            "2 only",
+            "1 only"
+        ],
+        ans: 2,
+        exp: "Article 262 allows Parliament to legislate for adjudication of inter-State river water disputes, and it may also bar the jurisdiction of courts. Water (Entry 17) and agriculture (Entry 14) are State List subjects, with the Union regulating inter-State rivers only through Entry 56 of the Union List. Statements 1 and 3 are therefore incorrect."
+    },
+    {
+        q: "With reference to the sub-divisions of the Northern Plains, consider the following statements:<br>1. The Bhabar is the zone where streams descending from the Shiwaliks re-emerge on the surface and form marshy tracts.<br>2. The Terai is a marshy belt that was once densely forested and has been largely reclaimed for agriculture.<br>3. The Khadar consists of newer alluvium renewed by annual floods and is more fertile than the Bhangar.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 3",
+            "All three statements are correct",
+            "None of the above",
+            "2 and 3 only"
+        ],
+        ans: 3,
+        exp: "The Terai is a marshy belt south of the Bhabar and has been largely reclaimed for farming, and the Khadar is the fertile floodplain alluvium renewed each year. The Bhabar is a porous pebble belt at the foot of the Shiwaliks where streams disappear underground, and they re-emerge in the Terai. Statement 1 reverses this and is wrong."
+    },
+    {
+        q: "With reference to the structure and formation of local winds, consider the following statements: <br> 1. A sea breeze blows from the land towards the sea during the day, because land heats up faster than the sea.<br>2. Foehn winds are warm and dry on the leeward side because air that has lost moisture through condensation on the windward slope warms at the faster dry adiabatic rate while descending.<br>3. Katabatic winds form when air cooled by contact with a cold high-altitude surface becomes dense and flows down the slope, as in night-time mountain breezes.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "Both 1 and 2",
+            "Only two of the statements are correct",
+            "Only statement 3"
+        ],
+        ans: 2,
+        exp: "Foehn warming arises because the ascending air cooled at the slower saturated rate after condensation, while the descending dry air warms at the faster dry rate. Katabatic winds are drainage flows of cold, dense air down slopes. Statement 1 is wrong because the sea breeze blows from the cooler sea towards the heated land during the day, while the land breeze blows seaward at night."
+    },
+    {
+        q: "Consider the following pairs of winds and their characteristics:<br>1. Chinook : A warm, dry downslope wind on the eastern slopes of the Rocky Mountains that can melt snow rapidly<br>2. Mistral : A hot, moist wind that blows from the Sahara across the Mediterranean towards southern Europe<br>3. Harmattan : A dry, dusty wind from the Sahara blowing towards the Gulf of Guinea coast of West Africa<br>4. Bardoli Chheerha : Pre-monsoon thunderstorm squalls over Assam<br>How many of the above pairs are correctly matched?",
+        opts: [
+            "Only one",
+            "Only three",
+            "All four",
+            "Only two"
+        ],
+        ans: 1,
+        exp: "Chinook, Harmattan and Bardoli Chheerha are correctly described. The Mistral is a cold, dry wind that funnels down the Rhone valley to the Mediterranean coast of France, whereas the hot, moist Saharan wind described in pair 2 is the Sirocco."
+    },
+    {
+        q: "With reference to the efforts to improve connectivity through Himalayan passes, which one of the following statements is correct?",
+        opts: [
+            "The Zojila Tunnel is intended to connect Manali with the Lahaul valley throughout the year.",
+            "The Atal Tunnel has been built beneath the Zoji La on the Srinagar-Leh highway.",
+            "The Sela Tunnel in Arunachal Pradesh has been built to bypass the Nathu La.",
+            "The Zojila Tunnel is intended to provide all-weather road connectivity between the Kashmir Valley and Ladakh by bypassing the avalanche-prone Zoji La."
+        ],
+        ans: 3,
+        exp: "The Zojila Tunnel, a two-lane bi-directional tunnel of about 14 km, will keep the Srinagar-Leh highway open in winter, and its main tunnel achieved breakthrough in June 2026. The Atal Tunnel lies under the Rohtang Pass and serves the Manali-Lahaul corridor. The Sela Tunnel serves the Sela Pass on the route to Tawang in Arunachal Pradesh, while Nathu La is in Sikkim."
+    },
+    {
+        q: "With reference to agro-climatic zoning in India, consider the following statements: <br> 1. The Planning Commission identified 15 broad agro-climatic regions based on factors such as physiography, soils, climate and cropping patterns.<br>2. The National Agricultural Research Project of the ICAR delineated 127 agro-climatic zones for research and extension planning.<br>3. Agro-climatic zones in India are demarcated strictly along State boundaries, so each zone lies entirely within a single State.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 only",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "The Planning Commission's 15 regions and the ICAR's 127 NARP zones are both standard classifications used for region-specific agricultural planning. Statement 3 is wrong because agro-climatic zones follow natural and agronomic similarities and often cut across State boundaries."
+    },
+    {
+        q: "With reference to the challenges posed by climate change in India, consider the following statements: <br> 1. The energy sector is the largest contributor to India's greenhouse gas emissions.<br>2. India's updated Nationally Determined Contribution (2022) commits to reducing the emissions intensity of GDP by 60 per cent by 2030 from the 2005 level.<br>3. India has set 2050 as its target year for achieving net-zero emissions.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "All of the statements are correct",
+            "Exactly two of the statements are correct",
+            "Only statement 1"
+        ],
+        ans: 3,
+        exp: "The energy sector, including electricity generation and fuel use, is the largest source of India's GHG emissions. The updated NDC targets a 45 per cent cut in emissions intensity of GDP by 2030 relative to 2005, and India's net-zero target year is 2070, so statements 2 and 3 are incorrect."
+    },
+    {
+        q: "With reference to the physiography of India, which one of the following statements is correct?",
+        opts: [
+            "The Northern Plains are an area of erosion with exposed crystalline bedrock.",
+            "The Himalayas are a stable residual mountain system with little tectonic activity.",
+            "The western coastal plain is broader than the eastern coastal plain.",
+            "The Peninsular Plateau slopes generally from west to east, which is reflected in the eastward flow of most of its major rivers."
+        ],
+        ans: 3,
+        exp: "The Peninsular Plateau is higher in the west near the Western Ghats and slopes eastward, so rivers such as the Godavari, Krishna and Kaveri flow into the Bay of Bengal. The Northern Plains are a depositional alluvial region, the Himalayas are young, tectonically active fold mountains, and the western coastal plain is narrower than the eastern one."
+    },
+    {
+        q: "With reference to institutional arrangements for flood management in India, consider the following statements: <br> 1. The Ganga Flood Control Commission was constituted through a Government of India resolution in 1972 rather than by a statute, and is headquartered at Patna.<br>2. The Brahmaputra Board was set up by an executive resolution and has no statutory backing.<br>3. Since flood management is primarily a State subject, flood control schemes are planned, funded and executed by the States, with the Centre providing technical guidance and central assistance.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "1 and 3 only",
+            "3 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "The Ganga Flood Control Commission, the secretariat of the Ganga Flood Control Board, was created by a 1972 resolution, and flood management is primarily a State responsibility with Central technical and financial support. Statement 2 is wrong because the Brahmaputra Board is a statutory body established under the Brahmaputra Board Act, 1980."
+    },
+    {
+        q: "With reference to the 2025 southwest monsoon season in India, consider the following statements: <br> 1. The southwest monsoon withdrew from the entire country by 30 September 2025.<br>2. Rainfall over Rajasthan in the 2025 season was about 164 per cent of its Long Period Average, a 'large excess'.<br>3. Bihar, Assam-Meghalaya and Arunachal Pradesh were among the meteorological subdivisions that received excess rainfall.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 3",
+            "Only one of the statements is correct",
+            "1 and 2 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "IMD reported that Rajasthan received about 164 per cent of its LPA in 2025, among the highest on record. Statement 1 is wrong because withdrawal from the whole country was completed only on 16 October 2025. Statement 3 is wrong because Bihar, Assam-Meghalaya and Arunachal Pradesh recorded deficient rainfall."
+    },
+    {
+        q: "Which one of the following statements about the seasons of India is correct?",
+        opts: [
+            "IMD includes December in the winter season",
+            "The diurnal range of temperature in the hot weather season is greater over peninsular India than over northwest India",
+            "The post-monsoon season is the driest of IMD's four seasons over the whole country",
+            "During the hot weather season, the zone of highest temperature moves northwards from the Deccan plateau in March to northwest India by May-June"
+        ],
+        ans: 3,
+        exp: "Temperatures peak over the Deccan plateau in March, over Gujarat and Madhya Pradesh in April, and over northwest India in May-June as the heat belt shifts north. IMD's winter season covers January and February only, with December falling in the post-monsoon season, and the continental northwest has a larger diurnal range than the peninsula."
+    },
+    {
+        q: "With reference to the National Mission for Sustaining the Himalayan Ecosystem (NMSHE), consider the following statements:<br>1. It is implemented only in the States of Uttarakhand and Himachal Pradesh.<br>2. The Ministry of Environment, Forest and Climate Change is its nodal ministry.<br>3. It is one of the eight National Missions under the National Action Plan on Climate Change (NAPCC).<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 1 alone",
+            "2 and 3 only",
+            "3 only",
+            "None of the above"
+        ],
+        ans: 2,
+        exp: "The NMSHE is one of the eight missions under the NAPCC and aims at sustaining the Himalayan ecosystem through monitoring, assessment and capacity building. It is coordinated by the Department of Science and Technology, not the Environment Ministry. It covers the Indian Himalayan Region across many States and Union Territories, not just two States."
+    },
+    {
+        q: "With reference to policy measures for improving water security under erratic rainfall, consider the following statements: <br> 1. The National Water Mission under the National Action Plan on Climate Change aims to improve water use efficiency by 10 per cent.<br>2. The Atal Bhujal Yojana is being implemented in all States and Union Territories of the country.<br>3. The 'Per Drop More Crop' component of the Pradhan Mantri Krishi Sinchayee Yojana is administered by the Ministry of Jal Shakti.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "None of the statements is correct",
+            "1 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "The National Water Mission targets a 20 per cent improvement in water use efficiency, not 10 per cent. The Atal Bhujal Yojana covers water-stressed areas of seven States, not the whole country. Per Drop More Crop is run by the Department of Agriculture and Farmers Welfare, so none of the statements is correct."
+    },
+    {
+        q: "Which one of the following local winds of India is correctly matched with its nature or effect?",
+        opts: [
+            "Loo - hot, dry and gusty wind over the northwestern plains in summer, posing a risk of heat stroke",
+            "Chinook - a cold, moist wind blowing over the Western Ghats during the monsoon",
+            "Mango showers - winter rainfall along the Coromandel coast during the retreating monsoon",
+            "Kalbaisakhi - dry, cold wind blowing over Rajasthan in winter"
+        ],
+        ans: 0,
+        exp: "Loo is the hot, dry, gusty afternoon wind of the northwestern plains in May-June. Mango showers are pre-monsoon showers over Kerala and Karnataka, Kalbaisakhi is a pre-monsoon thunderstorm over eastern India, and Chinook is a warm, dry downslope wind of the Rocky Mountains."
+    },
+    {
+        q: "With reference to the India Meteorological Department (IMD) and its rainfall forecasts, consider the following statements: <br> 1. IMD functions under the Ministry of Environment, Forest and Climate Change.<br>2. A monsoon season with all-India rainfall at about 92 per cent of the Long Period Average is classified by IMD as 'normal'.<br>3. IMD is a statutory body established under an Act of Parliament.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "None of the statements is correct",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "IMD, set up in 1875, is an agency of the Ministry of Earth Sciences, not the MoEFCC, and it is not a statutory body created by an Act of Parliament. Rainfall at 92 per cent of LPA falls in the 'below normal' category (about 90-95 per cent), while 'normal' is roughly 96-104 per cent of LPA."
+    },
+    {
+        q: "Consider the following statements:<br>Assertion (A): The Peninsular Plateau is the principal mineral-bearing region of India.<br>Reason (R): It is made up of ancient crystalline rocks and Gondwana sediments, which host most of India's coal, iron ore, manganese and mica.<br>In the context of the above statements, which one of the following is correct?",
+        opts: [
+            "Both A and R are correct and R is the correct explanation of A",
+            "A is correct but R is not correct",
+            "Both A and R are correct but R is not the correct explanation of A",
+            "A is not correct but R is correct"
+        ],
+        ans: 0,
+        exp: "The ancient crystalline and metamorphic rocks of the Peninsula, as in Jharkhand, Odisha and Chhattisgarh, hold iron ore, manganese and mica. The Gondwana sediments in the Damodar, Mahanadi and Godavari valleys hold most of India's coal. The geology in R is therefore the direct reason for the mineral wealth stated in A."
+    },
+    {
+        q: "With reference to the Kigali Amendment to the Montreal Protocol and India's obligations under it, consider the following statements: <br> 1. India's HFC baseline is the average of its HFC consumption in 2024, 2025 and 2026, plus 65 per cent of its HCFC baseline.<br>2. India's first reduction step of 10 per cent is scheduled for 2028, the year in which its HFC consumption is to be frozen at the baseline.<br>3. India's freeze year can be deferred up to 2030, subject to a technology review of growth in refrigerant-using sectors.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "India's baseline (2024-26 average HFCs plus 65 per cent of the HCFC baseline) and the possible deferral of the freeze from 2028 to 2030 after a technology review are both features of its Kigali schedule. Statement 2 is wrong because the freeze is in 2028 but the first 10 per cent cut falls in 2032, followed by 20 per cent in 2037, 30 per cent in 2042 and 85 per cent in 2047."
+    },
+    {
+        q: "With reference to international climate agreements, consider the following statements: <br> 1. The Paris Agreement aims to hold the global average temperature rise well below 2 degrees Celsius above pre-industrial levels and to pursue efforts to limit it to 1.5 degrees Celsius.<br>2. The emission reduction targets contained in each country's Nationally Determined Contribution are legally binding under international law.<br>3. The Kyoto Protocol set binding emission reduction targets for all Parties to the UNFCCC, including developing countries.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "2 only",
+            "1 only",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "The Paris Agreement's temperature goal is well below 2 degrees Celsius with efforts towards 1.5 degrees Celsius. Statement 2 is wrong because Parties must prepare and pursue NDCs, but the targets themselves are nationally determined and not legally binding. Statement 3 is wrong because the Kyoto Protocol imposed binding targets only on developed (Annex I) countries."
+    },
+    {
+        q: "With reference to reforms for flood management in India, consider the following statements: <br> 1. Flood plain zoning, a non-structural measure, has been legislated by only a few States despite a model bill circulated by the Centre in 1975.<br>2. The Dam Safety Act, 2021 applies to all dams in the country irrespective of their height.<br>3. Central assistance under the Flood Management and Border Areas Programme is restricted to structural works and excludes drainage development and anti-erosion works.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 3",
+            "Both 2 and 3",
+            "Only statement 2",
+            "Only statement 1"
+        ],
+        ans: 3,
+        exp: "Flood plain zoning has seen limited State legislation despite the 1975 model bill. Statement 2 is wrong because the Dam Safety Act covers specified dams above 15 metres, or between 10 and 15 metres under defined conditions. Statement 3 is wrong because central assistance under the programme extends to river management, anti-erosion, drainage development and flood proofing, not just embankments."
+    },
+    {
+        q: "In the context of recent developments relating to the island territories of India, consider the following statements:<br>1. In February 2026, the National Green Tribunal declined to interfere with the environmental clearance granted to the Great Nicobar mega-infrastructure project.<br>2. The project received clearance under the EIA Notification, 2006 and the ICRZ Notification, 2019.<br>3. The proposed international container transshipment terminal is planned at Galathea Bay on the northern tip of Great Nicobar Island.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "A bench of the NGT disposed of the challenges to the project on 16 February 2026, finding no good ground to interfere given the safeguards in the clearance. Government statements describe clearance under the EIA Notification, 2006 and the ICRZ Notification, 2019 with 42 conditions. Galathea Bay lies on the southern tip of Great Nicobar, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to drought-related area development programmes in India, consider the following statements: <br> 1. The Drought Prone Areas Programme was launched during the First Five Year Plan.<br>2. The Desert Development Programme covers both hot desert and cold desert areas.<br>3. The Drought Prone Areas Programme and the Desert Development Programme are now implemented as part of the Watershed Development Component of the Pradhan Mantri Krishi Sinchayee Yojana.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "3 only",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "The Desert Development Programme covers both hot deserts (such as Rajasthan and Gujarat) and cold deserts (such as Jammu and Kashmir and Himachal Pradesh), and DPAP and DDP were merged into the Watershed Development Component of PMKSY. Statement 1 is wrong because DPAP began in 1973-74, during the Fifth Five Year Plan."
+    },
+    {
+        q: "Assertion (A): A prolonged break in monsoon rainfall during July-August can damage kharif crops even when the seasonal rainfall total is normal.<br>Reason (R): Crop yields depend on adequate soil moisture at critical growth stages, not only on the total rainfall received during the season.<br>In the context of the above statements, which one of the following is correct?",
+        opts: [
+            "Both A and R are true but R is not the correct explanation of A",
+            "A is false but R is true",
+            "Both A and R are true and R is the correct explanation of A",
+            "A is true but R is false"
+        ],
+        ans: 2,
+        exp: "Seasonal totals can hide long dry spells, and a spell at the sowing, flowering or grain-filling stage can cause crop failure despite normal totals. Hence R correctly explains A, which is why temporal distribution of rainfall matters as much as the total."
+    },
+    {
+        q: "In the context of recent developments relating to the Aravalli range, consider the following statements:<br>1. In November 2025, the Supreme Court accepted a definition of the Aravalli hills based on a 100-metre elevation threshold above the surrounding land.<br>2. The Aravalli range lies entirely within the State of Rajasthan.<br>3. The Aravalli range helps check the eastward spread of the Thar Desert towards the Indo-Gangetic Plain.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All three statements are correct",
+            "Both 1 and 2",
+            "Exactly two of the statements are correct",
+            "None of the above"
+        ],
+        ans: 2,
+        exp: "On 20 November 2025 the Supreme Court accepted the Environment Ministry's elevation-based definition, which critics argued would exclude most low hills, and the definition was later put on hold by the Court. The Aravallis run across Rajasthan, Gujarat, Haryana and Delhi, so statement 2 is wrong. The range and its hills act as a barrier to desert sands drifting east, which is the core of the ecological objection."
+    },
+    {
+        q: "With reference to floods in India, consider the following statements: <br> 1. The majority of India's flood-prone area lies in the river basins of the Peninsular plateau rather than in the Ganga-Brahmaputra system.<br>2. The Rashtriya Barh Ayog, constituted in 1976, assessed about 40 million hectares of India's land as flood-prone.<br>3. Embankments, though used for flood protection, can aggravate problems such as drainage congestion and aggradation of riverbeds.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "1 and 2 only",
+            "None of the statements are correct",
+            "2 and 3 only"
+        ],
+        ans: 3,
+        exp: "The Rashtriya Barh Ayog (set up in 1976, reported in 1980) estimated about 40 million hectares as flood-prone, and embankments are known to cause drainage congestion and siltation of river beds. Statement 1 is incorrect because most flood-prone areas lie in the Ganga and Brahmaputra basins, not the Peninsular rivers."
+    },
+    {
+        q: "With reference to the Indian (Thar) Desert region, consider the following statements:<br>1. The Indira Gandhi Canal project draws its water from the Harike Barrage and passes through Punjab, Haryana and Rajasthan.<br>2. The region receives most of its scanty rainfall from the north-east monsoon.<br>3. The Desert National Park, a habitat of the Great Indian Bustard, is located in Bikaner district.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "All of the above",
+            "Only statement 1",
+            "Only two of the statements are correct"
+        ],
+        ans: 2,
+        exp: "The Indira Gandhi Canal begins at the Harike Barrage near the confluence of the Beas and the Sutlej and carries Himalayan river water into the desert of Rajasthan. The Thar gets its scanty rain mainly from the south-west monsoon, not the north-east monsoon. The Desert National Park lies in Jaisalmer and Barmer districts, not Bikaner."
+    },
+    {
+        q: "With reference to reforms for drought-prone and rainfed areas in India, consider the following statements: <br> 1. The Hanumantha Rao Committee of 1994 recommended the watershed as the unit of development under the Drought Prone Areas Programme and the Desert Development Programme.<br>2. The National Rainfed Area Authority is a statutory body established by an Act of Parliament in 2006.<br>3. Under the Pradhan Mantri Krishi Sinchayee Yojana, the Watershed Development Component is implemented by the Ministry of Agriculture and Farmers Welfare.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "Statement 1 alone",
+            "All of the statements are correct",
+            "Both 1 and 3"
+        ],
+        ans: 1,
+        exp: "The 1994 Hanumantha Rao Committee shifted DPAP and DDP towards watershed-based development. Statement 2 is wrong because the National Rainfed Area Authority was set up in 2006 as an advisory body by government decision, not under a statute. Statement 3 is wrong because the Watershed Development Component is implemented by the Department of Land Resources in the Ministry of Rural Development."
+    },
+    {
+        q: "With reference to the basic concepts governing the movement of winds, consider the following statements: <br> 1. According to Buys Ballot's law, an observer in the Northern Hemisphere standing with the back to the wind has low pressure on the right.<br>2. The Coriolis force is greatest at the equator and zero at the poles.<br>3. The Coriolis force changes only the direction of a moving air mass and not its speed.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 only",
+            "3 only",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "The Coriolis force acts perpendicular to the direction of motion, so it deflects air without changing its speed. Statement 1 is wrong because in the Northern Hemisphere the low pressure lies to the left of an observer with back to the wind. Statement 2 is wrong because the Coriolis force is zero at the equator and increases with latitude to a maximum at the poles."
+    },
+    {
+        q: "Assertion (A): Parliament can enact legislation on matters falling in the State List in order to fulfil India's commitments under international climate agreements such as the Paris Agreement.<br>Reason (R): Article 253 of the Constitution empowers Parliament to make laws for the whole or any part of India to implement treaties, agreements or conventions with other countries.<br>In the context of the above statements, which one of the following is correct?",
+        opts: [
+            "A is false but R is true",
+            "A is true but R is false",
+            "Both A and R are true and R is the correct explanation of A",
+            "Both A and R are true but R is not the correct explanation of A"
+        ],
+        ans: 2,
+        exp: "Article 253 gives Parliament overriding legislative competence to implement international treaties even on State List subjects, which is what allows national climate and environment laws to be enacted. The Environment (Protection) Act, 1986 is a standard example of this power. Hence R correctly explains A."
+    },
+    {
+        q: "With reference to the distribution of rainfall in India, consider the following statements: <br> 1. Western Rajasthan receives scanty rainfall mainly because the Aravalli range lies perpendicular to the Arabian Sea branch of the monsoon and blocks it.<br>2. The Tamil Nadu coast receives most of its annual rainfall during the southwest monsoon season.<br>3. The funnel-shaped Khasi Hills help trap the Bay of Bengal branch of the monsoon and contribute to very heavy rainfall at Mawsynram.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 and 3 only",
+            "1 only",
+            "2 only"
+        ],
+        ans: 0,
+        exp: "The funnel-shaped topography of the Khasi Hills traps moisture-laden winds and explains the heavy rainfall at Mawsynram. Statement 1 is wrong because the Aravallis lie parallel to the Arabian Sea branch and do not obstruct it. Statement 2 is wrong because the Tamil Nadu coast lies in the rain shadow in summer and gets most rain in October-December."
+    },
+    {
+        q: "With reference to the legislative framework governing the environment and natural resources across India's physiographic regions, consider the following statements:<br>1. Forests were transferred from the State List to the Concurrent List by the 44th Constitutional Amendment Act.<br>2. The Environment (Protection) Act, 1986 was enacted by Parliament under Article 252 on the basis of resolutions passed by State Legislatures.<br>3. Under the Wildlife (Protection) Act, 1972, only the Central Government can declare a Wildlife Sanctuary.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "2 and 3 only",
+            "None of the statements is correct",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "Forests moved from the State List to the Concurrent List through the 42nd Amendment Act, 1976, not the 44th. The Environment (Protection) Act, 1986 was enacted under Article 253 to give effect to international decisions such as those of the Stockholm Conference. Wildlife sanctuaries and national parks are generally notified by State Governments under the 1972 Act, so none of the statements is correct."
+    },
+    {
+        q: "Tropical cyclones are far fewer over the North Indian Ocean in July-August than in the pre-monsoon and post-monsoon seasons. In this context, consider the following statements: <br> 1. Cyclone frequency over the North Indian Ocean peaks during the southwest monsoon months of July and August.<br>2. Sea surface temperatures over the Bay of Bengal fall below 26.5 degrees Celsius during the monsoon, which is the main reason cyclones seldom form then.<br>3. Strong vertical wind shear during the southwest monsoon is among the factors that inhibit cyclogenesis over the North Indian Ocean.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 only",
+            "3 only"
+        ],
+        ans: 3,
+        exp: "The North Indian Ocean shows a bimodal pattern with peaks around May-June and October-November, and strong vertical wind shear during the monsoon discourages cyclone development. Statement 2 is wrong because sea surface temperatures remain above the roughly 26.5 degree threshold during the monsoon, so warm water is not the limiting factor."
+    },
+    {
+        q: "With reference to the indices used to monitor drought, consider the following statements: <br> 1. The Standardized Precipitation Index is calculated from precipitation alone and can be computed over different timescales, making it useful for tracking both short-term and long-term drought.<br>2. The Palmer Drought Severity Index is calculated from precipitation data alone.<br>3. The Aridity Anomaly Index used by IMD is the departure of actual rainfall from its normal, expressed as a percentage.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1 and 3 only",
+            "3 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "SPI uses only precipitation and can be calculated for different timescales, so it serves short- and long-term drought monitoring. The Palmer index is a water-balance index that uses temperature and soil moisture along with precipitation. The Aridity Anomaly Index measures the water deficit (potential minus actual evapotranspiration) as a percentage of potential evapotranspiration, not rainfall departure."
+    },
+    {
+        q: "With reference to the legal framework for responding to extreme seasonal weather events in India, consider the following statements: <br> 1. In 2026, heatwaves and lightning were added to the list of notified natural calamities eligible for assistance from the State Disaster Response Fund and the National Disaster Response Fund, expanding the list from 12 to 14.<br>2. Frost and cold wave were added to the notified list as part of the same revision.<br>3. For notified calamities, States can draw on the main SDRF allocation for relief, without being restricted to the 10 per cent cap that applies to disasters that a State notifies as State-specific.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 1",
+            "Statement 3 alone",
+            "Exactly two of the statements are correct",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "Under the SDRF/NDRF guidelines for 2026-31, heatwaves and lightning joined the 12 earlier notified calamities, and listed calamities can be funded from the main SDRF allocation rather than the limited State-specific window. Statement 2 is wrong because frost and cold wave were already among the original 12 notified calamities."
+    },
+    {
+        q: "With reference to the legal and institutional framework for disaster management relevant to floods in India, consider the following statements: <br> 1. State Disaster Management Authorities are chaired by the Governor of the State.<br>2. A District Disaster Management Authority is chaired by the District Magistrate, with the elected head of the local authority as co-chairperson.<br>3. The River Boards Act, 1956 has led to the constitution of River Boards for all major inter-State rivers.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 only",
+            "3 only",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "Under the Disaster Management Act, 2005, the District Magistrate chairs the DDMA with an elected representative of the local authority as co-chairperson. Statement 1 is wrong because the Chief Minister, not the Governor, chairs the SDMA. Statement 3 is wrong because, although the Act enables River Boards, none has been constituted so far."
+    },
+    {
+        q: "Which one of the following statements about the structure of Western Disturbances is correct?",
+        opts: [
+            "They are extratropical, baroclinic systems that appear as troughs in the mid- and upper-tropospheric westerlies",
+            "They are warm-core, barotropic systems without fronts, similar to tropical cyclones",
+            "They are steered across India by the Tropical Easterly Jet",
+            "They draw their moisture solely from the Mediterranean Sea, with no contribution from other water bodies"
+        ],
+        ans: 0,
+        exp: "Western Disturbances are extratropical, baroclinic systems embedded in the subtropical westerlies and are seen as troughs aloft. They are not tropical-cyclone-like, they are steered by westerlies and not the Tropical Easterly Jet, and their moisture also comes from the Caspian Sea, the Black Sea and the Arabian Sea."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-42 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

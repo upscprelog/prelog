@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-36</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "With reference to the Yuge Yugeen Bharat National Museum, consider the following statements: <br> 1. It is being developed in the North and South Block buildings of the Central Vista in New Delhi.<br>2. Its central theme is about 5,000 years of Indian civilisation.<br>3. The Ministry of Culture is drawing on French expertise in aspects of its design and management.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 3",
+            "Statement 1 alone",
+            "Exactly one of the statements is correct",
+            "All of the above"
+        ],
+        ans: 3,
+        exp: "The Yuge Yugeen Bharat National Museum is a Ministry of Culture project under the Central Vista redevelopment and is being set up in the North and South Blocks. It is themed on roughly 5,000 years of Indian civilisation and is being developed with French museum expertise. All three statements are correct."
+    },
+    {
+        q: "With reference to the recent reforms in the Geographical Indications (GI) regime in India, consider the following statements: <br> 1. The Geographical Indications of Goods (Registration and Protection) (Amendment) Rules, 2025 were notified by the Department for Promotion of Industry and Internal Trade in November 2025.<br>2. The 2025 amendment replaced the Geographical Indications of Goods (Registration and Protection) Act, 1999.<br>3. The Union Government has set a target of one lakh GI tags by 2030.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "2 only",
+            "1 only",
+            "3 only"
+        ],
+        ans: 2,
+        exp: "The DPIIT notified the GI (Amendment) Rules, 2025 on 3 November 2025 to update procedures and fees under the 2002 Rules. They are subordinate legislation and did not replace the 1999 Act, so statement 2 is wrong. The target announced by the Commerce Minister is 10,000 GI tags by 2030, not one lakh."
+    },
+    {
+        q: "With reference to the evolution of archaeology in India, consider the following statements: <br> 1. The Archaeological Survey of India was established in 1861 under Sir John Marshall.<br>2. Harappa was first excavated in 1922 by R. D. Banerji.<br>3. The Ancient Monuments Preservation Act of 1904 was enacted during the Viceroyalty of Lord Curzon.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1 and 2 only",
+            "3 only",
+            "1 only"
+        ],
+        ans: 2,
+        exp: "The Ancient Monuments Preservation Act, 1904 was passed under Viceroy Lord Curzon, who also revived the ASI and appointed John Marshall as Director-General in 1902. The ASI itself was set up in 1861 under Alexander Cunningham. Harappa was first excavated in 1921 by Daya Ram Sahni, while R. D. Banerji excavated Mohenjo-daro in 1922."
+    },
+    {
+        q: "With reference to the Maratha Military Landscapes of India, recently inscribed on the UNESCO World Heritage List, consider the following statements: <br> 1. The inscription was made in the year 2025.<br>2. The property includes forts located in Maharashtra as well as a fort in Tamil Nadu.<br>3. Daulatabad Fort is one of the forts included in the inscribed property.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the statements are correct",
+            "Exactly one of the statements is correct",
+            "Only statement 1",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "The Maratha Military Landscapes of India were inscribed in 2025. The serial property comprises a set of forts, such as Raigad, Rajgad, Shivneri and Sindhudurg in Maharashtra, along with Gingee Fort in Tamil Nadu. Daulatabad Fort is not part of this property, so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to the national song 'Vande Mataram', consider the following statements: <br> 1. A year-long nationwide commemoration of its 150 years began on 7 November 2025.<br>2. It was first sung at a session of the Indian National Congress in 1896 by Rabindranath Tagore.<br>3. The Constituent Assembly adopted it as the national anthem of India.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "The Government launched a year-long commemoration of 150 years of Vande Mataram on 7 November 2025, to run until 7 November 2026. Rabindranath Tagore sang it at the 1896 Congress session. 'Jana Gana Mana' is the national anthem; the Constituent Assembly gave Vande Mataram equal honour as the national song, not anthem status, so statement 3 is wrong."
+    },
+    {
+        q: "Consider the following pairs of traditional art forms and their associated regions or communities: <br> 1. Kalamkari : Odisha<br>2. Cheriyal scroll painting : Telangana<br>3. Pithora painting : Rajasthan<br>Which of the pairs given above is/are correctly matched?",
+        opts: [
+            "1 only",
+            "2 and 3 only",
+            "1 and 3 only",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "Cheriyal scroll painting is a narrative scroll tradition of Telangana. Kalamkari is associated with Andhra Pradesh and Telangana (Srikalahasti and Machilipatnam), not Odisha. Pithora is a ritual wall painting of the Rathwa and Bhil communities of Gujarat and Madhya Pradesh, not Rajasthan."
+    },
+    {
+        q: "With reference to prehistoric and protohistoric archaeological sites of the Indian subcontinent, consider the following statements: <br> 1. Burzahom, known for its pit dwellings, is located in Himachal Pradesh.<br>2. Mehrgarh, in Balochistan, shows some of the earliest evidence of farming settlements in South Asia.<br>3. Daimabad, in Maharashtra, is known for its bronze objects from the late Harappan phase.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 and 3 only",
+            "1 and 2 only",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "Mehrgarh in Balochistan has among the earliest Neolithic farming settlements in South Asia, dating to around 7000 BCE. Daimabad in Maharashtra is known for bronze objects of the late Harappan phase. Burzahom, with its pit dwellings, lies near Srinagar in Kashmir, not Himachal Pradesh."
+    },
+    {
+        q: "With reference to Geographical Indications (GI) in India, consider the following statements: <br> 1. A GI is registered for an initial period of ten years and can be renewed thereafter.<br>2. The Geographical Indications Registry of India is headquartered at Mumbai.<br>3. Registration of a GI confers exclusive ownership of the product name on a single individual producer.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the statements are correct",
+            "None of the statements are correct",
+            "Statement 1 alone",
+            "Only statement 3"
+        ],
+        ans: 2,
+        exp: "Under the Geographical Indications of Goods (Registration and Protection) Act, 1999, registration is valid for ten years and is renewable. The GI Registry is headquartered at Chennai, not Mumbai, so statement 2 is wrong. A GI is a collective right of the producers of a region, and authorised users are registered separately, so no single producer owns it. Statement 3 is therefore wrong."
+    },
+    {
+        q: "With reference to the Ancient Buddhist Site of Sarnath, recently inscribed on the UNESCO World Heritage List, consider the following statements: <br> 1. It is the place where the Buddha delivered his first sermon after enlightenment.<br>2. The Ashokan pillar inscription at the site is written in the Kharosthi script.<br>3. It was inscribed in 2026 at the 48th session of the World Heritage Committee, held in Busan, and became India's 45th World Heritage Site.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All three statements are correct",
+            "Statement 3 alone",
+            "Exactly two of the statements are correct",
+            "Only statement 2"
+        ],
+        ans: 2,
+        exp: "Sarnath, near Varanasi, is where the Buddha gave his first sermon, and it was inscribed in July 2026 at the 48th World Heritage Committee session in Busan as India's 45th site. The Ashokan pillar edict at Sarnath is in the Brahmi script, while Kharosthi appears in Ashoka's north-western inscriptions such as Shahbazgarhi and Mansehra. Statement 2 is therefore wrong."
+    },
+    {
+        q: "With reference to the Archaeological Survey of India (ASI), consider the following statements: <br> 1. It was established in 1861 under Alexander Cunningham and functions as an attached office of the Ministry of Culture.<br>2. In March 2026, it approved excavations at eight sites in Tamil Nadu, including Keeladi, on a proposal from the Tamil Nadu State Department of Archaeology.<br>3. It administers the centrally protected monuments declared under the Ancient Monuments and Archaeological Sites and Remains Act, 1958.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "The ASI was set up in 1861 with Alexander Cunningham as its first head and is an attached office of the Ministry of Culture. It administers centrally protected monuments under the AMASR Act, 1958, and its approval is needed for excavations by other agencies, as seen in its March 2026 clearance for eight Tamil Nadu sites that included the 11th phase at Keeladi. All three statements are correct."
+    },
+    {
+        q: "Consider the following pairs of festivals and the states with which they are traditionally associated: <br> 1. Wangala : Meghalaya<br>2. Chapchar Kut : Mizoram<br>3. Sekrenyi : Manipur<br>4. Nyokum : Arunachal Pradesh<br>How many of the pairs given above are correctly matched?",
+        opts: [
+            "All four pairs",
+            "Only three pairs",
+            "Only two pairs",
+            "Only one pair"
+        ],
+        ans: 1,
+        exp: "Wangala is the harvest festival of the Garo community of Meghalaya. Chapchar Kut is a spring festival of Mizoram. Nyokum is a festival of the Nyishi community of Arunachal Pradesh. Sekrenyi is an Angami Naga festival of Nagaland, not Manipur, so only three pairs are correct."
+    },
+    {
+        q: "Consider the following pairs of Harappan sites and their present locations: <br> 1. Rakhigarhi : Haryana<br>2. Dholavira : Rajasthan<br>3. Ropar : Punjab<br>4. Alamgirpur : Haryana<br>How many of the pairs given above are correctly matched?",
+        opts: [
+            "Only two pairs",
+            "Only three pairs",
+            "Only one pair",
+            "All four pairs"
+        ],
+        ans: 0,
+        exp: "Rakhigarhi, in Hisar district of Haryana, is among the largest Harappan sites in India, and Ropar lies on the Sutlej in Punjab. Dholavira is in the Kutch region of Gujarat, not Rajasthan. Alamgirpur, in Meerut district of Uttar Pradesh on the Hindon river, marks the eastern extent of the Harappan culture. Only two pairs are correct."
+    },
+    {
+        q: "With reference to the evolution of the Geographical Indications (GI) regime in India, consider the following statements: <br> 1. Basmati rice was the first product to be registered under the GI Act in India.<br>2. The Geographical Indications of Goods (Registration and Protection) Act came into force in the same year in which it was enacted, 1999.<br>3. India enacted its GI law before the TRIPS Agreement of the World Trade Organization came into existence.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements given above is correct",
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "Darjeeling tea, not Basmati rice, was the first Indian product registered as a GI (2004-05). The GI Act was enacted in 1999 but came into force in September 2003. The TRIPS Agreement came into existence in 1995, and India's GI law of 1999 followed it as part of meeting India's obligations, so statement 3 is also wrong."
+    },
+    {
+        q: "Consider the following statements about national cultural institutions in India: <br> 1. The Lalit Kala Akademi is headquartered at Mumbai.<br>2. The Lalit Kala Akademi organises Triennale-India, an international exhibition of contemporary art.<br>3. The Sahitya Akademi gives its annual awards for literary works in 24 languages.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 only",
+            "Only two of the statements are correct",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "The Lalit Kala Akademi, the national academy of fine arts, is headquartered at Rabindra Bhavan, New Delhi, not Mumbai. It organises the Triennale-India, an international exhibition of contemporary art. The Sahitya Akademi recognises 24 languages and gives annual awards in them, so statements 2 and 3 are correct."
+    },
+    {
+        q: "With reference to the promotion of Indian languages, consider the following statements: <br> 1. The Bharatiya Bhasha Anubhag was launched in June 2025 under the Union Home Ministry and works with C-DAC on multilingual translation software.<br>2. The National Translation Mission is implemented by the Ministry of Culture through the Sahitya Akademi.<br>3. New Centres of Excellence approved by the Ministry of Education are limited to Sanskrit and Tamil.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "2 only",
+            "1 only",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "The Bharatiya Bhasha Anubhag was inaugurated on 6 June 2025 under the Home Ministry's Department of Official Language and works with C-DAC on Kanthasth Bahubhashi translation software. The National Translation Mission is run through the Central Institute of Indian Languages, Mysuru, under the Ministry of Education. Centres of Excellence already exist for Tamil, Telugu, Odia, Malayalam, Sanskrit and Kannada, with new ones approved for Pali, Prakrit, Bengali, Marathi and Assamese."
+    },
+    {
+        q: "With reference to the legal provisions on Geographical Indications (GI) in India, consider the following statements: <br> 1. The Geographical Indications of Goods (Registration and Protection) Act, 1999 is administered by the Ministry of Culture.<br>2. A registered GI can be assigned or licensed by its registered proprietor to any interested producer.<br>3. Once granted, a GI registration remains valid perpetually without any need for renewal.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 and 2 only",
+            "None of the statements given above is correct",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "The GI Act, 1999 is administered by the GI Registry under the Controller General of Patents, Designs and Trade Marks in the Department for Promotion of Industry and Internal Trade, Ministry of Commerce and Industry. A registered GI is a collective public right and cannot be assigned, licensed or mortgaged. Registration is valid for ten years and must be renewed, so none of the statements is correct."
+    },
+    {
+        q: "With reference to the Hornbill Festival, consider the following statements: <br> 1. It showcases the culture of only the Angami Naga tribe.<br>2. It is held annually in December at the Naga Heritage Village, Kisama, near Kohima.<br>3. It is named after the Great Hornbill, which is the state bird of Nagaland.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "2 only",
+            "Only statement 3",
+            "1 only"
+        ],
+        ans: 1,
+        exp: "The Hornbill Festival is held every December at the Naga Heritage Village, Kisama, near Kohima. It brings together the many Naga tribes, not just the Angami, so statement 1 is wrong. The Great Hornbill is revered in Naga culture, but the state bird of Nagaland is Blyth's Tragopan, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the constitutional provisions relating to languages and literature in India, consider the following statements: <br> 1. The Constitution lays down fixed criteria that a language must satisfy for inclusion in the Eighth Schedule.<br>2. Pali and Prakrit, which were accorded classical language status in 2024, are included in the Eighth Schedule.<br>3. Konkani, Manipuri and Nepali were added to the Eighth Schedule in 2004.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 and 2 only",
+            "2 and 3 only",
+            "None of the statements given above is correct"
+        ],
+        ans: 3,
+        exp: "The Eighth Schedule, linked to Articles 344(1) and 351, has no constitutionally prescribed criteria for inclusion, and the Government reiterated in a 2026 parliamentary reply that such demands are examined case by case. Pali and Prakrit are classical languages but are not in the Eighth Schedule. Konkani, Manipuri and Nepali were added in 1992, while Bodo, Dogri, Maithili and Santhali were added in 2004. None of the statements is correct."
+    },
+    {
+        q: "With reference to the Bihu festivals of Assam, consider the following statements: <br> 1. Rongali (Bohag) Bihu marks the Assamese New Year and the onset of the sowing season.<br>2. Kongali (Kati) Bihu is celebrated after the harvest with grand community feasting.<br>3. Bhogali (Magh) Bihu is observed in the month of October.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 only",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "Rongali Bihu falls in April, marks the Assamese New Year and coincides with the start of sowing. Kongali Bihu is observed in October, when granaries are nearly empty, so it is a subdued occasion and not a harvest feast. Bhogali Bihu is the harvest festival of mid-January, marked by community feasts, not October."
+    },
+    {
+        q: "With reference to the Sahitya Akademi, consider the following statements: <br> 1. The Sahitya Akademi Award is given only for works of fiction.<br>2. The Bhasha Samman is conferred only on writers below the age of 35.<br>3. The Akademi functions as an autonomous organisation registered as a society under the Societies Registration Act, 1860.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 only",
+            "1 and 2 only",
+            "3 only"
+        ],
+        ans: 3,
+        exp: "The Sahitya Akademi is an autonomous body registered as a society. Its annual award covers several genres such as poetry, novels, short stories, essays, criticism and drama, so statement 1 is wrong. The Bhasha Samman honours contributions to classical and medieval literature and writers in languages not formally recognised by the Akademi, while the age-linked honour is the Yuva Puraskar, so statement 2 is also wrong."
+    },
+    {
+        q: "With reference to the Sangeet Natak Akademi, consider the following statements: <br> 1. It is the first national academy of arts set up by the Government of India.<br>2. It was established through an Act of Parliament.<br>3. It runs institutions such as the Kathak Kendra in New Delhi and the Jawaharlal Nehru Manipur Dance Academy in Imphal.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "Only one of the statements is correct",
+            "None of the above",
+            "1 and 3 only"
+        ],
+        ans: 3,
+        exp: "The Sangeet Natak Akademi, the national academy for music, dance and drama, was the first national academy of arts set up by the Government of India. It was created by a Government resolution in 1952 and functions as an autonomous society, not under an Act of Parliament, so statement 2 is wrong. It runs constituent units such as Kathak Kendra and the Jawaharlal Nehru Manipur Dance Academy."
+    },
+    {
+        q: "With reference to Chhau and the promotion of traditional dance forms in India, consider the following statements: <br> 1. The Sangeet Natak Akademi supports continuity of traditional art forms through training under the Guru-Shishya Parampara, including programmes for Chhau dance.<br>2. Chhau is one of the eight dance forms recognised as classical dances by the Sangeet Natak Akademi.<br>3. Chhau dance was inscribed on the UNESCO Representative List of the Intangible Cultural Heritage of Humanity in 2017.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 2 only",
+            "Both 1 and 3",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 3,
+        exp: "The Sangeet Natak Akademi runs Guru-Shishya Parampara based support and training for traditional art forms, including Chhau. The eight recognised classical dances are Bharatanatyam, Kathak, Kuchipudi, Odissi, Kathakali, Sattriya, Manipuri and Mohiniyattam, and Chhau is not among them. Chhau was inscribed on the UNESCO list in 2010, not 2017."
+    },
+    {
+        q: "With reference to the constitutional development of British India, consider the following statements: <br> 1. The Regulating Act of 1773 designated the Governor-General of Bengal as the Governor-General of India.<br>2. The Charter Act of 1813 ended the East India Company's monopoly over trade with China and over the tea trade.<br>3. The Charter Act of 1853 introduced open competition as the basis for recruitment to the civil services.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 and 3 only",
+            "3 only",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "The Charter Act of 1853 ended the Company's patronage system and introduced open competition for civil service recruitment. The Regulating Act of 1773 created the post of Governor-General of Bengal. It was the Charter Act of 1833 that made this post Governor-General of India. The Charter Act of 1813 ended the Company's trade monopoly in India but retained its monopoly over the tea trade and trade with China."
+    },
+    {
+        q: "With reference to the UNESCO Intangible Cultural Heritage (ICH) framework, consider the following statements: <br> 1. Inscription of an element on the Representative List of the Intangible Cultural Heritage of Humanity automatically gives it protection against commercial exploitation under international law.<br>2. Deepavali, inscribed in December 2025, is the sixteenth element from India on the Representative List.<br>3. The Convention for the Safeguarding of the Intangible Cultural Heritage was adopted by the UNESCO General Conference in 1972.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 1",
+            "Only two of the statements are correct",
+            "Exactly one of the statements is correct",
+            "All of the statements are correct"
+        ],
+        ans: 2,
+        exp: "Deepavali was inscribed on 10 December 2025 at the 20th session of the Intergovernmental Committee held at the Red Fort, and it is India's sixteenth element on the Representative List. Inscription raises visibility and places safeguarding responsibility on the State, but it gives no automatic legal protection against commercial use. The Convention dates from 2003, while 1972 is the year of the World Heritage Convention."
+    },
+    {
+        q: "With reference to the Indus script, consider the following statements: <br> 1. The script remains undeciphered despite many attempts over the past century, and in January 2025 the Tamil Nadu government announced a prize of one million US dollars for deciphering it.<br>2. A bilingual inscription similar to the Rosetta Stone, found at Mohenjo-daro, has enabled scholars to complete its decipherment.<br>3. Most inscriptions on Indus seals are read from left to right.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 3",
+            "All of the statements are correct",
+            "3 only",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 3,
+        exp: "The Indus script is still undeciphered, which is why the Tamil Nadu government announced a one million dollar prize in January 2025 at an event marking the centenary of the civilisation's discovery. No bilingual inscription has been found that could unlock it. Most seal inscriptions are generally read from right to left."
+    },
+    {
+        q: "With reference to the recent amendment to the Geographical Indications (GI) rules in India, consider the following statements: <br> 1. The Geographical Indications of Goods (Registration and Protection) (Amendment) Rules, 2025 replaced the First Schedule, which prescribes the fee structure, of the 2002 Rules.<br>2. The Amendment Rules were made by the Central Government in exercise of the rule-making power under Section 87 of the Geographical Indications of Goods (Registration and Protection) Act, 1999.<br>3. The draft rules were published in August 2025 with a period of sixty days for objections and suggestions.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "None of the statements are correct",
+            "All three statements are correct",
+            "Both 1 and 2"
+        ],
+        ans: 3,
+        exp: "The DPIIT notified the Amendment Rules on 3 November 2025, replacing the First Schedule of the 2002 Rules and cutting several statutory fees. They were framed under Section 87 of the GI Act, 1999, which empowers the Central Government to make rules. The draft published on 11 August 2025 gave thirty days, not sixty, for objections, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the Archaeological Survey of India (ASI) and the reforms suggested for it, consider the following statements: <br> 1. The Parliamentary Standing Committee's report on the functioning of the ASI observed a lack of centralised monitoring of excavation activities.<br>2. Archaeological excavation and exploration in India are regulated under the Ancient Monuments and Archaeological Sites and Remains Act, 1958 and the Rules framed under it in 1959.<br>3. The report on the functioning of the ASI was submitted by the Parliamentary Standing Committee on Education, Women, Children, Youth and Sports.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 2 alone",
+            "Statement 3 alone",
+            "Only two of the statements are correct",
+            "All three statements are correct"
+        ],
+        ans: 2,
+        exp: "The 359th Report on the functioning of the ASI, submitted on 21 September 2023, flagged the lack of centralised monitoring of excavations, insufficient budgets and about 31 percent vacancies. Excavation permissions are governed by the AMASR Act, 1958 and the 1959 Rules, as the Government reiterated in a December 2025 Lok Sabha reply. The report came from the Standing Committee on Transport, Tourism and Culture, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the evolution of Indian painting traditions, consider the following statements: <br> 1. The Kangra school of painting developed chiefly under the patronage of Maharaja Ranjit Singh.<br>2. Mughal painting began under Humayun, who brought the Persian masters Mir Sayyid Ali and Abdus Samad to his court.<br>3. Basohli paintings are noted for delicate pastel shades rather than bold colours.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All three statements are correct",
+            "Only two of the statements are correct",
+            "2 only",
+            "None of the above"
+        ],
+        ans: 2,
+        exp: "Mughal painting grew from the Persian tradition when Humayun brought Mir Sayyid Ali and Abdus Samad to his court, and the atelier expanded under Akbar. The Kangra school flourished chiefly under Raja Sansar Chand of the Katoch dynasty. Basohli paintings are known for bold, vivid colours, while Kangra is associated with delicate and lyrical treatment."
+    },
+    {
+        q: "With reference to the legal and constitutional dimensions of festivals in India, consider the following statements: <br> 1. In October 2025, the Supreme Court allowed limited sale and use of certified green crackers in Delhi-NCR during Diwali while reiterating that the right to health and clean air is protected under Article 21.<br>2. The freedom of religion under Article 25 is an absolute right and is not subject to public order, morality or health.<br>3. The duty to value and preserve the rich heritage of our composite culture is a Directive Principle of State Policy.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "3 only",
+            "2 and 3 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "In October 2025 the Supreme Court permitted limited use of NEERI-certified green crackers in Delhi-NCR during Diwali but held that the right to health and clean air under Article 21 remains paramount. Article 25 is expressly subject to public order, morality and health, so statement 2 is wrong. The duty to preserve the composite culture is a Fundamental Duty under Article 51A(f), not a Directive Principle."
+    },
+    {
+        q: "Consider the following two statements: <br> Assertion (A): The Archaeological Survey of India faces difficulty in guarding and maintaining its centrally protected monuments.<br>Reason (R): Roughly one-third of the sanctioned posts in the Archaeological Survey of India are vacant.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "A is correct but R is not correct",
+            "Both A and R are correct and R is the correct explanation of A",
+            "A is not correct but R is correct",
+            "Both A and R are correct but R is not the correct explanation of A"
+        ],
+        ans: 1,
+        exp: "Data placed in the Lok Sabha in 2026 showed about one-third of the ASI's sanctioned posts vacant across circles, and a parliamentary committee has flagged protected sites lacking protectors. The ASI oversees over 3,600 centrally protected monuments and sites. The staff shortage directly explains the difficulty in guarding and maintaining them, so R is the correct explanation of A."
+    },
+    {
+        q: "With reference to the efforts to secure UNESCO recognition for Chhath Puja, consider the following statements: <br> 1. Chhath Puja was inscribed on the UNESCO Representative List of the Intangible Cultural Heritage of Humanity in December 2025.<br>2. In September 2025, the Prime Minister announced in 'Mann Ki Baat' that India was working to include Chhath Puja in the UNESCO Intangible Cultural Heritage list.<br>3. Chhath Puja is celebrated only in Bihar.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 2",
+            "Exactly two of the statements are correct",
+            "1 only",
+            "All three statements are correct"
+        ],
+        ans: 0,
+        exp: "The Prime Minister said in the 28 September 2025 'Mann Ki Baat' that India was pursuing UNESCO heritage status for Chhath Puja, and the Sangeet Natak Akademi has been tasked with the nomination process. It has not yet been inscribed; it was Deepavali that was inscribed in December 2025 as India's 16th element. Chhath is observed across Bihar, Jharkhand, eastern Uttar Pradesh and parts of Nepal, not only in Bihar."
+    },
+    {
+        q: "Consider the following statements about important monuments of India: <br> 1. The Sun Temple at Konark was built by rulers of the Somavamsi dynasty of Odisha.<br>2. The Brihadisvara Temple at Thanjavur was built by the Chola ruler Rajendra I.<br>3. Rani ki Vav at Patan, a stepwell inscribed on the UNESCO World Heritage List in 2014, was built during the Solanki period.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "All of the statements are correct",
+            "Both 1 and 2",
+            "Only one of the statements is correct"
+        ],
+        ans: 3,
+        exp: "Rani ki Vav at Patan, Gujarat, is a stepwell built under the Solanki dynasty and inscribed on the World Heritage List in 2014. The Konark Sun Temple was built by the Eastern Ganga king Narasimhadeva I, not the Somavamsis. The Brihadisvara Temple at Thanjavur was built by Rajaraja I, while Rajendra I built the temple at Gangaikonda Cholapuram."
+    },
+    {
+        q: "With reference to the recommendations on the protection of monuments in India, consider the following statements: <br> 1. Under the Monument Mitra scheme, corporate entities that adopt a monument acquire ownership of it.<br>2. The National Monuments Authority was constituted under the Ancient Monuments and Archaeological Sites and Remains Act, 1958 as originally enacted.<br>3. A Parliamentary Standing Committee recommended dividing the Archaeological Survey of India into two wings, with a separate body, the India Heritage Development Corporation, to handle its revenue.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 only",
+            "1 and 2 only",
+            "3 only"
+        ],
+        ans: 3,
+        exp: "The Parliamentary Standing Committee on Transport, Tourism and Culture (359th Report) suggested splitting the ASI into a core wing for exploration, excavation and conservation and an India Heritage Development Corporation for revenue matters. Under Monument Mitra, adopters develop amenities and upkeep of monuments but do not acquire ownership. The National Monuments Authority was created by the AMASR (Amendment and Validation) Act, 2010, not the original 1958 Act."
+    },
+    {
+        q: "With reference to Birsa Munda, whose 150th birth anniversary was commemorated through the Janjatiya Gaurav Varsh, consider the following statements: <br> 1. He founded the Birsait faith, which sought to revive indigenous religious traditions among the tribal communities of the Chotanagpur region.<br>2. He belonged to the Santhal community.<br>3. His birth anniversary, 15 November, was declared Janjatiya Gaurav Diwas in 2014.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "3 only",
+            "2 and 3 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "Birsa Munda founded the Birsait faith and led the Ulgulan of 1899-1900 against colonial and landlord exploitation, mobilising the Munda and Oraon communities. He was a Munda, and the Santhal Hul of 1855 was a different uprising. Janjatiya Gaurav Diwas was instituted in 2021, and 15 November 2024 to 15 November 2025 was observed as Janjatiya Gaurav Varsh for his 150th birth anniversary."
+    },
+    {
+        q: "With reference to the Maha Kumbh Mela held at Prayagraj in 2025, consider the following statements: <br> 1. The first Amrit Snan of the Maha Kumbh was held on Mauni Amavasya.<br>2. Ahead of the Maha Kumbh, the terms 'Shahi Snan' and 'Peshwai' were changed to 'Amrit Snan' and 'Chhavni Pravesh' respectively.<br>3. All the thirteen akharas participating in the Maha Kumbh belong to the Shaiva tradition.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "3 only",
+            "2 only",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "The Akhil Bharatiya Akhara Parishad president announced that 'Shahi Snan' and 'Peshwai' would be called 'Amrit Snan' and 'Chhavni Pravesh'. The first Amrit Snan took place on Makar Sankranti, 14 January 2025, and Mauni Amavasya (29 January) was the second. The thirteen akharas fall into three broad groups, including Shaiva Sanyasi, Vaishnava Bairagi and Udasin, so they are not all Shaiva."
+    },
+    {
+        q: "Consider the following pairs of Geographical Indication (GI) tagged products and their states or Union Territories of origin: <br> 1. Kachai Lemon : Nagaland<br>2. Raktsey Karpo apricot : Himachal Pradesh<br>3. Mithila Makhana : Jharkhand<br>Which of the pairs given above is/are correctly matched?",
+        opts: [
+            "1 only",
+            "2 only",
+            "1 and 3 only",
+            "None of the pairs given above is correctly matched"
+        ],
+        ans: 3,
+        exp: "Kachai Lemon, from Ukhrul, is a GI-tagged product of Manipur and not Nagaland. Raktsey Karpo is a variety of apricot grown in Ladakh, not Himachal Pradesh. Mithila Makhana (fox nut) is a GI-tagged product of the Mithila region of Bihar, not Jharkhand. None of the pairs is correct."
+    },
+    {
+        q: "With reference to the classical languages of India, consider the following statements: <br> 1. Marathi, Pali, Prakrit, Assamese and Bengali were accorded classical language status in October 2024.<br>2. Telugu and Kannada were the first languages to be accorded classical status, in 2004.<br>3. India now has eleven languages with classical language status.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 only",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "The Union Cabinet granted classical status to Marathi, Pali, Prakrit, Assamese and Bengali in October 2024, taking the total to eleven along with Tamil, Sanskrit, Telugu, Kannada, Malayalam and Odia. Tamil was the first, in 2004, followed by Sanskrit in 2005, while Telugu and Kannada were recognised in 2008. Statement 2 is therefore wrong."
+    },
+    {
+        q: "With reference to the evolution of museums in India, consider the following statements: <br> 1. The Indian Museum at Kolkata was founded in 1814 by the Asiatic Society of Bengal.<br>2. The National Museum, New Delhi was inaugurated on 15 August 1949, with its collections first displayed at Rashtrapati Bhavan.<br>3. The Government Museum, Chennai, established in 1851, is regarded as the second oldest museum in India.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 1",
+            "All three statements are correct",
+            "Exactly two of the statements are correct",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "The Indian Museum was founded in 1814 at the Asiatic Society of Bengal and is regarded as the oldest museum in India. The National Museum, planned after the 1946 Maurice Gwyer Committee, was inaugurated on 15 August 1949 with its collections first shown at Rashtrapati Bhavan. The Government Museum, Chennai, established in 1851, is regarded as the second oldest, so all three statements are correct."
+    },
+    {
+        q: "With reference to the Gyan Bharatam Mission, consider the following statements: <br> 1. The Mission is limited to Sanskrit manuscripts.<br>2. The Mission builds on the National Mission for Manuscripts launched in 2003.<br>3. Under the Mission, manuscripts identified in the national survey are taken into government ownership.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 3 alone",
+            "Only statement 1",
+            "Statement 2 alone",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 2,
+        exp: "The Gyan Bharatam Mission of the Ministry of Culture, announced in Union Budget 2025-26, expands the work of the National Mission for Manuscripts of 2003. It covers manuscripts across languages and scripts, not only Sanskrit. Custodians keep ownership of their manuscripts while the government carries out conservation and digitisation, so statements 1 and 3 are wrong."
+    },
+    {
+        q: "With reference to the nomination process for the UNESCO World Heritage List, consider the following statements: <br> 1. Under the Operational Guidelines, 2024, only one property can be submitted by a State Party for the inscription process in any given cycle.<br>2. Inclusion in the Tentative List is not required before a property can be nominated.<br>3. India's nomination for the 2026-27 cycle is the group of historic monuments at Orchha.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 only",
+            "3 only",
+            "2 only"
+        ],
+        ans: 1,
+        exp: "Under the Operational Guidelines, 2024, a State Party can submit only one nomination in a cycle, and the process takes about one and a half years. Inclusion in the Tentative List is a mandatory prerequisite for nomination. For 2026-27 India submitted Meghalaya's Jingkieng Jri living root bridges, while Orchha has been put forward for the 2027-28 cycle."
+    },
+    {
+        q: "With reference to the features of Geographical Indications (GI) in India, consider the following statements: <br> 1. A registered GI can cover services in addition to goods.<br>2. Producers must be registered as authorised users to legally use a registered GI on their goods.<br>3. A GI registered in India is automatically protected in all member countries of the World Trade Organization.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 only",
+            "3 only",
+            "1 only"
+        ],
+        ans: 1,
+        exp: "The GI Act, 1999 creates a two-tier system: registration of the GI itself and separate registration of authorised users, who alone can use it commercially. The Act applies only to goods, not services, so statement 1 is wrong. Protection is territorial, so a GI registered in India must be separately protected in other countries."
+    },
+    {
+        q: "Consider the following pairs of Geographical Indication (GI) tagged products and their states: <br> 1. Kangra tea : Himachal Pradesh<br>2. Chanderi sarees : Uttar Pradesh<br>3. Muga silk : Assam<br>4. Pochampally Ikat : Telangana<br>How many of the pairs given above are correctly matched?",
+        opts: [
+            "Only three pairs",
+            "Only one pair",
+            "Only two pairs",
+            "All four pairs"
+        ],
+        ans: 0,
+        exp: "Kangra tea is a GI product of Himachal Pradesh, Muga silk of Assam and Pochampally Ikat of Telangana. Chanderi sarees are from Chanderi in Madhya Pradesh, not Uttar Pradesh. Only three pairs are therefore correctly matched."
+    },
+    {
+        q: "With reference to Dholavira, a Harappan city inscribed on the UNESCO World Heritage List, consider the following statements: <br> 1. It is situated on the banks of the Ghaggar-Hakra river.<br>2. Its settlement was planned in three divisions: a citadel, a middle town and a lower town.<br>3. It was inscribed on the UNESCO World Heritage List in 2014.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "3 only",
+            "1 and 3 only",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "Dholavira, in Kutch, Gujarat, is distinctive for its three-part city plan of citadel, middle town and lower town, unlike the two-part layout of Harappa and Mohenjo-daro. It lies on Khadir Bet island between the seasonal Mansar and Manhar streams, not on the Ghaggar-Hakra. It was inscribed in 2021, not 2014."
+    },
+    {
+        q: "With reference to the legal and constitutional framework relating to classical dance in India, consider the following statements: <br> 1. The Madras Devadasis (Prevention of Dedication) Act, 1947 made the dedication of girls to temples illegal, a reform that reshaped the practice of Sadir, later known as Bharatanatyam.<br>2. Article 49 of the Constitution directs the State to protect and promote classical dance forms.<br>3. The Sangeet Natak Akademi was established by an Act of Parliament.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "3 only",
+            "Exactly one of the statements is correct",
+            "Both 1 and 3"
+        ],
+        ans: 2,
+        exp: "The Madras Devadasis (Prevention of Dedication) Act, enacted on 9 October 1947 after campaigning by Muthulakshmi Reddi, outlawed temple dedication and changed how Sadir was practised and later reclaimed as Bharatanatyam. Article 49 is a Directive Principle on the protection of monuments and places and objects of artistic or historic interest, not dance forms. The Sangeet Natak Akademi was set up by a Government resolution in 1952 and works as an autonomous society, not under an Act of Parliament."
+    },
+    {
+        q: "With reference to the Antiquities and Art Treasures Act, 1972, consider the following statements: <br> 1. No work of art can be declared an 'art treasure' under the Act during the lifetime of its creator.<br>2. An object is treated as an 'antiquity' under the Act only if it is at least 50 years old.<br>3. The works of artists such as Raja Ravi Varma and Nicholas Roerich have been declared art treasures under the Act.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "The Act defines an art treasure as a human work of art that is not an antiquity and is declared so by the Central Government, and none can be declared during the artist's lifetime. Works of nine artists, including Rabindranath Tagore, Amrita Sher-Gil, Jamini Roy, Nandalal Bose, Raja Ravi Varma and Nicholas Roerich, have been notified. An antiquity must be at least 100 years old, not 50, so statement 2 is wrong."
+    },
+    {
+        q: "With reference to the Kumbh Mela, consider the following statements: <br> 1. It is held in rotation at Haridwar, Prayagraj, Nashik and Ujjain.<br>2. The Kumbh Mela at Ujjain is held on the banks of the Godavari.<br>3. It has been inscribed by UNESCO on the Representative List of the Intangible Cultural Heritage of Humanity.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 2,
+        exp: "The Kumbh Mela rotates among Haridwar, Prayagraj, Nashik and Ujjain and was inscribed on UNESCO's Representative List of the Intangible Cultural Heritage of Humanity in 2017. The Ujjain Kumbh is held on the Shipra, while the Godavari is the river at Nashik, so statement 2 is wrong."
+    },
+    {
+        q: "With reference to the International Booker Prize, consider the following statements: <br> 1. Heart Lamp, the 2025 winner, is a novel originally written in Kannada.<br>2. Heart Lamp was originally written in Kannada by Banu Mushtaq.<br>3. The prize is awarded to a work translated into English and published in the United Kingdom or Ireland.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 3,
+        exp: "Heart Lamp by Banu Mushtaq, translated into English by Deepa Bhasthi, won the 2025 International Booker Prize and was written in Kannada. The prize honours books translated into English and published in the UK or Ireland. Heart Lamp is a collection of short stories and not a novel, so statement 1 is incorrect."
+    },
+    {
+        q: "With reference to the classical dance forms of India, consider the following statements: <br> 1. Sattriya developed in the monastic institutions called Sattras of Assam, founded in the tradition of Srimanta Sankardeva.<br>2. Tarangam, in which the dancer performs on the rim of a brass plate, is a feature of Kuchipudi.<br>3. Chauk and Tribhanga are characteristic postures of Odissi.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "Exactly two of the statements are correct",
+            "All of the above",
+            "None of the statements are correct"
+        ],
+        ans: 2,
+        exp: "Sattriya grew out of the Sattras of Assam within the Neo-Vaishnavite movement of Srimanta Sankardeva. Kuchipudi of Andhra Pradesh includes Tarangam, performed on a brass plate. Odissi is marked by the Chauk (square) and Tribhanga (three-bend) postures. All three statements are therefore correct."
+    },
+    {
+        q: "With reference to the administrative system of the Mauryan Empire as reflected in Ashoka's inscriptions and the Arthashastra, consider the following statements: <br> 1. The Dhamma Mahamattas were appointed to collect land revenue from the countryside.<br>2. The Samaharta was the chief custodian of the royal treasury.<br>3. The Rajukas were officials entrusted with judicial authority in the countryside.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "1 and 2 only",
+            "2 only",
+            "3 only"
+        ],
+        ans: 3,
+        exp: "Ashoka's Pillar Edicts show the Rajukas exercising judicial powers over the countryside. The Dhamma Mahamattas were special officers appointed to promote Dhamma and the welfare of people of all sects, not to collect revenue. In the Arthashastra the Samaharta was the chief collector of revenue, while the Sannidhata was the custodian of the treasury."
+    },
+    {
+        q: "Consider the following two statements about Sattriya, a classical dance form of India: <br> Assertion (A): Sattriya received formal recognition as a classical dance only in the year 2000, even though it had been practised in Assam for several centuries.<br>Reason (R): For centuries Sattriya was preserved mainly within the monastic Sattras of Assam as a devotional practice, with limited exposure outside the region.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "A is not correct but R is correct",
+            "Both A and R are correct and R is the correct explanation of A",
+            "Both A and R are correct but R is not the correct explanation of A",
+            "A is correct but R is not correct"
+        ],
+        ans: 1,
+        exp: "Sattriya was conferred classical status by the Sangeet Natak Akademi in 2000. It grew out of the Neo-Vaishnavite Sattras founded in the tradition of Srimanta Sankardeva and stayed largely within monastic precincts for centuries. This limited outside exposure explains why its national recognition came late, so R correctly explains A."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-36 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

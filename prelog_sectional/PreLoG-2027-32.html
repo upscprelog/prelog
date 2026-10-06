@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-32</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "With reference to the regulatory challenges faced by India's private space sector, consider the following statements:<br>1. As a party to the Outer Space Treaty, India bears international responsibility for space activities of private entities under its jurisdiction.<br>2. The 2017 draft Space Activities Bill proposed that intellectual property developed on board a space object would vest in the private operator that built and launched it.<br>3. India has enacted a statute that caps the liability of private launch operators and mandates insurance cover for them.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 only",
+            "1 only",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "Article VI of the Outer Space Treaty makes the State internationally responsible for national space activities, including those of non-governmental entities, and requires its authorisation and continuing supervision. Statement 2 is wrong because the 2017 draft Bill proposed that such intellectual property would vest in the Central Government, a provision private players objected to. Statement 3 is wrong because India has no dedicated space statute yet, and the Space Activities Bill remains pending."
+    },
+    {
+        q: "With reference to the policy decisions on India's space missions, consider the following statements:<br>1. In September 2024, the Union Cabinet approved Chandrayaan-4 as a technology demonstration mission to land on the Moon, collect lunar samples and return them safely to Earth.<br>2. The Indian Space Policy 2023 allows non-governmental entities to engage in the commercial recovery of asteroid or space resources.<br>3. India has not signed the Artemis Accords.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All three statements are correct",
+            "Only one of the statements is correct",
+            "1 and 2 only",
+            "Both 2 and 3"
+        ],
+        ans: 2,
+        exp: "In September 2024 the Union Cabinet approved Chandrayaan-4, a Rs 2,104 crore technology demonstration mission for lunar sample collection and return, as a stepping stone to an Indian crewed landing by 2040. The Indian Space Policy 2023 permits non-governmental entities to engage in commercial recovery of asteroid or space resources. Statement 3 is wrong because India signed the Artemis Accords in June 2023."
+    },
+    {
+        q: "With reference to the recommendations of the Parliamentary Standing Committee on the Department of Space (410th report, March 2026), consider the following statements:<br>1. It found that ISRO technologies were being transferred to private firms at prices higher than their commercial value.<br>2. It recommended that all technology transfer agreements be subject to periodic third-party audits.<br>3. It recommended that the transfer of ISRO technologies to the private sector be stopped until a dedicated space law is enacted.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1 only",
+            "3 only",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "The Committee recommended periodic third-party audits of all technology transfer agreements, so statement 2 is correct. It actually found that several ISRO technologies had been transferred at prices disproportionately low compared with their commercial value and asked for a competitive, market-aligned pricing framework, so statement 1 is wrong. It did not ask for transfers to be stopped, so statement 3 is also wrong."
+    },
+    {
+        q: "With reference to the role of ISRO under the Indian Space Policy 2023, consider the following statements:<br>1. ISRO is the single-window agency for authorising the space activities of non-governmental entities.<br>2. ISRO is responsible for commercialising space technologies and platforms created through public expenditure.<br>3. ISRO is expected to focus on research and development of new space technologies and to shift mature operational systems to industry and NSIL.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 3 alone",
+            "None of the above",
+            "All three statements are correct",
+            "Statement 1 alone"
+        ],
+        ans: 0,
+        exp: "The Indian Space Policy 2023 asks ISRO to concentrate on research and development of new technologies and to hand mature operational systems to industry and NSIL, so statement 3 is correct. IN-SPACe, not ISRO, is the single-window authoriser of non-governmental space activities, so statement 1 is wrong. Commercialisation of publicly funded space technologies is NSIL's job, so statement 2 is also wrong."
+    },
+    {
+        q: "With reference to the reforms in India's satellite sector, consider the following statements:<br>1. A consortium led by PixxelSpace India was selected under the Earth Observation public-private partnership of IN-SPACe to design, build and operate a 12-satellite commercial constellation.<br>2. Under the Space-Based Surveillance-III programme, all 52 surveillance satellites are to be built by ISRO.<br>3. The satellites of the Earth Observation public-private partnership constellation are to be launched on foreign launch vehicles to reduce costs.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 and 3 only",
+            "2 only",
+            "3 only"
+        ],
+        ans: 0,
+        exp: "IN-SPACe selected a Pixxel-led consortium with PierSight, SatSure and Dhruva Space to build and operate a 12-satellite Earth observation constellation under a public-private partnership, so statement 1 is correct. Under SBS-III, ISRO is to build 21 of the 52 satellites and three private companies the remaining 31, so statement 2 is wrong. The constellation is to be built in India and launched on Indian rockets, so statement 3 is wrong."
+    },
+    {
+        q: "Consider the following milestones in the evolution of India's space governance:<br>1. Union Cabinet approval for the creation of IN-SPACe<br>2. Release of the Indian Space Policy 2023<br>3. Incorporation of NewSpace India Limited (NSIL)<br>4. Establishment of Antrix Corporation<br>Which one of the following is the correct chronological order of these events, starting from the earliest?",
+        opts: [
+            "4-1-3-2",
+            "4-3-1-2",
+            "3-4-1-2",
+            "4-3-2-1"
+        ],
+        ans: 1,
+        exp: "Antrix was set up in 1992 as ISRO's commercial arm and NSIL was incorporated in 2019 as a public sector undertaking under the Department of Space. IN-SPACe was cleared by the Union Cabinet in June 2020, and the Indian Space Policy 2023 came in April 2023 to define the roles of ISRO, NSIL and IN-SPACe. The tempting alternatives wrongly place IN-SPACe before NSIL or the policy before IN-SPACe."
+    },
+    {
+        q: "Which one of the following best describes the institutional character of the Indian Space Research Organisation (ISRO)?",
+        opts: [
+            "A public sector undertaking registered under the Companies Act and responsible for commercial launch services",
+            "The research and development wing of the Department of Space, whose Chairman is also Secretary of the Department and Chairman of the Space Commission",
+            "A statutory body constituted under an Act of Parliament and functioning under the Ministry of Science and Technology",
+            "An autonomous body functioning under the Department of Atomic Energy"
+        ],
+        ans: 1,
+        exp: "ISRO is the research and development wing of the Department of Space, which functions directly under the Prime Minister, and its Chairman is also Secretary of the Department and Chairman of the Space Commission. ISRO has no statutory basis and is not under the Ministry of Science and Technology. Option (b) describes NewSpace India Limited, and ISRO moved from the Department of Atomic Energy to the Department of Space in 1972."
+    },
+    {
+        q: "With reference to India's space stations and human spaceflight, consider the following statements:<br>1. Rakesh Sharma's 1984 spaceflight took him to the International Space Station.<br>2. India is one of the partner nations of the International Space Station programme.<br>3. Shubhanshu Shukla, who flew on the Axiom-4 mission in 2025, became the first Indian to travel to space.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "None of the statements is correct",
+            "1 and 2 only",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "Rakesh Sharma flew on Soyuz T-11 to the Soviet Salyut-7 station in 1984, and the International Space Station did not exist until 1998, so statement 1 is wrong. India is not a partner nation of the ISS, which is run by the USA, Russia, Europe, Japan and Canada, and Shukla visited it on the commercial Axiom-4 mission, so statement 2 is wrong. Shukla was the first Indian on the ISS but only the second Indian in space, after Sharma, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to recent Indian space missions that support microgravity research, consider the following statements:<br>1. Axiom-4, which carried an Indian astronaut to the ISS in 2025, was an ISRO mission launched using an Indian launch vehicle.<br>2. The SpaDeX mission also hosted a plant-growth experiment in which cowpea seeds germinated in orbit.<br>3. The primary objective of SpaDeX was to conduct microgravity biology experiments, with docking only a secondary goal.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "1 and 3 only",
+            "3 only",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "The SpaDeX mission also carried a plant-growth experiment in which cowpea seeds germinated in space, so statement 2 is correct. Axiom-4 was a commercial mission operated by Axiom Space and launched on a US Falcon 9, not an ISRO mission on an Indian rocket, so statement 1 is wrong. SpaDeX was primarily a docking demonstration, with microgravity experiments as additional payloads, so statement 3 is wrong."
+    },
+    {
+        q: "Consider the following statements:<br>Statement-I: Both the PSLV-C61 mission (May 2025) and the PSLV-C62 mission (January 2026) encountered an anomaly during the third stage of flight.<br>Statement-II: These failures occurred because the third stage of the PSLV is a cryogenic stage, which is technologically more complex than the solid and liquid stages used elsewhere in the vehicle.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "Statement-I is incorrect but Statement-II is correct",
+            "Both Statement-I and Statement-II are correct, but Statement-II does not explain Statement-I",
+            "Statement-I is correct but Statement-II is incorrect",
+            "Both Statement-I and Statement-II are correct and Statement-II explains Statement-I"
+        ],
+        ans: 2,
+        exp: "ISRO reported anomalies in the third stage in both the PSLV-C61 and PSLV-C62 missions, so Statement-I is correct. Statement-II is incorrect because the PSLV is a four-stage vehicle with alternating solid and liquid stages, and its third stage is a solid rocket motor. Cryogenic upper stages are used in the GSLV and LVM3, not in the PSLV."
+    },
+    {
+        q: "With reference to the background and evolution of the Indian space programme, consider the following statements:<br>1. The Indian National Committee for Space Research (INCOSPAR), set up in 1962 under Vikram Sarabhai, functioned under the Department of Space.<br>2. Aryabhata, India's first satellite, was launched in 1975 from Sriharikota by an Indian launch vehicle.<br>3. The SLV-3 successfully placed the Rohini satellite in orbit in 1979.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements is correct",
+            "2 and 3 only",
+            "1 and 2 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "INCOSPAR was set up in 1962 under the Department of Atomic Energy, because the Department of Space and the Space Commission came only in 1972. Aryabhata was launched in April 1975 by a Soviet launch vehicle from the Soviet Union, not from Sriharikota. The first SLV-3 flight in 1979 failed, and the SLV-3 achieved orbit only in July 1980 with Rohini, so none of the statements is correct."
+    },
+    {
+        q: "With reference to the payloads of Chandrayaan-3, consider the following pairs:<br>Payload : Platform on which it is carried<br>1. Chandra's Surface Thermophysical Experiment (ChaSTE) : Lander<br>2. Alpha Particle X-ray Spectrometer (APXS) : Propulsion Module<br>3. Spectro-polarimetry of Habitable Planet Earth (SHAPE) : Rover<br>How many of the above pairs are correctly matched?",
+        opts: [
+            "Only two pairs",
+            "None of the pairs",
+            "All three pairs",
+            "Only one pair"
+        ],
+        ans: 3,
+        exp: "On Chandrayaan-3, ChaSTE, ILSA and RAMBHA-LP are carried on the lander, APXS and LIBS on the rover, and SHAPE on the propulsion module. Pair 1 is therefore correct, while APXS belongs to the rover and SHAPE to the propulsion module, making pairs 2 and 3 wrong."
+    },
+    {
+        q: "With reference to the planning for the Bharatiya Antariksh Station (BAS), consider the following statements:<br>1. ISRO is incorporating international standards in the design of BAS-01 subsystems to ensure interoperability with systems provided by other international agencies.<br>2. The structure of BAS-1 is being manufactured entirely in-house by ISRO without any industry participation.<br>3. The government plans for the full five-module BAS to be operational by 2028.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 and 2 only",
+            "All of the above",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "The government has told Parliament that international standards are being built into BAS-01 subsystems so that they can interoperate with systems from other international agencies, so statement 1 is correct. The Vikram Sarabhai Space Centre has invited industry through an Expression of Interest to manufacture BAS-1 structures, so statement 2 is wrong. Only the first module is targeted for 2028, while the five-module station is expected to be fully operational by 2035, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the amended Foreign Direct Investment (FDI) policy of 2024 for the space sector, consider the following pairs:<br>Activity : Maximum FDI permitted under the automatic route<br>1. Satellites - manufacturing and operation : Up to 74%<br>2. Launch vehicles and associated systems or subsystems : Up to 74%<br>3. Manufacture of components and systems/sub-systems for satellites : Up to 49%<br>How many of the above pairs are correctly matched?",
+        opts: [
+            "Only one pair",
+            "None of the pairs",
+            "Only two pairs",
+            "All three pairs"
+        ],
+        ans: 0,
+        exp: "Satellite manufacturing and operation is allowed up to 74% under the automatic route, with government approval needed beyond that, so pair 1 is correct. Launch vehicles and spaceports have a lower automatic-route cap of 49% because of their dual-use nature, so pair 2 is wrong. Components and sub-systems for satellites are allowed up to 100% under the automatic route, so pair 3 is also wrong."
+    },
+    {
+        q: "With reference to the applications of Indian satellites, consider the following pairs:<br>Satellite/System : Primary application<br>1. Cartosat series : High-resolution imaging for cartography and urban planning<br>2. Oceansat series : Observation of ocean colour and sea-surface winds<br>3. AstroSat : Monitoring crop health through multispectral imaging<br>How many of the above pairs are correctly matched?",
+        opts: [
+            "Only two pairs",
+            "All three pairs",
+            "Only one pair",
+            "None of the pairs"
+        ],
+        ans: 0,
+        exp: "Cartosat satellites provide high-resolution imagery for cartography and urban planning, and Oceansat satellites observe ocean colour and sea-surface winds, so pairs 1 and 2 are correct. AstroSat is a multi-wavelength space observatory for astronomy, not a crop-monitoring satellite, so pair 3 is wrong. Prelims has repeatedly tested satellite applications, for example IRS uses, AstroSat and remote sensing."
+    },
+    {
+        q: "With reference to the features of Indian launch vehicles, consider the following statements:<br>1. The SSLV is a three-stage vehicle in which all the stages use liquid propellants.<br>2. The LVM3 has two solid strap-on boosters, a liquid core stage and a cryogenic upper stage.<br>3. The PSLV is a three-stage vehicle with a cryogenic upper stage.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "3 only",
+            "1 only",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "The LVM3 combines two S200 solid strap-on boosters, an L110 liquid core stage and a C25 cryogenic upper stage, so statement 2 is correct. The SSLV has three solid stages plus a liquid velocity trimming module, so statement 1 is wrong. The PSLV has four stages with alternating solid and liquid propellants and no cryogenic stage, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the Next Generation Launch Vehicle (NGLV) approved by the Union Cabinet in September 2024, consider the following statements:<br>1. It is designed to carry a payload of about 10 tonnes to low Earth orbit, comparable to that of the LVM3.<br>2. Its reusability is limited to the upper stage, while the first stage is expendable.<br>3. Its development is to be implemented with maximal participation of Indian industry, which is expected to invest in manufacturing capacity from the outset.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "1 only",
+            "Both 1 and 3",
+            "3 only"
+        ],
+        ans: 3,
+        exp: "The NGLV project, costing Rs 8,240 crore over 96 months with three developmental flights, is to be implemented with maximal participation of Indian industry, so statement 3 is correct. The NGLV is designed to carry up to 30 tonnes to low Earth orbit, about three times the LVM3's capability, so statement 1 is wrong. Its reusability features a reusable first stage, so statement 2 is wrong."
+    },
+    {
+        q: "With reference to India's planetary and solar missions, consider the following statements:<br>1. The Mars Orbiter Mission, launched by PSLV, made India the first Asian country to place a spacecraft in Martian orbit.<br>2. Aditya-L1 is placed in a halo orbit around the Sun-Earth L1 point, from which it can view the Sun continuously without eclipses or occultation.<br>3. Chandrayaan-3 was launched using the GSLV Mk II launch vehicle.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 only",
+            "2 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "The Mars Orbiter Mission (launched by PSLV-C25) made India the first Asian nation to reach Mars orbit. Aditya-L1 sits in a halo orbit around the Sun-Earth L1 point, which gives it an uninterrupted view of the Sun. Statement 3 is wrong because Chandrayaan-3 was launched by LVM3-M4 (formerly GSLV Mk III), not GSLV Mk II, so options including statement 3 are incorrect."
+    },
+    {
+        q: "With reference to the background and evolution of space applications in India, consider the following statements:<br>1. The Satellite Instructional Television Experiment (SITE) of 1975-76 used an Indian-built geostationary satellite.<br>2. INSAT-1A, launched in 1982, remained operational for more than a decade.<br>3. EDUSAT (GSAT-3), launched in 2004, was India's first satellite built exclusively for educational services.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the above",
+            "Statement 3 alone",
+            "Exactly two of the statements are correct",
+            "2 only"
+        ],
+        ans: 1,
+        exp: "EDUSAT, launched in 2004, was India's first satellite dedicated exclusively to educational services, so statement 3 is correct. SITE used NASA's ATS-6 satellite because India had no geostationary satellite then, so statement 1 is wrong. INSAT-1A failed in orbit within months of its 1982 launch, and the INSAT system was commissioned with INSAT-1B in 1983, so statement 2 is wrong."
+    },
+    {
+        q: "With reference to the constitutional and legal framework relevant to India's space activities, consider the following statements:<br>1. Under Article 253, Parliament can legislate to implement an international treaty only on subjects enumerated in the Union List.<br>2. India has ratified the Moon Agreement, 1979, which declares the Moon and its natural resources to be the common heritage of humankind.<br>3. Under the Liability Convention, 1972, a launching State is liable on the basis of fault for damage caused by its space object on the surface of the Earth.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "3 only",
+            "None of the statements is correct",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "Article 253 empowers Parliament to make laws for implementing treaties even on State List subjects, so statement 1 is wrong. India has ratified the Outer Space Treaty, Rescue Agreement, Liability Convention and Registration Convention, but it only signed the Moon Agreement without ratifying it, so statement 2 is wrong. The Liability Convention imposes absolute liability for damage on the Earth's surface or to aircraft in flight, with fault-based liability applying only to damage in outer space, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the GPS Aided GEO Augmented Navigation (GAGAN) system, consider the following statements:<br>1. It is an independent regional navigation satellite system with its own dedicated constellation, similar to NavIC.<br>2. It was certified by the DGCA for en-route (RNP 0.1) operations in December 2013 and for approach with vertical guidance (APV-1) in April 2015.<br>3. The National Civil Aviation Policy 2016 required new aircraft registered in India after a stipulated date to be GAGAN-enabled.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "Both 1 and 3",
+            "Statement 2 alone",
+            "2 and 3 only"
+        ],
+        ans: 3,
+        exp: "GAGAN, implemented jointly by ISRO and the Airports Authority of India, is a satellite-based augmentation system that improves the accuracy and integrity of GPS signals for aviation. The DGCA certified it for en-route use in December 2013 and for APV-1 approaches in April 2015, and the National Civil Aviation Policy 2016 mandated GAGAN-enabled avionics for newly registered aircraft. Statement 1 is wrong because GAGAN augments GPS and has no navigation constellation of its own, unlike NavIC."
+    },
+    {
+        q: "With reference to the challenges in establishing the Bharatiya Antariksh Station (BAS), consider the following statements:<br>1. The LVM3 has the capacity to place the entire BAS in orbit in a single launch.<br>2. Because BAS is a modular station, it needs in-orbit docking, a capability that ISRO demonstrated through the SpaDeX mission in January 2025.<br>3. As BAS is a crew-tended station, human-rating of the launch vehicle is not required for it.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "1 and 3 only",
+            "2 only",
+            "3 only"
+        ],
+        ans: 2,
+        exp: "BAS is planned as a five-module station, so its modules must dock in orbit, and SpaDeX demonstrated docking in January 2025, making statement 2 correct. A single LVM3 launch can lift only a fraction of a station, which is why the modules are launched in phases, so statement 1 is wrong. Crews will travel to BAS, which requires human-rated launch vehicles such as the one being developed under Gaganyaan, so statement 3 is wrong."
+    },
+    {
+        q: "Which one of the following best describes the GSLV-F17/EOS-05 mission launched by ISRO in September 2026?",
+        opts: [
+            "An SSLV mission that deployed a small satellite built by a private company",
+            "A GSLV Mk II mission that placed an Earth observation satellite meant to image India from geosynchronous orbit, replacing the EOS-03 lost in 2021",
+            "An LVM3 mission that placed a multi-band military communication satellite for the Navy in geosynchronous transfer orbit",
+            "A PSLV mission that placed a radar imaging satellite in a sun-synchronous polar orbit"
+        ],
+        ans: 1,
+        exp: "GSLV-F17 launched EOS-05 (GISAT-1A), a 2,367 kg Earth observation satellite designed to monitor India continuously from geosynchronous orbit, on 4 September 2026. It replaces EOS-03 (GISAT-1), which was lost in the GSLV-F10 failure of 2021, and it ended a gap of roughly eight months in ISRO launches after the PSLV-C62 failure in January 2026. Option (b) describes the CMS-03 mission of November 2025."
+    },
+    {
+        q: "Consider the following Indian satellites:<br>1. IRS-1A<br>2. APPLE<br>3. Aryabhata<br>4. Bhaskara-I<br>Which one of the following is the correct chronological order of their launch, starting from the earliest?",
+        opts: [
+            "3-2-4-1",
+            "3-4-2-1",
+            "3-4-1-2",
+            "4-3-2-1"
+        ],
+        ans: 1,
+        exp: "Aryabhata, India's first satellite, was launched in April 1975, followed by the experimental remote sensing satellite Bhaskara-I in 1979 and the experimental geostationary communication satellite APPLE in 1981. IRS-1A, the first operational remote sensing satellite of the IRS series, came in 1988. The tempting alternative 3-2-4-1 wrongly places APPLE before Bhaskara-I."
+    },
+    {
+        q: "With reference to the policy decisions on India's planetary missions, consider the following statements:<br>1. The Union Cabinet approved the Venus Orbiter Mission in September 2024 with a total funding of Rs 1,236 crore.<br>2. Chandrayaan-4, approved in 2024, is a lunar orbiter mission with no landing component.<br>3. The entire funding approved for the Venus Orbiter Mission is meant for spacecraft development.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 2 alone",
+            "Only statement 3",
+            "Exactly one of the statements is correct",
+            "Only two of the statements are correct"
+        ],
+        ans: 2,
+        exp: "The Cabinet approved the Venus Orbiter Mission on 18 September 2024 with Rs 1,236 crore, so statement 1 is correct. Only Rs 824 crore of that amount is for the spacecraft, with the rest covering other costs, so statement 3 is wrong. Chandrayaan-4 is a technology demonstration mission to land on the Moon, collect samples and return them to Earth, so statement 2 is wrong."
+    },
+    {
+        q: "With reference to the recent developments in India's private space sector, consider the following statements:<br>1. Skyroot Aerospace's Vikram-1, launched in July 2026, became India's first privately developed rocket to reach orbit.<br>2. Vikram-S, launched in November 2022 from Sriharikota, was a sub-orbital vehicle and India's first privately developed rocket to be launched.<br>3. Agnikul Cosmos launched its Agnibaan SOrTeD vehicle in May 2024 from 'Dhanush', India's first private launchpad at Sriharikota.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 and 2 only",
+            "2 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 3,
+        exp: "Vikram-1 (Mission Aagaman) made Skyroot the first Indian private company to put a rocket into orbit, building on the sub-orbital Vikram-S flight of 2022, which was the first private launch authorised by IN-SPACe. Agnikul's Agnibaan SOrTeD flew in May 2024 from its own private launchpad inside the Sriharikota spaceport, but it was a sub-orbital demonstration rather than an orbital flight. All three statements are correct."
+    },
+    {
+        q: "With reference to recent satellite missions of India, consider the following statements:<br>1. CMS-03 (GSAT-7R), launched by LVM3-M5 in November 2025, is a multi-band military communication satellite for the Indian Navy and is the heaviest communication satellite launched to GTO from Indian soil.<br>2. LVM3-M6 placed the US-built BlueBird Block-2 satellite of AST SpaceMobile into low Earth orbit in a dedicated commercial launch in December 2025.<br>3. NISAR, the NASA-ISRO radar satellite, was launched by PSLV in 2025.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "CMS-03, a roughly 4,400 kg multi-band military satellite for the Navy, was placed in GTO by LVM3-M5 in November 2025, and LVM3-M6 launched AST SpaceMobile's BlueBird Block-2 in a dedicated commercial mission. Statement 3 is wrong because NISAR was launched by GSLV-F16 on 30 July 2025 into a sun-synchronous orbit, not by PSLV."
+    },
+    {
+        q: "With reference to the legal and constitutional position of ISRO, consider the following statements:<br>1. ISRO is a statutory body constituted under a dedicated Act of Parliament.<br>2. The Chairman of ISRO is appointed by the Union Public Service Commission.<br>3. The expenditure of the Department of Space is charged on the Consolidated Fund of India and is not subject to vote by Parliament.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements is correct",
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "ISRO has no parent statute, and the Department of Space and the Space Commission were set up by executive decision in 1972, so statement 1 is wrong. The ISRO Chairman is appointed by the Appointments Committee of the Cabinet, not the UPSC, so statement 2 is wrong. The Department's spending is voted by Parliament through its Demand for Grants rather than being charged on the Consolidated Fund, so statement 3 is also wrong."
+    },
+    {
+        q: "Consider the following statements:<br>Statement-I: As the launching State of the modules of the Bharatiya Antariksh Station, India would be required to register them in its national registry and inform the UN Secretary-General.<br>Statement-II: Registration of a space object under the Registration Convention gives the registering State sovereignty over the orbital space occupied by the object.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "Both Statement-I and Statement-II are correct, but Statement-II does not explain Statement-I",
+            "Statement-I is correct but Statement-II is incorrect",
+            "Both Statement-I and Statement-II are correct and Statement-II explains Statement-I",
+            "Statement-I is incorrect but Statement-II is correct"
+        ],
+        ans: 1,
+        exp: "As a party to the Registration Convention and the launching State, India would have to register BAS modules in its national registry and inform the UN Secretary-General, so Statement-I is correct. Statement-II is incorrect because registration gives the State of registry only jurisdiction and control over the object and its crew under Article VIII of the Outer Space Treaty. Article II of the same treaty bars national appropriation of outer space by claims of sovereignty."
+    },
+    {
+        q: "With reference to India's planetary and lunar missions, consider the following statements:<br>1. Chandrayaan-5 (LUPEX) is an all-Indian mission in which ISRO provides the lander, the rover and the launch vehicle.<br>2. The Venus Orbiter Mission is a joint ISRO-JAXA mission to be launched on Japan's H3 rocket.<br>3. Chandrayaan-4 is a lunar sample return mission that requires two LVM3 launches and the docking of its modules in orbit.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "None of the above",
+            "All three statements are correct",
+            "Only two of the statements are correct"
+        ],
+        ans: 0,
+        exp: "Chandrayaan-4 is a sample return mission whose modules are carried on two LVM3 launches and must dock in orbit, which is why SpaDeX was demonstrated first, so statement 3 is correct. In Chandrayaan-5 (LUPEX), ISRO provides the lander while JAXA provides the rover and the H3 launch vehicle, so statement 1 is wrong. The Venus Orbiter Mission is an ISRO mission and not a joint mission with JAXA, so statement 2 is wrong."
+    },
+    {
+        q: "With reference to the legal and regulatory framework for satellite communication services in India, consider the following statements:<br>1. Under the Telecommunications Act 2023, spectrum for all satellite-based services must be assigned through competitive auction.<br>2. An IN-SPACe authorisation alone is sufficient for a company to offer satellite communication services in India.<br>3. TRAI recommended that satcom operators pay 4% of their Adjusted Gross Revenue as spectrum charge, subject to a minimum annual charge per MHz.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 and 3 only",
+            "2 only",
+            "1 only"
+        ],
+        ans: 0,
+        exp: "TRAI recommended a spectrum charge of 4% of Adjusted Gross Revenue, subject to a minimum of Rs 3,500 per MHz per year, so statement 3 is correct. The Telecommunications Act 2023 provides for administrative assignment of spectrum for most satellite services rather than auction, so statement 1 is wrong. A satcom provider needs both a DoT authorisation, such as GMPCS, and an IN-SPACe authorisation for the space segment, so statement 2 is wrong."
+    },
+    {
+        q: "With reference to the efforts to strengthen the NavIC constellation, consider the following statements:<br>1. The government's roadmap includes completing the NavIC base-layer constellation and inducting an indigenous space-grade atomic clock.<br>2. Atomic clock failures on first-generation satellites, such as IRNSS-1F in March 2026, have reduced the number of satellites providing positioning services.<br>3. The Parliamentary Standing Committee, in March 2026, said that the replacement satellites NVS-03, NVS-04 and NVS-05 would be launched within six months.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "Exactly two of the statements are correct",
+            "None of the above",
+            "Statement 3 alone"
+        ],
+        ans: 1,
+        exp: "The government's roadmap includes completing the base-layer constellation and inducting an indigenous space-grade atomic clock, and clock failures such as that on IRNSS-1F in March 2026 have cut the number of satellites providing positioning services. Statement 3 is wrong because the Parliamentary Standing Committee's report said the replacement satellites would be launched over the next 15-18 months, not six months."
+    },
+    {
+        q: "With reference to the Navigation with Indian Constellation (NavIC), consider the following statements:<br>1. Its primary service area extends up to about 1,500 km beyond the Indian mainland.<br>2. All seven satellites of its original constellation were placed in geostationary orbit.<br>3. Its navigation signals are broadcast only in the S-band.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 and 3 only",
+            "2 only",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "NavIC is a regional system whose primary service area covers India and a region extending about 1,500 km around it. Statement 2 is wrong because the constellation mixes three geostationary satellites with four in inclined geosynchronous orbits. Statement 3 is wrong because NavIC transmits in the L5 band as well as the S-band. Only statement 1 is correct."
+    },
+    {
+        q: "With reference to the functions of Indian satellites, consider the following statements:<br>1. GSAT-7 (Rukmini), launched in 2013, is a military communication satellite serving the Indian Navy.<br>2. INSAT-3DS is a navigation satellite that augments the NavIC constellation.<br>3. The Cartosat series satellites relay distress alerts from beacons under the Cospas-Sarsat programme.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 only",
+            "2 and 3 only",
+            "2 only"
+        ],
+        ans: 1,
+        exp: "GSAT-7 (Rukmini), launched in 2013, is the Navy's dedicated military communication satellite, which CMS-03 (GSAT-7R) is now replacing, so statement 1 is correct. INSAT-3DS is a meteorological satellite, not a navigation satellite, so statement 2 is wrong. Distress-alert relay under Cospas-Sarsat is carried on INSAT and GSAT communication satellites, not on the Cartosat imaging series, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to recent missions of Indian launch vehicles, consider the following statements:<br>1. The PSLV-C61 failure of May 2025 occurred in the second (liquid-propellant) stage.<br>2. LVM3-M5 launched the NISAR satellite in November 2025.<br>3. GSLV-F17 of September 2026 was ISRO's first successful launch of 2026, after the failure of PSLV-C62 in January 2026.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "3 only",
+            "1 and 2 only",
+            "1 only"
+        ],
+        ans: 1,
+        exp: "PSLV-C62 in January 2026 was ISRO's first launch of the year and it failed, so GSLV-F17/EOS-05 in September 2026 became the first success of 2026, which makes statement 3 correct. The PSLV-C61 anomaly of May 2025 occurred in the third stage, which is a solid motor, so statement 1 is wrong. LVM3-M5 launched the CMS-03 naval communication satellite in November 2025, while NISAR was launched by GSLV-F16 in July 2025, so statement 2 is wrong."
+    },
+    {
+        q: "With reference to the features of NavIC, consider the following statements:<br>1. Its satellites orbit in medium Earth orbit at about 20,000 km, like the GPS satellites.<br>2. Its L5 and S-band signals allow dual-frequency receivers to estimate and correct ionospheric delay.<br>3. It provides only an encrypted Restricted Service for the armed forces and has no civilian service.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "3 only",
+            "1 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "NavIC's L5 and S-band signals allow dual-frequency receivers to estimate and remove ionospheric delay, so statement 2 is correct. NavIC satellites are in geostationary and inclined geosynchronous orbits at about 36,000 km, not in medium Earth orbit like GPS, so statement 1 is wrong. NavIC offers a Standard Positioning Service for all users in addition to an encrypted Restricted Service, so statement 3 is wrong."
+    },
+    {
+        q: "Consider the following statements:<br>Statement-I: The Visible Emission Line Coronagraph (VELC) on Aditya-L1 can image the Sun's corona close to the solar disc.<br>Statement-II: VELC uses an occulting disc to block the light of the bright solar disc, producing an artificial eclipse in which the fainter corona becomes visible.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "Statement-I is incorrect but Statement-II is correct",
+            "Both Statement-I and Statement-II are correct, but Statement-II does not explain Statement-I",
+            "Both Statement-I and Statement-II are correct and Statement-II explains Statement-I",
+            "Statement-I is correct but Statement-II is incorrect"
+        ],
+        ans: 2,
+        exp: "VELC is a coronagraph on Aditya-L1 that images the solar corona, and it does so by blocking the glare of the bright solar disc with an occulting disc, which creates an artificial eclipse. The corona is far fainter than the photosphere and would otherwise be invisible, so Statement-II explains Statement-I."
+    },
+    {
+        q: "With reference to the ground segment of NavIC, consider the following statements:<br>1. The ISRO Navigation Centre at Byalalu near Bengaluru acts as the nerve centre of the ground segment and generates the navigation parameters.<br>2. The IRNSS Spacecraft Control Facility, which monitors and controls the satellites, is located at Byalalu and Lucknow.<br>3. All the IRNSS Range and Integrity Monitoring Stations are located within India.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 only",
+            "2 and 3 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "The ISRO Navigation Centre at Byalalu is the nerve centre of the ground segment and generates the navigation parameters, so statement 1 is correct. The spacecraft control facility operates at the Master Control Facility, Hassan, and at Bhopal, not at Byalalu and Lucknow, so statement 2 is wrong. One of the sixteen range and integrity monitoring stations is located outside India, in Mauritius, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the use of space technology for disaster management in India, consider the following statements:<br>1. The Decision Support Centre at the National Remote Sensing Centre, Hyderabad, provides satellite-based inputs for disasters such as floods, cyclones, landslides, forest fires and agricultural drought.<br>2. The National Database for Emergency Management (NDEM) is a GIS-based national repository developed in collaboration with the Ministry of Home Affairs.<br>3. Bhuvan, ISRO's geoportal, is used to disseminate disaster-related products such as flood inundation maps and forest fire alerts.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "Only statement 3",
+            "None of the statements are correct",
+            "All three statements are correct"
+        ],
+        ans: 3,
+        exp: "ISRO's Disaster Management Support Programme runs the Decision Support Centre at NRSC, which gives satellite-based inputs on floods, cyclones, landslides, forest fires and agricultural drought. NDEM is a national GIS repository developed with the Ministry of Home Affairs, and disaster products are disseminated in near real time through the Bhuvan geoportal. All three statements are correct."
+    },
+    {
+        q: "With reference to the Indian National Satellite (INSAT) system, consider the following statements:<br>1. It is a multipurpose system serving telecommunications, television broadcasting, meteorology and search and rescue operations.<br>2. It is a joint venture of the Department of Space, Department of Telecommunications, India Meteorological Department, All India Radio and Doordarshan, coordinated by the Secretary-level INSAT Coordination Committee.<br>3. Its satellites are placed in geostationary orbit and carry transponders in the C, extended C and Ku bands.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "Both 2 and 3",
+            "All of the above",
+            "Only statement 3"
+        ],
+        ans: 2,
+        exp: "INSAT is a multipurpose geostationary system serving telecommunication, television broadcasting, meteorology and search and rescue, with transponders in the C, extended C and Ku bands. It is a joint venture of the Department of Space, the Department of Telecommunications, IMD, All India Radio and Doordarshan, with overall coordination by the Secretary-level INSAT Coordination Committee. Its search and rescue transponders relay distress signals under the Cospas-Sarsat programme, and all three statements are correct."
+    },
+    {
+        q: "With reference to the legal status of the Indian National Space Promotion and Authorization Centre (IN-SPACe), which one of the following is correct?",
+        opts: [
+            "It is an autonomous agency under the Department of Space, created through a Union Cabinet decision, and currently functions without a dedicated parliamentary statute",
+            "It is a public sector company incorporated under the Companies Act to commercialise ISRO's products and services",
+            "It is a statutory regulator set up under the Space Activities Act, empowered to penalise erring private operators",
+            "It is a constitutional body established through an amendment to the Seventh Schedule to regulate outer space activities"
+        ],
+        ans: 0,
+        exp: "IN-SPACe was cleared by the Union Cabinet in 2020 as an autonomous nodal agency under the Department of Space, and the Indian Space Policy 2023 makes it the single-window authoriser of space activities by non-governmental entities. India has no Space Activities Act yet, so IN-SPACe lacks statutory backing, which is why the pending Space Activities Bill is seen as important. Option (c) describes NewSpace India Limited, not IN-SPACe."
+    },
+    {
+        q: "With reference to the Bharatiya Antariksh Station (BAS) programme, consider the following statements:<br>1. The Union Cabinet in September 2024 approved the development of the first module, BAS-1, by expanding the scope of the Gaganyaan programme.<br>2. The station is envisaged as a modular facility of five modules, to be operationalised by 2035.<br>3. The SpaDeX mission demonstrated in-space docking, making India the fourth country after the USA, Russia and China to achieve this capability.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "Only statement 3",
+            "2 and 3 only",
+            "All of the statements are correct"
+        ],
+        ans: 3,
+        exp: "On 18 September 2024 the Cabinet approved BAS-1 by revising the Gaganyaan programme, with total funding raised to Rs 20,193 crore. The government's plan is for five BAS modules operational by 2035. SpaDeX achieved docking in January 2025, a capability essential for assembling a modular station, and India became the fourth country to do so. All three statements are correct."
+    },
+    {
+        q: "With reference to the legal and policy framework for satellites in India, consider the following statements:<br>1. A foreign satellite constellation offering services in India requires an IN-SPACe authorisation through an entity incorporated in India.<br>2. The Remote Sensing Data Policy permits unrestricted public dissemination of all sub-metre resolution imagery without any screening.<br>3. The Indian Space Policy 2023 bars non-governmental entities from owning and operating satellites.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 3 alone",
+            "None of the above",
+            "1 and 3 only",
+            "Statement 1 alone"
+        ],
+        ans: 3,
+        exp: "A non-Indian satellite or constellation needs an IN-SPACe authorisation obtained through an Indian-incorporated entity before offering services in India, so statement 1 is correct. The Remote Sensing Data Policy allows non-discriminatory access to data up to about 1 m resolution, while finer imagery is screened and cleared, so statement 2 is wrong. The Indian Space Policy 2023 permits non-governmental entities to own and operate satellites, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the organisational structure of ISRO, consider the following pairs:<br>Centre : Primary role<br>1. Vikram Sarabhai Space Centre : Design and development of launch vehicles<br>2. U R Rao Satellite Centre : Reception, processing and dissemination of remote sensing satellite data<br>3. Liquid Propulsion Systems Centre : Integration and launching of satellites and launch vehicles<br>How many of the above pairs are correctly matched?",
+        opts: [
+            "None of the pairs",
+            "Only two pairs",
+            "Only one pair",
+            "All three pairs"
+        ],
+        ans: 2,
+        exp: "VSSC, Thiruvananthapuram, is ISRO's lead centre for building launch vehicles, so pair 1 is correct. Satellites are designed and developed at the U R Rao Satellite Centre, while remote sensing data reception and processing is handled by the National Remote Sensing Centre, Hyderabad, so pair 2 is wrong. Integration and launch are carried out at Satish Dhawan Space Centre, Sriharikota, while LPSC develops liquid and cryogenic stages, so pair 3 is wrong."
+    },
+    {
+        q: "With reference to the challenge of space debris and India's response to it, consider the following statements:<br>1. The Debris Free Space Missions (DFSM) 2030 commitment applies only to the missions of ISRO and not to non-governmental space entities.<br>2. Project NETRA, which seeks to build indigenous space situational awareness capability, is a DRDO programme.<br>3. IS4OM, ISRO's control centre at Bengaluru, monitors objects in orbit and supports collision avoidance for Indian satellites.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "3 only",
+            "1 only",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "IS4OM (ISRO System for Safe and Sustainable Space Operations Management) tracks space objects, predicts close approaches and supports collision avoidance manoeuvres, so statement 3 is correct. The DFSM-2030 commitment announced in 2024 covers all Indian space actors, both governmental and non-governmental, so statement 1 is wrong. Project NETRA is ISRO's own network for space object tracking and analysis and should not be confused with DRDO's airborne early warning system of the same name, so statement 2 is wrong."
+    },
+    {
+        q: "With reference to India's navigation satellite programme, consider the following statements:<br>1. NVS-01, launched in May 2023, was the first Indian navigation satellite to carry an indigenously developed atomic clock.<br>2. The NVS series adds a civilian signal in the L1 band to the L5 and S-band signals already provided by NavIC.<br>3. NVS-02, launched by GSLV-F15 in January 2025, was successfully inducted into the operational NavIC constellation.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the statements are correct",
+            "Only one of the statements is correct",
+            "Statement 2 alone",
+            "Both 1 and 2"
+        ],
+        ans: 3,
+        exp: "NVS-01 was the first Indian navigation satellite to fly an indigenous atomic clock, and the NVS series adds the L1 band, which is the band used by most consumer GPS receivers. Statement 3 is wrong because NVS-02 could not be raised to its intended geosynchronous orbit and is not part of the operational constellation. As a result, only three satellites were reported as providing positioning services, which is fewer than the four needed for standalone positioning."
+    },
+    {
+        q: "With reference to the policy and regulatory changes relating to launch vehicles in India, consider the following statements:<br>1. The Indian Space Policy 2023 requires all launch vehicle manufacturing to remain with ISRO.<br>2. The SSLV technology transfer agreement of September 2025 was signed among NSIL, ISRO, IN-SPACe and HAL.<br>3. HAL's bid for the SSLV technology transfer was selected without any competing consortia.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 only",
+            "Only one of the statements is correct",
+            "None of the above"
+        ],
+        ans: 2,
+        exp: "The SSLV technology transfer agreement was signed by NSIL, ISRO, IN-SPACe and HAL in September 2025, so statement 2 is correct. HAL won the Rs 511 crore bid against two other consortia, so statement 3 is wrong. The Indian Space Policy 2023 encourages non-governmental entities to manufacture and operate launch vehicles and asks ISRO to hand over mature systems, so statement 1 is wrong."
+    },
+    {
+        q: "With reference to the Bharatiya Antariksh Station (BAS) and the international legal framework on space objects, consider the following statements:<br>1. BAS is envisaged as a human habitat in low Earth orbit to enable longer human space missions and scientific research.<br>2. If registered in India, BAS modules and their crew would remain under India's jurisdiction and control while in outer space.<br>3. BAS would constitute sovereign Indian territory in outer space, entitling India to exclude other States' spacecraft from its orbital vicinity.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "All three statements are correct",
+            "Only statement 3",
+            "None of the above"
+        ],
+        ans: 0,
+        exp: "The government describes BAS as the next step after Gaganyaan, a space station in low Earth orbit to support longer human missions. Under Article VIII of the Outer Space Treaty, the State of registry retains jurisdiction and control over the object and its personnel. Statement 3 is wrong because Article II of the Outer Space Treaty bars national appropriation of outer space by claims of sovereignty, use or occupation, so jurisdiction over a module does not amount to sovereignty over the surrounding space."
+    },
+    {
+        q: "With reference to India's private space sector, consider the following pairs:<br>Entity : Known for<br>1. Skyroot Aerospace : Vikram series of launch vehicles<br>2. Agnikul Cosmos : Launch vehicle using a single-piece 3D-printed engine<br>3. Digantara : Hyperspectral Earth-observation satellites<br>How many of the above pairs are correctly matched?",
+        opts: [
+            "Only one pair",
+            "Only two pairs",
+            "None of the pairs",
+            "All three pairs"
+        ],
+        ans: 1,
+        exp: "Skyroot builds the Vikram series of launch vehicles, and Agnikul's Agnibaan SOrTeD flew in 2024 with a single-piece 3D-printed engine, so pairs 1 and 2 are correct. Digantara works on space situational awareness and space surveillance, while hyperspectral Earth observation is the domain of Pixxel, so pair 3 is wrong."
+    },
+    {
+        q: "Consider the following statements:<br>Statement-I: Synthetic aperture radar satellites such as NISAR can acquire images of the Earth's surface through cloud cover and during the night.<br>Statement-II: Synthetic aperture radar is a passive sensor that records the sunlight reflected from the Earth's surface in microwave wavelengths.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "Both Statement-I and Statement-II are correct, but Statement-II does not explain Statement-I",
+            "Statement-I is correct but Statement-II is incorrect",
+            "Both Statement-I and Statement-II are correct and Statement-II explains Statement-I",
+            "Statement-I is incorrect but Statement-II is correct"
+        ],
+        ans: 1,
+        exp: "NISAR, the NASA-ISRO mission launched by GSLV-F16 in 2025, carries L-band and S-band SAR and provides all-weather, day-and-night data, so Statement-I is correct. Statement-II is incorrect because SAR is an active sensor that transmits its own microwave pulses and records the backscatter, which makes it independent of sunlight. This is why SAR overcomes the cloud-cover limitation that optical imaging satellites face, for example during the monsoon."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-32 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

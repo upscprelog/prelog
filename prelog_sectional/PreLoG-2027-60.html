@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-60</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "The Partition of Bengal, announced in 1905, redrew the administrative structure of the Bengal Presidency. Which one of the following statements about the new arrangement is correct?",
+        opts: [
+            "The Bengal Presidency was divided into three provinces on linguistic lines, namely Bengal, Bihar and Orissa.",
+            "Eastern Bengal and Assam, with its capital at Dacca, combined the eastern districts of Bengal with Assam.",
+            "After the partition, Bengali-speaking people formed a majority in the remaining Bengal Presidency with its capital at Calcutta.",
+            "Bihar and Orissa were merged into the new province of Eastern Bengal and Assam."
+        ],
+        ans: 1,
+        exp: "The 1905 scheme created Eastern Bengal and Assam with Dacca as its capital by joining the eastern districts of Bengal with Assam. Bihar and Orissa stayed with the western part, where Bengali speakers were reduced to a minority, which fed nationalist anger. A separate province of Bihar and Orissa came only with the reorganisation of 1911-12."
+    },
+    {
+        q: "As part of its response to the Extremist challenge that followed the Partition of Bengal, the colonial government enacted the Indian Councils Act, 1909 (Morley-Minto Reforms). With reference to this Act, consider the following statements:<br>1. It made the Viceroy's Executive Council answerable to the elected members of the Imperial Legislative Council.<br>2. It provided for special representation of landholders and chambers of commerce, in addition to separate electorates for Muslims.<br>3. It empowered the elected members of the Imperial Legislative Council to vote on the Budget.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "All three statements are correct",
+            "Statement 3 alone",
+            "Statement 2 alone"
+        ],
+        ans: 3,
+        exp: "Only statement 2 is correct: the 1909 Act gave Muslims separate electorates and added special constituencies for landholders, chambers of commerce and universities. Elected members could discuss the Budget and move resolutions but could not vote on it, so statement 3 is wrong. The Executive Council was never made responsible to the legislature, and an official majority was retained in the Imperial Legislative Council, so statement 1 is wrong."
+    },
+    {
+        q: "With reference to the structure and composition of the Moderate phase of the national movement, consider the following statements:<br>1. The delegates of the early Congress sessions were mostly landlords and princes rather than lawyers, journalists and teachers.<br>2. The East India Association was founded by Dadabhai Naoroji at Bombay in 1866.<br>3. The Servants of India Society was founded by Mahadev Govind Ranade in 1905.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 and 3 only",
+            "1 and 3 only",
+            "None of the statements given above is correct"
+        ],
+        ans: 3,
+        exp: "None of the statements is correct. The early Congress drew its delegates mainly from the professional middle class of lawyers, journalists and teachers, which UPSC has linked to its narrow social base. Naoroji founded the East India Association in London in 1866, and the Servants of India Society was founded by Gokhale in 1905, four years after Ranade's death in 1901."
+    },
+    {
+        q: "The Lucknow Pact of December 1916 between the Indian National Congress and the All-India Muslim League fixed the composition of the legislatures in terms of Muslim representation. Which one of the following statements about it is correct?",
+        opts: [
+            "Muslims retained a second vote in the general electorates in addition to their separate electorates.",
+            "The share of seats for Muslims was fixed at one-third in every provincial legislative council.",
+            "Muslims were assigned one-third of the elected Indian seats in the Imperial Legislative Council, elected by separate electorates.",
+            "In Punjab and Bengal, the share of seats for Muslims was fixed above their share of the population."
+        ],
+        ans: 2,
+        exp: "The pact fixed one-third of the elected Indian seats in the Imperial Legislative Council for Muslims, elected by separate electorates, and set province-wise shares such as 50 per cent in Punjab, 40 per cent in Bengal and 33 per cent in Bombay. Muslims got weightage in minority provinces but less than their population share in Punjab and Bengal, so the shares were not uniform. The second vote in general electorates that Muslims had under the 1909 arrangement was withdrawn."
+    },
+    {
+        q: "With reference to the Home Rule Leagues, consider the following statements:<br>1. Tilak's Indian Home Rule League had its headquarters at Madras, and Tilak himself served as its President.<br>2. Joseph Baptista was the first President of the Indian Home Rule League launched by Tilak in 1916.<br>3. Annie Besant's league had a rigid and tightly controlled structure, in contrast to the looser structure of Tilak's league.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 3 alone",
+            "2 only",
+            "All three statements are correct",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 1,
+        exp: "Only statement 2 is correct: Tilak did not hold office in his league and Joseph Baptista, a Bombay barrister, became its first President. Tilak's league was headquartered at Poona and worked through six branches, while Besant's league, based at Adyar in Madras, had the looser organisation and the wider network. UPSC has tested the roles of Besant and the two Leagues, as in 2013."
+    },
+    {
+        q: "The political associations that emerged before 1885 shaped the background of the Indian National Congress. With reference to them, consider the following statements:<br>1. The Madras Mahajana Sabha was founded in 1884 by Surendranath Banerjea and Anandamohan Bose.<br>2. The Bombay Presidency Association was formed in 1885 by Dadabhai Naoroji and W. C. Bonnerjee.<br>3. In 1875, the Poona Sarvajanik Sabha petitioned the House of Commons for direct representation of India in the British Parliament.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 only",
+            "3 only",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "Only statement 3 is correct: the Poona Sarvajanik Sabha, led by Ranade and G. V. Joshi, sent the 1875 petition to the House of Commons. The Madras Mahajana Sabha was founded by Viraraghavachari, G. Subramania Iyer and Anandacharlu, while Banerjea and Bose founded the Indian Association in 1876. The Bombay Presidency Association was formed by Badruddin Tyabji, Pherozeshah Mehta and K. T. Telang."
+    },
+    {
+        q: "The colonial government adopted several measures to counter the Swadeshi and Boycott agitation. With reference to them, consider the following statements:<br>1. The Carlyle Circular of 1905 sought to prevent school and college students from taking part in the Swadeshi and Boycott agitation.<br>2. The Partition of Bengal was annulled through the Indian Councils Act, 1909.<br>3. The Vernacular Press Act, 1878 was revived to suppress the Swadeshi newspapers.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 and 3 only",
+            "2 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "Only statement 1 is correct: the Carlyle Circular, issued in Bengal in 1905, threatened penalties on students who joined the agitation. The partition was annulled by a royal proclamation at the Delhi Durbar of 1911, not by the Indian Councils Act of 1909. The Vernacular Press Act had been repealed in 1882, and the government instead used measures such as the Newspapers (Incitement to Offences) Act, 1908 and the Indian Press Act, 1910."
+    },
+    {
+        q: "With reference to the Home Rule Movement (1916-17), consider the following statements:<br>1. The Home Rule Leagues of Tilak and Annie Besant were launched to operate in the same regions of the country.<br>2. Tilak popularised the message that Swaraj is the birthright of Indians in the course of the Home Rule campaign.<br>3. Annie Besant's newspapers, New India and Commonweal, were used to propagate the campaign.<br>Which of the statements given above are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 and 3 only",
+            "1, 2 and 3",
+            "2 and 3 only"
+        ],
+        ans: 3,
+        exp: "Statements 2 and 3 are correct: Tilak's Swaraj message was central to the campaign, and Besant used New India and Commonweal for propaganda. Statement 1 is wrong because the two Leagues had separate spheres, with Tilak's League covering Maharashtra (excluding Bombay city), Karnataka, the Central Provinces and Berar, and Besant's League working in the rest of the country."
+    },
+    {
+        q: "The Congress-League scheme of 1916 (the Lucknow Pact) put forward constitutional demands about the structure and powers of the government. With reference to it, consider the following statements:<br>1. Four-fifths of the members of the provincial and central legislative councils were to be elected on a broad franchise.<br>2. Half of the members of the executive councils were to be Indians elected by the legislative councils.<br>3. The salary of the Secretary of State for India was to be paid out of the British Exchequer rather than from Indian revenues.<br>Which of the statements given above are correct?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "2 only",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "All three statements are correct. The joint scheme asked for four-fifths elected members in the councils, half of the executive councils to be Indians chosen by the legislatures, and abolition of the India Council with the Secretary of State's salary charged to the British Exchequer. It went beyond the communal seat-sharing arrangement and was, in effect, a common demand for self-government."
+    },
+    {
+        q: "Consider the following events in the history of the nationalist movement:<br>1. Annulment of the Partition of Bengal<br>2. Adoption of the resolutions on Swaraj, Boycott, Swadeshi and National Education at the Calcutta session of the Congress<br>3. Reunion of the Moderates and the Extremists at the Lucknow session of the Congress<br>4. The Surat Split<br>What is the correct chronological order of these events?",
+        opts: [
+            "2-1-4-3",
+            "2-4-1-3",
+            "4-2-1-3",
+            "2-4-3-1"
+        ],
+        ans: 1,
+        exp: "The Calcutta session (December 1906) came first, followed by the Surat Split (December 1907), the annulment of the partition announced at the Delhi Durbar (December 1911) and the reunion at Lucknow (December 1916). The other sequences place the annulment or the reunion before events that preceded them, such as the Surat Split."
+    },
+    {
+        q: "The All India Congress Committee session held at Ahmedabad on 9 April 2025 was the first in Gujarat since 1961, and the Congress also marked the centenary of its 1924 Belagavi session. With reference to Congress sessions, consider the following statements:<br>1. Mahatma Gandhi presided over the Belagavi session of 1924, the only Congress session over which he presided.<br>2. The Haripura session of 1938 was presided over by Jawaharlal Nehru.<br>3. The Ahmedabad session of 1902 was presided over by Gopal Krishna Gokhale.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 only",
+            "1 and 3 only",
+            "2 only"
+        ],
+        ans: 1,
+        exp: "Only statement 1 is correct: Gandhi's presidency at Belagavi in December 1924 was his only term, and its centenary was marked in Belagavi on 26 December 2024. Subhas Chandra Bose, not Nehru, presided at Haripura in 1938. The 1902 Ahmedabad session was presided over by Surendranath Banerjea, while Gokhale presided at Benaras in 1905."
+    },
+    {
+        q: "Consider the following features of a nationalist figure:<br>1. He was a member of the Indian Civil Service who later devoted himself to public life.<br>2. He authored 'The Economic History of India', a critique of the economic effects of British rule.<br>3. He presided over the Lucknow session of the Indian National Congress in 1899.<br>Who among the following is the person described above?",
+        opts: [
+            "Surendranath Banerjea",
+            "Dadabhai Naoroji",
+            "Romesh Chunder Dutt",
+            "Mahadev Govind Ranade"
+        ],
+        ans: 2,
+        exp: "The features describe Romesh Chunder Dutt, a retired ICS officer who wrote The Economic History of India and presided over the 1899 Lucknow session. Naoroji was never in the ICS, Banerjea was dismissed from the ICS but presided at Poona (1895) and Ahmedabad (1902), and Ranade never presided over a Congress session. UPSC has asked about economic critics of colonialism such as Naoroji and Dutt in the past."
+    },
+    {
+        q: "With reference to the organisation and functioning of the Home Rule Leagues, consider the following statements:<br>1. The headquarters of Annie Besant's All India Home Rule League were at Poona, while those of Tilak's Indian Home Rule League were at Adyar.<br>2. George Arundale served as the President of Tilak's Indian Home Rule League.<br>3. Sir S. Subramania Iyer renounced his knighthood in protest against the internment of Annie Besant and her associates in June 1917.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "Statement 3 alone",
+            "None of the above",
+            "Only two of the statements are correct"
+        ],
+        ans: 1,
+        exp: "Only statement 3 is correct: after the Madras Government interned Besant, Arundale and Wadia in June 1917, Subramania Iyer gave up his knighthood, and several Moderates then joined the Leagues. Besant's league was based at Adyar in Madras, while Tilak's was based at Poona. George Arundale was the organising secretary of Besant's league and had no office in Tilak's league."
+    },
+    {
+        q: "The Swadeshi Movement (1905-08) had distinctive organisational and cultural features. With reference to it, consider the following statements:<br>1. Samitis such as the Swadesh Bandhab Samiti of Barisal, led by Ashwini Kumar Dutta, mobilised the rural population for the movement.<br>2. Jatras and songs, including those of Mukunda Das, were used to popularise the message of Swadeshi.<br>3. The Hindu religious idiom of the movement helped it win the support of the majority of Bengali Muslims.<br>Which of the statements given above are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "Statements 1 and 2 are correct: Ashwini Kumar Dutta's Swadesh Bandhab Samiti and the swadeshi jatras and songs of Mukunda Das carried the message to villages. Statement 3 is wrong because the movement's Hindu religious symbolism alienated most Bengali Muslims, many of whom had supported the partition. This narrow social base is a well-known limitation of the movement."
+    },
+    {
+        q: "The Government of India inaugurated a year-long commemoration of 150 years of 'Vande Mataram' on 7 November 2025, a song that became a rallying cry of the Swadeshi movement against the Partition of Bengal. With reference to the song, consider the following statements:<br>1. It was declared the national anthem of India by the Constituent Assembly on 24 January 1950.<br>2. Bankim Chandra Chattopadhyay wrote it in 1905 in response to the Partition of Bengal.<br>3. It was first sung at a Congress session, at Calcutta in 1896, by Rabindranath Tagore.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "2 and 3 only",
+            "1 and 2 only",
+            "1 only"
+        ],
+        ans: 0,
+        exp: "Only statement 3 is correct: Tagore sang the song at the 1896 Calcutta session of the Congress. Bankim Chandra wrote it in 1875, and it appeared in his novel Anandamath, long before the 1905 partition. On 24 January 1950 the President of the Constituent Assembly accorded it equal honour with Jana Gana Mana, which is the national anthem."
+    },
+    {
+        q: "Consider the following statements:<br>Statement-I: The Government of India Act, 1919 extended the system of separate electorates to communities other than Muslims.<br>Statement-II: The Lucknow Pact of 1916 had already provided separate electorates for Sikhs, Indian Christians and Anglo-Indians.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "Statement-I is incorrect but Statement-II is correct",
+            "Both Statement-I and Statement-II are correct and Statement-II does not explain Statement-I",
+            "Both Statement-I and Statement-II are correct and Statement-II explains Statement-I",
+            "Statement-I is correct but Statement-II is incorrect"
+        ],
+        ans: 3,
+        exp: "Statement-I is correct: the 1919 Act extended communal representation to Sikhs, Indian Christians, Anglo-Indians and Europeans. Statement-II is incorrect because the Lucknow Pact was an agreement between the Congress and the Muslim League on Muslim representation only. It did not provide separate electorates for the other communities."
+    },
+    {
+        q: "Which one of the following statements about the formal launch of the Swadeshi Movement is correct?",
+        opts: [
+            "It was formally launched at the Benaras session of the Congress in December 1905.",
+            "It began only after the partition came into effect on 16 October 1905, since no boycott had been declared earlier.",
+            "It began only after the lathi-charge on the Barisal Conference of 1906.",
+            "It was proclaimed at a meeting at the Calcutta Town Hall on 7 August 1905, which resolved to boycott British goods."
+        ],
+        ans: 3,
+        exp: "The Swadeshi Movement was formally proclaimed at a large meeting at the Calcutta Town Hall on 7 August 1905, which resolved to boycott British goods, well before the partition took effect on 16 October 1905. The Benaras session of the Congress later endorsed the Bengal boycott but did not launch the movement, and the Barisal Conference lathi-charge of 1906 was a later episode of repression."
+    },
+    {
+        q: "With reference to the early career of Bal Gangadhar Tilak, consider the following statements:<br>1. He was a co-founder of the Deccan Education Society in 1884 and started the newspapers Kesari and Mahratta.<br>2. He was first convicted of sedition in 1908 and sentenced to six years' imprisonment at Mandalay.<br>3. He joined the Indian National Congress in 1890.<br>How many of the statements given above are correct?",
+        opts: [
+            "Only one",
+            "None",
+            "All three",
+            "Only two"
+        ],
+        ans: 3,
+        exp: "Statements 1 and 3 are correct: Tilak helped found the Deccan Education Society in 1884, ran the Marathi Kesari and English Mahratta, and joined the Congress in 1890. Statement 2 is wrong because his first conviction for sedition was in 1897, when he was sentenced to eighteen months' imprisonment, while the six-year sentence at Mandalay came in 1908."
+    },
+    {
+        q: "Consider the following statements about the Presidents of the Indian National Congress:<br>1. George Yule, a Scottish businessman, was the first non-Indian to preside over a session of the Congress.<br>2. Sir William Wedderburn presided over two sessions of the Congress.<br>3. Sir Henry Cotton presided over the Lahore session of 1893.<br>Which of the statements given above are correct?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "2 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "Statements 1 and 2 are correct: Yule presided at Allahabad in 1888 as the first non-Indian President, and Wedderburn presided at Bombay in 1889 and at Allahabad in 1910. Statement 3 is wrong because Dadabhai Naoroji presided over the 1893 Lahore session, whereas Henry Cotton presided over the Bombay session of 1904. UPSC has repeatedly tested Congress Presidents in this format, as in 2000 and 2015."
+    },
+    {
+        q: "The Indian National Congress marked its 140th Foundation Day on 28 December 2025. With reference to its formation in 1885, consider the following statements:<br>1. The inaugural session was held at Gokuldas Tejpal Sanskrit College in Bombay and was attended by 72 delegates.<br>2. The inaugural session had originally been planned for Poona but was shifted to Bombay owing to an outbreak of cholera.<br>3. W. C. Bonnerjee presided over the inaugural session, and A. O. Hume functioned as the first General Secretary of the Congress.<br>Which of the statements given above are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 3,
+        exp: "All three statements are correct. The first session met on 28 December 1885 at Gokuldas Tejpal Sanskrit College with 72 delegates, after the venue was moved from Poona because of cholera. W. C. Bonnerjee was its first President, while A. O. Hume, a retired British civil servant, was the first General Secretary and the key organiser."
+    },
+    {
+        q: "The Swadeshi Movement gave rise to a network of national educational and technical institutions in Bengal. With reference to their structure and composition, consider the following statements:<br>1. The Society for the Promotion of Technical Education, associated with Taraknath Palit, set up the Bengal Technical Institute in 1906.<br>2. Surendranath Banerjea was the first President of the National Council of Education.<br>3. The Anti-Circular Society, formed to support students penalised for taking part in the agitation, was founded by Satish Chandra Mukherjee.<br>How many of the statements given above are correct?",
+        opts: [
+            "All three",
+            "Only one",
+            "None",
+            "Only two"
+        ],
+        ans: 1,
+        exp: "Only statement 1 is correct: the Bengal Technical Institute was founded in July 1906 by the Society for the Promotion of Technical Education. Rash Behari Ghosh, not Surendranath Banerjea, was the first President of the National Council of Education. The Anti-Circular Society was founded by Sachindra Prasad Basu, whereas Satish Chandra Mukherjee founded the Dawn Society in 1902."
+    },
+    {
+        q: "The colonial government used various legal instruments against the Swadeshi and Boycott agitation. With reference to them, consider the following statements:<br>1. The Prevention of Seditious Meetings Act, 1907 authorised the government to deport political leaders without trial.<br>2. The Explosive Substances Act, 1908 was used to declare Swadeshi samitis such as the Swadesh Bandhab Samiti unlawful.<br>3. Lala Lajpat Rai and Ajit Singh were deported to Mandalay in 1907 under Regulation III of 1818 without a trial.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "3 only",
+            "2 only",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "Only statement 3 is correct: Regulation III of 1818 allowed detention and deportation without trial, and Lajpat Rai and Ajit Singh were sent to Mandalay under it in 1907 and released after about six months. The Prevention of Seditious Meetings Act restricted public meetings and did not authorise deportation. The samitis were proscribed under the Criminal Law Amendment Act, 1908, not the Explosive Substances Act."
+    },
+    {
+        q: "Consider the following statements:<br>Statement-I: The Muslim masses of Bengal, by and large, stayed away from the Swadeshi Movement.<br>Statement-II: The All-India Muslim League, formed in 1906, opposed the Partition of Bengal.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "Statement-I is incorrect but Statement-II is correct",
+            "Both Statement-I and Statement-II are correct and Statement-II does not explain Statement-I",
+            "Statement-I is correct but Statement-II is incorrect",
+            "Both Statement-I and Statement-II are correct and Statement-II explains Statement-I"
+        ],
+        ans: 2,
+        exp: "Statement-I is correct: most Bengali Muslims, especially the peasantry, were put off by the Hindu religious idiom of the movement, and Nawab Salimullah of Dacca rallied Muslim opinion in favour of the new province through the Mohammedan Provincial Union. Statement-II is incorrect because the League was founded at Dacca in December 1906 under the patronage of leaders who had backed the partition, and it did not oppose it. UPSC has previously tested why Muslims in general were not drawn to the Extremist movement."
+    },
+    {
+        q: "The Swadeshi Movement (1905-08) combined political agitation with economic enterprise and cultural revival. With reference to it, consider the following statements:<br>1. V. O. Chidambaram Pillai set up the Swadeshi Steam Navigation Company at Tuticorin in 1906 to challenge British shipping.<br>2. The National Council of Education was established in 1911 after the annulment of the Partition of Bengal.<br>3. Rabindranath Tagore composed 'Amar Sonar Bangla' during the anti-partition agitation.<br>Which of the statements given above are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 and 2 only",
+            "2 only",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "Statements 1 and 3 are correct: V. O. Chidambaram Pillai launched the Swadeshi Steam Navigation Company in 1906 to break British dominance of coastal shipping, and Tagore's songs such as 'Amar Sonar Bangla' fed the anti-partition mood. The National Council of Education was set up in 1906, not 1911, to give institutional form to the National Education programme. UPSC has repeatedly tested the economic and cultural dimensions of Swadeshi, as in the 2020 question on Desher Katha."
+    },
+    {
+        q: "After the Surat Split (1907), the Moderates reorganised the Congress through a Convention that met at Allahabad in 1908. With reference to this, consider the following statements:<br>1. The constitution of the Congress was framed at the Surat session itself before the proceedings broke down.<br>2. The Extremist leaders participated in the Allahabad Convention and helped frame its creed.<br>3. The creed limited the aim of the Congress to self-government within the British Empire, to be pursued by constitutional means.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "3 only",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "Only statement 3 is correct. After the session collapsed, the Moderates resolved at Surat to revive the Congress under a Convention, whose committee met at Allahabad in April 1908 and framed a constitution with a creed of self-government within the Empire by constitutional means. The constitution was therefore not framed at Surat, and the Extremists were kept out of the process, which is why the Congress was dominated by the Moderates for years."
+    },
+    {
+        q: "The Partition of Bengal (1905) was one of several controversial measures of Lord Curzon's Viceroyalty. With reference to his other measures, consider the following statements:<br>1. The Indian Universities Act, 1904 was passed on the basis of the recommendations of the Hunter Commission.<br>2. The Calcutta Corporation Act, 1899 reduced the number of elected members in the Calcutta Corporation.<br>3. The Indian Official Secrets (Amendment) Act, 1904 was aimed at increasing the freedom of the press to criticise official actions.<br>How many of the statements given above are correct?",
+        opts: [
+            "None",
+            "All three",
+            "Only two",
+            "Only one"
+        ],
+        ans: 3,
+        exp: "Only statement 2 is correct. The Calcutta Corporation Act, 1899 cut the strength of elected members and was widely resented by Indian nationalists. The 1904 Universities Act followed the Raleigh Commission (1902) and increased official control over universities, not the Hunter Commission of 1882. The 1904 amendment to the Official Secrets Act tightened, rather than relaxed, curbs on the press."
+    },
+    {
+        q: "Nationalist figures of the Swadeshi era faced prosecution and imprisonment. With reference to this, consider the following statements:<br>1. V. O. Chidambaram Pillai was arrested in 1908 in connection with his Swadeshi speeches at Tuticorin during the Coral Mills workers' strike.<br>2. Bipin Chandra Pal was sentenced to seven years' transportation for sedition in 1907.<br>3. Sakharam Ganesh Deuskar's 'Desher Katha' (1904) was never banned by the colonial government.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "Only statement 2",
+            "1, 2 and 3",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 0,
+        exp: "Only statement 1 is correct: Chidambaram Pillai was arrested in 1908 after his speeches during the Coral Mills strike and received a heavy sentence that was later reduced on appeal. Bipin Chandra Pal was sentenced to six months in 1907 for refusing to testify in the case against Aurobindo, not to seven years' transportation. The Government of Bengal banned Desher Katha in 1910."
+    },
+    {
+        q: "December 2026 will mark 110 years of the Lucknow Pact between the Indian National Congress and the All-India Muslim League. With reference to the Lucknow sessions of December 1916, consider the following statements:<br>1. The Congress adopted the pact on 31 December 1916 and the Muslim League adopted it on 29 December 1916.<br>2. Annie Besant presided over the Lucknow session of the Congress.<br>3. Mahatma Gandhi was the principal architect of the pact.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "None of the statements given above is correct",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "None of the statements is correct. The Congress adopted the pact on 29 December and the League on 31 December 1916. Ambika Charan Mazumdar, not Annie Besant, presided over the Congress session, as Besant became President only in 1917 at Calcutta. Tilak and Jinnah, who presided over the League session, were the principal architects of the pact, not Gandhi."
+    },
+    {
+        q: "23 July 2026 marked the 170th birth anniversary of Bal Gangadhar Tilak, a leading figure of the Extremist phase. With reference to him, consider the following statements:<br>1. He presided over the Lucknow session of the Congress in 1916, which saw the reunion of the Moderates and the Extremists.<br>2. He wrote the Marathi commentary 'Gita Rahasya' during his imprisonment at Mandalay.<br>3. He was released from Mandalay jail in 1912 after a remission of his sentence.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "2 only",
+            "1 only"
+        ],
+        ans: 2,
+        exp: "Only statement 2 is correct: Tilak wrote the Gita Rahasya during his six-year term at Mandalay that followed the 1908 sedition trial. He never became President of the Congress, and the 1916 Lucknow session was presided over by Ambika Charan Mazumdar. Tilak was released only in June 1914, so the claim of release in 1912 is wrong."
+    },
+    {
+        q: "Consider the following statements:<br>Statement-I: The Extremists relied chiefly on petitions and memorials addressed to the government to press their demands.<br>Statement-II: The Extremists advocated passive resistance, including the boycott of foreign goods and government institutions, to press for Swaraj.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "Statement-I is incorrect but Statement-II is correct",
+            "Both Statement-I and Statement-II are correct and Statement-II explains Statement-I",
+            "Both Statement-I and Statement-II are correct and Statement-II does not explain Statement-I",
+            "Statement-I is correct but Statement-II is incorrect"
+        ],
+        ans: 0,
+        exp: "Statement-I is incorrect because reliance on petitions, memorials and prayers was the method of the Moderates, which the Extremists criticised as political mendicancy. Statement-II is correct: the Extremist programme of Swaraj, Swadeshi, Boycott and National Education used passive resistance and mass mobilisation to press for self-rule."
+    },
+    {
+        q: "Relations between the early Congress and the colonial government and its critics came under strain. With reference to this, consider the following statements:<br>1. The remark that the Congress was tottering to its fall, and that its peaceful demise was an ambition of the speaker, was made by Lord Lansdowne.<br>2. Sir Syed Ahmad Khan and Raja Shiva Prasad of Benares opposed the Congress in the run-up to its 1888 Allahabad session.<br>3. In 1888, the Congress accepted a rule that a subject to which Muslim delegates objected unanimously or nearly unanimously would be excluded from discussion.<br>Which of the statements given above are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 and 3 only",
+            "2 only"
+        ],
+        ans: 1,
+        exp: "Statements 2 and 3 are correct: Sir Syed and Raja Shiva Prasad campaigned against the Congress before the 1888 session, and Badruddin Tyabji's rule on subjects opposed by Muslim delegates was accepted by the Congress committees that year to reassure the community. Statement 1 is wrong because the remark was made by Lord Curzon in 1900, a point UPSC tested in 1998."
+    },
+    {
+        q: "With reference to the offices and institutions associated with prominent nationalist leaders, consider the following statements:<br>1. Dadabhai Naoroji was elected to the British House of Commons in 1892 as a member of the Liberal Party.<br>2. Gopal Krishna Gokhale founded the Servants of India Society in 1905 to train national missionaries for public service.<br>3. Lala Lajpat Rai presided over the first session of the All India Trade Union Congress in 1920.<br>Which of the statements given above are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 2 only",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "All three statements are correct. Naoroji won the Finsbury Central seat in 1892 as a Liberal, Gokhale founded the Servants of India Society at Pune in 1905, and Lala Lajpat Rai was the first President of the AITUC when it was founded at Bombay in 1920. Each option that leaves out one of these statements therefore fails."
+    },
+    {
+        q: "Consider the following statements:<br>Statement-I: The August Declaration of 1917 is regarded as one of the important gains of the Home Rule Movement.<br>Statement-II: The August Declaration promised Dominion Status to India, to be granted immediately after the end of the First World War.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "Statement-I is incorrect but Statement-II is correct",
+            "Both Statement-I and Statement-II are correct and Statement-II explains Statement-I",
+            "Statement-I is correct but Statement-II is incorrect",
+            "Both Statement-I and Statement-II are correct and Statement-II does not explain Statement-I"
+        ],
+        ans: 2,
+        exp: "Statement-I is correct: Montagu's declaration of 20 August 1917 followed the pressure of the Home Rule agitation, especially after Annie Besant's internment. Statement-II is incorrect because the declaration only announced the gradual development of self-governing institutions and the progressive realisation of responsible government. It named no date and did not promise Dominion Status, and the pace of advance was left to the British Government."
+    },
+    {
+        q: "After the Surat Split (1907), the colonial government combined the conciliation of Moderates with repression of the nationalist press and revolutionary activity. With reference to the press laws of that period, consider the following statements:<br>1. The Newspapers (Incitement to Offences) Act, 1908 empowered magistrates to confiscate the property of presses that published material inciting violence.<br>2. The Indian Press Act, 1910 abolished the requirement of a security deposit from printers and publishers.<br>3. Both the Acts mentioned above were enacted during the Viceroyalty of Lord Minto.<br>Which of the statements given above are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "Statements 1 and 3 are correct. The Newspapers Act of 1908 allowed magistrates to seize press property, and both it and the Indian Press Act of 1910 were passed during Lord Minto's Viceroyalty (1905-1910). Statement 2 is wrong because the 1910 Act did the opposite: it empowered local governments to demand security from printers and publishers at registration and to forfeit it."
+    },
+    {
+        q: "Several developments in the late nineteenth and early twentieth centuries contributed to the rise of the Extremist trend in the national movement. With reference to it, consider the following statements:<br>1. The Extremist trend emerged only after the Surat Split of 1907.<br>2. The victory of Japan over Russia in 1905 boosted the confidence of nationalists across Asia.<br>3. Tilak popularised the Ganapati and Shivaji festivals in Maharashtra during the 1890s to mobilise people.<br>Which of the statements given above are correct?",
+        opts: [
+            "3 only",
+            "2 and 3 only",
+            "1 and 2 only",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "Statements 2 and 3 are correct: the Japanese victory over Russia raised Asian nationalists' confidence, and Tilak used religious and historical festivals to reach the masses in the 1890s. Statement 1 is wrong because the Extremist trend had been growing since the 1890s and had already asserted itself at the Calcutta session of 1906. The Surat Split only marked the open break between the two wings."
+    },
+    {
+        q: "With reference to the sessions of the Indian National Congress, consider the following statements:<br>1. The Benaras session of 1905, which expressed resentment against the Partition of Bengal, was presided over by Dadabhai Naoroji.<br>2. Rahimtulla Sayani, who presided over the Madras session of 1887, was the first Muslim President of the Congress.<br>3. 'Jana Gana Mana' was sung for the first time at a Congress session at Calcutta in 1896.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "None of the statements given above is correct",
+            "1 only"
+        ],
+        ans: 2,
+        exp: "None of the statements is correct. Gopal Krishna Gokhale presided over the 1905 Benaras session, and Naoroji presided over the 1906 Calcutta session. Badruddin Tyabji, not Sayani, presided at Madras in 1887 as the first Muslim President, and Sayani presided in 1896. 'Vande Mataram' was sung at the 1896 Calcutta session, whereas 'Jana Gana Mana' was first sung at the 1911 Calcutta session."
+    },
+    {
+        q: "The early demands of the Indian National Congress for the reform of the legislative councils led to the passage of the Indian Councils Act, 1892. Which one of the following statements about this Act is correct?",
+        opts: [
+            "It allowed members of the legislative councils to discuss the annual financial statement but not to vote on it.",
+            "It introduced separate electorates for Muslims in the Imperial and provincial legislative councils.",
+            "It provided for an elected majority of members in the Imperial Legislative Council.",
+            "It introduced dyarchy in the provinces by dividing subjects into reserved and transferred lists."
+        ],
+        ans: 0,
+        exp: "The 1892 Act enlarged the councils and let members discuss the budget and put questions to the executive with restrictions, but gave them no power to vote. Separate electorates came only with the 1909 Act and dyarchy with the Government of India Act, 1919. The 1892 Act retained an official majority and did not use the term election, relying on nomination on the recommendation of specified bodies."
+    },
+    {
+        q: "The first session of the Indian National Congress (1885) formulated its early demands for administrative and legislative reform. With reference to these demands, consider the following statements:<br>1. It demanded an expansion of the Council of the Secretary of State for India to include Indian members.<br>2. It demanded that the Indian Civil Service examination be held only in India.<br>3. It demanded the immediate introduction of responsible government in the provinces.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "3 only",
+            "2 and 3 only",
+            "None of the statements given above is correct"
+        ],
+        ans: 3,
+        exp: "None of the statements is correct. The first session demanded the abolition of the India Council, not its expansion, and it asked for the ICS examination to be held simultaneously in England and India, not only in India. The early Congress sought more elected members in the legislative councils and did not demand responsible government, which came into its programme much later."
+    },
+    {
+        q: "The Moderate phase of the national movement unfolded against a background of colonial legislative measures. With reference to these, consider the following statements:<br>1. The Arms Act, 1878 was enacted during the Viceroyalty of Lord Ripon.<br>2. The Ilbert Bill, 1883 proposed to empower Indian judges in the mofussil to try European offenders and was diluted after European protests.<br>3. The Age of Consent Act, 1891 raised the age of consent for girls from 10 to 14 years.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "3 only",
+            "1 only",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "Only statement 2 is correct: the Ilbert Bill, introduced under Lord Ripon, was watered down after the agitation by Europeans. The Arms Act of 1878 belongs to Lord Lytton's Viceroyalty, and Ripon is remembered for repealing the Vernacular Press Act. The Age of Consent Act, 1891 raised the age of consent from 10 to 12 years, not 14."
+    },
+    {
+        q: "Following the sustained agitation against the Partition of Bengal, the British Government reorganised the province in 1911-12. With reference to this reorganisation, consider the following statements:<br>1. Assam was merged back with the Presidency of Bengal.<br>2. Bihar and Orissa were separated from Bengal to form a new province.<br>3. The annulment of the partition was announced by King George V at the Delhi Durbar of 1911.<br>Which of the statements given above are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 only",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 3,
+        exp: "Statements 2 and 3 are correct. King George V announced the annulment at the Delhi Durbar in December 1911, and Bihar and Orissa were constituted as a separate province in 1912. Statement 1 is wrong because Assam reverted to being a Chief Commissioner's province rather than being merged into Bengal."
+    },
+    {
+        q: "With reference to the events that preceded the Lucknow Pact of 1916, consider the following statements:<br>1. The All-India Muslim League was founded at Lucknow in 1906.<br>2. In 1913, the Muslim League adopted the attainment of a system of self-government suitable to India as its goal, which brought it closer to the Congress.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the statements are correct",
+            "Neither statement is correct",
+            "Statement 1 alone",
+            "Only statement 2"
+        ],
+        ans: 3,
+        exp: "Only statement 2 is correct: the League changed its goal to self-government suitable to India in 1913, the year Jinnah joined it, and this common ground helped the two bodies frame a joint scheme at Lucknow in 1916. The League was founded at Dacca in December 1906, not at Lucknow. UPSC has repeatedly linked the Lucknow Pact with the Congress-League sessions of 1916."
+    },
+    {
+        q: "The nation observed the 160th birth anniversary of Lala Lajpat Rai on 28 January 2025. With reference to him, consider the following statements:<br>1. He founded the Home Rule League of America in New York in 1917 during his stay in the United States.<br>2. He founded the Servants of the People Society at Lahore in 1921.<br>3. He was among the founders of the Punjab National Bank.<br>Which of the statements given above are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 3,
+        exp: "All three statements are correct. During his stay in the United States he set up the Home Rule League of America in 1917, after returning he founded the Servants of the People Society in 1921 on the lines of Gokhale's Servants of India Society, and he was among the founders of the Punjab National Bank. UPSC asked about his career and writings in 2018, so his multiple roles are a recurring theme."
+    },
+    {
+        q: "The Swadeshi Movement combined political agitation with a programme of national reconstruction. With reference to this, consider the following statements:<br>1. National Handloom Day, observed on 7 August, commemorates the day in 1905 on which the Partition of Bengal took effect.<br>2. The National Council of Education prescribed English as the sole medium of instruction.<br>3. Tagore's ideal of Atmashakti envisaged the social and economic regeneration of villages as the basis of national regeneration.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "Statement 3 alone",
+            "Only two of the statements are correct",
+            "Statement 1 alone"
+        ],
+        ans: 1,
+        exp: "Only statement 3 is correct: Atmashakti, or self-strength, stressed the regeneration of villages. National Handloom Day recalls the Calcutta Town Hall meeting of 7 August 1905 that proclaimed Swadeshi and the boycott, as UPSC tested in 2023, while the partition took effect on 16 October 1905. The National Council of Education stressed instruction through the vernacular languages, with English as one subject among others."
+    },
+    {
+        q: "Consider the following statements:<br>Statement-I: The Moderate leaders preferred Surat over Nagpur as the venue of the 1907 session of the Congress.<br>Statement-II: By a Congress convention, a leader from the province hosting the session could not be its President, and Tilak belonged to the Bombay Presidency, in which Surat lay.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "Statement-I is incorrect but Statement-II is correct",
+            "Statement-I is correct but Statement-II is incorrect",
+            "Both Statement-I and Statement-II are correct and Statement-II explains Statement-I",
+            "Both Statement-I and Statement-II are correct and Statement-II does not explain Statement-I"
+        ],
+        ans: 2,
+        exp: "Both statements are correct and Statement-II explains Statement-I. The Extremists wanted Nagpur, in the Central Provinces, with Tilak or Lajpat Rai as President, whereas the Moderates chose Surat, in Tilak's home presidency, so that the convention would keep him out. This dispute over venue and presidency, along with the fate of the Calcutta resolutions, led to the collapse of the session."
+    },
+    {
+        q: "Consider the following pairs of Congress sessions and their major developments:<br>Session : Development<br>1. Calcutta (1886) : Merger of the Indian National Conference into the Congress<br>2. Bombay (1915) : Amendment of the Congress constitution that eased the return of the Extremists<br>3. Calcutta (1906) : Formal adoption of Purna Swaraj (complete independence) as the Congress goal<br>How many of the pairs given above are correctly matched?",
+        opts: [
+            "All three",
+            "Only one",
+            "None",
+            "Only two"
+        ],
+        ans: 3,
+        exp: "Pairs 1 and 2 are correct: Surendranath Banerjea's Indian National Conference merged with the Congress in 1886, and the 1915 Bombay session amended the constitution to ease the Extremists' return, which was completed at Lucknow in 1916. Pair 3 is wrong because the 1906 Calcutta session under Naoroji declared Swaraj in the sense of self-government on the colonial model, while Purna Swaraj was adopted only at Lahore in 1929."
+    },
+    {
+        q: "Consider the following features of a nationalist leader of the Extremist phase:<br>1. He was the first Principal of the Bengal National College, established in 1906 as part of the National Education movement.<br>2. He was tried in the Alipore Bomb Conspiracy Case (1908) but was acquitted.<br>3. He later withdrew from active politics and settled at Pondicherry to pursue a spiritual life.<br>Who among the following is the leader described above?",
+        opts: [
+            "Bal Gangadhar Tilak",
+            "Aurobindo Ghose",
+            "Lala Lajpat Rai",
+            "Bipin Chandra Pal"
+        ],
+        ans: 1,
+        exp: "The features describe Aurobindo Ghose, who headed the Bengal National College, was acquitted in the Alipore case and moved to Pondicherry around 1910. Bipin Chandra Pal was a Swadeshi leader but held neither the principalship nor a Pondicherry retreat. Tilak was convicted of sedition in 1908 and sent to Mandalay, not tried in the Alipore case."
+    },
+    {
+        q: "The reformers and leaders of the national movement put forward several proposals for change. With reference to them, consider the following statements:<br>1. Gopal Krishna Gokhale moved a bill in the Imperial Legislative Council in 1911 to make elementary education compulsory, but it was rejected in 1912.<br>2. Gokhale's 'Political Testament' of 1915 demanded complete independence from British rule.<br>3. Surendranath Banerjea formed the Indian Association in 1866 to press for reforms such as raising the age limit for the Indian Civil Service examination.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "Only statement 3",
+            "1, 2 and 3",
+            "Only two of the statements are correct"
+        ],
+        ans: 0,
+        exp: "Only statement 1 is correct: Gokhale's Elementary Education Bill, moved in 1911, was defeated in the Imperial Legislative Council in March 1912. His Political Testament of 1915 sought self-government of the colonial type within the Empire, not complete independence. Banerjea's Indian Association was founded in 1876, not 1866."
+    },
+    {
+        q: "The Home Rule campaign brought several leaders into conflict with the colonial law. With reference to this, consider the following statements:<br>1. Proceedings against Tilak for his Home Rule speeches of 1916 were taken under Section 108 of the Code of Criminal Procedure, and the Bombay High Court set aside the order.<br>2. The Government of Madras demanded security from Annie Besant's newspaper New India under the Indian Press Act, 1910.<br>3. Annie Besant's internment in June 1917 was ordered under Regulation III of 1818.<br>Which of the statements given above are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 only",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "Statements 1 and 2 are correct: Tilak was called upon to furnish a bond for good behaviour under Section 108 of the CrPC, and the Bombay High Court quashed the order in November 1916. Security was demanded from New India under the 1910 Press Act. Statement 3 is wrong because Besant and her associates were interned by the Madras Government under the Defence of India Act, 1915, not under Regulation III of 1818."
+    },
+    {
+        q: "Relations between the early Congress and the colonial government deteriorated by 1888, when Viceroy Lord Dufferin publicly attacked it. Which one of the following best describes the main charge Dufferin levelled against the Congress?",
+        opts: [
+            "It was an instrument of the Home Government designed to divide the Indian public.",
+            "It was a secret revolutionary body preparing to overthrow British rule.",
+            "It represented only a microscopic minority of the Indian population.",
+            "It was dominated by landlords and princes seeking to protect their privileges."
+        ],
+        ans: 2,
+        exp: "In his speech at the St Andrew's Colonial Dinner in November 1888, Dufferin dismissed the Congress as representing only a microscopic minority of the people of India. The Congress had not been revolutionary in this phase, and its delegates were mainly from the professional middle class rather than landlords and princes. The charge fed a wider official attempt to discredit it, which later found expression in Curzon's remark of 1900."
+    },
+    {
+        q: "Proposals to reorganise the Bengal Presidency evolved over several years before the Partition of 1905. With reference to this, consider the following statements:<br>1. The first proposal, published in January 1904, sought to create Eastern Bengal and Assam out of the Chittagong, Dacca and Rajshahi divisions.<br>2. Assam had been separated from Bengal in 1874 and constituted a Chief Commissioner's province.<br>3. Herbert Risley opposed the partition, arguing that a united Bengal was a source of strength for the British administration.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "Statement 1 alone",
+            "Exactly one of the statements is correct",
+            "Statement 3 alone"
+        ],
+        ans: 2,
+        exp: "Only statement 2 is correct: Assam became a Chief Commissioner's province in 1874. The first scheme of 1904 only proposed to transfer the Chittagong Division and the Dacca and Mymensingh districts to Assam, and Rajshahi Division and Malda were added in the expanded scheme after Curzon's East Bengal tour. Risley supported partition, noting that a united Bengal was a power that would pull in different ways if divided."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-60 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

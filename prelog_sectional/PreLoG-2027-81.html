@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-81</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "The Panchayat Advancement Index (PAI) 2.0, released by the Ministry of Panchayati Raj on the occasion of National Panchayati Raj Day 2026, is best described as which of the following?",
+        opts: [
+            "An index prepared by NITI Aayog to rank States on the ease of doing business in rural areas",
+            "A data-driven performance evaluation framework that scores Gram Panchayats on the localisation of Sustainable Development Goals (LSDGs)",
+            "A constitutional mechanism under Article 243-I for determining the devolution of funds to Panchayats",
+            "A financial audit mechanism to assess corruption levels in Gram Panchayats"
+        ],
+        ans: 1,
+        exp: "PAI 2.0 is a data-driven framework prepared by the Ministry of Panchayati Raj that evaluates over 2.5 lakh Gram Panchayats against indicators aligned with the Localisation of Sustainable Development Goals (LSDGs), classifying them into performance categories such as Achiever, Front Runner, Performer, Aspirant, and Beginner. It is not a financial audit tool, nor is it linked to Article 243-I (which concerns the State Finance Commission), and it is prepared by the Ministry of Panchayati Raj, not NITI Aayog."
+    },
+    {
+        q: "With reference to the background and evolution of the Gram Sabha in India, consider the following statements: <br>1. The Gram Sabha received constitutional recognition for the first time through Article 243A, inserted by the 73rd Constitutional Amendment Act, 1992. <br>2. Article 243A itself specifies the exact powers and functions to be exercised by the Gram Sabha, leaving no discretion to State Legislatures in this regard. <br>3. The Gram Sabha consists of persons registered in the electoral rolls relating to a village comprised within the area of a Panchayat at the village level. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "Article 243A, inserted by the 73rd Amendment, gave the Gram Sabha constitutional recognition for the first time, defining it as consisting of persons registered in the electoral rolls of a village within a Panchayat area. However, Article 243A does not itself prescribe the Gram Sabha's specific powers and functions; it leaves the State Legislature free to determine these by law."
+    },
+    {
+        q: "With reference to recent developments concerning municipal governance in India, consider the following statements: <br>1. The 2026 Brihanmumbai Municipal Corporation (BMC) election was held on 15 January 2026, with the BJP-led Maha Yuti alliance securing a majority. <br>2. Following the 2026 BMC election, Ritu Tawde of the Bharatiya Janata Party was elected as the Mayor of Mumbai. <br>3. The Maharashtra Government implemented a four-member ward system for the Brihanmumbai Municipal Corporation, along with other municipal corporations in the state, ahead of the 2026 elections. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 3",
+            "Only two of the statements are correct",
+            "2 and 3 only",
+            "All of the above"
+        ],
+        ans: 1,
+        exp: "The BMC election, held on 15 January 2026, saw the BJP-led Maha Yuti alliance secure a majority, following which Ritu Tawde of the BJP was elected Mayor of Mumbai. However, while Maharashtra adopted a four-member ward system for most municipal corporations in the state, the BMC was specifically excluded from this change."
+    },
+    {
+        q: "With reference to constitutional provisions relating to the Finance Commission of India, consider the following statements: <br>1. The Finance Commission is constituted by the President of India under Article 280 of the Constitution every five years or earlier, as deemed necessary. <br>2. The recommendations of the Finance Commission are binding on the Union Government under the express provisions of the Constitution. <br>3. The qualifications for appointment as members of the Finance Commission, other than the Chairman, are laid down directly in the constitutional text itself. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 only",
+            "1 and 2 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "Article 280 provides for constitution of the Finance Commission by the President every five years or earlier. Its recommendations, however, are advisory in nature and not constitutionally binding, though conventionally accepted, and Article 280(3) leaves it to Parliament to prescribe by law (the Finance Commission Act, 1951) the qualifications of members, rather than specifying them in the Constitution itself."
+    },
+    {
+        q: "With reference to the previous trends in UPSC Prelims questions on 'good governance', which one of the following best reflects a recurring examined theme? <br>Good governance frameworks, as commonly tested, typically emphasise which of the following as core characteristics? <br>1. Accountability and transparency in public administration. <br>2. Exclusive decision-making by career bureaucrats, without any role for elected representatives. <br>3. Responsiveness of the administration to citizens' needs. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "UPSC has repeatedly tested the core characteristics of good governance drawn from frameworks such as the UNDP's, which include accountability, transparency, and responsiveness to citizens. Good governance does not imply exclusive control by bureaucrats; it is explicitly participatory, involving elected representatives, civil society, and the private sector together."
+    },
+    {
+        q: "The Greater Bengaluru Governance Act, 2024, which came into force in 2025 and replaced the Bruhat Bengaluru Mahanagara Palike (BBMP), provides for a Bengaluru Metropolitan Planning Committee to discharge responsibilities enshrined in which Article of the Constitution?",
+        opts: [
+            "Article 243Y",
+            "Article 243Q",
+            "Article 243ZE",
+            "Article 243ZD"
+        ],
+        ans: 2,
+        exp: "The Greater Bengaluru Governance Act, 2024 explicitly provides that the Bengaluru Metropolitan Planning Committee shall discharge responsibilities as enshrined in Article 243ZE of the Constitution, which deals with Metropolitan Planning Committees. Article 243ZD relates to District Planning Committees, Article 243Q to the constitution of Municipalities, and Article 243Y to the State Finance Commission's review of municipal finances."
+    },
+    {
+        q: "With reference to important constitutional provisions relating to the State Election Commission, consider the following statements: <br>1. The office of the State Election Commission was created through the 73rd and 74th Constitutional Amendment Acts, 1992, by insertion of Articles 243K and 243ZA respectively. <br>2. The State Election Commissioner can be removed from office by the Governor on grounds of proven misbehaviour or incapacity, without any recourse to Parliament. <br>3. The conditions of service and tenure of office of the State Election Commissioner cannot be varied to his disadvantage after appointment. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "Article 243K, extended to Municipalities via Article 243ZA, provides that the State Election Commissioner's service conditions cannot be altered to his disadvantage after appointment. However, removal requires the same procedure as that for a High Court judge, involving a Parliamentary resolution, and cannot be effected by the Governor alone."
+    },
+    {
+        q: "Consider the following statements regarding the structure of the Panchayati Raj system in India:<br>1. The Balwant Rai Mehta Committee (1957) recommended a two-tier Panchayati Raj structure comprising only the Gram Panchayat and the Zila Parishad, without any intermediate tier.<br>2. Under the 73rd Constitutional Amendment Act, the constitution of a Panchayat at the intermediate (block) level is mandatory in every State, irrespective of its population.<br>3. The Gram Sabha constitutes the third tier of the three-tier Panchayati Raj structure, functioning below the Gram Panchayat.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements given above is correct",
+            "1 and 2 only",
+            "1, 2 and 3",
+            "2 only"
+        ],
+        ans: 0,
+        exp: "The Balwant Rai Mehta Committee recommended a three-tier structure (Gram Panchayat, Panchayat Samiti, Zila Parishad), not a two-tier one, making statement 1 false. Under the proviso to Article 243B, States with a population of 20 lakh or less need not constitute a Panchayat at the intermediate level, making statement 2 false; and the Gram Sabha is a village assembly under Article 243A, not a tier of the elected three-tier Panchayati Raj structure, making statement 3 false as well."
+    },
+    {
+        q: "As per Article 243P(c) of the Constitution, a \"Metropolitan area\" is defined as an area having a population of ten lakh or more, comprising:",
+        opts: [
+            "One or more districts, consisting of two or more Municipalities or Panchayats or other contiguous areas, specified by the Governor by public notification",
+            "Only areas falling entirely within one Panchayat's jurisdiction",
+            "A single Municipality with no rural areas",
+            "A minimum of three separate Municipal Corporations only"
+        ],
+        ans: 0,
+        exp: "Article 243P(c) defines a \"Metropolitan area\" as an area having a population of ten lakh or more, comprised in one or more districts, and consisting of two or more Municipalities or Panchayats or other contiguous areas, specified by the Governor by public notification to be a Metropolitan area. This definition explicitly spans both rural (Panchayat) and urban (Municipality) jurisdictions, ruling out the other options which describe a single or purely urban area."
+    },
+    {
+        q: "Consider the following statements regarding the functions and powers of the State Finance Commission (SFC):<br>1. The recommendations of the SFC regarding devolution of funds to Panchayats and Municipalities are constitutionally binding on the State Government, in the same manner as a court decree.<br>2. The SFC recommends measures needed to improve the financial position of Panchayats and Municipalities.<br>3. The SFC also determines the principles governing grants-in-aid to Panchayats and Municipalities from the Consolidated Fund of the State.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 3 alone",
+            "Both 1 and 3",
+            "None of the statements are correct",
+            "Only two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "Under Article 243-I, the SFC is tasked with recommending measures to improve the financial position of local bodies and determining principles for grants-in-aid from the Consolidated Fund of the State, making statements 2 and 3 correct. Statement 1 is incorrect because, like the Union Finance Commission, the SFC's recommendations are advisory in nature and are placed before the State Legislature along with an action-taken memorandum, rather than being legally binding like a court decree."
+    },
+    {
+        q: "Consider the following statements regarding challenges and issues concerning the State Election Commission (SEC):<br>1. Under Article 243K(3), the SEC does not have its own permanent secretariat and depends on the State Government to provide staff, when so requested, for discharging its functions.<br>2. The Constitution empowers the Governor to remove the State Election Commissioner at will, without following any special procedure.<br>3. The tenure and conditions of appointment of the State Election Commissioner are uniformly and directly prescribed by the Constitution itself, without any role for the Governor or the State Legislature.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1 only",
+            "1 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "Article 243K(3) makes the SEC dependent on the State Government for staff when required, which is a genuine structural constraint on its independence, making statement 1 correct. Statement 2 is incorrect because the State Election Commissioner can be removed only in like manner and on like grounds as a Judge of a High Court; statement 3 is incorrect because Article 243K(2) leaves the conditions of service and tenure to be determined by the Governor's rules, subject to State legislation, and not uniformly fixed by the Constitution."
+    },
+    {
+        q: "With reference to the functions and powers of the Election Commission of India, consider the following statements: <br>1. The Election Commission is empowered under Article 324 of the Constitution to superintend, direct, and control the preparation of electoral rolls and the conduct of elections to Parliament, State Legislatures, and the offices of President and Vice-President. <br>2. Under Article 103, the Election Commission has the final and binding power to decide questions relating to disqualification of a sitting Member of Parliament, without any role for the President. <br>3. Election petitions challenging the validity of an election are adjudicated by the Election Commission itself, acting in a quasi-judicial capacity. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "Article 324 vests the ECI with superintendence, direction, and control over the preparation of electoral rolls and conduct of elections to Parliament, State Legislatures, and the offices of President and Vice-President. Under Article 103, the ECI only tenders its opinion, with the final decision resting with the President, and election petitions are heard by the High Court concerned, not by the ECI."
+    },
+    {
+        q: "As per the proviso to Article 243ZD(3) of the Constitution, what proportion of the total members of a District Planning Committee must be elected by, and from amongst, the elected members of the Panchayat at the district level and of the Municipalities in the district?",
+        opts: [
+            "Not less than three-fourths",
+            "Not less than two-thirds",
+            "Not less than four-fifths",
+            "All members"
+        ],
+        ans: 2,
+        exp: "The proviso to Article 243ZD(3) requires that not less than four-fifths of the total members of a District Planning Committee be elected by, and from amongst, the elected members of the district-level Panchayat and the Municipalities in the district, in proportion to the ratio between the rural and urban population of the district. This four-fifths threshold for the DPC is a commonly tested contrast with the two-thirds threshold prescribed for the Metropolitan Planning Committee under Article 243ZE."
+    },
+    {
+        q: "Consider the following statements regarding the functions and powers of Panchayats under Article 243G:<br>1. Article 243G empowers, but does not compel, State Legislatures to devolve powers to Panchayats regarding the Eleventh Schedule subjects.<br>2. Once a subject is listed in the Eleventh Schedule, it automatically stands transferred to the Panchayats without requiring any State law.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "Both 1 and 2",
+            "Neither 1 nor 2",
+            "2 only"
+        ],
+        ans: 0,
+        exp: "Article 243G uses the permissive phrase \"may, by law, endow,\" making devolution a matter for State discretion rather than a binding constitutional command, so statement 1 is correct. Statement 2 is incorrect because mere inclusion of a subject in the Eleventh Schedule creates no automatic transfer; actual devolution requires a specific State law endowing Panchayats with that power."
+    },
+    {
+        q: "Consider the following statements regarding the constitutional provisions relating to the Gram Sabha:<br>1. Article 243A empowers a Gram Sabha to exercise such powers and perform such functions at the village level as the Legislature of a State may, by law, provide.<br>2. The Gram Sabha received constitutional recognition through the 74th Constitutional Amendment Act, 1992.<br>3. Article 243M enables Parliament to extend the provisions relating to Panchayats to the Scheduled Areas under the Fifth Schedule, even though Part IX does not automatically apply there.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "Statement 3 alone",
+            "Only one of the statements is correct",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "Article 243A vests the Gram Sabha with powers and functions as determined by State law, and Article 243M(4)(b) is the enabling provision that allows Parliament to extend Panchayat-related provisions to Fifth Schedule Scheduled Areas, which is how the PESA Act, 1996 came about. Statement 2 is incorrect because the Gram Sabha and Panchayats obtained constitutional status through the 73rd Constitutional Amendment Act, 1992, not the 74th, which relates to Municipalities."
+    },
+    {
+        q: "With reference to recent developments concerning the Representation of the People Act, 1950, consider the following statements: <br>1. The Special Intensive Revision (SIR) of electoral rolls, launched by the Election Commission in Bihar in June 2025, was conducted under Section 21(3) of the Representation of the People Act, 1950, read with Article 324 of the Constitution. <br>2. In May 2026, the Supreme Court struck down the Special Intensive Revision exercise as unconstitutional, holding that the Election Commission lacked statutory power to conduct such a revision. <br>3. Following the Bihar pilot, the Election Commission announced an all-India rollout of the Special Intensive Revision across all States and Union Territories in phases during 2025-2026. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 3",
+            "Both 2 and 3",
+            "Statement 1 alone",
+            "Both 1 and 2"
+        ],
+        ans: 0,
+        exp: "The Bihar SIR, launched in June 2025, drew its legal basis from Section 21(3) of the RPA, 1950 read with Article 324, and was subsequently extended nationwide across all States and UTs in phases. In May 2026, the Supreme Court did not strike down the exercise; it instead upheld the Election Commission's constitutional and statutory authority to undertake such an intensive revision."
+    },
+    {
+        q: "Consider the following statements regarding judicial pronouncements on the State Election Commission (SEC):<br>1. In Kishan Singh Tomar vs Municipal Corporation of Ahmedabad (2006), the Supreme Court held that State Governments must comply with SEC directions during local body elections in the same manner as they comply with Election Commission of India directions during general elections.<br>2. In State of Goa vs Fouziya Imtiaz Shaikh (2021), the Supreme Court upheld the appointment of a serving State Government Law Secretary as State Election Commissioner, holding that dual charge does not affect the SEC's independence.<br>3. The Election Commission of India and the State Election Commission operate under distinct constitutional articles — Article 324 for the ECI and Articles 243K/243ZA for the SEC.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3",
+            "1 and 3 only"
+        ],
+        ans: 3,
+        exp: "In Kishan Singh Tomar (2006), the Supreme Court equated SEC directions with ECI directions in terms of binding force on State Governments, and the SEC and ECI indeed derive their powers from distinct constitutional articles, making statements 1 and 3 correct. Statement 2 is incorrect because in State of Goa vs Fouziya Imtiaz Shaikh (2021), the Supreme Court actually set aside the appointment of a serving Law Secretary as State Election Commissioner, holding that giving additional charge to an officer under the State Government's control undermines the SEC's constitutionally mandated independence."
+    },
+    {
+        q: "With reference to the Metropolitan Planning Committee (MPC), consider the following statements: <br>1. The MPC is constituted under Article 243ZE, inserted by the 74th Constitutional Amendment Act, 1992. <br>2. A 'Metropolitan area', for purposes of constituting an MPC, is defined as an area with a population of ten lakh or more, comprising one or more districts. <br>3. Not less than one-half of the members of the MPC are required to be elected by, and from amongst, the elected members of Municipalities and Chairpersons of Panchayats in the metropolitan area. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 2 only",
+            "1 only"
+        ],
+        ans: 2,
+        exp: "Article 243ZE, inserted by the 74th Amendment, defines a metropolitan area as one with a population of ten lakh or more spanning one or more districts, and mandates constitution of an MPC there. The constitutional requirement, however, is that not less than two-thirds (not one-half) of its members be elected from among Municipality and Panchayat representatives."
+    },
+    {
+        q: "Consider the following statements regarding Article 243X of the Constitution, relating to municipal finance:<br>1. It empowers the Legislature of a State to authorise a Municipality to levy, collect, and appropriate taxes, duties, tolls, and fees.<br>2. The Constitution itself, under Article 243X, directly specifies the exact list of taxes that a Municipality may levy, without requiring any State law.<br>3. It also empowers the Legislature of a State to provide for grants-in-aid to Municipalities from the Consolidated Fund of the State.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All three statements are correct",
+            "3 only",
+            "Both 1 and 3",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "Article 243X empowers the State Legislature to authorise Municipalities to levy their own taxes and also to provide grants-in-aid from the State's Consolidated Fund, making statements 1 and 3 correct. Statement 2 is incorrect because Article 243X is an enabling provision that operates through State legislation; it does not itself specify or self-execute a list of municipal taxes."
+    },
+    {
+        q: "With reference to recent developments concerning the State Election Commissions in India, consider the following statements: <br>1. In 2025-2026, several State Election Commissions, including those of Maharashtra, Punjab, and Telangana, conducted long-delayed local body elections following protracted litigation, including disputes over reservation for Other Backward Classes (OBCs). <br>2. The Supreme Court, in Vikas Kishanrao Gawali v. State of Maharashtra (2021), laid down a 'triple test' that States must satisfy before providing reservation for OBCs in local body elections. <br>3. The 'triple test' laid down by the Supreme Court for OBC reservation in local bodies applies uniformly to reservation for Scheduled Castes and Scheduled Tribes as well. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "Following prolonged litigation over OBC reservation, State Election Commissions in Maharashtra, Punjab, Telangana, and other States conducted long-pending local body elections during 2025–2026, and the Supreme Court's triple test in Vikas Kishanrao Gawali (2021) requires States to set up a dedicated commission, conduct an empirical inquiry, and cap total reservation before extending OBC quotas in local bodies. This triple test, however, is specific to OBC reservation and does not apply to SC/ST reservation, which rests on a separate constitutional footing under Articles 243D and 243T."
+    },
+    {
+        q: "The Twelfth Schedule of the Constitution, which lists the functional subjects that may be devolved to Municipalities under Article 243W, contains how many such subjects?",
+        opts: [
+            "22",
+            "12",
+            "29",
+            "18"
+        ],
+        ans: 3,
+        exp: "The Twelfth Schedule, inserted by the 74th Constitutional Amendment Act, 1992, lists 18 functional subjects, such as urban planning, water supply, and public health, that may be entrusted to Municipalities under Article 243W. It is often confused with the Eleventh Schedule, which lists 29 subjects for Panchayats under Article 243G — a classic swap that UPSC has tested repeatedly."
+    },
+    {
+        q: "With reference to Article 243Q of the Constitution, consider the following statements:<br>1. It provides for the constitution of a Nagar Panchayat for a transitional area, a Municipal Council for a smaller urban area, and a Municipal Corporation for a larger urban area.<br>2. The Governor of a State is empowered to specify whether an area is a transitional, smaller urban, or larger urban area, having regard to factors such as population, density, and non-agricultural employment.<br>3. Under this Article, an industrial township cannot be exempted from the requirement of constituting a Municipality, even if adequate municipal services are already being provided by an industrial establishment.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "Statement 2 alone",
+            "All of the statements are correct",
+            "Only two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "Article 243Q(1) lays down the three-fold classification of municipalities exactly as stated in statement 1, and the Governor is empowered under the same Article to classify areas based on the factors listed in statement 2. Statement 3 is incorrect because the proviso to Article 243Q(1) allows the Governor to exempt an industrial township from having a separate Municipality where an industrial establishment already provides adequate municipal services."
+    },
+    {
+        q: "Consider the following statements regarding the structure and composition of the State Finance Commission (SFC):<br>1. The Governor of a State constitutes a Finance Commission under Article 243-I at the expiration of every fifth year to review the financial position of the Panchayats.<br>2. The composition of the State Finance Commission, along with the qualifications for appointment of its members, is left to be determined by the Legislature of the State.<br>3. The State Finance Commission continues to exist as a permanent body even after submitting its report to the Governor.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 2 and 3",
+            "Exactly one of the statements is correct",
+            "Exactly two of the statements are correct",
+            "All of the statements are correct"
+        ],
+        ans: 2,
+        exp: "Article 243-I(1) requires the Governor to constitute an SFC every five years, and Article 243-I(2) leaves its composition and the qualifications of its members to be determined by the State Legislature, making statements 1 and 2 correct. Statement 3 is incorrect because, in practice and as widely documented, the SFC ceases to exist once it submits its report, generally functioning for only about one to one-and-a-half years, unlike a standing constitutional body."
+    },
+    {
+        q: "As per the Union Budget 2026-27, which of the following measures was announced to promote the issuance of high-value municipal bonds by large Urban Local Bodies?",
+        opts: [
+            "Mandatory conversion of all existing municipal debt into government-guaranteed bonds",
+            "A one-time waiver of SEBI listing fees for all municipal bonds",
+            "An incentive of ₹100 crore for a single municipal bond issuance exceeding ₹1,000 crore",
+            "Transfer of municipal bond issuance rights to the Reserve Bank of India"
+        ],
+        ans: 2,
+        exp: "The Union Budget 2026-27 proposed an incentive of ₹100 crore for a single municipal bond issuance exceeding ₹1,000 crore by large cities, in addition to continuing AMRUT's existing incentive for smaller bond issuances of up to ₹200 crore by smaller and medium towns. There was no waiver of SEBI listing fees, no mandatory conversion scheme, and bond issuance rights were not transferred to the RBI."
+    },
+    {
+        q: "With reference to challenges associated with the Delimitation Commission's future exercises in India, consider the following statements: <br>1. States that have achieved greater success in population control fear a relative decline in their share of Lok Sabha seats once delimitation is based on current population figures. <br>2. Under the Constitution (One Hundred and Sixth Amendment) Act, 2023 (Nari Shakti Vandan Adhiniyam), the 33% reservation for women in the Lok Sabha and State Legislative Assemblies is to take effect only after a delimitation exercise based on the first Census conducted after the Act's commencement. <br>3. Since the seat freeze is based on the 1971 Census, there is no constitutional requirement for a fresh Census to precede any future delimitation exercise. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "All of the statements are correct",
+            "Both 1 and 3",
+            "Only two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "Southern and other demographically better-performing States have expressed concern about losing relative seat share once delimitation shifts to current population data, and the Nari Shakti Vandan Adhiniyam explicitly ties women's reservation to a delimitation exercise following the first Census after its commencement. However, the constitutional scheme requires a fresh Census after the freeze period before any future delimitation can proceed, contrary to statement 3."
+    },
+    {
+        q: "Consider the following statements regarding reforms and recommendations concerning Metropolitan Planning Committees (MPCs) in India:<br>1. The First Administrative Reforms Commission (1966-70) had specifically recommended the creation of statutory Metropolitan Planning Committees, which were later given constitutional status through the 73rd Constitutional Amendment Act, 1992.<br>2. Analysts have flagged that certain State legislations, where the Chief Minister is made the ex-officio Chairperson of a Metropolitan Planning Committee, may run counter to the spirit of decentralised, elected local governance envisaged under the 74th Constitutional Amendment Act.<br>3. As a reform measure, various expert bodies have suggested greater devolution of planning functions from state-level parastatal agencies to democratically elected Metropolitan Planning Committees, to strengthen metropolitan governance.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "Commentators examining recent state legislations such as the Greater Bengaluru Governance Act have pointed out that a Chief Minister-chaired Metropolitan Planning Committee may dilute the decentralised character envisaged by the 74th Amendment, and there have long been calls to shift planning powers from parastatal bodies to elected MPCs, making statements 2 and 3 correct. Statement 1 is incorrect because Metropolitan Planning Committees were given constitutional status under the 74th Constitutional Amendment Act, 1992 (Part IX-A), not the 73rd Amendment, which relates to Panchayats."
+    },
+    {
+        q: "With reference to Good Governance Day observed in India, consider the following statements: <br>1. Good Governance Day, observed on 25 December, marks the birth anniversary of former Prime Minister Atal Bihari Vajpayee. <br>2. The Good Governance Index, used to assess States and Union Territories, was first launched in the year 2014, the same year Good Governance Day was instituted. <br>3. The 28th National Conference on e-Governance was held in Visakhapatnam, Andhra Pradesh in September 2025. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 3 only",
+            "Both 1 and 2",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 1,
+        exp: "Good Governance Day has been observed on 25 December since 2014 to honour Atal Bihari Vajpayee, and the 28th National Conference on e-Governance was indeed held in Visakhapatnam in September 2025. However, the Good Governance Index, though administered by the same nodal department (DARPG), was launched only in 2021, seven years after Good Governance Day was instituted, not in the same year."
+    },
+    {
+        q: "With reference to important constitutional provisions relating to the State Finance Commission (SFC), consider the following statements: <br>1. Article 243I, inserted by the 73rd Constitutional Amendment Act, 1992, requires the Governor to constitute a State Finance Commission every five years to review the financial position of Panchayats. <br>2. Article 243Y provides that the same State Finance Commission constituted under Article 243I shall also review the financial position of Municipalities. <br>3. The Constitution itself lays down the exact composition and qualifications of members of the State Finance Commission. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "Article 243I mandates constitution of a State Finance Commission every five years to review Panchayat finances, and Article 243Y extends the same Commission's mandate to reviewing Municipal finances as well. The Constitution, however, leaves the Commission's composition and members' qualifications to be determined by the State Legislature by law, not fixed directly in the constitutional text."
+    },
+    {
+        q: "Consider the following statements regarding the evolution of the Panchayati Raj system in India:<br>1. The Balwant Rai Mehta Committee (1957) recommended a three-tier Panchayati Raj structure with indirect election to the Zila Parishad at the district level.<br>2. The Ashok Mehta Committee (1977) recommended reverting to a two-tier structure comprising the Zilla Parishad and the Mandal Panchayat.<br>3. Rajasthan was the first State to adopt the Panchayati Raj system, doing so in 1959, followed shortly thereafter by Andhra Pradesh.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "Only one of the statements is correct",
+            "1, 2 and 3",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 2,
+        exp: "The Balwant Rai Mehta Committee recommended a three-tier structure with the Gram Panchayat directly elected and the Zila Parishad indirectly constituted, and the Ashok Mehta Committee later recommended a two-tier alternative of Zilla Parishad and Mandal Panchayat, so statements 1 and 2 are both correct. Rajasthan indeed became the first State to launch Panchayati Raj, inaugurated in Nagaur district in October 1959, with Andhra Pradesh adopting it the same year, making statement 3 correct as well."
+    },
+    {
+        q: "With reference to constitutional provisions relating to the District Planning Committee (DPC), consider the following statements: <br>1. Article 243ZD mandates that every State shall constitute a District Planning Committee at the district level to consolidate the plans prepared by Panchayats and Municipalities. <br>2. Not less than four-fifths of the members of the DPC are required to be elected by, and from amongst, the elected members of the Panchayats at district level and Municipalities in the district, in proportion to the rural-urban population ratio. <br>3. The Constitution mandates that the Chairperson of the DPC must always be a Member of the State Legislative Assembly representing that district. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 only",
+            "1, 2 and 3",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "Article 243ZD mandates a DPC in every State to consolidate district-level plans, with not less than four-fifths of its members elected from among Panchayat and Municipality members in proportion to the rural-urban population ratio. The Constitution, however, does not prescribe that the Chairperson must be a sitting MLA; this is left to State law."
+    },
+    {
+        q: "Consider the following statements regarding the Gram Sabha:<br>1. It comprises persons registered in the electoral rolls relating to a village comprised within the area of a Panchayat at the village level.<br>2. The Constitution of India uniformly prescribes the minimum number of times a Gram Sabha must meet every year in all States.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1 only",
+            "Both 1 and 2",
+            "Neither 1 nor 2"
+        ],
+        ans: 1,
+        exp: "Article 243(b) defines the Gram Sabha exactly as described in statement 1. Statement 2 is incorrect because the Constitution does not fix a uniform meeting frequency; under Article 243A, the powers, functions, and procedural matters (including meeting frequency) of the Gram Sabha are left to be determined by the Legislature of the State."
+    },
+    {
+        q: "Consider the following statements regarding the functions and powers of the Gram Sabha:<br>1. The Gram Sabha can be dissolved by the State Government, in the same manner as an elected Gram Panchayat, if a village fails to hold elections on time.<br>2. The specific powers and functions performed by a Gram Sabha, such as approving the Gram Panchayat's budget or conducting social audits, are enumerated exhaustively and uniformly in the Constitution itself for all States.<br>3. The Gram Sabha functions as an executive body responsible for directly implementing development schemes, replacing the role of the elected Gram Panchayat.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "2 and 3 only",
+            "None of the statements given above is correct",
+            "1 only"
+        ],
+        ans: 2,
+        exp: "The Gram Sabha is a permanent body comprising all registered village electors and cannot be dissolved the way an elected Gram Panchayat can, making statement 1 false. Under Article 243A, its specific powers and functions are left to be determined by State law and are therefore not uniformly or exhaustively fixed by the Constitution, making statement 2 false; and the Gram Sabha is a deliberative and oversight body, not an executive implementing body, which remains the role of the elected Gram Panchayat, making statement 3 false as well."
+    },
+    {
+        q: "Consider the following statements regarding the background and evolution of the District Planning Committee (DPC):<br>1. The District Planning Committee was a well-established, uniformly functioning body in most Indian states even before 1992, requiring no further constitutional intervention.<br>2. The District Planning Committee received constitutional recognition through the 73rd Constitutional Amendment Act, 1992, the same amendment that established the Panchayati Raj system.<br>3. All States had, by the time the Constitution came into force in 1950, already established statutory District Planning Committees under a uniform central law.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1, 2 and 3",
+            "1 only",
+            "None of the statements given above is correct"
+        ],
+        ans: 3,
+        exp: "Before receiving constitutional status, district-level planning existed only through scattered and largely defunct bodies such as Zila Aayojana Boards and Zila Vikas Boards, which is precisely why constitutional backing was seen as necessary — making statement 1 false. The DPC was given constitutional status by the 74th Constitutional Amendment Act, 1992 (Article 243ZD), not the 73rd, making statement 2 false; and there was no uniform central law establishing DPCs across all States as early as 1950, making statement 3 false as well, since the concept evolved gradually through disparate state-level efforts before 1992."
+    },
+    {
+        q: "With reference to reforms and recommendations concerning the regulation of pressure groups in India, consider the following statements: <br>1. India currently has a comprehensive, dedicated law regulating lobbying activities by pressure and interest groups vis-à-vis public officials, similar to the Lobbying Disclosure Act of the United States. <br>2. The Second Administrative Reforms Commission, in its report on 'Ethics in Governance', highlighted the need for greater transparency in interactions between pressure/interest groups and public officials. <br>3. The National Commission to Review the Working of the Constitution (2000–2002) recommended a constitutional amendment to bar pressure groups from engaging with the legislature or executive on policy matters. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "1 and 3 only",
+            "2 only",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "The Second ARC's 'Ethics in Governance' report did flag the need for greater transparency in dealings between interest groups and public officials as part of broader governance reforms. India, however, has no dedicated lobbying-regulation law comparable to the US model, and no such recommendation to bar pressure groups from engaging with government was made by the NCRWC, which would in any case run counter to democratic participation."
+    },
+    {
+        q: "Consider the following statements regarding reforms and recommendations concerning Municipalities:<br>1. The Second Administrative Reforms Commission recommended abolishing Wards Committees in municipalities, considering them redundant duplicates of Municipal Corporation functions.<br>2. The Second ARC recommended that the Mayor of a Municipal Corporation be made its executive head, in place of the prevailing ambiguity between the Mayor and the Municipal Commissioner.<br>3. The Sixth Report of the Second ARC (2008), on \"Local Governance,\" recommended the constitution of a Metropolitan Planning Committee for each metropolitan area and the establishment of a Unified Metropolitan Transport Authority (UMTA).<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 2",
+            "Exactly two of the statements are correct",
+            "Only statement 3",
+            "Statement 1 alone"
+        ],
+        ans: 1,
+        exp: "The Sixth Report of the Second ARC (2008) recommended making the Mayor the executive head to resolve the Mayor-Commissioner ambiguity, and also recommended constituting MPCs and establishing UMTAs in metropolitan areas, making statements 2 and 3 correct. Statement 1 is incorrect because the Second ARC did not recommend abolishing Wards Committees; reform proposals have generally sought to strengthen, not eliminate, such participatory ward-level bodies."
+    },
+    {
+        q: "With reference to constitutional provisions relating to Municipalities in India, consider the following statements: <br>1. The Twelfth Schedule, added by the 74th Constitutional Amendment Act, 1992, contains eighteen functional items that may be entrusted to Municipalities. <br>2. Elections to Municipalities in India are conducted by the Election Commission of India, the same body responsible for elections to Parliament and State Legislatures. <br>3. Not less than one-third of the total number of seats in every Municipality are required to be reserved for women, including women belonging to Scheduled Castes and Scheduled Tribes. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "The Twelfth Schedule lists eighteen functional items for devolution to Municipalities, and Article 243T mandates that not less than one-third of seats be reserved for women, inclusive of SC/ST women. However, municipal elections are conducted by the State Election Commission under Article 243ZA, not by the Election Commission of India."
+    },
+    {
+        q: "With reference to types and structures of urban local bodies as tested in previous UPSC Prelims questions, consider the following statements: <br>1. Under Article 243Q of the Constitution, a Nagar Panchayat is constituted for an area in transition from a rural area to an urban area. <br>2. The Constitution mandates the establishment of Ward Committees in every Municipality, irrespective of its population. <br>3. The three types of urban local bodies specified under Article 243Q are the Nagar Panchayat, the Municipal Council, and the Municipal Corporation. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "Article 243Q provides for three categories of urban local bodies based on the nature of the area — a Nagar Panchayat for a transitional area, a Municipal Council for a smaller urban area, and a Municipal Corporation for a larger urban area. Ward Committees are constitutionally mandated under Article 243S only for municipalities with a population of three lakh or more, not for every municipality."
+    },
+    {
+        q: "Consider the following statements regarding the features of the District Planning Committee (DPC):<br>1. The DPC's role is limited strictly to consolidating rural Panchayat plans; it has no mandate to integrate urban Municipal plans into the district development plan.<br>2. While preparing its draft development plan, the DPC must have regard to matters of common interest between Panchayats and Municipalities, including the sharing of water and other physical and natural resources.<br>3. The manner in which the seats of a DPC are filled and its Chairperson is chosen is left to be determined by the Legislature of the State.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "All of the statements are correct",
+            "Both 1 and 2",
+            "Both 1 and 3"
+        ],
+        ans: 0,
+        exp: "Article 243ZD(3) requires the DPC to have regard to matters of common interest between Panchayats and Municipalities such as resource-sharing, and Article 243ZD(3)(b) and (d) leave the manner of filling seats and choosing the Chairperson to State legislation, making statements 2 and 3 correct. Statement 1 is incorrect because the DPC's core constitutional purpose is precisely to consolidate the plans of both Panchayats (rural) and Municipalities (urban) into a single district development plan."
+    },
+    {
+        q: "With reference to the Metropolitan Planning Committee (MPC) in India, consider the following statements:<br>1. It is constituted under Article 243ZE for every metropolitan area having a population of one million or more.<br>2. Not less than four-fifths of the members of the MPC are to be elected by the elected members of Municipalities and Panchayats in the metropolitan area.<br>3. While preparing its draft development plan, the MPC is required to consider the plans prepared by Municipalities and Panchayats and matters of common interest between them.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 and 3 only",
+            "1, 2 and 3",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "Article 243ZE mandates an MPC for metropolitan areas with a population of one million or more, and it must consider municipal and panchayat plans along with matters of common interest, as stated in 1 and 3. Statement 2 is incorrect because the four-fifths elected-member threshold applies to the District Planning Committee under Article 243ZD, whereas the MPC's threshold is not less than two-thirds."
+    },
+    {
+        q: "Consider the following statements regarding the 73rd Constitutional Amendment Act, 1992:<br>1. Reservation of not less than one-third of the total seats for women in Panchayats at all three levels is a compulsory provision under the Act.<br>2. Reservation of seats for Other Backward Classes (OBCs) in Panchayats is a compulsory provision that every State must implement under the Act.<br>3. Devolution of all 29 subjects listed in the Eleventh Schedule to Panchayats is compulsory for every State under the Act.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "None of the above",
+            "1 only",
+            "Only two of the statements are correct"
+        ],
+        ans: 2,
+        exp: "Article 243D makes reservation of not less than one-third of total seats for women in Panchayats a compulsory provision, making statement 1 correct. Statement 2 is incorrect because OBC reservation is a voluntary/discretionary provision left to State law; statement 3 is incorrect because Article 243G merely enables, rather than mandates, the transfer of Eleventh Schedule subjects, so States retain discretion over how many of the 29 subjects to actually devolve."
+    },
+    {
+        q: "With reference to a recurring UPSC Prelims theme on the functions of the District Planning Committee (DPC), consider the following statements: <br>1. Among the matters to be considered by the DPC is the sharing of water and other physical and natural resources between Panchayats and Municipalities in the district. <br>2. The DPC has the constitutional power to override and modify the annual budgets passed by Panchayats and Municipalities within the district. <br>3. The draft development plan prepared by the DPC is required to be forwarded to the Government of India for final approval. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 1",
+            "1 and 2 only",
+            "Only statement 2",
+            "Both 1 and 3"
+        ],
+        ans: 0,
+        exp: "Article 243ZD specifically requires the DPC to have regard to matters such as sharing of water and other physical and natural resources between local bodies. The DPC has no constitutional power to override local body budgets, and its consolidated development plan is forwarded to the Governor of the State, not the Government of India."
+    },
+    {
+        q: "With reference to the functions and powers of pressure groups in India, consider the following statements: <br>1. Pressure groups perform the function of providing specialised information and technical expertise to policymakers on issues relevant to their members' interests. <br>2. Pressure groups possess a constitutional power to directly veto or strike down any legislative or executive decision adverse to their members' interests. <br>3. Pressure groups such as environmental and civil rights organisations in India have used Public Interest Litigation as a tool to influence public policy and administrative action. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 2",
+            "1 and 3 only",
+            "Both 1 and 2",
+            "None of the statements are correct"
+        ],
+        ans: 1,
+        exp: "Pressure groups genuinely serve the function of channelling specialised expertise to policymakers and, in India, have frequently used PIL as a tool to shape policy and administrative decisions. They possess no formal constitutional veto power over legislative or executive decisions; their influence operates informally, through lobbying, litigation, and mobilisation of opinion rather than any binding authority."
+    },
+    {
+        q: "Under the 74th Constitutional Amendment Act, 1992, reservation of seats for Scheduled Castes and Scheduled Tribes in every Municipality, as well as the offices of Chairperson reserved for them, will cease to have effect on the expiry of the period specified in which Article of the Constitution?",
+        opts: [
+            "Article 332",
+            "Article 334",
+            "Article 243T",
+            "Article 330"
+        ],
+        ans: 1,
+        exp: "Article 334 specifies the period, presently extended to 80 years from the commencement of the Constitution, after which reservation of seats for SCs and STs in Panchayats and Municipalities (as well as in the Lok Sabha and State Assemblies) will cease. Articles 330 and 332 deal with reservation of seats for SCs/STs in the Lok Sabha and State Assemblies respectively, and Article 243T is the provision creating the reservation for Municipalities, not the sunset clause."
+    },
+    {
+        q: "With reference to reforms and recommendations concerning municipal finance in India, consider the following statements: <br>1. The Fifteenth Finance Commission recommended that a portion of its grants to Urban Local Bodies be linked to entry-level conditions, such as publication of provisional and audited annual accounts. <br>2. Municipal bodies in India, on average, derive a majority of their revenue from independently levied taxes such as property tax, with minimal dependence on transfers from the Union and State Governments. <br>3. The Fifteenth Finance Commission recommended tied grants for million-plus cities specifically for drinking water, sanitation, and solid waste management. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 3",
+            "Statement 3 alone",
+            "Both 1 and 2",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "The Fifteenth Finance Commission linked a portion of its Urban Local Body grants to entry-level conditions like published accounts, and separately recommended tied grants to million-plus cities for drinking water, sanitation, and solid waste management. In reality, Indian municipal bodies remain heavily dependent on transfers from higher tiers of government, with own-source revenue such as property tax forming a relatively small share of total municipal income."
+    },
+    {
+        q: "Consider the following statements regarding reforms and recommendations concerning Panchayati Raj Institutions (PRIs):<br>1. The Second Administrative Reforms Commission recommended a \"subsidiarity\"-based approach of breaking down each of the 29 Eleventh Schedule subjects into specific activities and assigning them to the appropriate tier of Panchayat.<br>2. According to a 2022 Ministry of Panchayati Raj report, the extent of functional devolution to PRIs increased steadily since 1993, reaching complete devolution by 2022.<br>3. Programmes such as the Rashtriya Gram Swaraj Abhiyan (RGSA) have been undertaken as a capacity-building measure for elected Panchayat representatives, as part of reform efforts.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 1",
+            "None of the statements are correct",
+            "Statement 2 alone",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "The Second ARC's recommended \"activity-mapping\" approach breaks the 29 Eleventh Schedule subjects into specific tasks assigned to appropriate Panchayat tiers, and RGSA has indeed been used as a capacity-building reform measure, making statements 1 and 3 correct. Statement 2 is incorrect because a 2022 Ministry of Panchayati Raj report actually found that functional devolution had declined, from 35.34% to 29.18%, rather than reaching completion."
+    },
+    {
+        q: "Consider the following statements regarding the functions and powers of a Metropolitan Planning Committee (MPC):<br>1. Article 243ZE(4) requires the Chairperson of every MPC to forward the development plan, as recommended by the Committee, to the Government of the State.<br>2. While preparing its draft development plan, the MPC must consult such institutions and organisations as the Governor may, by order, specify.<br>3. The MPC is required, while preparing its plan, to have regard to the extent and nature of investments likely to be made in the metropolitan area by agencies of the Government of India and the State Government.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "Statement 2 alone",
+            "All three statements are correct",
+            "Statement 1 alone"
+        ],
+        ans: 2,
+        exp: "Article 243ZE(4) requires the MPC Chairperson to forward the recommended plan to the State Government, Article 243ZE(3)(b) requires consultation with institutions specified by the Governor, and Article 243ZE(3)(a)(iv) requires the MPC to have regard to likely government investments — all three statements accurately reflect these provisions."
+    },
+    {
+        q: "With reference to the structural requirements for political parties in India, consider the following statements: <br>1. To be registered under Section 29A of the Representation of the People Act, 1951, a party's constitution or rules must provide for periodic organisational elections and a commitment to uphold the sovereignty and integrity of India. <br>2. Under the Election Symbols (Reservation and Allotment) Order, 1968, a party is recognised as a 'national party' if it secures at least six percent of valid votes polled in any two States in a Lok Sabha election, regardless of seats won. <br>3. There is no requirement for a party seeking registration under Section 29A to submit a copy of its memorandum or rules and regulations to the Election Commission. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "Only one of the statements is correct",
+            "1, 2 and 3",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "Section 29A requires that a party's constitution provide for periodic organisational elections and an explicit commitment to the sovereignty, integrity, and democratic character of India. The actual 'national party' criteria under the Symbols Order require 6% valid votes in four or more States along with winning at least four Lok Sabha seats, not merely 6% votes in two States, and Section 29A explicitly mandates submission of the party's memorandum and rules with the application."
+    },
+    {
+        q: "With reference to important Acts and amendments relating to electoral reforms in India, consider the following statements: <br>1. The Model Code of Conduct for elections has full statutory backing, being enacted as a distinct chapter of the Representation of the People Act, 1951. <br>2. The Representation of the People (Amendment) Act, 1988 inserted provisions enabling the use of Electronic Voting Machines in elections. <br>3. The requirement for candidates to disclose their criminal antecedents, assets, and liabilities in nomination papers originated purely on the government's own initiative, without any Supreme Court intervention. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 only",
+            "1 and 3 only",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "The 1988 Amendment Act inserted Section 61A into the RPA, 1951, enabling the use of voting machines in elections, even though widespread use came later. The Model Code of Conduct, by contrast, is not a statutory instrument at all; it rests on political consensus enforced by the ECI's administrative authority, and the disclosure requirement for candidates originated from the Supreme Court's directions in the Association for Democratic Reforms case (2002), not purely from government initiative."
+    },
+    {
+        q: "In India, consider the following statements regarding a Metropolitan Planning Committee (MPC):<br>1. It is a body constituted under the provisions of the Constitution of India.<br>2. It is responsible for preparing a draft development plan for the metropolitan area as a whole.<br>3. It has sole responsibility for implementing all government-sponsored schemes within the metropolitan area.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 3",
+            "Statement 1 alone",
+            "Exactly two of the statements are correct",
+            "3 only"
+        ],
+        ans: 2,
+        exp: "Article 243ZE of the Constitution mandates the constitution of an MPC in every metropolitan area to prepare a draft development plan for the area as a whole, making statements 1 and 2 correct. Statement 3 is incorrect because implementing government-sponsored schemes is the responsibility of the concerned city administration and local bodies, not the sole responsibility of the MPC, whose core function is planning and consolidation, not execution."
+    },
+    {
+        q: "With reference to the structure and composition of the Union Public Service Commission (UPSC), consider the following statements: <br>1. The Union Public Service Commission consists of a Chairman and other members, the number of which is determined by the President of India from time to time. <br>2. Members of the Union Public Service Commission hold office for a term of six years from the date of taking charge, or until the age of sixty-two, whichever is earlier. <br>3. The Constitution provides that, as nearly as may be, one-half of the members of the UPSC shall be persons who have held office for at least ten years under the Government of India or a State. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "Article 316 empowers the President to determine the strength of the Commission and provides that, as nearly as may be, half its members should have at least ten years of prior government service. However, UPSC members hold office until the age of sixty-five, not sixty-two; the age of sixty-two applies specifically to members of State Public Service Commissions."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-81 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-37</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "With reference to irrigation in India, consider the following statements: <br> 1. Wells and tube wells together account for the largest share of the net irrigated area.<br>2. Tank irrigation is relatively more prevalent in the peninsular region than in the northern plains.<br>3. Canal irrigation is best suited to the alluvial plains of the north, where perennial rivers provide a dependable water supply.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All three statements are correct",
+            "1 and 3 only",
+            "Only two of the statements are correct",
+            "Statement 3 alone"
+        ],
+        ans: 0,
+        exp: "Groundwater sources (wells and tube wells) irrigate the largest share of net irrigated area, well ahead of canals. Tanks are more common in the peninsula because of undulating terrain, hard impermeable rock and seasonal rivers. Canals work best in the level alluvial plains of the Indo-Gangetic region with perennial rivers, so all three statements are correct."
+    },
+    {
+        q: "With reference to the Food Corporation of India (FCI) and the management of foodgrains for food security, consider the following statements: <br> 1. FCI was established under the Companies Act, 1956.<br>2. Under the Decentralised Procurement Scheme, some State Governments themselves procure, store and distribute foodgrains for the Central Pool.<br>3. FCI is responsible for maintaining buffer stocks of foodgrains and for supplying them to State Governments for distribution under the PDS.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "FCI was set up under the Food Corporations Act, 1964, not the Companies Act, so statement 1 is incorrect. Under the Decentralised Procurement Scheme, willing States procure, store and distribute foodgrains on behalf of the Centre. FCI also maintains buffer stocks and supplies foodgrains to States for the PDS."
+    },
+    {
+        q: "Arrange the following in the chronological order of their introduction in India:<br>1. Targeted Public Distribution System<br>2. Antyodaya Anna Yojana<br>3. Revamped Public Distribution System<br>4. National Food Security Act<br>Select the correct answer using the code given below:",
+        opts: [
+            "3 - 1 - 2 - 4",
+            "3 - 1 - 4 - 2",
+            "1 - 3 - 2 - 4",
+            "3 - 2 - 1 - 4"
+        ],
+        ans: 0,
+        exp: "The Revamped PDS was launched in 1992 for remote and backward blocks. The Targeted PDS followed in June 1997, Antyodaya Anna Yojana for the poorest households in December 2000, and the National Food Security Act was enacted in 2013. The correct sequence is therefore 3 - 1 - 2 - 4."
+    },
+    {
+        q: "With reference to the Modified Interest Subvention Scheme (MISS) for agricultural credit, consider the following statements: <br> 1. It is a Centrally Sponsored Scheme in which the States bear a part of the interest subvention cost.<br>2. A farmer who repays promptly effectively pays 7 per cent interest on Kisan Credit Card loans of up to Rs 3 lakh.<br>3. The Union Budget 2025-26 announced raising the loan limit under the scheme through Kisan Credit Cards from Rs 3 lakh to Rs 5 lakh.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 3",
+            "All of the above",
+            "Only statement 1",
+            "Statement 3 alone"
+        ],
+        ans: 3,
+        exp: "MISS is a Central Sector Scheme funded by the Centre, so statement 1 is wrong. Farmers get KCC loans of up to Rs 3 lakh at 7%, and the 3% prompt repayment incentive brings the effective rate down to 4%, not 7%. Union Budget 2025-26 announced raising the limit under the scheme to Rs 5 lakh."
+    },
+    {
+        q: "Assertion (A): In its initial phase, the Green Revolution in India benefited wheat far more than other crops.<br>Reason (R): High-yielding rice varieties developed by Norman Borlaug in Mexico were the first to be introduced in India.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "A is false but R is true.",
+            "Both A and R are individually true but R is not the correct explanation of A.",
+            "A is true but R is false.",
+            "Both A and R are individually true and R is the correct explanation of A."
+        ],
+        ans: 2,
+        exp: "The early gains of the Green Revolution were concentrated in wheat in Punjab, Haryana and western Uttar Pradesh, so A is true. Borlaug's work in Mexico produced dwarf high-yielding wheat varieties, not rice. High-yielding rice came later through varieties such as IR-8 from the International Rice Research Institute, so R is false."
+    },
+    {
+        q: "With reference to the challenges to food security in India, consider the following statements: <br> 1. India's food insecurity is mainly a problem of inadequate aggregate foodgrain availability rather than of access and nutrition.<br>2. Under the National Food Security Act, 2013, the Food Corporation of India sells foodgrains at issue prices that are higher than its economic cost.<br>3. Procurement is concentrated in a few States, and the cereal-centric focus of procurement and the PDS has been criticised for neglecting nutritional diversity.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 3",
+            "Statement 1 alone",
+            "2 and 3 only",
+            "3 only"
+        ],
+        ans: 3,
+        exp: "Procurement of rice and wheat remains concentrated in a handful of States, and the cereal-heavy basket of the PDS is widely criticised for not addressing pulses, nutri-cereals and wider nutritional needs. India's challenge today is mainly access and nutrition, not aggregate availability, so statement 1 is wrong. The economic cost of foodgrains is well above the issue price, so statement 2 is also wrong."
+    },
+    {
+        q: "With reference to the Green Revolution and later efforts to correct its limitations, consider the following statements: <br> 1. The Green Revolution strategy of the 1960s raised the productivity of rice, wheat, pulses and oilseeds to a similar extent.<br>2. The programme 'Bringing Green Revolution to Eastern India' (BGREI), launched under the Rashtriya Krishi Vikas Yojana, targeted States such as Assam, Bihar, Jharkhand, Odisha and West Bengal.<br>3. The 'Evergreen Revolution' concept advocated by M.S. Swaminathan emphasises raising yields mainly through greater use of chemical fertilisers and pesticides.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "2 and 3 only",
+            "Only one of the statements is correct",
+            "Statement 3 alone"
+        ],
+        ans: 2,
+        exp: "BGREI, launched in 2010-11, addressed constraints in the rice-based systems of eastern India. The Green Revolution mainly benefited wheat and rice in irrigated regions, with pulses and oilseeds lagging, so statement 1 is wrong. The Evergreen Revolution stresses raising productivity in perpetuity without ecological harm, not heavier chemical use, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the institutional framework that supported the Green Revolution, consider the following statements: <br> 1. The Indian Council of Agricultural Research was established in 1966 to spearhead research for the Green Revolution.<br>2. The High Yielding Varieties Programme was launched in 1966-67, and the Agricultural Prices Commission was set up in 1965 to recommend remunerative support prices for foodgrains.<br>3. The Food Corporation of India was established in 1965 mainly to regulate the distribution of chemical fertilisers.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "Statement 3 alone",
+            "Exactly one of the statements is correct",
+            "Only two of the statements are correct"
+        ],
+        ans: 2,
+        exp: "The HYV Programme began in 1966-67, and the Agricultural Prices Commission was set up in 1965 to recommend support prices that would encourage farmers to adopt new technology. ICAR dates back to 1929, not 1966, and FCI was set up in 1965 to procure, store and distribute foodgrains and maintain buffer stocks, not to regulate fertilisers."
+    },
+    {
+        q: "With reference to reforms and recommendations concerning the Minimum Support Price (MSP), consider the following statements: <br> 1. The Pradhan Mantri Annadata Aay SanraksHan Abhiyan (PM-AASHA), launched in 2018, replaced the MSP system with price deficiency payments in all States.<br>2. A Committee on MSP, chaired by former Agriculture Secretary Sanjay Agrawal, was constituted in 2022 to make MSP more effective and to promote crop diversification and natural farming.<br>3. Union Budget 2018-19 announced that MSP would be fixed at least twice the all-India weighted average cost of production.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "3 only",
+            "1 only",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "The Committee on MSP, chaired by Sanjay Agrawal, was set up in July 2022 after the repeal of the farm laws to make MSP more effective and transparent and to promote crop diversification and natural farming. PM-AASHA supplemented, not replaced, MSP operations through price support, price deficiency and private procurement pilot components. Budget 2018-19 fixed the norm at 1.5 times the cost, not twice."
+    },
+    {
+        q: "With reference to the Mission for Aatmanirbharta in Pulses launched in October 2025, consider the following statements: <br> 1. It is to be implemented over the period 2025-26 to 2030-31 with an outlay of Rs 11,440 crore.<br>2. It assures procurement of chana, moong and matar at MSP for four years.<br>3. It targets raising domestic pulses production to 350 lakh tonnes by 2030-31.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 and 2 only",
+            "2 and 3 only",
+            "3 only"
+        ],
+        ans: 0,
+        exp: "The Mission runs from 2025-26 to 2030-31 with an outlay of Rs 11,440 crore and targets pulses output of 350 lakh tonnes by 2030-31, aiming to cut import dependence and nudge cropping patterns beyond wheat and rice. Its procurement assurance covers tur, urad and masoor, not chana, moong and matar, so statement 2 is incorrect."
+    },
+    {
+        q: "With reference to the draft National Policy Framework on Agricultural Marketing, consider the following statements: <br> 1. It proposes an Empowered Agricultural Marketing Reform Committee of State agricultural marketing ministers to push the adoption of marketing reforms.<br>2. It proposes to move agricultural marketing from the State List to the Union List.<br>3. It proposes to restrict agricultural trade to APMC mandis and discourage private wholesale markets.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 only",
+            "Both 2 and 3",
+            "Statement 3 alone"
+        ],
+        ans: 1,
+        exp: "The draft framework, released in November 2024, proposes an Empowered Committee of State agricultural marketing ministers, along the lines of the GST arrangement, to build consensus on reforms such as a single licence and single market fee. It treats marketing as a State subject and does not propose a transfer. It also encourages private wholesale markets and an upgraded e-NAM, rather than restricting trade to APMC mandis."
+    },
+    {
+        q: "With reference to the Modernization of Command Area Development and Water Management (M-CADWM) approved by the Union Cabinet in 2025, consider the following statements: <br> 1. It was approved as a sub-scheme of the Pradhan Mantri Krishi Sinchayee Yojana for 2025-26 with an initial outlay of Rs 1,600 crore.<br>2. It envisages construction of new large storage dams to create additional irrigation potential.<br>3. Water User Societies managing the irrigation assets under it are to be linked with economic entities such as FPOs or PACS for handholding for five years.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "3 only",
+            "1 and 3 only",
+            "1 only"
+        ],
+        ans: 2,
+        exp: "M-CADWM modernises irrigation networks in designated clusters of existing canal commands, using SCADA, IoT and underground pressurised piped irrigation up to the farm gate. Irrigation Management Transfer to Water User Societies, linked with FPOs or PACS for five years, keeps the projects sustainable. It does not build new large dams, so statement 2 is incorrect."
+    },
+    {
+        q: "With reference to the functions and powers in fixing the Minimum Support Price (MSP), consider the following statements: <br> 1. The recommendations of the Commission for Agricultural Costs and Prices are binding on the Union Government.<br>2. MSPs are fixed by the Commission for Agricultural Costs and Prices on its own authority, without reference to the Cabinet.<br>3. The Cabinet Committee on Economic Affairs takes the final decision on MSPs after considering the Commission's report and the views of State Governments and Ministries.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1 only",
+            "3 only",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "CACP is an advisory body: it recommends MSPs after consulting State Governments and Union Ministries, and the Cabinet Committee on Economic Affairs takes the final decision. Its recommendations are not binding, so statement 1 is incorrect, and it cannot fix MSPs on its own authority, so statement 2 is incorrect."
+    },
+    {
+        q: "With reference to the legal framework governing seeds, plant varieties and foodstuffs relevant to cropping choices, consider the following statements: <br> 1. The Seeds Act, 1966 provides for regulating the quality of seeds sold for agricultural purposes.<br>2. The Protection of Plant Varieties and Farmers' Rights Act, 2001 prohibits farmers from saving, using or exchanging seed of a registered variety.<br>3. The Essential Commodities Act, 1955 was repealed by Parliament in 2020 along with the enactment of the three farm laws.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 3 alone",
+            "Only statement 2",
+            "Only statement 1",
+            "Only two of the statements are correct"
+        ],
+        ans: 2,
+        exp: "The Seeds Act, 1966 regulates the quality of notified seeds sold for agricultural use. The PPV&FR Act, 2001 allows farmers to save, use, sow, resow, exchange, share or sell farm produce including seed of a protected variety, but not branded seed. The Essential Commodities Act was amended in 2020, not repealed."
+    },
+    {
+        q: "The Famine Inquiry Commission appointed after the Bengal famine of 1943, whose findings shaped thinking on food policy in the 1940s, was headed by:",
+        opts: [
+            "Sir Antony MacDonnell",
+            "Sir John Woodhead",
+            "Lord Wavell",
+            "Sir Richard Strachey"
+        ],
+        ans: 1,
+        exp: "The Famine Inquiry Commission of 1944-45 was chaired by Sir John Woodhead and reported on the causes of the Bengal famine. Richard Strachey headed the Famine Commission of the late 1870s and Antony MacDonnell the Famine Commission of 1901, while Wavell was Viceroy at the time, not the commission's head."
+    },
+    {
+        q: "With reference to agricultural marketing in India, consider the following statements: <br> 1. 'Markets and fairs' is a subject in the State List of the Seventh Schedule.<br>2. The National Agriculture Market (e-NAM) platform is implemented by the National Agricultural Cooperative Marketing Federation of India (NAFED) as the lead agency.<br>3. Under e-NAM, farmers can sell produce only to buyers licensed in the same State, as inter-State trade is not permitted.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "Only two of the statements are correct",
+            "All three statements are correct",
+            "Only statement 1"
+        ],
+        ans: 3,
+        exp: "'Markets and fairs' is Entry 28 of the State List, which is why APMC regulation rests with the States. e-NAM was launched in 2016 as a pan-India electronic trading portal, with the Small Farmers' Agribusiness Consortium (SFAC) as the lead agency, not NAFED. It also enables inter-State trade, so statements 2 and 3 are incorrect."
+    },
+    {
+        q: "With reference to the classification and structure of irrigation projects in India, consider the following statements: <br> 1. Irrigation projects with a culturable command area of more than 10,000 hectares are classified as major projects.<br>2. Medium irrigation projects have a culturable command area between 2,000 and 10,000 hectares.<br>3. Minor irrigation comprises only surface water schemes with a command area up to 2,000 hectares, and groundwater schemes fall outside this category.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "Projects are classified by culturable command area: major (above 10,000 ha), medium (2,000 to 10,000 ha) and minor (up to 2,000 ha). Minor irrigation includes groundwater schemes such as dug wells and tube wells as well as small surface schemes, so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to the constitutional and legal basis of the Public Distribution System (PDS) in India, consider the following statements: <br> 1. Article 47, which obliges the State to raise the level of nutrition, is a part of the Fundamental Rights in Part III.<br>2. The Supreme Court has interpreted the Right to Life under Article 21 to include the right to food.<br>3. Trade and commerce in, and distribution of, foodstuffs is exclusively a Union List subject.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1 and 3 only",
+            "3 only",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "In the right to food litigation (PUCL v. Union of India), the Supreme Court read the right to food into Article 21. Article 47 is a Directive Principle of State Policy, not a Fundamental Right. Trade and commerce in, and production, supply and distribution of, foodstuffs is in the Concurrent List (Entry 33), so statement 3 is wrong."
+    },
+    {
+        q: "With reference to reforms in the Public Distribution System, consider the following statements: <br> 1. Aadhaar-seeded electronic point-of-sale devices at fair price shops are used to authenticate beneficiaries and curb diversion of foodgrains.<br>2. Under the One Nation One Ration Card system, beneficiaries can claim their entitlements only within the State that issued the ration card.<br>3. The introduction of electronic point-of-sale devices and Aadhaar seeding has completely eliminated leakages in the PDS.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "None of the statements are correct",
+            "Only two of the statements are correct",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "ePoS devices and Aadhaar seeding authenticate beneficiaries at the point of sale and have helped reduce diversion and remove bogus cards. One Nation One Ration Card allows inter-State portability, so statement 2 is wrong. Leakages have been reduced but not eliminated, as weighing errors, exclusion errors and diversion upstream persist, so statement 3 is wrong."
+    },
+    {
+        q: "Assertion (A): Exclusion errors persist in the Targeted Public Distribution System even after the enactment of the National Food Security Act, 2013.<br>Reason (R): State-wise coverage under the Act is computed on the basis of the population as per Census 2011, so population growth since then leaves many eligible persons outside the coverage ceilings.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "Both A and R are individually true and R is the correct explanation of A.",
+            "A is true but R is false.",
+            "A is false but R is true.",
+            "Both A and R are individually true but R is not the correct explanation of A."
+        ],
+        ans: 0,
+        exp: "Coverage ceilings under the NFSA are applied to Census 2011 population figures, so people added to the population since then are not counted, even though many of them are eligible. This is a widely cited reason for continuing exclusion errors, so R explains A."
+    },
+    {
+        q: "With reference to the recommendations of the National Commission on Farmers (Swaminathan Commission), consider the following statements: <br> 1. It recommended that 'Agriculture' be shifted from the State List to the Union List.<br>2. It recommended reducing the interest rate on crop loans to 4 per cent simple, with government support.<br>3. The MSP formula adopted by the Government since Budget 2018-19 is based on the comprehensive cost (C2) recommended by the Commission.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 and 2 only",
+            "2 only",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "The Commission recommended crop loans at 4 per cent simple interest and that 'Agriculture' be inserted in the Concurrent List, not shifted to the Union List. It also recommended MSP at least 50% above the weighted average cost of production, read by farmers as C2. The Government's 1.5 times formula uses A2+FL cost, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to reforms in India's allied sectors, consider the following statements: <br> 1. Operation Flood adopted a two-tier cooperative structure comprising village societies and a national federation.<br>2. The Animal Husbandry Infrastructure Development Fund was announced in 2020 with an outlay of Rs 15,000 crore.<br>3. The Kisan Credit Card facility was extended to animal husbandry and fisheries farmers.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 3",
+            "All three statements are correct",
+            "1 and 3 only",
+            "Only two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "Operation Flood followed the Anand pattern, a three-tier structure of village dairy cooperative societies, district milk unions and State federations, so statement 1 is wrong. The Animal Husbandry Infrastructure Development Fund of Rs 15,000 crore was announced in 2020, and KCC facilities were extended to animal husbandry and fisheries farmers from 2018-19."
+    },
+    {
+        q: "Co-operative societies are an important institutional source of agricultural credit in India. With reference to their constitutional status, which one of the following is correct?",
+        opts: [
+            "The right to form co-operative societies is a fundamental right under Article 19(1)(c), and Article 43B directs the State to promote their voluntary formation and autonomous functioning.",
+            "The right to form co-operative societies is a legal right under Article 300A, and Article 43A directs the State to promote them.",
+            "Co-operative societies is a Union List subject, and the right to form them is a fundamental right under Article 19(1)(c).",
+            "Co-operative societies is a Concurrent List subject, and the 97th Amendment introduced Article 43B as a fundamental right."
+        ],
+        ans: 0,
+        exp: "The 97th Constitutional Amendment Act, 2011 added the words 'co-operative societies' to Article 19(1)(c), making the right to form them a fundamental right. It also inserted Article 43B as a Directive Principle and added Part IX-B. Co-operative societies is a State List subject (Entry 32), and Article 43A concerns workers' participation in management, so the other options are wrong."
+    },
+    {
+        q: "With reference to the features of agricultural credit in India, consider the following statements: <br> 1. NABARD directly extends crop loans to farmers across the country as its primary function.<br>2. Credit for investment purposes such as tractors and land development is classified as short-term credit.<br>3. Institutional agricultural credit follows a multi-agency approach comprising co-operatives, commercial banks and Regional Rural Banks, with NABARD acting as the apex refinancing institution.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "3 only",
+            "1 and 2 only",
+            "2 only"
+        ],
+        ans: 1,
+        exp: "India follows a multi-agency approach to agricultural credit, with co-operatives, commercial banks and RRBs lending to farmers and NABARD acting as the apex refinancing and development institution. NABARD does not mainly lend directly to farmers, so statement 1 is wrong. Investment credit for tractors and land development is medium- or long-term credit, not short-term, so statement 2 is wrong."
+    },
+    {
+        q: "With reference to the structure and composition of the Commission for Agricultural Costs and Prices (CACP), consider the following statements: <br> 1. It is an attached office of the Ministry of Agriculture and Farmers Welfare.<br>2. All its members are officials of the Union Government, and it has no non-official members.<br>3. It recommends MSPs only for foodgrains, while MSPs for oilseeds and commercial crops are fixed by the National Agricultural Cooperative Marketing Federation of India (NAFED).<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "2 and 3 only",
+            "2 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "CACP is an attached office of the Ministry of Agriculture and Farmers Welfare. Its composition includes a Chairman, a Member Secretary, two official members and two non-official members representing the farming community, so statement 2 is wrong. It recommends MSPs for all mandated crops, including oilseeds and commercial crops, and NAFED acts only as a procurement agency, so statement 3 is wrong."
+    },
+    {
+        q: "Which one of the following crops is NOT among the 22 mandated crops for which the Union Government announces a Minimum Support Price?",
+        opts: [
+            "Sugarcane",
+            "Safflower",
+            "Copra",
+            "Raw jute"
+        ],
+        ans: 0,
+        exp: "The 22 mandated crops comprise 14 Kharif crops, 6 Rabi crops (including safflower) and 2 commercial crops, copra and raw jute. Sugarcane is not covered by MSP, since its price is set through the Fair and Remunerative Price announced under the Sugarcane (Control) Order, 1966."
+    },
+    {
+        q: "Consider the following statements regarding the constitutional and legal framework that shapes crop choices and cropping patterns in India: <br> 1. Agriculture is a Concurrent List subject, so the Union and the States have equal legislative powers over all matters of crop production.<br>2. Land tenure, the relation of landlord and tenant, and land improvement fall within the State List.<br>3. The Essential Commodities Act, 1955 empowers the Union Government to regulate the production, supply and distribution of foodstuffs, including edible oilseeds and oils.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "Only statement 3",
+            "None of the above",
+            "1 only"
+        ],
+        ans: 0,
+        exp: "Agriculture is Entry 14 of the State List, and land rights, tenure and tenancy fall under Entry 18 of the State List. Production, supply and distribution of foodstuffs, including edible oilseeds and oils, is a Concurrent List subject (Entry 33), which is the basis for the Essential Commodities Act, 1955. Statement 1 is therefore incorrect."
+    },
+    {
+        q: "With reference to the Minimum Support Price (MSP) announced by the Union Government for the 2026-27 Kharif marketing season, consider the following statements: <br> 1. MSPs are announced for 22 mandated crops, comprising 14 Kharif crops, 6 Rabi crops and 2 commercial crops.<br>2. The revision follows the Union Budget 2018-19 principle of fixing MSP at a level of at least 1.5 times the all-India weighted average cost of production.<br>3. Among the Kharif crops, the expected margin of MSP over the cost of production is the highest for paddy.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 2 and 3",
+            "Statement 2 alone",
+            "All three statements are correct",
+            "Only two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "MSP covers 22 mandated crops (14 Kharif, 6 Rabi and 2 commercial), and the 1.5 times cost-of-production principle from Budget 2018-19 guides every revision. Statement 3 is incorrect because the expected margin for 2026-27 is highest for moong (about 61%), followed by bajra, not for paddy."
+    },
+    {
+        q: "With reference to the constitutional provisions relating to agriculture in India, consider the following statements: <br> 1. 'Agriculture, including agricultural extension' is a matter listed in the Twelfth Schedule.<br>2. Taxation of agricultural income falls within the Union List, and Parliament alone can levy it.<br>3. Article 48 directs the State to organise agriculture and animal husbandry on modern and scientific lines.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "3 only",
+            "1 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "Article 48 in the Directive Principles directs the State to organise agriculture and animal husbandry on modern and scientific lines. Agriculture including extension is item 1 of the Eleventh Schedule (Panchayats), not the Twelfth. Taxes on agricultural income are Entry 46 of the State List, while the Union taxes only income other than agricultural income (Entry 82)."
+    },
+    {
+        q: "With reference to the functions and powers under the National Food Security Act, 2013, consider the following statements: <br> 1. A District Grievance Redressal Officer is appointed for each district by the State Government.<br>2. The State Food Commission monitors and evaluates the implementation of the Act in the State and can inquire into violations of entitlements.<br>3. The Food Corporation of India directly runs all the fair price shops in the country.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "Under the Act, each State Government appoints District Grievance Redressal Officers and sets up a State Food Commission to monitor implementation and look into violations of entitlements. FCI procures, stores and supplies foodgrains but does not run fair price shops, which are operated by licensed dealers, co-operatives and similar bodies under State control, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the challenges associated with the Green Revolution in India, consider the following statements: <br> 1. Intensive wheat-paddy cultivation under HYV technology led to falling groundwater tables in parts of Punjab and Haryana.<br>2. Its benefits were initially concentrated in irrigated regions such as Punjab, Haryana and western Uttar Pradesh, widening regional disparities.<br>3. The strategy narrowed crop diversity, as MSP and procurement support favoured wheat and rice over pulses and coarse cereals.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "HYV seeds worked best with assured irrigation and fertilisers, so gains clustered in irrigated north-western regions and widened regional disparities. The wheat-paddy rotation drew heavily on groundwater, causing water table decline. Assured procurement of wheat and rice also tilted cropping away from pulses and coarse cereals, so all three statements are correct."
+    },
+    {
+        q: "Which one of the following groups consists entirely of Rabi crops?",
+        opts: [
+            "Wheat, rapeseed-mustard, soybean and safflower",
+            "Wheat, barley, gram and safflower",
+            "Gram, masur, bajra and barley",
+            "Paddy, barley, gram and masur"
+        ],
+        ans: 1,
+        exp: "Rabi crops are sown in October-December and harvested in March-June; wheat, barley, gram, masur, rapeseed-mustard and safflower are the Rabi crops covered by MSP. Paddy, soybean and bajra are Kharif crops, which is why the other groups, each of which mixes in one of them, are incorrect."
+    },
+    {
+        q: "Which one of the following statements regarding the evolution of the Minimum Support Price (MSP) system in India is correct?",
+        opts: [
+            "The MSP regime was introduced in 1991 as part of the economic reforms to align domestic farm prices with world prices.",
+            "The Commission for Agricultural Costs and Prices was established by an Act of Parliament soon after Independence, and its MSP recommendations are binding on the Union Government.",
+            "The Food Corporation of India was set up in 1985 to procure foodgrains at MSP, after the Agricultural Prices Commission was renamed.",
+            "The Commission for Agricultural Costs and Prices began as the Agricultural Prices Commission in 1965 and was given its present name in 1985."
+        ],
+        ans: 3,
+        exp: "The Agricultural Prices Commission was set up in 1965, the same period in which the Food Corporation of India was created, and was renamed CACP in 1985. CACP is an attached office, not a statutory body, and its recommendations are not binding on the Government. The MSP system predates the 1991 reforms."
+    },
+    {
+        q: "With reference to the features of India's allied sectors in the global context, consider the following statements: <br> 1. India is the world's largest producer of fish.<br>2. India is the world's largest producer of eggs.<br>3. India ranks second in the world in milk production.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements is correct",
+            "1 and 2 only",
+            "2 and 3 only",
+            "3 only"
+        ],
+        ans: 0,
+        exp: "India is the world's largest milk producer, so statement 3 is wrong. It is the second largest producer of fish and also the second largest producer of eggs, in both cases behind China, so statements 1 and 2 are wrong as well."
+    },
+    {
+        q: "With reference to the background and evolution of irrigation in India, consider the following statements: <br> 1. The Grand Anicut (Kallanai) on the Cauvery, built in the Chola period, is among the oldest water-diversion structures still in use.<br>2. The Ganga Canal, opened in 1854, was among the major irrigation works of the colonial period.<br>3. The Accelerated Irrigation Benefits Programme was launched in 1996-97 to help States complete ongoing major and medium irrigation projects.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "The Grand Anicut on the Cauvery dates back to the Chola period and is still in use. The Ganga Canal was opened in 1854 and was a landmark colonial irrigation project. The Accelerated Irrigation Benefits Programme began in 1996-97 to speed up completion of ongoing projects and was later folded into PMKSY, so all three statements are correct."
+    },
+    {
+        q: "With reference to the Pradhan Mantri Dhan-Dhaanya Krishi Yojana (PMDDKY) launched in October 2025, consider the following statements: <br> 1. It converges 36 existing schemes of 11 Union Ministries.<br>2. The 100 districts under the scheme are chosen on parameters such as low agricultural productivity, low cropping intensity and low credit disbursement.<br>3. It is modelled on the Aspirational Districts Programme.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "Only one of the statements is correct",
+            "Only statement 3",
+            "Only two of the statements are correct"
+        ],
+        ans: 0,
+        exp: "PMDDKY, announced in Union Budget 2025-26, uses a saturation approach. It converges 36 schemes across 11 ministries in 100 low-performing agricultural districts. The districts were selected on low productivity, low cropping intensity and low credit disbursement, and the scheme is modelled on the Aspirational Districts Programme, so all three statements are correct."
+    },
+    {
+        q: "With reference to the challenges in agricultural marketing in India, consider the following statements: <br> 1. Market fees and licensing requirements are uniform across States, ensuring a unified national market for farm produce.<br>2. Multiple intermediaries between farmers and consumers reduce the farmer's share in the final price paid by the consumer.<br>3. Inadequate storage and holding capacity compels many small farmers to sell soon after harvest at low prices.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 1 alone",
+            "1 and 3 only",
+            "Exactly two of the statements are correct",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 2,
+        exp: "Long chains of commission agents, traders and wholesalers erode the farmer's share of the consumer's rupee, and weak storage and cash needs push small farmers into distress sales after harvest. Market fees and licensing differ widely across States because APMC regulation is a State subject, which is why a unified national market remains elusive."
+    },
+    {
+        q: "Assertion (A): Although irrigation and canals fall in the State List, the Union Government can legislate on the regulation and development of inter-State rivers and river valleys.<br>Reason (R): Entry 17 of the State List, which deals with water and irrigation, is expressly made subject to Entry 56 of the Union List.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "A is false but R is true.",
+            "A is true but R is false.",
+            "Both A and R are individually true but R is not the correct explanation of A.",
+            "Both A and R are individually true and R is the correct explanation of A."
+        ],
+        ans: 3,
+        exp: "Entry 17 of the State List covers water supplies, irrigation, canals, drainage, embankments, water storage and water power, and is made subject to Entry 56 of the Union List. Entry 56 lets Parliament regulate and develop inter-State rivers and river valleys where it declares this expedient in the public interest. R therefore correctly explains A."
+    },
+    {
+        q: "Assertion (A): India is the world's largest milk producer, but this position reflects the size of its herd more than the yield per animal.<br>Reason (R): The average milk yield per animal in India remains lower than that of several leading dairy-producing countries, owing to a large share of low-yielding animals and deficits in fodder and feed.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "Both A and R are individually true but R is not the correct explanation of A.",
+            "A is false but R is true.",
+            "A is true but R is false.",
+            "Both A and R are individually true and R is the correct explanation of A."
+        ],
+        ans: 3,
+        exp: "India's lead comes from the sheer number of milch animals, while average bovine productivity (about 2,251 kg per animal per year) is well below that of leading dairy nations. Low genetic potential and fodder and feed shortages are standard explanations for this gap, so R correctly explains A."
+    },
+    {
+        q: "With reference to the free foodgrain scheme under the Public Distribution System, the Pradhan Mantri Garib Kalyan Anna Yojana (PMGKAY), consider the following statements: <br> 1. It provides foodgrains free of cost to Antyodaya Anna Yojana and Priority Household beneficiaries covered under the National Food Security Act, 2013.<br>2. The cost of foodgrains supplied under the scheme is borne by the respective State Governments.<br>3. The Union Cabinet approved free foodgrain distribution under it for a period of five years starting from 1 January 2024.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "3 only",
+            "1 only",
+            "1 and 3 only"
+        ],
+        ans: 3,
+        exp: "Under PMGKAY, NFSA beneficiaries (AAY and Priority Households, about 81 crore people) receive foodgrains free through the PDS. The Union Cabinet approved this for five years from 1 January 2024. The full cost is borne by the Central Government, so statement 2 is incorrect."
+    },
+    {
+        q: "With reference to the features of Indian agriculture, consider the following statements: <br> 1. Agriculture contributes more than 30 per cent of India's Gross Value Added.<br>2. The average size of operational holdings has been declining over successive Agriculture Censuses, with small and marginal holdings forming the overwhelming majority.<br>3. Most of the cultivated area is operated under large holdings of more than 10 hectares.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 2",
+            "1 and 3 only",
+            "2 and 3 only",
+            "None of the above"
+        ],
+        ans: 0,
+        exp: "Operational holdings have kept fragmenting, with the average size falling to about 1.08 ha in the 2015-16 census and small and marginal farmers (below 2 ha) forming the large majority. Agriculture's share in GVA is only around 18% even though it employs nearly half the workforce, and large holdings above 10 ha are a tiny share of area."
+    },
+    {
+        q: "With reference to the functions and powers relating to agriculture in India, consider the following statements: <br> 1. Agriculture is a Concurrent List subject, enabling the Union and the States to legislate on it equally.<br>2. The Indian Council of Agricultural Research is an autonomous body registered under the Societies Registration Act, 1860 and functions under the Department of Agricultural Research and Education.<br>3. Parliament cannot legislate on any aspect of agriculture, even in the national interest.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "3 only",
+            "2 only",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "ICAR is an autonomous society registered under the Societies Registration Act, 1860, working under DARE. Agriculture is Entry 14 of the State List, so statement 1 is wrong. Parliament can still legislate on related matters, for example foodstuffs under Entry 33 of the Concurrent List or under Articles 249 and 252, so statement 3 is also wrong."
+    },
+    {
+        q: "With reference to India's livestock sector as per the Basic Animal Husbandry Statistics 2025, consider the following statements: <br> 1. India ranks first in the world in milk production, with output for 2024-25 estimated at about 248 million tonnes.<br>2. Rajasthan accounted for the largest share of the country's milk production in 2024-25.<br>3. Per capita availability of milk in the country declined in 2024-25 compared to 2023-24.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 only",
+            "Statement 2 alone",
+            "All three statements are correct"
+        ],
+        ans: 1,
+        exp: "BAHS 2025 estimates milk production at 247.87 million tonnes for 2024-25 (up 3.58%), keeping India first globally. Uttar Pradesh, not Rajasthan, has the largest State share (Rajasthan is second). Per capita availability rose from 471 g/day to 485 g/day, so statement 3 is also wrong."
+    },
+    {
+        q: "With reference to the National Food Security Act, 2013, consider the following statements: <br> 1. Within the State-wise coverage ceilings, the identification of eligible households is the responsibility of the State and Union Territory Governments.<br>2. Pregnant women and lactating mothers are entitled to a maternity benefit of not less than Rs 6,000, in addition to nutritious meals.<br>3. In case of non-supply of entitled foodgrains or meals, the food security allowance is payable by the Food Corporation of India.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 2 only",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "Under the Act, the Centre fixes State-wise coverage but States identify the eligible households. Section 4 gives pregnant women and lactating mothers meals and a maternity benefit of at least Rs 6,000. The food security allowance for non-supply is payable by the concerned State Government, not by FCI, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the structure and composition of India's allied sectors, consider the following statements: <br> 1. The 20th Livestock Census (2019) recorded a decline in the total livestock population compared to the previous census.<br>2. Marine fisheries contribute a larger share of India's total fish production than inland fisheries.<br>3. Cattle form the largest component of India's livestock population by number.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 3",
+            "All three statements are correct",
+            "Exactly two of the statements are correct",
+            "Statement 1 alone"
+        ],
+        ans: 0,
+        exp: "The 20th Livestock Census counted about 193 million cattle, more than goats, buffaloes or sheep, so cattle are the largest component. Total livestock rose by about 4.6% to roughly 536 million, so statement 1 is wrong. Inland fisheries now account for the larger share of fish production, so statement 2 is also wrong."
+    },
+    {
+        q: "Which one of the following correctly describes the Pradhan Mantri Kisan Samman Nidhi (PM-KISAN) scheme?",
+        opts: [
+            "A Central Sector Scheme whose benefit is limited to small and marginal farmers owning up to two hectares of land.",
+            "A Central Sector Scheme providing Rs 6,000 per year in three equal instalments through Direct Benefit Transfer to eligible landholding farmer families, subject to exclusion criteria.",
+            "A Central Sector Scheme providing Rs 6,000 per year as input subsidy in kind through registered fertiliser retailers.",
+            "A Centrally Sponsored Scheme with cost shared between the Centre and States, under which Rs 6,000 per year is paid in two six-monthly instalments."
+        ],
+        ans: 1,
+        exp: "PM-KISAN, launched in 2019, is fully funded by the Centre and pays Rs 6,000 a year in three equal four-monthly instalments directly into bank accounts. It was initially limited to small and marginal farmers but has covered all landholding farmer families since June 2019, with exclusions for institutional landholders and higher-income categories."
+    },
+    {
+        q: "Which one of the following is a characteristic feature of a regulated agricultural market in India?",
+        opts: [
+            "The market committee consists only of government officials, with no representation of farmers or traders.",
+            "Transactions in notified produce are supervised by a market committee that enforces open auction, regulated weights and charges, and prescribed market fees.",
+            "Commission agents are barred from operating, and farmers must deal directly with retail consumers.",
+            "Sales are restricted to government procurement agencies, which purchase all notified produce at the Minimum Support Price."
+        ],
+        ans: 1,
+        exp: "Regulated markets were set up to protect farmers from malpractices such as arbitrary deductions and false weights. A market committee, with representatives of farmers, traders and the government, supervises trading and fixes fees. Such markets are not limited to government procurement and do not bar commission agents."
+    },
+    {
+        q: "With reference to the constitutional and legal framework for agricultural marketing in India, consider the following statements: <br> 1. 'Markets and fairs' is a subject in the State List, which is why agricultural produce markets are regulated mainly through State APMC Acts.<br>2. The Model APMC Act, 2003 prepared by the Union Government is binding on all States, which must adopt it without modification.<br>3. The Farmers' Produce Trade and Commerce (Promotion and Facilitation) Act, 2020 was repealed by Parliament in 2021.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "Markets and fairs is Entry 28 of the State List, so APMC regulation rests with State legislatures. The Model APMC Act, 2003 was only an advisory template that States could adopt or adapt, so statement 2 is wrong. The three 2020 farm laws, including the Act on trade and commerce, were repealed in 2021."
+    },
+    {
+        q: "The Kisan Credit Card (KCC) scheme, introduced in 1998-99 to give farmers adequate and timely credit for their cultivation needs, was based on the recommendations of which one of the following?",
+        opts: [
+            "Narasimham Committee on financial sector reforms",
+            "Khusro Committee on the review of the agricultural credit system",
+            "R.V. Gupta Committee on agricultural credit through commercial banks",
+            "Vaidyanathan Committee on revival of the rural co-operative credit structure"
+        ],
+        ans: 2,
+        exp: "The KCC scheme was introduced in 1998 on the basis of the recommendations of the R.V. Gupta Committee on agricultural credit delivery through commercial banks. The Vaidyanathan Committee dealt with reviving co-operative credit institutions, the Narasimham Committee with banking sector reforms, and the Khusro Committee (1989) with the agricultural credit system more broadly."
+    },
+    {
+        q: "The High Level Committee on Restructuring of the Food Corporation of India (2015), chaired by Shanta Kumar, recommended which one of the following?",
+        opts: [
+            "Reducing NFSA coverage from about 67 per cent to about 40 per cent of the population and moving towards cash transfers instead of physical grain in the PDS.",
+            "Making MSP-based procurement a legal right for farmers for all mandated crops.",
+            "Extending NFSA coverage to the entire population, with all procurement conducted exclusively by the Food Corporation of India.",
+            "Handing over procurement operations in States such as Punjab and Haryana entirely to the Food Corporation of India."
+        ],
+        ans: 0,
+        exp: "The Shanta Kumar Committee argued that NFSA coverage should be cut to about 40% of the population and that the PDS should move towards cash transfers. It also recommended that experienced States take over procurement operations from FCI, which is the opposite of the last option."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-37 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

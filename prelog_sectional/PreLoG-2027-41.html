@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-41</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "With reference to the challenges facing the ecologically sensitive island territories of India, consider the following statements:<br>1. The Shompen of Great Nicobar Island are a Scheduled Tribe but have not been classified as a Particularly Vulnerable Tribal Group.<br>2. The Island Coastal Regulation Zone Notification, 2019 has been issued under the Environment (Protection) Act, 1986.<br>3. The Great Nicobar Biosphere Reserve is part of the UNESCO World Network of Biosphere Reserves.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "Statement 1 alone",
+            "Only two of the statements are correct",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "The ICRZ Notification, 2019 regulates activities in the coastal zones of islands and is issued under the Environment (Protection) Act, 1986. The Great Nicobar Biosphere Reserve is included in the UNESCO World Network of Biosphere Reserves. The Shompen are classified as a Particularly Vulnerable Tribal Group, which is why development projects on Great Nicobar raise concerns under the Forest Rights Act and the Shompen Policy, so statement 1 is wrong."
+    },
+    {
+        q: "Consider the following pairs:<br>Feature : Description<br>1. Barren Island : Active volcano located in the Andaman Sea<br>2. Saddle Peak : Highest point of the Andaman and Nicobar Islands, located in North Andaman<br>3. Indira Point : Southernmost point of India, located in Little Andaman<br>How many of the above pairs are correctly matched?",
+        opts: [
+            "All three",
+            "Only one",
+            "None",
+            "Only two"
+        ],
+        ans: 3,
+        exp: "Barren Island, in the Andaman Sea north-east of Port Blair, is India's only confirmed active volcano. Saddle Peak (about 732 m) in North Andaman is the highest point of the island territory. Indira Point, the southernmost point of India, lies on Great Nicobar Island and not on Little Andaman, so pair 3 is wrongly matched."
+    },
+    {
+        q: "With reference to the features of the Indian (Thar) Desert, consider the following statements:<br>1. The desert has several salt lakes and playas, such as Sambhar and Didwana, and the playas are locally called ranns.<br>2. The annual rainfall over most of the desert exceeds 100 cm.<br>3. The Aravalli range forms the western boundary of the desert.<br>Which one of the statements given above is correct?",
+        opts: [
+            "3 only",
+            "1 and 2 only",
+            "2 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "The Thar contains brackish lakes and playas, called ranns locally, with Sambhar the best known. Most of the desert receives well under 150 mm of rain a year, so statement 2 is wrong. The Aravalli range lies on the eastern side of the desert and not on the western boundary, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the origin of lakes in India, which one of the following statements is correct?",
+        opts: [
+            "Chilika Lake is a freshwater lake formed by glacial action.",
+            "Sambhar Lake is a freshwater lake formed by the damming of a river by a landslide.",
+            "Lonar Lake in Maharashtra is a crater lake formed by a meteorite impact on Deccan basalt.",
+            "Wular Lake in Kashmir is an oxbow lake formed by the meandering of the Jhelum."
+        ],
+        ans: 2,
+        exp: "Lonar Lake in Buldhana district sits in a basaltic crater of the Deccan Traps and is of meteorite-impact origin. Wular Lake is generally regarded as being of tectonic origin, not an oxbow lake. Chilika is a brackish lagoon formed by silt deposition and coastal processes, and Sambhar is a salt lake in Rajasthan."
+    },
+    {
+        q: "In the context of recent developments relating to the Peninsular Plateau, consider the following statements about the Ken-Betwa Link Project:<br>1. The Daudhan dam of the project is being built on the Betwa river.<br>2. The Ken and the Betwa are direct tributaries of the Ganga.<br>3. Its foundation stone was laid in December 2024 at Khajuraho, and it is the first river-linking project under the National Perspective Plan to enter implementation.<br>Which one of the statements given above is correct?",
+        opts: [
+            "2 only",
+            "1 only",
+            "3 only",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "The foundation stone of the Ken-Betwa Link Project was laid at Khajuraho in Madhya Pradesh on 25 December 2024, making it the first project under the National Perspective Plan for river interlinking. The Daudhan dam is being built on the Ken river inside the Panna Tiger Reserve. Both the Ken and the Betwa are tributaries of the Yamuna, not the Ganga."
+    },
+    {
+        q: "Consider the following statements regarding coastal dune systems and beach-ridge complexes along the Indian coast:<br>1. Beach ridges generally develop through successive depositional episodes along a prograding shoreline and may preserve former positions of the coastline.<br>2. Coastal dunes are primarily aeolian landforms, whereas beach ridges are fundamentally shore-parallel depositional features associated with wave, swash and sediment supply.<br>3. A beach-ridge plain and a dune field are geomorphologically interchangeable because both necessarily represent former shoreline positions of equal antiquity.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 3",
+            "Both 2 and 3",
+            "1 and 2 only",
+            "None of the statements are correct"
+        ],
+        ans: 2,
+        exp: "Beach ridges commonly form as successive shore-parallel depositional ridges during shoreline progradation or relative stillstands, thereby recording former shoreline positions. Coastal dunes, in contrast, are predominantly formed and reshaped by wind action acting on beach sediment. Although dunes can occur within or overlie beach-ridge systems, the two are not geomorphologically interchangeable and need not represent equivalent ages or processes. Hence statements 1 and 2 are correct."
+    },
+    {
+        q: "With reference to the Himalayas, consider the following statements:<br>1. The Shiwalik range is the oldest of the three parallel Himalayan ranges.<br>2. The core of the Himadri (Greater Himalaya) is composed mainly of granite.<br>3. The 'Duns' are longitudinal valleys lying between the Himadri and the Himachal (Lesser Himalaya).<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "Only two of the statements are correct",
+            "Exactly two of the statements are correct",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "The Himadri is the highest and continuous range, and its core is granite. The Shiwalik is the youngest and outermost range, not the oldest. Duns such as Dehradun and Patlidun lie between the Himachal (Lesser Himalaya) and the Shiwaliks, not between the Himadri and Himachal."
+    },
+    {
+        q: "The Karewas of the Kashmir Valley are most appropriately described as:",
+        opts: [
+            "recent glacial moraines restricted to the highest Pir Panjal peaks",
+            "thick lacustrine and fluvio-lacustrine deposits preserved as elevated terraces",
+            "basaltic plateaus produced by fissure eruptions in the Kashmir Basin",
+            "marine sedimentary platforms formed by the retreat of the Arabian Sea"
+        ],
+        ans: 1,
+        exp: "Karewas are unconsolidated to semi-consolidated lacustrine and fluvio-lacustrine deposits occurring as elevated terraces in the Kashmir Valley. They accumulated in an ancient lake basin and were later dissected and uplifted, producing the characteristic flat-topped or terraced surfaces. They are also important for agriculture, particularly saffron cultivation in selected areas."
+    },
+    {
+        q: "With reference to the challenges associated with the drainage system of India, consider the following statements:<br>1. The Kosi, often called the 'Sorrow of Bihar', frequently shifts its course because of its heavy silt load.<br>2. The Brahmaputra carries a negligible sediment load, which is why its channel is stable and flood-free.<br>3. The largest share of the pollution load entering the Ganga comes from industrial effluents rather than municipal sewage.<br>Which one of the statements given above is correct?",
+        opts: [
+            "2 only",
+            "1 only",
+            "2 and 3 only",
+            "3 only"
+        ],
+        ans: 1,
+        exp: "The Kosi brings a huge sediment load from the Himalayas, which raises its bed and makes it shift course, causing devastating floods in Bihar. The Brahmaputra also carries a very heavy sediment load, which leads to channel braiding, bank erosion and floods in Assam. The bulk of the pollution load in the Ganga is untreated or partly treated municipal sewage, not industrial effluent."
+    },
+    {
+        q: "With reference to the constitutional and legal framework governing river waters in India, consider the following statements:<br>1. Article 262 empowers the Supreme Court to constitute tribunals for adjudicating inter-State river water disputes.<br>2. Under the River Boards Act, 1956, River Boards are established by the concerned State Governments without involving the Centre.<br>3. Entry 56 of the Union List empowers Parliament to regulate and develop inter-State rivers and river valleys to the extent it declares expedient in the public interest.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "All three statements are correct",
+            "Only two of the statements are correct",
+            "2 only"
+        ],
+        ans: 0,
+        exp: "Entry 56 of the Union List lets Parliament take control of the regulation and development of inter-State rivers by law. Article 262 empowers Parliament, not the Supreme Court, to provide by law for adjudication of such disputes. River Boards under the 1956 Act are set up by the Central Government on request from the concerned State Governments."
+    },
+    {
+        q: "Sir Sidney Burrard's classification divides the Himalayas into regional divisions based on river valleys. Consider the following statements:<br>1. The Punjab Himalaya lies between the Indus and the Sutlej.<br>2. The Kumaon Himalaya lies between the Kali and the Tista.<br>3. The Assam Himalaya lies between the Tista and the Dihang.<br>How many of the statements given above are correct?",
+        opts: [
+            "None",
+            "Only two",
+            "All three",
+            "Only one"
+        ],
+        ans: 1,
+        exp: "In Burrard's classification, the Punjab Himalaya lies between the Indus and Sutlej, the Kumaon Himalaya between the Sutlej and Kali, the Nepal Himalaya between the Kali and Tista, and the Assam Himalaya between the Tista and Dihang. Statement 2 describes the Nepal Himalaya, not the Kumaon Himalaya, so only statements 1 and 3 are correct."
+    },
+    {
+        q: "With reference to the gap systems of the Western Ghats and the broader discontinuities of peninsular mountain chains, consider the following statements:<br>1. The Palghat Gap is a major low-level east-west-oriented break across the otherwise predominantly east-west trending Western Ghats.<br>2. The Palghat Gap separates the Nilgiri massif from the Anamalai–Palani hill system and has historically facilitated movement between the west and east coasts.<br>3. The major gaps of the Western Ghats are uniformly the result of recent river erosion cutting through an otherwise continuous mountain wall.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 1",
+            "All three statements are correct",
+            "None of the above",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 3,
+        exp: "The Palghat Gap is a conspicuous break across the Western Ghats which is North-South trending , not East-West, separating the Nilgiris from the Anamalai hills and forming an important corridor between Kerala and the interior peninsula. It is generally regarded as a major structural/tectonic break rather than simply a product of recent river incision. Therefore, statement 2 is correct and statements 1 and 3 are incorrect."
+    },
+    {
+        q: "With reference to the legal and constitutional framework relating to the Ganga and the Northern Plains, consider the following statements:<br>1. Water supplies, irrigation and canals fall under the State List, subject to the power of Parliament to regulate and develop inter-State rivers under Entry 56 of the Union List.<br>2. The National Ganga River Basin Authority (NGRBA) was constituted in 2009 under the Environment (Protection) Act, 1986.<br>3. The Ganga was accorded the status of a 'National River' through an amendment to the Constitution.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "Entry 17 of the State List covers water, irrigation and canals, but it is expressly subject to Entry 56 of the Union List, which lets Parliament take over inter-State rivers by law. The NGRBA was set up in 2009 under Section 3 of the Environment (Protection) Act, 1986. The Ganga was declared a National River in 2008 by an executive decision of the Government of India, not by a constitutional amendment, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the regulatory framework for movement through the border and mountain regions of India, consider the following statements:<br>1. The Inner Line Permit system derives from the Bengal Eastern Frontier Regulation, 1873.<br>2. The Border Roads Organisation functions under the Ministry of Road Transport and Highways.<br>3. The Inner Line Permit requirement applies only to foreign nationals under the Foreigners Act, 1946.<br>Which one of the statements given above is correct?",
+        opts: [
+            "3 only",
+            "2 only",
+            "2 and 3 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "The Inner Line Permit regime, which regulates the entry of outsiders into States such as Arunachal Pradesh, Nagaland and Mizoram, rests on the Bengal Eastern Frontier Regulation, 1873. The Border Roads Organisation, which builds roads and tunnels near passes, works under the Ministry of Defence. The ILP applies to Indian citizens from other States too, whereas foreigners need separate permits."
+    },
+    {
+        q: "With reference to the Great Indian (Thar) Desert, which one of the following statements is correct?",
+        opts: [
+            "The desert receives the bulk of its scanty rainfall in winter through western disturbances.",
+            "The Luni, the only significant river of the region, rises in the Aravalli range and ends in the Rann of Kutch.",
+            "The Ghaggar is a perennial river that flows across the desert and reaches the Arabian Sea.",
+            "The desert lies entirely to the east of the Aravalli range."
+        ],
+        ans: 1,
+        exp: "The Luni rises in the Aravalli range near Ajmer, flows south-west and ends in the Rann of Kutch; it is the only large river of the desert. The Thar lies to the west of the Aravallis, not the east. It receives its scanty rainfall mainly from the south-west monsoon, and the Ghaggar is a seasonal river that dries up in the desert without reaching the sea."
+    },
+    {
+        q: "With reference to the measures to combat desertification in India, which one of the following statements is correct?",
+        opts: [
+            "The Desert Development Programme covers only the hot desert areas of Rajasthan.",
+            "The fourteenth Conference of the Parties to the UNCCD was held in India at Bhubaneswar in 2019.",
+            "The Desert Development Programme is implemented as part of the Watershed Development Component of the Pradhan Mantri Krishi Sinchayee Yojana.",
+            "Experts recommend that the Indira Gandhi Canal command area should expand water-intensive crops such as rice and sugarcane."
+        ],
+        ans: 2,
+        exp: "The Desert Development Programme, which aims to check desertification through watershed-based land and water development, is now part of the Watershed Development Component of PMKSY. UNCCD COP14 was held in Greater Noida in September 2019, not Bhubaneswar. Experts recommend a shift away from water-intensive crops and flood irrigation in the canal command, and the programme also covers hot desert areas of Gujarat and Haryana and cold desert areas."
+    },
+    {
+        q: "With reference to the coastal plains of India, consider the following statements:<br>1. Rivers draining into the Arabian Sea along the western coastal plain mostly form estuaries rather than large deltas.<br>2. Chilika Lagoon, an important fisheries and wetland resource, is located on the western coastal plain.<br>3. The Coromandel Coast receives a considerable part of its annual rainfall from the retreating monsoon.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "Exactly one of the statements is correct",
+            "Both 1 and 3",
+            "None of the statements are correct"
+        ],
+        ans: 2,
+        exp: "West-flowing rivers such as the Narmada and Tapi flow through a narrow plain and a rift or fault-controlled course, so they form estuaries, not deltas. The Coromandel Coast gets much of its rain from the north-east (retreating) monsoon in October-December. Chilika Lagoon is in Odisha on the eastern coastal plain, so statement 2 is wrong."
+    },
+    {
+        q: "Consider the following statements:<br>Assertion (A): Most of the large rivers of Peninsular India are seasonal in flow.<br>Reason (R): They are fed primarily by the melting snow and glaciers of the Peninsular Plateau.<br>In the context of the above statements, which one of the following is correct?",
+        opts: [
+            "A is correct but R is not correct",
+            "A is not correct but R is correct",
+            "Both A and R are correct and R is the correct explanation of A",
+            "Both A and R are correct but R is not the correct explanation of A"
+        ],
+        ans: 0,
+        exp: "Peninsular rivers such as the Godavari, Krishna and Kaveri depend mainly on monsoon rainfall, so their flow is highly seasonal, which makes A correct. The Peninsular Plateau has no permanent snowfields or glaciers, so R is incorrect. Perennial flow with glacier support is a feature of the Himalayan rivers."
+    },
+    {
+        q: "With reference to the Northern Plains of India, which one of the following statements is correct?",
+        opts: [
+            "The Bhangar is the older alluvium, lying above the flood level, and often contains calcareous nodules called kankar.",
+            "The Bhabar lies to the south of the Terai and consists of fine clay and silt.",
+            "The Khadar is the older alluvium and is less fertile than the Bhangar.",
+            "The Northern Plains have been formed mainly by the deposition of sediments brought by the Peninsular rivers."
+        ],
+        ans: 0,
+        exp: "The Bhangar is the old alluvium of the upland terraces beyond the reach of floods, and it contains kankar nodules. The Northern Plains were built mainly by the Indus, Ganga and Brahmaputra systems that rise in the Himalayas. The Khadar is the newer, more fertile floodplain alluvium, and the Bhabar lies north of the Terai at the foot of the Shiwaliks, made of pebbles and boulders."
+    },
+    {
+        q: "Consider the following statements:<br>1. The Luni river, after rising in the Aravalli range, flows into Pakistan and merges with a tributary of the Indus.<br>2. The Gandikota canyon, called the 'Grand Canyon of India', was carved by the river Pennar.<br>3. The Chambal is a direct tributary of the Ganga.<br>Which one of the statements given above is correct?",
+        opts: [
+            "3 only",
+            "1 and 3 only",
+            "1 only",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "The Gandikota gorge in Kadapa district, Andhra Pradesh, has been cut by the Pennar through the Erramala hills. The Luni rises near Ajmer in the Aravallis and ends in the marshes of the Rann of Kutch without reaching the Indus system. The Chambal joins the Yamuna and not the Ganga directly."
+    },
+    {
+        q: "Consider the following statements about the Committee on restructuring the Central Water Commission (CWC) and the Central Ground Water Board (CGWB), chaired by Mihir Shah, which submitted its report in 2016:<br>1. It recommended that the CWC and the CGWB be unified into a single National Water Commission.<br>2. It recommended that groundwater be recognised as a common pool resource to be managed in a participatory manner.<br>3. It recommended that the proposed Commission have regional offices covering all river basins to support river basin level management.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 2 only",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "The Mihir Shah Committee proposed merging the CWC and the CGWB into a National Water Commission so that surface water and groundwater are managed together. It treated groundwater as a common pool resource requiring participatory management and an end to unchecked extraction. It also proposed regional offices for all river basins so that river basins become the unit of planning, making all three statements correct."
+    },
+    {
+        q: "Consider the following Himalayan passes:<br>1. Niti Pass<br>2. Mana Pass<br>3. Lipulekh Pass<br>4. Shipki La<br>How many of the above lie in the State of Uttarakhand?",
+        opts: [
+            "Only two",
+            "Only one",
+            "All four",
+            "Only three"
+        ],
+        ans: 3,
+        exp: "Niti and Mana passes (Chamoli district) and Lipulekh (Pithoragarh district) are in Uttarakhand and lead towards Tibet. Shipki La lies in Kinnaur district of Himachal Pradesh, where the Sutlej enters India from Tibet. Hence only three of the four passes are in Uttarakhand."
+    },
+    {
+        q: "In the context of recent developments affecting the Northern Plains, consider the following statements:<br>1. Surplus water releases from the Bhakra Dam on the Sutlej, the Pong Dam on the Beas and the Ranjit Sagar Dam on the Ravi intensified the floods in Punjab in August-September 2025.<br>2. India placed the Indus Waters Treaty, 1960 in abeyance in April 2025.<br>3. Under the Indus Waters Treaty, the waters of the Chenab and the Jhelum are allocated to India for unrestricted use.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "Only one of the statements is correct",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "The August-September 2025 floods in Punjab were among the worst in nearly four decades, driven by extreme rain in the upper catchments of Himachal Pradesh and Jammu and Kashmir and worsened by surplus releases from the Bhakra, Pong and Ranjit Sagar dams. India placed the Indus Waters Treaty in abeyance on 23 April 2025, and Pakistan rejects the move. The treaty assigns the eastern rivers (Ravi, Beas, Sutlej) to India and the western rivers (Indus, Jhelum, Chenab) to Pakistan, so statement 3 is wrong."
+    },
+    {
+        q: "Which feature is most distinctive of Loktak Lake in relation to its wetland geomorphology and ecology?",
+        opts: [
+            "Tidal mudflats separated from the sea by barrier islands",
+            "Extensive oxbow lakes formed along a meandering Himalayan river",
+            "Floating mats of vegetation and organic matter known as phumdis",
+            "Coral atolls enclosing a hypersaline lagoon"
+        ],
+        ans: 2,
+        exp: "Loktak is famous for its phumdis, floating heterogeneous masses composed of vegetation, soil and organic matter at different stages of decomposition. Their buoyancy and seasonal vertical movement make the lake's ecological functioning distinct among Indian inland wetlands. Keibul Lamjao National Park is located on a large phumdi system within the lake."
+    },
+    {
+        q: "Consider the following sequence of physiographic belts from north to south across the Himalayan foothills and Northern Plains:<br>1. Bhabar<br>2. Terai<br>3. Bhangar<br>4. Khadar<br>Which of the following correctly characterises these belts?",
+        opts: [
+            "Bhabar is porous and coarse; Terai is marshy due to re-emergence of underground streams; Bhangar consists mainly of older alluvium; Khadar consists of newer floodplain alluvium.",
+            "Bhabar is a marshy belt; Terai is dominated by pebbles and boulders; Bhangar is newer alluvium; Khadar is older alluvium.",
+            "Bhabar and Terai are both older alluvial surfaces, while Bhangar and Khadar are coastal depositional belts.",
+            "Bhabar consists of newer alluvium; Terai is a dry gravel belt; Bhangar is annually flooded; Khadar is an elevated older alluvial surface."
+        ],
+        ans: 0,
+        exp: "The Bhabar is a narrow, highly porous belt of pebbles and coarse sediments along the Himalayan foothills, where streams often disappear underground. South of it, water re-emerges in the Terai, producing a moist and marshy belt. Bhangar represents older alluvium forming relatively elevated terraces, while Khadar is the younger alluvium deposited more frequently by rivers in active floodplains. Hence option 1 is correct."
+    },
+    {
+        q: "With reference to the structure and composition of the Peninsular Plateau, which one of the following statements is correct?",
+        opts: [
+            "The Central Highlands lie to the south of the Narmada river and form the main part of the Deccan Plateau.",
+            "The Meghalaya (Shillong) Plateau is continuous with the main Peninsular block, with no intervening gap.",
+            "The Meghalaya (Shillong) Plateau is separated from the main Peninsular block by the Garo-Rajmahal Gap, a down-faulted depression later filled with sediments of the Ganga and the Brahmaputra.",
+            "The Maharashtra Plateau is made of Archaean granite and gneiss with no cover of lava."
+        ],
+        ans: 2,
+        exp: "The Garo-Rajmahal (Malda) Gap was created by down-faulting during the Himalayan orogeny and was later filled with sediments of the Ganga and the Brahmaputra, which detached the Meghalaya Plateau from the main block. The Central Highlands lie to the north of the Narmada, while the Deccan Plateau lies to its south. The Maharashtra Plateau shows typical Deccan Trap topography made of horizontal lava sheets, and the Shillong Plateau consists of Archaean quartzites, shales and schists."
+    },
+    {
+        q: "In the context of recent cyclonic activity along the coastal plains of India, consider the following statements about Cyclone Montha (October 2025):<br>1. It made landfall on the Odisha coast near Puri.<br>2. It crossed the Andhra Pradesh coast between Machilipatnam and Kalingapatnam, near Kakinada.<br>3. The name 'Montha' was proposed by India.<br>Which one of the statements given above is correct?",
+        opts: [
+            "2 only",
+            "1 and 3 only",
+            "1 only",
+            "3 only"
+        ],
+        ans: 0,
+        exp: "Severe Cyclonic Storm Montha crossed the Andhra Pradesh and Yanam coasts between Machilipatnam and Kalingapatnam, near Kakinada, on the night of 28 October 2025, with winds of 90-100 kmph. Odisha was affected by heavy rain but was not the landfall zone. The name was contributed by Thailand, which is why it is a Thai word meaning a fragrant flower, and not by India."
+    },
+    {
+        q: "With reference to the role of the Himalayas in the geography of India, consider the following statements:<br>1. The northern slopes of the Himalayas facing the Tibetan Plateau receive heavier monsoon rainfall than the southern slopes.<br>2. Himalayan rivers have little hydropower potential because of their low gradient.<br>3. Himalayan rivers are perennial because they are fed by both snow and glacier melt and by monsoon rainfall.<br>Which one of the statements given above is correct?",
+        opts: [
+            "1 only",
+            "2 only",
+            "1 and 2 only",
+            "3 only"
+        ],
+        ans: 3,
+        exp: "Himalayan rivers draw on glacier and snow melt as well as monsoon rain, so they flow throughout the year, unlike most Peninsular rivers. The Himalayas block the monsoon winds, so the southern slopes get heavy rain while the Tibetan side lies in a rain shadow. The steep gradients and large flow of Himalayan rivers give them very high hydropower potential."
+    },
+    {
+        q: "Consider the following statements regarding the Rann of Kachchh:<br>1. The Rann represents the geomorphological remnant of a former marine embayment, with its present landscape reflecting both marine and continental depositional processes.<br>2. Its seasonal transformation from a saline mudflat/wetland during the monsoon to an extensive salt-encrusted surface in the dry season is partly controlled by evaporation exceeding freshwater input.<br>3. The presence of raised 'bets' within the Rann indicates that the entire surface has a uniform elevation and is inundated to the same depth during the monsoon.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "The Rann is a saline geomorphic depression regarded as the remnant of an ancient marine arm and contains fine silts and clays, with extensive salt deposition during the dry season. Monsoon flooding converts large portions into marshy wetlands, while subsequent evaporation promotes salt accumulation. Raised 'bets' are local higher patches that stand above surrounding inundated areas, showing that the surface is not uniformly elevated or flooded. Hence statements 1 and 2 are correct."
+    },
+    {
+        q: "Consider the following statements:<br>Assertion (A): Construction of dams and reservoirs on rivers upstream can aggravate coastal erosion in deltaic regions.<br>Reason (R): Dams trap a large share of the sediment load, reducing the sediment supply needed to replenish the delta and shoreline.<br>In the context of the above statements, which one of the following is correct?",
+        opts: [
+            "Both A and R are correct and R is the correct explanation of A",
+            "A is not correct but R is correct",
+            "A is correct but R is not correct",
+            "Both A and R are correct but R is not the correct explanation of A"
+        ],
+        ans: 0,
+        exp: "Deltas and beaches are maintained by a continuous supply of river-borne sediment. Dams and reservoirs trap this sediment, so the shoreline loses material to wave action faster than it is replenished, which worsens erosion and delta shrinkage. R therefore directly explains A."
+    },
+    {
+        q: "Which geomorphic feature most directly indicates that an Indian island environment is likely associated with coral reef development?",
+        opts: [
+            "A shallow, warm, clear marine setting with abundant carbonate-producing organisms",
+            "A deep offshore trench with persistent volcanic ash deposition",
+            "A high-energy rocky coast completely deprived of sunlight in the photic zone",
+            "A cold, sediment-rich marine environment dominated by glacial meltwater"
+        ],
+        ans: 0,
+        exp: "Coral reefs require warm, shallow, well-lit and relatively clear marine waters because reef-building corals depend on symbiotic algae and efficient carbonate production. India's reef environments are therefore concentrated around suitable tropical island settings such as parts of the Lakshadweep and Andaman and Nicobar groups. Reef geomorphology can produce fringing reefs, barrier-type arrangements and atoll forms."
+    },
+    {
+        q: "With reference to the constitutional provisions relating to the hill and tribal regions of North-East India, consider the following statements:<br>1. Article 371A, which safeguards Naga customary law and land ownership, applies to Mizoram.<br>2. The Sixth Schedule provides for the administration of tribal areas in certain North-Eastern States through Autonomous District Councils and Autonomous Regional Councils.<br>3. The Fifth Schedule applies to the tribal areas of Assam, Meghalaya, Tripura and Mizoram.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 and 2 only",
+            "2 only",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "The Sixth Schedule, under Article 244(2), creates Autonomous District and Regional Councils in tribal areas of Assam, Meghalaya, Tripura and Mizoram. Article 371A is the special provision for Nagaland, while Mizoram's provision is Article 371G. The Fifth Schedule covers Scheduled Areas and Scheduled Tribes in States other than those four, so statements 1 and 3 are wrong."
+    },
+    {
+        q: "In the context of river capture in peninsular India, consider the following statements:<br>1. A river undergoing capture may lose part of its former drainage basin to a neighbouring, more actively eroding river system.<br>2. An elbow of capture commonly marks a sharp change in the direction of drainage near the zone where diversion has taken place.<br>3. A wind gap or abandoned valley segment may persist on the former course of the captured stream after drainage piracy.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 2 and 3",
+            "1, 2 and 3",
+            "Only one of the statements is correct",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "River capture, or drainage piracy, occurs when an actively eroding river breaches a divide and diverts the headwaters of another drainage system. The abrupt bend produced near the diversion is termed an elbow of capture, while the abandoned portion of the former valley may survive as a wind gap or dry valley. Thus all three statements are correct."
+    },
+    {
+        q: "With reference to the Duns, Doons and intermontane valleys associated with the Shiwaliks, consider the following statements:<br>1. Duns are generally longitudinal valleys lying between the Lesser Himalaya and the Shiwalik ranges.<br>2. Dehradun is a prominent example of a Dun valley.<br>3. Such valleys were formed mainly by the deposition of fine marine sediments along the outer margins of the Himalayas.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 2 only",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "Duns or Doons are elongated longitudinal valleys generally lying between the Lesser Himalaya and the Shiwaliks, and Dehradun is the best-known example. They are associated with the structural and erosional evolution of the Himalayan foothills, including deposition of sediments derived from surrounding ranges, not primarily with marine sedimentation. Hence statements 1 and 2 are correct, while statement 3 is incorrect."
+    },
+    {
+        q: "With reference to the origin and evolution of the Himalayas, consider the following statements:<br>1. The Himalayas have evolved from sediments accumulated in the Tethys Sea that lay between the Indian and Eurasian landmasses.<br>2. The Himalayan ranges are believed to have risen in a single continuous phase of upheaval, with the Himadri, Himachal and Shiwalik forming simultaneously.<br>3. The continued northward movement of the Indian Plate keeps the Himalayan region tectonically active and seismically sensitive.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "1 and 2 only",
+            "Only two of the statements are correct",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 2,
+        exp: "The Himalayas were formed when the Tethys Sea sediments were compressed and folded as the Indo-Australian Plate collided with the Eurasian Plate. The Indian Plate is still moving north, so the region keeps rising and remains prone to earthquakes. The ranges rose in three successive phases, with the Himadri oldest and the Shiwalik youngest, so statement 2 is wrong."
+    },
+    {
+        q: "With reference to the structure and composition of the Himalayas, consider the following statements:<br>1. The Himachal (Lesser Himalaya) ranges are composed mainly of unconsolidated sediments and gravels.<br>2. The Karewa deposits, useful for saffron cultivation, are found in the Kumaon Himalaya.<br>3. The Himadri (Greater Himalaya) is a discontinuous range broken by several longitudinal valleys.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "2 and 3 only",
+            "1 and 2 only",
+            "None of the statements is correct"
+        ],
+        ans: 3,
+        exp: "Unconsolidated sediments are characteristic of the outer Shiwaliks, while the Himachal ranges consist of highly compressed and altered rocks. Karewas are lacustrine deposits of the Kashmir Himalaya, not Kumaon. The Himadri is the most continuous range, with an average height of over 6,000 m, so none of the statements is correct."
+    },
+    {
+        q: "With reference to the Forest (Conservation) Amendment Act, 2023, which has significant implications for the Himalayan border regions, consider the following statements:<br>1. It renamed the Forest (Conservation) Act, 1980 as the Van (Sanrakshan Evam Samvardhan) Adhiniyam.<br>2. It exempts forest land within 100 km along international borders, the Line of Control or the Line of Actual Control from prior central approval when needed for strategic linear projects of national importance concerning national security.<br>3. It exempts forest land up to five hectares in areas affected by left-wing extremism for defence-related projects, paramilitary camps and specified public utility projects.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 3,
+        exp: "The 2023 amendment, which received assent on 4 August 2023, retitled the 1980 Act as the Van (Sanrakshan Evam Samvardhan) Adhiniyam. It removed the need for prior central approval for strategic linear projects within 100 km of international borders, the LoC and the LAC, which covers most of the Himalayan States, and for security-related infrastructure up to 10 hectares. It also exempts forest land up to five hectares in left-wing extremism affected areas for defence projects, paramilitary camps and specified public utility projects, so all three statements are correct."
+    },
+    {
+        q: "With reference to the legal framework governing the island territories of India, consider the following statements:<br>1. The Island Coastal Regulation Zone (ICRZ) Notification, 2019 was issued in supersession of the Coastal Regulation Zone Notification, 2011.<br>2. Under Article 240 of the Constitution, the President may make regulations for the peace, progress and good government of the Andaman and Nicobar Islands and Lakshadweep, and such a regulation has the same force as an Act of Parliament.<br>3. An amendment in 2021 to the ICRZ Notification moved Great Nicobar Island from Group-II to Group-I.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1 and 3 only",
+            "1 only",
+            "3 only"
+        ],
+        ans: 0,
+        exp: "Article 240 empowers the President to legislate by regulation for certain Union Territories, including the Andaman and Nicobar Islands and Lakshadweep; the Andaman and Nicobar Islands (Protection of Aboriginal Tribes) Regulation is one such instrument. The ICRZ Notification, 2019 (S.O. 1242(E) of 8 March 2019) superseded the Island Protection Zone Notification, 2011, not the CRZ Notification, 2011. The 2021 amendment re-categorised Great Nicobar from Group-I to Group-II, the reverse of what statement 3 says."
+    },
+    {
+        q: "With reference to the mountain passes of India and the challenges to their use, consider the following statements:<br>1. Zoji La on the Srinagar-Leh route is prone to heavy snowfall and avalanches, which frequently disrupt road connectivity in winter.<br>2. The Atal Tunnel, built beneath the Rohtang Pass, reduces dependence on the snow-prone pass for connectivity between Manali and the Lahaul valley.<br>3. Lipulekh Pass, located in Uttarakhand, is used for the Kailash Mansarovar Yatra route.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "Zoji La, the gateway between Kashmir and Ladakh, is among the most avalanche-prone stretches in the Himalaya. The Atal Tunnel lets traffic bypass Rohtang Pass and gives year-round access to Lahaul. Lipulekh Pass in Pithoragarh, Uttarakhand, is one of the routes used for the Kailash Mansarovar Yatra. All three statements are correct."
+    },
+    {
+        q: "With reference to the Desert Development Programme (DDP) in India, consider the following statements:<br>1. It aims to mitigate the adverse effects of desertification and restore the ecological balance of desert-prone areas.<br>2. It is presently implemented as part of the Watershed Development Component of the Pradhan Mantri Krishi Sinchayee Yojana (PMKSY).<br>3. It covers only the hot desert areas of Rajasthan.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "3 only",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "The DDP, started in the 1970s, aims at checking desertification and restoring ecological balance through watershed-based land and water development. It now falls under the Watershed Development Component of PMKSY, run by the Department of Land Resources. It covers hot desert areas of Rajasthan, Gujarat and Haryana as well as cold desert areas of Jammu and Kashmir and Himachal Pradesh, so statement 3 is wrong."
+    },
+    {
+        q: "With reference to the legal framework governing the rivers and dams of India, consider the following statements:<br>1. The Dam Safety Act, 2021 applies only to dams built on Himalayan rivers.<br>2. No River Board has so far been constituted under the River Boards Act, 1956.<br>3. The National Dam Safety Authority functions under the Ministry of Agriculture.<br>Which one of the statements given above is correct?",
+        opts: [
+            "1 only",
+            "1 and 3 only",
+            "3 only",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "The River Boards Act, 1956 allows the Centre to set up River Boards for inter-State rivers on request from States, but no Board has been constituted so far. The Dam Safety Act, 2021 covers specified dams across the country, not only on Himalayan rivers. The National Dam Safety Authority works under the Ministry of Jal Shakti, not the Ministry of Agriculture."
+    },
+    {
+        q: "With reference to the role of the physiographic divisions of India, consider the following statements:<br>1. The Himalayas are the principal source of India's coal and iron ore.<br>2. The fertility of the Northern Plains is due mainly to alluvium brought by the rivers of the Peninsular Plateau.<br>3. The Himalayas obstruct the south-west monsoon winds, causing heavy rainfall on their windward side, and also check the cold winds from Central Asia.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "3 only",
+            "2 only",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "The Himalayas act as a climatic barrier, forcing monsoon rain on their southern slopes and shielding the subcontinent from cold Central Asian air. India's coal and iron ore are concentrated in the ancient Peninsular Plateau, not in the young fold mountains. The alluvium of the Northern Plains is brought mainly by the Indus, Ganga and Brahmaputra systems that rise in the Himalayas."
+    },
+    {
+        q: "Consider the following water bodies:<br>1. Chilika<br>2. Pulicat<br>3. Vembanad<br>4. Loktak<br>How many of the above are coastal lagoons, that is, brackish water bodies separated from the sea by a sandbar or barrier?",
+        opts: [
+            "Only two",
+            "Only three",
+            "Only one",
+            "All four"
+        ],
+        ans: 1,
+        exp: "Chilika on the Odisha coast and Pulicat on the Andhra Pradesh-Tamil Nadu border are the two large lagoons of the eastern coastal plain, and Vembanad is the best-known kayal (backwater lagoon) of the Malabar Coast in Kerala. Loktak in Manipur is an inland freshwater lake known for its floating phumdis, so it is not a coastal lagoon. Hence only three of the four are coastal lagoons."
+    },
+    {
+        q: "With reference to the constitutional and legal position of the island territories of India, consider the following statements:<br>1. The Andaman and Nicobar Islands have an elected Legislative Assembly established under Article 239A.<br>2. Lakshadweep falls under the territorial jurisdiction of the Calcutta High Court.<br>3. The Andaman and Nicobar Islands Protection of Aboriginal Tribes Regulation, 1956 applies to Lakshadweep.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 only",
+            "None of the statements is correct",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "The Andaman and Nicobar Islands are a Union Territory with no legislature; they are governed by a Lieutenant Governor, and Article 239A applies to Puducherry. Lakshadweep falls under the Kerala High Court, while the Andaman and Nicobar Islands fall under the Calcutta High Court. The 1956 Regulation protects the Jarawa, Onge, Sentinelese and other tribes of the Andaman and Nicobar Islands only, so none of the statements is correct."
+    },
+    {
+        q: "The Aravalli Range is best described geomorphologically as a residual mountain system because it:",
+        opts: [
+            "is a volcanic mountain chain developed along an extinct subduction zone",
+            "consists predominantly of unconsolidated sediments deposited by Himalayan rivers",
+            "represents the deeply eroded remnants of an ancient fold mountain system",
+            "was uplifted only during the Quaternary period along active Himalayan-type thrusts"
+        ],
+        ans: 2,
+        exp: "The Aravallis are among the oldest fold mountain systems of the Indian subcontinent and have undergone prolonged denudation. Their present low, discontinuous relief is therefore largely residual in nature. Their antiquity and intense erosion also help explain the anomalous drainage patterns around the range, including streams that cut across or terminate against resistant structural ridges."
+    },
+    {
+        q: "Which of the following best explains the coexistence of structural plateaus, limestone caves and sinkhole-like depressions in parts of the Meghalaya Plateau?",
+        opts: [
+            "Marine erosion acting continuously on an active coastal escarpment",
+            "Exclusive fluvial erosion of basaltic lava plateaus",
+            "Predominantly recent volcanic activity followed by hydrothermal erosion",
+            "A combination of uplifted block structure and prolonged karstification of carbonate rocks"
+        ],
+        ans: 3,
+        exp: "The Meghalaya Plateau has a structurally elevated setting, while its extensive limestone formations permit solutional action by carbonated groundwater. This produces characteristic karst features such as caves, sinkholes, underground drainage and solution channels. Thus structural relief and limestone karst processes operate together."
+    },
+    {
+        q: "Which of the following coastal settings is most favourable for the formation of a large delta?",
+        opts: [
+            "A steep coast with strong wave attack and little sediment accumulation",
+            "A low-energy, shallow coastal margin receiving a high sediment load from a river",
+            "A tectonically subsiding coast with negligible fluvial sediment supply",
+            "A rocky coast dominated by tidal scour and deep offshore waters"
+        ],
+        ans: 1,
+        exp: "Large deltas require substantial sediment supply and conditions that allow the sediment to accumulate faster than it is removed by waves, tides and currents. India's east coast is particularly favourable because major rivers such as the Mahanadi, Godavari, Krishna and Cauvery deliver large sediment loads to a relatively shallow shelf. Estuaries, in contrast, commonly develop where marine processes are stronger relative to fluvial deposition."
+    },
+    {
+        q: "Consider the following pairs:<br>Pass : Mountain range in which it lies<br>1. Banihal Pass : Pir Panjal Range<br>2. Khardung La : Ladakh Range<br>3. Karakoram Pass : Zaskar Range<br>How many of the above pairs are correctly matched?",
+        opts: [
+            "All three",
+            "Only one",
+            "Only two",
+            "None"
+        ],
+        ans: 2,
+        exp: "The Banihal Pass lies in the Pir Panjal Range, the largest and westernmost range of the Lesser Himalaya, and is bypassed by the Jawahar Tunnel. Khardung La lies in the Ladakh Range north of Leh and gives access to the Nubra and Shyok valleys. The Karakoram Pass lies in the Karakoram Range on the Ladakh-Xinjiang route, not in the Zaskar Range, so pair 3 is wrongly matched."
+    },
+    {
+        q: "With reference to the legal and institutional framework for the conservation of lakes and wetlands in India, consider the following statements:<br>1. The Wetlands (Conservation and Management) Rules, 2017 have been framed under the Wildlife (Protection) Act, 1972.<br>2. The National Plan for Conservation of Aquatic Ecosystems (NPCA) was formed by merging the National Lake Conservation Plan with the Namami Gange Programme.<br>3. Under the 2017 Rules, State Wetland Authorities identify and notify wetlands within their States, while a National Wetland Committee plays an advisory role.<br>Which one of the statements given above is correct?",
+        opts: [
+            "1 only",
+            "1 and 2 only",
+            "3 only",
+            "2 only"
+        ],
+        ans: 2,
+        exp: "The 2017 Rules replaced the 2010 Rules and decentralised wetland management to State Wetland Authorities, with a National Wetland Committee advising and coordinating. The Rules are framed under the Environment (Protection) Act, 1986 and not the Wildlife (Protection) Act. The NPCA was formed by merging the National Lake Conservation Plan and the National Wetlands Conservation Programme, not the Namami Gange Programme."
+    },
+    {
+        q: "With reference to the geological origin and composition of the island groups of India, which one of the following statements is correct?",
+        opts: [
+            "All islands of the Nicobar group are low-lying coral atolls like those of Lakshadweep.",
+            "Barren Island is an extinct volcano with no recorded eruption in recent decades.",
+            "The Lakshadweep islands are volcanic peaks rising from the Deccan Trap region.",
+            "The Andaman and Nicobar Islands are generally regarded as the elevated portions of a submerged mountain chain that is an extension of the Arakan Yoma."
+        ],
+        ans: 3,
+        exp: "The Andaman and Nicobar chain is considered the exposed crest of a submerged mountain range linked to the Arakan Yoma of Myanmar. The Lakshadweep islands are coral atolls, not volcanic peaks of the Deccan Trap. Barren Island is an active volcano, and the Nicobar group includes hilly islands such as Great Nicobar, so options (a), (c) and (d) are wrong."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-41 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

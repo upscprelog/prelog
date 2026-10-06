@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-82</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "With reference to constitutional offices in India, consider the following statements: <br>1. The Comptroller and Auditor General of India (CAG) can be removed from office only in a manner similar to that applicable to a judge of the Supreme Court. <br>2. The salary and allowances of the CAG are charged on the Consolidated Fund of India. <br>3. A person who has held the office of CAG is eligible for further office under the Government of India or any State after retirement. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "Both 2 and 3",
+            "1 and 3 only",
+            "Statement 3 alone"
+        ],
+        ans: 0,
+        exp: "Article 148 provides that the CAG can be removed only in the same manner as a Supreme Court judge, and his salary is charged on the Consolidated Fund of India, making both statements true. However, Article 148(4) explicitly bars the CAG from holding any further office under the Government of India or any State after ceasing to hold the post, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the functions and powers of political parties and the Election Commission in relation to them, consider the following statements: <br>1. Political parties perform the function of aggregating diverse societal interests and articulating them into coherent policy alternatives before the electorate. <br>2. The Election Commission of India has express and unrestricted power under the Representation of the People Act, 1951 to deregister any political party that has not contested elections for a certain number of consecutive years. <br>3. Registration of a political party under Section 29A of the Representation of the People Act, 1951 automatically confers upon it the status of a 'recognised' national or state party. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "Both 1 and 2",
+            "1 and 3 only",
+            "Only statement 3"
+        ],
+        ans: 0,
+        exp: "Aggregating and articulating diverse interests into policy alternatives is a well-recognised core function of political parties. The Supreme Court, in Indian National Congress (I) v. Institute of Social Welfare (2002), held that the ECI's power to deregister a party is limited to specific grounds like fraud in registration, and registration under Section 29A is distinct from 'recognition' as a national or state party, which is separately governed by the Election Symbols (Reservation and Allotment) Order, 1968."
+    },
+    {
+        q: "With reference to challenges associated with the Delimitation Commission's future exercises in India, consider the following statements: <br>1. States that have achieved greater success in population control fear a relative decline in their share of Lok Sabha seats once delimitation is based on current population figures. <br>2. Under the Constitution (One Hundred and Sixth Amendment) Act, 2023 (Nari Shakti Vandan Adhiniyam), the 33% reservation for women in the Lok Sabha and State Legislative Assemblies is to take effect only after a delimitation exercise based on the first Census conducted after the Act's commencement. <br>3. Since the seat freeze is based on the 1971 Census, there is no constitutional requirement for a fresh Census to precede any future delimitation exercise. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 2,
+        exp: "Southern and other demographically better-performing States have expressed concern about losing relative seat share once delimitation shifts to current population data, and the Nari Shakti Vandan Adhiniyam explicitly ties women's reservation to a delimitation exercise following the first Census after its commencement. However, the constitutional scheme requires a fresh Census after the freeze period before any future delimitation can proceed, contrary to statement 3."
+    },
+    {
+        q: "With reference to the features of the Representation of the People Act, 1951, consider the following statements: <br>1. The Act was enacted under the residuary powers of Parliament, since elections were not covered under any List of the Seventh Schedule at the time of its enactment. <br>2. The Act provides for the delimitation of constituencies and the preparation of electoral rolls for elections to Parliament and State Legislatures. <br>3. The Act lays down provisions relating to corrupt practices and other electoral offences in relation to elections to Parliament and State Legislatures. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "2 only",
+            "1 only",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "The Representation of the People Act, 1951 deals with the actual conduct of elections, including corrupt practices and electoral offences, making statement 3 correct. Delimitation and preparation of electoral rolls fall instead under the Representation of the People Act, 1950, and elections have always been placed under the Union List (via Article 327), so the residuary powers claim is incorrect."
+    },
+    {
+        q: "With reference to important Acts and amendments relating to electoral reforms in India, consider the following statements: <br>1. The Model Code of Conduct for elections has full statutory backing, being enacted as a distinct chapter of the Representation of the People Act, 1951. <br>2. The Representation of the People (Amendment) Act, 1988 inserted provisions enabling the use of Electronic Voting Machines in elections. <br>3. The requirement for candidates to disclose their criminal antecedents, assets, and liabilities in nomination papers originated purely on the government's own initiative, without any Supreme Court intervention. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 only",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "The 1988 Amendment Act inserted Section 61A into the RPA, 1951, enabling the use of voting machines in elections, even though widespread use came later. The Model Code of Conduct, by contrast, is not a statutory instrument at all; it rests on political consensus enforced by the ECI's administrative authority, and the disclosure requirement for candidates originated from the Supreme Court's directions in the Association for Democratic Reforms case (2002), not purely from government initiative."
+    },
+    {
+        q: "With reference to constitutional provisions relating to the Finance Commission of India, consider the following statements: <br>1. The Finance Commission is constituted by the President of India under Article 280 of the Constitution every five years or earlier, as deemed necessary. <br>2. The recommendations of the Finance Commission are binding on the Union Government under the express provisions of the Constitution. <br>3. The qualifications for appointment as members of the Finance Commission, other than the Chairman, are laid down directly in the constitutional text itself. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1 only",
+            "1, 2 and 3"
+        ],
+        ans: 2,
+        exp: "Article 280 provides for constitution of the Finance Commission by the President every five years or earlier. Its recommendations, however, are advisory in nature and not constitutionally binding, though conventionally accepted, and Article 280(3) leaves it to Parliament to prescribe by law (the Finance Commission Act, 1951) the qualifications of members, rather than specifying them in the Constitution itself."
+    },
+    {
+        q: "With reference to the functions and powers of the Delimitation Commission in India, consider the following statements: <br>1. The total number of seats to be allocated to each State in the Lok Sabha is determined solely by the Delimitation Commission, without reference to any Act of Parliament. <br>2. Once notified, the orders of the Delimitation Commission cannot be challenged before any court of law. <br>3. The Chairman of the Delimitation Commission is nominated by the Election Commission of India from among its own members. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "Only statement 2",
+            "Both 1 and 3",
+            "Only two of the statements are correct"
+        ],
+        ans: 1,
+        exp: "Article 329(a), read with the Delimitation Act, bars any court challenge to the Commission's orders. However, the total seats per State flow from figures already fixed by the relevant Delimitation Act of Parliament, not decided independently by the Commission, and the Chairman is a retired Supreme Court judge appointed by the Central Government, not nominated by the ECI."
+    },
+    {
+        q: "With reference to reforms in the Right to Information (RTI) regime in India, consider the following statements: <br>1. The Right to Information (Amendment) Act, 2019 empowered the Central Government to prescribe the term of office of the Chief Information Commissioner and Information Commissioners, both at the Centre and in the States. <br>2. Prior to the 2019 amendment, the salary of the Chief Information Commissioner was equivalent to that of a Judge of the Supreme Court. <br>3. The Second Administrative Reforms Commission, in its report on RTI, recommended greater proactive (suo motu) disclosure of information by public authorities under Section 4 of the RTI Act. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 3",
+            "Exactly one of the statements is correct",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "The RTI Amendment Act, 2019 gave the Central Government the power to prescribe the term and service conditions of Information Commissioners, and the Second ARC's report did call for enhanced suo motu disclosure under Section 4. However, prior to 2019, the CIC's salary and status were equivalent to that of an Election Commissioner, not a Supreme Court judge, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to the structure and composition of laws governing elections in India, consider the following statements: <br>1. The Representation of the People Act, 1950 mainly deals with the allocation of seats, delimitation of constituencies, and preparation of electoral rolls. <br>2. The Representation of the People Act, 1951 provides for election disputes to be adjudicated by specially constituted Election Tribunals, distinct from the ordinary judiciary. <br>3. The Representation of the People Act, 1951 contains provisions relating to corrupt practices and electoral offences in relation to elections to Parliament and State Legislatures. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "The RPA, 1950 governs seat allocation, delimitation, and electoral rolls, while the RPA, 1951 governs corrupt practices and electoral offences relating to the actual conduct of elections. Separate Election Tribunals, which originally existed under the 1951 Act, were abolished by the Election Laws (Amendment) Act, 1966, after which election petitions came to be heard directly by the High Courts."
+    },
+    {
+        q: "The concept of \"epistolary jurisdiction,\" under which the Supreme Court began treating letters addressed to a judge highlighting matters of public importance as writ petitions, is most closely associated with which of the following judges, widely regarded as one of the principal architects of Public Interest Litigation in India?",
+        opts: [
+            "Justice Y.V. Chandrachud",
+            "Justice H.R. Khanna",
+            "Justice A.N. Ray",
+            "Justice P.N. Bhagwati"
+        ],
+        ans: 3,
+        exp: "Justice P.N. Bhagwati, along with Justice V.R. Krishna Iyer, is credited as one of the principal architects of PIL and epistolary jurisdiction in India, having pioneered the practice of converting letters and postcards from aggrieved persons into writ petitions from the late 1970s. Justice H.R. Khanna is chiefly remembered for his dissent in the ADM Jabalpur case, while Justices A.N. Ray and Y.V. Chandrachud, though important figures of the era, are not identified with originating this practice."
+    },
+    {
+        q: "With reference to the classification of pressure groups, as commonly discussed in Indian polity, consider the following statements: <br>1. Institutional pressure groups are those which emerge spontaneously and are usually short-lived, such as a crowd indulging in violence over a specific grievance. <br>2. Associational pressure groups are formally organised groups with professional staff, explicitly formed to articulate the interests of their members, such as trade unions and business chambers. <br>3. Non-associational pressure groups, based on kinship, caste, or ethnicity, are typically characterised by a high degree of formal organisation and professional leadership. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 only",
+            "1, 2 and 3",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "Associational pressure groups, such as trade unions and chambers of commerce, are indeed formally organised bodies with dedicated staff representing member interests. The description in statement 1 actually fits 'anomic' groups, which are spontaneous and short-lived, not institutional groups, which are formal bodies embedded within governmental structures like the bureaucracy or army. Non-associational groups, by contrast, are typically loosely organised and informal, not highly structured."
+    },
+    {
+        q: "With reference to the structure of decision-making under the anti-defection law (Tenth Schedule) in India, consider the following statements: <br>1. The question of disqualification on the ground of defection is decided by the Election Commission of India. <br>2. The Tenth Schedule does not provide for any independent tribunal; the Presiding Officer of the House concerned is the deciding authority in matters of disqualification. <br>3. Recommendations to shift decision-making power on disqualification from the Presiding Officer to an independent authority have been rejected by every parliamentary and expert committee that has examined the issue. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "Exactly one of the statements is correct",
+            "Both 1 and 3",
+            "Both 2 and 3"
+        ],
+        ans: 1,
+        exp: "The Tenth Schedule vests the power to decide questions of disqualification in the Speaker or Chairman of the House concerned, with no separate tribunal created for the purpose. The Election Commission has no role in this specific decision, and far from being uniformly rejected, several bodies including the Dinesh Goswami Committee, the Law Commission's 170th Report, and the Election Commission have themselves recommended shifting this power to an independent authority."
+    },
+    {
+        q: "With reference to the emergence of pressure groups in India, consider the following statements: <br>1. FICCI (Federation of Indian Chambers of Commerce and Industry) was established during the colonial period, prior to independence. <br>2. Pressure groups in India enjoy explicit recognition under the Constitution as instruments of interest articulation. <br>3. The All India Trade Union Congress (AITUC), formed in 1920, represents one of the earliest organised trade union movements functioning as a pressure group in India. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "FICCI was founded in 1927, well before independence, and the AITUC, formed in 1920, is recognised as one of India's earliest organised trade union pressure groups. Unlike political parties, however, pressure groups have no explicit constitutional recognition in India, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to the structure and composition of the Union Public Service Commission (UPSC), consider the following statements: <br>1. The Union Public Service Commission consists of a Chairman and other members, the number of which is determined by the President of India from time to time. <br>2. Members of the Union Public Service Commission hold office for a term of six years from the date of taking charge, or until the age of sixty-two, whichever is earlier. <br>3. The Constitution provides that, as nearly as may be, one-half of the members of the UPSC shall be persons who have held office for at least ten years under the Government of India or a State. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "Article 316 empowers the President to determine the strength of the Commission and provides that, as nearly as may be, half its members should have at least ten years of prior government service. However, UPSC members hold office until the age of sixty-five, not sixty-two; the age of sixty-two applies specifically to members of State Public Service Commissions."
+    },
+    {
+        q: "With reference to the Second Administrative Reforms Commission (ARC), consider the following statements: <br>1. It was constituted in 2005 under the chairmanship of Veerappa Moily. <br>2. Its first report recommended the enactment of a new Right to Information law to replace the existing RTI Act, 2005. <br>3. It submitted its recommendations directly to Parliament, bypassing the Union Government. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "2 only",
+            "1 only",
+            "3 only"
+        ],
+        ans: 2,
+        exp: "The Second ARC was indeed constituted in 2005 under Veerappa Moily's chairmanship. However, its first report, titled 'Right to Information: Master Key to Good Governance,' worked within the existing RTI Act, 2005, recommending better implementation rather than a replacement law, and like all ARC reports, it was submitted as recommendations to the Union Government, not directly to Parliament."
+    },
+    {
+        q: "With reference to Good Governance Day observed in India, consider the following statements: <br>1. Good Governance Day, observed on 25 December, marks the birth anniversary of former Prime Minister Atal Bihari Vajpayee. <br>2. The Good Governance Index, used to assess States and Union Territories, was first launched in the year 2014, the same year Good Governance Day was instituted. <br>3. The 28th National Conference on e-Governance was held in Visakhapatnam, Andhra Pradesh in September 2025. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 and 3 only",
+            "3 only",
+            "None of the statements are correct"
+        ],
+        ans: 1,
+        exp: "Good Governance Day has been observed on 25 December since 2014 to honour Atal Bihari Vajpayee, and the 28th National Conference on e-Governance was indeed held in Visakhapatnam in September 2025. However, the Good Governance Index, though administered by the same nodal department (DARPG), was launched only in 2021, seven years after Good Governance Day was instituted, not in the same year."
+    },
+    {
+        q: "With reference to the background and evolution of the office of the Attorney General for India, consider the following statements: <br>1. The office was established in 1947, immediately upon India's independence, through a Presidential Order. <br>2. The Attorney General holds office during the pleasure of Parliament and can be removed only through an impeachment-like process similar to that of a Supreme Court judge. <br>3. M. C. Setalvad, who served from 1950 to 1963, remains to date the longest-serving Attorney General of India. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "3 only",
+            "1 and 2 only",
+            "2 only"
+        ],
+        ans: 1,
+        exp: "M. C. Setalvad served as India's first Attorney General from 1950 to 1963 and remains the longest-serving occupant of that office. The office itself is created under Article 76 of the Constitution, which came into effect in 1950, not through any 1947 Presidential Order, and the Attorney General holds office during the pleasure of the President, with no impeachment-type removal process prescribed."
+    },
+    {
+        q: "With reference to the previous trends in UPSC Prelims questions on 'good governance', which one of the following best reflects a recurring examined theme? <br>Good governance frameworks, as commonly tested, typically emphasise which of the following as core characteristics? <br>1. Accountability and transparency in public administration. <br>2. Exclusive decision-making by career bureaucrats, without any role for elected representatives. <br>3. Responsiveness of the administration to citizens' needs. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 2,
+        exp: "UPSC has repeatedly tested the core characteristics of good governance drawn from frameworks such as the UNDP's, which include accountability, transparency, and responsiveness to citizens. Good governance does not imply exclusive control by bureaucrats; it is explicitly participatory, involving elected representatives, civil society, and the private sector together."
+    },
+    {
+        q: "With reference to reforms and recommendations concerning the regulation of pressure groups in India, consider the following statements: <br>1. India currently has a comprehensive, dedicated law regulating lobbying activities by pressure and interest groups vis-à-vis public officials, similar to the Lobbying Disclosure Act of the United States. <br>2. The Second Administrative Reforms Commission, in its report on 'Ethics in Governance', highlighted the need for greater transparency in interactions between pressure/interest groups and public officials. <br>3. The National Commission to Review the Working of the Constitution (2000–2002) recommended a constitutional amendment to bar pressure groups from engaging with the legislature or executive on policy matters. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "2 only",
+            "Statement 3 alone",
+            "Both 2 and 3"
+        ],
+        ans: 1,
+        exp: "The Second ARC's 'Ethics in Governance' report did flag the need for greater transparency in dealings between interest groups and public officials as part of broader governance reforms. India, however, has no dedicated lobbying-regulation law comparable to the US model, and no such recommendation to bar pressure groups from engaging with government was made by the NCRWC, which would in any case run counter to democratic participation."
+    },
+    {
+        q: "With reference to pressure groups in India, consider the following statements: <br>1. Pressure groups seek to capture political power directly by contesting and winning elections. <br>2. Organisations such as trade unions and business chambers like FICCI and CII function as pressure groups. <br>3. Unlike political parties, pressure groups in India generally possess a well-organised and unified national structure. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 only",
+            "1 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "Pressure groups differ from political parties in that they seek to influence government policy rather than capture power through elections, so statement 1 is incorrect. Trade unions and business chambers such as FICCI and CII are classic examples of pressure groups, but most Indian pressure groups, unlike parties, tend to be fragmented and lack a unified national structure, making statement 3 incorrect too."
+    },
+    {
+        q: "With reference to the structure and composition of the Central Information Commission under the RTI Act, 2005, consider the following statements: <br>1. The Central Information Commission consists of a Chief Information Commissioner and not more than ten Information Commissioners. <br>2. Members of the Central Information Commission are appointed by the President on the recommendation of a committee consisting of the Prime Minister, the Chief Justice of India, and the Leader of Opposition in the Lok Sabha. <br>3. Prior to the RTI (Amendment) Act, 2019, the term of the Chief Information Commissioner was fixed at three years from the date of assuming office. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "All three statements are correct",
+            "Statement 3 alone",
+            "Both 1 and 3",
+            "Statement 1 alone"
+        ],
+        ans: 3,
+        exp: "The RTI Act, 2005 provides for a Chief Information Commissioner and up to ten Information Commissioners. The selection committee for appointment actually comprises the Prime Minister, the Leader of Opposition in the Lok Sabha, and a Union Cabinet Minister nominated by the Prime Minister, not the Chief Justice of India, and the original term was five years or up to age 65, whichever was earlier, not a fixed three years."
+    },
+    {
+        q: "Consider the following Assertion (A) and Reason (R): <br>Assertion (A): Political parties act as an essential link between the people and the government in a democracy. <br>Reason (R): The Constitution of India explicitly defines a 'political party' and lays down the procedure for its registration. <br>Select the correct answer using the codes given below:",
+        opts: [
+            "Both A and R are true but R is not the correct explanation of A",
+            "A is true but R is false",
+            "Both A and R are true and R is the correct explanation of A",
+            "A is false but R is true"
+        ],
+        ans: 1,
+        exp: "Political parties do serve as intermediaries channelling public opinion into governance, making A true. However, the Constitution itself does not define 'political party' or its registration procedure; this is instead governed by Section 29A of the Representation of the People Act, 1951, and by the Election Commission's Election Symbols (Reservation and Allotment) Order, 1968, making R false."
+    },
+    {
+        q: "With reference to the background and evolution of the concept of 'good governance', consider the following statements: <br>1. The term 'governance crisis' was first employed by the World Bank in its 1989 report on Sub-Saharan Africa, contributing to the global emphasis on good governance. <br>2. The UNDP's 1997 policy paper on governance elaborated key characteristics of good governance, including participation, transparency, and accountability. <br>3. In India, the concept of good governance found its first legal expression through the 42nd Constitutional Amendment Act, 1976, which explicitly introduced the term into the Preamble. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "Only one of the statements is correct",
+            "All of the statements are correct",
+            "Statement 1 alone"
+        ],
+        ans: 0,
+        exp: "The World Bank's 1989 report on Sub-Saharan Africa first used the term 'governance crisis', and the UNDP's 1997 policy paper laid out core characteristics of good governance such as participation, transparency, and accountability. The 42nd Amendment added 'Socialist', 'Secular', and 'Integrity' to the Preamble, but the term 'good governance' does not appear anywhere in the Constitution."
+    },
+    {
+        q: "With reference to the features of the Election Commission of India, consider the following statements: <br>1. The Chief Election Commissioner can be removed from office only through a process similar to the removal of a Supreme Court judge. <br>2. Other Election Commissioners can be removed from office in the same manner as the Chief Election Commissioner, without requiring any recommendation from the CEC. <br>3. Under the CEC and other ECs (Appointment, Conditions of Service and Term of Office) Act, 2023, the selection committee for appointing the CEC and ECs includes the Chief Justice of India as a permanent member. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "3 only",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "Article 324(5) provides that the Chief Election Commissioner can be removed only in the manner of a Supreme Court judge, i.e., through an impeachment-like process. Other Election Commissioners, however, can be removed only on the recommendation of the CEC, not through the same direct process, and the 2023 Act's selection committee comprises the Prime Minister, the Leader of Opposition in the Lok Sabha, and a Union Cabinet Minister nominated by the PM, not the Chief Justice of India."
+    },
+    {
+        q: "With reference to recurring themes in UPSC Prelims questions on the Right to Information Act, 2005, consider the following statements: <br>1. A private body that is substantially financed, directly or indirectly, by government funds can be treated as a 'public authority' and brought within the ambit of the Act. <br>2. Section 8(1) of the Act provides an absolute and unconditional exemption for all categories of information listed therein, regardless of any larger public interest involved. <br>3. Organisations specified in the Second Schedule of the Act, such as intelligence and security organisations, are completely exempt from the Act under all circumstances, including allegations of corruption and human rights violations. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 3",
+            "1 only",
+            "2 and 3 only",
+            "None of the above"
+        ],
+        ans: 1,
+        exp: "Section 2(h) of the RTI Act defines 'public authority' broadly to include bodies substantially financed by government funds, bringing many such private and NGO entities within its scope. However, Section 8(2) allows disclosure of even exempted information where larger public interest so demands, and the proviso to Section 24 clarifies that the exemption for intelligence and security organisations does not extend to information relating to allegations of corruption or human rights violations."
+    },
+    {
+        q: "With reference to the functions and powers of pressure groups in India, consider the following statements: <br>1. Pressure groups perform the function of providing specialised information and technical expertise to policymakers on issues relevant to their members' interests. <br>2. Pressure groups possess a constitutional power to directly veto or strike down any legislative or executive decision adverse to their members' interests. <br>3. Pressure groups such as environmental and civil rights organisations in India have used Public Interest Litigation as a tool to influence public policy and administrative action. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 2",
+            "1 and 3 only",
+            "Only statement 3",
+            "Only statement 1"
+        ],
+        ans: 1,
+        exp: "Pressure groups genuinely serve the function of channelling specialised expertise to policymakers and, in India, have frequently used PIL as a tool to shape policy and administrative decisions. They possess no formal constitutional veto power over legislative or executive decisions; their influence operates informally, through lobbying, litigation, and mobilisation of opinion rather than any binding authority."
+    },
+    {
+        q: "Which one of the following actions would NOT result in the disqualification of a member of a House under the Tenth Schedule (anti-defection law) of the Constitution?",
+        opts: [
+            "A member nominated to the House joins a political party eight months after taking his seat, without any exemption",
+            "A member votes contrary to a direction issued by his political party, and such voting is condoned by the party within fifteen days",
+            "An independent candidate elected to the House joins a political party after the election",
+            "A member voluntarily gives up the membership of his political party"
+        ],
+        ans: 1,
+        exp: "Under paragraph 2(1)(b) of the Tenth Schedule, a member who votes or abstains contrary to a party whip is not disqualified if the party condones the act within fifteen days. In contrast, an independent joining a party, a nominated member joining a party after the six-month grace period, and voluntarily giving up party membership are all clear, well-established grounds for disqualification."
+    },
+    {
+        q: "With reference to provisions of the Representation of the People Act, 1951, consider the following statements: <br>1. A person convicted of an offence and sentenced to imprisonment for two years or more stands disqualified from contesting elections. <br>2. In Lily Thomas v. Union of India (2013), the Supreme Court struck down the provision that allowed a sitting Member of Parliament or a State Legislature three months to file an appeal before disqualification took effect upon conviction. <br>3. The 'None of the Above' (NOTA) option was introduced through an amendment to the Representation of the People Act, 1951 itself. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "Section 8 of the RPA, 1951 disqualifies a person convicted and sentenced to two years or more, and in Lily Thomas (2013), the Supreme Court struck down Section 8(4), which had earlier shielded sitting legislators from immediate disqualification pending appeal. NOTA, however, was introduced following the Supreme Court's directive in PUCL v. Union of India (2013) through an amendment to the Conduct of Election Rules, 1961, not the RPA itself."
+    },
+    {
+        q: "With reference to reforms recommended for the Representation of the People Act, 1951, consider the following statements: <br>1. The Election Commission of India has recommended that a candidate against whom charges have been framed for an offence punishable with imprisonment of five years or more, at least six months before an election, should be barred from contesting. <br>2. The Law Commission of India, in its 170th Report, recommended immediate and complete State funding of election expenses for all contesting candidates. <br>3. The Constitution was amended through the Representation of the People Act, 1951 to make maintenance of a common electoral roll for Union and State elections a constitutional requirement. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 3 alone",
+            "None of the above",
+            "1 only",
+            "Both 1 and 2"
+        ],
+        ans: 2,
+        exp: "The ECI has indeed recommended debarring candidates facing framed charges in serious offences from contesting. The 170th Law Commission Report recommended State funding only in a phased, conditional manner tied to other reforms, not immediate and complete funding, and the requirement of a common electoral roll flows from Article 325 of the Constitution itself, not from any RPA amendment."
+    },
+    {
+        q: "With reference to recent developments in India's electoral finance reforms, consider the following statements: <br>1. The Electoral Bonds Scheme, introduced through the Finance Act, 2017, was primarily designed to ensure complete public transparency by mandatorily disclosing donor identities. <br>2. In February 2024, the Supreme Court declared the Electoral Bonds Scheme unconstitutional, holding it violative of the right to information implicit in Article 19(1)(a) of the Constitution. <br>3. Following the Supreme Court's verdict, the State Bank of India was directed to disclose details of electoral bonds purchased since April 2019 to the Election Commission of India. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 1",
+            "Exactly two of the statements are correct",
+            "Both 1 and 3",
+            "Only statement 2"
+        ],
+        ans: 1,
+        exp: "On 15 February 2024, a five-judge Constitution Bench unanimously struck down the Electoral Bonds Scheme as violative of the voter's right to information under Article 19(1)(a), and directed SBI to disclose bond purchase details since April 2019 to the ECI for publication. The scheme, however, was designed to keep donor identities anonymous, not to ensure transparency, which was precisely the basis on which it was struck down."
+    },
+    {
+        q: "With reference to the structural requirements for political parties in India, consider the following statements: <br>1. To be registered under Section 29A of the Representation of the People Act, 1951, a party's constitution or rules must provide for periodic organisational elections and a commitment to uphold the sovereignty and integrity of India. <br>2. Under the Election Symbols (Reservation and Allotment) Order, 1968, a party is recognised as a 'national party' if it secures at least six percent of valid votes polled in any two States in a Lok Sabha election, regardless of seats won. <br>3. There is no requirement for a party seeking registration under Section 29A to submit a copy of its memorandum or rules and regulations to the Election Commission. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "1, 2 and 3",
+            "1 only",
+            "Only statement 3"
+        ],
+        ans: 2,
+        exp: "Section 29A requires that a party's constitution provide for periodic organisational elections and an explicit commitment to the sovereignty, integrity, and democratic character of India. The actual 'national party' criteria under the Symbols Order require 6% valid votes in four or more States along with winning at least four Lok Sabha seats, not merely 6% votes in two States, and Section 29A explicitly mandates submission of the party's memorandum and rules with the application."
+    },
+    {
+        q: "With reference to the anti-defection law in India, consider the following statements: <br>1. The Tenth Schedule of the Constitution, dealing with disqualification on grounds of defection, was inserted by the 52nd Constitutional Amendment Act, 1985. <br>2. The 91st Constitutional Amendment Act, 2003 removed the earlier protection available to a splinter group of one-third of a party's legislators from disqualification. <br>3. The decision of the Presiding Officer of a House on a question of disqualification under the Tenth Schedule is final and is not subject to judicial review. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "2 and 3 only",
+            "Both 1 and 3",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 0,
+        exp: "The Tenth Schedule was added by the 52nd Amendment (1985), and the 91st Amendment (2003) deleted the earlier 'split' exception that had protected one-third breakaway groups from disqualification. However, in the Kihoto Hollohan case (1992), the Supreme Court held that the Presiding Officer's decision under the Tenth Schedule is subject to judicial review on limited grounds, so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to persistent challenges and issues in India's electoral reforms, consider the following statements: <br>1. The Election Commission of India has the power to reject the nomination of any candidate merely on the basis of criminal cases pending against them, even without conviction. <br>2. The expenditure ceiling prescribed under the Conduct of Election Rules, 1961 applies to individual candidates, but there is no corresponding legal ceiling on the total expenditure incurred by a political party. <br>3. 'Paid news' is explicitly defined and made a distinct criminal offence under the Representation of the People Act, 1951. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "All of the above",
+            "Both 1 and 3",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 3,
+        exp: "There is indeed no statutory ceiling on total expenditure by a political party, even though individual candidate expenditure is capped, a long-standing loophole flagged by the ECI and Law Commission. The ECI cannot reject a nomination merely on pending criminal cases without conviction, and 'paid news' is not explicitly defined or made a distinct offence under the RPA, 1951, being addressed instead through ECI guidelines and the Model Code of Conduct."
+    },
+    {
+        q: "With reference to the features of 'good governance' as commonly understood in Indian and international discourse, consider the following statements: <br>1. Good governance mandates the exclusion of the private sector and civil society from any role in public administration. <br>2. Good governance is explicitly listed as a Fundamental Right under Part III of the Constitution of India. <br>3. Good governance emphasises accountability, transparency, responsiveness, and rule of law, as reflected in frameworks such as that of the UNDP. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "None of the statements are correct",
+            "Exactly one of the statements is correct",
+            "Both 2 and 3"
+        ],
+        ans: 2,
+        exp: "Good governance frameworks, such as the UNDP's, characteristically emphasise accountability, transparency, rule of law, and responsiveness as core features. Good governance is participatory, involving the state, market, and civil society together rather than excluding them, and it is not explicitly named as a Fundamental Right anywhere in Part III of the Constitution."
+    },
+    {
+        q: "With reference to constitutional and legal provisions related to good governance in India, consider the following statements: <br>1. The Supreme Court has held that the right to information is implicit in the fundamental right to freedom of speech and expression under Article 19(1)(a). <br>2. Article 37 states that the Directive Principles of State Policy, though not enforceable by any court, are nevertheless fundamental in the governance of the country. <br>3. The Lokpal and Lokayuktas Act, 2013 provides for the Lokpal to be established at the level of States and the Lokayukta at the level of the Union. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "The Supreme Court, even before the RTI Act was enacted, read the right to information into Article 19(1)(a), and Article 37 explicitly declares the Directive Principles non-justiciable yet fundamental to governance. Statement 3 reverses the actual arrangement: the Lokpal is the anti-corruption ombudsman at the Union level, while Lokayuktas function at the State level, making it incorrect."
+    },
+    {
+        q: "With reference to the evolution of the Right to Information (RTI) regime in India, consider the following statements: <br>1. The Freedom of Information Act, 2002, enacted by Parliament, was never brought into force. <br>2. The Right to Information Act, 2005 repealed the Freedom of Information Act, 2002. <br>3. Rajasthan was the first State in India to enact a law on the right to information. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "The Freedom of Information Act, 2002 was passed by Parliament but never notified into force, and it stood repealed once the RTI Act, 2005 came into effect. Tamil Nadu (1997) preceded Rajasthan in enacting a state-level right to information law, so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to important amendments to the Right to Information (RTI) framework in India, consider the following statements: <br>1. The RTI Act, 2005 received Presidential assent on 15 June 2005, and all its provisions, including those relating to Public Information Officers, came into force immediately from that date. <br>2. The RTI (Amendment) Act, 2019 altered provisions relating to the tenure and salary of the Chief Information Commissioner and Information Commissioners at both the Union and State levels. <br>3. The RTI Act, 2005 has applied to the whole of India, including the erstwhile State of Jammu and Kashmir, without exception, since its original enactment in 2005. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 only",
+            "All of the above",
+            "Only statement 2"
+        ],
+        ans: 3,
+        exp: "The RTI (Amendment) Act, 2019 empowered the Central Government to prescribe the term, salary, and conditions of service of Information Commissioners at both levels. Although the Act received assent on 15 June 2005, most substantive provisions came into force only after 120 days, on 12 October 2005, and the RTI Act, 2005 originally did not extend to Jammu and Kashmir, which had its own separate RTI Act until the 2019 reorganisation."
+    },
+    {
+        q: "With reference to the functions and powers of the Election Commission of India, consider the following statements: <br>1. The Election Commission is empowered under Article 324 of the Constitution to superintend, direct, and control the preparation of electoral rolls and the conduct of elections to Parliament, State Legislatures, and the offices of President and Vice-President. <br>2. Under Article 103, the Election Commission has the final and binding power to decide questions relating to disqualification of a sitting Member of Parliament, without any role for the President. <br>3. Election petitions challenging the validity of an election are adjudicated by the Election Commission itself, acting in a quasi-judicial capacity. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "Article 324 vests the ECI with superintendence, direction, and control over the preparation of electoral rolls and conduct of elections to Parliament, State Legislatures, and the offices of President and Vice-President. Under Article 103, the ECI only tenders its opinion, with the final decision resting with the President, and election petitions are heard by the High Court concerned, not by the ECI."
+    },
+    {
+        q: "With reference to the functions and powers of the Lokpal under the Lokpal and Lokayuktas Act, 2013, consider the following statements: <br>1. The Lokpal has jurisdiction over the Prime Minister in respect of allegations of corruption, subject to certain safeguards such as exclusion of matters relating to international relations, security, public order, atomic energy, and space. <br>2. The Lokpal exercises superintendence over the Central Bureau of Investigation (CBI) in respect of all cases registered by the CBI, irrespective of whether they were referred by the Lokpal. <br>3. The Lokpal does not have the power to order attachment or confiscation of assets acquired through corrupt means during the pendency of a case. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 only",
+            "2 and 3 only",
+            "2 only"
+        ],
+        ans: 1,
+        exp: "The Lokpal has jurisdiction over the Prime Minister, but with specific carve-outs for sensitive matters like international relations and security, requiring a two-thirds majority of a Full Bench in camera to proceed. Its superintendence over the CBI is limited only to cases specifically referred to the CBI by the Lokpal, not all CBI cases, and it does have the power to order attachment or confiscation of ill-gotten assets even while a case is pending."
+    },
+    {
+        q: "With reference to recent developments concerning the Representation of the People Act, 1950, consider the following statements: <br>1. The Special Intensive Revision (SIR) of electoral rolls, launched by the Election Commission in Bihar in June 2025, was conducted under Section 21(3) of the Representation of the People Act, 1950, read with Article 324 of the Constitution. <br>2. In May 2026, the Supreme Court struck down the Special Intensive Revision exercise as unconstitutional, holding that the Election Commission lacked statutory power to conduct such a revision. <br>3. Following the Bihar pilot, the Election Commission announced an all-India rollout of the Special Intensive Revision across all States and Union Territories in phases during 2025-2026. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 and 2 only",
+            "2 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "The Bihar SIR, launched in June 2025, drew its legal basis from Section 21(3) of the RPA, 1950 read with Article 324, and was subsequently extended nationwide across all States and UTs in phases. In May 2026, the Supreme Court did not strike down the exercise; it instead upheld the Election Commission's constitutional and statutory authority to undertake such an intensive revision."
+    },
+    {
+        q: "With reference to the functions and powers of the Comptroller and Auditor General (CAG) of India, consider the following statements: <br>1. The CAG audits accounts related to expenditure from the Consolidated Fund of India and of each State, as well as expenditure from the Contingency Fund and Public Account. <br>2. In India, the CAG exercises control over the withdrawal of money from the Consolidated Fund, similar to the 'Comptroller' function performed by his counterpart in the United Kingdom. <br>3. Reports of the CAG relating to the accounts of the Union are submitted to the President, who causes them to be laid before each House of Parliament. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 and 3 only",
+            "Exactly one of the statements is correct",
+            "Only one of the statements is correct"
+        ],
+        ans: 1,
+        exp: "The CAG audits Union and State expenditure from the Consolidated Fund, Contingency Fund, and Public Account, and Union audit reports are submitted to the President for being laid before Parliament under Article 151. Unlike his UK counterpart, the Indian CAG does not control withdrawal of money from the Consolidated Fund; he functions purely as an auditor, auditing expenditure only after it has occurred."
+    },
+    {
+        q: "The Dinesh Goswami Committee on Electoral Reforms (1990) is best associated with which one of the following recommendations?",
+        opts: [
+            "Limited support to recognised political parties by the State in kind, such as vehicle fuel and stationery",
+            "Lowering the minimum age for voting from 18 years to 16 years",
+            "Introduction of Electronic Voting Machines in all future elections",
+            "Complete funding of election expenses of candidates by the State in cash"
+        ],
+        ans: 0,
+        exp: "The Dinesh Goswami Committee recommended partial state funding of elections in kind, extending limited facilities to recognised candidates, in order to curb the role of money power without burdening the public exchequer. Full cash funding, mandatory EVM adoption, and lowering the voting age were not among its core recommendations."
+    },
+    {
+        q: "With reference to the structure and composition of the Central Vigilance Commission (CVC), consider the following statements: <br>1. The Central Vigilance Commission is a constitutional body established directly under Article 148 of the Constitution. <br>2. The CVC was established in 1964 as an executive body on the recommendation of the Santhanam Committee on Prevention of Corruption and was later given statutory status through an Act of 2003. <br>3. The CVC consists of a Central Vigilance Commissioner and not less than four Vigilance Commissioners. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "Only statement 2",
+            "Exactly two of the statements are correct",
+            "Both 2 and 3"
+        ],
+        ans: 1,
+        exp: "The CVC was set up in 1964 as an executive resolution-based body on the Santhanam Committee's recommendation and was granted statutory status only through the CVC Act, 2003. It is a statutory body, not a constitutional one under Article 148 (that Article establishes the CAG), and by law it has a Central Vigilance Commissioner along with not more than two Vigilance Commissioners, not four or more."
+    },
+    {
+        q: "With reference to the background and evolution of the Delimitation Commission in India, consider the following statements: <br>1. The first Delimitation Commission in independent India was constituted in 1952 under the Delimitation Commission Act, 1952. <br>2. Delimitation exercises were carried out after every Census between 1951 and 2001, without any freeze on the process. <br>3. The Delimitation Commission constituted in 2020 under Justice Ranjana Prakash Desai was set up to redraw parliamentary and assembly constituencies across all States of India based on the 2011 Census. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 only",
+            "3 only"
+        ],
+        ans: 2,
+        exp: "The first post-independence Delimitation Commission was indeed constituted in 1952 under the Delimitation Commission Act of that year. In reality, delimitation was frozen after the 1971 Census through the 42nd and later 84th Constitutional Amendments, so no delimitation occurred based on the 1981 or 1991 Census, and the 2020 Commission under Justice Desai was constituted specifically for the Union Territory of Jammu & Kashmir (later extended to a few North-Eastern States), not for all States."
+    },
+    {
+        q: "With reference to pressure group activity in India during 2025, consider the following statements: <br>1. The Samyukt Kisan Morcha (SKM) has remained a single, unified body without any splinter groups since its formation in 2020. <br>2. In 2025, the SKM announced a major mobilisation for November 26, marking five years since the farmers' protest began at Delhi's borders. <br>3. The 'Corporations Quit India' day announced by the SKM in 2025 was observed on October 2, coinciding with Gandhi Jayanti. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "Both 2 and 3",
+            "Only one of the statements is correct",
+            "3 only"
+        ],
+        ans: 2,
+        exp: "The SKM announced November 26, 2025 as the date for a major 'showdown,' explicitly marking five years since the farmers' protest began at Delhi's borders in late 2020. The SKM has in fact split into distinct factions, including SKM (Non-Political) and the Kisan Mazdoor Morcha, and its 'Corporations Quit India' day was observed on August 13, 2025, not October 2."
+    },
+    {
+        q: "With reference to the Delimitation Commission in India, consider the following statements: <br>1. The freeze on the total number of seats in the Lok Sabha and State Legislative Assemblies, based on the 1971 Census, was first imposed through the 42nd Constitutional Amendment Act, 1976. <br>2. The 84th Constitutional Amendment Act, 2001 extended this freeze up to the year 2026. <br>3. The orders of the Delimitation Commission have the force of law and cannot be called in question before any court. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 3,
+        exp: "The 42nd Amendment (1976) froze seat numbers at 1971 Census levels, and the 84th Amendment (2001) extended this freeze to 2026 while still allowing readjustment of constituency boundaries within existing seats. Under the Delimitation Act, the Commission's orders are final and immune from judicial challenge, making all three statements correct."
+    },
+    {
+        q: "Which State in India was the first to enact a Right to Public Services Act, guaranteeing citizens time-bound delivery of specified government services?",
+        opts: [
+            "Bihar",
+            "Rajasthan",
+            "Madhya Pradesh",
+            "Karnataka"
+        ],
+        ans: 2,
+        exp: "Madhya Pradesh enacted the Madhya Pradesh Lok Seva Guarantee Adhiniyam in 2010, making it the first State in India to legally guarantee time-bound delivery of public services. Several other States, including Bihar and Rajasthan, followed with similar legislation only afterward."
+    },
+    {
+        q: "With reference to important constitutional amendments related to the anti-defection law in India, consider the following statements: <br>1. The Tenth Schedule was inserted into the Constitution by the 52nd Constitutional Amendment Act, 1985, during the tenure of Prime Minister Rajiv Gandhi. <br>2. The 91st Constitutional Amendment Act, 2003 restored the earlier exemption available to a group comprising one-third of a party's legislators who defected together, treating it as a valid split. <br>3. The 91st Constitutional Amendment Act, 2003 also inserted provisions limiting the total number of ministers in the Council of Ministers, at the Union and State levels, to fifteen percent of the total membership of the House concerned. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 3,
+        exp: "The Tenth Schedule was indeed inserted by the 52nd Amendment in 1985, under Rajiv Gandhi's government, and the 91st Amendment separately capped Council of Ministers' size at fifteen percent of House strength. Far from restoring the one-third split exemption, the 91st Amendment actually deleted it, tightening the anti-defection law by removing that earlier loophole."
+    },
+    {
+        q: "Consider the following Assertion (A) and Reason (R): <br>Assertion (A): The original text of the Constitution of India, as adopted in 1950, contained no direct reference to political parties. <br>Reason (R): It was only through the Tenth Schedule, inserted by the 52nd Constitutional Amendment Act, 1985, that political parties found explicit mention in the constitutional text. <br>Select the correct answer using the codes given below:",
+        opts: [
+            "A is true but R is false",
+            "Both A and R are true and R is the correct explanation of A",
+            "Both A and R are true but R is not the correct explanation of A",
+            "A is false but R is true"
+        ],
+        ans: 1,
+        exp: "The Constitution of 1950 did not define or mention political parties anywhere in its original text. This changed only with the 52nd Amendment Act of 1985, which inserted the Tenth Schedule and, for the first time, gave political parties explicit constitutional recognition, so R correctly explains A."
+    },
+    {
+        q: "With reference to important legal provisions relevant to pressure groups in India, consider the following statements: <br>1. The Trade Unions Act, 1926 provides the legal framework for the registration and functioning of trade unions, a common form of associational pressure group. <br>2. The Foreign Contribution (Regulation) Act, 2010, as amended in 2020, imposes an absolute prohibition on all Indian NGOs and voluntary associations from receiving any foreign contribution under any circumstances. <br>3. The Societies Registration Act, 1860 is a Central Act applicable exclusively to Union Territories, with every State mandatorily required to enact wholly separate legislation for registering societies. <br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "None of the statements are correct",
+            "Only one of the statements is correct",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "The Trade Unions Act, 1926 remains the governing law for registration and regulation of trade unions in India. The FCRA regulates rather than absolutely bans receipt of foreign contributions, permitting it subject to registration or prior permission and other conditions, and the Societies Registration Act, 1860 applies across India, having been adopted with State-level amendments rather than being confined to Union Territories alone."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-82 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-66</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "With reference to the Buddhist Councils, consider the following pairs: <br>1. First Buddhist Council (Rajagriha) — Held under the patronage of King Ajatashatru soon after the Buddha's death<br>2. Third Buddhist Council (Pataliputra) — Convened under the patronage of Kanishka; associated with the split into Mahayana and Hinayana sects<br>3. Fourth Buddhist Council (Kashmir) — Held under the patronage of Ashoka; finalized the Pali Tripitaka in its present written form<br>How many of the above pairs are correctly matched?",
+        opts: [
+            "Only two",
+            "None",
+            "All three",
+            "Only one"
+        ],
+        ans: 3,
+        exp: "The First Buddhist Council at Rajagriha was indeed convened under King Ajatashatru's patronage shortly after the Buddha's death. However, it was Ashoka, not Kanishka, who patronised the Third Council at Pataliputra, and it was Kanishka, not Ashoka, who patronised the Fourth Council in Kashmir, which is associated with Sanskrit Buddhist texts of the Sarvastivada school rather than the Pali Tripitaka. Only pair 1 is therefore correctly matched."
+    },
+    {
+        q: "With reference to the Ramayana Circuit, consider the following statements: <br>1. The Ramayana Circuit is one of the thematic circuits identified under the Ministry of Tourism's Swadesh Darshan scheme.<br>2. The Swadesh Darshan scheme is a Centrally Sponsored Scheme requiring matching financial contributions from State Governments.<br>3. Under the Ramayana Circuit, the Ministry of Tourism initially identified fifteen destinations associated with the Ramayana for development, with a particular focus on Uttar Pradesh.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "Exactly two of the statements are correct",
+            "Statement 2 alone",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "The Ramayana Circuit is among the fifteen thematic circuits under the Swadesh Darshan scheme, with fifteen destinations initially identified, prominently in Uttar Pradesh. However, Swadesh Darshan is a Central Sector Scheme that is 100% centrally funded through Central Financial Assistance to States and UTs, not a Centrally Sponsored Scheme requiring state matching funds."
+    },
+    {
+        q: "In May 2025, the Jharkhand High Court passed an order concerning which Jain pilgrimage site, directing strict enforcement of a 2023 Office Memorandum that banned tourism promotion, the sale of liquor and non-vegetarian food in the area?",
+        opts: [
+            "Sammed Shikharji",
+            "Palitana",
+            "Girnar Hill",
+            "Ranakpur"
+        ],
+        ans: 0,
+        exp: "In May 2025, the Jharkhand High Court ruled that Parasnath Hill, revered by Jains as Sammed Shikharji, must be preserved in accordance with its religious sanctity, directing strict enforcement of the 2023 Office Memorandum prohibiting the sale or consumption of liquor and non-vegetarian food, the promotion of tourism, and construction of non-religious structures at the site."
+    },
+    {
+        q: "With reference to the Vedas, consider the following statements: <br>1. The Vedas are classified as 'Smriti' literature, believed to have been composed by identifiable human authors rather than revealed to sages.<br>2. Among the four Vedas, the Rigveda is generally regarded by scholars as the oldest.<br>3. The Atharvaveda primarily contains hymns for use in the performance of the Soma sacrifice by the Adhvaryu priest.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "1 and 2 only",
+            "3 only",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "The Rigveda is indeed generally regarded as the oldest of the four Vedas. However, the Vedas are classified as 'Shruti' (revealed) literature, not 'Smriti', and the Atharvaveda mainly contains spells, charms and everyday ritual formulae rather than hymns for the Soma sacrifice, which falls within the domain of the Yajurveda and its Adhvaryu priest."
+    },
+    {
+        q: "With reference to the historical evolution of the Puranas, consider the following statements: <br>1. The Puranas, in their surviving textual form, reached final compilation before the composition of the earliest Upanishads.<br>2. The term 'Itihasa-Purana' appears even in earlier Vedic literature, such as the Atharvaveda and the Brihadaranyaka Upanishad, well before the Puranas crystallised into their present textual form.<br>3. The Puranas, in their surviving textual form, are generally dated to have been substantially compiled and redacted between roughly the 3rd and 10th centuries CE, though embodying much older oral traditions.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "Exactly one of the statements is correct",
+            "Both 1 and 2",
+            "Only one of the statements is correct"
+        ],
+        ans: 0,
+        exp: "References to an 'Itihasa-Purana' tradition already appear in earlier Vedic texts such as the Atharvaveda and the Brihadaranyaka Upanishad, indicating that this oral tradition preceded the Puranas' textual crystallisation, which scholars generally place between the 3rd and 10th centuries CE. Statement 1 is therefore incorrect, since the Upanishads predate the Puranas' final textual compilation, not the other way around."
+    },
+    {
+        q: "With reference to the organisational structure of Jainism, consider the following statements: <br>1. The fourfold Jain Sangha comprises Sadhu, Sadhvi, Shravaka and Shravika.<br>2. The Acharya, as head of the ascetic order, bears overall responsibility for the functioning and discipline of the Jain Sangha.<br>3. The Upadhyaya's primary function within the Jain ascetic order is to administer temple finances and manage donations made by lay devotees.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "The fourfold Sangha of Jainism consists of monks (Sadhu), nuns (Sadhvi) and lay male and female followers (Shravaka, Shravika), and the Acharya, as the highest-ranking ascetic, carries overall responsibility for the Sangha's functioning. The Upadhyaya, however, is a learned monk whose function is to teach and study scripture, not to administer temple finances."
+    },
+    {
+        q: "With reference to Jain literature, consider the following pairs: <br>1. Acharanga Sutra — Oldest of the twelve Angas; prescribes the code of conduct for Jain monks<br>2. Kalpasutra — Traditionally attributed to Bhadrabahu; contains biographies of the Tirthankaras<br>3. Tattvartha Sutra — Composed in Pali; accepted as an authoritative text by both the Svetambara and Digambara sects<br>How many of the above pairs are correctly matched?",
+        opts: [
+            "Only two",
+            "None",
+            "All three",
+            "Only one"
+        ],
+        ans: 0,
+        exp: "The Acharanga Sutra is indeed the oldest of the twelve Angas and lays down the conduct expected of Jain monks, and the Kalpasutra, attributed to Bhadrabahu, narrates the lives of the Tirthankaras — so pairs 1 and 2 are correctly matched. The Tattvartha Sutra, however, was composed in Sanskrit by Umasvati, not Pali, even though it is uniquely accepted by both major Jain sects, making pair 3 incorrect."
+    },
+    {
+        q: "With reference to the Sangam Age, consider the following pairs: <br>1. Sangam Age — Roughly corresponds to circa 300 BCE to 300 CE<br>2. Muvendar — Collective term for the three ruling dynasties: Chera, Chola and Pandya<br>3. Tolkappiyam — A Sanskrit treatise on Vedic rituals composed during the Sangam age<br>How many of the above pairs are correctly matched?",
+        opts: [
+            "Only two",
+            "All three",
+            "Only one",
+            "None"
+        ],
+        ans: 0,
+        exp: "The Sangam Age is generally dated from around 300 BCE to 300 CE, and the term Muvendar collectively refers to the three crowned Tamil dynasties — the Cheras, Cholas and Pandyas — making pairs 1 and 2 correct. The Tolkappiyam, however, is a Tamil treatise on grammar and poetics, not a Sanskrit text on Vedic rituals, so pair 3 is incorrectly matched."
+    },
+    {
+        q: "With reference to the historical evolution of Jain literature, consider the following statements: <br>1. According to Digambara tradition, the Jain Agamas were compiled at a council held at Pataliputra around 300 BCE.<br>2. The Svetambara-Digambara split arose primarily due to disagreement over Sanskrit grammar rules propounded by Panini.<br>3. The Vallabhi council, which recompiled the Jain Agamas in writing, was convened under the leadership of Acharya Bhadrabahu in the 3rd century BCE.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements is correct",
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "The Pataliputra compilation of the Agamas is a Svetambara tradition, which the Digambaras reject, holding that the original Angas and Purvas were lost. The Svetambara-Digambara split is traditionally traced to disagreements over ascetic practice, particularly nudity versus wearing white robes, not Panini's grammar. The Vallabhi council that committed the Agamas to writing was led by Devardhigani Kshamashramana around the 5th century CE, not by Bhadrabahu in the 3rd century BCE. Hence none of the statements is correct."
+    },
+    {
+        q: "Consider the following Assertion (A) and Reason (R): <br>Assertion (A): The genealogical lists (Vamsanucharita) given in the Puranas cannot be treated as fully reliable historical records of ancient Indian dynasties. <br>Reason (R): Puranic texts underwent continuous interpolation and revision by different redactors over several centuries, leading to inconsistencies and additions in their content, including king-lists. <br>Which one of the following is correct in respect of the above Assertion (A) and Reason (R)?",
+        opts: [
+            "A is false but R is true",
+            "Both A and R are true and R is the correct explanation of A",
+            "A is true but R is false",
+            "Both A and R are true but R is not the correct explanation of A"
+        ],
+        ans: 1,
+        exp: "Historians have long cautioned that Puranic dynastic king-lists cannot be relied upon uncritically, since different Puranas often give inconsistent versions of the same genealogies. This unreliability stems directly from the fact that Puranic texts were repeatedly redacted and expanded by different hands over centuries, which correctly explains why their genealogical content is treated with caution."
+    },
+    {
+        q: "With reference to the organisation of the Buddhist Sangha, consider the following statements: <br>1. The Buddhist Sangha, in its broader sense, is described as a fourfold assembly comprising Bhikkhus, Bhikkhunis, Upasakas and Upasikas.<br>2. The Vinaya Pitaka functions as the regulatory code governing the conduct and discipline of ordained monks and nuns within the Sangha.<br>3. Lay followers (Upasakas and Upasikas) typically undertake the Five Precepts and the Triple Refuge, without taking full monastic ordination.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 2 alone",
+            "1 and 3 only",
+            "All of the above",
+            "Only two of the statements are correct"
+        ],
+        ans: 2,
+        exp: "The Buddhist Sangha, broadly understood, comprises the fourfold assembly of monks, nuns and lay male and female followers. The Vinaya Pitaka lays down the disciplinary code for ordained monks and nuns, while lay followers instead observe the Five Precepts after taking the Triple Refuge, without undergoing full monastic ordination — making all three statements correct."
+    },
+    {
+        q: "With reference to government policy on Indian mathematics and astronomy, consider the following statements: <br>1. The National Education Policy (NEP), 2020 confines its promotion of Indian Knowledge Systems exclusively to the integration of ancient astronomy into Ayurvedic medical curricula, excluding mathematics and other sciences.<br>2. The Indian Knowledge Systems (IKS) Division, set up pursuant to NEP 2020, functions under the Ministry of Education.<br>3. NEP 2020 encourages that examples and problems drawn from India's own mathematical and scientific heritage be incorporated into school curricula wherever relevant.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 and 3 only",
+            "2 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 2,
+        exp: "The IKS Division was established under the Ministry of Education following NEP 2020, and the policy explicitly calls for classroom examples and problems to be drawn from India's own scientific and mathematical heritage. However, IKS under NEP 2020 covers a much wider range of disciplines — including mathematics, astronomy, architecture, agriculture and linguistics — and is not confined only to astronomy's application in Ayurveda."
+    },
+    {
+        q: "With reference to the Vedic Heritage Portal, consider the following statements: <br>1. The Vedic Heritage Portal, launched in March 2023, was developed by the Indira Gandhi National Centre for the Arts (IGNCA) under the Ministry of Culture.<br>2. The Vedic Heritage Portal was launched exclusively for academic researchers and is not accessible to the general public.<br>3. The oral tradition of Vedic chanting is not recognised internationally and remains solely a matter of domestic Indian cultural policy.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "Exactly two of the statements are correct",
+            "Statement 1 alone",
+            "Only two of the statements are correct"
+        ],
+        ans: 2,
+        exp: "The Vedic Heritage Portal was indeed launched by IGNCA under the Ministry of Culture in March 2023, but it is a public digital platform open to all, not restricted to researchers. Further, the oral tradition of Vedic chanting has been recognised by UNESCO as an element of the Intangible Cultural Heritage of Humanity, contrary to statement 3."
+    },
+    {
+        q: "With reference to the Jantar Mantar observatories, consider the following statements: <br>1. The Jantar Mantar at Jaipur, an 18th-century astronomical observatory, is a UNESCO World Heritage Site.<br>2. The Jantar Mantar at Jaipur is protected as a monument of national importance under the Ancient Monuments and Archaeological Sites and Remains (AMASR) Act, 1958, administered by the Archaeological Survey of India.<br>3. Maharaja Sawai Jai Singh II, who built the Jantar Mantar observatories, constructed a total of five such observatories across India.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "The Jaipur Jantar Mantar was inscribed as a UNESCO World Heritage Site in 2010, and Jai Singh II built five such observatories, at Jaipur, Delhi, Ujjain, Varanasi and Mathura. However, the Jaipur observatory is protected not under the central AMASR Act by the ASI, but under the Rajasthan Monuments, Archaeological Sites and Antiquities Act, 1961, administered by the State Department of Archaeology and Museums, Rajasthan."
+    },
+    {
+        q: "With reference to the legal protection of India's traditional knowledge, consider the following statements: <br>1. The Traditional Knowledge Digital Library (TKDL) is a joint initiative of the Council of Scientific and Industrial Research (CSIR) and the Ministry of AYUSH to prevent the grant of erroneous patents based on India's traditional knowledge.<br>2. The Biological Diversity Act, 2002 provides a legal framework for regulating access to biological resources and associated traditional knowledge, and for ensuring equitable sharing of benefits.<br>3. Patents earlier granted abroad on the medicinal use of turmeric and neem were successfully challenged by India by citing documented prior art on traditional knowledge.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 1",
+            "2 and 3 only",
+            "All of the above",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 2,
+        exp: "TKDL was set up jointly by CSIR and the Ministry of AYUSH to make India's traditional knowledge accessible to patent examiners and prevent biopiracy, and the Biological Diversity Act, 2002 gives effect to India's obligations under the Convention on Biological Diversity on access and benefit-sharing. India also got patents on turmeric's wound-healing use and neem-based formulations revoked abroad by citing prior art, making all three statements correct."
+    },
+    {
+        q: "With reference to the Upanishads, consider the following statements: <br>1. The Upanishads form the concluding portion of the Vedas and are therefore also referred to as 'Vedanta'.<br>2. According to the Muktikopanishad, there are 108 Upanishads, of which about 10 to 13 are regarded as the principal (Mukhya) Upanishads.<br>3. The Upanishads primarily emphasize elaborate Vedic sacrificial rituals over philosophical inquiry into the nature of the self and ultimate reality.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 and 3 only",
+            "1, 2 and 3",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "The Upanishads, forming the last portion of Vedic literature, are called 'Vedanta' (end of the Vedas), and the Muktikopanishad enumerates 108 Upanishads of which 10 to 13 are treated as principal. Far from emphasising ritual, the Upanishads mark a shift away from sacrificial ritualism toward philosophical inquiry into Atman and Brahman, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the Puranas, consider the following statements: <br>1. The eighteen Mahapuranas are traditionally classified into three groups — Sattvika, Rajasa and Tamasa — based on the deity they predominantly glorify.<br>2. Sattvika Puranas are those that predominantly glorify Lord Shiva.<br>3. All eighteen Mahapuranas are composed in the Prakrit language to make them accessible to the common people.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "Only statement 3",
+            "All three statements are correct",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 3,
+        exp: "The eighteen Mahapuranas are traditionally grouped into Sattvika, Rajasa and Tamasa categories based on their predominant deity, with Sattvika Puranas glorifying Vishnu, not Shiva — Tamasa Puranas are associated with Shiva, making statement 2 incorrect. The Puranas are composed in Sanskrit, not Prakrit, so statement 3 is also incorrect."
+    },
+    {
+        q: "In April 2025, manuscripts of which two Indian texts were inscribed in UNESCO's Memory of the World Register, preserved at the Bhandarkar Oriental Research Institute, Pune?",
+        opts: [
+            "The Panchatantra and the Ramcharitmanas",
+            "The Bhagavad Gita and the Natyashastra",
+            "The Ramayana and the Arthashastra",
+            "The Rigveda and the Manusmriti"
+        ],
+        ans: 1,
+        exp: "On 17 April 2025, UNESCO inscribed manuscripts of the Bhagavad Gita — embedded within the Bhishma Parva of the Mahabharata — and Bharata Muni's Natyashastra into its Memory of the World Register, both preserved at the Bhandarkar Oriental Research Institute, Pune, taking India's total inscriptions on the register to 14."
+    },
+    {
+        q: "With reference to the Critical Edition of the Mahabharata, consider the following statements: <br>1. The Critical Edition of the Mahabharata was prepared by the Asiatic Society of Bengal, Kolkata, under the general editorship of V.S. Sukthankar.<br>2. The Critical Edition of the Mahabharata project was completed and formally released in 1966 by then President Dr. S. Radhakrishnan.<br>3. The Critical Edition of the Mahabharata was based on the collation of over a thousand manuscripts collected from across India over several decades.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "The Critical Edition of the Mahabharata was compiled at the Bhandarkar Oriental Research Institute, Pune, not the Asiatic Society of Bengal, though V.S. Sukthankar was indeed its founding general editor. The project, based on the collation of over 1,250 manuscripts gathered over nearly five decades, was completed and formally released in 1966 by President Dr. S. Radhakrishnan."
+    },
+    {
+        q: "Consider the following Assertion (A) and Reason (R): <br>Assertion (A): It is often difficult to precisely date individual Upanishads or establish a definitive chronology among them. <br>Reason (R): Many later Upanishads, composed centuries after the principal Upanishads, were given the same generic title and often incorporated sectarian doctrines associated with particular deities or philosophical schools. <br>Which one of the following is correct in respect of the above Assertion (A) and Reason (R)?",
+        opts: [
+            "Both A and R are true but R is not the correct explanation of A",
+            "A is false but R is true",
+            "Both A and R are true and R is the correct explanation of A",
+            "A is true but R is false"
+        ],
+        ans: 2,
+        exp: "Scholars indeed find it difficult to date individual Upanishads precisely, and this difficulty arises largely because more than two hundred minor Upanishads, composed centuries after the principal ones, carry the same generic title while embedding later sectarian doctrines, which correctly explains why establishing a clear chronology is so challenging."
+    },
+    {
+        q: "With reference to the Calendar Reform Committee, consider the following statements: <br>1. The Calendar Reform Committee was constituted in November 1952 under the aegis of the Council of Scientific and Industrial Research (CSIR), chaired by physicist Meghnad Saha.<br>2. The Calendar Reform Committee recommended that India adopt the Islamic Hijri calendar as its unified national calendar for administrative purposes.<br>3. The Indian National Calendar recommended by the Committee is used alongside the Gregorian calendar in the Gazette of India and in All India Radio news bulletins.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "The Calendar Reform Committee, set up under CSIR in November 1952 and chaired by Meghnad Saha, recommended a unified Indian National Calendar based on the Saka Era, with Chaitra as its first month — not the Hijri calendar. This Saka-based calendar continues to be used alongside the Gregorian calendar in official publications such as the Gazette of India and in All India Radio broadcasts."
+    },
+    {
+        q: "With reference to Panini's Ashtadhyayi, consider the following statements: <br>1. The Ashtadhyayi is organised into eight chapters (Adhyayas), each further divided into four sections (Padas).<br>2. The Ashtadhyayi comprises roughly four thousand sutras that systematically describe Sanskrit phonetics, morphology and syntax.<br>3. The most influential commentary on the Ashtadhyayi, the Mahabhashya, was composed by Panini himself as a self-commentary.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "Only statement 3",
+            "All three statements are correct",
+            "None of the statements are correct"
+        ],
+        ans: 0,
+        exp: "The Ashtadhyayi is indeed structured into eight chapters of four sections each, comprising about four thousand sutras covering Sanskrit phonetics, morphology and syntax. The Mahabhashya, however, was composed not by Panini but by the later grammarian Patanjali as a commentary on the Ashtadhyayi, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to scholarly efforts on Puranic literature, consider the following statements: <br>1. The All-India Kashiraj Trust, based in Varanasi, undertook a project for preparing critical editions of the Puranas.<br>2. The All-India Kashiraj Trust's Purana Project was inaugurated by India's first President, Dr. Rajendra Prasad.<br>3. The Kashiraj Trust's critical editions of the Puranas were prepared without any support or endorsement from international scholarly bodies such as the International Congress of Orientalists.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "Only two of the statements are correct",
+            "None of the statements are correct",
+            "Only one of the statements is correct"
+        ],
+        ans: 1,
+        exp: "The All-India Kashiraj Trust at Varanasi, inaugurated by Dr. Rajendra Prasad, undertook the Purana Project to prepare critical editions of texts such as the Vamana, Kurma and Garuda Puranas. Far from lacking international support, the XXVI Session of the International Congress of Orientalists passed a resolution welcoming the project and recommending cooperation with it, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the historical evolution of Buddhist literature, consider the following statements: <br>1. The Buddhist canon was preserved only in written form from the very beginning, with no phase of oral transmission.<br>2. The Pali Tripitaka was first committed to writing at the Third Buddhist Council, held at Pataliputra under Emperor Ashoka.<br>3. The written compilation of the Pali Tripitaka in Sri Lanka took place before the First Buddhist Council held at Rajagriha.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1 and 3 only",
+            "None of the statements is correct"
+        ],
+        ans: 3,
+        exp: "The Buddhist canon was preserved orally for centuries before being committed to writing, so statement 1 is wrong. It was at the Fourth Buddhist Council, held in Sri Lanka under King Vattagamani, that the Pali Tripitaka was first written down, not at the Third Council under Ashoka, making statement 2 wrong. This Sri Lankan writing-down occurred centuries after, not before, the First Council at Rajagriha, making statement 3 wrong as well — so none of the statements is correct."
+    },
+    {
+        q: "Consider the following Assertion (A) and Reason (R): <br>Assertion (A): The Mahabharata is traditionally referred to as the 'Panchama Veda' (fifth Veda). <br>Reason (R): The Mahabharata, composed by Sage Valmiki, is considered the oldest epic poem (Adi Kavya) in Sanskrit literature. <br>Which one of the following is correct in respect of the above Assertion (A) and Reason (R)?",
+        opts: [
+            "A is true but R is false",
+            "Both A and R are true and R is the correct explanation of A",
+            "A is false but R is true",
+            "Both A and R are true but R is not the correct explanation of A"
+        ],
+        ans: 0,
+        exp: "The Mahabharata is indeed traditionally honoured as the 'Panchama Veda'. However, it was Sage Vyasa, not Valmiki, who composed the Mahabharata; Valmiki instead authored the Ramayana, which is regarded as the Adi Kavya (first epic poem) of Sanskrit literature. The Reason is therefore factually incorrect."
+    },
+    {
+        q: "With reference to the Sangam academies of ancient Tamil Nadu, consider the following statements: <br>1. The Sangams functioned as assemblies of poets and scholars that reviewed and certified literary works, under the patronage of the Pandya kings of Madurai.<br>2. All three Sangams are equally well documented, with the bulk of surviving Sangam literature evenly distributed across the First, Second and Third Sangams.<br>3. The Third Sangam, held at Madurai and traditionally founded by Mudathirumaran, produced the bulk of the Sangam literature that survives today.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 2 alone",
+            "Exactly two of the statements are correct",
+            "Both 2 and 3",
+            "Only statement 1"
+        ],
+        ans: 1,
+        exp: "The Sangams acted as academies that reviewed and validated literary compositions under Pandya patronage, and it was the Third Sangam at Madurai that produced most of the Sangam literature surviving today. The documentation is highly uneven, however — no work from the First Sangam survives, and only the Tolkappiyam is attributed to the Second Sangam — so statement 2 is incorrect."
+    },
+    {
+        q: "With reference to science and technology in ancient India, consider the following statements: <br>1. The Sulbasutras contain geometric rules for altar construction, including an early formulation of what is now known as the Pythagorean theorem.<br>2. Aryabhata, in the Aryabhatiya, held that the Earth rotates on its own axis.<br>3. The technology for producing wootz steel, later famed in West Asia as Damascus steel, originated in Gupta-period northern India.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "Only two of the statements are correct",
+            "Both 1 and 3",
+            "Only one of the statements is correct"
+        ],
+        ans: 1,
+        exp: "The Sulbasutras (c. 800-500 BCE) present geometric constructions that anticipate the Pythagorean theorem, and Aryabhata correctly explained the Earth's axial rotation in the Aryabhatiya. Wootz steel, however, was pioneered in southern India centuries before the Gupta period and exported westward, so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to the Aryabhatiya, consider the following statements: <br>1. The Aryabhatiya is divided into three sections — Gitikapada, Ganitapada and Kalakriyapada — with no separate section on astronomy.<br>2. The Ganitapada section of the Aryabhatiya deals exclusively with grammar and linguistics, containing no mathematical content.<br>3. The Golapada section of the Aryabhatiya deals exclusively with units of time measurement and calendar calculations, containing no discussion of astronomy or the shape of the Earth.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "1, 2 and 3",
+            "None of the statements is correct"
+        ],
+        ans: 3,
+        exp: "The Aryabhatiya actually has four sections — Gitikapada, Ganitapada, Kalakriyapada and Golapada — so statement 1 is wrong. The Ganitapada deals with mathematics (arithmetic, algebra and geometry), not grammar, making statement 2 wrong. It is the Golapada, not the Kalakriyapada, that covers astronomy, cosmology and the shape of the Earth, while the Kalakriyapada deals with time-reckoning, making statement 3 wrong as well. Hence none of the statements is correct."
+    },
+    {
+        q: "With reference to scholars associated with the Gupta court, consider the following statements: <br>1. Amarasimha, celebrated for his lexicon the Amarakosha, is traditionally counted among the Navaratnas in the court of the Gupta emperor Chandragupta II (Vikramaditya).<br>2. Panini, the renowned Sanskrit grammarian and author of the Ashtadhyayi, was a contemporary of the Gupta emperor Chandragupta II.<br>3. Kalidasa, regarded as the greatest Sanskrit poet and dramatist, is also traditionally counted among the Navaratnas of Chandragupta II's court.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "1, 2 and 3",
+            "3 only",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "Both Amarasimha and Kalidasa are traditionally counted among the Navaratnas at the court of Chandragupta II (Vikramaditya). Panini, however, lived many centuries earlier, around the 5th-4th century BCE, long before the Gupta period began in the 4th century CE, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to the Puranas, consider the following statements: <br>1. The Puranas are regarded as Shruti literature, believed to be divinely revealed in the same manner as the Vedas.<br>2. There are exactly eighteen Puranas in total, and no Puranic texts exist outside this number of eighteen.<br>3. The Matsya Purana, which enumerates the five characteristics (Pancha Lakshana) of a Purana, was composed prior to the Rigveda and served as its principal source.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 2 only",
+            "None of the statements is correct"
+        ],
+        ans: 3,
+        exp: "The Puranas are classified as Smriti, not Shruti, and are traditionally attributed to human compilers such as Sage Vyasa rather than being divinely revealed like the Vedas. Besides the eighteen Mahapuranas, a separate category of Upapuranas also exists, and the Matsya Purana was composed many centuries after the Rigveda, not before it. Hence, none of the statements is correct."
+    },
+    {
+        q: "With reference to the Central Sanskrit Universities Act, 2020, consider the following statements: <br>1. The Act converted three existing deemed-to-be universities into Central Universities.<br>2. The Act was enacted specifically to promote the teaching of Persian and Arabic manuscripts alongside Sanskrit learning.<br>3. The Act came into force with effect from 26 January 2020, coinciding with India's Republic Day.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 only",
+            "2 only",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "The Central Sanskrit Universities Act, 2020 converted the Rashtriya Sanskrit Sansthan (New Delhi), Shri Lal Bahadur Shastri Rashtriya Sanskrit Vidyapeeth (New Delhi) and Rashtriya Sanskrit Vidyapeeth (Tirupati) into Central Universities to promote Sanskrit and its traditional branches of learning, with no reference to Persian or Arabic. The Act was enacted on 25 March 2020 but came into force from 30 April 2020, not 26 January 2020."
+    },
+    {
+        q: "With reference to Sangam literature, consider the following statements: <br>1. Sangam literature is broadly classified into two thematic categories — Akam (concerning love and interior life) and Puram (concerning war, heroism and public life).<br>2. The Ettuthogai and Pattuppattu are Sanskrit compilations that form part of the Sangam literary corpus.<br>3. Sangam literature is predominantly religious in character, focusing almost exclusively on devotion to a single deity.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "2 only",
+            "3 only",
+            "Statement 1 alone"
+        ],
+        ans: 3,
+        exp: "Sangam poetry is traditionally classified into Akam, dealing with love and personal life, and Puram, dealing with war, heroism and public affairs. The Ettuthogai (Eight Anthologies) and Pattuppattu (Ten Idylls) are Tamil, not Sanskrit, compilations, and Sangam literature is largely secular in character, covering love, war, ethics and society rather than being devoted to a single deity."
+    },
+    {
+        q: "With reference to the Bodh Gaya Temple Act, 1949, consider the following statements: <br>1. The Act established a management committee for the Mahabodhi Temple with equal representation of four members each from the Hindu and Buddhist communities, headed by the District Magistrate of Gaya as ex-officio chairperson.<br>2. The Bodh Gaya Temple Act, 1949 is a Parliamentary legislation enacted by the Union Government under its power to legislate on religious institutions of national importance.<br>3. A 2013 amendment to the Act removed the requirement that the ex-officio chairperson of the management committee must necessarily be a Hindu.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3",
+            "1 and 3 only"
+        ],
+        ans: 3,
+        exp: "The Bodh Gaya Temple Act, 1949 set up an eight-member committee with equal Hindu and Buddhist representation, chaired ex-officio by the Gaya District Magistrate, and a 2013 amendment removed the requirement that this chairperson be a Hindu. However, the Act is a piece of Bihar state legislation passed by the Bihar Legislative Assembly, not a Union Parliamentary law."
+    },
+    {
+        q: "With reference to the priests officiating a Vedic yajna, consider the following statements: <br>1. The Hotri priest's function is to recite hymns from the Rigveda invoking various deities.<br>2. The Adhvaryu priest, associated with the Samaveda, is responsible for chanting melodious hymns during the sacrifice.<br>3. The Brahman priest's role is confined strictly to reciting Atharvaveda hymns, and he bears no responsibility for overseeing the ritual as a whole.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 1 alone",
+            "Both 2 and 3",
+            "None of the above",
+            "Only statement 3"
+        ],
+        ans: 0,
+        exp: "The Hotri priest indeed recites Rigvedic hymns to invoke deities during the sacrifice. However, it is the Udgatri, not the Adhvaryu, who is associated with the Samaveda and chants its melodies, while the Adhvaryu performs the physical rituals linked to the Yajurveda. The Brahman priest, far from being confined to the Atharvaveda, is expected to be conversant with all four Vedas so as to supervise and correct the entire ceremony."
+    },
+    {
+        q: "With reference to ancient Indian literature, consider the following statements: <br>1. The Upanishads were composed earlier than the Puranas.<br>2. The Matsya Purana is traditionally credited with enumerating the five characteristics (Pancha Lakshana) that define a Purana.<br>3. Some Upanishads employ parables and illustrative stories to convey philosophical teachings.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "The Upanishads, forming the concluding portion of Vedic literature, predate the Puranas, which were compiled over subsequent centuries. The Matsya Purana traditionally sets out the Pancha Lakshana defining a Purana's structure. Several Upanishads, such as the Katha Upanishad's story of Nachiketa, use parables to illustrate abstract philosophical ideas, making all three statements correct."
+    },
+    {
+        q: "With reference to Sanskrit, the language of the Upanishads, and its constitutional status, consider the following statements: <br>1. Sanskrit is one of the 22 languages listed in the Eighth Schedule to the Constitution of India.<br>2. The Eighth Schedule, as originally adopted in 1950, already contained 22 languages including Sanskrit.<br>3. Additional languages were added to the Eighth Schedule through subsequent constitutional amendments, such as the 71st Amendment Act, 1992 and the 92nd Amendment Act, 2003.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 and 2 only",
+            "2 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "Sanskrit is indeed among the 22 languages currently listed in the Eighth Schedule. However, the Schedule originally contained only 14 languages in 1950; the number rose to 22 through later amendments, such as the 71st Amendment Act, 1992 (which added Konkani, Manipuri and Nepali) and the 92nd Amendment Act, 2003 (which added Bodo, Dogri, Maithili and Santhali), making statement 2 incorrect."
+    },
+    {
+        q: "With reference to the structure of the Vedas, consider the following statements: <br>1. Each of the four Vedas is traditionally divided into four components — Samhita, Brahmana, Aranyaka and Upanishad.<br>2. The Samhita portion consists of hymns and mantras, while the Brahmanas are prose texts explaining sacrificial rituals.<br>3. The Rigveda Samhita is organised into ten Mandalas containing a total of over 1,000 hymns.<br>Which of the statements given above is/are incorrect?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "None of the above",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "Each Veda is traditionally composed of four layers — the Samhita of hymns and mantras, the Brahmanas explaining ritual procedure in prose, the Aranyakas, and the Upanishads. The Rigveda Samhita itself is organised into ten Mandalas containing over a thousand hymns, making all three statements correct."
+    },
+    {
+        q: "With reference to the classification of the Upanishads by their associated Veda, consider the following pairs: <br>1. Isha Upanishad — Associated with the Shukla Yajurveda<br>2. Katha Upanishad — Associated with the Krishna Yajurveda<br>3. Mundaka Upanishad — Associated with the Rigveda<br>How many of the above pairs are correctly matched?",
+        opts: [
+            "All three",
+            "None",
+            "Only one",
+            "Only two"
+        ],
+        ans: 3,
+        exp: "The Isha Upanishad is indeed associated with the Shukla Yajurveda, and the Katha Upanishad with the Krishna Yajurveda, making pairs 1 and 2 correct. The Mundaka Upanishad, however, is associated with the Atharvaveda, not the Rigveda, so pair 3 is incorrectly matched."
+    },
+    {
+        q: "With reference to the Sammed Shikharji issue, consider the following statements: <br>1. In August 2019, the Union Environment Ministry notified an Eco-Sensitive Zone around the Parasnath Wildlife Sanctuary in Jharkhand, permitting eco-tourism activities in the area.<br>2. The Jain community's objection to tourism promotion at Sammed Shikharji stemmed primarily from concerns about wildlife conservation rather than the site's religious sanctity.<br>3. Following sustained protests, the Union Environment Ministry, in January 2023, directed a stay on the implementation of the eco-tourism provisions of the 2019 notification at the Sammed Shikharji site.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "The 2019 Eco-Sensitive Zone notification did permit eco-tourism activities around Parasnath Wildlife Sanctuary, and the Ministry did stay these provisions in January 2023 following Jain protests. However, the community's objection was rooted primarily in preserving the site's religious sanctity as their holiest pilgrimage place, not in wildlife conservation concerns, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to Sangam literature, consider the following statements: <br>1. The Tolkappiyam, a foundational text on Tamil grammar and poetics, is traditionally attributed to the grammarian Tolkappiyar.<br>2. The Silappadikaram and Manimekalai, often called the 'twin epics' of Tamil literature, belong to the Sangam Age corpus of the Ettuthogai and Pattuppattu.<br>3. Silappadikaram is traditionally attributed to Ilango Adigal, while Manimekalai is attributed to Sattanar.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 and 3 only",
+            "2 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "The Tolkappiyam is traditionally credited to Tolkappiyar, and the twin epics are correctly attributed — Silappadikaram to Ilango Adigal and Manimekalai to Sattanar. However, both these epics are generally regarded as post-Sangam compositions and are not part of the Ettuthogai or Pattuppattu anthologies that make up the core Sangam corpus, making statement 2 incorrect."
+    },
+    {
+        q: "The 'Gyan Bharatam Mission', launched under the Union Budget 2025-26, is primarily concerned with which of the following?",
+        opts: [
+            "Conservation of India's wildlife corridors under Project Tiger",
+            "A scheme for promoting semiconductor manufacturing in India",
+            "Digitisation and conservation of India's manuscript heritage",
+            "Establishment of a national mission for quantum computing research"
+        ],
+        ans: 2,
+        exp: "The Gyan Bharatam Mission, announced in the Union Budget 2025-26, aims to survey, document, conserve and digitise over one crore Indian manuscripts covering ancient science, medicine, astronomy and other knowledge traditions, and to set up a National Digital Repository of Indian Knowledge Systems. It is unrelated to semiconductors, quantum computing or wildlife conservation."
+    },
+    {
+        q: "With reference to the Upanishads, consider the following statements: <br>1. The early Upanishads, such as the Brihadaranyaka and Chandogya Upanishads, are generally regarded as later compositions, composed mainly in verse.<br>2. Later Upanishads, such as the Katha and Isha Upanishads, are composed mainly in verse.<br>3. All 108 Upanishads listed in the Muktikopanishad were composed within a narrow window of a few decades during the late Vedic period.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 3 alone",
+            "Both 2 and 3",
+            "Statement 2 alone",
+            "All three statements are correct"
+        ],
+        ans: 2,
+        exp: "The Brihadaranyaka and Chandogya Upanishads are actually among the oldest Upanishads and are composed mainly in prose, not verse, so statement 1 is wrong. Later Upanishads such as the Katha and Isha are indeed largely in verse. The 108 Upanishads span a vast chronological range, from the earliest principal texts to much later medieval compositions, making statement 3 incorrect as well."
+    },
+    {
+        q: "With reference to the Places of Worship (Special Provisions) Act, 1991, consider the following statements: <br>1. The Act mandates that the religious character of a place of worship shall be maintained as it existed on 15 August 1947.<br>2. Section 5 of the Act specifically exempts the Ram Janmabhoomi-Babri Masjid dispute in Ayodhya from the Act's application.<br>3. The Supreme Court, in the 2019 Ayodhya verdict, struck down the Places of Worship Act, 1991 as unconstitutional for violating the principle of secularism.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 3",
+            "Both 2 and 3",
+            "Exactly two of the statements are correct",
+            "Only statement 1"
+        ],
+        ans: 2,
+        exp: "The Act freezes the religious character of places of worship as they stood on 15 August 1947, and Section 5 specifically exempts the Ram Janmabhoomi-Babri Masjid dispute from its application. However, the Supreme Court in the 2019 Ayodhya verdict upheld, rather than struck down, the Act, describing it as a legislative instrument protecting the secular features of Indian polity, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the ancient Indian epics, consider the following statements: <br>1. The Valmiki Ramayana is traditionally divided into seven Kandas.<br>2. The Mahabharata, as compiled in the Critical Edition, is traditionally divided into twelve Parvas.<br>3. Both the Ramayana and the Mahabharata are traditionally classified as 'Shruti' literature, believed to be divinely revealed.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All three statements are correct",
+            "Exactly one of the statements is correct",
+            "2 only",
+            "None of the above"
+        ],
+        ans: 1,
+        exp: "The Valmiki Ramayana is indeed divided into seven Kandas. However, the Mahabharata is traditionally divided into eighteen Parvas, not twelve, and both epics are classified as 'Smriti' (remembered, human-composed) literature rather than 'Shruti' (divinely revealed) literature like the Vedas."
+    },
+    {
+        q: "With reference to Sanskrit, the language of the Upanishads, and its constitutional status, consider the following statements: <br>1. Sanskrit is one of the 22 languages listed in the Eighth Schedule to the Constitution of India.<br>2. The Eighth Schedule, as originally adopted in 1950, already contained 22 languages including Sanskrit.<br>3. Additional languages were added to the Eighth Schedule through subsequent constitutional amendments, such as the 71st Amendment Act, 1992 and the 92nd Amendment Act, 2003.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "All of the above",
+            "None of the above",
+            "Only two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "Sanskrit is indeed among the 22 languages currently listed in the Eighth Schedule. However, the Schedule originally contained only 14 languages in 1950; the number rose to 22 through later amendments, such as the 71st Amendment Act, 1992 (which added Konkani, Manipuri and Nepali) and the 92nd Amendment Act, 2003 (which added Bodo, Dogri, Maithili and Santhali), making statement 2 incorrect."
+    },
+    {
+        q: "With reference to Buddhist canonical literature, consider the following statements: <br>1. The Tripitaka, the core canonical texts of Buddhism, is composed of three parts — Vinaya Pitaka, Sutta Pitaka and Abhidhamma Pitaka.<br>2. The Jataka tales, narrating the previous births of the Buddha, form part of the Vinaya Pitaka.<br>3. The Abhidhamma Pitaka primarily lays down the disciplinary code of conduct for monks and nuns.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 and 2 only",
+            "2 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "The Tripitaka comprises the Vinaya, Sutta and Abhidhamma Pitakas, so statement 1 is correct. The Jataka tales actually belong to the Khuddaka Nikaya within the Sutta Pitaka, not the Vinaya Pitaka, and the monastic disciplinary code is laid down in the Vinaya Pitaka, not the Abhidhamma Pitaka, which deals with philosophical and psychological analysis."
+    },
+    {
+        q: "Consider the following Assertion (A) and Reason (R): <br>Assertion (A): A major challenge in reconstructing early Buddhist literature is that many original Sanskrit Buddhist texts survive today only through their Tibetan and Chinese translations. <br>Reason (R): The decline of Buddhism in India after the early medieval period, along with the destruction of monastic centres of learning such as Nalanda, led to the loss of numerous original manuscripts within India. <br>Which one of the following is correct in respect of the above Assertion (A) and Reason (R)?",
+        opts: [
+            "Both A and R are true but R is not the correct explanation of A",
+            "A is false but R is true",
+            "Both A and R are true and R is the correct explanation of A",
+            "A is true but R is false"
+        ],
+        ans: 2,
+        exp: "Many Sanskrit Mahayana texts have indeed survived mainly through Tibetan and Chinese translations because their Indian originals were lost. This loss is directly linked to the gradual decline of Buddhism in India and the destruction of major monastic universities such as Nalanda, which correctly explains the assertion."
+    },
+    {
+        q: "The 58th Jnanpith Award, presented in May 2025, was jointly conferred on Urdu poet Gulzar and which Sanskrit scholar, marking only the second time the award has been given for Sanskrit literature?",
+        opts: [
+            "Jagadguru Rambhadracharya",
+            "Vinod Kumar Shukla",
+            "Kala Nath Shastry",
+            "Navjivan Rastogi"
+        ],
+        ans: 0,
+        exp: "The 58th Jnanpith Award, for the year 2023, was presented in May 2025 to Sanskrit scholar Jagadguru Rambhadracharya jointly with Urdu poet Gulzar, marking only the second time the Jnanpith Award has honoured Sanskrit literature."
+    },
+    {
+        q: "With reference to recent developments concerning Buddhist heritage, consider the following statements: <br>1. The Piprahwa gems, associated with the corporeal relics of the Buddha, were excavated in 1898 by the British colonial landowner William Claxton Peppé.<br>2. In 2025, Sotheby's Hong Kong proceeded with the public auction of the Piprahwa gems despite objections raised by India's Ministry of Culture.<br>3. In October 2024, the Union Cabinet accorded Classical Language status to Pali, along with Prakrit, Marathi, Bengali and Assamese.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 and 3 only",
+            "1, 2 and 3",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "The Piprahwa gems were indeed excavated in 1898 by W.C. Peppé, and Pali was accorded Classical Language status in October 2024 along with Prakrit, Marathi, Bengali and Assamese. However, Sotheby's postponed the scheduled 2025 auction of the Piprahwa gems following objections from India's Ministry of Culture, so it did not proceed as planned."
+    },
+    {
+        q: "With reference to the National Mission for Manuscripts (NAMAMI), consider the following statements: <br>1. NAMAMI, under the Ministry of Culture, undertakes the survey, documentation and conservation of India's manuscript heritage, including Puranic texts.<br>2. NAMAMI was established in 2003.<br>3. NAMAMI is administered directly by the Archaeological Survey of India (ASI).<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 3 only",
+            "1 and 2 only",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "The National Mission for Manuscripts was established in 2003 to identify, document, conserve and disseminate India's vast manuscript heritage, including Puranic literature. It functions under the Ministry of Culture (implemented through IGNCA), not under the Archaeological Survey of India, making statement 3 incorrect."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-66 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

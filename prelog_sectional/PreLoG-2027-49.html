@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-49</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "Which of the following terms is associated with a revenue right claimed by the Marathas as hereditary chieftains over lands inhabited by Maratha people, distinct from the levy known as Chauth?",
+        opts: [
+            "Ryotwari",
+            "Sardeshmukhi",
+            "Jagir",
+            "Chauth"
+        ],
+        ans: 1,
+        exp: "Sardeshmukhi was an additional levy of roughly one-tenth of the revenue, claimed by the Marathas as hereditary Sardeshmukhs (chief headmen) over Maratha-inhabited territory, distinct from Chauth, which was a one-fourth levy claimed as protection tribute from Mughal-held lands. Ryotwari and Jagir belong to different revenue contexts altogether."
+    },
+    {
+        q: "Muhammad bin Tughlaq's introduction of token currency (copper/brass coins to be valued at par with silver tankas) ultimately failed primarily due to which of the following reasons?",
+        opts: [
+            "The Sultan withdrew the scheme within a week due to opposition from nobles",
+            "The scheme was rejected outright by foreign traders who refused to accept any Indian currency",
+            "Widespread counterfeiting occurred as the state failed to prevent people from minting similar coins, leading to a collapse in public confidence in the currency",
+            "The Mongols invaded and destroyed the royal mint before the currency could be circulated"
+        ],
+        ans: 2,
+        exp: "Since the token coins lacked adequate safeguards against forgery, people, including peasants and goldsmiths, began minting counterfeit copies in large numbers, causing the currency's value to collapse and trade to be disrupted. The Sultan was eventually forced to withdraw the scheme by exchanging token coins for gold and silver, severely draining the treasury."
+    },
+    {
+        q: "With reference to a recent development concerning a monument of the Slave (Mamluk) dynasty, consider the following statements: <br> 1. The Qutub Minar was begun by Qutb-ud-din Aibak, founder of the Slave dynasty, and completed by his successor Iltutmish.<br>2. In 2025, the Archaeological Survey of India told a Delhi court that the Qutub Minar complex was not a place of worship when it was first notified as a protected monument in 1914, and that its character could not now be changed.<br>3. The plea seeking restoration of worship rights at the complex was dismissed on the basis of the Ancient Monuments and Archaeological Sites and Remains (AMASR) Act, 1958, rather than the Places of Worship (Special Provisions) Act, 1991.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "The Qutub Minar was indeed begun by Qutb-ud-din Aibak and completed by Iltutmish, and in 2025 the ASI reaffirmed before a Delhi court that the complex was never a place of worship at the time of its 1914 protection notification. The original suit was actually dismissed under the Places of Worship (Special Provisions) Act, 1991, while the AMASR Act, 1958 governs the complex's protected status as a monument, so statement 3 reverses the two laws' roles."
+    },
+    {
+        q: "With reference to the legal framework of the Delhi Sultanate, consider the following statements: <br> 1. The Sultans supplemented Sharia (Islamic religious law) with 'Zawabit', secular state regulations issued to address administrative matters not covered by religious law.<br>2. Balban propagated a theory of kingship describing the Sultan as the 'Zil-i-Ilahi' (Shadow of God on Earth) and introduced Persian court ceremonials such as sijda (prostration) to enhance royal prestige.<br>3. The Qazi-ul-Mamalik (Chief Qazi) held authority superior to the Sultan in interpreting the law, and the Sultan was legally required to obtain his approval before issuing any zawabit.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "The Sultans did supplement Sharia with zawabit to cover administrative matters, and Balban is well known for propounding the Zil-i-Ilahi theory of kingship along with ceremonials like sijda to elevate royal authority. However, the Sultan's political authority to issue zawabit was not subject to prior approval by the Chief Qazi, whose role was confined to interpreting and administering religious law, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to a recent development concerning a monument of the Tughlaq dynasty, consider the following statements: <br> 1. Tughlaqabad Fort was built by Ghiyasuddin Tughlaq, founder of the Tughlaq dynasty, in 1321, and is regarded as the third historic city of Delhi after Lal Kot and Siri.<br>2. In early 2026, the Delhi High Court commended the Archaeological Survey of India for promptly completing the removal of all encroachments around Tughlaqabad Fort.<br>3. The Supreme Court revoked the protected monument status previously granted to Tughlaqabad Fort in 2026.<br>Which one of the statements given above is correct?",
+        opts: [
+            "None of the statements is correct",
+            "3 only",
+            "1 only",
+            "2 only"
+        ],
+        ans: 2,
+        exp: "Tughlaqabad Fort was indeed built by Ghiyasuddin Tughlaq in 1321 and is recognized as the third historic city of Delhi, following Lal Kot and Siri. In reality, the Delhi High Court criticised, rather than commended, the ASI in early 2026 for delays in conducting a court-ordered survey of encroachments at the fort, and there has been no revocation of its protected status, which continues under Supreme Court-mandated protection."
+    },
+    {
+        q: "With reference to the challenges faced by the Marathas in the eighteenth century, consider the following statements: <br> 1. The Third Battle of Panipat (1761) was fought between the Marathas, led by Sadashivrao Bhau, and Ahmad Shah Abdali, who was allied with the Rohillas and the Nawab of Awadh.<br>2. The decisive defeat of the Marathas in this battle significantly weakened their northward expansion and delayed their political dominance in North India by roughly a decade.<br>3. The battle resulted in the Marathas establishing direct and lasting control over Delhi and Punjab.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "Only two of the statements are correct",
+            "All three statements are correct",
+            "None of the statements are correct"
+        ],
+        ans: 1,
+        exp: "The Third Battle of Panipat (January 1761) was indeed fought between Sadashivrao Bhau's Maratha forces and Ahmad Shah Abdali's coalition, and the crushing Maratha defeat set back their political ambitions in the north for years. However, the Marathas did not gain control over Delhi or Punjab as a result; rather, their influence in the region only revived later under Mahadji Scindia, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the features of the Sayyid dynasty, consider the following statements: <br> 1. During the Sayyid dynasty, the effective territorial control of the Sultanate shrank drastically, often limited to the area around Delhi and parts of the Doab.<br>2. The Sayyid rulers significantly expanded the empire's boundaries, bringing large parts of the Deccan and Bengal under direct central control.<br>3. The transition of power from the Sayyid to the Lodi dynasty involved a prolonged and violent war of succession lasting over a decade before Bahlul Lodi could establish control over Delhi.<br>Which one of the statements given above is correct?",
+        opts: [
+            "2 only",
+            "3 only",
+            "None of the statements is correct",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "The Sayyid dynasty is well known for its drastically reduced effective authority, often jokingly described by contemporary chroniclers as extending only 'from Delhi to Palam.' Far from expanding into the Deccan or Bengal, the dynasty's last ruler, Alam Shah, voluntarily retired to Badaun, allowing Bahlul Lodi's relatively swift and largely peaceful takeover of Delhi in 1451."
+    },
+    {
+        q: "The Mughal Empire, founded by Babur in 1526, faced a major interruption when its second ruler was defeated and forced into a fifteen-year exile before the dynasty was restored to power in Delhi. Which ruler was responsible for this interruption?",
+        opts: [
+            "Ibrahim Lodi",
+            "Hemu (Hemchandra Vikramaditya)",
+            "Sher Shah Suri",
+            "Rana Sanga"
+        ],
+        ans: 2,
+        exp: "Sher Shah Suri defeated Humayun at the Battle of Chausa (1539) and again at Kannauj/Bilgram (1540), forcing him into exile until he recaptured Delhi in 1555 with Safavid assistance. Rana Sanga and Ibrahim Lodi were defeated by Babur earlier, while Hemu was defeated later by Akbar's forces at the Second Battle of Panipat (1556)."
+    },
+    {
+        q: "With reference to recent developments concerning Maratha heritage, consider the following statements: <br> 1. The 'Maratha Military Landscapes of India' were inscribed on the UNESCO World Heritage List in July 2025 during the 47th session of the World Heritage Committee.<br>2. This inscription made it India's 42nd UNESCO World Heritage Site.<br>3. All twelve forts included in this serial World Heritage property are located within the state of Maharashtra.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements is correct",
+            "1 only",
+            "1 and 3 only",
+            "2 only"
+        ],
+        ans: 1,
+        exp: "The Maratha Military Landscapes of India were inscribed on the UNESCO World Heritage List on 11 July 2025 at the 47th session of the World Heritage Committee held in Paris, making it India's 44th (not 42nd) World Heritage Site. Of the twelve forts in this serial nomination, eleven are in Maharashtra while Gingee Fort is located in Tamil Nadu, so statement 3 is also incorrect."
+    },
+    {
+        q: "Consider the following Assertion (A) and Reason (R): <br> Assertion (A): Alauddin Khilji promulgated a series of market control regulations fixing the prices of essential commodities in the Delhi Sultanate.<br>Reason (R): These regulations were primarily necessitated by the need to maintain a large standing army at a relatively low cost owing to the persistent threat of Mongol invasions.<br>Which one of the following is correct in respect of the above Assertion and Reason?",
+        opts: [
+            "A is false but R is true",
+            "Both A and R are true and R is the correct explanation of A",
+            "Both A and R are true but R is NOT the correct explanation of A",
+            "A is true but R is false"
+        ],
+        ans: 1,
+        exp: "Alauddin Khilji's market reforms fixed prices of grain, cloth, and other essentials, and this policy was directly linked to his need to sustain a vast standing army at low expenditure given the recurring Mongol threat on the northwestern frontier. Hence R correctly and directly explains why A was undertaken."
+    },
+    {
+        q: "Which of the following was a notable feature of Alauddin Khilji's approach to statecraft?",
+        opts: [
+            "Separation of religious authority from political administration, asserting that state policy need not be bound by the advice of the clergy",
+            "Complete decentralization of military command to provincial nobles",
+            "Abolition of the standing army in favour of a feudal levy system",
+            "Strict subordination of the Sultan's authority to the opinions of the Ulema in matters of governance"
+        ],
+        ans: 0,
+        exp: "Alauddin Khilji is noted for asserting that state policy could be framed according to what he considered good for the state and the people, independent of the opinions of the Ulema on religious law, reportedly telling Qazi Mughisuddin as much. This marked a notable separation of religious authority from political decision-making, distinct from earlier reliance on clerical sanction."
+    },
+    {
+        q: "In the Vijayanagara Empire, where the king was regarded as the ultimate source of judicial authority, which of the following officials combined military command with civil and judicial functions in provincial administration?",
+        opts: [
+            "Dandanayaka",
+            "Amara Nayaka",
+            "Karanikam",
+            "Rayasam"
+        ],
+        ans: 0,
+        exp: "The Dandanayaka was a provincial official who combined the roles of military commander and administrator of justice, reflecting the fused military-civil character of Vijayanagara provincial governance. The Rayasam handled the royal secretariat and correspondence, while the Karanikam was primarily an accountant or clerk."
+    },
+    {
+        q: "With reference to the policies of Sher Shah Suri, consider the following statements: <br> 1. He reconstructed and extended the ancient highway connecting Bengal to the Indus, popularly known as the Grand Trunk Road (Sadak-e-Azam).<br>2. The sarais he established along highways were reserved exclusively for royal army personnel and were closed to ordinary travelers and merchants.<br>3. Sher Shah Suri was the first ruler in Indian history to introduce the practice of branding horses (dagh) and maintaining descriptive rolls (chehra) of soldiers.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "1 and 3 only",
+            "None of the statements is correct",
+            "2 only"
+        ],
+        ans: 0,
+        exp: "Sher Shah Suri did reconstruct and extend the Grand Trunk Road with sarais at regular intervals, but these sarais were open to travelers of all kinds, including merchants and pilgrims, and were not restricted to the army. Nor was he the first to introduce dagh and chehra, as Alauddin Khilji had already implemented similar measures nearly two centuries earlier."
+    },
+    {
+        q: "Which ruler of the Slave (Mamluk) dynasty is generally credited with systematically organizing the 'Iqta' system, under which territorial assignments were given to nobles and officers in lieu of cash salary?",
+        opts: [
+            "Qutb-ud-din Aibak",
+            "Shams-ud-din Iltutmish",
+            "Ghiyas-ud-din Balban",
+            "Raziya Sultana"
+        ],
+        ans: 1,
+        exp: "Iltutmish is credited with systematizing the Iqta system across the Sultanate, assigning revenue-yielding territories (iqtas) to nobles and soldiers in place of cash payment, which also helped consolidate central authority. Aibak's short reign focused on consolidation, while Balban is better known for centralizing royal authority and curbing the Chahalgani nobility."
+    },
+    {
+        q: "With reference to the legal and administrative measures of Firoz Shah Tughlaq, consider the following statements: <br> 1. He abolished several taxes not sanctioned by Islamic law (Sharia) and retained only four: Kharaj, Zakat, Jizya, and Khams.<br>2. He established the Diwan-i-Khairat, a charity department that assisted the poor, including funding the marriages of indigent Muslim girls.<br>3. He is credited with introducing the Iqta system for the first time in the Delhi Sultanate.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All three statements are correct",
+            "Exactly one of the statements is correct",
+            "1 and 2 only",
+            "Only one of the statements is correct"
+        ],
+        ans: 2,
+        exp: "Firoz Shah Tughlaq did retain only the four Sharia-sanctioned taxes and set up the Diwan-i-Khairat for charitable relief, both well-documented reforms recorded in the Fatuhat-i-Firoz Shahi. However, the Iqta system had already existed since the early Delhi Sultanate; Firoz Shah is instead known for making iqta assignments hereditary, not for introducing the system itself, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the challenges faced by regional kingdoms in the Deccan, consider the following statements: <br> 1. The Battle of Talikota (1565), fought between Vijayanagara and a confederacy of Deccan Sultanates, resulted in the sack of Vijayanagara city, but the empire itself continued for several more decades under the Aravidu dynasty ruling from new capitals.<br>2. The Deccan Sultanates that combined against Vijayanagara at Talikota comprised Bijapur, Ahmadnagar, Golconda, and Berar, marking the first-ever military alliance among any of these mutually rivalrous sultanates.<br>3. Following the defeat at Talikota, the Vijayanagara Empire permanently lost all its territories and ceased to exist as a political entity within the same year.<br>Which one of the statements given above is correct?",
+        opts: [
+            "2 only",
+            "1 and 3 only",
+            "1 only",
+            "3 only"
+        ],
+        ans: 2,
+        exp: "Although Vijayanagara city was sacked after the defeat at Talikota in 1565, the empire persisted for several more decades under the Aravidu dynasty, ruling from capitals such as Penukonda and later Chandragiri, contradicting statement 3's claim of immediate extinction. The actual coalition against Vijayanagara comprised Bijapur, Ahmadnagar, Golconda, and Bidar, not Berar, and shifting alliances among the Deccan Sultanates had occurred before this battle as well."
+    },
+    {
+        q: "The foundation of Turkish rule in northern India, which eventually led to the establishment of the Delhi Sultanate, is most directly traced to which of the following events?",
+        opts: [
+            "The Second Battle of Tarain (1192), where Muhammad Ghori defeated Prithviraj Chauhan",
+            "The Battle of Khanwa (1527)",
+            "The First Battle of Panipat (1526)",
+            "The Battle of Talikota (1565)"
+        ],
+        ans: 0,
+        exp: "Muhammad Ghori's decisive victory over Prithviraj Chauhan at the Second Battle of Tarain in 1192 broke the last major Rajput resistance in the region and paved the way for his slave-general Qutb-ud-din Aibak to establish the Delhi Sultanate in 1206. The other battles occurred much later and relate to the Mughal and Vijayanagara periods respectively."
+    },
+    {
+        q: "With reference to the administrative reforms of Sher Shah Suri, consider the following statements: <br> 1. He introduced a standardized silver coin called the 'Rupiya' and a copper coin called the 'Dam', laying the foundation of a currency system later continued by the Mughals.<br>2. His land revenue assessment was based on a fixed cash amount uniformly applied across all provinces, irrespective of soil fertility or crop type.<br>3. He reorganized the empire into sarkars, each subdivided into parganas, with officials such as the Shiqdar and Munsif appointed for local administration.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 and 2 only",
+            "2 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "Sher Shah Suri's Rupiya and Dam coinage system, and his reorganization of the empire into sarkars and parganas under officials like the Shiqdar and Munsif, are both well established. His land revenue system, however, was based on measurement of land and a schedule of rates (rai) linked to the fertility and type of crop, not a uniform fixed cash sum, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to the administrative reforms of Mahmud Gawan, the Wazir of the Bahmani Kingdom, consider the following statements: <br> 1. He increased the number of provinces (tarafs) in the kingdom and reduced the size of each to curtail the power of provincial governors.<br>2. He standardized the assessment of land revenue by ordering the systematic measurement of cultivated land.<br>3. His reforms were welcomed by the Deccani nobility, which strengthened his political position until his eventual natural death due to old age.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "None of the statements are correct",
+            "Only one of the statements is correct",
+            "All of the statements are correct"
+        ],
+        ans: 0,
+        exp: "Mahmud Gawan reorganized the Bahmani provinces and introduced systematic land measurement for revenue assessment, both accurate reforms. However, his measures alienated the entrenched Deccani nobility, who conspired against him with forged evidence of treason, leading to his execution in 1481 rather than a natural death, making statement 3 incorrect."
+    },
+    {
+        q: "Alauddin Khilji's policy of raising the land revenue demand to fifty per cent of the produce in the fertile Doab region, and bringing much of it under direct state control (khalisa) rather than assigning it in iqta to nobles, was primarily aimed at which of the following?",
+        opts: [
+            "Rewarding loyal nobles with larger revenue assignments in the most fertile lands",
+            "Promoting agricultural diversification by taxing food grains more heavily than cash crops",
+            "Encouraging local self-governance by transferring greater fiscal autonomy to village panchayats",
+            "Strengthening the financial and military resources of the central government while curbing the independent power of the nobility"
+        ],
+        ans: 3,
+        exp: "By enhancing the revenue demand in the agriculturally rich Doab and bringing it under direct state control rather than noble-held iqtas, Alauddin Khilji sought to maximize central revenue to sustain a large standing army while simultaneously weakening the economic base of nobles who might otherwise pose a challenge to his authority. This was not aimed at rewarding nobles or promoting local self-governance."
+    },
+    {
+        q: "The 'Amara-Nayaka' system, a distinctive feature of the administrative structure of the Vijayanagara Empire, primarily involved which of the following arrangements?",
+        opts: [
+            "Military chiefs (Nayakas) were granted land revenue assignments in return for maintaining troops, horses, and elephants, and remitting a share of revenue to the king",
+            "Village headmen collected land revenue directly for the royal treasury without any intermediary official",
+            "Provincial governors were appointed exclusively from members of the royal family to ensure loyalty",
+            "Land revenue was collected solely through Brahmin agraharas that were exempt from all military obligations"
+        ],
+        ans: 0,
+        exp: "Under the Amara-Nayaka system, military chieftains called Nayakas were granted territories (amaram) in return for maintaining a stipulated contingent of troops, horses, and elephants for the king, while also remitting a portion of revenue to the central treasury. This system gave regional administration a semi-autonomous, military-fiscal character distinct from a purely hereditary or centrally staffed bureaucracy."
+    },
+    {
+        q: "The Lodi dynasty, the first Afghan dynasty to rule over Delhi, was established by Bahlul Lodi after he overthrew which of the following ruling dynasties?",
+        opts: [
+            "Tughlaq dynasty",
+            "Slave (Mamluk) dynasty",
+            "Sayyid dynasty",
+            "Khilji dynasty"
+        ],
+        ans: 2,
+        exp: "Bahlul Lodi deposed the last Sayyid ruler, Alam Shah, in 1451 and established the Lodi dynasty, the last dynasty to rule the Delhi Sultanate before the Mughal conquest. The Tughlaq, Khilji, and Slave dynasties had already ended well before the Lodis came to power."
+    },
+    {
+        q: "With reference to the Ashtapradhan council of the Maratha administration under Shivaji, consider the following statements: <br> 1. It was a council of eight ministers, and these posts were initially not hereditary.<br>2. The Senapati (Sar-i-Naubat) was primarily responsible for revenue collection, while the Peshwa supervised military campaigns.<br>3. The Panditrao was the member of the council responsible for religious and charitable affairs.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 3",
+            "Both 1 and 2",
+            "None of the above",
+            "Only two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "The Ashtapradhan was a council of eight ministers appointed on merit rather than heredity, and the Panditrao indeed handled religious and charitable matters. Statement 2 reverses the actual roles: the Peshwa was the chief minister overseeing general administration while the Senapati was in charge of military affairs, and the Amatya (Majumdar) handled finance."
+    },
+    {
+        q: "With reference to important religious policies of the Mughal Empire, consider the following statements: <br> 1. Akbar abolished the jizya tax on non-Muslims in 1564 but retained the pilgrimage tax on Hindus visiting sacred sites.<br>2. Aurangzeb reimposed the jizya tax in 1679 as part of a broader shift in state religious policy.<br>3. The jizya was levied specifically on non-Muslim adult male subjects, with exemptions for women, children, the disabled, and the indigent.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "Aurangzeb's reimposition of jizya in 1679 marked a significant reversal of Akbar's policy, and the tax was indeed levied only on non-Muslim adult able-bodied men, with specific groups such as women, children, the disabled, and the poor exempted. However, Akbar had already abolished the pilgrimage tax around 1563, prior to abolishing jizya, so statement 1 is incorrect."
+    },
+    {
+        q: "With reference to the administrative institutions of the Delhi Sultanate, consider the following statements: <br> 1. The Diwan-i-Arz, headed by the Ariz-i-Mumalik, was the department responsible for military affairs.<br>2. The system of branding horses (dagh) and maintaining descriptive rolls of soldiers (chehra/huliya) was introduced by Alauddin Khilji.<br>3. The Diwan-i-Risalat was primarily concerned with the regulation of trade and commerce in the Sultanate.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "The Diwan-i-Arz was indeed the military department under the Ariz-i-Mumalik, and Alauddin Khilji introduced dagh and chehra to prevent fraud in the army. The Diwan-i-Risalat, however, dealt with religious affairs, pious endowments, and appeals, not trade or commerce, making statement 3 incorrect."
+    },
+    {
+        q: "The relatively decentralized and clan-based structure of authority among Afghan nobles under the Lodi dynasty, wherein the Sultan was often regarded merely as 'first among equals,' most directly contributed to which of the following developments?",
+        opts: [
+            "Growing resentment among the nobility when Ibrahim Lodi attempted to centralize authority, contributing to invitations extended to Babur",
+            "The permanent political unification of the Deccan and northern India under a single Afghan authority",
+            "The complete elimination of the iqta-based system of territorial administration",
+            "A far stronger, more centralized administration compared to earlier Sultanate dynasties"
+        ],
+        ans: 0,
+        exp: "Ibrahim Lodi's attempts to curb the traditional autonomy of Afghan nobles and centralize power alienated key figures such as Daulat Khan Lodi and Rana Sanga, who eventually invited Babur to invade India, leading to the First Battle of Panipat in 1526. The Lodi structure was, if anything, less centralized than earlier dynasties, not more."
+    },
+    {
+        q: "With reference to the challenges faced by the Sayyid dynasty, consider the following statements: <br> 1. Khizr Khan overthrew the Tughlaq dynasty through a decisive military campaign, immediately establishing full sovereign control over the entire former Sultanate.<br>2. The Sharqi rulers of Jaunpur maintained a stable, cooperative, and entirely conflict-free relationship with the Sayyid dynasty throughout this period.<br>3. The Sayyid dynasty came to power in the aftermath of Timur's devastating invasion of Delhi in 1398, which had already severely weakened the Sultanate's resources and authority.<br>Which one of the statements given above is correct?",
+        opts: [
+            "1 only",
+            "3 only",
+            "2 only",
+            "None of the statements is correct"
+        ],
+        ans: 1,
+        exp: "Timur's brutal sack of Delhi in 1398 devastated the city and the Sultanate's resources well before the Sayyids came to power, leaving them with a severely weakened inheritance. In reality, Khizr Khan governed initially as a nominal deputy rather than a fully sovereign conqueror, and the Sharqi Sultanate of Jaunpur was a persistent rival, not a cooperative neighbour, of the Sayyid dynasty."
+    },
+    {
+        q: "With reference to the administrative structure of the Delhi Sultanate, consider the following statements: <br> 1. The provinces of the Sultanate were known as Iqtas, whose governors (Muqtis or Walis) maintained troops and administered the region, remitting any revenue surplus (fawazil) to the central treasury.<br>2. Muqtis held their iqtas as hereditary and permanent possessions, comparable to zamindari rights recognized under British colonial law.<br>3. At the village level, functionaries such as the Muqaddam (headman) and Patwari (accountant) assisted in local administration and revenue collection.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "Provinces of the Sultanate were indeed organized as iqtas administered by Muqtis, who remitted surplus revenue to the centre, and village-level functionaries like the Muqaddam and Patwari supported local administration. However, iqtas were generally transferable assignments at the Sultan's discretion, not hereditary and permanent possessions, making statement 2 incorrect."
+    },
+    {
+        q: "Sher Shah Suri's administration is particularly noted by historians for which of the following characteristics?",
+        opts: [
+            "Complete decentralization of authority to regional zamindars with minimal central oversight",
+            "Reliance primarily on Rajput nobility for key administrative and military positions",
+            "Strict adherence to hereditary succession in all administrative appointments, replicating an aristocratic structure",
+            "A highly centralized and efficient administrative system combined with a strong emphasis on law and order and merit-based appointments"
+        ],
+        ans: 3,
+        exp: "Sher Shah Suri built a highly centralized yet efficient administration, renowned for strict law and order and famous for appointing officials on merit rather than solely on tribal or hereditary lineage, breaking from earlier Afghan aristocratic practice. His system blended strong central control with attention to local governance through sarkars and parganas."
+    },
+    {
+        q: "With reference to the structure and composition of power under the Khilji dynasty, consider the following statements: <br> 1. The rise of the Khiljis is often described by historians as marking the end of the near-exclusive monopoly of Turkish nobility over the highest offices of the Sultanate.<br>2. Alauddin Khilji maintained a large permanent standing army paid in cash, made feasible partly through market control measures that kept the cost of provisions low.<br>3. Despite being viewed with some suspicion by the old Turkish aristocracy, the Khiljis broadened the social base of the nobility by appointing capable men regardless of family background or ethnicity to important posts.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "Only statement 3",
+            "Both 1 and 2",
+            "All of the above"
+        ],
+        ans: 3,
+        exp: "Historians commonly describe the establishment of Khilji rule as ending the near-monopoly of Turkish nobles over high offices, while Alauddin Khilji's market reforms enabled him to sustain a large cash-paid standing army. The Khiljis, themselves regarded with some suspicion by the old Turkish aristocracy, correspondingly widened access to important posts based on merit rather than lineage, so all three statements are correct."
+    },
+    {
+        q: "The Maratha military strategy under Shivaji, characterized by rapid, mobile tactics that used knowledge of local hilly terrain to avoid direct pitched battles with larger armies, is popularly known by which term?",
+        opts: [
+            "Chauth",
+            "Ashtapradhan",
+            "Ganimi Kava",
+            "Zabti"
+        ],
+        ans: 2,
+        exp: "'Ganimi Kava', meaning guerrilla tactics, refers to Shivaji's characteristic mode of warfare that relied on swift movement, surprise raids, and the strategic use of hill forts and difficult terrain rather than large-scale pitched battles. Chauth was a revenue levy, Ashtapradhan the council of ministers, and Zabti a system of land revenue measurement, none of which relate to military strategy."
+    },
+    {
+        q: "With reference to the Sayyid dynasty, consider the following statements: <br> 1. Mubarak Shah, the second Sayyid ruler, founded a new town named Mubarakabad on the banks of the Yamuna river, though no trace of it survives today.<br>2. The principal contemporary chronicle for the Sayyid period, the 'Tarikh-i-Mubarak Shahi', was authored by Ziauddin Barani, who dedicated the work to Sultan Mubarak Shah.<br>3. Under Mubarak Shah, the Sayyid administration successfully reasserted full control over Malwa and Gujarat, reversing decades of provincial fragmentation.<br>Which one of the statements given above is correct?",
+        opts: [
+            "2 only",
+            "3 only",
+            "None of the statements is correct",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "Mubarak Shah did found the town of Mubarakabad on the banks of the Yamuna, though it has left no surviving trace. The 'Tarikh-i-Mubarak Shahi', however, was actually authored by Yahya bin Ahmad Sirhindi, not Ziauddin Barani, who had died decades earlier and was instead the author of the 'Tarikh-i-Firoz Shahi' covering the Tughlaq period. Nor did the militarily weak Sayyid dynasty ever reassert control over Malwa and Gujarat, both of which were independent regional sultanates by this time."
+    },
+    {
+        q: "Which of the following best describes a key function personally performed by Sher Shah Suri to ensure the efficiency of his administration?",
+        opts: [
+            "He delegated all military and revenue functions entirely to provincial governors without central oversight",
+            "He appointed a permanent regent to manage imperial affairs while he presided only over religious ceremonies",
+            "He abolished direct communication between the ruler and local officials, relying solely on written correspondence",
+            "He undertook frequent personal tours of his empire to inspect the work of revenue and local officials and check corruption"
+        ],
+        ans: 3,
+        exp: "Sher Shah Suri was renowned for personally touring his empire extensively to inspect the conduct of officials, particularly those responsible for revenue collection, and dealt strictly with corruption. This hands-on style of supervision was central to the efficiency and discipline for which his administration is remembered."
+    },
+    {
+        q: "With reference to the features of the so-called 'Slave Dynasty' of the Delhi Sultanate, consider the following statements: <br> 1. The term 'Slave Dynasty' is considered a misnomer by several historians, since many of its rulers, being sons or descendants of the founding slave-generals, were themselves free-born rather than slaves.<br>2. All rulers of this dynasty, without exception, belonged to a single unbroken line of biological descent from Qutb-ud-din Aibak.<br>3. Raziya Sultana, who ascended the throne after Iltutmish, was notable for being a slave purchased directly by Qutb-ud-din Aibak.<br>Which one of the statements given above is correct?",
+        opts: [
+            "3 only",
+            "2 only",
+            "1 only",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "Many historians indeed regard 'Slave Dynasty' as a misnomer, since successors such as Raziya were free-born children rather than slaves themselves. In fact, this dynasty was not a single bloodline: Iltutmish was Aibak's slave and son-in-law rather than his biological descendant, and Balban was a slave purchased by Iltutmish, unrelated by blood to Aibak; Raziya, meanwhile, was Iltutmish's own daughter, not a slave purchased by Aibak."
+    },
+    {
+        q: "Under Alauddin Khilji's market control system, which of the following officials was specifically responsible for supervising the markets and ensuring that traders adhered to the fixed prices?",
+        opts: [
+            "Sadr-us-Sudur",
+            "Shahna-i-Mandi",
+            "Ariz-i-Mumalik",
+            "Wazir"
+        ],
+        ans: 1,
+        exp: "The Shahna-i-Mandi was the officer specifically tasked with overseeing markets, maintaining price records, and ensuring traders complied with the fixed rates under Alauddin Khilji's market reforms. The Ariz-i-Mumalik headed military affairs, the Wazir headed finance, and the Sadr-us-Sudur oversaw religious grants, none of which related directly to market supervision."
+    },
+    {
+        q: "In the judicial system of the Mughal Empire, who among the following served as the highest court of appeal, above all other judicial officers in the empire?",
+        opts: [
+            "Qazi-ul-Quzat (Chief Qazi)",
+            "Mir Bakhshi",
+            "The Emperor",
+            "Sadr-us-Sudur"
+        ],
+        ans: 2,
+        exp: "The Mughal Emperor stood at the apex of the judicial hierarchy and personally heard appeals and petitions, often during public audiences, making him the final court of appeal. The Qazi-ul-Quzat headed the network of religious judges, and the Sadr-us-Sudur oversaw religious endowments and charitable grants, but neither outranked the Emperor's judicial authority."
+    },
+    {
+        q: "The Bahmani Kingdom, one of the earliest major regional kingdoms to emerge in the Deccan, was founded in 1347 by which of the following, following a revolt against the oppressive policies of Muhammad bin Tughlaq?",
+        opts: [
+            "Harihara",
+            "Malik Kafur",
+            "Zafar Khan (Muzaffar Shah)",
+            "Ala-ud-din Bahman Shah (Hasan Gangu)"
+        ],
+        ans: 3,
+        exp: "Ala-ud-din Bahman Shah, also known as Hasan Gangu, led a successful revolt of Deccani nobles against Muhammad bin Tughlaq's harsh policies and founded the Bahmani Kingdom in 1347. Harihara went on to found the Vijayanagara Empire, Malik Kafur was Alauddin Khilji's general, and Zafar Khan later founded the independent Gujarat Sultanate."
+    },
+    {
+        q: "With reference to the legal and administrative measures of the Khilji dynasty, consider the following statements: <br> 1. Alauddin Khilji increased the special tax exemptions and additional cesses enjoyed by village intermediaries such as Khuts, Muqaddams, and Chaudhris, thereby strengthening their local authority.<br>2. Alauddin Khilji established the Diwan-i-Mustakhraj, a dedicated department for the collection of outstanding revenue arrears from defaulting cultivators and intermediaries.<br>3. Alauddin Khilji delegated final authority over all civil and criminal legal disputes exclusively to village panchayats, withdrawing central oversight over local justice.<br>Which one of the statements given above is correct?",
+        opts: [
+            "1 only",
+            "None of the statements is correct",
+            "3 only",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "Alauddin Khilji did establish the Diwan-i-Mustakhraj specifically to recover outstanding revenue arrears, a genuine administrative innovation. However, he actually withdrew, rather than increased, the tax exemptions and cesses previously enjoyed by village intermediaries like Khuts and Muqaddams, and central oversight over justice was strengthened, not delegated away to village panchayats."
+    },
+    {
+        q: "With reference to Akbar's land revenue system, consider the following statements: <br> 1. The Dahsala system, associated with Raja Todar Mal, calculated revenue by averaging the produce and prices of the preceding ten years for each crop within specific 'Dastur' (revenue) circles.<br>2. Under this system, revenue was to be paid exclusively in kind (grain), with cash payments being entirely disallowed as a matter of state policy.<br>3. The Dahsala system applied uniformly, with identical revenue rates across all provinces of the empire, irrespective of local agricultural conditions or crop variety.<br>Which one of the statements given above is correct?",
+        opts: [
+            "3 only",
+            "1 and 2 only",
+            "2 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "The Dahsala system did indeed compute revenue by averaging produce and prices over the preceding ten years within specific Dastur circles. However, the system converted this assessment into fixed cash rates rather than mandating payment exclusively in kind, and the rates varied by crop and by Dastur circle according to local conditions, rather than being applied uniformly across the entire empire."
+    },
+    {
+        q: "Arrange the following dynasties of the Delhi Sultanate in the correct chronological order of their establishment: <br>1. Sayyid dynasty<br>2. Tughlaq dynasty<br>3. Khilji dynasty<br>4. Lodi dynasty",
+        opts: [
+            "3-1-2-4",
+            "1-3-2-4",
+            "2-3-1-4",
+            "3-2-1-4"
+        ],
+        ans: 3,
+        exp: "The correct chronological sequence of establishment is the Khilji dynasty (1290), followed by the Tughlaq dynasty (1320), then the Sayyid dynasty (1414), and finally the Lodi dynasty (1451), corresponding to the order 3-2-1-4."
+    },
+    {
+        q: "With reference to a recent (2025-26) heritage development and the Sayyid dynasty, consider the following statements: <br> 1. In 2026, the Archaeological Survey of India announced a conservation drive covering around 140 of Delhi's protected monuments, spanning structures from the Sultanate period, which includes Sayyid-era monuments, to the late Mughal era.<br>2. The Tomb of Mubarak Shah at Kotla Mubarakpur, completed around 1434, is accompanied by a mosque traditionally regarded as the only mosque built during the entire Sayyid dynasty's rule.<br>3. The tomb of Mubarak Shah follows a square floor plan, a design that was subsequently abandoned by the Lodi dynasty in favour of exclusively circular tomb structures.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "The 2026 ASI conservation drive does span Delhi's protected monuments from the Sultanate era, including Sayyid-period structures, through to the late Mughal period, and the mosque beside Mubarak Shah's tomb at Kotla Mubarakpur is indeed traditionally regarded as the only mosque built by the Sayyids. However, the tomb itself is octagonal, not square, in plan, and this octagonal design was in fact continued rather than abandoned by subsequent Lodi royal tombs, such as that of Sikandar Lodi, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to a recent (2025-26) conservation initiative concerning Mughal-era monuments, consider the following statements: <br> 1. In 2026, the Archaeological Survey of India announced a major conservation drive covering around 140 of Delhi's 170 protected monuments, including Mughal-era structures such as the Red Fort, Humayun's Tomb, and Purana Qila.<br>2. As part of this drive, the restoration of the Red Fort's Northern Cell aims to revert the structure to a white-plastered appearance introduced during later repairs, moving away from its original Mughal-era red sandstone facade.<br>3. The Red Fort, a UNESCO World Heritage Site, was constructed by Emperor Shah Jahan between 1638 and 1648 after he shifted the Mughal capital to Shahjahanabad.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "Only two of the statements are correct",
+            "Only one of the statements is correct",
+            "Both 1 and 2"
+        ],
+        ans: 1,
+        exp: "The 2026 ASI conservation drive does cover around 140 of Delhi's protected monuments spanning the Sultanate to the late Mughal era, and the Red Fort was indeed built by Shah Jahan between 1638 and 1648 after his capital shifted to Shahjahanabad. However, the restoration of the Northern Cell is aimed at reverting it back to its original red sandstone appearance, since it had turned white due to later repairs, exactly the opposite of what statement 2 claims."
+    },
+    {
+        q: "With reference to the constitutional and legal position of the Sayyid dynasty, consider the following statements: <br> 1. Khizr Khan, founder of the Sayyid dynasty, assumed the full title of 'Sultan' and declared complete independence from any external authority upon capturing Delhi.<br>2. The Sayyid dynasty derived its name from a claimed descent from the lineage of the Prophet Muhammad (Sayyid lineage), though this claim is debated among historians.<br>3. Mubarak Shah, the second Sayyid ruler, permanently annexed the Deccan region, extending Sayyid authority as far south as the Krishna river.<br>Which one of the statements given above is correct?",
+        opts: [
+            "None of the statements is correct",
+            "1 only",
+            "2 only",
+            "3 only"
+        ],
+        ans: 2,
+        exp: "The Sayyid dynasty's name is indeed linked to a claimed Sayyid (Prophet's) lineage, a claim that remains debated among historians. Khizr Khan, however, did not assume full sovereign titles or declare independence, ruling instead as a nominal deputy owing allegiance to the Timurid ruler, and the militarily weak Sayyid dynasty never extended its control anywhere close to the Deccan."
+    },
+    {
+        q: "Consider the following Assertion (A) and Reason (R): <br> Assertion (A): Shivaji introduced the levies of Chauth and Sardeshmukhi on Mughal-controlled territories in the Deccan.<br>Reason (R): These levies were introduced primarily to finance the construction of the Grand Trunk Road connecting Raigad to Delhi.<br>Which one of the following is correct in respect of the above Assertion and Reason?",
+        opts: [
+            "Both A and R are true and R is the correct explanation of A",
+            "Both A and R are true but R is NOT the correct explanation of A",
+            "A is true but R is false",
+            "A is false but R is true"
+        ],
+        ans: 2,
+        exp: "Shivaji did institute Chauth (one-fourth of standard revenue) and Sardeshmukhi (an additional one-tenth) as tribute claimed from Mughal-held Deccan territories to fund the Maratha state and military. The Grand Trunk Road, however, was an ancient route reconstructed by Sher Shah Suri centuries earlier and had no connection to Shivaji's levies, making R false."
+    },
+    {
+        q: "Sikandar Lodi is credited with introducing a standardized unit of land measurement in his administration, known by which of the following names?",
+        opts: [
+            "Ilahi Gaz",
+            "Bigha-i-Akbari",
+            "Zabti Gaz",
+            "Gaz-i-Sikandari"
+        ],
+        ans: 3,
+        exp: "Sikandar Lodi introduced the 'Gaz-i-Sikandari' as a standardized measuring unit for land assessment during his reign. The 'Ilahi Gaz' was a distinct standardized measure introduced later under Akbar as part of the Mughal zabt revenue system, making it a common point of confusion with Sikandar Lodi's earlier unit."
+    },
+    {
+        q: "By the mid-eighteenth century, the Maratha polity had evolved into a confederacy of semi-autonomous chiefs owing nominal allegiance to the Peshwa at Pune. Which of the following correctly pairs a Maratha chief's family with its principal seat of power?",
+        opts: [
+            "Scindia — Gwalior",
+            "Gaekwad — Indore",
+            "Holkar — Nagpur",
+            "Bhonsle — Baroda"
+        ],
+        ans: 0,
+        exp: "The Scindias established their principal seat at Gwalior, while the correct pairings for the other chiefs were Holkar at Indore, Gaekwad at Baroda, and Bhonsle at Nagpur; the given alternatives all mismatch the chief with the wrong seat of power."
+    },
+    {
+        q: "With reference to the Mansabdari system established under the Mughal Empire, consider the following statements: <br> 1. It was introduced by Akbar as a mechanism to grade officials and organize the military and civil administration.<br>2. The 'Sawar' rank indicated the number of cavalrymen a mansabdar was required to maintain, while the 'Zat' rank denoted his personal status and salary.<br>3. Mansabs were generally non-hereditary and could be increased, decreased, or resumed by the emperor at will.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 3",
+            "Only statement 3",
+            "Only statement 1",
+            "1, 2 and 3"
+        ],
+        ans: 3,
+        exp: "Akbar introduced the Mansabdari system with a dual-rank structure: Zat denoted personal status and salary, while Sawar indicated the cavalry contingent to be maintained, exactly as stated. Mansabs were assigned by imperial discretion and were not hereditary, allowing the emperor to raise, lower, or withdraw them as needed, so all three statements are correct."
+    },
+    {
+        q: "With reference to the administrative legacy of Sher Shah Suri and its relationship to later Mughal administration, consider the following statements: <br> 1. Akbar's provincial unit called 'Sarkar', headed by a Faujdar and an Amalguzar, continued Sher Shah's Sarkar administration with the officials' titles of Shiqdar-i-Shiqdaran and Munsif-i-Munsifan left largely unchanged.<br>2. The silver 'Rupiya' introduced by Sher Shah Suri, weighing approximately 178 grains, remained the standard for Mughal coinage and, with later British-era modifications, evolved into the modern Indian Rupee.<br>3. Sher Shah Suri's revenue settlement, based on measurement of land (zabt) with rates specified according to crop and soil quality (rai), was entirely abandoned by Akbar in favour of a purely cash-based, crop-independent flat assessment across the empire.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "Sher Shah's silver Rupiya did become the enduring standard that, through later modifications, evolved into the modern Indian Rupee. However, while Akbar retained the basic Sarkar-Pargana territorial framework, he introduced new official titles (Faujdar for law and order, Amalguzar for revenue) rather than leaving Sher Shah's nomenclature unchanged, and far from abandoning the zabt-rai principle, Akbar's Dahsala system under Raja Todar Mal refined and built upon it rather than replacing it with a flat, crop-independent cash assessment."
+    },
+    {
+        q: "Akbar's 'Din-i-Ilahi' (Tauhid-i-Ilahi) is best characterized as which of the following?",
+        opts: [
+            "An eclectic spiritual order drawing selectively from various faiths, with a very limited following confined mostly to courtiers",
+            "A new organized religion that formally replaced Islam as the state religion",
+            "A revenue policy aimed at unifying tax administration across the empire",
+            "A military reform integrating Rajput cavalry units into the imperial army"
+        ],
+        ans: 0,
+        exp: "Din-i-Ilahi was an eclectic ethical and spiritual order promoted by Akbar, drawing selectively on ideas from Islam, Hinduism, Zoroastrianism, Jainism, and Christianity, but it never became a formal state religion and attracted only a small circle of courtiers such as Birbal. It had no connection to revenue administration or military reorganization."
+    },
+    {
+        q: "With reference to the features of the Delhi Sultanate, consider the following statements: <br> 1. The true arch and dome, along with the use of lime mortar in construction, were features indigenous to India prior to the Sultanate and were merely continued without modification by the new rulers.<br>2. Slaves (Mamluks) were completely barred from holding any military or administrative posts under the Sultanate and remained purely domestic servants.<br>3. Persian was adopted as the language of administration and the court throughout most of the Delhi Sultanate period.<br>Which one of the statements given above is correct?",
+        opts: [
+            "3 only",
+            "2 only",
+            "1 only",
+            "None of the statements is correct"
+        ],
+        ans: 0,
+        exp: "Persian was indeed established as the language of administration and the court for most of the Sultanate period. In contrast, the true arch, dome, and extensive use of lime mortar represented significant architectural techniques introduced and popularized by the new Turkish rulers, and Mamluks such as Qutb-ud-din Aibak himself rose to hold the highest military and administrative offices, contradicting statements 1 and 2."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-49 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

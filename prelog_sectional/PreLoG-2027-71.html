@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-71</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "With reference to floods in India in 2025-2026, consider the following statements: <br> 1. A Union Home Ministry report attributed the highest number of hydro-meteorological disaster deaths in 2024-25 to Gujarat, followed by Maharashtra.<br>2. According to the same report, over 2,900 people lost their lives due to hydro-meteorological disasters in India during 2024-25, with Himachal Pradesh recording the highest state-wise toll.<br>3. The report found that fatalities from hydro-meteorological disasters in 2024-25 were concentrated exclusively in India's coastal states, with no deaths reported from inland or hill states.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 2",
+            "Statement 3 alone",
+            "Only statement 1",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 0,
+        exp: "The Union Home Ministry's figures showed just over 2,900 deaths from hydro-meteorological disasters in 2024-25, with Himachal Pradesh recording the highest toll among states, followed by Madhya Pradesh and Kerala. Gujarat's toll was lower than Himachal Pradesh's, and inland/hill states such as Himachal Pradesh, Madhya Pradesh, Rajasthan, and Chhattisgarh featured prominently, directly contradicting any claim that deaths were confined to coastal states."
+    },
+    {
+        q: "With reference to the constitutional and legal position of avalanches in India, consider the following statements: <br> 1. Since avalanche mitigation and forecasting in India is substantially carried out by DGRE, a DRDO laboratory under the Ministry of Defence serving the Armed Forces, this engages the Union's defence-related functions under Entry 1 of the Union List, distinct from the primarily State-driven civil disaster response framework.<br>2. Avalanche management in India is constitutionally recognised as an exclusive State List subject, with the Union Government having no legal role whatsoever in avalanche forecasting or mitigation.<br>3. The Constitution contains a specific entry titled \"Avalanches and Glacial Hazards\" under the Concurrent List, distinguishing it from general disaster management provisions.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "Exactly two of the statements are correct",
+            "Exactly one of the statements is correct",
+            "None of the statements are correct"
+        ],
+        ans: 2,
+        exp: "Because DGRE operates as a DRDO laboratory under the Ministry of Defence primarily serving the Armed Forces, its avalanche-forecasting role is tied to the Union's defence functions under Entry 1 of the Union List, distinguishing it from the largely State-led civil disaster response machinery. Avalanche management is not an exclusive State subject given this Union defence dimension, and no specific \"Avalanches and Glacial Hazards\" entry exists anywhere in the Constitution."
+    },
+    {
+        q: "Which one of the following is NOT among the statutory functions of the National Disaster Management Authority (NDMA) under the Disaster Management Act, 2005?",
+        opts: [
+            "Approving the National Disaster Management Plan",
+            "Adjudicating compensation disputes arising from disaster relief claims between individuals and state governments",
+            "Laying down broad policies and guidelines for the functioning of the National Institute of Disaster Management",
+            "Recommending provision of funds for the purpose of mitigation"
+        ],
+        ans: 1,
+        exp: "The NDMA is a policy-making and coordinating apex body responsible for approving national plans, laying down guidelines, and recommending mitigation funding, among other functions listed in the Act. It has no adjudicatory or tribunal-like function to settle individual compensation disputes with state governments."
+    },
+    {
+        q: "With reference to the Forest Fire Prevention & Management Scheme (FFPMS) and forest fires in India, consider the following statements: <br> 1. Under the Scheme, funding for Normal States is shared between the Centre and the States in the ratio of 60:40.<br>2. For North-Eastern and Himalayan States, the Centre bears 90% of the funding under the Scheme, with the State contributing the remaining 10%.<br>3. Forest fires in India are generally classified as crown fires, which spread rapidly through the forest canopy independent of ground litter.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "The FFPMS follows a 60:40 Centre-State funding pattern for normal states and a more generous 90:10 pattern for North-Eastern and Himalayan states, reflecting their special-category status. However, forest fires in India are generally ground fires rather than crown fires, since they typically spread through surface litter such as dry leaves and pine needles rather than through the canopy."
+    },
+    {
+        q: "With reference to the background and evolution of disaster management in India, consider the following statements: <br> 1. The High Powered Committee (HPC) on Disaster Management was constituted immediately after the 2004 Indian Ocean Tsunami, rather than after the 1999 Odisha Super Cyclone.<br>2. The HPC, constituted in August 1999 under the chairmanship of J.C. Pant following the Odisha Super Cyclone, represented India's first systematic attempt at preparing comprehensive disaster management plans at the national, state, and district levels.<br>3. Odisha established its State Disaster Management Authority only after the National Disaster Management Authority was created in 2005, following the Centre's lead.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 only",
+            "2 only",
+            "3 only"
+        ],
+        ans: 2,
+        exp: "The High Powered Committee was indeed constituted in August 1999, under J.C. Pant, in the aftermath of the Odisha Super Cyclone — years before the 2004 tsunami — and was India's first systematic, holistic attempt to prepare model disaster management plans at all three levels of government. Odisha, in fact, pioneered its own State Disaster Management Authority before the NDMA was created in 2005, not after it."
+    },
+    {
+        q: "With reference to the features and characteristics of avalanches, consider the following statements: <br> 1. A \"slab avalanche,\" in which a compact layer of snow breaks away as a block, is generally considered the most dangerous type of snow avalanche.<br>2. A \"loose snow avalanche\" releases as a single cohesive block that breaks away from the slope, while a \"slab avalanche\" begins from a single point and spreads as it descends.<br>3. \"Wet snow avalanches\" are triggered specifically by earthquakes and vibrations, and are unrelated to snowmelt or rainfall.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 and 3 only",
+            "1 only",
+            "2 only"
+        ],
+        ans: 2,
+        exp: "A slab avalanche, where a cohesive block of snow breaks away, is indeed the most dangerous type. However, statement 2 reverses the actual definitions — it is the loose snow avalanche that begins from a point and spreads, while the slab avalanche releases as a cohesive block. Wet snow avalanches, contrary to statement 3, are caused by snowmelt or rainfall making the snowpack heavy and unstable, not by earthquakes."
+    },
+    {
+        q: "With reference to previous UPSC examination trends on cyclones, consider the following statements: <br> 1. A UPSC Mains question asked aspirants to discuss the meaning of the colour-coded weather warnings issued by the India Meteorological Department for cyclone-prone areas.<br>2. A UPSC Mains question asked why tropical cyclones are largely confined to the South China Sea, the Bay of Bengal, and the Gulf of Mexico.<br>3. The naming of tropical cyclones over the North Indian Ocean, coordinated through the WMO/ESCAP Panel, commenced in the 1980s, well before a similar naming convention existed for the Atlantic basin.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "Statement 2 alone",
+            "Only statement 3",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "Both cited questions have indeed appeared in UPSC Mains, testing the IMD's colour-coded warning system and the geographic confinement of tropical cyclone formation zones. However, naming of North Indian Ocean cyclones only began in September 2004, much later than the Atlantic basin's naming convention, which dates back to the mid-20th century."
+    },
+    {
+        q: "With reference to previous UPSC examination trends on avalanches, consider the following statements: <br> 1. Unlike floods, cyclones, droughts, and landslides, avalanches have not been the subject of a dedicated, standalone UPSC Mains question, and are more often tested indirectly through broader hazard-classification content.<br>2. Coaching platforms have framed avalanche-focused mock and practice questions around real incidents, such as the 2016 Siachen Glacier avalanche that killed several Indian soldiers.<br>3. For UPSC's disaster-classification purposes, avalanches are officially categorised as \"hydrological\" disasters, distinct from \"geophysical\" hazards like landslides.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "Both 1 and 2",
+            "Only statement 1",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "Avalanches have indeed not featured as a standalone UPSC Mains question in the way floods, cyclones, droughts, and landslides have, and coaching platforms have built mock practice questions around real events like the 2016 Siachen avalanche. However, avalanches are classified as \"geophysical\", not \"hydrological\", hazards, in line with the same classification that places landslides in the geophysical category, even though hydro-meteorological factors like snowfall contribute to them."
+    },
+    {
+        q: "With reference to flood management policy in India, consider the following statements: <br> 1. The Flood Management and Border Areas Programme (FMBAP) was formed by merging the erstwhile Flood Management Programme with River Management Activities and Works related to Border Areas.<br>2. The Flood Risk Mitigation Scheme (FRMS) is a proposed scheme envisaging flood shelters and river basin-specific early warning systems.<br>3. FMBAP is administered by the Ministry of Home Affairs as the central nodal ministry for all flood control works in India.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 2 and 3",
+            "None of the above",
+            "Only statement 3",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "FMBAP indeed resulted from merging the Flood Management Programme with River Management Activities and Works related to Border Areas, and the forthcoming FRMS is intended to fund flood shelters and river basin-specific early warning systems. However, flood management works under FMBAP are administered by the Ministry of Jal Shakli's Department of Water Resources, not the Ministry of Home Affairs."
+    },
+    {
+        q: "With reference to the background and evolution of India's drought-mitigation programmes, consider the following statements: <br> 1. The Drought Prone Areas Programme (DPAP), launched in 1973-74, initially followed a sectoral approach before shifting to a watershed-based approach following the 1994 recommendations of the Hanumantha Rao Committee.<br>2. The Desert Development Programme (DDP), launched in 1977-78, aims at the integrated development of desert areas as well as the cold arid regions of the country.<br>3. DPAP, DDP, and the Integrated Wasteland Development Programme were merged into a single programme, the Integrated Watershed Management Programme (IWMP), launched in 2009-10.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "All three statements are correct",
+            "Only statement 1",
+            "Only two of the statements are correct"
+        ],
+        ans: 1,
+        exp: "DPAP shifted from a sectoral to a watershed-based, community-participatory approach after the High-Level Technical Committee headed by Prof. C.H. Hanumantha Rao submitted its recommendations in 1994. The DDP separately targeted both hot desert and cold arid regions, and in 2009-10 all three area-development programmes were consolidated into the single Integrated Watershed Management Programme."
+    },
+    {
+        q: "Which one of the following landslide types is correctly matched with its defining characteristic?",
+        opts: [
+            "Topples — Forward rotation and free-fall of a rock mass from a near-vertical slope, pivoting about a point below its centre of gravity",
+            "Spreads — Detachment of material from a steep slope or cliff, descending by free-fall, bouncing, or rolling",
+            "Flows — Lateral extension and cracking of a coherent mass, typically caused by liquefaction of underlying material",
+            "Falls — Movement of a rock or soil mass along a well-defined rupture surface, with little internal deformation"
+        ],
+        ans: 0,
+        exp: "Topples involve the forward rotation and free-fall of a rock mass from a vertical or near-vertical slope. The description given for Falls actually describes Slides, the description for Flows actually describes Spreads (lateral extension due to liquefaction), and the description for Spreads actually describes Falls (detachment with free-fall, bouncing, or rolling)."
+    },
+    {
+        q: "With reference to previous UPSC Mains questions on floods in India, consider the following statements: <br> 1. A UPSC Mains question asked aspirants to account for the huge flooding of million-plus cities in India, including \"smart\" cities like Hyderabad and Pune, and to suggest lasting remedial measures.<br>2. A UPSC Mains question asked aspirants to analyse the various causes of dam failures and cite examples of large dam failures.<br>3. A UPSC Mains question asked aspirants to discuss urban flooding as an emerging climate-induced disaster, citing features of two major floods from the last two decades and describing India's relevant policies and frameworks.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "All three have indeed appeared as UPSC Mains GS Paper III questions in recent years — on urban flooding in million-plus cities, on the causes of dam failures, and on urban flooding as a climate-induced disaster along with India's policy response. Together they show floods being tested from causal, infrastructural, and policy-framework angles rather than a single fixed pattern."
+    },
+    {
+        q: "With reference to reforms and institutional shortcomings in India's disaster management, consider the following statements: <br> 1. The 15th Finance Commission reduced the overall SDRF/NDRF allocation compared to the 14th Finance Commission's recommendations, in order to encourage private catastrophe insurance markets.<br>2. Following the 2013 Uttarakhand floods, NDMA was praised in official reviews for having issued timely evacuation warnings that prevented major loss of life.<br>3. The Government of India's key institutional reform following the 2004 Indian Ocean Tsunami was the immediate repeal of the Disaster Management Act, 2005, in favour of ad hoc state-level committees.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "None of the statements is correct",
+            "1 only",
+            "2 only"
+        ],
+        ans: 1,
+        exp: "Each statement inverts the actual record: the 15th Finance Commission substantially enhanced disaster fund allocations (₹1,28,122.40 crore for 2021-26) rather than reducing them; NDMA was criticised, not praised, for failing to give timely warnings during the 2013 Uttarakhand floods; and the Disaster Management Act, 2005 was enacted, not repealed, precisely in response to the governance gaps exposed by the 2004 tsunami."
+    },
+    {
+        q: "With reference to the background and evolution of early warning systems in India, consider the following statements: <br> 1. India's Tsunami Early Warning Centre, established in the aftermath of the 2004 Indian Ocean Tsunami, is operated by INCOIS under the Ministry of Earth Sciences.<br>2. The Sendai Framework for Disaster Risk Reduction preceded the Hyogo Framework for Action in India's disaster-management evolution.<br>3. The National Geophysical Research Institute's field studies for a Himalayan early warning system, begun in 2022, focus primarily on tsunami risk in the region.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "1 and 3 only",
+            "Only one of the statements is correct",
+            "3 only"
+        ],
+        ans: 2,
+        exp: "India's Tsunami Early Warning Centre, set up after the 2004 tsunami, is indeed operated by INCOIS under the Ministry of Earth Sciences. However, the Hyogo Framework (2005-2015) preceded the Sendai Framework (2015-2030), not the reverse, and the NGRI's 2022 Himalayan field studies target floods, rockslides, landslips, glacier lake bursts and avalanches, not tsunamis, since the Himalayan region is not a tsunami-risk zone."
+    },
+    {
+        q: "With reference to challenges associated with heat waves in India, consider the following statements: <br> 1. Heat wave is officially included among the disasters covered under the State Disaster Response Fund (SDRF) norms notified by the Union Government.<br>2. Heat Action Plans (HAPs) prepared by Indian states and cities are not backed by any binding central legislation and vary in quality and enforcement across states.<br>3. The India Meteorological Department and NDMA jointly issue heat wave warnings, but no central law mandates a uniform national Heat Action Plan framework.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "Heat wave is not among the disasters officially notified under the standard SDRF list, which is a recognised governance gap; states may address it only through the fund's discretionary component. Heat Action Plans, though jointly guided by IMD's colour-coded warnings and NDMA guidelines, lack a binding central legislative mandate, resulting in uneven quality and enforcement across states."
+    },
+    {
+        q: "With reference to reforms and recommendations relevant to heat waves in India, consider the following statements: <br> 1. The same Parliamentary Standing Committee explicitly rejected any proposal to consider heatwaves as an emerging disaster, citing insufficient scientific evidence.<br>2. A Department-related Parliamentary Standing Committee on Home Affairs recommended that the Ministry include \"new and emerging\" disasters such as heatwaves in disaster management plans and establish a formal mechanism for periodic review of the Notified Disasters list.<br>3. Following this recommendation, heatwaves were immediately and formally added to the standard list of disasters notified under the Disaster Management Act, 2005.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 and 3 only",
+            "2 only",
+            "1 only"
+        ],
+        ans: 2,
+        exp: "The Department-related Parliamentary Standing Committee on Home Affairs did recommend including \"new and emerging\" disasters like heatwaves in disaster management plans and setting up a formal mechanism for periodically reviewing the Notified Disasters list. This is the opposite of statement 1, which claims the Committee rejected the idea, and as of this recommendation, heatwaves had not been formally and immediately added to the notified list — a committee recommendation is not itself a notification."
+    },
+    {
+        q: "With reference to Disaster Risk Reduction (DRR), consider the following statements: <br> 1. The Sendai Framework for Disaster Risk Reduction (2015-2030) was adopted at the Third UN World Conference on Disaster Risk Reduction held in Sendai, Japan.<br>2. The Sendai Framework is the successor instrument to the Hyogo Framework for Action, 2005-2015.<br>3. \"Build Back Better\" as a guiding principle for post-disaster recovery is enumerated under the Sendai Framework's priority area of \"Investing in disaster risk reduction for resilience\".<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "Only two of the statements are correct",
+            "All three statements are correct",
+            "Statement 2 alone"
+        ],
+        ans: 1,
+        exp: "The Sendai Framework was indeed adopted in March 2015 at the Third UN World Conference on Disaster Risk Reduction in Sendai, Japan, as the successor to the Hyogo Framework for Action (2005-2015). However, \"Build Back Better\" is specifically enumerated under the fourth priority area, \"Enhancing disaster preparedness for effective response and to Build Back Better in recovery, rehabilitation and reconstruction\", not under the investment priority."
+    },
+    {
+        q: "With reference to the features and characteristics of forest fires in India, consider the following statements: <br> 1. Forest fires require only two elements — fuel and oxygen — to sustain combustion, with heat playing no role in the process.<br>2. The Forest Survey of India's fire alert system relies exclusively on ground-based human patrolling and does not use any satellite-based sensors.<br>3. FSI's fire alert system draws on near-real-time data from MODIS and VIIRS satellite sensors, with major fire seasons typically running March-May in the Himalayas and central India, and October-December in parts of the Western Ghats and North-East.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "3 only",
+            "1 and 2 only",
+            "1 only"
+        ],
+        ans: 1,
+        exp: "FSI's alert system does rely on near-real-time MODIS and VIIRS satellite data, with the well-documented seasonal pattern of March-May fires in the Himalayas and central India and October-December fires in parts of the Western Ghats and North-East. Combustion actually requires three elements — fuel, oxygen, and heat, the \"fire triangle\" — not just two, and FSI's system is satellite-based, not confined to ground patrolling."
+    },
+    {
+        q: "With reference to forest fire management policy in India, consider the following statements: <br> 1. The Forest Fire Prevention and Management Scheme (FFPMS) provides central financial assistance to states for forest fire prevention and control.<br>2. The Forest Survey of India (FSI), which monitors forest fires through its Van Agni portal, functions under the Ministry of Environment, Forest and Climate Change.<br>3. A Parliamentary Committee has observed that Indian forest law provides a clear, codified statutory definition of the term \"forest\".<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "FFPMS is the central scheme funding state forest fire prevention and control efforts, and FSI, which runs the Van Agni alert portal, operates under the Ministry of Environment, Forest and Climate Change. However, a Parliamentary Committee reviewing forest fire management specifically noted that Indian forest law remains fragmented and that India lacks a statutory definition of \"forest\", contrary to the third statement."
+    },
+    {
+        q: "With reference to the Disaster Management (Amendment) Act, 2025, consider the following statements: <br> 1. It empowers the National Disaster Management Authority (NDMA) and State Disaster Management Authorities (SDMAs) to prepare disaster management plans, replacing the earlier role of the National and State Executive Committees.<br>2. It establishes Urban Disaster Management Authorities exclusively for cyclone-prone coastal cities.<br>3. It accords statutory recognition to the National Crisis Management Committee (NCMC).<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "The 2025 Amendment shifts plan-preparation from the National/State Executive Committees to the NDMA and SDMAs themselves, and gives statutory backing to the previously non-statutory National Crisis Management Committee. However, the Urban Disaster Management Authorities it enables are meant for state capitals and large Municipal Corporation cities generally, not exclusively for cyclone-prone coastal cities."
+    },
+    {
+        q: "With reference to the legal framework governing heat-related protection in India, consider the following statements: <br> 1. The Occupational Safety, Health and Working Conditions Code, 2020, operative from November 2025, provides comprehensive, binding heat-safety standards for outdoor workers across all sectors.<br>2. The Factories Act, 1948, which the new labour code subsumes, treated heat as a health matter requiring ventilation and a reasonable comfort temperature, but applied only to indoor workplaces, excluding outdoor workers.<br>3. In a 2024 judgment, the Supreme Court held that the right to be free from the adverse effects of climate change is not derivable from the Constitution and would require fresh legislative enactment.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 and 2 only",
+            "1 only",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "The Factories Act, 1948 did treat workplace heat as a health issue but its ventilation and comfort-temperature requirements applied only to indoor factory settings, leaving outdoor workers unprotected. The new labour code, however, does not fill this gap with binding heat standards across sectors, and the Supreme Court in 2024 held the opposite of statement 3 — that the right to be free from adverse effects of climate change flows from Articles 14 and 21 of the Constitution, without needing new legislation."
+    },
+    {
+        q: "With reference to disaster management in India, the 'Landslide Risk Mitigation Scheme (LRMS)' is primarily intended to:",
+        opts: [
+            "Constitute a statutory tribunal for adjudicating landslide compensation claims",
+            "Mandate legally enforceable, uniform building codes for hill construction across all states",
+            "Provide financial support for tailored landslide mitigation projects in vulnerable states",
+            "Compulsorily relocate all hill-slope settlements located above a 30-degree slope"
+        ],
+        ans: 2,
+        exp: "The LRMS is designed to provide financial support for landslide mitigation projects tailored to vulnerable states, along with strengthening research and monitoring of critical landslides. It does not create a compensation tribunal, mandate uniform national building codes, or order blanket relocation of hill-slope settlements."
+    },
+    {
+        q: "With reference to the structure and composition of a tropical cyclone, consider the following statements: <br> 1. The \"eyewall,\" the ring of intense convection surrounding the eye, typically has weaker winds than the outer spiral rainbands.<br>2. The \"eye\" of a tropical cyclone is generally an area of calm, subsiding air with the lowest pressure in the storm, relatively free of cloud.<br>3. Spiral rainbands are areas of completely calm weather with no precipitation, located between the eyewall and the outer edge of the storm.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 3",
+            "Both 1 and 2",
+            "Statement 1 alone",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "The eye is indeed the calm, low-pressure, largely cloud-free centre of a tropical cyclone. The eyewall, not the outer rainbands, contains the storm's strongest winds and heaviest rainfall, so statement 1 reverses the actual intensity gradient, and spiral rainbands are themselves bands of active thunderstorms and rain, not calm zones — only the eye is calm."
+    },
+    {
+        q: "Which one of the following statements best describes a key characteristic that differentiates floods from disasters like earthquakes?",
+        opts: [
+            "Floods, unlike earthquakes, have no link to human activities such as deforestation or unplanned settlement",
+            "Floods are typically sudden and unpredictable events with no seasonal pattern, unlike earthquakes",
+            "Floods are classified as geophysical disasters, similar to earthquakes, under the Sendai monitoring framework",
+            "Floods generally occur in well-identified regions within an expected time of the year, making them comparatively more predictable than sudden-onset disasters like earthquakes"
+        ],
+        ans: 3,
+        exp: "Unlike earthquakes, which strike suddenly and without a fixed seasonal pattern, floods generally recur in well-identified, flood-prone regions within an expected period each year, usually linked to the monsoon, making them relatively more predictable. Floods are also strongly influenced by human activities like deforestation and encroachment, and are classified as hydrological, not geophysical, events."
+    },
+    {
+        q: "With reference to landslide risk in the Western Ghats, consider the following statements: <br> 1. The Gadgil Committee (2011) recommended a larger area of the Western Ghats be declared ecologically sensitive compared to the subsequent Kasturirangan Committee (2012) recommendation.<br>2. The Geological Survey of India (GSI) functions as the nodal agency for landslide hazard zonation mapping in the country.<br>3. The Kasturirangan Committee recommended declaring the entire Western Ghats region, without exception, as a no-go zone for all development activity.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "All three statements are correct",
+            "1 and 2 only",
+            "Only statement 3"
+        ],
+        ans: 2,
+        exp: "The Gadgil Committee recommended a considerably larger ecologically sensitive area than the Kasturirangan Committee, which scaled the extent down to roughly a third of the Western Ghats, and GSI is designated as the nodal agency for landslide hazard zonation in India. The Kasturirangan panel did not propose a blanket no-go zone for the entire region; its recommendation applied only to the identified ecologically sensitive area."
+    },
+    {
+        q: "Which one of the following is a key challenge in India's landslide risk management, as highlighted by experts?",
+        opts: [
+            "Landslide early warning systems based on rainfall-soil-terrain data have been developed and deployed nationwide with full real-time coverage",
+            "Most hilly regions have stringent, uniformly enforced building codes that fully account for slope carrying capacity",
+            "Landslide hazard zonation mapping has been completed for the entire landslide-prone area of India at a uniform, high-resolution scale",
+            "Many hilly areas lack building regulations, and existing early warning systems remain deployed only on a trial basis at a few locations"
+        ],
+        ans: 3,
+        exp: "A recognised challenge is that many hill areas lack building regulations that account for the terrain's carrying capacity, while rainfall-linked landslide early warning systems, though promising, remain deployed only on a trial basis at a few locations rather than nationwide. Comprehensive, uniform hazard zonation mapping across all vulnerable areas is also still a work in progress, not a completed achievement."
+    },
+    {
+        q: "With reference to challenges in avalanche risk management in India, consider the following statements: <br> 1. India's avalanche monitoring network has achieved complete real-time, automated coverage across all avalanche-prone Himalayan zones, eliminating any reliance on manned observatories.<br>2. Avalanche risk is primarily a concern for India's coastal states and has minimal relevance to the Himalayan border regions.<br>3. Despite DGRE's forecasting capabilities, avalanche warning and mitigation efforts in India remain oriented mainly toward military, highway, and infrastructure needs rather than dedicated warning networks for civilian populations in remote hill settlements.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "Only statement 3",
+            "Only statement 1",
+            "Both 1 and 3"
+        ],
+        ans: 1,
+        exp: "DGRE's own user base — the Army, Border Roads Organisation, ITBP, NHIDCL, power and railway agencies, and tourism departments — shows its work is oriented mainly toward military and infrastructure needs, a recognised gap for civilian hill communities. India still relies on over forty manned observatories alongside automatic weather stations, so full automation has not been achieved, and avalanches are overwhelmingly a Himalayan high-altitude hazard, not a coastal one."
+    },
+    {
+        q: "With reference to the classification of natural disasters, consider the following statements: <br> 1. The globally accepted classification used for Sendai Framework monitoring divides natural hazards into five major categories: geophysical, hydrological, meteorological, climatological, and biological.<br>2. Under this classification, heat waves and droughts are categorised as \"climatological\" events, while cyclones and storms are categorised as \"meteorological\" events.<br>3. Landslides and avalanches are classified as \"hydrological\" events under this system, since they are triggered mainly by excess water.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the above",
+            "2 and 3 only",
+            "Exactly two of the statements are correct",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "The Disaster Information Management System's five-category classification, used for monitoring Sendai targets globally, correctly places heat waves/droughts under \"climatological\" and cyclones/storms under \"meteorological\". However, landslides and avalanches are classified as \"geophysical\" events, since they arise from geological/gravitational slope failure, even though hydro-meteorological factors like rainfall can be contributing triggers."
+    },
+    {
+        q: "With reference to the functions and powers relevant to landslide hazard management in India, consider the following statements: <br> 1. Under the national action plan for landslide studies, the Geological Survey of India (GSI) is barred from directly conducting Landslide Hazard Zonation (LHZ) itself and can only approve or reject work done by other agencies.<br>2. Other agencies undertaking Landslide Hazard Zonation must obtain GSI's approval before proceeding, partly to avoid duplication of work.<br>3. State Governments have no role in suggesting the communication routes to be covered under macro-scale Landslide Hazard Zonation; this is decided solely by GSI without any state input.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "Only one of the statements is correct",
+            "Only two of the statements are correct",
+            "None of the above"
+        ],
+        ans: 1,
+        exp: "Under the national action plan, any agency planning to undertake Landslide Hazard Zonation must seek GSI's approval, both to avoid duplication of effort and to ensure the work follows prescribed parameters. GSI itself directly undertakes a share of LHZ sites rather than being confined to an approval-only role, and State Governments do have a role — they are expected to suggest the communication routes to be covered under the macro-scale exercise."
+    },
+    {
+        q: "With reference to heat waves in India, consider the following statements: <br> 1. The India Meteorological Department (IMD) declares a heat wave over hilly regions when the maximum temperature reaches at least 30°C.<br>2. Based on departure from normal temperature, IMD classifies a 'Severe Heat Wave' when the departure exceeds 6.4°C.<br>3. The four-tier colour-coded heat wave warning system (Green, Yellow, Orange, Red) is issued jointly by the IMD and the Ministry of Health and Family Welfare.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "IMD's threshold criterion for hilly regions is a maximum temperature of at least 30°C, and under the departure-from-normal method, a departure exceeding 6.4°C is classified as a Severe Heat Wave. The colour-coded impact-based heat warnings, however, are issued jointly by the IMD and the National Disaster Management Authority (NDMA), not the Ministry of Health and Family Welfare."
+    },
+    {
+        q: "Under the Forest Fire Prevention and Management Scheme, which one of the following statements about institutional responsibilities is correct?",
+        opts: [
+            "State Forest Departments have no monitoring role and only receive funds disbursed directly by the Union Finance Ministry",
+            "The National Disaster Management Authority is the sole implementing and monitoring agency for the scheme at both national and state levels",
+            "The Ministry of Environment, Forest and Climate Change reviews the scheme at the national level and commissions third-party evaluation every three years, while State Forest Departments handle regular state-level monitoring",
+            "The Geological Survey of India is designated as the nodal agency for forest fire monitoring under the scheme"
+        ],
+        ans: 2,
+        exp: "Under the FFPMS, the MoEFCC reviews the scheme nationally and arranges third-party evaluation every three years, while State Forest Departments are responsible for regular monitoring and review of achievements at the state level. NDMA and the Geological Survey of India have no designated implementing role under this specific scheme, which is a forestry-sector, not disaster-authority or geological-survey, initiative."
+    },
+    {
+        q: "Consider the following statements regarding recent reforms in India's early warning systems for disasters: <br> 1. Increasing the availability of multi-hazard early warning systems is one of the seven global targets under the Sendai Framework for Disaster Risk Reduction (2015-2030).<br>2. SACHET is a dedicated ISRO satellite launched exclusively to issue tsunami early warnings.<br>3. The Common Alerting Protocol (CAP) is a Ministry of Home Affairs scheme providing financial assistance for constructing cyclone shelters.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "None of the above",
+            "Only one of the statements is correct",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "The Sendai Framework explicitly lists increased availability of multi-hazard early warning systems and disaster risk information among its seven global targets. SACHET is actually a multi-hazard, AI-based common alerting platform, not a satellite, and it is not tsunami-specific; the Common Alerting Protocol is a standardised alert-messaging format issued across multiple languages, not a shelter-financing scheme."
+    },
+    {
+        q: "With reference to the constitutional and legal provisions relevant to landslides in India, consider the following statements: <br> 1. \"Land\", including rights in or over land and land tenures, falls under Entry 18 of the State List, giving States primary legislative competence over land-use regulation in landslide-prone hill areas.<br>2. \"Forests\", originally a State List subject, was transferred to the Concurrent List by the 42nd Constitutional Amendment Act, 1976.<br>3. The Disaster Management Act, 2005 is silent on landslides and specifically excludes them from its definition of \"disaster\".<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "Land is indeed a State List subject under Entry 18, and forests moved from the State List to the Concurrent List through the 42nd Amendment, 1976, reflecting their national ecological significance. However, the Disaster Management Act, 2005 defines \"disaster\" broadly enough to cover any catastrophe or calamity arising from natural causes, and landslides are addressed under this generic definition rather than being excluded from it."
+    },
+    {
+        q: "With reference to the constitutional and legal provisions relevant to flood management in India, consider the following statements: <br> 1. \"Water\", including water supplies, irrigation and canals, falls under Entry 17 of the State List, subject to the provisions of Entry 56 of the Union List.<br>2. Article 262 of the Constitution empowers Parliament to provide for the adjudication of disputes relating to waters of inter-State rivers and river valleys, and may also bar the Supreme Court's jurisdiction over such disputes.<br>3. The Inter-State River Water Disputes Act, 1956 was enacted by Parliament under Article 262 read with Entry 56 of the Union List.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1 and 2 only",
+            "All of the above",
+            "Only two of the statements are correct"
+        ],
+        ans: 2,
+        exp: "Water is primarily a State subject under Entry 17 of the State List, but this is expressly made subject to Entry 56 of the Union List, which allows Parliament to regulate inter-State rivers and river valleys in the public interest. Using this power along with Article 262, Parliament enacted the Inter-State River Water Disputes Act, 1956 to provide a mechanism for adjudicating such disputes."
+    },
+    {
+        q: "With reference to the functions and powers of institutions managing natural disasters at the district level in India, consider the following statements: <br> 1. The District Disaster Management Authority (DDMA), constituted under Section 25 of the Disaster Management Act, 2005, is chaired by the District Collector/Magistrate/Deputy Commissioner, with the elected head of the local body (or, in Sixth Schedule areas, the Autonomous District Council) serving as Co-Chairperson.<br>2. The DDMA's Chairperson is elected by popular vote of district residents rather than being an ex-officio administrative appointee.<br>3. Under Section 30 of the Act, the DDMA functions purely in an advisory capacity, with no authority to plan, coordinate, or implement disaster management measures at the district level.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "3 only",
+            "2 and 3 only",
+            "2 only"
+        ],
+        ans: 0,
+        exp: "The DDMA is indeed headed ex-officio by the District Collector/Magistrate/Deputy Commissioner as Chairperson, with the elected head of the local body, or the Autonomous District Council chief in Sixth Schedule areas, serving as Co-Chairperson. The Chairperson is an administrative appointee, not a popularly elected office, and under Section 30 the DDMA is explicitly the district's planning, coordinating, and implementing body, not a merely advisory one."
+    },
+    {
+        q: "With reference to the background and evolution of Disaster Risk Reduction (DRR) globally, consider the following statements: <br> 1. The 1990s were declared by the United Nations General Assembly as the \"International Decade for Natural Disaster Reduction\".<br>2. The Yokohama Strategy and Plan of Action for a Safer World was adopted in 1994 at the World Conference on Natural Disaster Reduction held in Yokohama, Japan.<br>3. The Yokohama Strategy was adopted after the Hyogo Framework for Action, as part of a plan to further strengthen the Hyogo Framework's implementation.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "The UN General Assembly designated the 1990s as the International Decade for Natural Disaster Reduction, during which the Yokohama Strategy and Plan of Action for a Safer World was adopted in 1994. Chronologically, however, the Yokohama Strategy preceded the Hyogo Framework for Action (adopted in 2005), rather than following or reinforcing it."
+    },
+    {
+        q: "With reference to the constitutional and legal basis of disaster management and early warning systems in India, consider the following statements: <br> 1. Disaster management does not appear as a specific entry in the Union, State, or Concurrent Lists of the Seventh Schedule to the Constitution.<br>2. The Disaster Management Act, 2005 is generally understood to have been enacted by Parliament in exercise of its residuary legislative powers.<br>3. States have contended that certain provisions of disaster management legislation encroach upon subjects such as public health, which fall within the State List.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1 only",
+            "1, 2 and 3"
+        ],
+        ans: 3,
+        exp: "Since disaster management is not explicitly listed in any of the three lists of the Seventh Schedule, the Disaster Management Act, 2005 is generally attributed to Parliament's residuary legislative power. States have separately raised federalism concerns, arguing that certain provisions intrude upon subjects like public health and sanitation, which fall within the State List."
+    },
+    {
+        q: "Which one of the following statements about the Snow and Avalanche Study Establishment (SASE) is correct?",
+        opts: [
+            "SASE's primary mandate is limited to weather forecasting for civil aviation in the Himalayan region",
+            "SASE was established under the Ministry of Earth Sciences in 1999 to monitor tsunami risk in the Indian Ocean",
+            "SASE was raised under DRDO in 1969 near Manali, and by 2019 had developed a network of over 40 manned observatories and 50 automatic weather stations across the Himalayas, marking its Golden Jubilee that year",
+            "SASE was merged with the Defence Terrain Research Laboratory and renamed DGRE in 2010"
+        ],
+        ans: 2,
+        exp: "SASE was raised under DRDO in 1969 to research and mitigate avalanche hazards in the Himalayas, and by its Golden Jubilee in 2019 had built an extensive observatory and automatic weather station network, marking the occasion with an international symposium. It was not set up under the Ministry of Earth Sciences for tsunami monitoring, its mandate goes well beyond civil aviation forecasting, and its merger with the Defence Terrain Research Laboratory to form DGRE actually took place in 2020, not 2010."
+    },
+    {
+        q: "With reference to the background and evolution of landslide risk management in India, consider the following statements: <br> 1. The Geological Survey of India and the NDMA jointly organised Regional Landslide Workshops in 2013-14 at Shimla, Shillong, and Wellington (Nilgiris).<br>2. The National Landslide Risk Management Strategy, finalised in 2019, represented India's first comprehensive national strategy specifically dedicated to landslide risk.<br>3. India's institutional focus on landslide hazard zonation began only after the 2013 Uttarakhand disaster, with no organised landslide studies or investigations undertaken prior to that year.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "GSI and NDMA did jointly conduct Regional Landslide Workshops in 2013-14 across the Himalayan and Western Ghats regions, and the 2019 National Landslide Risk Management Strategy is recognised as India's first comprehensive national strategy on the subject. However, GSI's landslide investigations and post-disaster studies programme long predate 2013, so it is incorrect to say organised landslide studies began only after the Uttarakhand disaster."
+    },
+    {
+        q: "The February 2025 avalanche that struck a Border Roads Organisation (BRO) camp near Mana Pass in Chamoli district, Uttarakhand, falls within the operational mandate of which of the following organisations, which is also responsible for issuing avalanche warning bulletins in the Himalayas?",
+        opts: [
+            "Wadia Institute of Himalayan Geology (WIHG)",
+            "Geological Survey of India (GSI)",
+            "National Centre for Medium Range Weather Forecasting (NCMRWF)",
+            "Defence Geoinformatics Research Establishment (DGRE)"
+        ],
+        ans: 3,
+        exp: "DGRE, formed in 2020 by merging the Snow and Avalanche Study Establishment with the Defence Terrain Research Laboratory, has the mandate of mapping, forecasting, monitoring, and mitigating avalanches and landslides in the Indian Himalayas, and issues avalanche warning bulletins. NCMRWF only supplies weather model data that DGRE uses, while GSI and WIHG deal with landslide zonation and Himalayan geology research respectively, not avalanche forecasting."
+    },
+    {
+        q: "With reference to important policies relevant to avalanches in India, consider the following statements: <br> 1. India has enacted a dedicated standalone central Act exclusively titled the \"Avalanche Management Act\" to govern avalanche risk mitigation.<br>2. The National Disaster Management Guidelines on landslides and snow avalanches were formulated without any stakeholder consultation, based solely on internal NDMA assessments.<br>3. NDMA's \"National Disaster Management Guidelines – Management of Landslides and Snow Avalanches\" addresses avalanche hazard mitigation within a single combined guideline document, rather than through a dedicated stand-alone avalanche policy.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 and 2 only",
+            "2 only",
+            "1 only"
+        ],
+        ans: 0,
+        exp: "NDMA's guideline document, first issued in 2009, deliberately treats landslides and snow avalanches together in one combined framework rather than through a separate avalanche-specific law. No standalone \"Avalanche Management Act\" exists in India — avalanches are covered generically under the Disaster Management Act, 2005 — and the 2009 guideline was in fact developed through a series of stakeholder consultations, not in isolation."
+    },
+    {
+        q: "Which one of the following UPSC Mains questions is correctly matched with its underlying disaster-management theme?",
+        opts: [
+            "\"Explain the mechanism and occurrence of cloudburst in the context of the Indian subcontinent\" — drought forecasting",
+            "\"In what way do micro-watershed development projects help in water conservation in drought-prone and semi-arid regions of India?\" — water conservation in drought-prone areas",
+            "\"Account for the huge flooding of million-plus cities in India\" — desertification control",
+            "\"Dam failures are always catastrophic... Analyze the various causes of dam failures\" — meteorological drought classification"
+        ],
+        ans: 1,
+        exp: "The question on micro-watershed development projects is correctly tied to water conservation in drought-prone and semi-arid regions, its actual theme. The other three mismatches pair a cloudburst question with drought forecasting, a dam-failures question with drought classification, and an urban-flooding question with desertification control — none of which reflect the real subject matter of those questions."
+    },
+    {
+        q: "Under NDMA's flood management framework, which one of the following is correctly classified as a \"structural measure\" rather than a non-structural one?",
+        opts: [
+            "Construction of embankments and levees, along with desilting and dredging of rivers",
+            "Preparation of large-scale hazard maps of flood-prone areas",
+            "Modernisation of river-basin-based flood forecasting and warning systems",
+            "Promotion of flood insurance and community radio for risk communication"
+        ],
+        ans: 0,
+        exp: "Embankments, levees, and river desilting/dredging fall under \"structural measures\" in NDMA's flood management framework, since they involve physical infrastructure to control floodwater. Hazard mapping falls under zoning/mapping, insurance and community radio fall under awareness generation, and forecasting modernisation falls under the observation and early warning component — all distinct, non-structural categories."
+    },
+    {
+        q: "With reference to the functions and powers relevant to heat wave management in India, consider the following statements: <br> 1. IMD's function under NDMA's heat wave framework is limited strictly to disseminating warnings and does not include any role in forecasting heat wave conditions.<br>2. The power to determine whether a heat wave is occurring rests exclusively with individual State Governments, with IMD having no defined role in this determination.<br>3. Under NDMA's framework, State Governments are expected to appoint a State Nodal Agency and a designated Nodal Officer responsible for preparing and implementing the Heat Wave Action Plan.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "None of the statements are correct",
+            "All of the above",
+            "3 only"
+        ],
+        ans: 3,
+        exp: "NDMA's capacity-building framework expects States to appoint a State Nodal Agency and Officer to prepare and implement the Heat Wave Action Plan. IMD's role is not limited to dissemination — forecasting and monitoring heat conditions is its core technical function — and it is IMD's threshold criteria, not an individual State Government's discretion, that determine whether a heat wave is declared."
+    },
+    {
+        q: "With reference to challenges in India's early warning systems, consider the following statements: <br> 1. A Parliamentary Standing Committee found that only about 12.5% of the Forest Survey of India's fire alerts in Uttarakhand corresponded to actual fires, indicating a high false-positive rate.<br>2. The Forest Fire Alert System (FAST) depends on citizen self-registration, which the Committee noted excludes unregistered populations from receiving alerts.<br>3. The Committee recommended discontinuing NDMA's registration-free cell broadcast alert system in favour of exclusive reliance on FAST.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All three statements are correct",
+            "1 and 3 only",
+            "Statement 2 alone",
+            "Only two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "The Committee flagged both the high false-positive rate of FSI's fire alerts in Uttarakhand and the exclusionary effect of FAST's citizen self-registration model. However, rather than recommending discontinuation of NDMA's cell broadcast system, it recommended examining integration of FAST alerts with that registration-free system to widen coverage."
+    },
+    {
+        q: "With reference to reforms and initiatives relevant to Disaster Risk Reduction, consider the following statements: <br> 1. CDRI's mandate is limited strictly to earthquake-resistant construction and excludes climate-related hazards such as cyclones and floods.<br>2. CDRI was launched by the United Nations itself, with India merely acting as a host country with no leadership role in its governance.<br>3. India launched the Coalition for Disaster Resilient Infrastructure (CDRI) at the UN Climate Action Summit in New York on 23 September 2019, with its secretariat headquartered in New Delhi, and holds a permanent Co-Chair position on its Governing Council.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "1 and 2 only",
+            "3 only",
+            "2 only"
+        ],
+        ans: 2,
+        exp: "CDRI was launched under India's leadership at the UN Climate Action Summit in New York on 23 September 2019, with its secretariat in New Delhi, and India holds a permanent Co-Chair seat on its Governing Council rather than a passive hosting role. Its mandate covers the resilience of infrastructure to climate and disaster risks broadly — cyclones, floods, and heat waves included — not earthquake-resistant construction alone."
+    },
+    {
+        q: "With reference to previous UPSC examination trends on heat waves, consider the following statements: <br> 1. UPSC Mains GS Paper III, 2021 included a question on heat waves being among the most dangerous natural hazards, whose frequency and intensity will rise in the 21st century due to climate change.<br>2. Heat-wave-focused UPSC Mains questions have appeared consistently since the 1980s, well before the establishment of the NDMA in 2005.<br>3. UPSC's heat-wave-linked Mains questions have, till date, always appeared under GS Paper I (Geography) rather than GS Paper III (Disaster Management).<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "2 only",
+            "Both 1 and 2",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "UPSC's 2021 Mains GS-III paper did carry a question on the rising danger of heat waves due to climate change. Heat-wave-specific Mains questions are, however, a comparatively recent, climate-linked trend rather than a decades-old fixture predating NDMA, and the 2021 question itself appeared under GS Paper III (Disaster Management), not GS Paper I."
+    },
+    {
+        q: "With reference to previous UPSC examination trends on early warning systems and disaster preparedness, consider the following statements: <br> 1. UPSC Mains GS Paper III, 2016 asked aspirants to discuss NDMA guideline-based measures to mitigate the impact of cloudburst incidents in Uttarakhand.<br>2. UPSC Mains GS Paper III, 2018 asked aspirants to compare the Sendai Framework with the Paris Agreement, rather than with the Hyogo Framework for Action.<br>3. UPSC Mains GS Paper III, 2014 referenced NDMA's September 2010 guidelines in a question specifically about cyclone early warning preparedness.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "Both 2 and 3",
+            "1 and 2 only",
+            "3 only"
+        ],
+        ans: 0,
+        exp: "The 2016 Mains question did ask about NDMA guideline-based measures for Uttarakhand's cloudbursts. The actual 2018 question, however, asked aspirants to compare the Sendai Framework with the Hyogo Framework for Action, not the Paris Agreement, and the 2014 question referencing NDMA's September 2010 guidelines was about preparedness for drought-related El Niño/La Niña fallouts, not cyclone early warning."
+    },
+    {
+        q: "With reference to the constitutional basis of disaster risk reduction legislation in India, consider the following statements: <br> 1. Entry 1 (Public Order) and Entry 6 (Public Health and Sanitation) of the State List are among the entries that have been cited as constitutional bases for States to undertake disaster-related legislative and administrative action.<br>2. During a parliamentary debate on disaster management legislation, a member questioned its constitutional basis by pointing out that none of the specific entries in the Union or State Lists relate to the subject of disaster management.<br>3. To resolve this ambiguity, the Constitution was amended in 2005 to insert a new entry titled \"Disaster Management\" into the Concurrent List.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "State List Entries 1 and 6 have indeed been cited as bases for States' own disaster-related actions, and this very gap was flagged in a parliamentary debate, where a member noted that no entry in either the Union or State Lists specifically deals with disaster management. However, no such constitutional amendment was made in 2005; the Disaster Management Act, 2005 is an ordinary law, not a Seventh Schedule amendment, and no dedicated \"Disaster Management\" entry exists in any list."
+    },
+    {
+        q: "With reference to previous UPSC examination trends on forest fires, consider the following statements: <br> 1. Forest fires have appeared as a separately and explicitly named category within UPSC's official GS Paper III syllabus, distinct from the broader Environment and Ecology theme.<br>2. According to the India State of Forest Report (ISFR) 2021, a little over one-third of India's total forest cover falls under the \"frequently fire-prone\" category.<br>3. UPSC has, on record, dedicated a standalone Prelims question exclusively and explicitly to naming India's National Action Plan on Forest Fires, 2018, without linking it to any broader environmental theme.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "1 and 2 only",
+            "2 only",
+            "1 only"
+        ],
+        ans: 2,
+        exp: "The ISFR 2021 does place a little over one-third of India's forest cover in the frequently fire-prone category, a figure often cited in coaching material on this theme. Forest fires do not appear as a separately named line item in UPSC's GS Paper III syllabus — they are tested within the broader Environment, Ecology, and Disaster Management themes — and there is no confirmed record of a standalone Prelims question dedicated solely to the National Action Plan on Forest Fires, 2018."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-71 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

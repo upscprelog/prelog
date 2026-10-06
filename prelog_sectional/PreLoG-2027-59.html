@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-59</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "Which one of the following was announced through the Queen's Proclamation of 1858, issued in the aftermath of the Revolt of 1857?",
+        opts: [
+            "The immediate introduction of adult franchise for electing Indian representatives to the Imperial Legislative Council",
+            "A pledge of non-interference in the religious beliefs and practices of Indian subjects, along with respect for the rights, dignity and honour of native princes",
+            "A commitment to grant Dominion Status to India within ten years",
+            "The permanent abolition of the office of Governor-General, to be replaced solely by the Secretary of State for India"
+        ],
+        ans: 1,
+        exp: "The Queen's Proclamation of 1858 pledged religious non-interference and assured respect for the rights and dignity of native princes, alongside a general (though not universal) amnesty. It did not introduce any form of franchise, abolish the office of Governor-General, or commit to Dominion Status, all of which came much later."
+    },
+    {
+        q: "With reference to the causes of major revolts in colonial India, as commonly compared in UPSC Prelims-style questions, consider the following statements: <br> 1. The Revolt of 1857, the Santhal Rebellion, and the Deccan Riots were all triggered primarily by religious interference of Christian missionaries in local customs.<br>2. The Deccan Riots of 1875 were sparked mainly by the sudden abolition of the Ryotwari system of land revenue in the Bombay Presidency.<br>3. A common thread behind the Revolt of 1857, the Santhal Rebellion, and the Deccan Riots was resentment against the annexation of native states under the Doctrine of Lapse.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements is correct",
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 only"
+        ],
+        ans: 0,
+        exp: "Missionary interference was a factor mainly in 1857, not in the Santhal Rebellion or the Deccan Riots, which centred on land alienation and moneylender oppression. The Deccan Riots did not arise from abolition of the Ryotwari system but from a steep revenue hike and usurious debt within it, and the Doctrine of Lapse was specific to the annexation of princely states relevant to 1857, not to the other two movements."
+    },
+    {
+        q: "Which one of the following best captures a key difference commonly drawn between the causes of localized agrarian/tribal revolts, such as the Santhal Rebellion and the Deccan Riots, and the causes of the Revolt of 1857?",
+        opts: [
+            "The former had no economic basis at all, while the latter was purely a religious movement with no political content",
+            "The former were driven mainly by economic exploitation at the hands of local intermediaries such as moneylenders and zamindars, while the latter combined economic, political, religious and military grievances directed against the colonial state itself",
+            "The former sought to restore Mughal rule over India, while the latter sought to establish an independent tribal state",
+            "The former targeted the East India Company's army directly, while the latter was confined entirely to civilian protest"
+        ],
+        ans: 1,
+        exp: "Revolts such as the Santhal Rebellion and the Deccan Riots were primarily agrarian responses to exploitation by moneylenders, zamindars and planters, whereas the Revolt of 1857 combined economic distress with political annexationist policies, religious anxieties, and military grievances aimed squarely at the colonial state. The other options misstate the basis and scope of these movements."
+    },
+    {
+        q: "With reference to the Santhal Rebellion (1855-56), consider the following statements: <br> 1. The rebellion predates the Revolt of 1857 and is often cited as one of India's earliest large-scale organised uprisings against British colonial and zamindari oppression.<br>2. The Santhal Pargana was carved out as a separate, specially administered district only after Indian independence in 1950, as part of the reorganisation of tribal areas.<br>3. The Santhal Rebellion resulted directly in the enactment of the Government of India Act, 1858, transferring power to the British Crown.<br>Which one of the statements given above is correct?",
+        opts: [
+            "1 only",
+            "3 only",
+            "2 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "The Santhal Rebellion of 1855-56 indeed predates the Revolt of 1857 and is regarded as one of India's earliest large-scale organised uprisings. The Santhal Pargana was carved out as a separate 'non-regulation' district in 1855 itself, during the colonial period, not after independence, and the Government of India Act, 1858 was a consequence of the Revolt of 1857, not of the Santhal Rebellion."
+    },
+    {
+        q: "With reference to the background and evolution of the Deccan Riots (1875), consider the following statements: <br> 1. The riots broke out in May 1875 in the village of Supa in Poona district, where a mob attacked the houses and shops of local moneylenders.<br>2. A major precipitating factor was the collapse of cotton prices following the end of the American Civil War in 1865, after farmers had taken on heavy debt during the wartime cotton boom.<br>3. In 1867, the British administration reduced the land revenue assessment in the Bombay Deccan by more than 50 per cent to ease the burden on cultivators.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "Only one of the statements is correct",
+            "None of the statements are correct",
+            "All of the above"
+        ],
+        ans: 0,
+        exp: "The riots began at Supa in Poona district in May 1875, following the collapse of cotton prices and incomes after the American Civil War ended in 1865, which left indebted farmers unable to repay wartime loans. In fact, the 1867 revenue settlement had increased, not reduced, land revenue assessments in the Bombay Deccan by more than 50 per cent, adding to the burden on cultivators."
+    },
+    {
+        q: "With reference to legal measures following the Indigo Commission's inquiry, consider the following statements: <br> 1. Act XI of 1860 immediately and permanently abolished all forms of indigo cultivation across Bengal.<br>2. The Indigo Act of 1862, following the Commission's findings, moved towards making indigo cultivation a matter of free contract rather than compulsion enforced through advances and coercion.<br>3. Reverend James Long was prosecuted for libel after publishing an English translation of the play 'Nil Darpan', which depicted the exploitation of indigo cultivators, and was fined and briefly imprisoned.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only",
+            "2 and 3 only"
+        ],
+        ans: 3,
+        exp: "The Indigo Act of 1862 moved the system towards free contract rather than compulsion, and Rev. James Long was indeed prosecuted for libel over his translation of 'Nil Darpan' and was fined and briefly jailed. Act XI of 1860, in fact, criminalised breach of cultivation contracts by ryots at the planters' urging, rather than abolishing indigo cultivation altogether."
+    },
+    {
+        q: "With reference to the historiographical debate over the nature of the Revolt of 1857, as tested in UPSC Prelims-style questions, consider the following statements: <br> 1. V.D. Savarkar was the first to describe the Revolt of 1857 as the 'First War of Indian Independence' in his 1909 work.<br>2. Sir John Seeley, in his study of the expansion of England, described the revolt as a fully coordinated national and patriotic uprising reflecting the unanimous will of the Indian people.<br>3. R.C. Majumdar's historical study concluded that the revolt was a well-coordinated, unanimous national movement supported equally by all sections and regions of Indian society.<br>Which one of the statements given above is correct?",
+        opts: [
+            "3 only",
+            "1 and 2 only",
+            "2 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "V.D. Savarkar's 1909 work first popularised the description of the 1857 uprising as the 'First War of Indian Independence'. Seeley, by contrast, dismissed it as merely a series of military mutinies rather than a coordinated national war, and Majumdar was similarly sceptical, arguing that the revolt lacked coordinated, unanimous national support across regions and social groups."
+    },
+    {
+        q: "With reference to the features of the Santhal Rebellion (1855-56), consider the following statements: <br> 1. The Santhal rebels were armed mainly with modern firearms smuggled in through Portuguese trading posts in Bengal.<br>2. The rebellion carried a strong millenarian and religious character, with Sidhu and Kanhu claiming to act under the divine command of the deity Thakur.<br>3. Santhal women played no organisational role in the rebellion, participation being confined exclusively to men.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 3",
+            "Statement 2 alone",
+            "Only two of the statements are correct",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "The Santhal rebels were poorly armed, relying largely on traditional weapons such as bows and arrows against a well-equipped British force, and the movement drew heavily on religious sanction attributed to the deity Thakur. Women, including Sidhu and Kanhu's sisters Phulo and Jhano, played an active organisational role, contradicting the claim that participation was confined to men."
+    },
+    {
+        q: "With reference to the consequences of the Revolt of 1857, as commonly tested in UPSC Prelims-style questions, consider the following statements: <br> 1. One of the enduring consequences of the revolt was the transfer of the administration of India from the East India Company directly to the British Crown through the Government of India Act, 1858.<br>2. The revolt led the British to immediately grant Indians a majority in the Imperial Legislative Council.<br>3. As a direct consequence of the revolt, the British abolished the presidency system and unified the three presidency armies into a single command under an Indian Commander-in-Chief.<br>Which one of the statements given above is correct?",
+        opts: [
+            "3 only",
+            "2 only",
+            "None of the statements is correct",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "The Government of India Act, 1858 ended East India Company rule and placed India directly under the British Crown, administered through a Secretary of State for India. Indians were not given a majority in any legislative council at this stage, and the three presidency armies were not unified into a single Indian-led command; instead, European control over the army was strengthened."
+    },
+    {
+        q: "The protective land-tenure regime established for the Santhal Parganas in the wake of the Santhal Rebellion finds its later constitutional continuity chiefly in which one of the following provisions of the Indian Constitution?",
+        opts: [
+            "The Seventh Schedule, which distributes legislative subjects between the Union and the States",
+            "The Fifth Schedule, which provides for special administration of Scheduled Areas and empowers the Governor to regulate the transfer of land from tribals to non-tribals",
+            "The Ninth Schedule, which lists laws immune from certain judicial challenges on the ground of violation of fundamental rights",
+            "The Second Schedule, which prescribes the emoluments of constitutional functionaries"
+        ],
+        ans: 1,
+        exp: "The land-protection regime pioneered after the Santhal Rebellion, restricting transfer of tribal land to outsiders, finds its constitutional continuation in the Fifth Schedule, which governs Scheduled Areas and empowers Governors to regulate tribal land transfers. The other Schedules deal with unrelated matters such as legislative distribution of powers or protection of certain laws from review."
+    },
+    {
+        q: "With reference to the legal proceedings against Bahadur Shah Zafar following the Revolt of 1857, consider the following statements: <br> 1. He was tried and convicted by a regular criminal court operating under the ordinary law of British India, sitting in Calcutta.<br>2. He was formally impeached before the British Parliament under the provisions of the Government of India Act, 1858.<br>3. He was tried by a military commission on charges including waging war against the state and abetting the murder of European subjects, and was sentenced to transportation for life rather than execution.<br>Which one of the statements given above is correct?",
+        opts: [
+            "2 only",
+            "1 and 2 only",
+            "3 only",
+            "1 only"
+        ],
+        ans: 2,
+        exp: "Bahadur Shah Zafar was tried by a military commission at the Red Fort in Delhi, not a regular criminal court or the British Parliament, on charges that included waging war against the state and abetting the murder of Europeans. He was sentenced to transportation for life to Rangoon rather than execution, following an earlier guarantee of his life."
+    },
+    {
+        q: "With reference to the evolution of leadership in India's movements of resistance against British rule from the mid-nineteenth to the early twentieth century, which one of the following best describes the broad shift observed?",
+        opts: [
+            "Leadership shifted entirely away from Indians towards sympathetic British officials directing the movements from within the administration",
+            "Leadership evolved from displaced royalty and religious or tribal figures leading localized, often spontaneous uprisings (as in 1857 and the Santhal Rebellion) towards educated middle-class leaders employing more organised, sustained methods of mobilisation (as seen in Gandhi's leadership of the Champaran Satyagraha)",
+            "Leadership evolved from organised political parties in the 1850s towards spontaneous, leaderless uprisings by the 1920s",
+            "Leadership remained static throughout this period, with the same individuals leading movements from 1857 until the 1920s"
+        ],
+        ans: 1,
+        exp: "Over this period, leadership shifted from displaced royalty, religious figures and tribal chiefs leading largely localized uprisings towards educated middle-class leaders such as Gandhi, who employed more sustained and organised methods of mobilisation, as seen in the Champaran Satyagraha. The other options misstate this trajectory, which involved neither static leadership nor a shift towards British officials or leaderless movements."
+    },
+    {
+        q: "With reference to recent developments concerning tribal revolts in India, consider the following statements: <br> 1. In 2025, the Government of India marked the 170th anniversary of the Santhal Rebellion, commemorated annually in Jharkhand as 'Hul Diwas' on 30th June.<br>2. The Santhal Rebellion is regarded by many historians as combining the character of both a tribal revolt and a peasant insurrection against the joint regime of moneylender, landlord and colonial state.<br>3. The rebellion is commemorated in memory of the Murmu siblings, including brothers Sidhu and Kanhu and sisters Phulo and Jhano, who led the uprising.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "2 and 3 only",
+            "None of the above",
+            "All of the above"
+        ],
+        ans: 3,
+        exp: "The 170th anniversary of the Santhal Rebellion was observed on 30th June 2025, the date marked in Jharkhand as 'Hul Diwas'. The rebellion is widely read as both a tribal and peasant uprising against dikus (outsider moneylenders and landlords) and the colonial state, and it is remembered for the leadership of the Murmu brothers Sidhu and Kanhu along with their sisters Phulo and Jhano, making all three statements correct."
+    },
+    {
+        q: "Which one of the following factors is most frequently cited by historians as a common challenge that limited the success of the major revolts against British rule in the nineteenth century, including the Revolt of 1857 and various tribal and peasant uprisings?",
+        opts: [
+            "Absence of a common political ideology and coordinated all-India leadership, combined with the British side's superior communication networks such as the telegraph and railways",
+            "The refusal of any Indian soldier to participate, leaving the revolts entirely civilian in character",
+            "Complete unavailability of any weapons among the rebels, who fought entirely unarmed",
+            "Unanimous support extended by all Indian princely states to the rebel cause"
+        ],
+        ans: 0,
+        exp: "Historians commonly point to the lack of a unifying political ideology and coordinated leadership across regions, coupled with the British advantage of faster communication and troop movement via the telegraph and railways, as key reasons these revolts could not sustain a nationwide challenge. The other options misstate the facts, since rebels were armed (if less well so), princely support was divided, and sepoys formed the backbone of 1857."
+    },
+    {
+        q: "One of the major criticisms of the Deccan Agriculturists' Relief Act, 1879 has been that:",
+        opts: [
+            "by restricting moneylenders' ability to seize land and imprison debtors, it may have driven institutional credit underground and reduced its overall availability to cultivators, rather than resolving the underlying agrarian distress",
+            "it transferred all agricultural land in the Deccan to state ownership, ending private moneylending entirely",
+            "it extended full political representation to Deccan peasants in the Bombay Legislative Council",
+            "it completely abolished the Ryotwari system, replacing it with a Permanent Settlement across the Bombay Deccan"
+        ],
+        ans: 0,
+        exp: "Historians have noted that while the Act protected debtors from imprisonment and required courts to scrutinise the real transaction behind a debt bond, its restrictions may have made moneylenders more reluctant to extend credit, effectively pushing lending underground rather than curing the root causes of agrarian distress. The Act did not alter land ownership patterns or the Ryotwari system itself."
+    },
+    {
+        q: "Which one of the following best describes a notable feature commonly observed among the leadership of major revolts against British rule in nineteenth-century India?",
+        opts: [
+            "Leadership was drawn from a wide social spectrum — including deposed ruling families (Nana Sahib, Rani Lakshmibai), religious figures (Maulvi Ahmadullah Shah), and local tribal or peasant leaders (Sidhu-Kanhu, Birsa Munda) — reflecting the diverse social bases of these uprisings",
+            "Leadership was confined exclusively to the traditional aristocracy and never included any commoners or tribal leaders",
+            "All these revolts were led by leaders formally trained in Western-style constitutional politics and English law",
+            "Leadership was invariably hereditary, passing only from father to son within a single ruling family across generations"
+        ],
+        ans: 0,
+        exp: "Nineteenth-century revolts drew leaders from strikingly diverse backgrounds — deposed princely families such as Nana Sahib and Rani Lakshmibai, religious figures such as Maulvi Ahmadullah Shah, and tribal or peasant leaders such as Sidhu-Kanhu and Birsa Munda. This diversity contradicts the other options, which wrongly restrict leadership to a single social category or mode of succession."
+    },
+    {
+        q: "With reference to the Indigo Commission (1860), consider the following statements: <br> 1. It was a five-member body that included representatives of the government, Christian missionaries, European planters and zamindars, and recorded depositions from over a hundred witnesses, including ryots.<br>2. It was empowered to directly try and punish planters found guilty of coercion, functioning as a criminal court.<br>3. Its 1860 report acknowledged that indigo cultivation, as then organised, involved considerable coercion of the ryots through the system of cash advances.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 and 3 only",
+            "All of the above",
+            "Statement 3 alone"
+        ],
+        ans: 1,
+        exp: "The Indigo Commission was a five-member fact-finding body drawing on government, missionary, planter and zamindar representation, which recorded depositions from over a hundred witnesses and concluded that the advance system involved considerable coercion of ryots. It had no judicial or punitive powers of its own; it was an inquiry body, not a criminal court."
+    },
+    {
+        q: "Which one of the following statements best characterises a common feature distinguishing the causes of localized economic revolts (such as the Deccan Riots and the Indigo Revolt) from the causes of broader politico-military upheavals (such as the Revolt of 1857)?",
+        opts: [
+            "The former were instigated directly by the Indian National Congress, while the latter had no organisational backing at all",
+            "The former arose chiefly from specific economic grievances against identifiable local actors such as moneylenders or planters, while the latter arose from a wider combination of economic, political, religious and military discontent directed at the colonial state as a whole",
+            "The former were caused entirely by religious persecution, while the latter had no religious dimension whatsoever",
+            "The former sought to overthrow colonial rule entirely, while the latter sought only limited administrative reforms"
+        ],
+        ans: 1,
+        exp: "Revolts such as the Deccan Riots and the Indigo Revolt were sparked by specific economic exploitation at the hands of moneylenders or planters, whereas the Revolt of 1857 combined economic distress with political annexation policies, religious anxieties and military grievances against the colonial state itself. The other options mischaracterise the religious content, organisational backing, and ultimate aims of these movements."
+    },
+    {
+        q: "With reference to legal measures connected with the Deccan Riots (1875), consider the following statements: <br> 1. Alongside the Deccan Agriculturists' Relief Act, the Government of India also amended the Code of Civil Procedure in 1877 to modify the procedure for executing decrees against agriculturist debtors in the affected region.<br>2. The Deccan Agriculturists' Relief Act, 1879 applied uniformly across all provinces of British India, including Bengal and Madras.<br>3. The Deccan Agriculturists' Relief Act completely barred moneylenders from ever recovering any part of a debt from an agriculturist, effectively cancelling all existing debts outright.<br>Which one of the statements given above is correct?",
+        opts: [
+            "2 and 3 only",
+            "1 only",
+            "2 only",
+            "3 only"
+        ],
+        ans: 1,
+        exp: "In addition to the Deccan Agriculturists' Relief Act, 1879, the Code of Civil Procedure was amended in 1877 to modify how decrees against indebted agriculturists were executed in the affected Deccan districts. The Act was confined to specified districts of the Bombay Deccan rather than applying across all of British India, and it regulated recovery methods rather than cancelling debts outright."
+    },
+    {
+        q: "With reference to the background and evolution of tribal revolts in colonial India, consider the following statements: <br> 1. The Kol Rebellion (1831-32) preceded the Santhal Rebellion and was directed against exploitation by outsider (diku) landlords and moneylenders in the Chota Nagpur region.<br>2. Birsa Munda's Ulgulan occurred in the early nineteenth century, decades before the Revolt of 1857, and was purely a religious movement with no political demands.<br>3. The Rampa Rebellion of the early 1920s, led by Alluri Sitarama Raju in the Eastern Ghats, arose from British forest policies that restricted tribal access to forest produce and podu (shifting) cultivation.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "The Kol Rebellion of 1831-32 predated the Santhal Rebellion and targeted diku landlords and moneylenders in Chota Nagpur, and the Rampa Rebellion arose from restrictive forest laws curbing podu cultivation and access to forest produce. Birsa Munda's Ulgulan actually took place at the very end of the nineteenth century (1899-1900), after 1857, and combined religious revivalism with the explicit political demand of 'Munda Raj'."
+    },
+    {
+        q: "A recurring limitation noted by historians regarding peasant uprisings in nineteenth-century India, such as the Deccan Riots and the unrest among indigo cultivators in Bengal, is that these movements:",
+        opts: [
+            "uniformly demanded the complete abolition of private land ownership in favour of state ownership",
+            "achieved the immediate and complete abolition of the zamindari system across British India",
+            "remained largely localized and directed against specific oppressors such as moneylenders or planters, without evolving into a coordinated all-India movement against colonial rule",
+            "were entirely orchestrated by the Indian National Congress as part of its non-cooperation strategy"
+        ],
+        ans: 2,
+        exp: "Nineteenth-century peasant uprisings were typically localized responses to specific grievances against moneylenders, planters, or particular revenue measures, and lacked an overarching all-India organisation or leadership at that stage. The Indian National Congress had not yet emerged as their organiser, none of these movements sought state ownership of land, and zamindari abolition came only after independence."
+    },
+    {
+        q: "With reference to the background and evolution of the Indigo Revolt, consider the following statements: <br> 1. The revolt began in 1859 in the Nadia district of Bengal, led by Digambar Biswas and Bishnu Biswas.<br>2. The movement started as a largely non-violent refusal by ryots to grow indigo, though it later saw attacks on several indigo factories.<br>3. The revolt received support from a section of zamindars, who resented the growing power of the European planters, as well as from the Bengali press and intelligentsia.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 2 only",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "The Indigo Revolt began in Nadia district in 1859 under the leadership of Digambar and Bishnu Biswas, starting as a peaceful refusal to cultivate indigo before spreading into attacks on planters' factories. It also drew support from zamindars resentful of the planters' growing dominance and from the Bengali press and educated middle class, so all three statements are correct."
+    },
+    {
+        q: "With reference to the Deccan Riots (1875), consider the following pairs: <br> 1. Deccan Riots (1875) — Poona and Ahmednagar districts of the Bombay Presidency<br>2. Deccan Riots Commission — chaired personally by the sitting Viceroy of India<br>3. Deccan Agriculturists' Relief Act — enacted in 1879, restricting the imprisonment of agriculturists for failure to repay debt<br>Which of the pairs given above is/are correctly matched?",
+        opts: [
+            "1 and 2 only",
+            "Only statement 3",
+            "All three statements are correct",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "The riots were centred on the Poona and Ahmednagar districts of the Bombay Presidency, and the resulting Deccan Agriculturists' Relief Act, 1879 barred the imprisonment of agriculturists for unpaid debt. The inquiry into the riots was conducted by a Bombay government committee of officials, not personally chaired by the Viceroy of India, so the second pair is incorrectly matched."
+    },
+    {
+        q: "With reference to important laws relating to tribal areas in India, consider the following statements: <br> 1. The Panchayats (Extension to Scheduled Areas) Act, 1996 (PESA) extends the provisions of Part IX of the Constitution relating to Panchayats to areas under the Sixth Schedule of the Constitution.<br>2. The Scheduled Tribes and Other Traditional Forest Dwellers (Recognition of Forest Rights) Act, 2006 vests forest rights in forest-dwelling communities to correct what its Preamble describes as a 'historical injustice'.<br>3. Under PESA, the Gram Sabha of a Scheduled Area has been given the mandatory power to approve the entire district budget before it can be implemented.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "Both 1 and 2",
+            "Only one of the statements is correct",
+            "Only statement 1"
+        ],
+        ans: 2,
+        exp: "The Forest Rights Act, 2006 explicitly invokes correction of a 'historical injustice' done to forest-dwelling communities, making statement 2 correct. PESA applies to Fifth Schedule areas, not the Sixth Schedule, which has its own autonomous district councils, and PESA's Gram Sabha powers concern village-level plans, land and minor forest produce, not approval of an entire district's budget."
+    },
+    {
+        q: "With reference to a recent development connected with the memory of the Santhal Rebellion, consider the following statements: <br> 1. The Tribal Freedom Fighters' Museum at Ranchi, which has drawn renewed attention during recent tribal commemorations, also honours the Santhal Rebellion leaders Sidhu and Kanhu Murmu alongside other regional tribal freedom fighters.<br>2. The museum's central attraction is a statue exclusively dedicated to Sidhu and Kanhu Murmu, with no representation of any other tribal leader.<br>3. This museum project falls under the broader tribal commemoration initiatives of the Ministry of Tribal Affairs, Government of India.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 and 2 only",
+            "2 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "The Ranchi museum, developed under the Ministry of Tribal Affairs' tribal commemoration initiatives, features Sidhu and Kanhu Murmu among several other regional tribal freedom fighters. Its central attraction is a large statue of Birsa Munda, alongside statues of other freedom fighters, so it is not exclusively dedicated to Sidhu and Kanhu."
+    },
+    {
+        q: "With reference to the background and evolution of the Revolt of 1857, consider the following statements: <br> 1. The immediate trigger for the outbreak was the introduction of cartridges for the new Enfield rifle, rumoured to be greased with cow and pig fat.<br>2. Sepoy discontent had already surfaced at Barrackpore in March 1857, prior to the outbreak at Meerut in May 1857.<br>3. Bahadur Shah Zafar took the initiative in planning and launching the revolt, and thereafter personally directed its course from Delhi.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 2,
+        exp: "The greased-cartridge controversy was the immediate spark, and unrest had already appeared at Barrackpore in March 1857 through Mangal Pandey's actions, well before the Meerut outbreak in May. Bahadur Shah Zafar did not plan or initiate the revolt; he was reluctantly persuaded by the mutineers who reached Delhi to lend his name as a symbolic figurehead."
+    },
+    {
+        q: "With reference to the structure and composition of the colonial army on the eve of the Revolt of 1857, consider the following statements: <br> 1. European soldiers heavily outnumbered Indian soldiers in the Bengal Army at this time, at a ratio of roughly five European soldiers for every Indian soldier.<br>2. The Bombay and Madras armies remained entirely unaffected by any sepoy discontent throughout the period of the revolt, participating in no unrest whatsoever.<br>3. The Bengal Army, the largest of the three Presidency armies, was composed disproportionately of high-caste Hindu recruits such as Brahmins and Rajputs, drawn largely from Awadh and Bihar.<br>Which one of the statements given above is correct?",
+        opts: [
+            "3 only",
+            "2 only",
+            "1 and 2 only",
+            "1 only"
+        ],
+        ans: 0,
+        exp: "Before 1857, the Bengal Army was in fact heavily dominated numerically by Indian sepoys, drawn disproportionately from high-caste Hindu communities of Awadh and Bihar, rather than being outnumbered by Europeans. Some unrest and mutinies also occurred within units of the Bombay and Madras armies during this period, so they were not entirely unaffected."
+    },
+    {
+        q: "With reference to the Revolt of 1857, consider the following pairs: <br> 1. Nana Sahib — Kanpur<br>2. Kunwar Singh — Arrah (Bihar)<br>3. Khan Bahadur Khan — Bareilly<br>Which of the pairs given above is/are correctly matched?",
+        opts: [
+            "1 and 3 only",
+            "Only statement 1",
+            "All of the above",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 2,
+        exp: "Nana Sahib led the uprising at Kanpur, Kunwar Singh of Jagdishpur was the principal leader of the revolt centred on Arrah in Bihar, and Khan Bahadur Khan was proclaimed the rebel administrator of Bareilly in Rohilkhand. All three pairs are therefore correctly matched, reflecting the kind of leader-place association frequently tested in UPSC Prelims."
+    },
+    {
+        q: "With reference to the Revolt of 1857, consider the following pairs: <br> 1. Rani Lakshmibai — Kanpur<br>2. Begum Hazrat Mahal — Lucknow<br>3. Maulvi Ahmadullah Shah — Faizabad<br>Which of the pairs given above is/are correctly matched?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "Begum Hazrat Mahal led the resistance centred on Lucknow, and Maulvi Ahmadullah Shah, popularly known as the 'Maulvi of Faizabad', was closely associated with that region. Rani Lakshmibai is principally associated with Jhansi (and later Gwalior), not Kanpur, which was the centre of Nana Sahib's leadership."
+    },
+    {
+        q: "With reference to the functions and character of peasant organisations in colonial India, consider the following statements: <br> 1. The All India Kisan Sabha (AIKS) was formed at the Lucknow session of the Indian National Congress in April 1936, with Swami Sahajanand Saraswati as its first president, and its manifesto demanded abolition of the zamindari system and cancellation of rural debts.<br>2. The AIKS functioned as the official land revenue collection agency for the colonial government in Bihar and the United Provinces.<br>3. The AIKS was constituted as a full-fledged legislative body with statutory powers to enact land reform laws directly.<br>Which one of the statements given above is correct?",
+        opts: [
+            "1 only",
+            "2 and 3 only",
+            "2 only",
+            "3 only"
+        ],
+        ans: 0,
+        exp: "The All India Kisan Sabha was formed in 1936 at the Lucknow session of the Congress under Swami Sahajanand Saraswati, and its Kisan Manifesto called for abolishing the zamindari system and cancelling rural debts. It was a political pressure organisation, not an official revenue-collecting body or a legislature with law-making powers of its own."
+    },
+    {
+        q: "Assertion (A): Many tribal revolts in colonial India, such as the Santhal Rebellion and the Munda Ulgulan, displayed a strong millenarian or religious character, often invoking divine sanction for the uprising.<br>Reason (R): Tribal communities under colonial rule had no settled agrarian economy and were entirely nomadic, making religious idioms the only possible means of mass mobilisation.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "Both A and R are true and R is the correct explanation of A",
+            "Both A and R are true but R is NOT the correct explanation of A",
+            "A is false but R is true",
+            "A is true but R is false"
+        ],
+        ans: 3,
+        exp: "Assertion A is well established: the Santhals invoked the deity Thakur Bonga, and Birsa Munda's movement carried strong religious overtones. Reason R is false, since Santhals and Mundas practised settled agriculture in the Chota Nagpur region rather than being nomadic, so it cannot correctly explain their pattern of mobilisation."
+    },
+    {
+        q: "With reference to the administrative consequences of the Revolt of 1857, consider the following statements: <br> 1. Following the Government of India Act, 1858, the Secretary of State for India, based in London, replaced the Company's Court of Directors and Board of Control, and was assisted by a Council of India in exercising his powers.<br>2. The Secretary of State for India was made directly answerable to the British Parliament for the administration of India.<br>3. The Council of India that assisted the Secretary of State was composed entirely of elected Indian representatives sent from British India.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 2 only",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "The Government of India Act, 1858 created the office of the Secretary of State for India, based in London and answerable to the British Parliament, assisted by a Council of India. This Council, however, was composed of appointed members, mostly retired British-Indian administrators, and did not consist of elected Indian representatives."
+    },
+    {
+        q: "The demands of the indigo cultivators that were articulated during the Champaran Satyagraha (1917) were subsequently addressed through which of the following legislative measures?",
+        opts: [
+            "The Permanent Settlement Regulation, which converted zamindars into revenue-paying occupancy tenants",
+            "The Bengal Tenancy Act, 1885, which fixed occupancy rights for all tenants across British India",
+            "The Deccan Agriculturists' Relief Act, 1879, which restricted moneylenders' rights over peasant land in Bihar",
+            "The Champaran Agrarian Act, 1917, which abolished the 'tinkathia' system of forced indigo cultivation"
+        ],
+        ans: 3,
+        exp: "The Champaran Agrarian Act, 1917 was enacted in the aftermath of Gandhi's Champaran Satyagraha and abolished the 'tinkathia' system under which planters compelled cultivators to grow indigo on a fixed share of their land. The other options refer to legislation unconnected with Champaran or applicable to different regions and issues."
+    },
+    {
+        q: "With reference to a recent development connected with tribal revolts in India, consider the following statements: <br> 1. The year 2025 was observed as the culmination of 'Janjatiya Gaurav Varsh', marking the 150th birth anniversary of Birsa Munda.<br>2. As part of related efforts, the Ministry of Tribal Affairs has been developing a set of museums across several states dedicated to tribal freedom fighters and movements, with some already inaugurated, including one at Ranchi.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "None of the statements are correct",
+            "Statement 1 alone",
+            "All of the above"
+        ],
+        ans: 3,
+        exp: "The year 2025 marked the culmination of 'Janjatiya Gaurav Varsh', observed to mark the 150th birth anniversary of Birsa Munda, and the Ministry of Tribal Affairs has been developing tribal freedom fighters' museums across several states, including one already inaugurated at Ranchi. Both statements are therefore correct."
+    },
+    {
+        q: "With reference to the nature of leadership and authority exercised during various revolts in colonial India, consider the following statements: <br> 1. During the Santhal Rebellion, Sidhu and Kanhu Murmu claimed divine sanction and issued proclamations directing the conduct of their followers and declaring an end to Company rule.<br>2. The Deccan Riots of 1875 were centrally coordinated by a single recognised leader who issued written directives to peasants across all the affected districts.<br>3. In the Revolt of 1857 at Delhi, ultimate practical authority over civil and military affairs was exercised by a Court of Administration acting in the name of the emperor, rather than by the emperor personally.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "Sidhu and Kanhu invoked divine command from the deity Thakur in their proclamations, and at Delhi practical authority lay with a Court of Administration rather than with the largely titular Bahadur Shah Zafar. The Deccan Riots, by contrast, were sporadic and locally led, without any single leader coordinating action across all affected districts."
+    },
+    {
+        q: "With reference to the functions and powers exercised in connection with the Deccan Riots (1875), consider the following statements: <br> 1. The Deccan Riots Commission was vested with legislative powers to directly enact new revenue laws for the Bombay Presidency.<br>2. Under the Deccan Agriculturists' Relief Act, ordinary civil courts were stripped of all jurisdiction over agriculturists' debts, with disputes handled exclusively by village panchayats.<br>3. The Deccan Riots Commission was constituted as a body of inquiry to investigate the causes of the unrest, and its findings informed the subsequent Deccan Agriculturists' Relief Act, 1879, rather than itself possessing any law-making power.<br>Which one of the statements given above is correct?",
+        opts: [
+            "2 only",
+            "1 only",
+            "1 and 2 only",
+            "3 only"
+        ],
+        ans: 3,
+        exp: "The Deccan Riots Commission was a fact-finding body of inquiry, without legislative powers of its own; its report informed the subsequent Deccan Agriculturists' Relief Act, 1879. That Act modified court procedure to protect debtors but did not strip civil courts of jurisdiction or transfer exclusive authority over debt disputes to village panchayats."
+    },
+    {
+        q: "Following the Santhal Rebellion, the Santhal Pargana was constituted as a distinct administrative unit under the Sonthal Parganas Act, 1855 (Act XXXVII of 1855). Which one of the following best describes the nature of this arrangement?",
+        opts: [
+            "It was placed directly under the Governor-General-in-Council, with local zamindars retaining full judicial powers over the Santhals",
+            "It was administered jointly by the East India Company and a representative of the Mughal Emperor at Delhi",
+            "It was merged permanently into the regular court system of the Bengal Presidency, with no distinct administrative or legal status",
+            "It was declared a 'non-regulation' area, where the ordinary laws of British India did not automatically apply, and the Deputy Commissioner combined civil, criminal and revenue powers in a single office"
+        ],
+        ans: 3,
+        exp: "The Santhal Pargana was carved out as a 'non-regulation' district, exempt from the ordinary regulations of British India, with the Deputy Commissioner (first held by Ashley Eden) vesting combined civil, criminal and revenue authority. This was intended to remove intermediaries between officials and the Santhals, unlike the other options, which misstate who actually held administrative and judicial control."
+    },
+    {
+        q: "With reference to the reforms recommended by the Peel Commission (1859) after the suppression of the Revolt of 1857, consider the following statements: <br> 1. It recommended reducing the proportion of European troops in India and relying more heavily on Indian soldiers, in order to cut costs.<br>2. It recommended fixing the ratio of European to Indian troops at roughly 1:2 in the Bengal Army and about 2:5 in the Madras and Bombay armies, while keeping artillery predominantly under European control.<br>3. It recommended concentrating recruitment in a single region and community to simplify training and administration.<br>Which one of the statements given above is correct?",
+        opts: [
+            "None of the statements is correct",
+            "1 only",
+            "2 only",
+            "3 only"
+        ],
+        ans: 2,
+        exp: "The Peel Commission recommended a substantially higher proportion of European troops, fixing ratios of roughly 1:2 in the Bengal Army and 2:5 in the Madras and Bombay armies, and kept artillery under European control. It advocated diversifying recruitment across regions and communities as a matter of policy, precisely to prevent the concentration that might enable a unified uprising, not to simplify administration by concentrating it."
+    },
+    {
+        q: "With reference to the structural consequences of the Revolt of 1857 for British administration in India, consider the following statements: <br> 1. The Government of India Act, 1858 abolished East India Company rule and transferred administration directly to the British Crown, exercised through a Secretary of State for India assisted by a Council of India.<br>2. Following 1857, the proportion of British to Indian troops in the army was deliberately reduced, and Indians were given greater control over artillery units to build trust.<br>3. The right of Indian rulers without natural heirs to adopt a successor, effectively ending annexations under the Doctrine of Lapse, was recognised in the aftermath of the revolt.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "Only one of the statements is correct",
+            "None of the statements are correct",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "The Government of India Act, 1858 transferred power from the Company to the Crown, to be exercised through a Secretary of State for India, and the right of Indian princes to adopt heirs was recognised, ending Doctrine of Lapse annexations. In fact, the British increased the proportion of European troops relative to Indian troops after 1857 and kept artillery predominantly under British control, the opposite of what statement 2 claims."
+    },
+    {
+        q: "With reference to a recent event connected with peasant movements in India, consider the following statements: <br> 1. Telangana's 'Praja Palana Dinotsavam', observed on 17th September, commemorates the integration of the former Hyderabad State into the Indian Union in 1948, following 'Operation Polo'.<br>2. On this occasion in 2026, tributes were paid to leaders of the Telangana Peasant Armed Struggle (1946-51), which had been directed against the feudal order under the Nizam of Hyderabad.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "2 only",
+            "Neither 1 nor 2",
+            "1 only"
+        ],
+        ans: 0,
+        exp: "Telangana observes 17th September as 'Praja Palana Dinotsavam', marking Hyderabad's accession to the Indian Union in 1948 after the police action known as Operation Polo. On this occasion in 2026, the state leadership paid tribute to those associated with the Telangana Peasant Armed Struggle of 1946-51, which had risen against the Nizam's feudal and forced-labour system, so both statements are correct."
+    },
+    {
+        q: "With reference to the current affairs surrounding the Revolt of 1857, consider the following statements: <br> 1. A memorial billed as Asia's largest tribute to the martyrs of the Revolt of 1857 has been constructed at Ambala Cantonment in Haryana.<br>2. The memorial's centrepiece is a lotus-shaped tower rising above 60 metres, designed to host light-and-sound shows depicting the events of 1857.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Neither 1 nor 2",
+            "2 only",
+            "Both 1 and 2",
+            "1 only"
+        ],
+        ans: 2,
+        exp: "A grand memorial dedicated to the martyrs of 1857, described as Asia's largest such memorial, has been built at Ambala Cantonment at a cost of around ₹700 crore. Its centrepiece is a 63-metre lotus-shaped tower with light-and-sound show facilities, so both statements are correct."
+    },
+    {
+        q: "With reference to important legal and policy measures connected with peasant movements in India, consider the following statements: <br> 1. The Champaran Agrarian Act, 1917 abolished the 'tinkathia' system of forced indigo cultivation in Bihar.<br>2. The Bengal Tenancy Act, 1885 conferred occupancy rights on tenants who had held land continuously for a specified period.<br>3. Land reform and land ceiling laws placed in the Ninth Schedule of the Constitution have historically enjoyed blanket immunity from judicial review under all circumstances, without exception.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "The Champaran Agrarian Act, 1917 ended the 'tinkathia' system, and the Bengal Tenancy Act, 1885 gave occupancy rights to tenants who had held land continuously for a prescribed period. However, the Supreme Court's ruling in I.R. Coelho v. State of Tamil Nadu (2007) subjected Ninth Schedule laws enacted after 24 April 1973 to judicial review if they violate the basic structure, so blanket, exception-free immunity does not hold."
+    },
+    {
+        q: "With reference to leaders of various tribal revolts in colonial India, as commonly tested in UPSC Prelims-style questions, consider the following statements: <br> 1. The Bhil uprising in the Khandesh-Satpura tracts during the late nineteenth century, later idealised as an act of social banditry, is principally associated with the tribal leader Birsa Munda.<br>2. The Kuki Rebellion (1917-19), which arose from opposition to forced war-time recruitment in Manipur and the Naga Hills, was primarily led by Rani Gaidinliu.<br>3. The Bhumkal (Bastar) Rebellion of 1910 was led by the tribal leader Gunda Dhur against restrictive forest regulations and forced labour imposed under the princely administration of Bastar.<br>Which one of the statements given above is correct?",
+        opts: [
+            "2 only",
+            "3 only",
+            "1 only",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "The Bhumkal Rebellion of 1910 in Bastar was indeed led by Gunda Dhur, opposing forest restrictions and forced labour (begar). The Khandesh Bhil resistance of the late nineteenth century is associated with Tantia Bhil, not Birsa Munda, and the Kuki Rebellion of 1917-19 was led by Kuki chieftains, while Rani Gaidinliu led a separate Naga (Heraka/Zeliangrong) movement beginning in the early 1930s."
+    },
+    {
+        q: "Which one of the following statements about the recently released (2025) Bengali film 'Raghu Dakat' is correct?",
+        opts: [
+            "It is set in Bengal in the decades following the Revolt of 1857 and portrays the exploitation of peasants by British indigo planters",
+            "It is set during the Champaran Satyagraha of 1917 led by Mahatma Gandhi",
+            "It dramatizes the events of the Santhal Rebellion of 1855-56 in the Rajmahal Hills",
+            "It is a documentary based on the findings of the 1860 Indigo Commission report"
+        ],
+        ans: 0,
+        exp: "'Raghu Dakat', released in September 2025, is set in Bengal in the decades following the Sepoy Mutiny of 1857 and depicts British indigo planters, backed by local landlords, forcing peasants into exploitative contracts. It is a work of fiction rather than a documentary, and is unconnected with the Santhal Rebellion or the Champaran Satyagraha."
+    },
+    {
+        q: "With reference to the administrative arrangements set up by the rebels at Delhi during the Revolt of 1857, consider the following statements: <br> 1. A Court of Administration comprising representatives of the army and civil officials was set up, functioning nominally in the name of Bahadur Shah Zafar.<br>2. Bakht Khan was appointed Commander-in-Chief of the rebel forces at Delhi.<br>3. Real executive power throughout the siege of Delhi rested exclusively and unambiguously with the emperor, who exercised complete personal control over both civil and military decisions.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All three statements are correct",
+            "1 and 2 only",
+            "None of the above",
+            "2 only"
+        ],
+        ans: 1,
+        exp: "The rebels at Delhi functioned under a Court of Administration drawing on both military and civil personnel, operating in the nominal name of Bahadur Shah Zafar, while Bakht Khan was made Commander-in-Chief of the rebel army. In practice, Zafar was a reluctant, largely titular figurehead with limited personal control, so the third statement is incorrect."
+    },
+    {
+        q: "With reference to a recent policy decision connected with leaders of tribal revolts, consider the following statements: <br> 1. The Union Cabinet approved the declaration of 15th November, the birth anniversary of Birsa Munda, as 'Janjatiya Gaurav Divas' in 2021.<br>2. The occasion has been marked by the development of Tribal Freedom Fighters' Museums, including one at Ranchi, on the site of the jail where Birsa Munda died.<br>3. This policy decision was enacted through a constitutional amendment inserting a new provision into the Ninth Schedule of the Constitution.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "The Union Cabinet in 2021 approved 15th November, Birsa Munda's birth anniversary, as 'Janjatiya Gaurav Divas', and a Tribal Freedom Fighters' Museum was developed at Ranchi at the jail site where he died. This was an executive Cabinet decision, not a constitutional amendment, and it has no connection whatsoever to the Ninth Schedule."
+    },
+    {
+        q: "With reference to the nature, structure and composition of revolts in colonial India, consider the following statements: <br> 1. The Revolt of 1857 has often been characterised by historians as fundamentally 'restorative' in its aims, seeking to reinstate deposed rulers and the pre-British order, such as Mughal authority at Delhi, rather than to establish an entirely new political system.<br>2. In contrast, tribal revolts such as the Santhal Rebellion and the Munda Ulgulan were structured around the demand for restoring customary community control over land and forest resources, rather than the restoration of any pan-Indian imperial authority.<br>3. Despite their differing objectives, both types of revolts were composed predominantly of rural populations mobilised through pre-existing social and kinship networks rather than through modern political party organisation.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 3,
+        exp: "The Revolt of 1857 is often read as restorative, aiming to reinstate figures like the Mughal emperor rather than create a wholly new order, while tribal revolts sought to restore customary community rights over land and forests rather than any pan-Indian authority. In both cases, mobilisation drew on existing rural social and kinship networks rather than modern party organisation, making all three statements correct."
+    },
+    {
+        q: "With reference to the structure and composition of the forces involved in the Santhal Rebellion (1855-56), consider the following statements: <br> 1. The Santhal rebel forces were structured as a modern standing army with a fixed hierarchy of ranks modelled directly on the British Indian Army.<br>2. Leadership of the rebellion was organised around the Murmu siblings — Sidhu and Kanhu as principal leaders, with Chand and Bhairav, and their sisters Phulo and Jhano, also playing prominent roles, mobilising tens of thousands of Santhals through traditional village networks.<br>3. The rebellion was composed exclusively of Santhals, with no involvement of any other caste or community.<br>Which one of the statements given above is correct?",
+        opts: [
+            "1 only",
+            "3 only",
+            "1 and 3 only",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "The rebellion's leadership rested with the Murmu siblings — Sidhu, Kanhu, Chand and Bhairav, along with their sisters Phulo and Jhano — who mobilised the Santhals through existing village-level networks rather than a formal military hierarchy. The uprising also drew in members of around 32 other castes and communities, so it was not confined to Santhals alone."
+    },
+    {
+        q: "With reference to the structure of indigo cultivation in nineteenth-century Bengal, consider the following statements: <br> 1. Under the 'Ryoti' system, planters cultivated indigo directly on their own land without involving local peasants at all.<br>2. Under the 'Nij' system, peasants were forced through cash advances to cultivate indigo on their own holdings and sell it to planters at fixed, often unremunerative prices.<br>3. The 'Ryoti' system was more widespread than the 'Nij' system, since most planters lacked sufficient land of their own to meet the demand for indigo.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "Exactly two of the statements are correct",
+            "All of the above",
+            "Only two of the statements are correct"
+        ],
+        ans: 0,
+        exp: "The 'Ryoti' system, not the 'Nij' system, involved peasants cultivating indigo on their own land under contract through cash advances, so statements 1 and 2 have the two systems reversed. Since planters generally did not own enough land to meet demand through direct cultivation, the Ryoti system was in fact the more widespread arrangement, making statement 3 correct."
+    },
+    {
+        q: "With reference to the Deccan Riots (1875) and the reforms that followed, consider the following statements: <br> 1. The Deccan Riots Commission attributed the unrest primarily to peasant indebtedness and oppressive lending practices rather than to any single act of British legislation.<br>2. A key recommendation implemented was the outright abolition of the Ryotwari system in favour of reverting to the Permanent Settlement in the Bombay Deccan.<br>3. The resulting Deccan Agriculturists' Relief Act, 1879 barred the imprisonment of agriculturists for failure to repay debts and required courts to examine the real circumstances behind a debt bond.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 3",
+            "Statement 3 alone",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "The Deccan Riots Commission traced the unrest to chronic indebtedness and exploitative moneylending rather than a single legislative cause, and the Deccan Agriculturists' Relief Act, 1879 protected debtors from imprisonment and required courts to look behind the bond to the real transaction. The Ryotwari system itself was never abolished; the reforms operated within it by regulating credit relations."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-59 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

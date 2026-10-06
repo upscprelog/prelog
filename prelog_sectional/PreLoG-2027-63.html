@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-63</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "Radar equipment, being a form of radio/wireless apparatus, is subject to licensing and spectrum-related regulation in India. Which of the following correctly describes the relevant legal framework?",
+        opts: [
+            "The Indian Patents Act, 1970 is the primary law governing the operation and licensing of radar equipment",
+            "Radar spectrum in India is regulated exclusively by an international treaty that overrides all domestic legislation",
+            "The Indian Wireless Telegraphy Act, 1933, which historically governed possession of wireless telegraphy apparatus, has now been subsumed by the Telecommunications Act, 2023, which consolidates spectrum allocation and authorisation for radio equipment, including provisions relating to national security",
+            "Radar equipment is entirely unregulated in India, as no law covers its possession or operation"
+        ],
+        ans: 2,
+        exp: "The Indian Wireless Telegraphy Act, 1933 historically required a licence to possess wireless telegraphy apparatus, including radar-type equipment, subject to exemptions for government and defence use. The Telecommunications Act, 2023 has since replaced this along with the Indian Telegraph Act, 1885, consolidating spectrum allocation, authorisation for radio equipment, and provisions addressing standards, public safety and national security. Radar is not unregulated, not governed primarily by patent law, and domestic legislation still operates alongside India's international commitments rather than being overridden by them."
+    },
+    {
+        q: "Under the Territorial Waters, Continental Shelf, Exclusive Economic Zone and Other Maritime Zones Act, 1976, which of the following accurately describes the passage of foreign warships, including submarines, through India's territorial waters?",
+        opts: [
+            "Foreign warships and submarines may enter or pass through only after giving prior notice to the Central Government, and submarines must navigate on the surface and show their flag",
+            "Only submarines of countries with a bilateral defence agreement with India may transit territorial waters, while all other foreign warships are prohibited",
+            "Foreign warships are barred entirely from India's territorial waters under all circumstances, with no exceptions",
+            "Foreign warships and submarines enjoy an unrestricted right of innocent passage identical to that of ordinary merchant vessels, requiring no prior notice"
+        ],
+        ans: 0,
+        exp: "Section 4 of the 1976 Act grants ordinary foreign merchant ships a right of innocent passage without prior notice, but foreign warships, including submarines, may enter or pass through India's territorial waters only after giving prior notice to the Central Government, with submarines required to navigate on the surface and show their flag. This is a distinct, more restrictive regime than that applicable to merchant vessels, and the Act does not impose an absolute bar or a bilateral-agreement-only condition."
+    },
+    {
+        q: "With reference to indigenous radar systems used in India's air defence architecture, consider the following statements: <br>1. The Swordfish Long Range Tracking Radar (LRTR), used in India's Ballistic Missile Defence programme, is an Indian-developed derivative of the Israeli Green Pine radar.<br>2. The Swordfish LRTR relies on Transmit-Receive modules directly imported from Israel rather than indigenous components.<br>3. Airborne Warning and Control Systems (AWACS) have a shorter surveillance range than Airborne Early Warning and Control (AEW&C) systems.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "None of the above",
+            "2 and 3 only",
+            "Only statement 2"
+        ],
+        ans: 0,
+        exp: "The Swordfish LRTR is an acknowledged Indian derivative of Israel's Green Pine radar, developed to meet India's specific ballistic missile defence needs, making statement 1 correct. It actually uses indigenously developed Transmit-Receive modules, signal processing and power supplies rather than imported ones, so statement 2 is incorrect. AWACS is a long-range airborne surveillance system while AEW&C is a medium-range system, so statement 3 reverses the actual relationship and is incorrect."
+    },
+    {
+        q: "With reference to the Tejas Mk1A fighter aircraft, consider the following statements: <br>1. Initial production batches of the Tejas Mk1A are equipped with the Israeli-origin EL/M-2052 AESA radar, with the indigenous Uttam AESA radar planned for later production batches.<br>2. The Tejas Mk1A's Unified Electronic Warfare Suite, including its Radar Warning Receiver and self-protection jammer, was developed entirely by a private Indian start-up with no DRDO involvement.<br>3. The Tejas Mk1A is powered by an indigenously designed and manufactured turbofan engine, the GE F404-IN20, with no reliance on any imported engine technology.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "Only statement 1",
+            "Exactly two of the statements are correct",
+            "None of the statements are correct"
+        ],
+        ans: 1,
+        exp: "Early Tejas Mk1A units do carry the Israeli EL/M-2052 AESA radar, with the indigenous Uttam AESA radar from DRDO's LRDE slated for aircraft from the 41st unit onward, confirming statement 1. However, the Unified Electronic Warfare Suite was developed by the Defence Avionics Research Establishment (DARE), a DRDO laboratory, not a private start-up, making statement 2 incorrect. The GE F404-IN20 is a US-origin General Electric engine, not an indigenously designed and manufactured one, making statement 3 incorrect as well."
+    },
+    {
+        q: "With reference to the background and evolution of India's radar systems, consider the following statements: <br>1. Prior to the early 1960s, IAF radar capability was limited to about seven light, transportable radars, mainly deployed along the northern borders, which could effectively detect low-flying aircraft.<br>2. The inadequacy of India's air defence radar network was starkly exposed during the 1962 Sino-Indian War.<br>3. The INDRA (Indian Doppler Radar) series, developed by DRDO's LRDE, was designed specifically to plug gaps in low-altitude aircraft detection, complementing existing high-altitude radars like the THD-1955.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All three statements are correct",
+            "2 and 3 only",
+            "None of the above",
+            "Only statement 2"
+        ],
+        ans: 1,
+        exp: "India's early radar network, consisting of only a handful of light transportable radars, was capable of detecting threats mainly at high altitude and left vast blind spots at lower altitudes, so statement 1 is incorrect. This deficiency was starkly exposed during the 1962 Sino-Indian War, confirming statement 2. The INDRA series was subsequently developed to specifically address low-altitude detection gaps, complementing the older high-altitude THD-1955 and PSM-33 radars, confirming statement 3."
+    },
+    {
+        q: "With reference to India's counter-drone and unmanned systems developments following Operation Sindoor (May 2025), consider the following statements: <br>1. 'Akashteer' is the Indian Air Force's automated air defence command and control network, while the Army relies solely on manual counter-drone measures.<br>2. In August 2025, the Defence Acquisition Council cleared defence proposals worth about ₹67,000 crore, including Medium Altitude Long Endurance (MALE) Remotely Piloted Aircraft for all three services.<br>3. The 'Akash Tarang' counter-drone layer, cleared after Operation Sindoor, functions entirely independently of the upgraded L-70 anti-aircraft gun systems.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1 only",
+            "1 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "Akashteer is actually the Indian Army's automated air defence command and control grid, not the Air Force's, and the Army does not rely solely on manual measures, making statement 1 incorrect. The Defence Acquisition Council did clear proposals worth around ₹67,000 crore in August 2025, including MALE RPAS for all three services, confirming statement 2. The Akash Tarang counter-drone layer is supported by, not independent of, upgraded L-70 guns, making statement 3 incorrect."
+    },
+    {
+        q: "A Multiple Independently Targetable Re-entry Vehicle (MIRV) capability, as demonstrated by India's Agni-5 missile under 'Mission Divyastra', primarily enhances a country's strategic capability by enabling:",
+        opts: [
+            "a single missile to strike several separate targets using independently guided warheads",
+            "continuous course correction using satellite navigation throughout the re-entry phase",
+            "simultaneous release of decoys and chaff to jam ground-based tracking radars",
+            "supersonic combustion of the missile's engine during its boost phase"
+        ],
+        ans: 0,
+        exp: "MIRV technology allows a single missile to carry multiple warheads that separate mid-flight and follow independent trajectories to strike different targets, complicating interception by missile defence systems. This significantly strengthens second-strike and deterrence capability, as demonstrated by India's Agni-5 during Mission Divyastra. The other options describe unrelated missile technologies such as electronic countermeasures and scramjet propulsion, not the defining feature of MIRV."
+    },
+    {
+        q: "With reference to Indian naval platforms, consider the following statements: <br>1. INS Vikrant, India's first indigenously built aircraft carrier, uses the STOBAR (Short Take-Off But Arrested Recovery) method, employing a ski-jump for launching aircraft and arrester wires for their recovery.<br>2. INS Vikrant is powered by a single nuclear reactor, giving it virtually unlimited range and endurance at sea.<br>3. INS Arihant, India's first indigenous nuclear-powered ballistic missile submarine, can remain submerged for a duration limited mainly by its food supplies rather than its propulsion system.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "Both 2 and 3",
+            "Statement 1 alone",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "INS Vikrant indeed uses the STOBAR method with a ski-jump for launch and arrester wires for recovery of its air wing, confirming statement 1. However, INS Vikrant is powered by conventional gas turbines, not a nuclear reactor, making statement 2 incorrect. INS Arihant's nuclear propulsion gives it a range and endurance limited essentially only by its crew's food supplies, confirming statement 3."
+    },
+    {
+        q: "With reference to the regulatory functions and powers governing drones in India, consider the following statements: <br>1. Under the Drone Rules, 2021, the Ministry of External Affairs, rather than the Directorate General of Civil Aviation (DGCA), is the authority responsible for issuing the Unique Identification Number (UIN) through the Digital Sky platform.<br>2. The 'No Permission, No Takeoff' (NPNT) provision allows drone operators to fly without any prior digital authorisation, provided they self-certify compliance after the flight is completed.<br>3. Nano category drones (weighing 250 grams or less) are generally exempt from mandatory UIN registration and licensing requirements when flown recreationally within prescribed limits, unlike larger commercial drone categories.<br>Which one of the above statements is correct?",
+        opts: [
+            "1 and 2 only",
+            "2 only",
+            "3 only",
+            "1 only"
+        ],
+        ans: 2,
+        exp: "It is the DGCA, through the Digital Sky platform, that issues the UIN and related permissions, not the Ministry of External Affairs, making statement 1 incorrect. NPNT actually requires digital permission to be obtained before takeoff, not self-certification after the flight, making statement 2 incorrect. Nano category drones flown recreationally within prescribed limits are indeed generally exempt from mandatory UIN registration and licensing requirements that apply to larger commercial categories, confirming statement 3."
+    },
+    {
+        q: "With reference to important legal and policy instruments governing missile technology in India, consider the following statements: <br>1. India became a full member of the Missile Technology Control Regime (MTCR) in June 2016, an informal, voluntary export-control arrangement rather than a legally binding treaty.<br>2. The Weapons of Mass Destruction and their Delivery Systems (Prohibition of Unlawful Activities) Act, 2005 criminalises the unlawful transfer of missiles specially designed for delivering weapons of mass destruction.<br>3. The 2022 Amendment to the WMD Act, 2005 primarily expanded its scope to prohibit financing of activities related to weapons of mass destruction and their delivery systems.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "India joined the MTCR as a full member in June 2016; it is a voluntary, consensus-based arrangement with no legally binding treaty status, confirming statement 1. The WMD Act, 2005 explicitly criminalises the unlawful transfer of missiles specially designed to deliver weapons of mass destruction, confirming statement 2. The 2022 Amendment to this Act primarily extended its scope to prohibit the financing of such prohibited activities, in line with India's international obligations, confirming statement 3."
+    },
+    {
+        q: "With reference to the Defence Acquisition Council (DAC), consider the following statements: <br>1. The DAC, established in 2001 following recommendations of the Kargil Review Committee and the Group of Ministers, grants the 'Acceptance of Necessity' (AoN) as the first step in the capital defence procurement process.<br>2. The DAC is chaired by the Chief of Defence Staff, with the Defence Minister serving only as an ex-officio member.<br>3. The DAC was constituted as a statutory body through a specific Act of Parliament.<br>Which one of the above statements is correct?",
+        opts: [
+            "3 only",
+            "1 only",
+            "2 only",
+            "None of the statements is correct"
+        ],
+        ans: 1,
+        exp: "The DAC, set up in 2001 on the recommendations of the Kargil Review Committee and the Group of Ministers, does grant the Acceptance of Necessity as the first and most critical step in capital acquisition, confirming statement 1. The DAC is in fact chaired by the Defence Minister, not the Chief of Defence Staff, making statement 2 incorrect. It is a non-statutory, executive body of the Ministry of Defence, not one created by a specific Act of Parliament, making statement 3 incorrect as well."
+    },
+    {
+        q: "With reference to the constitutional and legal framework governing fighter aircraft and air power in India, consider the following statements: <br>1. The Aircraft Act, 1934, which regulates civil aviation safety and airworthiness, applies to military aircraft of the Indian Air Force in exactly the same manner as it applies to commercial aircraft.<br>2. Personnel discipline and conduct within the Indian Air Force, including trial by court-martial for certain offences, is governed primarily by the Air Force Act, 1950.<br>3. Under the Seventh Schedule of the Constitution, \"Defence of India\", including the Air Force, falls under the Union List, placing exclusive legislative competence with Parliament.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "Only two of the statements are correct",
+            "Only one of the statements is correct",
+            "None of the statements are correct"
+        ],
+        ans: 1,
+        exp: "The Aircraft Act, 1934 primarily governs civil aviation, and the Central Government is empowered under the Act to exempt military and other specified aircraft from its provisions, so it does not apply to IAF aircraft in the same manner as to commercial aircraft, making statement 1 incorrect. Discipline, conduct and court-martial procedures for Air Force personnel are governed by the Air Force Act, 1950, confirming statement 2. \"Defence of India\", including the naval, military and air forces, is placed under Entry 1 of the Union List, giving Parliament exclusive legislative competence, confirming statement 3."
+    },
+    {
+        q: "With reference to the background and evolution of fighter aircraft in India, consider the following statements: <br>1. The HF-24 Marut, designed under German aeronautical engineer Kurt Tank, first flew on 17 June 1961 and became the first jet fighter to be indigenously designed and built in Asia outside the Soviet Union.<br>2. The HF-24 Marut successfully achieved and exceeded its originally envisaged top speed of Mach 2 in level flight throughout its operational service.<br>3. The HF-24 Marut remained purely an experimental aircraft and never saw actual combat deployment during any India-Pakistan conflict.<br>Which one of the above statements is correct?",
+        opts: [
+            "1 and 2 only",
+            "3 only",
+            "2 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "The HF-24 Marut, designed by Kurt Tank and first flown on 17 June 1961, is indeed recognised as the first jet fighter indigenously designed and built in Asia outside the Soviet Union, confirming statement 1. Due to underpowered engines, it never exceeded Mach 1 in level flight despite being envisaged as a Mach 2 interceptor, making statement 2 incorrect. Far from being purely experimental, the Marut saw active combat in the 1971 Indo-Pakistani War, including a confirmed kill of a Pakistani F-86 Sabre, making statement 3 incorrect."
+    },
+    {
+        q: "At Aero India 2025, DRDO unveiled a scaled-down technology demonstrator called the Electro-Magnetic Launch System (EMLS). This technology is primarily intended to eventually:",
+        opts: [
+            "generate electromagnetic pulses capable of disabling enemy communication satellites",
+            "shield naval vessels from anti-ship missile radar guidance systems",
+            "replace conventional steam catapults used to launch aircraft from aircraft carrier decks",
+            "provide wireless charging for unmanned aerial vehicles during mid-flight refuelling"
+        ],
+        ans: 2,
+        exp: "The EMLS demonstrator, developed by DRDO's Research & Development Establishment (Engineers), is a scaled-down precursor intended to be developed into a full-scale Electromagnetic Aircraft Launch System (EMALS) for future Indian aircraft carriers, replacing conventional steam catapults. It uses electromagnetic force rather than steam pressure to launch aircraft and UAVs, offering smoother acceleration and greater flexibility for heavier payloads. The other options describe unrelated defence technologies such as electronic warfare and missile defence systems."
+    },
+    {
+        q: "With reference to the legal and regulatory framework for drones in India, consider the following statements: <br>1. Drones in India are regulated primarily under the Environment (Protection) Act, 1986.<br>2. Under the Drone Rules, 2021, a Unique Identification Number (UIN) for a drone is issued by the Directorate General of Civil Aviation (DGCA).<br>3. The Drone Rules, 2021 abolished the requirement of a remote pilot licence for operating nano and micro drones for non-commercial purposes.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "Drones in India are regulated under the Aircraft Act, 1934, and rules framed under it by the Ministry of Civil Aviation and DGCA, not the Environment (Protection) Act, so statement 1 is incorrect. The Drone Rules, 2021 empower the DGCA to issue a Unique Identification Number for each drone, making statement 2 correct. The Rules also did away with the need for a remote pilot licence for flying nano and micro drones for non-commercial use, confirming statement 3."
+    },
+    {
+        q: "In July 2025, DRDO successfully tested the Extended Trajectory-Long Duration Hypersonic Cruise Missile (ET-LDHCM) under the classified 'Project Vishnu'. A key distinguishing feature of this missile, compared to the BrahMos supersonic cruise missile, is that:",
+        opts: [
+            "the ET-LDHCM is a purely ballistic weapon with no guidance system, whereas BrahMos can manoeuvre throughout its flight",
+            "the ET-LDHCM can only be launched from submerged submarines, whereas BrahMos can only be launched from land-based platforms",
+            "the ET-LDHCM uses an air-breathing scramjet engine to achieve speeds of around Mach 8, whereas BrahMos uses ramjet propulsion and has a top speed of about Mach 3",
+            "the ET-LDHCM has a shorter range than BrahMos despite being faster"
+        ],
+        ans: 2,
+        exp: "The ET-LDHCM, developed indigenously under Project Vishnu, uses a scramjet engine for sustained air-breathing hypersonic flight at speeds of around Mach 8, whereas BrahMos, developed jointly with Russia, uses ramjet propulsion and tops out at about Mach 3. The ET-LDHCM is a guided, non-ballistic cruise missile capable of launch from multiple platforms, not restricted to submarines, and it offers a longer range than BrahMos rather than a shorter one."
+    },
+    {
+        q: "With reference to the Integrated Guided Missile Development Programme (IGMDP), consider the following statements: <br>1. It was launched in 1983 under the leadership of Dr. A.P.J. Abdul Kalam.<br>2. The Agni missile was originally conceived as a technology demonstrator for re-entry technology before being developed into a ballistic missile.<br>3. The IGMDP encompassed the development of five missiles — Prithvi, Agni, Trishul, Akash and BrahMos.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "2 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 2,
+        exp: "The IGMDP was launched in 1983 under Dr. A.P.J. Abdul Kalam to indigenously develop a family of guided missiles, making statement 1 correct. The Agni missile began as a re-entry technology demonstrator and was later developed into a full-fledged ballistic missile series, making statement 2 correct. However, the fifth missile under IGMDP was Nag, not BrahMos, which is a separate India-Russia joint-venture cruise missile developed outside the IGMDP framework, making statement 3 incorrect."
+    },
+    {
+        q: "'Samyukta' is often cited as an example of India's electronic warfare capability. With reference to this system, consider the following statements: <br>1. Samyukta was jointly developed by DRDO, Bharat Electronics Limited, Electronics Corporation of India Limited, and the Corps of Signals of the Indian Army.<br>2. It is designed as a static, fixed-location system, intended primarily for the electronic defence of major metropolitan cities.<br>3. Its command and control software, comprising around ten million lines of code, was jointly developed by CMC Limited and Tata Power Strategic Engineering Division.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "Samyukta was indeed developed jointly by DRDO, BEL, ECIL and the Indian Army's Corps of Signals, confirming statement 1. However, it is a fully mobile electronic warfare system intended for tactical battlefield use, not a static system for metropolitan defence, making statement 2 incorrect. Its command and control software, running to about ten million lines of code, was jointly developed by CMC and Tata Power SED, confirming statement 3."
+    },
+    {
+        q: "With reference to policies governing fighter aircraft manufacturing in India, consider the following statements: <br>1. The Strategic Partnership (SP) model, populating Chapter VII of the Defence Procurement Procedure, 2016, was based on a recommendation of the Kelkar Committee of 2005.<br>2. Under the SP model, multiple Indian private companies are simultaneously designated as Strategic Partners within each identified segment, including fighter aircraft, to encourage competition.<br>3. As part of associated reforms, the Foreign Direct Investment (FDI) limit in the defence sector was reduced from 74% to 26% under the automatic route.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "All three are correct",
+            "None of the statements is correct",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "The Strategic Partnership model was in fact based on the recommendations of the Dhirendra Singh Committee (July 2015), not the Kelkar Committee, making statement 1 incorrect. The model generally identifies only one Indian company as the Strategic Partner within each segment, rather than multiple competing companies, making statement 2 incorrect. The FDI limit in defence was actually raised, not reduced, from 26% to up to 74% under the automatic route, making statement 3 incorrect as well; hence none of the statements is correct."
+    },
+    {
+        q: "The Production-Linked Incentive (PLI) Scheme for Drones and Drone Components, notified by the Ministry of Civil Aviation in 2021, sought to boost domestic manufacturing primarily by:",
+        opts: [
+            "nationalising all private drone manufacturing companies under government ownership",
+            "imposing a blanket ban on the import of all drone components regardless of end use",
+            "mandating that every state government purchase a fixed quota of domestically manufactured drones annually",
+            "offering financial incentives linked to incremental domestic production, while also relaxing the minimum value-addition criterion to make the scheme more accessible to manufacturers"
+        ],
+        ans: 3,
+        exp: "The PLI Scheme for Drones and Drone Components offers incentives tied to incremental production and eased the minimum value-addition requirement to around 40% of net sales, making it easier for manufacturers to qualify, while a separate 2022 notification restricted import of fully-built drones (with exceptions for defence, R&D and security) rather than banning all components. The scheme did not nationalise private firms or impose mandatory state procurement quotas."
+    },
+    {
+        q: "Stealth aircraft are primarily designed to minimise their Radar Cross-Section (RCS) against high-frequency fire-control and engagement radars, such as those operating in the X-band. This design optimisation, however, creates which of the following vulnerabilities that India's under-development 'anti-stealth radar grid' seeks to exploit?",
+        opts: [
+            "Continued detectability by low-frequency radars, such as VHF systems, whose longer wavelengths are comparable to the aircraft's structural dimensions",
+            "A complete loss of manoeuvrability whenever the radar-absorbent coatings are active",
+            "A reduced ability of the aircraft to release its own weapons due to a fixed radar frequency band",
+            "An inability of the aircraft to fly at supersonic speeds while stealth coatings are applied"
+        ],
+        ans: 0,
+        exp: "Stealth shaping and Radar Absorbing Materials are optimised primarily against high-frequency radar bands used for weapons targeting and fire control, leaving a frequency-dependent gap. Low-frequency VHF and UHF radars use wavelengths comparable to an aircraft's structural features, causing resonance effects that make stealth shaping and coatings far less effective. India's emerging Low Observable Detection Network exploits precisely this gap by integrating passive, low-frequency radar systems alongside conventional high-frequency radars."
+    },
+    {
+        q: "With reference to the functions and powers of the Indian Coast Guard, consider the following statements: <br>1. The Indian Coast Guard, constituted as an armed force of the Union under the Coast Guard Act, 1978, functions under the Ministry of Home Affairs rather than the Ministry of Defence.<br>2. Under the Coast Guard Act, 1978, while the Director-General of the Coast Guard holds command and supervision, the general superintendence, direction and control of the Coast Guard vests in the Central Government.<br>3. The establishment of the Indian Coast Guard followed directly from the recommendations of the Kargil Review Committee of 1999.<br>Which one of the above statements is correct?",
+        opts: [
+            "1 only",
+            "1 and 3 only",
+            "3 only",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "The Indian Coast Guard functions under the Ministry of Defence, not the Ministry of Home Affairs, despite an initial administrative recommendation favouring the latter that was overruled, making statement 1 incorrect. The Coast Guard Act, 1978 does vest command and supervision in the Director-General while placing general superintendence, direction and control with the Central Government, confirming statement 2. The Coast Guard's establishment stemmed from the Rustamji Committee of 1974, not the Kargil Review Committee of 1999, which instead led to reforms such as the Defence Acquisition Council, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the organisational architecture behind India's missile programme, which of the following is correct?",
+        opts: [
+            "All missile-related research is conducted by a single laboratory, with no distinct clusters or specialisations within DRDO",
+            "Missile research and operational deployment are both handled exclusively by the Ministry of External Affairs",
+            "The Strategic Forces Command is a wing of the Indian Air Force alone, with no personnel drawn from the Army or Navy",
+            "DRDO's Missiles and Strategic Systems cluster includes specialised laboratories such as the Defence Research and Development Laboratory (DRDL) and Research Centre Imarat (RCI) at Hyderabad, while the operational management of strategic missile forces rests with the tri-service Strategic Forces Command"
+        ],
+        ans: 3,
+        exp: "DRDO organises its missile-related work under a Missiles and Strategic Systems technology cluster, comprising specialised laboratories such as DRDL and RCI at Hyderabad, while the Strategic Forces Command, a tri-service organisation drawing personnel from the Army, Navy and Air Force, manages and administers the operational strategic missile forces under the Nuclear Command Authority. The Ministry of External Affairs plays no role in missile research or deployment, and DRDO's missile work is distributed across multiple specialised laboratories rather than concentrated in one."
+    },
+    {
+        q: "With reference to recent (2025-2026) developments in India's missile technology, consider the following statements: <br>1. In February 2026, DRDO successfully demonstrated Solid Fuel Ducted Ramjet (SFDR) propulsion technology from Chandipur, Odisha, intended to give future missiles sustained thrust over longer ranges.<br>2. DRDO's Rail Track Rocket Sled (RTRS) facility, used to test missile and ejection-seat components at speeds exceeding 1,000 km/h, has also been used for a Gaganyaan crew-escape system qualification test.<br>3. 'Mission Divyastra', in which India demonstrated Multiple Independently Targetable Re-entry Vehicle (MIRV) technology on the Agni-5 missile, was carried out in 2020.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "DRDO conducted a successful SFDR propulsion demonstration from Chandipur in February 2026, aimed at giving future missiles longer sustained thrust, confirming statement 1. The RTRS facility has indeed been used for both missile-related testing and a Gaganyaan drogue parachute qualification test, confirming statement 2. However, Mission Divyastra, which demonstrated MIRV capability on the Agni-5, was actually conducted in March 2024, not 2020, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to recent reforms proposed for the Defence Research and Development Organisation (DRDO), consider the following statements: <br>1. The K. VijayRaghavan committee (2024) recommended restricting DRDO's role primarily to research and development, excluding it from prototype production, with production left to DPSUs and the private sector.<br>2. Under the associated 'DRDO 2.0' strategy, DRDO plans to retain only about 10-20% support in the development of conventional weapon systems, transferring most of this work to the private sector from 2025.<br>3. As part of the reforms, DRDO's existing laboratories are proposed to be consolidated into a smaller number of national laboratories to reduce the historical concentration of resources in just a couple of cities.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "The K. VijayRaghavan committee did recommend confining DRDO largely to R&D, leaving prototype production and manufacturing to DPSUs and private industry, confirming statement 1. Under DRDO 2.0, the organisation plans to retain only a 10-20% support role in conventional systems development, handing over the rest to private industry from 2025, confirming statement 2. The reforms also propose consolidating DRDO's many laboratories into a smaller number of national laboratories spread more evenly across the country, addressing the historical concentration of funding in a couple of cities, confirming statement 3."
+    },
+    {
+        q: "With reference to India's indigenous Electronic Warfare (EW) systems, consider the following statements: <br>1. 'Samyukta' is described as India's first large-scale mobile integrated electronic warfare system, jointly developed by DRDO, Bharat Electronics Limited, Electronics Corporation of India Limited and the Army's Corps of Signals.<br>2. 'Himshakti' was developed specifically to meet electronic warfare requirements in high-altitude, mountainous terrain such as along the Line of Actual Control.<br>3. The 'Shakti' EW suite has been installed onboard Indian Navy warships for interception and jamming of hostile radars.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "Only one of the statements is correct",
+            "All of the above",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 2,
+        exp: "Samyukta is India's largest and first large-scale mobile integrated EW system, developed jointly by DRDO, BEL, ECIL and the Army's Corps of Signals, confirming statement 1. Himshakti was specifically engineered as a lighter, mountain-warfare variant for high-altitude deployment along the LAC, confirming statement 2. The Shakti EW suite, developed by DRDO's Defence Electronics Research Laboratory, has been installed on Indian Navy warships such as INS Visakhapatnam for radar interception and jamming, confirming statement 3."
+    },
+    {
+        q: "With reference to India's recent maritime legal reforms, consider the following statements: <br>1. The Merchant Shipping Act, 2025, is a mere amendment inserted into the Indian Ports Act, 1908, rather than a standalone piece of legislation.<br>2. The 2025 maritime law reforms were implemented as executive orders of the Ministry of Ports, Shipping and Waterways without requiring Parliamentary approval.<br>3. The Coastal Shipping Act, 2025 exclusively regulates offshore oil exploration activities and has no bearing on cabotage or coastal cargo movement.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "None of the statements is correct",
+            "1, 2 and 3"
+        ],
+        ans: 2,
+        exp: "The Merchant Shipping Act, 2025 is a standalone Act passed by Parliament to replace the colonial-era Merchant Shipping Act, 1958, not an amendment to the Indian Ports Act, so statement 1 is incorrect. These maritime reforms, including the Merchant Shipping Act, Coastal Shipping Act and Carriage of Goods by Sea Act, were passed as Bills and enacted by Parliament, not issued as executive orders, making statement 2 incorrect. The Coastal Shipping Act, 2025 deals with coastal shipping and cabotage norms to boost domestic coastal cargo movement, not offshore oil exploration, so statement 3 is also incorrect."
+    },
+    {
+        q: "With reference to the background and evolution of India's early unmanned aerial systems, consider the following statements: <br>1. The requirement for an Indian Pilotless Target Aircraft (PTA) arose in 1976, and the resulting Lakshya programme was fully inducted into service that very same year.<br>2. The PTAE-7 turbojet engine used in the Lakshya was imported in complete, ready-to-use form from France, with no involvement of any Indian manufacturer.<br>3. Nishant, developed by DRDO in the 1990s as a tactical surveillance UAV, used a catapult-assisted launch and a parachute-based recovery system rather than a conventional runway.<br>Which one of the above statements is correct?",
+        opts: [
+            "2 only",
+            "1 only",
+            "1 and 2 only",
+            "3 only"
+        ],
+        ans: 3,
+        exp: "While the PTA requirement did arise in 1976, the Lakshya programme was sanctioned only in 1980, first flew in 1985 and was formally inducted only in November 2000, not in 1976 itself, making statement 1 incorrect. The PTAE-7 engine was developed indigenously by Hindustan Aeronautics Limited, not imported complete from France, making statement 2 incorrect. Nishant, a 1990s tactical surveillance UAV developed by DRDO, did indeed use a catapult-assisted launch with parachute-based recovery, confirming statement 3."
+    },
+    {
+        q: "In May 2025, the Ministry of Defence approved a new 'execution model' for the Advanced Medium Combat Aircraft (AMCA) programme. This reform primarily involved:",
+        opts: [
+            "cancelling the AMCA programme altogether in favour of importing fifth-generation fighter jets",
+            "transferring complete ownership and manufacturing rights of AMCA to a foreign original equipment manufacturer",
+            "merging the AMCA programme with the Tejas Mk-1A production line under Hindustan Aeronautics Limited",
+            "replacing the earlier proposed Special Purpose Vehicle model with a framework allowing public and private sector entities to bid competitively, either independently or as a joint venture/consortium"
+        ],
+        ans: 3,
+        exp: "The Ministry of Defence had earlier envisioned a Special Purpose Vehicle involving the Aeronautical Development Agency, Hindustan Aeronautics Limited and a private partner, but the May 2025 reform instead approved an industry partnership execution model open to both public and private players competing on an equal footing. The AMCA programme was not cancelled, ownership was not transferred abroad, and it was not merged with the Tejas Mk-1A line, which remains a separate production programme."
+    },
+    {
+        q: "With reference to the background and evolution of hypersonic technology in India, consider the following statements: <br>1. The Hypersonic Technology Demonstrator Vehicle (HSTDV) programme was conceived by DRDO in the mid-2000s to validate scramjet-powered, air-breathing propulsion for future hypersonic cruise vehicles.<br>2. HSTDV achieved its first fully successful hypersonic flight test in September 2020 from the Dr. APJ Abdul Kalam Launch Complex in Odisha, making India the fourth country to demonstrate this technology.<br>3. The HSTDV programme was led by the Indian Space Research Organisation (ISRO), with DRDO providing only a supporting role.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 and 3 only",
+            "2 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "The HSTDV programme was conceived by DRDO in the mid-2000s to demonstrate a scramjet engine capable of sustaining combustion in supersonic airflow, confirming statement 1. Its first fully successful flight test took place on 7 September 2020 from the Dr. APJ Abdul Kalam Launch Complex, making India the fourth country after the USA, Russia and China to demonstrate this technology, confirming statement 2. The programme was led throughout by DRDO's Defence Research and Development Laboratory (DRDL), not ISRO, making statement 3 incorrect."
+    },
+    {
+        q: "India's Hypersonic Technology Demonstrator Vehicle programme and related strategic missile research fall within the exclusive legislative and executive domain of the Union Government primarily because:",
+        opts: [
+            "hypersonic technology is explicitly listed as a separate entry in the Concurrent List, allowing both Parliament and State Legislatures to legislate on it",
+            "\"Defence of India\" is placed under Entry 1 of the Union List in the Seventh Schedule to the Constitution, vesting exclusive legislative competence over defence matters with Parliament",
+            "State Governments have voluntarily ceded their constitutional powers over defence research through bilateral agreements with the Centre",
+            "the Right to Information Act, 2005 specifically bars states from participating in any defence-related research"
+        ],
+        ans: 1,
+        exp: "\"Defence of India\" is listed under Entry 1 of the Union List in the Seventh Schedule, giving Parliament exclusive legislative competence over defence-related matters, including strategic missile and hypersonic research undertaken by DRDO. There is no separate Concurrent List entry for hypersonic technology, the RTI Act does not deal with state participation in research, and there is no such constitutional mechanism of states \"ceding\" powers through bilateral agreements."
+    },
+    {
+        q: "With reference to Unmanned Aerial Vehicles (UAVs), consider the following statements: <br>1. Fixed-wing UAVs are capable of vertical take-off and landing without requiring a runway.<br>2. Multi-rotor UAVs are capable of automated hovering over a fixed point.<br>3. All UAVs are powered exclusively by rechargeable batteries.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 2 alone",
+            "Only two of the statements are correct",
+            "2 and 3 only",
+            "All of the statements are correct"
+        ],
+        ans: 0,
+        exp: "Fixed-wing UAVs require a runway or launch mechanism and cannot perform vertical take-off and landing, unlike VTOL or multi-rotor drones, so statement 1 is incorrect. Multi-rotor UAVs can hover in a stationary position, making statement 2 correct. Larger UAVs may use fuel, hybrid or solar power rather than batteries alone, so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to the organisational structure of the Defence Research and Development Organisation (DRDO), the organisation, which operates a network of around fifty laboratories grouped into technology clusters such as Aeronautics, Armament, and Missiles and Strategic Systems, is headed by:",
+        opts: [
+            "the Chief of Defence Staff, who exercises administrative control over all DRDO laboratories",
+            "a rotating chairmanship shared annually among the three service chiefs",
+            "the National Security Adviser, who directly supervises all DRDO research programmes",
+            "the Secretary, Department of Defence Research and Development, who also serves as the Director General of DRDO"
+        ],
+        ans: 3,
+        exp: "DRDO functions under the Ministry of Defence and is headed by the Secretary of the Department of Defence Research and Development, who concurrently holds the position of Director General of DRDO, assisted by Chief Controllers heading various technology clusters. There is no rotating chairmanship among the service chiefs, and neither the Chief of Defence Staff nor the National Security Adviser holds administrative control over DRDO's laboratory network."
+    },
+    {
+        q: "With reference to recent (2025-2026) developments concerning fighter aircraft in India, consider the following statements: <br>1. On 28 April 2025, India signed an Inter-Governmental Agreement with France for 26 Rafale Marine jets, worth around ₹63,000-64,000 crore, making the Indian Navy the first foreign operator of the Rafale Marine variant outside France.<br>2. This deal makes India the first country in the world to operate the Rafale aircraft in any variant, as no other country had previously purchased Rafale jets from France.<br>3. The Rafale Marine jets are intended for permanent, long-term use, with India having abandoned its indigenous Twin Engine Deck Based Fighter (TEDBF) programme.<br>Which one of the above statements is correct?",
+        opts: [
+            "3 only",
+            "2 only",
+            "1 and 2 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "India did sign a roughly ₹63,000-64,000 crore Inter-Governmental Agreement with France on 28 April 2025 for 26 Rafale Marine jets, and the Indian Navy became the first foreign operator of the Rafale Marine outside France, confirming statement 1. However, several countries (such as Egypt, Qatar and Greece) already operated the land-based Rafale before this deal; India instead became the first country to operate both the land-based and Marine variants, not the first Rafale operator overall, making statement 2 incorrect. The Rafale Marine is explicitly described as an interim solution pending induction of the indigenous TEDBF, whose development continues, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to India's indigenous aircraft carrier programme, consider the following statements: <br>1. INS Vikrant, India's first indigenously built aircraft carrier, was designed by the Indian Navy's own Warship Design Bureau rather than by a foreign design agency.<br>2. The warship-grade steel used in constructing INS Vikrant, known as DMR-249, was developed indigenously through collaboration between the Steel Authority of India, DRDO and the Indian Navy.<br>3. INS Vikrant achieved full operational status in 2020, two years before its formal commissioning in 2022.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "INS Vikrant was indeed designed in-house by the Indian Navy's Warship Design Bureau, confirming statement 1. The DMR-249 warship-grade steel used in its construction was developed indigenously through a joint effort of SAIL, DRDO and the Navy, confirming statement 2. However, INS Vikrant was commissioned only in September 2022 and achieved full operational status later, in November 2023, not before its commissioning, making statement 3 incorrect."
+    },
+    {
+        q: "India's Nuclear Command Authority (NCA), which governs decisions on the potential use of nuclear-capable missile systems, is structured such that:",
+        opts: [
+            "the Political Council is chaired by the National Security Adviser, while the Executive Council is chaired by the Prime Minister",
+            "the Executive Council, chaired by the Chief of Defence Staff, has the sole authority to order a nuclear strike, subject to ratification by Parliament",
+            "the Political Council, chaired by the Prime Minister, is the sole body authorised to approve the use of nuclear weapons, while the Executive Council, chaired by the National Security Adviser, provides inputs and executes its directives",
+            "the Strategic Forces Command functions entirely independently of the Nuclear Command Authority and reports directly to the President of India"
+        ],
+        ans: 2,
+        exp: "The Nuclear Command Authority, formally established on 4 January 2003, consists of a Political Council chaired by the Prime Minister, which alone can authorise nuclear weapon use, and an Executive Council chaired by the National Security Adviser, which advises and implements directives. The Strategic Forces Command operates under this structure to manage and administer India's strategic forces, rather than functioning independently of it. The Chief of Defence Staff and the President do not chair either Council under this arrangement."
+    },
+    {
+        q: "With reference to recent (2025-2026) progress in India's defence indigenisation, consider the following statements: <br>1. A Standing Committee on Defence report of December 2025 noted that DRDO's indigenous research programmes have enabled cumulative savings of over ₹2.6 lakh crore for the country over the preceding five years.<br>2. As of the same period, approximately 60% of India's arms and ammunition requirements are being met through domestic production.<br>3. The Technology Development Fund (TDF) finances deep-tech defence projects, including those in quantum computing, blockchain and artificial intelligence, with grants of up to ₹50 crore per project.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 2 and 3",
+            "1, 2 and 3",
+            "Exactly two of the statements are correct",
+            "Only statement 2"
+        ],
+        ans: 1,
+        exp: "The Standing Committee on Defence's December 2025 report did note savings of around ₹2,64,156 crore attributable to DRDO's indigenous programmes over five years, confirming statement 1. The same reporting places domestic production of arms and ammunition at roughly 60% of requirements, confirming statement 2. The Technology Development Fund does finance deep-tech projects in areas such as quantum computing, blockchain and AI, with grants of up to ₹50 crore per project, confirming statement 3."
+    },
+    {
+        q: "With reference to the legal basis for the state's electronic warfare and signal-interception capabilities in India, which of the following is correct?",
+        opts: [
+            "No Indian law provides any legal basis for interception or suspension of telecommunications, even during hostilities",
+            "The Telecommunications Act, 2023 permits the Central Government to intercept or suspend telecommunication services on grounds including the security of the state, providing a legal basis for certain electronic-warfare-related actions",
+            "Electronic warfare capabilities in India are governed exclusively by international humanitarian law, with no domestic legal basis",
+            "Electronic warfare is explicitly listed as a separate entry in the State List, giving state governments primary authority over it"
+        ],
+        ans: 1,
+        exp: "The Telecommunications Act, 2023 empowers the Central Government to intercept messages or suspend telecommunication services on specified grounds, including the security of the state and public order, providing a domestic legal basis relevant to certain electronic-warfare-related and signals-interception activities. There is no separate State List entry for electronic warfare, and India's domestic law, not merely international humanitarian law, provides the operative legal basis for such state action."
+    },
+    {
+        q: "With reference to the Defence Research and Development Organisation (DRDO), consider the following statements: <br>1. DRDO is a statutory body created by an Act of Parliament, with all its powers and functions explicitly enumerated in that Act.<br>2. DRDO functions as a Public Sector Undertaking (PSU) with majority government shareholding, similar to Hindustan Aeronautics Limited.<br>3. The Secretary, Department of Defence Research and Development, and the Chairman, DRDO, are two entirely separate individuals appointed independently of each other.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "None of the statements is correct",
+            "All three are correct",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "DRDO derives its mandate not from a dedicated statute but from executive allocation under the Government of India (Allocation of Business) Rules, 1961, so it is not a statutory body, making statement 1 incorrect. It is an autonomous government organisation, not a corporate Public Sector Undertaking with shareholding like HAL, making statement 2 incorrect. The Secretary, Department of Defence R&D concurrently holds the post of Chairman, DRDO (and is also Scientific Adviser to the Raksha Mantri), so they are the same person, not two separate individuals, making statement 3 incorrect too."
+    },
+    {
+        q: "With reference to the electronic warfare (EW) suite fitted on India's Su-30MKI fighter aircraft, consider the following statements: <br>1. The Su-30MKI's Radar Warning Receiver, known as 'Tarang', is an indigenously developed system with a programmable threat library.<br>2. The Su-30MKI's self-protection jamming pod, the EL/M-8222, is entirely indigenous and manufactured solely by Indian companies.<br>3. Electronic warfare, in the military sense, refers to actions involving the use of the electromagnetic spectrum to attack, protect, or gather information about an adversary's systems.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 3,
+        exp: "The Tarang Radar Warning Receiver fitted on the Su-30MKI is indeed an indigenous DRDO/DARE-developed system with a programmable threat library, confirming statement 1. The EL/M-8222 self-protection jamming pod, however, is of Israeli origin, developed by Israel Aerospace Industries, and is not entirely indigenous, making statement 2 incorrect. The general definition of electronic warfare as actions using the electromagnetic spectrum to attack, protect or gather information is accurate, confirming statement 3."
+    },
+    {
+        q: "In view of persistent radar coverage gaps caused by terrain masking along the high-altitude Line of Actual Control (LAC), the Indian Air Force has sought aerostat-based systems and inducted low-level lightweight radars such as DRDO's 'Aslesha Mk-I'. The core problem these systems address is that:",
+        opts: [
+            "satellite-based navigation systems fail completely above an altitude of 5,000 metres, making radar the only viable means of surveillance",
+            "mountain regions experience such high air density that radar signals are completely absorbed before reaching their targets",
+            "ground-based radars struggle to detect low-flying aircraft, helicopters and drones in mountainous terrain because hills and ridgelines block or mask the radar's line of sight",
+            "ground-based radars in high-altitude regions are unable to operate at sub-zero temperatures without being permanently damaged"
+        ],
+        ans: 2,
+        exp: "In mountainous, high-altitude terrain such as along the LAC, hills and ridgelines physically block a ground-based radar's line of sight to low-flying targets, a phenomenon known as terrain masking. Aerostat-based systems and lightweight, rapidly deployable radars like the Aslesha Mk-I help close these gaps by providing elevated or flexible coverage over valleys and blind spots. Radar performance is not primarily limited by air density or temperature, and satellite navigation failure is not the issue being addressed by these systems."
+    },
+    {
+        q: "With reference to challenges faced by India's electronic warfare and signal environment, consider the following statements: <br>1. Between late 2023 and early 2025, Indian authorities recorded over 465 GPS interference/spoofing incidents in air corridors such as Amritsar and Jammu, affecting both civilian and military aircraft.<br>2. The DGCA has issued no formal directive on reporting jamming or spoofing incidents, leaving airlines to decide independently whether to report such events.<br>3. The Wireless Monitoring Organisation (WMO), tasked with tracing the physical source of such interference, functions under the Ministry of External Affairs.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 1 alone",
+            "None of the statements are correct",
+            "All of the above",
+            "Only two of the statements are correct"
+        ],
+        ans: 0,
+        exp: "Government data has confirmed over 465 GPS spoofing/interference incidents in corridors like Amritsar and Jammu between late 2023 and early 2025, confirming statement 1. In fact, the DGCA issued a November 2023 circular mandating that airlines, pilots and air traffic controllers report suspected jamming or spoofing within ten minutes, making statement 2 incorrect. The Wireless Monitoring Organisation functions under the Department of Telecommunications, not the Ministry of External Affairs, making statement 3 incorrect as well."
+    },
+    {
+        q: "With reference to the Defence Production and Export Promotion Policy (DPEPP) 2020, consider the following statements: <br>1. DPEPP 2020 is a fully enacted Act of Parliament that legally mandates specific indigenisation targets on all private defence manufacturers.<br>2. DPEPP 2020 set a target of achieving a turnover of ₹1,75,000 crore, including defence exports of ₹35,000 crore, in the Aerospace and Defence sector by 2025.<br>3. DPEPP 2020 focuses exclusively on public sector undertakings, explicitly excluding MSMEs and start-ups from its ambit.<br>Which one of the above statements is correct?",
+        opts: [
+            "1 only",
+            "1 and 3 only",
+            "3 only",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "DPEPP 2020 is a policy document (initially released in draft form) formulated by the Ministry of Defence to guide production and exports, not an Act of Parliament with legally binding force, making statement 1 incorrect. It did set a target of ₹1,75,000 crore in turnover, including ₹35,000 crore in exports, by 2025, confirming statement 2. The policy explicitly seeks to engage MSMEs, start-ups and academia in defence innovation and import substitution, rather than excluding them, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to items associated with India's defence indigenisation, consider the following pairs: <br>1. Arjun — Indigenously designed Main Battle Tank<br>2. BrahMos — Wholly indigenous, solid-fuelled intercontinental ballistic missile<br>3. Tejas — Light Combat Aircraft developed jointly by Hindustan Aeronautics Limited and the Aeronautical Development Agency<br>Which of the pairs given above is/are correctly matched?",
+        opts: [
+            "All of the above",
+            "2 only",
+            "None of the above",
+            "Only two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "Arjun is indeed an indigenously designed Main Battle Tank, so pair 1 is correctly matched. BrahMos, however, is a supersonic cruise missile (not an intercontinental ballistic missile) developed jointly by India's DRDO and Russia's NPO Mashinostroyenia, not wholly indigenously, so pair 2 is incorrectly matched. Tejas is correctly described as a Light Combat Aircraft developed jointly by HAL and the Aeronautical Development Agency, so pair 3 is correctly matched."
+    },
+    {
+        q: "Dual-use hypersonic propulsion technologies and related items developed in India are subject to export control primarily through:",
+        opts: [
+            "the Right to Information Act, 2005, which classifies all hypersonic research as exempt from public disclosure",
+            "the Atomic Energy Act, 1962, which places all hypersonic technology under the exclusive control of the Department of Atomic Energy",
+            "the Indian Patents Act, 1970, which prohibits the patenting of any hypersonic-related invention",
+            "the SCOMET (Special Chemicals, Organisms, Materials, Equipment and Technologies) list, notified by the Directorate General of Foreign Trade under India's Foreign Trade Policy"
+        ],
+        ans: 3,
+        exp: "India regulates the export of dual-use and strategically sensitive items, including advanced propulsion and missile-related technologies, through the SCOMET list notified by the DGFT under the Foreign Trade Policy, aligned with regimes such as the MTCR and Wassenaar Arrangement. The RTI Act deals with public disclosure exemptions generally, the Patents Act governs patentability, and the Atomic Energy Act is specific to nuclear materials, none of which is the primary export-control instrument for hypersonic technology."
+    },
+    {
+        q: "With reference to challenges facing India's defence research establishment, consider the following statements: <br>1. The Comptroller and Auditor General (CAG) has consistently praised DRDO's Mission Mode Projects for being completed strictly on time and within budget.<br>2. Since the opening up of defence and aerospace manufacturing to the private sector, DRDO has seen scientific talent move to private companies offering more attractive compensation and challenging projects, a trend also observed in organisations like ISRO.<br>3. Despite decades of indigenisation efforts, India's defence programmes have completely eliminated dependence on imported components and foreign design consultancies for major platforms such as aircraft and submarines.<br>Which one of the above statements is correct?",
+        opts: [
+            "3 only",
+            "1 only",
+            "2 only",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "CAG reports have in fact repeatedly flagged time and cost overruns in DRDO's Mission Mode Projects rather than praising their timeliness, making statement 1 incorrect. With private industry now producing major platforms, DRDO has faced a documented outflow of scientific talent to better-paying private firms, a pattern also seen at ISRO, confirming statement 2. Despite progress, India still relies heavily on foreign OEMs and imported components for critical parts of major platforms like aircraft and submarines, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the constitutional and legal framework governing defence indigenisation in India, consider the following statements: <br>1. The Defence Acquisition Procedure (DAP) 2020 has been enacted as a full-fledged Act of Parliament governing all capital defence procurement.<br>2. The Positive Indigenisation List obligates the Army, Navy and Air Force to procure the listed items exclusively from foreign original equipment manufacturers.<br>3. Defence of India appears in the Concurrent List (List III) of the Seventh Schedule, allowing both Parliament and State Legislatures to legislate on it.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the statements are correct",
+            "1 and 2 only",
+            "None of the statements is correct",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "DAP 2020 is an executive procurement instruction issued by the Ministry of Defence, not a statute passed by Parliament, so statement 1 is incorrect. The Positive Indigenisation List requires the Armed Forces to procure listed items only from domestic manufacturers, not foreign OEMs, making statement 2 incorrect.  Defence of India  falls under Entry 1 of the Union List (List I), not the Concurrent List, so statement 3 is also incorrect."
+    },
+    {
+        q: "A defining feature of India's 'Positive Indigenisation Lists', issued periodically by the Department of Military Affairs and the Department of Defence Production, is that:",
+        opts: [
+            "they specify items that can be imported without any customs duty for a period of five years",
+            "they specify items and platforms that the Army, Navy and Air Force are permitted to procure only from domestic manufacturers after a notified timeline",
+            "they list foreign defence companies that are permitted to set up wholly-owned manufacturing units in India without any local sourcing requirement",
+            "they identify defence technologies that are banned entirely from use by India's armed forces"
+        ],
+        ans: 1,
+        exp: "The Positive Indigenisation Lists notify defence items and platforms, running into thousands in number, that the three services must procure exclusively from domestic sources after a specified timeline, thereby curbing imports and boosting self-reliance. They do not deal with foreign company manufacturing rights, outright technology bans, or customs duty exemptions, which are addressed through separate policy instruments."
+    },
+    {
+        q: "The Naresh Chandra Task Force on National Security (2012) recommended the creation of dedicated tri-service commands to address certain emerging domains of warfare. Which of the following pairs of domains, recommended by the Task Force, subsequently led to the raising of the Defence Cyber Agency and the Defence Space Agency in 2019?",
+        opts: [
+            "Cyberspace and Aerospace/Space",
+            "Peacekeeping Operations and Humanitarian Assistance",
+            "Electronic Warfare and Signals Intelligence",
+            "Nuclear deterrence and Ballistic Missile Defence"
+        ],
+        ans: 0,
+        exp: "The Naresh Chandra Task Force recommended setting up tri-service commands for cyber, aerospace/space and special operations to address emerging security challenges. These recommendations materialised in 2019 with the raising of the Defence Cyber Agency, the Defence Space Agency and the Armed Forces Special Operations Division under the Integrated Defence Staff. The other options list domains not specifically identified by the Task Force for dedicated tri-service commands."
+    },
+    {
+        q: "With reference to the organisational structure of the Indian Air Force, which of the following correctly describes the hierarchy of formations from the largest to the smallest?",
+        opts: [
+            "Command → Squadron → Wing → Flight → Section",
+            "Command → Wing → Squadron → Flight → Section",
+            "Squadron → Command → Wing → Flight → Section",
+            "Wing → Command → Squadron → Section → Flight"
+        ],
+        ans: 1,
+        exp: "The Indian Air Force is organised, from the largest to the smallest formation, as Command (headed by an Air Officer Commanding-in-Chief) → Wing (typically 2-3 squadrons, led by a Group Captain) → Squadron (the primary operational field unit, generally led by a Wing Commander) → Flight (a sub-unit of a squadron, led by a Squadron Leader) → Section (the smallest unit). The other sequences misorder this hierarchy."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-63 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

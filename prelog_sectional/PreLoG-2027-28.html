@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-28</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "With reference to reforms and recommendations concerning the Indian judiciary, consider the following statements:<br>1. The Malimath Committee (2000-2003) recommended separating the investigation wing of the police from its law-and-order wing as part of criminal justice reform.<br>2. The Second Administrative Reforms Commission recommended the constitution of an All India Judicial Service on the lines of the All India Services.<br>3. The e-Courts Mission Mode Project was launched specifically to enable live streaming of Supreme Court and High Court proceedings for the first time in India.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "All three statements are correct",
+            "Only one of the statements is correct",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "The Malimath Committee recommended separating police investigation from law-and-order duties, and the Second ARC advocated an All India Judicial Service. Live streaming of court proceedings instead followed the Supreme Court's Swapnil Tripathi judgment (2018) and subsequent rules, not primarily the e-Courts project, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the Indian Councils Acts of 1861, 1892 and 1909, consider the following statements:<br>1. All three Acts were subsequently repealed and consolidated by the Government of India Act, 1915.<br>2. The Indian Councils Act, 1861 restored legislative powers to the Bombay and Madras Presidencies that had been curtailed by the Charter Act of 1833.<br>3. The Indian Councils Act, 1909 completely eliminated the system of nomination of non-official members, replacing it entirely with direct elections.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "Only statement 1",
+            "None of the above",
+            "Only statement 3"
+        ],
+        ans: 0,
+        exp: "The Indian Councils Acts of 1861, 1892 and 1909 were all repealed and consolidated by the Government of India Act, 1915, and the 1861 Act had restored legislative powers to Bombay and Madras. However, the 1909 Act retained a mix of nomination and indirect election; it did not introduce direct elections or eliminate nomination, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to challenges and issues facing the Civil Services in India, consider the following statements:<br>1. Political interference in transfers and postings is often cited as a challenge undermining the functional autonomy of civil servants.<br>2. The generalist character of the civil services, wherein officers are frequently transferred across unrelated departments, has been criticised for hindering deep domain expertise.<br>3. Several large state cadres, such as Bihar, Madhya Pradesh and Rajasthan, have faced a shortage of IAS officers, making them reluctant to sponsor officers for central deputation.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "Exactly two of the statements are correct",
+            "None of the statements are correct",
+            "All of the above"
+        ],
+        ans: 3,
+        exp: "Political interference and the generalist, frequently-transferred nature of civil service postings are widely acknowledged challenges. The Baswan Committee (2016) also specifically highlighted acute officer shortages in large state cadres like Bihar, Madhya Pradesh and Rajasthan, making all three statements correct."
+    },
+    {
+        q: "With reference to reforms and recommendations concerning the Civil Services in India, consider the following statements:<br>1. The Second Administrative Reforms Commission (2005), headed by Veerappa Moily, recommended an institutionalised process for lateral entry into civil services.<br>2. The Baswan Committee (2016) examined recruitment reforms and highlighted the reluctance of several large states to sponsor officers for central deputation due to staff shortages.<br>3. The recommendations of the Kothari Committee (1976) led to the introduction of the three-stage Civil Services Examination process: Preliminary, Mains and Personality Test.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "Only statement 3",
+            "Both 2 and 3",
+            "Statement 2 alone"
+        ],
+        ans: 0,
+        exp: "The Second ARC recommended institutionalised lateral entry, the Baswan Committee flagged deputation shortages in large states, and the Kothari Committee's recommendations shaped the current three-stage examination pattern. All three statements are correct."
+    },
+    {
+        q: "With reference to current developments concerning the Civil Services in India (2025-2026), consider the following statements:<br>1. Anuj Agnihotri secured All India Rank 1 in the Civil Services Examination, 2025.<br>2. Mission Karmayogi (National Programme for Civil Services Capacity Building) was newly launched by the Union Cabinet for the first time in 2025.<br>3. Recent Public Administration paper analyses (2026) have assessed that the lateral entry scheme has not moved in its intended direction.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "Both 1 and 2",
+            "None of the above",
+            "Statement 3 alone"
+        ],
+        ans: 0,
+        exp: "Anuj Agnihotri topped the Civil Services Examination 2025, and recent UPSC Mains analysis (2026) notes that lateral entry has underperformed relative to its stated goals. Mission Karmayogi, however, was launched back in September 2020, not newly in 2025, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to the features and characteristics of the police system in India, consider the following statements:<br>1. Indian police forces generally follow a dual system of control at the district level, with the District Magistrate and the Superintendent of Police sharing law-and-order responsibilities.<br>2. In the Police Commissionerate System, the Commissioner of Police combines both magisterial and policing powers, enabling faster executive decision-making.<br>3. The civil police wing typically handles day-to-day law and order and crime control, while the armed police wing is kept in reserve for situations like riots.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "Exactly one of the statements is correct",
+            "1, 2 and 3",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "The traditional district policing model involves shared authority between the District Magistrate and Superintendent of Police, the Commissionerate System vests combined magisterial and policing powers in the Commissioner for faster decisions, and civil police handle routine law and order while armed police remain in reserve for emergencies. All three statements are correct."
+    },
+    {
+        q: "With reference to reforms and recommendations that shaped the Charter Acts, consider the following statements:<br>1. The Charter Act of 1853 itself provided for a Committee to recommend the method of recruitment to the Indian Civil Service.<br>2. This Committee (headed by Macaulay) recommended that recruitment to the Civil Service be made through open competitive examinations held in England.<br>3. Based on these recommendations, the first open competitive examination for the Indian Civil Service was held in London in 1855.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "2 only",
+            "1, 2 and 3",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 2,
+        exp: "The Charter Act of 1853 provided for a committee on civil service recruitment, the Macaulay Committee (1854) recommended open competitive examinations in England, and the first such examination was accordingly held in London in 1855. All three statements are correct."
+    },
+    {
+        q: "With reference to the Amending Act of 1781 (also known as the Act of Settlement), which amended the Regulating Act of 1773, consider the following statements:<br>1. It exempted the Governor-General-in-Council from the jurisdiction of the Supreme Court for acts done in their official capacity.<br>2. It excluded revenue matters and revenue collection disputes from the jurisdiction of the Supreme Court at Calcutta.<br>3. It abolished the Supreme Court at Calcutta and transferred its powers to the Sadar Diwani Adalat.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "1 and 2 only",
+            "1 and 3 only",
+            "3 only"
+        ],
+        ans: 1,
+        exp: "The Amending Act of 1781 exempted the Governor-General-in-Council from Supreme Court jurisdiction for official acts and excluded revenue matters from its purview, addressing defects of the Regulating Act. It did not abolish the Supreme Court, which continued to function at Calcutta, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the features of the Charter Act of 1833, consider the following statements:<br>1. It designated the Governor-General of Bengal as the Governor-General of India, with Lord William Bentinck becoming the first to hold this title.<br>2. It took away the legislative powers of the Governors of Bombay and Madras, centralising legislative authority in the Governor-General of India in Council.<br>3. It appointed Thomas Babington Macaulay as the first Law Member of the Governor-General's Council.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 3 alone",
+            "2 only",
+            "Exactly two of the statements are correct",
+            "All three statements are correct"
+        ],
+        ans: 3,
+        exp: "The Charter Act of 1833 elevated the Governor-General of Bengal to Governor-General of India (Bentinck being the first), stripped Bombay and Madras of their legislative powers, and appointed Macaulay as the first Law Member of the Council. All three statements are correct."
+    },
+    {
+        q: "With reference to the challenges and issues associated with Pitt's India Act, 1784, consider the following statements:<br>1. One of its major drawbacks was the lack of a clear demarcation of powers between the Board of Control and the Court of Directors.<br>2. The clause prohibiting wars of aggression against Indian princes under the Act was rigorously enforced in practice throughout subsequent Company rule.<br>3. The Act did not itself grant the Governor-General overriding powers over his Council, a gap only partially addressed by the Amending Act of 1786.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the statements are correct",
+            "Both 2 and 3",
+            "Exactly two of the statements are correct",
+            "Both 1 and 2"
+        ],
+        ans: 2,
+        exp: "A recognised defect of Pitt's India Act was the unclear boundary between the Board of Control and the Court of Directors, and the Governor-General's overriding power over his Council was granted only later, through the Amending Act of 1786. The Act's clause against wars of aggression, however, was frequently disregarded in practice, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to challenges and issues concerning the police system in India, consider the following statements:<br>1. Despite the Supreme Court's directives in the Prakash Singh case (2006), many states have been criticised for non-compliance in areas such as fixed tenure for the DGP and separation of investigation from law-and-order functions.<br>2. Frequent and arbitrary transfers of police officers are often cited as undermining functional autonomy and operational efficiency in policing.<br>3. As of date, all States and Union Territories have fully implemented the Supreme Court's 2006 directives in the Prakash Singh case without exception.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All three statements are correct",
+            "Both 1 and 3",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "Non-compliance with the Prakash Singh directives and frequent, arbitrary transfers of police personnel are widely documented challenges to police reform in India. States have shown only partial and uneven compliance with the 2006 directives, so the claim of full implementation everywhere is incorrect, making statement 3 wrong."
+    },
+    {
+        q: "With reference to the background and evolution of revenue systems in India, consider the following statements:<br>1. The East India Company acquired the Diwani (revenue collection rights) of Bengal, Bihar and Odisha from the Mughal Emperor Shah Alam II under the Treaty of Allahabad, 1765.<br>2. Raja Todar Mal's Dahsala (Zabti) system of land revenue assessment, based on a ten-year average of prices and yields, was developed during the reign of Akbar.<br>3. Under the Dual System of Government introduced by Robert Clive after 1765, the Company held administrative (Nizamat) responsibility while the Nawab retained the right to collect revenue (Diwani).<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "Only statement 1",
+            "Exactly two of the statements are correct",
+            "Statement 2 alone"
+        ],
+        ans: 2,
+        exp: "The Treaty of Allahabad, 1765 granted the Company the Diwani of Bengal, Bihar and Odisha, and Todar Mal's Dahsala system under Akbar assessed revenue based on a ten-year average. However, under Clive's Dual System it was the Company that held the Diwani (revenue rights), while the Nawab retained Nizamat (administrative and judicial responsibility) â€” the reverse of what statement 3 claims, making it incorrect."
+    },
+    {
+        q: "With reference to the Government of India Acts, consider the following statements:<br>1. The Government of India Act, 1858 established a fifteen-member Council of India to assist the Secretary of State for India in London.<br>2. The Government of India Act, 1919 created a bicameral central legislature for the first time, consisting of the Council of State and the Legislative Assembly.<br>3. The Government of India Act, 1935 abolished the Secretary of State's Council of India, replacing it with a smaller body of advisors.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "All of the above",
+            "Both 1 and 3",
+            "Only statement 3"
+        ],
+        ans: 1,
+        exp: "The 1858 Act set up a fifteen-member Council of India, the 1919 Act introduced bicameralism at the Centre for the first time, and the 1935 Act abolished the Council of India in favour of a smaller advisory body for the Secretary of State. All three statements are correct."
+    },
+    {
+        q: "With reference to the Indian Councils Acts, consider the following statements:<br>1. The Indian Councils Act, 1861 empowered the Viceroy to issue Ordinances during emergencies, valid for a maximum period of six months.<br>2. The Indian Councils Act, 1892 was the first Act to introduce the principle of election, however indirect and limited, to fill non-official seats in the legislative councils.<br>3. The Indian Councils Act, 1909 enlarged the Central Legislative Council to a maximum strength of about sixty additional members.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 2",
+            "2 and 3 only",
+            "Exactly one of the statements is correct",
+            "All of the above"
+        ],
+        ans: 3,
+        exp: "The 1861 Act gave the Viceroy ordinance-making power valid for six months, the 1892 Act introduced limited indirect election for non-official seats, and the 1909 Act significantly enlarged the Central Legislative Council to about sixty additional members. All three statements are correct."
+    },
+    {
+        q: "With reference to the challenges and issues associated with the Indian Councils Acts, consider the following statements:<br>1. Under the Indian Councils Act, 1861, the Legislative Council could not discuss the budget or question the executive without the government's prior consent.<br>2. The indirect election system introduced by the Indian Councils Act of 1892 was based on functional and class representation (municipalities, universities, chambers of commerce) rather than a general geographical franchise.<br>3. The Indian Councils Act, 1909 fully satisfied the political demands of the Indian National Congress and ended nationalist agitation for constitutional reforms.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the above",
+            "Exactly one of the statements is correct",
+            "Statement 1 alone",
+            "Only two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "The 1861 Act's Legislative Council had only advisory powers with no right to discuss the budget or question the executive without consent, and the 1892 Act's indirect elections were based on nomination by functional bodies rather than a general franchise. The 1909 Act, however, fell far short of nationalist expectations and did not end agitation for further reforms, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the structure and composition of the higher judiciary in India, consider the following statements:<br>1. The sanctioned strength of judges in the Supreme Court of India, presently a maximum of 34 (including the Chief Justice of India), was last revised by a 2019 amendment.<br>2. The Constitution prescribes a fixed maximum number of judges for every High Court, which cannot be altered without a constitutional amendment.<br>3. A person is not qualified for appointment as a Judge of the Supreme Court unless they have been a Judge of a High Court for at least five years, or an advocate of a High Court for at least ten years, or are, in the opinion of the President, a distinguished jurist.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the statements are correct",
+            "None of the above",
+            "Exactly two of the statements are correct",
+            "Only one of the statements is correct"
+        ],
+        ans: 2,
+        exp: "The Supreme Court (Number of Judges) Amendment Act, 2019 raised the Court's strength to 34, and Article 124(3) lays down the stated qualifications for appointment as a Supreme Court Judge. The Constitution does not fix a rigid maximum strength for every High Court; this is determined by the President from time to time under Article 216, without requiring a constitutional amendment, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to the Regulating Act, 1773, a recurring topic in UPSC Prelims, consider the following statements:<br>1. It provided the Governor-General of Bengal with a casting vote, but no power of veto over decisions of his Executive Council.<br>2. It subordinated the Governors of the Bombay and Madras Presidencies to the Governor-General of Bengal in matters of war, peace and revenue.<br>3. The Supreme Court established at Calcutta under this Act had appellate jurisdiction over the revenue decisions of the Governor-General-in-Council.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the statements are correct",
+            "Both 1 and 3",
+            "Exactly one of the statements is correct",
+            "Only two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "The Governor-General had only a casting vote and could be outvoted by his own Council, while the Act subordinated Bombay and Madras to Bengal in key matters. The Supreme Court's jurisdiction over revenue matters was ambiguous and contentious, and it was the later Amending Act of 1781 that explicitly excluded revenue matters from its purview, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the background and evolution of Local Self-Government in India, consider the following statements:<br>1. The Balwant Rai Mehta Committee (1957) recommended a three-tier Panchayati Raj system consisting of Gram Panchayat, Panchayat Samiti and Zila Parishad.<br>2. The Ashok Mehta Committee (1978) recommended replacing the three-tier system with a two-tier system comprising the Mandal Panchayat and the Zila Parishad.<br>3. The L.M. Singhvi Committee (1986) recommended constitutional recognition for Panchayati Raj Institutions, directly preceding the 73rd Constitutional Amendment Act.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "Only two of the statements are correct",
+            "Both 1 and 2",
+            "2 only"
+        ],
+        ans: 0,
+        exp: "The Balwant Rai Mehta Committee laid the foundation of the three-tier Panchayati Raj system, the Ashok Mehta Committee later proposed a two-tier alternative, and the L.M. Singhvi Committee's recommendation for constitutional status directly paved the way for the 73rd Amendment. All three statements are correct."
+    },
+    {
+        q: "With reference to constitutional provisions relevant to judicial reforms in India, consider the following statements:<br>1. Article 50, a Directive Principle of State Policy, directs the State to separate the judiciary from the executive in the public services of the State.<br>2. Article 50 is legally enforceable, and courts can strike down laws that fail to achieve this separation within a fixed time frame.<br>3. The independence of the higher judiciary (Supreme Court and High Courts) is secured mainly through Articles 124 to 147 and 214 to 231, rather than through Article 50.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "Statement 2 alone",
+            "Only one of the statements is correct",
+            "None of the above"
+        ],
+        ans: 0,
+        exp: "Article 50 directs separation of the judiciary from the executive in public services, and the independence of the higher judiciary is instead secured through Articles 124-147 and 214-231. However, being a Directive Principle, Article 50 is not enforceable in a court of law, and courts have held it to be merely directory, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to the reforms and recommendations underlying the Indian Councils Acts, consider the following statements:<br>1. The Indian Councils Act, 1892 was passed partly in response to demands raised by the newly formed Indian National Congress for wider Indian participation in legislation.<br>2. The Indian Councils Act, 1909 introduced separate electorates for Muslims, a demand articulated by the Simla Deputation of 1906.<br>3. The Indian Councils Act, 1909 is popularly known as the Minto-Morley Reforms, named first after the Viceroy and then the Secretary of State.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "Both 1 and 2",
+            "Only statement 1",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 1,
+        exp: "The 1892 Act responded to early Congress demands, while the 1909 Act granted separate electorates for Muslims following the Simla Deputation's demand. However, it is popularly called the Morley-Minto Reforms, named after Secretary of State Morley followed by Viceroy Minto, not the other way around, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to constitutional and legal provisions concerning the police system in India, consider the following statements:<br>1. Police is listed under Entry 2 of the State List in the Seventh Schedule of the Constitution.<br>2. Article 355 imposes a duty on the Union to protect every State against external aggression and internal disturbance.<br>3. The Model Police Act, 2006 is a binding central legislation compulsorily applicable to all States.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "Only two of the statements are correct",
+            "3 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "Police falls under the State List, and Article 355 places a duty on the Union to protect States against external aggression and internal disturbance. The Model Police Act, 2006 is only a draft model prepared by a Home Ministry committee; since police is a state subject, states may adopt, adapt or ignore it, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the structure and composition of the Civil Services in India, consider the following statements:<br>1. Article 312 empowers Parliament to create new All India Services if the Rajya Sabha passes a resolution by a two-thirds majority declaring it necessary in the national interest.<br>2. The Indian Administrative Service and the Indian Police Service are deemed to have been created under Article 312, even though they existed prior to the commencement of the Constitution.<br>3. The Indian Forest Service, the third All India Service, was constituted in 1966 following a Rajya Sabha resolution.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "All of the statements are correct",
+            "Only two of the statements are correct",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 1,
+        exp: "Article 312 allows Parliament to create new All India Services with Rajya Sabha's two-thirds approval, deems the pre-existing IAS and IPS to be created under it, and the Indian Forest Service was constituted in 1966 following such a resolution passed in 1961. All three statements are correct."
+    },
+    {
+        q: "With reference to the features of the Regulating Act, 1773, consider the following statements:<br>1. It prohibited the Company's servants from engaging in private trade or accepting bribes and gifts from local Indian rulers.<br>2. It required the Court of Directors to report to the British Government on the Company's revenue, civil and military affairs in India.<br>3. It abolished the Company's Court of Directors and transferred its powers directly to the Crown.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "Only one of the statements is correct",
+            "All of the above"
+        ],
+        ans: 1,
+        exp: "The Regulating Act barred private trade and bribery by Company servants and required the Court of Directors to report on revenue, civil and military affairs to the British Government. However, the Court of Directors was not abolished in 1773; the Company's administrative role ended only with the Government of India Act, 1858, making statement 3 incorrect."
+    },
+    {
+        q: "The Indian Councils Acts remain a regularly revised topic in current UPSC Prelims test series (2025-2026) on constitutional history. With reference to these Acts, consider the following statements:<br>1. The Indian Councils Act, 1861 allowed the Viceroy to nominate a minimum of six and a maximum of twelve additional members to his Legislative Council, of whom at least half were required to be non-officials.<br>2. The Indian Councils Act, 1909 led to the appointment of Satyendra Prasad Sinha as the first Indian member of the Viceroy's Executive Council.<br>3. The Indian Councils Act, 1909 abolished the system of separate electorates introduced by earlier Acts.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 3",
+            "None of the statements are correct",
+            "1 and 2 only",
+            "Both 2 and 3"
+        ],
+        ans: 2,
+        exp: "The 1861 Act allowed 6 to 12 nominated additional members with at least half being non-officials, and the 1909 Act resulted in Satyendra Prasad Sinha becoming the first Indian member of the Viceroy's Executive Council. It was the 1909 Act that introduced separate electorates for the first time, rather than abolishing them, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to Pitt's India Act, 1784, a frequently tested topic in UPSC Prelims, consider the following statements:<br>1. It was passed during the tenure of Warren Hastings as Governor-General of Bengal.<br>2. It provided for the establishment of a special court of judicature in England for the more speedy and effectual trial of persons accused of offences committed in India.<br>3. It gave the British Government, through the Board of Control, effective control over the Company's political and administrative affairs, while leaving its commercial functions with the Court of Directors.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "2 and 3 only",
+            "3 only",
+            "All of the above"
+        ],
+        ans: 3,
+        exp: "Warren Hastings remained Governor-General until 1785, so the 1784 Act was passed during his tenure. It also established a special court of judicature in England for trying Company officials accused of offences in India, and through the Board of Control, gave the government effective control over political affairs while leaving commerce to the Court of Directors. All three statements are correct."
+    },
+    {
+        q: "With reference to the features and characteristics of the Civil Services in India, consider the following statements:<br>1. The civil services constitute the 'permanent executive', as distinguished from the 'political executive' which changes with changes in government.<br>2. Political neutrality is a defining feature of the civil services, requiring civil servants to serve any government in power with equal loyalty and commitment.<br>3. Civil servants in India enjoy complete immunity from any form of disciplinary action for decisions taken in the discharge of their official duties.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "Both 1 and 3",
+            "All of the above",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "The civil services form the permanent executive, providing continuity and expertise, and political neutrality requires civil servants to serve successive governments impartially. However, civil servants are not completely immune from disciplinary action; Article 311 provides procedural safeguards, not blanket immunity, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to recent developments concerning judicial reforms in India (2025-2026), consider the following statements:<br>1. In November 2025, the Supreme Court struck down key provisions of the Tribunals Reforms Act, 2021, citing excessive executive control over tribunal appointments and tenure.<br>2. The Tribunals Reforms Bill, 2026 proposes the establishment of a National Tribunals Commission.<br>3. The National Judicial Appointments Commission (NJAC) is currently the constitutional body responsible for appointing judges to the Supreme Court and High Courts.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "Both 1 and 3",
+            "3 only",
+            "Only two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "In November 2025, the Supreme Court struck down provisions of the Tribunals Reforms Act, 2021 for undermining judicial independence, and the Tribunals Reforms Bill, 2026 subsequently proposed a National Tribunals Commission for institutional oversight. The NJAC was itself declared unconstitutional in the Fourth Judges Case (2015), so judicial appointments continue under the Collegium system, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the GST 2.0 reforms implemented in India (2025-2026), consider the following statements:<br>1. GST 2.0, effective from 22nd September 2025, replaced the earlier multiple tax slabs with a simplified structure of mainly 5% and 18%, along with a special 40% rate for select demerit goods.<br>2. Under GST 2.0, life and health insurance premiums were shifted from an earlier exemption to the 18% GST slab.<br>3. The Goods and Services Tax was introduced through the Constitution (101st Amendment) Act, 2016.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 3",
+            "Exactly one of the statements is correct",
+            "Only statement 3",
+            "None of the above"
+        ],
+        ans: 0,
+        exp: "GST 2.0 rationalised rates into a simplified structure of 5% and 18%, with a 40% rate for sin and luxury goods, and it was made possible by the Constitution (101st Amendment) Act, 2016, which introduced GST. In fact, GST 2.0 exempted life and health insurance premiums from GST rather than taxing them at 18%, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to the background and evolution of the Civil Services in India, consider the following statements:<br>1. The modern Civil Service in India is generally regarded as having been founded by Lord Cornwallis during his tenure as Governor-General (1786-93).<br>2. The Charter Act of 1853 introduced open competitive examinations for recruitment to the Indian Civil Service, ending the earlier system of nomination by the Company's Court of Directors.<br>3. Under Cornwallis, Indians were freely inducted into the higher grades of the Civil Service on the basis of merit.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "None of the statements are correct",
+            "Only one of the statements is correct",
+            "Only two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "Lord Cornwallis is credited with founding the modern Civil Service, and the Charter Act of 1853 replaced patronage-based nomination with open competitive examinations. However, Cornwallis's tenure is instead known for the rigid and near-total exclusion of Indians from the higher Civil Service, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the structure and composition introduced by the Indian Councils Acts, consider the following statements:<br>1. The Indian Councils Act, 1861 introduced the portfolio system in the Viceroy's Executive Council, transforming it into a body resembling a cabinet.<br>2. The Indian Councils Act, 1892 granted non-official members of the legislative councils the right to vote on the annual financial statement (budget).<br>3. Under the Indian Councils Act, 1892, non-official members could ask questions to the government but had no right to ask supplementary questions.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "Only one of the statements is correct",
+            "Statement 2 alone",
+            "None of the above"
+        ],
+        ans: 0,
+        exp: "The 1861 Act introduced the portfolio system, giving the Viceroy's Council a cabinet-like structure, and the 1892 Act allowed members to ask questions without a right to supplementary questions. However, members were only permitted to discuss the budget, not vote on it, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to important revenue-related Acts and amendments in India, consider the following statements:<br>1. The Permanent Settlement in Bengal was introduced in 1793 by Lord Cornwallis, fixing the land revenue payable by zamindars in perpetuity.<br>2. The Constitution (101st Amendment) Act, 2016 inserted Article 246A, empowering both Parliament and State Legislatures to make laws with respect to Goods and Services Tax.<br>3. The Constitution (101st Amendment) Act, 2016 established the Goods and Services Tax Appellate Tribunal (GSTAT) as a constitutional body under Article 279A.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "None of the statements are correct",
+            "Both 2 and 3",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "The Permanent Settlement of 1793 fixed zamindars' land revenue liability permanently, and the 101st Amendment inserted Article 246A empowering concurrent GST legislation. However, the GSTAT is a statutory body created under the CGST Act, not a constitutional body under Article 279A, which instead establishes the GST Council, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the reforms and recommendations that shaped the Government of India Acts, consider the following statements:<br>1. The Simon Commission, appointed in 1927, had no Indian members, and its recommendations formed the basis for the Government of India Act, 1935.<br>2. The Government of India Act, 1919 was based on the recommendations contained in the Montagu-Chelmsford Report.<br>3. The Nehru Report of 1928 was prepared by the Simon Commission itself in response to Indian criticism of an all-European commission.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "Only statement 2",
+            "Only two of the statements are correct",
+            "Only one of the statements is correct"
+        ],
+        ans: 2,
+        exp: "The all-European Simon Commission's report fed into the Government of India Act, 1935, while the 1919 Act stemmed from the Montagu-Chelmsford Report. The Nehru Report of 1928, however, was drafted by Indian leaders under Motilal Nehru in response to the Simon Commission's exclusion of Indians, not by the Commission itself, making statement 3 incorrect."
+    },
+    {
+        q: "Charter Acts remain a recurring revision topic in current UPSC Prelims test series (2025-2026) on the constitutional evolution of British India. With reference to these Acts, consider the following statements:<br>1. The Charter Act of 1833 ended the East India Company's role as a commercial/trading entity and made it purely an administrative body.<br>2. The Charter Act of 1853 was unique in that it did not specify a fixed period for renewal of the Company's charter, unlike the Acts of 1793, 1813 and 1833.<br>3. The Charter Act of 1853 separated, for the first time, the legislative and executive functions of the Governor-General's Council.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the above",
+            "Exactly two of the statements are correct",
+            "Only two of the statements are correct",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 0,
+        exp: "The 1833 Act stripped the Company of its commercial functions, leaving it a purely administrative body, while the 1853 Act broke from precedent by not fixing a renewal period and separated the Governor-General Council's legislative and executive functions by adding dedicated legislative councillors. All three statements are factually accurate."
+    },
+    {
+        q: "With reference to the constitutional and legal provisions of the Government of India Act, 1935, consider the following statements:<br>1. The Act divided legislative powers between the Centre and the provinces into three lists: Federal, Provincial and Concurrent.<br>2. Residuary powers under the Act were vested in the provincial legislatures.<br>3. The Act provided for the establishment of a Federal Court, which began functioning in 1937.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the above",
+            "Only one of the statements is correct",
+            "2 and 3 only",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "The 1935 Act introduced a three-fold division of legislative subjects and established the Federal Court, which began functioning in 1937. Residuary powers, however, were vested in the Governor-General, not the provincial legislatures, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to the Charter Act of 1813, a recurring topic in UPSC Prelims, consider the following statements:<br>1. It ended the East India Company's trade monopoly in India, except in tea and trade with China.<br>2. It earmarked a sum of one lakh rupees annually for the promotion of education in India.<br>3. It authorised Christian missionaries to preach and spread education in India.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "Exactly two of the statements are correct",
+            "All of the statements are correct",
+            "Only one of the statements is correct"
+        ],
+        ans: 2,
+        exp: "The Charter Act of 1813 opened Indian trade to other British merchants while retaining the Company's monopoly only over tea and the China trade, allocated one lakh rupees annually for education, and permitted Christian missionaries to preach and spread education, which had earlier been restricted. All three statements are correct."
+    },
+    {
+        q: "With reference to the reforms flowing from Pitt's India Act, 1784, consider the following statements:<br>1. Lord Cornwallis, before accepting the post of Governor-General, secured the concession that he would also hold the position of Commander-in-Chief and could override his Council in special cases.<br>2. The Charter Act of 1793 extended this overriding power, originally granted to Cornwallis, to all future Governors-General and Governors of Presidencies.<br>3. The reforms introduced by Pitt's India Act and its subsequent amendments effectively reversed the trend towards centralisation established by earlier Acts.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 2 alone",
+            "Exactly one of the statements is correct",
+            "None of the above",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "Cornwallis secured combined civil-military authority with override powers before taking office, and the Charter Act of 1793 extended this overriding power to all future Governors-General and Governors. Far from reversing centralisation, these reforms actually deepened and institutionalised it, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the features of land revenue systems introduced by the British in India, consider the following statements:<br>1. Under the Ryotwari System, the government established a direct settlement with individual cultivators without any zamindar or village intermediary.<br>2. Under the Mahalwari System, land revenue was assessed and collected on a village (mahal) basis, with the village headman responsible for collecting revenue from the whole village.<br>3. Unlike the Permanent Settlement, the revenue demand under the Ryotwari and Mahalwari systems was subject to periodic revision.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All three statements are correct",
+            "None of the statements are correct",
+            "Only statement 2",
+            "Only statement 3"
+        ],
+        ans: 0,
+        exp: "The Ryotwari System created a direct link between the state and individual cultivators, while the Mahalwari System assessed revenue village-wise with the headman as collector. Both these systems allowed periodic revision of revenue demand, unlike the fixed, permanent settlement introduced by Cornwallis in Bengal, making all three statements correct."
+    },
+    {
+        q: "With reference to the Indian Councils Acts passed by the British Parliament, consider the following statements:<br>1. The Indian Councils Act of 1861 restored legislative powers to the Bombay and Madras Presidencies.<br>2. The Indian Councils Act of 1892 introduced the system of separate electorates for Muslims for the first time.<br>3. The Indian Councils Act of 1909 provided for the association of Indians with the Executive Councils of the Viceroy and Governors for the first time.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "Exactly one of the statements is correct",
+            "1, 2 and 3",
+            "Both 1 and 2"
+        ],
+        ans: 0,
+        exp: "The 1861 Act reversed centralisation by restoring legislative powers to Bombay and Madras. Under the Morley-Minto Reforms of 1909, Indians were, for the first time, associated with the Viceroy's and Governors' Executive Councils, with Satyendra Prasad Sinha becoming the first Indian member. Separate electorates for Muslims were introduced by the 1909 Act, not the 1892 Act, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to the Board of Control established under Pitt's India Act, 1784, consider the following statements:<br>1. The Board consisted of six members, with the Secretary of State for India serving as its President.<br>2. The Court of Directors of the East India Company continued to manage the Company's commercial affairs after the Act.<br>3. Members of the Board of Control were elected by the shareholders (proprietors) of the East India Company.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "Both 1 and 3",
+            "None of the above",
+            "Both 2 and 3"
+        ],
+        ans: 0,
+        exp: "The Board of Control comprised six members, including the Chancellor of the Exchequer, the Secretary of State (its President), and four Privy Councillors nominated by the King, and it separated political oversight from the Company's continuing commercial functions under the Court of Directors. Board members were Crown nominees, not elected by Company shareholders, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the Government of India Act, 1858, consider the following statements:<br>1. It transferred the powers and territories of the East India Company to the British Crown and created the office of Secretary of State for India.<br>2. It introduced the concept of dyarchy at the provincial level for the first time.<br>3. Under this Act, the Governor-General of India also came to be designated as the Viceroy.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "Both 1 and 2",
+            "All of the above",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "The Act of 1858, passed after the Revolt of 1857, ended Company rule, transferred authority to the Crown, and created the post of Secretary of State for India, while the Governor-General additionally became the Viceroy, with Lord Canning as the first. Dyarchy at the provincial level was introduced much later, by the Government of India Act, 1919, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to the background and evolution of Pitt's India Act, 1784, consider the following statements:<br>1. The Act was enacted primarily to strengthen the commercial trading monopoly of the East India Company in India.<br>2. The Act was preceded by investigations of a Select Committee and a Secret Committee constituted by the British Parliament in 1781.<br>3. The subsequent Amending Act of 1786 curtailed the Governor-General's power to override the decisions of his Council.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 3 alone",
+            "Only two of the statements are correct",
+            "Both 1 and 3",
+            "Statement 2 alone"
+        ],
+        ans: 3,
+        exp: "Pitt's India Act was aimed at correcting the administrative defects of the Regulating Act of 1773, not at strengthening the Company's commercial monopoly, and it followed the 1781 investigations of a Select Committee and a Secret Committee into the Company's affairs. The Amending Act of 1786 actually enhanced, rather than curtailed, the Governor-General's power to override his Council in special cases, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the structure of Panchayati Raj Institutions under the 73rd Constitutional Amendment Act, 1992, consider the following statements:<br>1. States with a population not exceeding twenty lakh may choose not to constitute a Panchayat at the intermediate level.<br>2. The Gram Sabha is a body of members nominated by the Zila Parishad to represent each village.<br>3. The Chairpersons of Panchayats at the intermediate and district levels are directly elected by the people.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the above",
+            "Only two of the statements are correct",
+            "Statement 1 alone",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "Article 243B permits states with a population up to twenty lakh to skip the intermediate tier of Panchayats. The Gram Sabha is not a nominated body; it comprises all persons registered in the electoral rolls of a village within a Panchayat area, making statement 2 incorrect. Chairpersons at the intermediate and district levels are elected indirectly by the elected members, not directly by the people, making statement 3 incorrect too."
+    },
+    {
+        q: "With reference to the features of Pitt's India Act, 1784, consider the following statements:<br>1. The Act prohibited the Company's servants from engaging in private trade or accepting presents from Indian rulers.<br>2. The Act, for the first time, used the term 'British possessions in India' to describe the Company's territories.<br>3. The Act empowered the Governor-General-in-Council to freely declare war and pursue territorial expansion against Indian states.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "Statement 3 alone",
+            "Both 1 and 3",
+            "All three statements are correct"
+        ],
+        ans: 0,
+        exp: "The Act barred Company servants from private trade or accepting gifts from Indians and, for the first time, referred to the Company's territories as 'British possessions in India'. It actually included a clause prohibiting wars of aggression and territorial expansion against Indian princes, even though this was often disregarded in practice, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the constitutional provisions on revenue distribution in India, consider the following statements:<br>1. Article 265 provides that no tax shall be levied or collected except by the authority of law.<br>2. Under Article 269, taxes levied and collected by the Union are retained entirely by the Union and are not assigned to the States.<br>3. The Finance Commission, under Article 280, is the constitutional body responsible for recommending the distribution of Goods and Services Tax revenue between the Union and the States.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "Exactly two of the statements are correct",
+            "None of the above",
+            "Only statement 3"
+        ],
+        ans: 0,
+        exp: "Article 265 establishes that taxation requires the authority of law. Article 269 actually deals with taxes levied and collected by the Union but assigned in whole to the States, making statement 2 incorrect. The distribution of GST revenue is decided by the GST Council under Article 279A, not by the Finance Commission under Article 280, making statement 3 incorrect as well."
+    },
+    {
+        q: "With reference to the Union Public Service Commission (UPSC), consider the following statements:<br>1. The Chairman and members of the UPSC can be removed by the President only on the ground of proved misbehaviour or incapacity, after an inquiry by the Supreme Court.<br>2. The recommendations made by the UPSC are binding on the Government of India.<br>3. A person who has served as a member of the UPSC is not eligible for reappointment to that office.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "Only two of the statements are correct",
+            "Statement 3 alone",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "Under Article 317, the President can remove a UPSC member only on the ground of proved misbehaviour (after Supreme Court inquiry) or incapacity. Under Article 316, a member is not eligible for reappointment to the same office. However, the advice of the UPSC under Article 320 is only recommendatory and not binding on the government, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to the functions of the Union Public Service Commission (UPSC), consider the following statements:<br>1. The UPSC is ordinarily consulted on matters relating to disciplinary action affecting a person serving under the Government of India.<br>2. The UPSC is not required to be consulted regarding the manner in which reservation of posts is made in favour of backward classes.<br>3. The advice tendered by the UPSC is binding on the President.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 2 and 3",
+            "Both 1 and 2",
+            "Exactly one of the statements is correct",
+            "Both 1 and 3"
+        ],
+        ans: 1,
+        exp: "Article 320(3) requires consultation with the UPSC on disciplinary matters affecting a civil servant, while Article 320(4) specifically exempts the manner of reservation of posts for backward classes from such consultation. The advice of the UPSC is advisory in nature and is not binding on the President, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the police system in India, consider the following statements:<br>1. Police is a subject included in the State List of the Seventh Schedule of the Constitution.<br>2. The Police Act of 1861 continues to form the basic legal framework for police administration in most states even today.<br>3. As per the Supreme Court's directions in the Prakash Singh case, a State Government can appoint its Director General of Police without any requirement of consulting the UPSC.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "Exactly two of the statements are correct",
+            "1 only",
+            "Both 1 and 3"
+        ],
+        ans: 1,
+        exp: "Police falls under Entry 2 of the State List, and the colonial-era Police Act of 1861 still governs police administration in most states. However, the Supreme Court's Prakash Singh judgment (2006) mandates that state governments consult the UPSC, which prepares a panel for the post of DGP, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the constitutional Acts passed by the British Parliament for India, consider the following statements:<br>1. The Government of India Act, 1919 introduced diarchy in the provinces by dividing subjects into 'reserved' and 'transferred' categories.<br>2. The Government of India Act, 1935 abolished provincial diarchy and introduced provincial autonomy, while proposing (but never enforcing) diarchy at the Centre.<br>3. The All-India Federation proposed under the Government of India Act, 1935 came into existence before India's independence in 1947.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the statements are correct",
+            "Statement 2 alone",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "The 1919 Act introduced diarchy in the provinces, while the 1935 Act replaced it with provincial autonomy and proposed diarchy at the Centre, which was never implemented. The proposed All-India Federation never materialised, as the required number of princely states did not join it, so the central government continued to function under the 1919 Act until 1947."
+    },
+    {
+        q: "With reference to the 73rd Constitutional Amendment Act, 1992, consider the following statements:<br>1. It provides for the constitution of a State Finance Commission every five years to review the financial position of the Panchayats.<br>2. It provides for the constitution of District Planning Committees to consolidate the plans prepared by Panchayats and Municipalities.<br>3. It reserves not less than one-third of the total seats for women in Panchayats, including seats reserved for SCs and STs.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "2 and 3 only",
+            "1 and 3 only",
+            "Only one of the statements is correct"
+        ],
+        ans: 2,
+        exp: "Article 243-I of the 73rd Amendment mandates a State Finance Commission every five years, and Article 243D reserves at least one-third of seats for women, inclusive of SC/ST reservation. The provision for District Planning Committees (Article 243ZD) was actually introduced by the 74th Amendment, making statement 2 incorrect."
+    },
+    {
+        q: "Pitt's India Act, 1784 continues to be revised as part of current UPSC Prelims test series (2025-2026) covering the constitutional evolution of British India. With reference to this Act, consider the following statements:<br>1. It established a Board of Control to supervise the civil, military and revenue affairs of the East India Company in India.<br>2. It brought the Company's commercial and political functions under a single unified authority for the first time.<br>3. It reduced the strength of the Governor-General's Council from four members to three.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 only",
+            "1 and 2 only",
+            "None of the statements are correct"
+        ],
+        ans: 0,
+        exp: "Pitt's India Act, 1784 created the Board of Control to oversee the Company's political affairs and reduced the Governor-General's Council to three members. It did not unify commercial and political functions; rather, it was the first Act to clearly separate them, keeping commerce under the Court of Directors and politics under the Board of Control, making statement 2 incorrect."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-28 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

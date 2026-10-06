@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-61</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "The concept of \"epistolary jurisdiction,\" under which the Supreme Court began treating letters addressed to a judge highlighting matters of public importance as writ petitions, is most closely associated with which of the following judges, widely regarded as one of the principal architects of Public Interest Litigation in India?",
+        opts: [
+            "Justice P.N. Bhagwati",
+            "Justice Y.V. Chandrachud",
+            "Justice A.N. Ray",
+            "Justice H.R. Khanna"
+        ],
+        ans: 0,
+        exp: "Justice P.N. Bhagwati, along with Justice V.R. Krishna Iyer, is credited as one of the principal architects of PIL and epistolary jurisdiction in India, having pioneered the practice of converting letters and postcards from aggrieved persons into writ petitions from the late 1970s. Justice H.R. Khanna is chiefly remembered for his dissent in the ADM Jabalpur case, while Justices A.N. Ray and Y.V. Chandrachud, though important figures of the era, are not identified with originating this practice."
+    },
+    {
+        q: "With reference to the structure and composition through which Public Interest Litigation (PIL) functions in India, consider the following statements:<br>1. The Supreme Court has an administrative body known as the \"PIL Cell\" that scrutinises letters and petitions addressed to the Chief Justice of India or other judges before they are placed before an appropriate Bench for hearing.<br>2. A Public Interest Litigation can be initiated in more than one way — by the court on its own motion (suo motu), on a petition filed by a public-spirited person or body, or by treating a letter addressed to a judge as a writ petition.<br>3. The Constitution mandates the constitution of a separate, specially designated \"PIL Bench\" in every High Court, distinct from its regular benches, to exclusively hear public interest litigations.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 1 alone",
+            "Both 2 and 3",
+            "1 and 2 only",
+            "Both 1 and 3"
+        ],
+        ans: 2,
+        exp: "The Supreme Court's PIL Cell does screen incoming letters and petitions before listing them, and PIL can indeed be triggered suo motu, through a formal petition, or via a letter treated as a writ petition. However, there is no constitutional requirement for a separate \"PIL Bench\"; while some High Courts administratively assign PIL matters to particular benches by internal practice, this is not a constitutional mandate."
+    },
+    {
+        q: "With reference to reforms and recommendations relating to the appointment of judges to the higher judiciary in India, consider the following statements:<br>1. The 121st Report of the Law Commission of India (1987) recommended the constitution of a National Judicial Commission for the appointment of judges.<br>2. The National Judicial Appointments Commission (NJAC) Act, 2014 was struck down by the Supreme Court through a unanimous 5-0 verdict on the ground that it violated Article 14.<br>3. The proposed NJAC, besides the Chief Justice of India and the two senior-most judges of the Supreme Court, was to include the Union Law Minister and two eminent persons.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 3",
+            "Exactly one of the statements is correct",
+            "Both 1 and 2",
+            "Only statement 1"
+        ],
+        ans: 0,
+        exp: "The 121st Law Commission Report did recommend a National Judicial Commission, and the NJAC's proposed composition indeed included the Law Minister and two eminent persons alongside the CJI and two senior judges. However, the NJAC Act was struck down by a 4:1 majority (not unanimously) primarily for violating the independence of the judiciary as part of the basic structure, not specifically Article 14."
+    },
+    {
+        q: "With reference to the features and characteristics of the subordinate judiciary in India, consider the following statements:<br>1. A key feature of the subordinate judiciary following the Code of Criminal Procedure, 1973 is the separation of the judiciary from the executive, whereby Judicial Magistrates function under the control of the High Court while Executive Magistrates function under the control of the State Government.<br>2. Small Causes Courts, which handle petty civil suits of a specified pecuniary value, are presided over by officers appointed directly by the President of India in every district.<br>3. The subordinate judiciary enjoys complete financial and administrative autonomy from the High Courts, with its budget approved directly by the Union Ministry of Finance rather than the concerned State Government.<br>Which of the statements given above is correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "The CrPC, 1973 did bring about the separation of the judiciary from the executive, placing Judicial Magistrates under High Court control and Executive Magistrates under the State Government. Small Causes Court judges, however, are ordinary members of the subordinate judicial cadre appointed under Articles 233/234 by the Governor in consultation with the High Court, not directly by the President. Nor does the subordinate judiciary enjoy \"complete\" financial autonomy from either the High Court or the State Government; its finances form part of the State Budget, and the Union Finance Ministry has no role, since the administration of justice falls within the State List."
+    },
+    {
+        q: "With reference to the features and characteristics of Tribunals in India, consider the following statements:<br>1. Tribunals are quasi-judicial bodies that, while not strictly bound by the procedure laid down in the Code of Civil Procedure, 1908 or the Indian Evidence Act, 1872, must nonetheless observe the principles of natural justice.<br>2. A decision of a Tribunal, once rendered, is completely immune from any challenge whatsoever, including before the jurisdictional High Court under Article 226 or the Supreme Court under Article 32.<br>3. Once a subject is entrusted to a Tribunal under Article 323A or 323B, the jurisdiction of the ordinary civil courts over that subject continues unaffected, allowing a litigant to freely choose between the Tribunal and a civil court.<br>Which of the statements given above is correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 2 only",
+            "1 only",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "Tribunals are indeed free from the rigid procedural rules of the CPC and Evidence Act but must still follow natural justice. However, in L. Chandra Kumar v. Union of India (1997), the Supreme Court held that tribunal decisions remain subject to judicial review by the jurisdictional High Court and the Supreme Court, so they are not immune from challenge. Further, laws creating tribunals typically exclude the ordinary courts' jurisdiction over the entrusted subject, so a litigant cannot simply choose between the Tribunal and a civil court."
+    },
+    {
+        q: "With reference to the historical background and evolution of the subordinate judiciary in India, consider the following statements:<br>1. The structure of the modern subordinate judiciary traces its roots to reforms introduced by Lord Cornwallis, who established a hierarchy of civil and criminal courts in Bengal in the late 18th century.<br>2. Under the Government of India Act, 1935, the administration of justice, including the subordinate judiciary, remained substantially a provincial subject, a position broadly continued under the Seventh Schedule of the Constitution.<br>3. Since 1950, the subordinate judiciary has functioned as a unified all-India cadre directly under the Union Ministry of Law and Justice, on the lines of the Indian Administrative Service.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 3 only",
+            "1 and 2 only",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "Lord Cornwallis's reforms in Bengal did lay the foundations of the modern court hierarchy, and the Government of India Act, 1935 kept the administration of justice as a largely provincial subject, a pattern continued in India's Seventh Schedule. However, no all-India cadre for the subordinate judiciary exists even today; it remains under the administrative control of the respective High Courts under Article 235, and the proposed All India Judicial Service under Article 312 has still not been constituted."
+    },
+    {
+        q: "With reference to reforms proposed for reducing the burden on the higher judiciary in India, consider the following statements:<br>1. The 230th Report of the Law Commission of India (2009) recommended the establishment of a National Court of Appeal with regional benches.<br>2. This recommendation was fully implemented through the Constitution (Forty-second Amendment) Act, 1976, which established the National Court of Appeal.<br>3. The proposal envisages the National Court of Appeal hearing routine appeals in civil, criminal, labour, and revenue matters, leaving the Supreme Court free to focus on constitutional and public law questions.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 3 alone",
+            "2 only",
+            "1 and 3 only",
+            "Only one of the statements is correct"
+        ],
+        ans: 2,
+        exp: "The Law Commission's 230th Report did recommend a National Court of Appeal with regional benches to hear routine appeals, freeing the Supreme Court to focus on constitutional matters. However, this proposal has still not been implemented through any constitutional amendment; the 42nd Amendment Act, 1976 dealt with different matters, including tribunals under Articles 323A and 323B, and no National Court of Appeal has been constituted."
+    },
+    {
+        q: "With reference to the structure and composition of bodies involved in judicial appointments in India, consider the following statements:<br>1. The Supreme Court Collegium for recommending appointments of Supreme Court judges consists of the Chief Justice of India and the four senior-most judges of the Supreme Court next to the CJI.<br>2. The Collegium for recommending appointments and transfers of High Court judges consists of the Chief Justice of India and the four senior-most judges of the Supreme Court, the same composition as the Supreme Court Collegium.<br>3. Recommendations made by the Collegium are forwarded directly to the President for appointment, and the Union Government has no power to seek reconsideration of any name before appointment.<br>Which of the statements given above is correct?",
+        opts: [
+            "1 only",
+            "1 and 2 only",
+            "2 only",
+            "None of the statements is correct"
+        ],
+        ans: 0,
+        exp: "The Supreme Court Collegium for recommending Supreme Court appointments does comprise the CJI and the four senior-most Supreme Court judges. For High Court appointments and transfers, however, the Collegium consists of the CJI and only two senior-most Supreme Court judges, not four. Further, the Union Government retains the power to return a recommended name once for reconsideration, though if the Collegium reiterates it, the recommendation is ordinarily binding as per the Third Judges Case (1998)."
+    },
+    {
+        q: "With reference to the features and characteristics of judicial review in India, consider the following statements:<br>1. Judicial review in India can be exercised with respect to legislative enactments, executive actions, and constitutional amendments.<br>2. Judicial review in India is confined only to scrutiny after an administrative order has been finally implemented, since Article 226 does not permit any interim or interlocutory relief.<br>3. The original scope of judicial review of personal liberty under Article 21 was narrower in India than in the USA, since India initially followed \"procedure established by law\" rather than \"due process of law.\"<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "Judicial review in India indeed extends to statutes, executive actions, and even constitutional amendments (subject to the basic structure doctrine), and India's original adherence to \"procedure established by law\" did give Article 21 a narrower scope than the American \"due process\" standard. However, High Courts and the Supreme Court routinely grant interim stays and interlocutory relief under their writ jurisdiction, so judicial review is not confined to post-implementation scrutiny alone."
+    },
+    {
+        q: "With reference to the constitutional provisions governing Tribunals in India, consider the following statements:<br>1. Article 323A, inserted by the Forty-second Amendment, empowers only Parliament, and not State Legislatures, to establish administrative tribunals for service matters, whereas Article 323B empowers both Parliament and State Legislatures to establish tribunals for a wider range of subjects such as taxation, land reforms, and industrial disputes.<br>2. The Administrative Tribunals Act, 1985, enacted to give effect to Article 323B, established the Central Administrative Tribunal (CAT) to adjudicate service disputes of Union Government employees.<br>3. A law made under Article 323B may provide for the establishment of a hierarchy of tribunals.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "Article 323A is indeed confined to Parliament alone for service-related tribunals, while Article 323B extends the tribunal-creating power to both Parliament and State Legislatures over a broader list of subjects, and Article 323B(3)(a) expressly permits a law to establish a hierarchy of tribunals. However, the Central Administrative Tribunal was established under Article 323A, not Article 323B, so the Administrative Tribunals Act, 1985 gives effect to Article 323A."
+    },
+    {
+        q: "With reference to important Acts and policy developments concerning Tribunals in India, consider the following statements:<br>1. The Finance Act, 2017 rationalised several tribunals by merging some of them into other existing tribunals and empowered the Central Government to prescribe qualifications, appointment, and service conditions of members through rules.<br>2. In Rojer Mathew v. South Indian Bank Ltd. (2019), the Supreme Court struck down the Tribunal, Appellate Tribunal and Other Authorities Rules, 2017 framed under the Finance Act, 2017, for being inconsistent with principles of judicial independence laid down in earlier rulings.<br>3. The Tribunals Reforms Act, 2021 was enacted pursuant to a specific recommendation contained in the Forty-second Constitutional Amendment Act, 1976, which itself fixed the tenure of tribunal members at four years.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 3 alone",
+            "Exactly one of the statements is correct",
+            "Exactly two of the statements are correct",
+            "All of the above"
+        ],
+        ans: 2,
+        exp: "The Finance Act, 2017 did merge several tribunals and delegated rule-making power on service conditions to the Central Government, and this rule-making was indeed struck down in Rojer Mathew (2019) for undermining judicial independence. The 42nd Amendment Act, 1976, however, only inserted the enabling Articles 323A and 323B in 1976; the specific four-year tenure and age-limit provisions were introduced much later, by the Tribunals Reforms Act, 2021 itself, not by the 42nd Amendment."
+    },
+    {
+        q: "With reference to the historical background of the Supreme Court of India, consider the following statements:<br>1. The Supreme Court of India was inaugurated on 28 January 1950, replacing the Federal Court of India that had been established under the Government of India Act, 1935.<br>2. The Supreme Court of India sat in its present building on Tilak Marg, New Delhi, from the very day of its inauguration in 1950.<br>3. At its inception in 1950, the Supreme Court was designated a Court of Record with unlimited original jurisdiction over all civil and criminal matters within the territory of India.<br>Which of the statements given above is correct?",
+        opts: [
+            "1 only",
+            "2 only",
+            "1 and 3 only",
+            "None of the statements is correct"
+        ],
+        ans: 0,
+        exp: "The Supreme Court was indeed inaugurated on 28 January 1950, taking over from the Federal Court set up under the Government of India Act, 1935. It did not, however, sit in its present Tilak Marg building from day one; it initially functioned from the Chamber of Princes in Parliament House and moved to its current building only in 1958. Its original jurisdiction, moreover, has always been limited to specific categories of disputes under Article 131, never extending to all civil and criminal matters in the country."
+    },
+    {
+        q: "With reference to the background and evolution of Tribunals in India, consider the following statements:<br>1. Articles 323A and 323B, which provide the constitutional basis for Tribunals in India, were inserted by the Forty-second Constitutional Amendment Act, 1976.<br>2. Tribunals were envisaged in the original Constitution of India, 1950, as an alternative dispute-resolution mechanism recommended by the Constituent Assembly.<br>3. The first tribunal established in India was the Central Administrative Tribunal (CAT), set up in 1985, prior to which India had no specialised adjudicatory bodies outside the ordinary courts.<br>Which of the statements given above is correct?",
+        opts: [
+            "2 and 3 only",
+            "1 only",
+            "1 and 2 only",
+            "None of the statements is correct"
+        ],
+        ans: 1,
+        exp: "The constitutional basis for Tribunals, Articles 323A and 323B, was indeed inserted only in 1976 through the 42nd Amendment, not envisaged by the Constituent Assembly in 1950. The Central Administrative Tribunal, set up in 1985, was not India's first tribunal, since specialised bodies such as the Income Tax Appellate Tribunal had already existed since 1941, well before Independence."
+    },
+    {
+        q: "With reference to challenges and issues associated with judicial review in India, consider the following statements:<br>1. A major criticism of judicial review is \"judicial overreach,\" where courts are perceived to encroach upon matters of policy that properly belong to the legislature and the executive.<br>2. Judicial review of ordinary legislation in India examines only procedural compliance with Article 13 and does not permit courts to assess the substantive \"reasonableness\" of a law.<br>3. Courts in India have no mechanism, such as imposing costs, to deter frivolous Public Interest Litigations or misuse of judicial review.<br>Which of the statements given above is correct?",
+        opts: [
+            "1 only",
+            "2 only",
+            "3 only",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "\"Judicial overreach\" is indeed a widely cited criticism of judicial review, referring to courts venturing into the policy domain of the other two organs. However, courts do examine the substantive reasonableness of laws, particularly through the doctrine of manifest arbitrariness under Article 14, contrary to statement 2, and courts routinely impose exemplary costs to discourage frivolous or motivated PILs, contrary to statement 3."
+    },
+    {
+        q: "With reference to the subordinate judiciary in India, consider the following statements:<br>1. Lok Adalats function as courts of appeal against orders passed by Gram Nyayalayas, and their awards can be further challenged in the High Court under Article 226.<br>2. The presiding officer of a Gram Nyayalaya, called a \"Nyayadhikari,\" must necessarily be a retired High Court judge appointed by the Governor of the State.<br>3. Under Article 235 of the Constitution, administrative control over subordinate courts, including posting, promotion, and grant of leave, vests in the Governor of the State acting on the advice of the Council of Ministers.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "1, 2 and 3",
+            "2 and 3 only",
+            "None of the statements is correct"
+        ],
+        ans: 3,
+        exp: "Lok Adalat awards are final and cannot be appealed, so Lok Adalats are not an appellate forum over Gram Nyayalayas. A Nyayadhikari need only be a person eligible for appointment as a Judicial Magistrate of the First Class, not necessarily a retired High Court judge, and is appointed by the State Government in consultation with the High Court. Most importantly, Article 235 vests administrative control over subordinate courts in the High Court, not the Governor, making all three statements incorrect."
+    },
+    {
+        q: "With reference to the structure and composition of the machinery for initiating Contempt of Court proceedings in India, consider the following statements:<br>1. Under Section 15 of the Contempt of Courts Act, 1971, a private person seeking to initiate criminal contempt proceedings before a High Court must obtain the written consent of the Advocate General, while before the Supreme Court such consent must be obtained from the Attorney General or the Solicitor General.<br>2. Under Section 19 of the Act, an appeal against a contempt order passed by a Single Judge of a High Court lies directly to the Supreme Court, bypassing any Division Bench of that High Court.<br>3. Suo motu contempt proceedings, where the court initiates action entirely on its own motion, are not permitted under the Contempt of Courts Act, 1971 and require the prior consent of the Advocate General or Attorney General in every instance.<br>Which of the statements given above is correct?",
+        opts: [
+            "1 only",
+            "2 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "Section 15 does require a private complainant to obtain the written consent of the Advocate General for a High Court or the Attorney General/Solicitor General for the Supreme Court. However, Section 19 provides that an appeal from a Single Judge's contempt order lies to a Bench of not less than two judges of the same High Court, going to the Supreme Court only where the original order was passed by a Division Bench. Further, Section 15 explicitly allows the Supreme Court or High Court to act on its own motion, so suo motu proceedings require no such consent at all."
+    },
+    {
+        q: "With reference to challenges and issues associated with Tribunals in India, consider the following statements:<br>1. A persistent challenge with tribunalisation in India is that many tribunals lack infrastructural and financial independence, often depending on the sponsoring administrative ministry for staff, funds, and premises.<br>2. In Union of India v. R. Gandhi (2010), the Madras Bar Association case, the Supreme Court held that tribunals exercising powers earlier vested in civil courts may function exclusively with technical or administrative members, without any judicial member.<br>3. Persisting vacancies in tribunal chairperson and member posts prompted the Supreme Court, in its November 2025 ruling, to direct the Union Government to set up a permanent, independent body, referred to as a National Tribunals Commission, to oversee tribunal administration.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "None of the above",
+            "All of the above",
+            "Both 1 and 3"
+        ],
+        ans: 3,
+        exp: "Dependence on sponsoring ministries for staff, funds, and premises remains a well-documented challenge to tribunal independence, and the November 2025 ruling did direct the Union Government to establish a permanent, independent body to oversee tribunal administration in view of persistent vacancies. However, in Union of India v. R. Gandhi (2010), the Supreme Court held the opposite of statement 2: tribunals exercising powers earlier vested in courts must have a substantial component of judicial members and cannot be run solely by technical or administrative members, precisely to safeguard independence."
+    },
+    {
+        q: "Which Article of the Constitution of India empowers a High Court to issue writs not only for the enforcement of Fundamental Rights but also \"for any other purpose,\" thereby giving it a wider writ jurisdiction than that conferred on the Supreme Court?",
+        opts: [
+            "Article 226",
+            "Article 227",
+            "Article 32",
+            "Article 136"
+        ],
+        ans: 0,
+        exp: "Article 226 empowers High Courts to issue writs for the enforcement of Fundamental Rights and also \"for any other purpose,\" which is wider than Article 32, under which the Supreme Court can issue writs only for enforcement of Fundamental Rights. Article 227 confers supervisory jurisdiction over subordinate courts, and Article 136 provides for special leave to appeal, neither of which relates to writ jurisdiction."
+    },
+    {
+        q: "The power of judicial review is explicitly and specifically conferred by name upon which of the following courts under the Constitution of India?",
+        opts: [
+            "All courts, including subordinate courts, under Article 227",
+            "The High Courts only, under Article 226",
+            "Both the Supreme Court, under Article 32, and the High Courts, under Article 226",
+            "The Supreme Court only, under Article 32"
+        ],
+        ans: 2,
+        exp: "The Constitution explicitly empowers the Supreme Court under Article 32 and the High Courts under Article 226 to issue writs and exercise judicial review for enforcement of rights. Subordinate courts are not vested with an explicit constitutional power of judicial review over legislation, and Article 227 confers supervisory jurisdiction of High Courts over subordinate courts and tribunals, not a general power of judicial review."
+    },
+    {
+        q: "With reference to constitutional provisions relating to the appointment of ad hoc and retired judges in India, consider the following statements:<br>1. Article 224A, allowing the Chief Justice of a High Court to request a retired judge to sit and act as an ad hoc judge of that High Court, requires the consent of the Chief Justice of India rather than the President, since the matter is regarded as internal to the higher judiciary.<br>2. Article 128 empowers a High Court's Chief Justice, and not the Chief Justice of India, to request a retired Supreme Court judge to sit and act as a judge of that High Court.<br>3. Under Article 127, in the absence of a quorum of Supreme Court judges, the President of India may directly nominate any sitting High Court judge as an ad hoc judge of the Supreme Court, without requiring any request from the Chief Justice of India.<br>Which of the statements given above is correct?",
+        opts: [
+            "None of the statements is correct",
+            "1 only",
+            "2 only",
+            "3 only"
+        ],
+        ans: 0,
+        exp: "Article 224A actually requires the previous consent of the President, obtained on a request made by the Chief Justice of the High Court concerned, not the consent of the Chief Justice of India. Article 128 concerns the Chief Justice of India requesting a retired Supreme Court (or qualified retired High Court) judge to sit at the Supreme Court, not a High Court Chief Justice requesting one for a High Court. Article 127 similarly requires the Chief Justice of India, with the President's prior consent, to make the request to a qualified High Court judge; the President cannot nominate such a judge directly on his or her own initiative. All three statements are therefore incorrect."
+    },
+    {
+        q: "With reference to the functions and powers exercised by courts in Public Interest Litigation (PIL) in India, consider the following statements:<br>1. PIL relaxes the traditional rule of locus standi, enabling any public-spirited person or organisation to approach the court on behalf of those who are unable to do so themselves due to poverty or social disability.<br>2. PIL can be filed only before the Supreme Court under Article 32, and High Courts have no power to entertain public interest litigations under Article 226.<br>3. While deciding PIL cases, courts function purely in an adversarial capacity and cannot appoint fact-finding commissions or amicus curiae to assist the proceedings.<br>Which of the statements given above is correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "None of the statements is correct",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "A defining feature of PIL is the relaxation of locus standi, allowing any public-spirited citizen to approach the court on behalf of disadvantaged persons. High Courts entertain PILs under Article 226 just as the Supreme Court does under Article 32, and courts frequently adopt an inquisitorial approach in PIL matters, appointing commissions of inquiry and amicus curiae to assist them, contrary to statements 2 and 3."
+    },
+    {
+        q: "With reference to recent developments concerning the Chief Justice of India (CJI), consider the following statements:<br>1. Justice Surya Kant assumed office as the 53rd Chief Justice of India in November 2025.<br>2. He succeeded Justice D. Y. Chandrachud, who demitted office after a two-year tenure as CJI.<br>3. Justice Vikram Nath is set to succeed him as the 54th CJI in February 2026.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 2 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "Justice Surya Kant took over as the 53rd CJI on 24 November 2025, succeeding Justice B. R. Gavai (not Justice Chandrachud, who had already demitted office in November 2024). Justice Vikram Nath is indeed slated to become the next CJI, but only from February 2027, not February 2026, making statement 3 incorrect as well."
+    },
+    {
+        q: "With reference to the constitutional provisions relating to the Supreme Court of India, consider the following statements:<br>1. Article 124(3) prescribes that a person is qualified for appointment as a judge of the Supreme Court if he or she has been a judge of a High Court (or of two or more such courts in succession) for at least five years, or an advocate of a High Court for at least ten years, or is, in the opinion of the President, a distinguished jurist.<br>2. The Constitution prescribes a minimum age of 45 years for appointment as a judge of the Supreme Court, similar to the requirement applicable to a High Court judge.<br>3. Article 145 empowers the Supreme Court itself, with the approval of the President, to make rules regulating the practice and procedure of the Court.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "All of the statements are correct",
+            "Statement 1 alone"
+        ],
+        ans: 0,
+        exp: "Article 124(3) does lay down these three alternative qualifications for appointment as a Supreme Court judge, and Article 145 does empower the Supreme Court itself, subject to the President's approval, to frame rules of practice and procedure. However, the Constitution prescribes no minimum age at all for appointment as a judge of the Supreme Court or a High Court; it fixes only the maximum retirement ages of 65 and 62 years respectively."
+    },
+    {
+        q: "Which one of the following terms is most commonly used to describe the criticism that the judiciary, through excessive activism, encroaches upon the domain properly belonging to the legislature and the executive?",
+        opts: [
+            "Judicial review",
+            "Judicial restraint",
+            "Judicial overreach",
+            "Judicial process"
+        ],
+        ans: 2,
+        exp: "\"Judicial overreach\" refers to the criticism that courts, in the name of activism, go beyond their legitimate role of interpreting law and start performing legislative or executive functions, thereby upsetting the separation of powers. Judicial restraint is the opposite tendency, while judicial review and judicial process are neutral descriptive terms rather than criticisms."
+    },
+    {
+        q: "With reference to recent developments concerning Contempt of Court, consider the following statements:<br>1. In October 2025, following an incident in which an advocate hurled an object at the Chief Justice of India during Supreme Court proceedings, the Supreme Court Bar Association sought criminal contempt action against him, for which the Attorney General's consent was required as the action was initiated by a private body.<br>2. In this 2025 episode, the Chief Justice of India immediately initiated suo motu criminal contempt proceedings against the advocate, terming the incident a grave assault on judicial dignity.<br>3. In May-June 2025, the Supreme Court held that a State Legislature enacting a law after a Supreme Court order automatically amounts to contempt of court, regardless of whether the law is later declared unconstitutional.<br>Which of the statements given above is correct?",
+        opts: [
+            "1 only",
+            "1 and 2 only",
+            "2 only",
+            "3 only"
+        ],
+        ans: 0,
+        exp: "In the October 2025 incident, the Supreme Court Bar Association did seek criminal contempt action against the advocate, requiring the Attorney General's consent as mandated for contempt actions brought by a private party under the Contempt of Courts Act, 1971. However, the Chief Justice himself did not initiate suo motu proceedings and instead initially called the incident \"inconsequential.\" Separately, in the Salwa Judum-related ruling of May-June 2025, the Supreme Court held the opposite of statement 3: a law enacted by a legislature after a court's order is not contempt unless that law itself is declared unconstitutional."
+    },
+    {
+        q: "With reference to the law relating to Contempt of Court in India, consider the following statements:<br>1. Contempt of Court under the Contempt of Courts Act, 1971 is classified into civil contempt and criminal contempt.<br>2. The terms \"Contempt of Court\" and its two categories are explicitly defined in the text of the Constitution of India itself.<br>3. Punishment for contempt of court in India is provided under the Indian Penal Code, 1860 (now the Bharatiya Nyaya Sanhita, 2023).<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 only",
+            "1, 2 and 3",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "The Contempt of Courts Act, 1971 is the statute that classifies contempt into civil and criminal contempt. The Constitution itself does not define \"contempt of court\"; Articles 129 and 215 merely empower the Supreme Court and High Courts, as Courts of Record, to punish for contempt, leaving the definition and punishment to the 1971 Act, not the criminal code."
+    },
+    {
+        q: "With reference to the constitutional and legal basis of Public Interest Litigation (PIL) in India, consider the following statements:<br>1. PIL is not defined anywhere in the text of the Constitution; it evolved through judicial interpretation of Articles 32 and 226 from the late 1970s onward.<br>2. Article 39A, inserted by the Forty-second Constitutional Amendment Act, 1976, is a Fundamental Right that directly confers upon citizens an enforceable right to free legal aid through a writ petition.<br>3. The Constitution (Forty-fourth Amendment) Act, 1978 introduced Article 32A, granting Parliament exclusive power to prescribe the procedure for filing Public Interest Litigations.<br>Which of the statements given above is correct?",
+        opts: [
+            "1 only",
+            "2 and 3 only",
+            "2 only",
+            "3 only"
+        ],
+        ans: 0,
+        exp: "PIL has no textual basis in the Constitution and instead grew out of the Supreme Court's liberal interpretation of Articles 32 and 226 from the late 1970s. Article 39A is a Directive Principle, not a Fundamental Right, and is therefore not directly enforceable through a writ, and there is no Article 32A in the Constitution dealing with PIL procedure, making statements 2 and 3 incorrect."
+    },
+    {
+        q: "With reference to reforms and recommendations concerning Public Interest Litigation (PIL) in India, consider the following statements:<br>1. In State of Uttaranchal v. Balwant Singh Chaufal (2010), the Supreme Court issued guidelines directing High Courts to frame rules for filtering PILs, including verifying the credentials and motives of the petitioner and imposing exemplary costs on frivolous petitions.<br>2. Following the Balwant Singh Chaufal (2010) guidelines, Parliament enacted the Public Interest Litigation (Regulation) Act, 2011 to statutorily codify PIL procedure uniformly across the country.<br>3. The Balwant Singh Chaufal guidelines apply only to the Supreme Court and do not extend to the High Courts, which are under no obligation to frame their own rules for admitting PILs.<br>Which of the statements given above is correct?",
+        opts: [
+            "2 and 3 only",
+            "None of the statements is correct",
+            "1 and 2 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "The Balwant Singh Chaufal (2010) judgment did lay down such guidelines to filter genuine PILs from frivolous ones. However, there is no central statute such as a \"Public Interest Litigation (Regulation) Act, 2011\"; PIL procedure continues to be governed by court-framed rules. Moreover, the guidelines were specifically directed at the High Courts, requiring each of them to frame its own rules within a stipulated time, contrary to statement 3."
+    },
+    {
+        q: "Assertion (A): Judicial activism in India expanded significantly from the late 1970s onward, largely through the mechanism of Public Interest Litigation (PIL).<br>Reason (R): Under the 'epistolary jurisdiction' adopted by the Supreme Court, even a letter addressed to a judge highlighting a matter of public importance could be treated as a writ petition, easing access to justice for disadvantaged sections.<br>Select the correct answer using the codes given below:",
+        opts: [
+            "Both A and R are true, but R is not the correct explanation of A",
+            "A is false, but R is true",
+            "Both A and R are true, and R is the correct explanation of A",
+            "A is true, but R is false"
+        ],
+        ans: 2,
+        exp: "Both statements are factually correct: judicial activism gained momentum from the late 1970s through PIL, and epistolary jurisdiction, by allowing letters to be converted into writ petitions, was precisely the procedural innovation that made PIL accessible to the poor and marginalised. Since R directly explains the mechanism through which the expansion described in A took place, R is the correct explanation of A."
+    },
+    {
+        q: "With reference to the historical background and evolution of the system of judicial appointments in India, consider the following statements:<br>1. Under Article 124(2) as originally enacted, the President appoints Supreme Court judges after consultation with such judges of the Supreme Court and High Courts as the President deems necessary, and consultation with the Chief Justice of India is mandatory for the appointment of judges other than the CJI.<br>2. In the First Judges Case (S. P. Gupta v. Union of India, 1981), the Supreme Court held that \"consultation\" under Article 124 meant \"concurrence,\" thereby giving the Chief Justice of India primacy over the President in judicial appointments.<br>3. The collegium system, comprising the CJI and four senior-most judges of the Supreme Court, was first established through the First Judges Case (1981).<br>Which of the statements given above is correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 2 only",
+            "1 only",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "Article 124(2), as originally framed, did require consultation with the CJI for appointments of judges other than the CJI, without giving the executive's or judiciary's view primacy. In fact, the First Judges Case (1981) held the opposite of what statements 2 and 3 claim: it ruled that \"consultation\" did not mean \"concurrence,\" giving the executive the upper hand, and it was only the Second Judges Case (1993), not the First, that gave birth to the collegium system."
+    },
+    {
+        q: "With reference to the structure and composition of Tribunals under the Tribunals Reforms Act, 2021, consider the following statements:<br>1. The minimum age for appointment as a Chairperson or Member of a Tribunal is 50 years, with an upper age limit of 70 years for Chairpersons and 67 years for Members.<br>2. Members and Chairpersons of Tribunals are appointed for a fixed tenure of four years, and reappointment for a further term is expressly barred under the Act, regardless of age.<br>3. The Search-cum-Selection Committee recommending tribunal appointments is chaired by the Union Law Minister, with the Chief Justice of India serving only as an ordinary member without a casting vote.<br>Which of the statements given above is correct?",
+        opts: [
+            "2 and 3 only",
+            "3 only",
+            "1 and 3 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "The Tribunals Reforms Act, 2021 fixes the minimum age for appointment at 50 years, with upper age limits of 70 years for Chairpersons and 67 years for Members. Reappointment is, in fact, permitted under the Act with due weightage given to past service, contrary to statement 2, and the Search-cum-Selection Committee is chaired by the Chief Justice of India or a Supreme Court judge nominated by him, who holds a casting vote, not the Union Law Minister."
+    },
+    {
+        q: "With reference to the constitutional provisions relating to Contempt of Court in India, consider the following statements:<br>1. Articles 129 and 215 of the Constitution make the Supreme Court and every High Court, respectively, Courts of Record with the power to punish for contempt of themselves.<br>2. The power to punish for contempt of court under Articles 129 and 215 can be taken away or curtailed entirely by an ordinary law made by Parliament, since it is not a constitutionally inherent power.<br>3. \"Contempt of court\" is guaranteed as a Fundamental Right under Article 19(1)(a), which protects freedom of speech and expression for every citizen.<br>Which of the statements given above is correct?",
+        opts: [
+            "1 and 3 only",
+            "None of the statements is correct",
+            "1 only",
+            "2 only"
+        ],
+        ans: 2,
+        exp: "Articles 129 and 215 constitutionally vest the Supreme Court and High Courts with contempt powers as Courts of Record. Courts have held that this constitutionally inherent power cannot be taken away by an ordinary statute like the Contempt of Courts Act, which can only regulate procedure, contrary to statement 2. Contempt of court is not itself a Fundamental Right; rather, it is one of the grounds under Article 19(2) on which reasonable restrictions may be placed on the freedom of speech guaranteed under Article 19(1)(a)."
+    },
+    {
+        q: "With reference to the Supreme Court's advisory opinion (2025) on the Presidential Reference concerning gubernatorial assent to Bills, consider the following statements:<br>1. The Reference was made by the President to the Supreme Court under Article 143 of the Constitution.<br>2. The Supreme Court held that imposing judicially fixed timelines on the Governor's exercise of discretion under Article 200 is erroneous and inconsistent with the separation of powers.<br>3. An advisory opinion rendered by the Supreme Court under Article 143 is binding on all subordinate courts in India, in the same manner as a judgment under Article 141.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "None of the above",
+            "Both 1 and 3"
+        ],
+        ans: 1,
+        exp: "President Droupadi Murmu invoked Article 143 to seek the Supreme Court's opinion on the Governor's and President's powers under Articles 200 and 201, and the five-judge Bench held that the timelines earlier fixed in the Tamil Nadu Governor's case were erroneous and encroached upon the separation of powers. However, unlike judgments under Article 141, an advisory opinion under Article 143 is not binding on courts, though it carries great persuasive value, making statement 3 incorrect."
+    },
+    {
+        q: "Assertion (A): Under their writ jurisdiction, courts in India can quash an executive or quasi-judicial order through the writ of certiorari, but only after such an order has actually been passed.<br>Reason (R): The writ of prohibition, by contrast, is issued to prevent a lower court, tribunal, or quasi-judicial authority from continuing with proceedings in excess of its jurisdiction before a final order is passed.<br>Select the correct answer using the codes given below:",
+        opts: [
+            "A is true, but R is false",
+            "A is false, but R is true",
+            "Both A and R are true, and R is the correct explanation of A",
+            "Both A and R are true, but R is not the correct explanation of A"
+        ],
+        ans: 3,
+        exp: "Both statements are independently accurate descriptions of judicial review powers: certiorari operates after a decision has been made, to quash it, while prohibition operates before a final decision, to prevent an authority from exceeding its jurisdiction. However, R does not explain why A is true; it merely states a contrasting, parallel fact about a different writ, so R is not the correct explanation of A."
+    },
+    {
+        q: "With reference to the structure and composition of the subordinate judiciary in India, consider the following statements:<br>1. Most States follow a broadly three-tier structure in the subordinate judiciary, with the District and Sessions Judge at the top, Civil Judges (Senior Division)/Additional Sessions Judges in the middle, and Civil Judges (Junior Division)/Judicial Magistrates at the base.<br>2. District Judges are appointed by the President of India in consultation with the Chief Justice of India.<br>3. The High Court has no role in the recruitment of Civil Judges (Junior Division); such appointments are made solely by the State Public Service Commission.<br>Which of the statements given above is correct?",
+        opts: [
+            "1 only",
+            "2 and 3 only",
+            "1 and 2 only",
+            "3 only"
+        ],
+        ans: 0,
+        exp: "The subordinate judiciary in most States does follow a broadly three-tier hierarchy from District Judge down to Judicial Magistrates/Junior Civil Judges. However, District Judges are appointed by the Governor of the State in consultation with the High Court under Article 233, not by the President and CJI, and Article 234 requires the Governor to consult both the State Public Service Commission and the High Court for recruitment of judicial officers other than District Judges, so the High Court is very much involved."
+    },
+    {
+        q: "With reference to Acts and institutions connected with the growth of Public Interest Litigation (PIL) in India, consider the following statements:<br>1. The Legal Services Authorities Act, 1987 established the National Legal Services Authority (NALSA) and a network of State and District Legal Services Authorities to provide free legal aid and organise Lok Adalats, strengthening access to justice alongside the growth of PIL.<br>2. The Supreme Court Rules, 1966, as originally framed, prescribed a mandatory court fee for filing any Public Interest Litigation, a barrier later removed by a specific constitutional amendment.<br>3. The Consumer Protection Act, 2019 was the first legislation in India to statutorily codify the procedure for filing Public Interest Litigations before the Supreme Court and High Courts.<br>Which of the statements given above is correct?",
+        opts: [
+            "1 only",
+            "3 only",
+            "2 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "The Legal Services Authorities Act, 1987 did establish NALSA and the State/District Legal Services Authorities, institutions that reinforced access to justice alongside judicially evolved PIL. There is no constitutional amendment that removed a \"mandatory PIL court fee\" under the 1966 Supreme Court Rules, and the procedure for PIL remains governed by court-framed rules rather than being codified by the Consumer Protection Act, 2019, which deals with consumer disputes and has no connection to PIL procedure."
+    },
+    {
+        q: "With reference to important Acts governing the subordinate judiciary in India, consider the following statements:<br>1. The Family Courts Act, 1984 mandates that parties must necessarily be represented by a lawyer before a Family Court, in order to ensure due process.<br>2. Gram Nyayalayas, established under the Gram Nyayalayas Act, 2008, are mobile courts empowered to try both civil and criminal cases of a petty and local nature, following simplified rules of evidence.<br>3. An award of a Lok Adalat under the Legal Services Authorities Act, 1987 is deemed to be a decree of a civil court and is final, with no appeal lying against it.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "Statement 3 alone",
+            "Both 2 and 3",
+            "All three statements are correct"
+        ],
+        ans: 2,
+        exp: "Gram Nyayalayas are indeed conceived as mobile courts with simplified procedure for petty civil and criminal matters, and a Lok Adalat's award is final and binding as a civil court decree with no scope for appeal. However, the Family Courts Act, 1984 actually discourages routine representation by lawyers and emphasises conciliation, rather than mandating legal representation."
+    },
+    {
+        q: "With reference to the powers and jurisdiction of the Supreme Court of India, consider the following statements:<br>1. The Supreme Court is a Court of Record under Article 129 and has the power to punish for contempt of itself.<br>2. The right to move the Supreme Court under Article 32 for enforcement of Fundamental Rights is itself a Fundamental Right, and the Court cannot refuse relief merely because an alternative remedy exists.<br>3. The original jurisdiction of the Supreme Court under Article 131 extends to disputes between the Government of India and private citizens.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 2 only",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "Article 129 makes the Supreme Court a Court of Record with contempt powers, and Article 32 itself has been held to be a Fundamental Right, so an alternative remedy cannot bar relief. However, Article 131 covers only disputes between the Government of India and one or more States, or between States themselves, and does not extend to disputes involving private citizens."
+    },
+    {
+        q: "With reference to the functions and powers associated with Contempt of Court in India, consider the following statements:<br>1. The primary function of the contempt power is to protect and maintain the authority and effective functioning of the judicial system as an institution, rather than to shield individual judges from personal criticism, as reaffirmed by the Supreme Court in Shanmugam @ Lakshminarayanan v. High Court of Madras (2025).<br>2. Civil contempt under the Contempt of Courts Act, 1971 refers to acts that scandalise the court or lower its authority in the eyes of the public.<br>3. A person found guilty of contempt of court in India can be punished with imprisonment extending up to five years, along with a fine, under the Contempt of Courts Act, 1971.<br>Which of the statements given above is correct?",
+        opts: [
+            "1 and 3 only",
+            "2 only",
+            "3 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "The Supreme Court in the 2025 Shanmugam case reaffirmed that contempt jurisdiction exists to protect the administration of justice as an institution, not to serve as a personal shield for judges against criticism. The description in statement 2 actually corresponds to criminal contempt, since civil contempt refers instead to wilful disobedience of a court's judgment, decree, or order, or breach of an undertaking. Further, the maximum punishment under the 1971 Act is simple imprisonment for up to six months and/or a fine of up to ₹2,000, not five years."
+    },
+    {
+        q: "With reference to judicial doctrines that have featured in UPSC Prelims-style questions, consider the following statements:<br>1. The Doctrine of Eclipse holds that a pre-constitutional law inconsistent with a Fundamental Right is not wiped out entirely but becomes dormant, and can be revived if the inconsistency is removed by a subsequent constitutional amendment.<br>2. The Doctrine of Eclipse applies equally to post-constitutional laws inconsistent with Fundamental Rights, treating them in the same manner as pre-constitutional laws.<br>3. The Doctrine of Severability provides that if any part of a statute is found unconstitutional, the entire statute must be struck down, even where the valid portion can be separated from the invalid portion.<br>Which of the statements given above is correct?",
+        opts: [
+            "1 only",
+            "1 and 2 only",
+            "2 and 3 only",
+            "None of the statements is correct"
+        ],
+        ans: 0,
+        exp: "The Doctrine of Eclipse correctly describes pre-constitutional laws inconsistent with Fundamental Rights as dormant rather than void, capable of revival once the inconsistency is removed. It does not, however, apply in the same way to post-constitutional laws, which are void ab initio to the extent of the inconsistency under Article 13(2). Similarly, the Doctrine of Severability allows courts to strike down only the invalid portion of a statute where it can be separated from the valid portion, not the entire enactment."
+    },
+    {
+        q: "With reference to the structure and composition of High Courts in India, consider the following statements:<br>1. The strength of a High Court is not fixed by the Constitution and is determined by the President of India from time to time.<br>2. A judge of a High Court holds office until the age of 65 years, the same retirement age as a judge of the Supreme Court.<br>3. Under Article 231, Parliament may by law establish a common High Court for two or more States, or for two or more States and a Union Territory.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 3,
+        exp: "The Constitution does not fix the number of judges of a High Court, leaving this to be determined by the President, and Article 231 does allow Parliament to constitute a common High Court for two or more States or States and a Union Territory. However, a High Court judge retires at 62 years of age, which is lower than the 65-year retirement age applicable to Supreme Court judges."
+    },
+    {
+        q: "With reference to the background and evolution of judicial doctrines in India, consider the following statements:<br>1. The Basic Structure doctrine evolved through a line of cases beginning with Golak Nath (1967), which held that Fundamental Rights could not be amended, and culminating in Kesavananda Bharati (1973), which held that Parliament cannot alter the Constitution's basic features even while amending Fundamental Rights.<br>2. The Basic Structure doctrine finds explicit mention in the text of Article 368, which specifically lists the features of the Constitution that cannot be amended.<br>3. The Basic Structure doctrine was accepted unanimously by all thirteen judges of the Bench that decided the Kesavananda Bharati case (1973).<br>Which of the statements given above is correct?",
+        opts: [
+            "1 only",
+            "1 and 2 only",
+            "2 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "The Basic Structure doctrine did evolve through the trajectory from Golak Nath (1967) to Kesavananda Bharati (1973), as described. However, Article 368 contains no explicit list of unamendable features; the doctrine is entirely judge-made. Moreover, the thirteen-judge Bench in Kesavananda Bharati was sharply divided, deciding the case by a narrow 7:6 majority rather than unanimously."
+    },
+    {
+        q: "With reference to the evolution of the system of judicial appointments in India, consider the following statements:<br>1. The National Judicial Appointments Commission (NJAC) Act, 2014 sought to replace the collegium system with a body headed by the Union Law Minister.<br>2. The Second Judges Case (1993) reduced judicial primacy in appointments by giving the Executive the final say over the Chief Justice of India's recommendations.<br>3. Members of the Supreme Court collegium are appointed through a resolution passed by the Rajya Sabha.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "None of the statements is correct",
+            "2 only",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "The NJAC was to be chaired by the CJI, not the Law Minister, who was only one of six members. The Second Judges Case (1993) actually increased, not reduced, judicial primacy by holding that 'consultation' under Articles 124 and 217 effectively meant 'concurrence' of the CJI. The collegium simply comprises the CJI and the four senior-most Supreme Court judges by convention, with no Rajya Sabha resolution involved, so none of the statements is correct."
+    },
+    {
+        q: "With reference to the historical background and evolution of judicial review, consider the following statements:<br>1. The concept of judicial review, in its modern form, originated in the United States through Chief Justice John Marshall's judgment in Marbury v. Madison (1803).<br>2. Judicial review was an entirely novel concept, without precedent anywhere in the world, introduced for the first time by the framers of the Indian Constitution in 1950.<br>3. In India, judicial review was first exercised by the Supreme Court soon after Independence in A.K. Gopalan v. State of Madras (1950), which struck down the Preventive Detention Act in its entirety as violative of Article 21.<br>Which of the statements given above is correct?",
+        opts: [
+            "1 and 3 only",
+            "1 only",
+            "2 only",
+            "3 only"
+        ],
+        ans: 1,
+        exp: "Judicial review in its modern form is traced to Marbury v. Madison (1803), where Chief Justice Marshall established the American Supreme Court's power to strike down unconstitutional laws, decades before the Indian Constitution existed. In A.K. Gopalan (1950), the Supreme Court actually upheld the bulk of the Preventive Detention Act while adopting a narrow reading of Article 21, striking down only one minor provision, not the Act in its entirety."
+    },
+    {
+        q: "With reference to important amendments to the law of Contempt of Court in India, consider the following statements:<br>1. The Contempt of Courts (Amendment) Act, 2006 inserted Section 13 into the Contempt of Courts Act, 1971, providing that truth, if in bona fide public interest, can be taken as a valid defence against a charge of criminal contempt.<br>2. The Contempt of Courts Act, 1971 was amended in 2006 to enhance the maximum punishment for contempt from six months' simple imprisonment to two years' imprisonment.<br>3. The 2006 amendment altered the definition of criminal contempt under Section 2(c) of the Act to specifically include \"fair and reasonable criticism of judicial conduct\" as an act of contempt.<br>Which of the statements given above is correct?",
+        opts: [
+            "1 and 2 only",
+            "2 only",
+            "None of the statements is correct",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "The 2006 amendment added Section 13, allowing truth as a valid defence against criminal contempt where it is bona fide and in the public interest, one of the most significant reforms to the 1971 Act. It did not, however, change the maximum punishment for contempt, which remains simple imprisonment up to six months and/or a fine up to ₹2,000, nor did it amend Section 2(c) to bring fair criticism of judicial conduct within the definition of contempt; such criticism has long been treated by courts as falling outside contempt altogether."
+    },
+    {
+        q: "With reference to the functions and powers of the Supreme Court of India, consider the following statements:<br>1. Under Article 137, the Supreme Court has the power to review its own judgments or orders, a power not conferred on any other court by the Constitution.<br>2. The Supreme Court's appellate jurisdiction in civil matters under Article 133 permits an appeal without requiring any certificate from the High Court regarding a substantial question of law of general importance.<br>3. A curative petition, evolved by the Supreme Court, allows a case to be reopened even after dismissal of a review petition, and must be heard by the same two-judge Bench that decided the original case.<br>Which of the statements given above is correct?",
+        opts: [
+            "1 only",
+            "None of the statements is correct",
+            "1 and 2 only",
+            "2 and 3 only"
+        ],
+        ans: 0,
+        exp: "Article 137 uniquely empowers the Supreme Court, and no other court under the Constitution, to review its own judgments and orders. In contrast, an appeal under Article 133 does require the High Court to certify that the case involves a substantial question of law of general importance requiring Supreme Court decision. A curative petition, established in Rupa Ashok Hurra v. Union of India (2002), is ordinarily placed before a Bench of the three senior-most judges along with the judges who passed the impugned judgment, not restricted to the original two-judge Bench."
+    },
+    {
+        q: "With reference to reforms concerning the subordinate judiciary in India, consider the following statements:<br>1. In 2025, while deciding review petitions arising out of the All India Judges Association case, the Supreme Court reduced the mandatory prior legal practice required for entry into the judicial service (Civil Judge, Junior Division) from three years to one year.<br>2. The appointment of District Judges is governed by Article 233 of the Constitution, which requires the Governor to act in consultation with the High Court.<br>3. The creation of an All India Judicial Service under Article 312 of the Constitution requires the Rajya Sabha to first pass a resolution, supported by not less than two-thirds of its members present and voting, declaring it necessary in the national interest.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 3,
+        exp: "In 2025, a three-judge Bench headed by the CJI, by a 2:1 majority, cut the minimum legal practice requirement for entry-level judicial service from three years to one year while upholding the requirement itself. Article 233 governs appointment of District Judges by the Governor in consultation with the High Court, and Article 312 does require a prior Rajya Sabha resolution by a two-thirds majority before Parliament can create an All India Judicial Service, so all three statements are correct."
+    },
+    {
+        q: "With reference to challenges and issues associated with the law of Contempt of Court in India, consider the following statements:<br>1. One major criticism is that the offence of \"scandalising the court\" under criminal contempt is vaguely defined, creating a potential chilling effect on legitimate criticism of the judiciary.<br>2. The United Kingdom, from which India inherited much of its contempt jurisprudence, formally abolished the common-law offence of \"scandalising the judiciary\" through the Crime and Courts Act, 2013.<br>3. In India, truth is available as an absolute and unconditional defence to any charge of criminal contempt, regardless of whether it serves the public interest or is raised in good faith.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "The vagueness of \"scandalising the court\" and its potential chilling effect on free speech is indeed a widely voiced criticism, and the UK did abolish this common-law offence in 2013, a fact often cited by reform advocates in India. However, under Section 13 of the Contempt of Courts Act, 1971, truth is a valid defence only if the court is satisfied that it is in the public interest and that invoking the defence is made in good faith, not an absolute or unconditional one."
+    },
+    {
+        q: "With reference to reforms and recommendations concerning judicial appointments in India, consider the following statements:<br>1. The 121st Report of the Law Commission of India (1987) recommended replacing the collegium-based consultation process with a National Judicial Commission for the appointment of judges.<br>2. The Constitution (Ninety-ninth Amendment) Act, 2014, which created the National Judicial Appointments Commission, remains in force today after being upheld by the Supreme Court in 2015.<br>3. The Second Administrative Reforms Commission was the first body to recommend a judiciary-led, collegium-style system for the appointment of judges in India.<br>Which of the statements given above is correct?",
+        opts: [
+            "1 only",
+            "None of the statements is correct",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "The 121st Law Commission Report (1987) did recommend a National Judicial Commission as an alternative to the existing consultation process. However, the 99th Amendment and the NJAC it created were struck down, not upheld, by the Supreme Court in 2015, and the collegium system originated not from any Administrative Reforms Commission recommendation but from the Supreme Court's own judicial interpretation in the Second Judges Case (1993)."
+    },
+    {
+        q: "The doctrine holding that certain 'basic features' of the Constitution lie beyond the amending power of Parliament under Article 368 was propounded by the Supreme Court in which of the following cases?",
+        opts: [
+            "Minerva Mills v. Union of India (1980)",
+            "Kesavananda Bharati v. State of Kerala (1973)",
+            "Indira Nehru Gandhi v. Raj Narain (1975)",
+            "Golak Nath v. State of Punjab (1967)"
+        ],
+        ans: 1,
+        exp: "The Basic Structure Doctrine was first propounded in Kesavananda Bharati v. State of Kerala (1973), which held that Parliament's amending power under Article 368 cannot be used to alter the Constitution's basic features. Golak Nath (1967) had earlier held that Fundamental Rights could not be amended at all, while Minerva Mills (1980) later applied and reinforced the basic structure doctrine rather than originating it."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-61 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

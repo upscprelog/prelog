@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-58</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "With reference to the functions and powers of NITI Aayog, consider the following statements: <br> 1. Unlike the erstwhile Planning Commission, NITI Aayog does not have the power to allocate plan funds to states.<br>2. NITI Aayog prepares Five-Year Plans in consultation with state governments, continuing the practice of the erstwhile Planning Commission.<br>3. The Governing Council of NITI Aayog includes the Chief Ministers of all states and Lieutenant Governors of Union Territories.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 and 2 only",
+            "2 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "NITI Aayog, unlike the Planning Commission, is purely an advisory think tank with no power to allocate plan funds, and its Governing Council includes all state Chief Ministers and UT Lieutenant Governors, reflecting its cooperative federalism model. Statement 2 is incorrect because NITI Aayog does not prepare Five-Year Plans at all; it instead formulates long-term vision documents and strategy papers, such as 15-year roadmaps and 7-year action plans."
+    },
+    {
+        q: "With reference to industrial corridors in India, consider the following statements:<br>1. The Delhi-Mumbai Industrial Corridor is being developed along the alignment of the Western Dedicated Freight Corridor.<br>2. The Amritsar-Kolkata Industrial Corridor is being developed along the Eastern Dedicated Freight Corridor.<br>3. The National Industrial Corridor Development and Implementation Trust (NICDIT) is the apex body for coordinating the development of industrial corridor projects.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 3,
+        exp: "The Delhi-Mumbai corridor is aligned with the Western DFC and the Amritsar-Kolkata corridor with the Eastern DFC. NICDIT, functioning under the Department for Promotion of Industry and Internal Trade, is the apex body that oversees and coordinates the national industrial corridor projects. All three statements are therefore correct."
+    },
+    {
+        q: "With reference to challenges facing Indian agriculture, consider the following statements: <br> 1. As per the Agriculture Census 2015-16, the average size of operational landholdings in India increased to about 2.28 hectares, up from 1.08 hectares in 1970-71.<br>2. Small and marginal farmers (holding less than 2 hectares) constitute only about 14% of India's operational holdings, with large farmers dominating in number.<br>3. Nearly 60% of India's net sown area is fully irrigated, with only a small fraction remaining dependent on rainfall.<br>How many of the above statements are correct?",
+        opts: [
+            "None",
+            "All three",
+            "Only one",
+            "Only two"
+        ],
+        ans: 0,
+        exp: "All three statements reverse the actual facts: the average landholding size has in fact declined from 2.28 hectares (1970-71) to about 1.08 hectares (2015-16), small and marginal farmers actually constitute around 86% (not 14%) of operational holdings, and it is roughly 60% of India's net sown area that is rain-fed, not irrigated — only around half of the cropped area has access to irrigation."
+    },
+    {
+        q: "With reference to the 74th Constitutional Amendment Act, 1992 and the functions of urban local bodies in India, consider the following statements: <br> 1. It added the Twelfth Schedule to the Constitution, listing functional items that may be entrusted to municipalities.<br>2. Public health, sanitation, and solid waste management are among the functional items listed in the Twelfth Schedule.<br>3. Maintenance of law and order, including the functioning of police stations, is one of the functional items listed in the Twelfth Schedule.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "None of the statements are correct",
+            "Both 1 and 3",
+            "Only two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "The 74th Amendment added Part IX-A and the Twelfth Schedule, which lists 18 functional items — including public health, sanitation, and solid waste management — that state legislatures may entrust to municipalities under Article 243W. Statement 3 is incorrect because \"public order\" and \"police\" are exclusively State List subjects under the Seventh Schedule and do not appear among the Twelfth Schedule's functional items."
+    },
+    {
+        q: "With reference to the cropping seasons of Indian agriculture, consider the following statements: <br> 1. Rabi crops are typically sown around October–December and harvested in spring, between February and April.<br>2. Zaid crops are cultivated during the peak of the southwest monsoon, between June and September.<br>3. Wheat and mustard are examples of Rabi crops.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 3,
+        exp: "Rabi crops such as wheat and mustard are sown after the retreat of the southwest monsoon (around October–December) and harvested in spring, making statements 1 and 3 correct. Statement 2 is incorrect because Zaid is a short summer season falling between the Rabi and Kharif seasons (roughly March to June), not during the peak of the southwest monsoon, which is when Kharif crops are grown."
+    },
+    {
+        q: "Which mode of transport in India is most closely associated with providing \"door-to-door\" connectivity, making it especially suited for short-distance travel and last-mile movement of goods and passengers?",
+        opts: [
+            "Railways",
+            "Road transport",
+            "Coastal shipping",
+            "Pipelines"
+        ],
+        ans: 1,
+        exp: "Road transport can reach almost any point directly without requiring fixed terminals or additional transshipment, giving it a unique door-to-door connectivity advantage over railways, coastal shipping, and pipelines, all of which are confined to fixed routes, stations, ports, or pipeline heads and require another mode to complete the journey to the final destination. This is why road transport dominates short-distance travel and last-mile logistics in India despite railways historically serving as the backbone for bulk, long-distance freight movement."
+    },
+    {
+        q: "Consider the following statements:<br>Assertion (A): Sugar mills in India are generally located in or close to sugarcane-growing regions.<br>Reason (R): Sugarcane is a weight-gaining raw material whose sucrose content increases during transport and storage after harvest.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "Both A and R are true and R is the correct explanation of A",
+            "A is true but R is false",
+            "A is false but R is true",
+            "Both A and R are true but R is not the correct explanation of A"
+        ],
+        ans: 1,
+        exp: "Sugar mills are located near cane fields because cane is bulky and perishable. Cane loses weight and its sucrose content declines with delay between harvest and crushing, so it is not weight-gaining. Hence A is true but R is false."
+    },
+    {
+        q: "Prolonged insecurity for commercial shipping near the Bab-el-Mandeb Strait is most likely to lead to which one of the following?",
+        opts: [
+            "Shorter transit time for cargo moving between Mumbai and Rotterdam",
+            "Closure of the Strait of Malacca for tankers moving between the Indian and Pacific Oceans",
+            "Increased use of the Panama Canal for cargo moving between Europe and India",
+            "Re-routing of Europe-Asia cargo around the Cape of Good Hope, raising transit time and freight costs"
+        ],
+        ans: 3,
+        exp: "Bab-el-Mandeb is the southern gateway of the Red Sea and thus of the Suez route between Europe and Asia. When it becomes unsafe, shipping lines divert around the Cape of Good Hope, which lengthens voyages and raises costs and insurance premiums. The Panama Canal serves the Atlantic-Pacific route and is not a substitute for Europe-India trade."
+    },
+    {
+        q: "With reference to the functions and powers of rural local self-government in India under the 73rd Constitutional Amendment Act, 1992, consider the following statements: <br> 1. The 73rd Amendment added the Eleventh Schedule to the Constitution, listing 29 subjects that may be entrusted to Panchayats.<br>2. The Panchayats (Extension to Scheduled Areas) Act, 1996 (PESA) extends the provisions of Part IX of the Constitution relating to Panchayats to all Fifth and Sixth Schedule areas of India.<br>3. Under the 73rd Amendment, the Gram Sabha is a body directly elected by the residents of a village to represent them in the Gram Panchayat, distinct from the general body of village voters.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 1",
+            "Only statement 3",
+            "Only two of the statements are correct",
+            "All of the above"
+        ],
+        ans: 0,
+        exp: "The 73rd Amendment did add the Eleventh Schedule listing 29 subjects for devolution to Panchayats, making statement 1 correct. Statement 2 is incorrect because PESA extends Panchayat provisions only to Fifth Schedule (Scheduled) Areas, not to Sixth Schedule areas, which instead have their own separate autonomous district council framework; and statement 3 is incorrect because the Gram Sabha is not a smaller elected body representing villagers — it comprises all registered voters of the village directly, functioning as the general body itself."
+    },
+    {
+        q: "With reference to migration in India, based on Census 2011 data, consider the following statements: <br> 1. Migrants by place of last residence constituted about 37% of India's total population.<br>2. Marriage was recorded as the leading reason for migration among male migrants.<br>3. Rural-to-rural movement constituted the largest stream among internal migrants.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "Only two of the statements are correct",
+            "1 only",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 1,
+        exp: "As per Census 2011, about 37% of India's population (roughly 45.6 crore people) were migrants by place of last residence, and rural-to-rural movement formed the single largest stream of internal migration. Statement 2 is incorrect because marriage as a reason for migration is overwhelmingly associated with female migrants, whereas male migration is predominantly driven by employment and work-related factors."
+    },
+    {
+        q: "With reference to the island channels of India, consider the following statements:<br>1. The Ten Degree Channel separates Minicoy Island from the Maldives.<br>2. The Eight Degree Channel separates the Andaman Islands from the Nicobar Islands.<br>3. The Eight Degree Channel separates Minicoy Island of Lakshadweep from the Maldives.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Statement 2 alone",
+            "Both 1 and 2",
+            "None of the statements are correct",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 3,
+        exp: "The Ten Degree Channel lies between Little Andaman and Car Nicobar, separating the Andaman group from the Nicobar group. The Eight Degree Channel separates Minicoy Island (Lakshadweep) from the Maldives. Only statement 3 is correct; statements 1 and 2 swap the two channels."
+    },
+    {
+        q: "With reference to recent developments (2025–2026) in India's transport infrastructure, consider the following statements: <br> 1. The Western Dedicated Freight Corridor was fully commissioned by March 2026.<br>2. National Waterway-57, on the Kopili River in Assam, has been operationalised as part of the inland waterway network.<br>3. India's total National Highway network exceeded 2,00,000 km in length by 2026.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All three statements are correct",
+            "Exactly one of the statements is correct",
+            "1 and 2 only",
+            "Both 2 and 3"
+        ],
+        ans: 2,
+        exp: "The Western Dedicated Freight Corridor was fully commissioned by 31 March 2026, and National Waterway-57 on the Kopili River in Assam has been operationalised, making Assam home to four fully functional National Waterways. Statement 3 is incorrect since India's National Highway network stood at roughly 1.46 lakh km as of 2026, well short of 2,00,000 km."
+    },
+    {
+        q: "With reference to the features and characteristics of the Human Development Index (HDI), consider the following statements: <br> 1. The UNDP classifies countries into only two categories of human development — \"Developed\" and \"Developing\" — based on their HDI value.<br>2. A country with an HDI value of 0.750 would be classified under the \"High Human Development\" category.<br>3. As per the Human Development Report 2025, India remained in the \"Medium Human Development\" category, despite its HDI value rising to an all-time high.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 2 and 3",
+            "Both 1 and 3",
+            "2 only",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "The UNDP actually classifies countries into four categories — Low (below 0.550), Medium (0.550–0.699), High (0.700–0.799), and Very High (0.800 and above) — making statement 1 incorrect, while a value of 0.750 correctly falls in the \"High\" band. India's HDI value rose to an all-time high of 0.685 in the 2025 Human Development Report, but this still kept it in the \"Medium Human Development\" category, just short of the 0.700 threshold for \"High.\""
+    },
+    {
+        q: "With reference to important Acts and policies related to education and human development in India, consider the following statements: <br> 1. The Right of Children to Free and Compulsory Education (RTE) Act, 2009 guarantees free and compulsory elementary education to children aged 6 to 14 years as a fundamental right under Article 21A.<br>2. The National Education Policy, 2020 is India's first-ever national policy on education, with no earlier national education policy having been formulated.<br>3. The RTE Act, 2009 mandates that private unaided schools reserve at least 25% of entry-level seats for children from disadvantaged and economically weaker sections.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only",
+            "1 and 3 only"
+        ],
+        ans: 3,
+        exp: "The RTE Act, 2009 does guarantee free and compulsory elementary education as a fundamental right under Article 21-A, and it mandates a 25% reservation for disadvantaged and economically weaker sections in private unaided schools. Statement 2 is incorrect since the National Education Policy, 2020 is actually India's third national education policy, preceded by policies in 1968 and 1986."
+    },
+    {
+        q: "With reference to challenges and issues in India's structural economic transformation, consider the following statements: <br> 1. India's structural transformation has followed the classical Western pattern, with the workforce and output shifting sequentially from agriculture to a dominant manufacturing sector before moving to services.<br>2. Disguised unemployment refers to a situation where additional workers engaged in an activity such as agriculture can be withdrawn without any reduction in total output.<br>3. In India, the primary sector's share of total workforce continues to be significantly higher than its share of Gross Value Added (GVA), reflecting relatively low productivity in agriculture compared to other sectors.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "Only two of the statements are correct",
+            "1 and 3 only",
+            "2 only"
+        ],
+        ans: 1,
+        exp: "Disguised unemployment describes surplus labour in agriculture whose marginal productivity is near zero, and India's primary sector indeed employs a far larger share of the workforce (around 44–46%) than its share of GVA (around 16–20%), reflecting low agricultural productivity. Statement 1 is incorrect because India's growth has actually leapt from agriculture directly to a services-led economy, largely bypassing a strong manufacturing-led industrialization phase seen in the West."
+    },
+    {
+        q: "With reference to the structure and composition of Indian agriculture, consider the following statements: <br> 1. Foodgrains occupy less than one-third of India's Gross Cropped Area.<br>2. Net irrigated area constitutes more than three-fourths of India's Net Sown Area.<br>3. Pulses contribute a larger share to India's total foodgrain output than cereals.<br>How many of the above statements are correct?",
+        opts: [
+            "All three",
+            "Only two",
+            "None",
+            "Only one"
+        ],
+        ans: 2,
+        exp: "Foodgrains actually occupy roughly two-thirds of India's Gross Cropped Area, not less than one-third, making statement 1 incorrect. Net irrigated area covers only about half of the Net Sown Area, not more than three-fourths, and cereals — not pulses — account for the overwhelming majority of India's foodgrain output, making statements 2 and 3 incorrect as well."
+    },
+    {
+        q: "With reference to the patterns of rural settlements in India, consider the following statements: <br> 1. A \"linear\" settlement pattern is typically associated with fertile, flat agricultural plains having a nucleated central marketplace.<br>2. A \"dispersed\" or scattered settlement pattern is generally associated with hilly, forested, or arid terrain where cultivable land is limited and scattered.<br>3. A \"nucleated\" or clustered settlement pattern is typically found in fertile plains with an assured water supply, such as the Indo-Gangetic plains.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 and 3 only",
+            "1, 2 and 3",
+            "2 and 3 only"
+        ],
+        ans: 3,
+        exp: "Dispersed settlements are indeed characteristic of hilly, forested, or arid regions with scattered cultivable land, while nucleated settlements are typical of fertile plains with assured water, such as the Indo-Gangetic plains. Statement 1 is incorrect because a \"linear\" pattern refers to dwellings strung out along a road, river, canal, or valley, and is not specifically tied to fertile plains with a nucleated marketplace, which instead describes the nucleated pattern."
+    },
+    {
+        q: "Which one of the following National Waterways of India is correctly matched with its stretch or water body?",
+        opts: [
+            "NW-4 : Brahmani river and the East Coast Canal in Odisha",
+            "NW-1 : Brahmaputra between Dhubri and Sadiya",
+            "NW-3 : West Coast Canal between Kottapuram and Kollam in Kerala",
+            "NW-2 : Ganga-Bhagirathi-Hooghly between Prayagraj and Haldia"
+        ],
+        ans: 2,
+        exp: "NW-3 is the West Coast Canal in Kerala, running from Kottapuram to Kollam along with the Champakara and Udyogmandal canals. NW-1 is the Ganga-Bhagirathi-Hooghly stretch between Prayagraj and Haldia, and NW-2 is the Brahmaputra between Dhubri and Sadiya. NW-4 covers the Godavari-Krishna stretches and the Kakinada-Puducherry canals, while the Brahmani and East Coast Canal form NW-5."
+    },
+    {
+        q: "With reference to challenges and issues facing India's transport sector, consider the following statements: <br> 1. Road density in India tends to be positively correlated with the level of regional economic development, with industrially developed states generally having higher road density than less-developed hill states.<br>2. National Highways, though constituting only a small fraction of India's total road length, carry a disproportionately large share of total road traffic.<br>3. India's urban road network has historically received less policy attention than its rural road network, resulting in problems such as poor last-mile connectivity and traffic congestion in cities.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "Only two of the statements are correct",
+            "Only one of the statements is correct",
+            "All of the above"
+        ],
+        ans: 3,
+        exp: "All three statements reflect well-documented challenges in India's transport sector: road density correlates with economic development (e.g., Maharashtra having higher road density than Himachal Pradesh), National Highways carry a large share of traffic despite being a small fraction of total road length, and urban roads have lagged behind rural roads — which benefited from schemes like PMGSY — leading to congestion and poor last-mile connectivity in cities."
+    },
+    {
+        q: "Consider the following pairs:<br>Strait/Canal : Water bodies connected<br>1. Bab-el-Mandeb : Red Sea and Persian Gulf<br>2. Dardanelles : Black Sea and Sea of Marmara<br>3. Suez Canal : Red Sea and Gulf of Aden<br>How many of the pairs given above are correctly matched?",
+        opts: [
+            "Only two pairs",
+            "Only one pair",
+            "All three pairs",
+            "None of the pairs"
+        ],
+        ans: 3,
+        exp: "Bab-el-Mandeb links the Red Sea with the Gulf of Aden, not the Persian Gulf. The Dardanelles connects the Sea of Marmara with the Aegean Sea, while the Bosporus links the Black Sea with the Sea of Marmara. The Suez Canal connects the Mediterranean Sea with the Red Sea. None of the pairs is correct."
+    },
+    {
+        q: "Consider the following Assertion (A) and Reason (R) regarding the Ninth Schedule of the Constitution of India: <br> Assertion (A): The Ninth Schedule, though originally intended to protect land reform laws from judicial review, does not provide absolute immunity to all laws placed within it.<br>Reason (R): The Supreme Court, in the I.R. Coelho case (2007), held that laws inserted into the Ninth Schedule after 24 April 1973 can be examined for consistency with fundamental rights and the basic structure of the Constitution.<br>Which one of the following is correct in respect of the above Assertion (A) and Reason (R)?",
+        opts: [
+            "Both A and R are true, but R is not the correct explanation of A",
+            "A is false, but R is true",
+            "A is true, but R is false",
+            "Both A and R are true, and R is the correct explanation of A"
+        ],
+        ans: 3,
+        exp: "The Ninth Schedule, added by the First Amendment (1951) mainly to shield land reform and zamindari-abolition laws from challenge, was later held by the Supreme Court in I.R. Coelho v. State of Tamil Nadu (2007) to not confer blanket immunity — laws added after 24 April 1973 (the date of the Kesavananda Bharati judgment) remain open to judicial review on fundamental rights and basic structure grounds, making R a direct and correct explanation of A. This significantly curtailed the previously near-absolute protection the Ninth Schedule was believed to offer."
+    },
+    {
+        q: "With reference to the mineral resources of India, consider the following statements:<br>1. Jharkhand is the largest producer of bauxite in India.<br>2. The Bailadila iron ore deposits are located in Karnataka.<br>3. The Jharia coalfield contains mainly Tertiary-age coal.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 only",
+            "None of the statements is correct"
+        ],
+        ans: 3,
+        exp: "Odisha, with deposits such as Panchpatmali, is the leading bauxite-producing state. Bailadila is a high-grade haematite deposit in Chhattisgarh, whereas Kudremukh is the well-known deposit in Karnataka. Jharia is a Gondwana coalfield and a major source of coking coal, so none of the statements is correct."
+    },
+    {
+        q: "Consider the following Assertion (A) and Reason (R) regarding the Bibek Debroy Committee (2015) on Indian Railways: <br> Assertion (A): The Committee used the term \"liberalization\" rather than \"privatization\" while recommending the entry of private players into railway operations.<br>Reason (R): The Committee's recommendation aimed at ending government ownership of railway infrastructure entirely and transferring it to private companies.<br>Which one of the following is correct in respect of the above Assertion (A) and Reason (R)?",
+        opts: [
+            "Both A and R are true, but R is not the correct explanation of A",
+            "Both A and R are true, and R is the correct explanation of A",
+            "A is true, but R is false",
+            "A is false, but R is true"
+        ],
+        ans: 2,
+        exp: "The Bibek Debroy Committee did deliberately use \"liberalization\" instead of \"privatization,\" making A true, but R is false because the Committee's intent was to allow private operators to enter for competition and efficiency while railway infrastructure and overall control remained with the government — not to end government ownership altogether. This distinction is precisely why the Committee was careful to avoid the term \"privatization\" in its report."
+    },
+    {
+        q: "With reference to the structure and composition of India's urban hierarchy, as per the Census of India's six-fold classification of towns by population, consider the following statements: <br> 1. Only Class I towns (population 1,00,000 and above) are referred to as \"cities\" in Census terminology.<br>2. Class II towns (population 50,000–99,999) are categorized as \"large towns,\" while Class III towns (population 20,000–49,999) are termed \"medium towns.\"<br>3. The population range for Class IV towns (10,000–19,999) is wider than that for Class III towns (20,000–49,999).<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "In Census terminology, only Class I settlements are called \"cities\" (or urban agglomerations), Class II towns are termed \"large towns,\" and Class III towns are termed \"medium towns,\" with Classes IV, V, and VI together forming the \"small town\" category. Statement 3 is incorrect because Class III's population range (20,000–49,999, a span of about 30,000) is actually wider than Class IV's range (10,000–19,999, a span of about 10,000), not the other way around."
+    },
+    {
+        q: "With reference to recent (2025–2026) developments in regional planning initiatives in India, consider the following statements: <br> 1. The Aspirational Blocks Programme, launched by NITI Aayog, has been expanded to cover 513 blocks as of 2026, up from its initial coverage of 500 blocks.<br>2. The PM Gati Shakti National Master Plan operates through seven identified \"growth engines,\" including railways, roads, ports, and airports.<br>3. NITI Aayog undertook a comprehensive review of the Aspirational Districts Programme just two years after its 2018 launch.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 2",
+            "Both 1 and 3",
+            "Only statement 1",
+            "Both 1 and 2"
+        ],
+        ans: 3,
+        exp: "The Aspirational Blocks Programme has indeed been expanded to 513 blocks as of 2026, and PM Gati Shakti operates through seven core growth engines spanning railways, roads, ports, waterways, airports, mass transport, and logistics infrastructure. Statement 3 is incorrect because NITI Aayog undertook its comprehensive review of the Aspirational Districts Programme roughly seven years after its 2018 launch, around 2025, not after just two years."
+    },
+    {
+        q: "With reference to the constitutional and legal provisions governing transport in India, consider the following statements: <br> 1. \"Railways\" is a subject enumerated in the Union List of the Seventh Schedule.<br>2. A highway can be declared a \"National Highway\" through an executive order of the Ministry of Road Transport, without the need for a law made by Parliament.<br>3. Ports declared as \"major ports\" under a law made by Parliament fall under Union jurisdiction.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 2 and 3",
+            "1 and 2 only",
+            "Exactly two of the statements are correct",
+            "Only one of the statements is correct"
+        ],
+        ans: 2,
+        exp: "Under the Seventh Schedule's Union List, Railways (Entry 22) and Major Ports declared as such by Parliament (Entry 27) fall within Union jurisdiction. Statement 2 is incorrect because Entry 23 requires that highways be declared National Highways \"by or under law made by Parliament,\" not merely by executive/ministerial order."
+    },
+    {
+        q: "With reference to the constitutional and legal provisions governing delimitation of constituencies in India, consider the following statements: <br> 1. Article 82 provides that Lok Sabha seat allocation, once fixed on the basis of the 1951 Census, can never be revised by any subsequent constitutional amendment.<br>2. Delimitation Commissions in India are constituted directly under Article 170 of the Constitution, without the need for any parliamentary law.<br>3. The freeze on Lok Sabha seat numbers per state, introduced by the 42nd Amendment (1976) based on the 1971 Census, was extended by the 84th Amendment (2001) until the first Census taken after the year 2036.<br>How many of the above statements are correct?",
+        opts: [
+            "All three",
+            "None",
+            "Only two",
+            "Only one"
+        ],
+        ans: 1,
+        exp: "All three statements are incorrect: seat allocation has in fact been revised through subsequent amendments (such as the 42nd and 84th Amendments), Delimitation Commissions are constituted under parliamentary laws such as the Delimitation Acts of 1952, 1962, 1972, and 2002 rather than directly under Article 170, and the 84th Amendment extended the freeze until the first Census after 2026, not 2036."
+    },
+    {
+        q: "With reference to India's international connectivity initiatives, consider the following statements:<br>1. Chabahar Port in Iran is located on the Gulf of Oman, outside the Strait of Hormuz.<br>2. The India-Middle East-Europe Economic Corridor (IMEC) includes a rail link passing through Egypt.<br>3. IMEC was announced during the G20 Summit held in New Delhi in 2023.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "Chabahar lies on the Gulf of Oman coast of Sistan and Baluchestan, outside the Strait of Hormuz, and IMEC was announced at the 2023 G20 Summit in New Delhi. IMEC's rail segment is planned through the Gulf states, Jordan and Israel to Haifa port, not through Egypt. Hence only statements 1 and 3 are correct."
+    },
+    {
+        q: "With reference to the iron and steel industry in India, consider the following statements:<br>1. Iron and steel is a weight-losing industry and therefore tends to be located close to sources of iron ore and coal.<br>2. Visakhapatnam Steel Plant is a port-based integrated steel plant.<br>3. Bhilai Steel Plant obtains its iron ore mainly from the Bailadila deposits.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 only",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 0,
+        exp: "Iron and steel uses bulky raw materials that lose weight in processing, so plants tend to cluster near ore and coal; Visakhapatnam is a coastal, port-based plant relying on imported coking coal. Bhilai draws its ore chiefly from the Dalli-Rajhara mines, whereas Bailadila ore largely feeds Visakhapatnam and exports. Hence only statements 1 and 2 are correct."
+    },
+    {
+        q: "With reference to the National Human Rights Commission (NHRC) of India, which of the following best describes the nature of its powers under the Protection of Human Rights Act, 1993?",
+        opts: [
+            "It is a constitutional body with powers equivalent to a High Court in matters relating to human rights",
+            "It has the authority to override ongoing judicial proceedings in any case involving allegations of human rights violations",
+            "It possesses the powers of a civil court while conducting inquiries, but can only make recommendations to the appropriate government, which are not legally binding",
+            "It can issue final, legally binding orders enforceable against any public servant found guilty of a human rights violation"
+        ],
+        ans: 2,
+        exp: "The NHRC, while conducting an inquiry, enjoys the powers of a civil court, such as summoning witnesses and requisitioning documents, but under the Protection of Human Rights Act, 1993, it can only recommend action or compensation to the concerned government, which is not bound to implement these recommendations. It is a statutory (not constitutional) body, and it cannot override or interfere with ongoing judicial proceedings, though it may intervene in matters before a court with that court's approval."
+    },
+    {
+        q: "Consider the following statements:<br>Assertion (A): Shortening of the fallow period in shifting cultivation leads to declining crop yields and land degradation.<br>Reason (R): A shorter fallow period does not allow sufficient regeneration of soil nutrients and vegetation cover.<br>Which one of the following is correct in respect of the above statements?",
+        opts: [
+            "A is true but R is false",
+            "A is false but R is true",
+            "Both A and R are true and R is the correct explanation of A",
+            "Both A and R are true but R is not the correct explanation of A"
+        ],
+        ans: 2,
+        exp: "In shifting cultivation, the fallow period allows natural vegetation to regrow and restores soil fertility. When fallow cycles are shortened because of population pressure, nutrients and cover are not replenished, which lowers yields and accelerates erosion. Hence R correctly explains A."
+    },
+    {
+        q: "With reference to the Human Development Index (HDI), consider the following statements: <br> 1. It incorporates Gross National Income (GNI) per capita measured in Purchasing Power Parity (PPP) US dollars.<br>2. It was introduced by the United Nations Development Programme (UNDP) in 1990 as an alternative to purely income-based measures of development.<br>3. Life expectancy at birth is not among the indicators used to calculate the HDI.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 2 only",
+            "1 and 3 only"
+        ],
+        ans: 2,
+        exp: "The HDI is a composite index using GNI per capita in PPP terms, and it was launched by the UNDP in 1990 to move development assessment beyond income alone. Statement 3 is incorrect because life expectancy at birth is one of the three core dimensions of HDI, along with education and standard of living."
+    },
+    {
+        q: "With reference to the concept of regional planning, consider the following statements: <br> 1. A \"functional region\" is delineated primarily on the basis of flows and interactions converging on a central node, rather than on uniformity of physical or cultural attributes.<br>2. Regional planning aims to eliminate all economic and social distinctions between regions within a fixed, short-term timeframe.<br>3. In India, formulation of development plans below the level of the state is constitutionally prohibited.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 only",
+            "1, 2 and 3",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "A functional (or nodal) region is defined by the interconnections and flows — such as transport, trade, or commuting — that link peripheral areas to a central node, unlike a homogeneous region defined by uniform characteristics. Statement 2 overstates what regional planning can realistically achieve, and statement 3 is false since India has operationalised planning below the state level, such as through NITI Aayog's district- and block-level Aspirational Districts and Aspirational Blocks programmes."
+    },
+    {
+        q: "In the functional classification of manufacturing industries used in industrial geography, industries such as iron & steel and machine tools — which primarily supply raw materials, machinery, or intermediate goods to other industries rather than directly to final consumers — are categorized as:",
+        opts: [
+            "Agro-based industries",
+            "Consumer goods industries",
+            "Cottage industries",
+            "Basic (key) industries"
+        ],
+        ans: 3,
+        exp: "Basic or key industries produce goods that serve as essential inputs for other industries — for instance, iron and steel supplies raw material to engineering, construction, and machine-building industries. This distinguishes them from consumer goods industries, which manufacture products directly for household use, and from cottage or agro-based industries, which are classified on the basis of scale or raw material source respectively."
+    },
+    {
+        q: "With reference to recent (2025–2026) developments in India's economic activities, as per the Economic Survey 2025-26, consider the following statements: <br> 1. The services sector's share in India's Gross Value Added (GVA) reached a historic high of about 56% as per the First Advance Estimates.<br>2. Manufacturing GVA growth decelerated sharply to below 2% year-on-year in the second quarter of FY26, reflecting a structural slowdown in the sector.<br>3. Under the Production Linked Incentive (PLI) schemes, cumulative actual investment across all sectors had crossed ₹10 lakh crore as of the Economic Survey 2025-26.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly one of the statements is correct",
+            "Statement 2 alone",
+            "Only two of the statements are correct",
+            "None of the statements are correct"
+        ],
+        ans: 0,
+        exp: "The Economic Survey 2025-26 records that the services sector's share in GVA reached a historic high of about 56.4% as per the First Advance Estimates. Statement 2 is incorrect since manufacturing GVA growth actually accelerated to over 9% year-on-year in Q2 FY26, and statement 3 is incorrect since cumulative actual investment under PLI schemes stood at around ₹2 lakh crore, not ₹10 lakh crore."
+    },
+    {
+        q: "With reference to the Dedicated Freight Corridors (DFCs) in India, consider the following statements:<br>1. The Eastern DFC passes through Madhya Pradesh.<br>2. The Western DFC connects Dadri in Uttar Pradesh with Jawaharlal Nehru Port in Maharashtra.<br>3. The Dedicated Freight Corridor Corporation of India Limited (DFCCIL) is a Special Purpose Vehicle under the Ministry of Railways.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "Only one of the statements is correct",
+            "Both 1 and 3",
+            "Only two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "The Western DFC runs from Dadri to Jawaharlal Nehru Port through Haryana, Rajasthan and Gujarat, and DFCCIL is the Special Purpose Vehicle of the Ministry of Railways that builds and operates the DFCs. The Eastern DFC runs from Sahnewal in Punjab to Dankuni in West Bengal through Haryana, Uttar Pradesh, Bihar and Jharkhand, not Madhya Pradesh. Hence only statements 2 and 3 are correct."
+    },
+    {
+        q: "With reference to the features and characteristics of urbanization in India, as per Census of India criteria, consider the following statements: <br> 1. A \"Census Town\" must have a minimum population of 5,000, a density of at least 400 persons per sq km, and at least 75% of its male working population engaged in non-agricultural pursuits.<br>2. A \"Census Town\" is administratively governed by an urban local body such as a municipal corporation or municipality, similar to a Statutory Town.<br>3. An \"Urban Agglomeration\" must consist of at least one statutory town, with the total population of all its constituents not less than 20,000 as per the 2001 Census criteria.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 3,
+        exp: "The Census defines a Census Town using the three criteria of population, density, and non-agricultural male workforce share, and an Urban Agglomeration must include at least one statutory town with a combined population of at least 20,000. Statement 2 is incorrect because Census Towns, despite meeting urban criteria, continue to be administratively governed as rural areas without a dedicated urban local body — a key gap that has been flagged as an \"urban blind spot\" in India's urban governance."
+    },
+    {
+        q: "With reference to critical minerals in India, consider the following statements:<br>1. Khanij Bidesh India Limited (KABIL) was set up to regulate private mining leases for critical minerals within India.<br>2. India is a partner country in the US-led Minerals Security Partnership.<br>3. The National Critical Mineral Mission is administered by the Ministry of Environment, Forest and Climate Change.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1 and 3 only",
+            "1 only",
+            "3 only"
+        ],
+        ans: 0,
+        exp: "India joined the US-led Minerals Security Partnership in 2023 to cooperate on critical mineral supply chains, so statement 2 is correct. KABIL, a joint venture of NALCO, HCL and MECL, was created to acquire critical and strategic mineral assets abroad, not to regulate domestic leases. The National Critical Mineral Mission is driven by the Ministry of Mines, not the Environment Ministry."
+    },
+    {
+        q: "Consider the following pairs:<br>Shifting cultivation practice : Region<br>1. Milpa : Central America and Mexico<br>2. Ladang : Brazil<br>3. Chena : Sri Lanka<br>How many of the pairs given above are correctly matched?",
+        opts: [
+            "Only two pairs",
+            "Only one pair",
+            "None of the pairs",
+            "All three pairs"
+        ],
+        ans: 0,
+        exp: "Milpa is the local name for shifting cultivation in Central America and Mexico, and Chena is the term used in Sri Lanka. Ladang is the name for the practice in Malaysia and Indonesia, whereas the Brazilian term is Roca. Hence only pairs 1 and 3 are correctly matched."
+    },
+    {
+        q: "With reference to recent (2025–2026) developments in urban India, consider the following statements: <br> 1. The Smart Cities Mission was officially wound up on 31 March 2025.<br>2. AMRUT 2.0 was the first phase of the urban water-supply and sewerage mission, launched in 2015.<br>3. India's operational metro rail network had crossed 2,000 km spread across more than 30 cities by 2025.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 2",
+            "Both 2 and 3",
+            "Statement 1 alone",
+            "All of the statements are correct"
+        ],
+        ans: 2,
+        exp: "The Smart Cities Mission, launched in 2015, was officially closed on 31 March 2025 after most tendered projects were completed. Statement 2 is incorrect since AMRUT 2.0 is actually the second phase (launched in 2021, subsuming AMRUT 1.0 of 2015), and statement 3 is incorrect since India's metro network had reached roughly 1,013 km across 23 cities by May 2025, well short of 2,000 km across 30 cities."
+    },
+    {
+        q: "With reference to the background and evolution of regional/economic planning in India, consider the following statements: <br> 1. India's First Five-Year Plan (1951–56) was modeled on the Mahalanobis strategy, emphasizing rapid heavy industrialization.<br>2. The Planning Commission, which formulated India's Five-Year Plans, was established through a constitutional amendment in 1950.<br>3. The Twelfth Five-Year Plan (2012–17) was the last Five-Year Plan formulated before the Planning Commission was replaced by NITI Aayog in 2015.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "3 only",
+            "1 and 3 only",
+            "2 only"
+        ],
+        ans: 1,
+        exp: "The Twelfth Five-Year Plan (2012–17) was indeed the last Five-Year Plan before the Planning Commission was replaced by NITI Aayog in January 2015. Statement 1 is incorrect because the Mahalanobis strategy, emphasizing heavy industry, was the basis of the Second Five-Year Plan, not the First (which was based on the Harrod-Domar model and focused on agriculture and irrigation), and statement 2 is incorrect because the Planning Commission was set up through a Cabinet resolution in March 1950, not a constitutional amendment, making it an extra-constitutional body."
+    },
+    {
+        q: "Which one of the following statements regarding the distribution of coal in India is correct?",
+        opts: [
+            "Gondwana coalfields hold the bulk of India's coal reserves, mainly in the Damodar, Son, Mahanadi and Godavari valleys.",
+            "India's largest lignite reserves are located in the Jharia region of Jharkhand.",
+            "Tertiary-age coal forms the bulk of India's coal reserves and is found mainly in Jharkhand.",
+            "High-quality coking coal is found mainly in the Tertiary deposits of Assam."
+        ],
+        ans: 0,
+        exp: "Gondwana coal accounts for the overwhelming share of India's coal reserves and production, and occurs in river valleys such as the Damodar, Son, Mahanadi and Godavari. Tertiary coal is found in the north-eastern states and is of limited volume, while the largest lignite reserves lie in Tamil Nadu (Neyveli). India's principal coking coal comes from Gondwana fields such as Jharia."
+    },
+    {
+        q: "With reference to transhumance and pastoral nomadism, consider the following statements:<br>1. In transhumance, herders move with their livestock seasonally between highland and lowland pastures.<br>2. Gaddis are the principal transhumant pastoral community of Uttarakhand.<br>3. Pastoral nomadism is primarily a commercial activity oriented towards export of meat and wool.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "1 and 2 only",
+            "2 and 3 only",
+            "3 only"
+        ],
+        ans: 0,
+        exp: "Transhumance is the seasonal movement of herders and livestock between pastures at different altitudes, so statement 1 is correct. Gaddis are associated with Himachal Pradesh (Chamba and Kangra region), while Uttarakhand's transhumant groups include the Bhotiyas and Van Gujjars. Pastoral nomadism is largely subsistence-oriented, and export-oriented rearing is commercial livestock ranching."
+    },
+    {
+        q: "Which of the following statements best describes the institutional status and composition of Zonal Councils in India?",
+        opts: [
+            "They are statutory bodies established under the States Reorganisation Act, 1956, with the Union Home Minister as ex-officio Chairman of each Council",
+            "They are permanent committees of Parliament examining inter-state river water disputes, chaired by the Chairman of the Rajya Sabha",
+            "They are extra-constitutional bodies set up by NITI Aayog resolutions, chaired by the Vice-Chairperson of NITI Aayog",
+            "They are constitutional bodies established under Article 263, with the President as ex-officio Chairman"
+        ],
+        ans: 0,
+        exp: "Zonal Councils are statutory (not constitutional) bodies created under Part III of the States Reorganisation Act, 1956, with the Union Home Minister serving as the ex-officio Chairman of each of the five Zonal Councils, along with member states' Chief Ministers and a NITI Aayog nominee acting as an adviser. Article 263 instead provides for the distinct, constitutionally-mentioned Inter-State Council, and neither NITI Aayog nor Parliament has a role in constituting Zonal Councils."
+    },
+    {
+        q: "With reference to constitutional and legal provisions relating to migration in India, consider the following statements: <br> 1. Article 19(1)(e) of the Constitution guarantees the right to reside and settle in any part of India only to citizens who have resided in a state for a minimum uninterrupted period of ten years.<br>2. The Inter-State Migrant Workmen (Regulation of Employment and Conditions of Service) Act, 1979 was repealed and its provisions subsumed into the Occupational Safety, Health and Working Conditions Code, 2020.<br>3. The Inter-State Migrant Workmen Act, 1979 applied to every establishment or contractor employing five or more inter-state migrant workmen.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Exactly two of the statements are correct",
+            "Exactly one of the statements is correct",
+            "All of the above",
+            "None of the above"
+        ],
+        ans: 0,
+        exp: "The 1979 Act was indeed repealed and its provisions merged into the Occupational Safety, Health and Working Conditions Code, 2020, as part of the labour codes' consolidation, and it applied to establishments or contractors employing five or more inter-state migrant workmen. Statement 1 is incorrect because Article 19(1)(e) is a general fundamental right available to all citizens without any ten-year residency precondition, subject only to reasonable restrictions under Article 19(5), such as those protecting tribal areas."
+    },
+    {
+        q: "The Human Development Index (HDI) was launched in 1990 through the initiative of which of the following economists, whose approach was subsequently shaped by the \"capability approach\" associated with Amartya Sen?",
+        opts: [
+            "Mahbub ul Haq",
+            "Amartya Sen himself",
+            "Simon Kuznets",
+            "Joseph Stiglitz"
+        ],
+        ans: 0,
+        exp: "Mahbub ul Haq, a Pakistani economist, conceived and launched the first Human Development Report in 1990 for the UNDP, drawing on Amartya Sen's capability approach as its theoretical foundation, with Sen closely collaborating on the project. Simon Kuznets is associated with the development of national income accounting (GDP), while Joseph Stiglitz is known for critiques of GDP as a measure of well-being, neither of whom created the HDI."
+    },
+    {
+        q: "In agricultural geography, the evolution of farming systems is generally traced from primitive subsistence forms towards specialized commercial forms. Which of the following is regarded as representing the earliest and most primitive stage in this evolutionary sequence?",
+        opts: [
+            "Shifting cultivation",
+            "Plantation agriculture",
+            "Mixed farming",
+            "Mechanized commercial farming"
+        ],
+        ans: 0,
+        exp: "Shifting cultivation (known as Jhum in North-East India), based on clearing land by the slash-and-burn method and cultivating it for a few years before abandoning it, is considered the oldest and most primitive form of subsistence agriculture. Mixed farming, plantation agriculture, and mechanized commercial farming are all later, more specialized and market-oriented stages that evolved as agriculture became commercialized."
+    },
+    {
+        q: "With reference to the National Commission on Urbanisation (1988), chaired by Charles Correa, consider the following statements: <br> 1. It recommended the promotion of new growth centres to create a more balanced spatial pattern of urbanization across the country.<br>2. It concluded that, unlike countries such as Mexico or Thailand, India does not suffer from a \"primate city\" problem, since its million-plus cities account for only a small share of the country's total population.<br>3. It recommended discouraging rural-urban migration entirely and advocated strict legal restrictions on the movement of people from villages to cities.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "Statement 1 alone",
+            "1 and 2 only",
+            "All of the above"
+        ],
+        ans: 2,
+        exp: "The Commission recommended developing around 329 new growth centres for balanced urbanization and observed that India's metropolitan centres, unlike primate cities such as Mexico City or Bangkok, account for only a small share of the national population. Statement 3 is incorrect because the Commission instead emphasized the rural-urban continuum and called for addressing rural poverty as the root cause of distress migration, rather than advocating legal restrictions on movement."
+    },
+    {
+        q: "With reference to major committees on agricultural reforms in India, consider the following statements: <br> 1. The Swaminathan Commission (National Commission on Farmers, 2004–06) recommended that the Minimum Support Price be fixed at least 50% higher than the comprehensive cost of production (C2), a formula popularly known as \"C2+50%\".<br>2. The Shanta Kumar Committee (2014–15), constituted to review the Food Corporation of India, found that only around 6% of Indian farmers actually benefit from MSP-based procurement.<br>3. The Minimum Support Price for crops in India is currently calculated by the government using the same \"C2+50%\" formula recommended by the Swaminathan Commission.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "The Swaminathan Commission did recommend the C2+50% formula for MSP, and the Shanta Kumar Committee's review of the FCI found that only a small fraction (around 6%) of farmers actually benefit from MSP procurement. Statement 3 is incorrect because the government currently calculates MSP using the \"A2+FL+50%\" formula (cost of paid-out inputs plus imputed family labour, plus 50%), which is lower than the C2+50% formula the Swaminathan Commission had recommended."
+    },
+    {
+        q: "With reference to important legal provisions and policies governing agricultural marketing in India, consider the following statements: <br> 1. \"Agricultural marketing\" (regulation of markets) is a subject placed in the Union List of the Seventh Schedule.<br>2. The three farm laws enacted in 2020 were repealed by Parliament in December 2021.<br>3. The National Agriculture Market (e-NAM) was launched in 2015 to integrate APMC mandis onto a common online trading platform.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 only",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "The three farm laws of 2020 were indeed repealed by Parliament in December 2021 following prolonged farmer protests, and e-NAM was launched in 2015 to create a unified electronic trading platform linking APMC mandis across states. Statement 1 is incorrect because markets and fairs, including agricultural produce marketing, fall under Entry 28 of the State List, not the Union List, which is why marketing reforms have historically depended on individual state action."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-58 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

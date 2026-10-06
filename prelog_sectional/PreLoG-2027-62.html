@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-62</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "With reference to the background and evolution of the office of Governor in India, consider the following statements: <br> 1. The Government of India Act, 1935 provided for Governors of provinces to be directly elected by the Provincial Legislative Assemblies, a model retained without change in the Constitution of India, 1950.<br>2. The Government of India Act, 1935 conferred certain 'special responsibilities' on provincial Governors, requiring them to act in their individual judgment in specified matters independent of ministerial advice, prefiguring the discretionary powers recognised for Governors under the present Constitution.<br>3. The Sarkaria Commission recommended that a sitting Chief Minister of a State should mandatorily be considered for appointment as Governor of a different State immediately after completing their term.<br>Which one of the statements given above is correct?",
+        opts: [
+            "3 only",
+            "1 only",
+            "2 only",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "Governors under the 1935 Act, like those under the current Constitution, were appointed by the Crown/President, not elected, making statement 1 incorrect. The 1935 Act's 'special responsibilities' clauses did require Governors to exercise individual judgment in certain matters, a clear historical antecedent of today's gubernatorial discretion. The Sarkaria Commission made no such recommendation regarding mandatory appointment of former Chief Ministers as Governors of other States, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the legislative relations between the Centre and the States, consider the following statements: <br> 1. In the Concurrent List, if there is a conflict between a Union law and a State law, the State law always prevails over the Union law.<br>2. Residuary powers of legislation, as in the United States, are vested in the State Legislatures in India.<br>3. Article 249 empowers the Lok Sabha, by a resolution supported by a two-thirds majority, to authorise Parliament to legislate on a State List matter in the national interest.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "None of the statements is correct",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "Under Article 254, a Union law generally prevails over a conflicting State law, except where the State law has received Presidential assent, and even then Parliament may override it later, so statement 1 is wrong. Unlike the USA, Article 248 vests residuary powers in Parliament, not the States. It is the Rajya Sabha, not the Lok Sabha, that passes the resolution under Article 249, making all three statements incorrect."
+    },
+    {
+        q: "With reference to the structure and composition of the Finance Commission of India, consider the following statements: <br> 1. The Finance Commission consists of a Chairman and three other members appointed by the President.<br>2. The qualifications for appointment as members of the Finance Commission are prescribed by the Constitution itself under Article 280.<br>3. Members of the Finance Commission are eligible for reappointment.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "Only statement 3",
+            "Statement 2 alone",
+            "Statement 1 alone"
+        ],
+        ans: 1,
+        exp: "The Finance Commission actually consists of a Chairman and four other members, not three, making statement 1 incorrect. The qualifications of members are prescribed not by the Constitution but by Parliament through the Finance Commission (Miscellaneous Provisions) Act, 1951, making statement 2 incorrect. Members are indeed eligible for reappointment, making statement 3 the only correct one."
+    },
+    {
+        q: "With reference to current developments (2025-2026) concerning Emergency-related provisions in India, consider the following statements: <br> 1. President's Rule under Article 356 was imposed in Manipur on 13 February 2025 following the resignation of the Chief Minister, and was extended by Parliament for a further six months in August 2025.<br>2. The Proclamation of President's Rule in Manipur in February 2025 was made pursuant to a National Emergency declared under Article 352 on account of large-scale internal disturbance in the State.<br>3. Under the current constitutional position, a Proclamation of President's Rule, once approved by Parliament, can continue in force indefinitely without any maximum time limit, similar to a Financial Emergency under Article 360.<br>Which one of the statements given above is correct?",
+        opts: [
+            "3 only",
+            "1 and 2 only",
+            "2 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "President's Rule was indeed imposed in Manipur on 13 February 2025 and extended by Parliament for a further six months from August 2025. This was a Proclamation under Article 356, a distinct provision from the National Emergency under Article 352, which was not invoked in this case, making statement 2 incorrect. Unlike a Financial Emergency, a Proclamation of President's Rule is generally subject to an overall three-year limit under safeguards introduced by the 44th Amendment, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the functions and powers of the Finance Commission of India, consider the following statements: <br> 1. One of the functions of the Finance Commission under Article 280(3) is to directly determine and revise the salary structure of Members of Parliament and State Legislators.<br>2. The Finance Commission's functions include adjudicating and resolving inter-state river water disputes referred to it by the President.<br>3. One of the functions of the Finance Commission under Article 280(3)(c) is to recommend measures needed to augment the Consolidated Fund of a State to supplement the resources of Municipalities, based on the recommendations of the State Finance Commission.<br>Which one of the statements given above is correct?",
+        opts: [
+            "1 and 3 only",
+            "1 only",
+            "3 only",
+            "2 only"
+        ],
+        ans: 2,
+        exp: "Determining the salaries of Members of Parliament and State Legislators is not a function of the Finance Commission; this is governed separately by parliamentary and state legislation, making statement 1 incorrect. Adjudicating inter-state river water disputes is the function of a Water Disputes Tribunal, not the Finance Commission, making statement 2 incorrect. Recommending measures to augment a State's resources for its Municipalities, based on the State Finance Commission's inputs, is indeed a duty assigned to the Finance Commission under Article 280(3)(c)."
+    },
+    {
+        q: "Which one of the following correctly describes a safeguard introduced by the 44th Constitutional Amendment Act, 1978, against the misuse of the National Emergency provisions under Article 352?",
+        opts: [
+            "It empowered not less than one-half of the total members of the Lok Sabha to move a resolution disapproving the continuation of an Emergency",
+            "It reduced the maximum period for which a proclamation of Emergency can remain in force without parliamentary approval from two months to seven days",
+            "It empowered the President to proclaim a National Emergency only for the whole of India, and never for a part of its territory",
+            "It required the Cabinet's decision recommending proclamation of Emergency to be communicated to the President in writing, and replaced 'internal disturbance' with 'armed rebellion' as a ground"
+        ],
+        ans: 3,
+        exp: "The 44th Amendment Act, 1978 required that the Cabinet's decision to recommend an Emergency be conveyed to the President in writing and replaced 'internal disturbance' with the stricter ground of 'armed rebellion'. It actually reduced the parliamentary approval period to one month, not seven days, and allowed as few as one-tenth of Lok Sabha members, not one-half, to seek a special sitting to disapprove continuation."
+    },
+    {
+        q: "With reference to reforms and recommendations concerning the Inter-State Council under Article 263, consider the following statements: <br> 1. The Sarkaria Commission recommended renaming the Inter-State Council as the 'Inter-Governmental Council' to distinguish it from other bodies that could be constituted under Article 263.<br>2. The Inter-State Council has met regularly, roughly once every year since its establishment in 1990, in keeping with the Sarkaria Commission's recommendation.<br>3. A permanent Inter-State Council Secretariat was established in 1991 under the Ministry of Home Affairs to support its functioning.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1, 2 and 3",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "The Sarkaria Commission did recommend renaming the body the 'Inter-Governmental Council', and a permanent Secretariat under the Ministry of Home Affairs was indeed set up in 1991 to support the Council's work. In practice, however, the Council has met only a small number of times since 1990, with long gaps, such as the decade-long gap between 2006 and 2016, contrary to the idea of regular annual meetings, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to important Acts and Amendments concerning the Finance Commission of India, consider the following statements: <br> 1. The Finance Commission (Miscellaneous Provisions) Act, 1951 prescribes the qualifications of the Chairman and members of the Finance Commission and the manner of their selection.<br>2. The 88th Constitutional Amendment Act, 2003 inserted Article 268A to enable the Union to levy a tax on services, with the proceeds collected and appropriated by both the Union and the States in accordance with a law made by Parliament.<br>3. Article 268A was subsequently omitted from the Constitution by the 101st Constitutional Amendment Act, 2016, after service tax was subsumed into the Goods and Services Tax.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "Only statement 1",
+            "All three statements are correct",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 2,
+        exp: "The Finance Commission (Miscellaneous Provisions) Act, 1951 does prescribe the qualifications and selection process for the Chairman and members. The 88th Amendment Act, 2003 inserted Article 268A precisely as described, for a service tax shared between the Union and States. This article was later rendered redundant and omitted by the 101st Amendment Act, 2016, once service tax was absorbed into the GST regime, making all three statements correct."
+    },
+    {
+        q: "With reference to the administrative relations between the Centre and the States in India, consider the following statements: <br> 1. Article 256 requires that the executive power of every State be exercised so as to ensure compliance with laws made by Parliament.<br>2. A State can delegate its executive functions to the Union Government only through a legislative enactment, and never through a mutual agreement.<br>3. The recommendations of the Inter-State Council established under Article 263 are binding on the Union and the States.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "3 only",
+            "Both 2 and 3",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "Article 256 obliges States to exercise their executive power to ensure compliance with parliamentary laws. A State can delegate its executive functions to the Union only through mutual agreement, not through legislation, making statement 2 incorrect. The Inter-State Council under Article 263 is a recommendatory body whose advice is not binding, making statement 3 incorrect."
+    },
+    {
+        q: "Which one of the following combinations correctly identifies acts that the Governor of a State performs in his own discretion, without being bound by the aid and advice of the Council of Ministers?<br>1. Sending a report to the President recommending the imposition of President's Rule.<br>2. Appointing the Chief Minister when no single party or pre-poll alliance has a clear majority in the State Assembly.<br>3. Promulgating an ordinance under Article 213 when the State Legislature is not in session.<br>Select the correct answer using the code given below.",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "Recommending President's Rule (Article 356) and selecting a Chief Minister in a hung assembly are recognised discretionary functions of the Governor, not derived from any express constitutional provision. Promulgating an ordinance under Article 213 is done on the aid and advice of the Council of Ministers, not at the Governor's discretion, so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to important Acts and policies concerning Centre-State administrative relations in India, consider the following statements: <br> 1. Rule 6(1) of the IAS (Cadre) Rules, 1954 deals with the deputation of All India Service officers to the Central Government, and proposed amendments to it in 2021-22 sought to reduce State Governments' leverage in withholding officers from Central deputation.<br>2. The All India Services Act, 1951 was enacted pursuant to Article 315 of the Constitution, which empowers Parliament to create new All India Services.<br>3. Under the proposed 2021-22 amendments to the IAS Cadre Rules, the final decision in the event of a disagreement between the Centre and a State over deputation of an officer would rest with the State Government concerned.<br>Which one of the statements given above is correct?",
+        opts: [
+            "1 and 2 only",
+            "2 only",
+            "3 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "Rule 6(1) of the IAS (Cadre) Rules, 1954 governs Central deputation, and the proposed 2021-22 amendments were indeed criticised for tilting the balance of leverage away from States. It is Article 312, not Article 315, that empowers Parliament, on a Rajya Sabha resolution, to create new All India Services, making statement 2 incorrect. The proposed amendments actually vested the final decision in cases of disagreement with the Central Government, not the State Government, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to Emergency provisions under the Constitution of India, consider the following statements: <br> 1. A Proclamation of National Emergency under Article 352, made on the ground of war, external aggression or armed rebellion, must be approved by both Houses of Parliament within one month of its issue.<br>2. The proviso to Article 83(2) allows Parliament, during the operation of a National Emergency, to extend the normal term of the Lok Sabha by law for a period not exceeding one year at a time.<br>3. Any such extension of the Lok Sabha's term cannot continue beyond six months after the Emergency ceases to operate.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the above",
+            "Both 1 and 2",
+            "None of the above",
+            "Only one of the statements is correct"
+        ],
+        ans: 0,
+        exp: "Following the 44th Amendment Act, 1978, a National Emergency proclamation must be approved by both Houses within one month. The proviso to Article 83(2) permits Parliament to extend the Lok Sabha's term by up to one year at a time during such an Emergency, but this extension cannot exceed six months beyond the Emergency's cessation, making all three statements correct."
+    },
+    {
+        q: "With reference to previous UPSC Prelims trends comparing NITI Aayog with the erstwhile Planning Commission as instruments of cooperative federalism, consider the following statements: <br> 1. Unlike the Planning Commission, NITI Aayog does not have the power to allocate funds to Union Ministries or State Governments.<br>2. NITI Aayog was established through a Constitutional Amendment Act to replace the Planning Commission, granting it powers to allocate central funds to States through Centrally Sponsored Schemes.<br>3. The Governing Council of NITI Aayog was established as a permanent constitutional body under Article 280 of the Constitution.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 only",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "NITI Aayog was established not through a Constitutional Amendment but through a Cabinet resolution in 2015, and unlike the Planning Commission, it has no power to allocate funds, making statement 2 incorrect. It is an extra-constitutional executive body, not a constitutional body under Article 280, which pertains to the Finance Commission, making statement 3 incorrect as well."
+    },
+    {
+        q: "With reference to current developments (2025-2026) relevant to cooperative and competitive federalism in India, consider the following statements: <br> 1. NITI Aayog completed ten years since its establishment on 1 January 2025, having been set up on 1 January 2015 to replace the Planning Commission.<br>2. The two-slab GST structure approved by the 56th GST Council meeting in September 2025 required ratification by State Legislatures through a special resolution, similar to the procedure for a Constitutional Amendment.<br>3. The Business Reforms Action Plan (BRAP) now centralises all State-level regulatory approvals under a single Union Ministry, thereby ending the earlier practice of ranking States individually.<br>Which one of the statements given above is correct?",
+        opts: [
+            "3 only",
+            "1 and 2 only",
+            "2 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "NITI Aayog, established on 1 January 2015, did indeed complete a decade of existence on 1 January 2025. The two-slab GST reform of September 2025 took effect through a GST Council recommendation followed by ordinary legislative/notification action, with no special State ratification procedure required, making statement 2 incorrect. The BRAP remains a competitive federalism tool that benchmarks and ranks States individually on ease-of-doing-business reforms; it does not centralise approvals under a Union Ministry, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to important Acts and Constitutional Amendments relevant to Indian federalism, consider the following statements: <br> 1. The 7th Constitutional Amendment Act, 1956 gave effect to the States Reorganisation Commission's recommendations and replaced the fourfold classification of States (Parts A, B, C and D) with a twofold classification into States and Union Territories.<br>2. The 73rd and 74th Constitutional Amendment Acts, 1992 inserted Parts IX and IX-A along with the Eleventh and Twelfth Schedules, granting constitutional status to Panchayats and Municipalities.<br>3. The Government of National Capital Territory of Delhi (Amendment) Act, 2021 defined 'Government' in relation to Delhi to mean the Council of Ministers, thereby expanding the powers of the elected government vis-à-vis the Lieutenant Governor.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "None of the statements are correct",
+            "Only two of the statements are correct",
+            "All three statements are correct"
+        ],
+        ans: 2,
+        exp: "The 7th Amendment, 1956 and the 73rd/74th Amendments, 1992 are both accurately described. The GNCTD (Amendment) Act, 2021 actually did the opposite of statement 3: it defined 'Government' to mean the Lieutenant Governor and mandated that the LG's opinion be obtained before the Council of Ministers could take executive action on most matters, curtailing rather than expanding the elected government's powers."
+    },
+    {
+        q: "With reference to the constitutional provisions governing Centre-State financial relations in India, consider the following statements: <br> 1. Article 268 deals with duties levied by the Union but collected by the States, with the proceeds forming part of the divisible pool of taxes shared between the Union and the States as determined by the Finance Commission.<br>2. Article 269 covers taxes levied and collected by the Union but assigned entirely to the States, such as taxes on the sale or purchase of goods in the course of inter-state trade.<br>3. Article 293 permits a State to borrow from any source, including foreign governments, without restriction, even if the State is indebted to the Union.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "Only one of the statements is correct",
+            "Only two of the statements are correct",
+            "Both 2 and 3"
+        ],
+        ans: 1,
+        exp: "Duties under Article 268, such as stamp duties on specified instruments, are levied by the Union, collected by the States, and assigned wholly to the States -- they do not form part of the Finance Commission's divisible pool, which relates to taxes under Article 270, making statement 1 incorrect. Article 269 does correctly cover Union-levied, Union-collected taxes assigned entirely to the States. Article 293 actually restricts a State's borrowing, especially from foreign sources, and requires the Union's consent if the State is indebted to it, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to important Acts and Amendments relating to Inter-State River Water Disputes in India, consider the following statements: <br> 1. The River Boards Act, 1956 has been effectively implemented, with River Boards having been constituted for all major inter-state rivers.<br>2. The Inter-State River Water Disputes Act, 1956 was amended in 2002 to mandate that a Water Disputes Tribunal be constituted within one year of receipt of a request, and that it give its decision within three years, extendable by a further two years.<br>3. The Inter-State River Water Disputes (Amendment) Act, 2019 retained the earlier practice of setting up a separate ad hoc tribunal for each new water dispute.<br>Which one of the statements given above is correct?",
+        opts: [
+            "1 only",
+            "2 only",
+            "3 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "No River Board has ever actually been constituted under the River Boards Act, 1956, making it a largely dormant legislation, so statement 1 is incorrect. The 2002 amendment to the 1956 Act did introduce the one-year and three-year (extendable by two years) timelines described in statement 2. The 2019 Amendment Act did away with the practice of setting up separate tribunals, replacing it with a single permanent tribunal having multiple benches, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the structure and composition of the tribunal established under the Inter-State River Water Disputes (Amendment) Act, 2019, consider the following statements: <br> 1. The tribunal consists of a Chairperson, a Vice-Chairperson, and not more than six other members, of whom three are judicial members and three are expert members.<br>2. Members of the tribunal are appointed by the Governor of the State most affected by the dispute, in consultation with the Chief Justice of the concerned High Court.<br>3. Each Bench of the tribunal consists of the Chairperson or Vice-Chairperson along with two judicial members, and no expert member.<br>Which one of the statements given above is correct?",
+        opts: [
+            "2 only",
+            "1 and 2 only",
+            "1 only",
+            "3 only"
+        ],
+        ans: 2,
+        exp: "The 2019 Amendment Act does provide for a single tribunal with a Chairperson, a Vice-Chairperson, and up to six other members comprising three judicial and three expert members. Members are appointed by the Central Government on the recommendation of a Selection Committee, not by any State Governor, making statement 2 incorrect. Each Bench comprises the Chairperson or Vice-Chairperson along with one judicial member and one expert member, not two judicial members, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the power of Parliament under Article 253 of the Constitution to make laws for implementing international agreements, consider the following statements: <br> 1. Parliament can exercise this power only after obtaining the prior consent of the State Legislatures of the States concerned.<br>2. This provision enables India's international treaty obligations to be given effect to through a single, uniform Union law rather than fragmented State legislation.<br>3. Article 253 has been invoked to enact environmental legislation implementing decisions taken at international conferences, such as the Stockholm Conference of 1972.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "Article 253 empowers Parliament to legislate on any matter, including those in the State List, to implement international obligations, without requiring the prior consent of State Legislatures, so statement 1 is incorrect. This provision ensures uniform implementation of treaty obligations, and it was invoked for laws such as the Air (Prevention and Control of Pollution) Act, 1981, which cites decisions of the Stockholm Conference."
+    },
+    {
+        q: "With reference to reforms and recommendations of the Finance Commission in India, consider the following statements: <br> 1. The 15th Finance Commission used the 2011 Census population data for determining horizontal devolution among States, replacing the 1971 Census data used by earlier Finance Commissions.<br>2. To address concerns of southern States, the 15th Finance Commission introduced a 'demographic performance' criterion that rewards States with lower fertility rates in its devolution formula.<br>3. The recommendations of the Finance Commission are constitutionally binding on the Union Government and must be implemented in full.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 1,
+        exp: "The 15th Finance Commission shifted to 2011 Census data, departing from the 1971 data used earlier, and introduced a 'demographic performance' criterion to compensate States that had controlled population growth, addressing objections from southern States. Finance Commission recommendations are only recommendatory in nature and are not constitutionally binding on the Union Government, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the background and evolution of the Inter-State Council in India, consider the following statements: <br> 1. Although Article 263 has been part of the Constitution since 1950, the Inter-State Council was not actually constituted until 1990, following the recommendations of the Sarkaria Commission (1983-88).<br>2. The Inter-State Council was constituted through a Presidential Order issued in May 1990.<br>3. Prior to the Sarkaria Commission, the States Reorganisation Commission (1953-55) had already recommended the establishment of the Inter-State Council in its present form under Article 263.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 2,
+        exp: "Article 263 remained dormant for nearly four decades after 1950 until the Inter-State Council was finally constituted in May 1990 through a Presidential Order, acting on the Sarkaria Commission's recommendation. It was the States Reorganisation Commission that recommended the setting up of Zonal Councils, not the Inter-State Council, so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to reforms and recommendations concerning Centre-State legislative relations in India, consider the following statements: <br> 1. The Sarkaria Commission recommended abolishing the Concurrent List altogether and redistributing all its subjects exclusively to the Union List, to reduce legislative overlap.<br>2. The Rajamannar Committee (1969), constituted by the Government of Tamil Nadu, recommended strengthening the Union's residuary powers by transferring more subjects from the State List to the Union List.<br>3. The Punchhi Commission recommended that a time limit be prescribed within which Governors must take a decision on Bills presented for their assent, to prevent indefinite delay under Article 200.<br>Which one of the statements given above is correct?",
+        opts: [
+            "1 only",
+            "1 and 2 only",
+            "3 only",
+            "2 only"
+        ],
+        ans: 2,
+        exp: "The Sarkaria Commission did not recommend abolishing the Concurrent List; it favoured retaining it while suggesting prior consultation through the Inter-State Council, making statement 1 incorrect. The Rajamannar Committee actually recommended the opposite of statement 2 -- greater State autonomy and transfer of residuary powers to the States. The Punchhi Commission did recommend prescribing a time limit for Governors to act on Bills under Article 200, to prevent indefinite delay."
+    },
+    {
+        q: "With reference to the legislative relations between the Centre and the States, consider the following statements: <br> 1. In the Concurrent List, if there is a conflict between a Union law and a State law, the State law always prevails over the Union law.<br>2. Residuary powers of legislation, as in the United States, are vested in the State Legislatures in India.<br>3. Article 249 empowers the Lok Sabha, by a resolution supported by a two-thirds majority, to authorise Parliament to legislate on a State List matter in the national interest.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "None of the statements is correct",
+            "1, 2 and 3",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "Under Article 254, a Union law generally prevails over a conflicting State law, except where the State law has received Presidential assent, and even then Parliament may override it later, so statement 1 is wrong. Unlike the USA, Article 248 vests residuary powers in Parliament, not the States. It is the Rajya Sabha, not the Lok Sabha, that passes the resolution under Article 249, making all three statements incorrect."
+    },
+    {
+        q: "With reference to the structural and compositional features of Indian federalism, consider the following statements: <br> 1. Article 1 of the Constitution describes India as a 'Federation of States'.<br>2. India follows a system of single citizenship, unlike most other federations such as the USA, which provide for dual citizenship.<br>3. Unlike the United States, India does not have a dual system of courts; a single integrated judiciary headed by the Supreme Court adjudicates matters arising out of both Union and State laws.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 and 3 only",
+            "1, 2 and 3",
+            "2 and 3 only"
+        ],
+        ans: 3,
+        exp: "Article 1 describes India as a 'Union of States', not a 'Federation of States', a phrase deliberately avoided by the Constituent Assembly to convey that Indian federation is not the result of an agreement among states and no state has the right to secede. India follows single citizenship despite its federal structure, and it has a single integrated judiciary rather than the dual court system found in the USA, making statements 2 and 3 correct."
+    },
+    {
+        q: "With reference to cooperative and competitive federalism in India, consider the following statements: <br> 1. The GST Council under Article 279A functions on a weighted voting system in which the Union has one-third of the total votes and all States together have two-thirds.<br>2. The Governing Council of NITI Aayog is chaired by the Prime Minister and includes the Chief Ministers of all States.<br>3. Under Article 252, a law made by Parliament at the request of two or more States applies only to the States that adopted the resolution, and to any other State that later adopts it.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 1 and 3",
+            "All three statements are correct",
+            "Exactly one of the statements is correct",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 1,
+        exp: "The GST Council's voting structure gives the Union one-third and the States two-thirds of the votes, with decisions requiring a three-fourth majority. NITI Aayog's Governing Council, chaired by the Prime Minister, includes all State Chief Ministers, embodying cooperative federalism. Article 252 correctly limits the applicability of such Union legislation to consenting and subsequently adopting States only."
+    },
+    {
+        q: "With reference to Zonal Councils in India, consider the following statements: <br> 1. Zonal Councils are statutory bodies established under the States Reorganisation Act, 1956, and not constitutional bodies.<br>2. The Union Home Minister serves as the common Chairman of all five Zonal Councils.<br>3. The Vice-Chairman of a Zonal Council is a Chief Minister of one of its member States, nominated by the Chairman on a rotational basis of one year at a time.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "Zonal Councils are statutory, not constitutional, bodies set up under the States Reorganisation Act, 1956, to foster inter-state cooperation, and there are five such councils covering the Northern, Southern, Eastern, Western, and Central zones. The Union Home Minister chairs all of them, while the Vice-Chairmanship rotates annually among the Chief Ministers of member States, making all three statements correct."
+    },
+    {
+        q: "With reference to challenges in the resolution of Inter-State River Water Disputes in India, consider the following statements: <br> 1. Article 262 empowers Parliament to enact a law providing that neither the Supreme Court nor any other court shall exercise jurisdiction over an inter-state river water dispute.<br>2. Under the Inter-State River Water Disputes Act, 1956, most tribunals constituted so far have given their final awards within the originally mandated one-year timeframe.<br>3. The Inter-State River Water Disputes (Amendment) Act, 2019 provided for a single, permanent tribunal with multiple benches, replacing the earlier practice of setting up a separate tribunal for each dispute.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "Only statement 1",
+            "Only one of the statements is correct",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "Article 262 does allow Parliament to exclude the jurisdiction of courts, including the Supreme Court, over such disputes. In practice, most tribunals have taken far longer than the mandated timeframe to give their awards -- the Cauvery dispute alone took about 28 years -- making statement 2 incorrect. The 2019 Amendment Act did replace multiple dispute-specific tribunals with a single standing tribunal having multiple benches."
+    },
+    {
+        q: "With reference to the functions and powers relevant to Centre-State administrative relations in India, consider the following statements: <br> 1. Article 261 requires States to give full faith and credit to the executive orders of other States' governments, but not to their judicial proceedings, which remain outside its scope.<br>2. Article 355 imposes a duty on the Union to protect every State against external aggression and internal disturbance, and to ensure that the government of every State is carried on in accordance with the provisions of the Constitution.<br>3. The power of superintendence, direction and control over the All-India Services vests exclusively with the State Governments, without any role for the Union Government.<br>Which one of the statements given above is correct?",
+        opts: [
+            "1 only",
+            "3 only",
+            "1 and 2 only",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "Article 261 actually requires full faith and credit to be given to public acts, records, and judicial proceedings of the Union and every State, not merely executive orders, making statement 1 incorrect. Article 355 does impose this protective and supervisory duty on the Union. Ultimate control over the All-India Services rests substantially with the Union Government through instruments like Article 312 and the Cadre Rules, not exclusively with the States, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to reforms and recommendations concerning cooperative and competitive federalism in India, consider the following statements: <br> 1. The Punchhi Commission recommended the constitution of an Inter-State Trade and Commerce Commission under Article 307 to address trade and commerce issues among States.<br>2. The Sarkaria Commission recommended that Article 356 (President's Rule) be invoked only as a measure of last resort, after all other options have been exhausted.<br>3. The Punchhi Commission recommended the abolition of the office of Governor and its replacement with a directly elected head of State for each State.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "The Punchhi Commission did recommend setting up an Inter-State Trade and Commerce Commission under Article 307, and the Sarkaria Commission recommended that Article 356 be used sparingly, only as a last resort. Neither Commission recommended abolishing the office of Governor; instead, both suggested procedural reforms to the appointment, tenure and removal of Governors, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the background and evolution of Centre-State financial relations in India, consider the following statements: <br> 1. Article 280 provides for the constitution of a Finance Commission by the President every five years or earlier, to recommend the distribution of net proceeds of taxes between the Union and the States.<br>2. The 80th Constitutional Amendment Act, 2000 restricted the divisible pool of shareable taxes to only income tax and Union excise duties, excluding corporation tax.<br>3. Article 275 provides for statutory grants-in-aid that are equal for every State irrespective of its fiscal needs.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1, 2 and 3",
+            "1 only",
+            "2 and 3 only"
+        ],
+        ans: 2,
+        exp: "Article 280 correctly provides for a Finance Commission every five years or earlier. In fact, the 80th Amendment Act, 2000 expanded, rather than restricted, the divisible pool to cover the entire net proceeds of all Union taxes and duties (with minor exceptions), making statement 2 incorrect. Grants-in-aid under Article 275 are given based on the needs of individual States, not equally to all, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the functions and powers of the Governor of a State, consider the following statements: <br> 1. The pardoning power of the Governor under Article 161 extends to sentences of death.<br>2. The Governor cannot grant pardon in respect of a punishment or sentence awarded by a court martial.<br>3. The 42nd Constitutional Amendment Act, 1976, abolished the Governor's power to nominate a member of the Anglo-Indian community to the State Legislative Assembly.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "2 only",
+            "1 and 3 only",
+            "1 only"
+        ],
+        ans: 1,
+        exp: "Unlike the President under Article 72, the Governor's pardoning power under Article 161 does not extend to death sentences or to punishments awarded by a court martial, both of which remain the exclusive preserve of the President. It was the 104th Constitutional Amendment Act, 2019, and not the 42nd Amendment, that abolished the nomination of Anglo-Indian members to State Assemblies, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the background and evolution of the Finance Commission of India, consider the following statements: <br> 1. The First Finance Commission of India was constituted in 1951 under the chairmanship of K.C. Neogy.<br>2. Even prior to the 73rd and 74th Constitutional Amendment Acts, 1992, the Finance Commission was constitutionally mandated to make recommendations directly for the devolution of funds to Panchayats and Municipalities.<br>3. The institution of the Finance Commission was carried over, without modification, from the Government of India Act, 1935, into the Constitution of India.<br>Which one of the statements given above is correct?",
+        opts: [
+            "1 only",
+            "1 and 3 only",
+            "2 only",
+            "3 only"
+        ],
+        ans: 0,
+        exp: "The First Finance Commission was indeed constituted in 1951 under K.C. Neogy's chairmanship. The Finance Commission's mandate to recommend measures for augmenting the resources of Panchayats and Municipalities was added only by the 73rd and 74th Amendment Acts, 1992, through insertions in Article 280(3), making statement 2 incorrect. The Finance Commission is a distinct institution created afresh by Article 280 of the Constitution of India and was not carried over from the Government of India Act, 1935, making statement 3 incorrect."
+    },
+    {
+        q: "Which one of the following combinations correctly identifies acts that the Governor of a State performs in his own discretion, without being bound by the aid and advice of the Council of Ministers?<br>1. Sending a report to the President recommending the imposition of President's Rule.<br>2. Appointing the Chief Minister when no single party or pre-poll alliance has a clear majority in the State Assembly.<br>3. Promulgating an ordinance under Article 213 when the State Legislature is not in session.<br>Select the correct answer using the code given below.",
+        opts: [
+            "1, 2 and 3",
+            "1 and 2 only",
+            "1 and 3 only",
+            "2 and 3 only"
+        ],
+        ans: 1,
+        exp: "Recommending President's Rule (Article 356) and selecting a Chief Minister in a hung assembly are recognised discretionary functions of the Governor, not derived from any express constitutional provision. Promulgating an ordinance under Article 213 is done on the aid and advice of the Council of Ministers, not at the Governor's discretion, so statement 3 is incorrect."
+    },
+    {
+        q: "With reference to the structure and composition of legislative subjects under the Indian Constitution, consider the following statements: <br> 1. Entries in the Union List can be legislated upon by both Parliament and the State Legislatures concurrently, similar to entries in the Concurrent List.<br>2. The Seventh Schedule to the Constitution contains three lists -- the Union List, the State List, and the Concurrent List -- distributing legislative subjects between Parliament and the State Legislatures.<br>3. The Ninth Schedule to the Constitution, added by the First Amendment Act, 1951, forms part of the scheme for distributing legislative subjects between the Centre and the States under Article 246.<br>Which one of the statements given above is correct?",
+        opts: [
+            "2 only",
+            "1 only",
+            "1 and 2 only",
+            "3 only"
+        ],
+        ans: 0,
+        exp: "The Union List is the exclusive legislative domain of Parliament, not concurrently legislated upon by State Legislatures, making statement 1 incorrect. The Seventh Schedule does correctly contain the Union, State and Concurrent Lists, distributing subjects between Parliament and the State Legislatures under Article 246. The Ninth Schedule, added by the First Amendment Act, 1951, serves an entirely different purpose -- shielding specified laws from judicial review under Article 31B -- and has no role in the distribution-of-powers scheme, making statement 3 incorrect."
+    },
+    {
+        q: "Assertion (A): The original ground of 'internal disturbance' for the proclamation of a National Emergency under Article 352 was replaced by 'armed rebellion'.<br>Reason (R): This change was introduced by the 44th Constitutional Amendment Act, 1978, to prevent misuse of emergency powers of the kind witnessed during 1975-77.<br>Select the correct answer using the code given below.",
+        opts: [
+            "A is true, but R is false",
+            "A is false, but R is true",
+            "Both A and R are true, and R is the correct explanation of A",
+            "Both A and R are true, but R is not the correct explanation of A"
+        ],
+        ans: 2,
+        exp: "The 44th Amendment Act, 1978 replaced 'internal disturbance' with the stricter ground of 'armed rebellion' as a safeguard against the arbitrary proclamation of Emergency witnessed in 1975. This was a direct corrective response to the misuse of Article 352 during that period, making R the correct explanation of A."
+    },
+    {
+        q: "Assertion (A): The original ground of 'internal disturbance' for the proclamation of a National Emergency under Article 352 was replaced by 'armed rebellion'.<br>Reason (R): This change was introduced by the 44th Constitutional Amendment Act, 1978, to prevent misuse of emergency powers of the kind witnessed during 1975-77.<br>Select the correct answer using the code given below.",
+        opts: [
+            "Both A and R are true, and R is the correct explanation of A",
+            "A is false, but R is true",
+            "Both A and R are true, but R is not the correct explanation of A",
+            "A is true, but R is false"
+        ],
+        ans: 0,
+        exp: "The 44th Amendment Act, 1978 replaced 'internal disturbance' with the stricter ground of 'armed rebellion' as a safeguard against the arbitrary proclamation of Emergency witnessed in 1975. This was a direct corrective response to the misuse of Article 352 during that period, making R the correct explanation of A."
+    },
+    {
+        q: "With reference to the background and evolution of cooperative and competitive federalism in India, consider the following statements: <br> 1. Competitive federalism, as a formal policy objective, was introduced in India through a Constitutional Amendment in 1992, alongside the 73rd and 74th Amendments.<br>2. The National Development Council, an extra-constitutional body associated with the erstwhile Planning Commission era, continues today to be the primary forum for competitive federalism in India.<br>3. The cooperative federalism model, involving institutions like the Planning Commission and the National Development Council, was the dominant approach to Centre-State coordination through much of the period before 1991 and before the establishment of NITI Aayog in 2015.<br>Which one of the statements given above is correct?",
+        opts: [
+            "1 only",
+            "3 only",
+            "2 and 3 only",
+            "2 only"
+        ],
+        ans: 1,
+        exp: "Competitive federalism was not introduced via any 1992 Constitutional Amendment; it emerged later as a policy approach, gaining prominence especially after 2014-15, making statement 1 incorrect. The National Development Council has become largely dormant since the Planning Commission's dissolution, with NITI Aayog's Governing Council now occupying that space, making statement 2 incorrect. The Planning Commission-NDC framework was indeed the dominant model of Centre-State coordination for decades before the shift towards NITI Aayog."
+    },
+    {
+        q: "With reference to important Acts and policies relevant to cooperative and competitive federalism in India, consider the following statements: <br> 1. NITI Aayog was established through a Cabinet Resolution dated 1 January 2015, replacing the Planning Commission, which had similarly been set up in 1950 through a Cabinet Resolution.<br>2. The Constitution (One Hundred and First Amendment) Act, 2016, which introduced the GST, required ratification by not less than two-thirds of the State Legislatures under the proviso to Article 368(2).<br>3. The Aspirational Districts Programme launched by NITI Aayog ranks districts on parameters such as health, education, and infrastructure, but deliberately excludes any element of competition between districts, focusing purely on Union-driven interventions.<br>Which one of the statements given above is correct?",
+        opts: [
+            "1 only",
+            "2 only",
+            "3 only",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "NITI Aayog was indeed set up by a Cabinet Resolution on 1 January 2015, just as the Planning Commission had been established by a Cabinet Resolution in 1950. The 101st Amendment Act, 2016 actually required ratification by not less than one-half, not two-thirds, of the State Legislatures, making statement 2 incorrect. The Aspirational Districts Programme explicitly uses competitive, real-time ranking of districts as a driver for improvement, contrary to statement 3."
+    },
+    {
+        q: "With reference to the Supreme Court's advisory opinion on the Presidential Reference concerning assent to Bills, consider the following statements: <br> 1. The opinion was delivered by a Constitution Bench headed by the Chief Justice of India.<br>2. The Supreme Court held that it can prescribe binding timelines for a Governor to act on a Bill under Article 200.<br>3. The Reference was made to the Supreme Court under Article 143 of the Constitution.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1, 2 and 3",
+            "3 only",
+            "Statement 1 alone"
+        ],
+        ans: 0,
+        exp: "The advisory opinion, delivered in November 2025 by a Constitution Bench led by CJI B.R. Gavai, was rendered on a Presidential Reference made under Article 143. The Court held it cannot impose binding timelines on a Governor for granting assent under Article 200, citing separation of powers and Article 361 immunity, so statement 2 is incorrect."
+    },
+    {
+        q: "With reference to the features and characteristics of Emergency provisions in the Constitution of India, consider the following statements: <br> 1. Of the three types of Emergency provided for, only the National Emergency under Article 352 has actually been proclaimed in India's history, the other two having never been used.<br>2. A characteristic feature of these provisions is that they enable the transformation of India's federal structure into a unitary one during the period of Emergency, without requiring any formal constitutional amendment.<br>3. A Financial Emergency under Article 360 has been proclaimed twice in India's history, both times during periods of severe fiscal crisis.<br>Which one of the statements given above is correct?",
+        opts: [
+            "1 and 3 only",
+            "2 only",
+            "1 only",
+            "3 only"
+        ],
+        ans: 1,
+        exp: "President's Rule under Article 356 has been imposed on numerous occasions and is far more frequently used than the National Emergency, making statement 1 incorrect. A Financial Emergency under Article 360 has, in fact, never been proclaimed in India, making statement 3 incorrect. The Constitution's built-in capacity to convert the federal structure into a unitary one during an Emergency, without any separate amendment, is indeed a distinctive feature of these provisions."
+    },
+    {
+        q: "With reference to the background and evolution of Indian federalism, consider the following statements: <br> 1. The idea of Indian federalism, as adopted in 1950, was modelled exclusively on the American federal system, with a rigid separation between Union and State subjects and no scope for overlapping jurisdiction.<br>2. The Government of India Act, 1935 did not provide for any federal scheme; India's federal structure was entirely a post-independence, post-1950 innovation.<br>3. The Constituent Assembly deliberately used the term 'Union of States' rather than 'Federation of States' in Article 1 to indicate that the Indian federation was not the result of an agreement among the States and that no State has the right to secede.<br>Which one of the statements given above is correct?",
+        opts: [
+            "3 only",
+            "1 only",
+            "1 and 3 only",
+            "2 only"
+        ],
+        ans: 1,
+        exp: "Indian federalism was not modelled exclusively on the American system; it retains a Concurrent List permitting overlapping jurisdiction, unlike the strict separation found in the USA, making statement 1 incorrect. The Government of India Act, 1935 did envisage a federal scheme for British India, from which many structural features were borrowed, making statement 2 incorrect. The Constituent Assembly's choice of 'Union of States' was indeed a deliberate signal that India's federation is indestructible and not born of an agreement among constituent units."
+    },
+    {
+        q: "With reference to recent developments in Centre-State legislative relations concerning the Goods and Services Tax (GST), consider the following statements: <br> 1. The 56th GST Council meeting held in September 2025 approved a simplified two-slab GST structure of 5% and 18%, replacing the earlier four-slab system, along with a special 40% rate for select goods.<br>2. Article 246A, inserted by the 101st Constitutional Amendment Act, 2016, confers concurrent power on Parliament and State Legislatures to make laws with respect to the Goods and Services Tax.<br>3. For the revised GST rate structure to come into force, it required ratification by not less than two-thirds of the State Legislatures, in a manner similar to the procedure under Article 368.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3"
+        ],
+        ans: 2,
+        exp: "The 56th GST Council meeting approved a two-slab GST structure of 5% and 18% with a 40% de-merit rate, implemented from 22 September 2025, exercising the concurrent legislative competence over GST created by Article 246A. GST Council decisions are given effect through ordinary Union and State GST legislation and Council recommendations under Article 279A, not through the special State ratification procedure required for constitutional amendments under Article 368, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to challenges and issues confronting Indian federalism, consider the following statements: <br> 1. The frequent and, at times, politically motivated invocation of Article 356 (President's Rule) in the past has been cited as a major challenge to India's federal fabric.<br>2. The exclusion of cesses and surcharges from the divisible pool of Union taxes has been identified as a challenge that reduces the fiscal autonomy and share of States.<br>3. The Sarkaria Commission concluded that these challenges necessitated converting India from a quasi-federal system into a purely unitary one.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Both 2 and 3",
+            "All three statements are correct",
+            "Exactly two of the statements are correct",
+            "None of the above"
+        ],
+        ans: 2,
+        exp: "The politically motivated misuse of Article 356 in the past, and the erosion of States' fiscal autonomy through the growing use of cesses and surcharges outside the divisible pool, are both well-documented challenges to Indian federalism. The Sarkaria Commission, however, did not recommend converting India into a unitary state; it broadly endorsed the existing federal structure while suggesting institutional reforms to strengthen cooperative federalism, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to challenges in Centre-State financial relations in India, consider the following statements: <br> 1. Cesses and surcharges levied by the Union Government do not form part of the divisible pool of taxes shared with the States under Article 270.<br>2. The proportion of cesses and surcharges in the Union Government's gross tax revenue has been declining steadily over the years, thereby reducing this as a source of concern for States.<br>3. States have raised concerns that the revenue compensation mechanism guaranteed under the GST (Compensation to States) Act, 2017 was time-bound and lapsed in mid-2022, creating fiscal stress for several States.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "Only two of the statements are correct",
+            "Exactly one of the statements is correct",
+            "Both 2 and 3"
+        ],
+        ans: 1,
+        exp: "Cesses and surcharges are excluded from the divisible pool under Article 270, reducing the effective share of tax revenue devolved to States. Contrary to statement 2, their share in the Union's gross tax revenue has generally risen in recent years, which is precisely why this is flagged as a challenge. The GST compensation guarantee did end in June 2022, causing genuine fiscal stress for several States."
+    },
+    {
+        q: "With reference to the Inter-State Council established under Article 263 of the Constitution, consider the following statements: <br> 1. Its functions include inquiring into and advising the President on disputes that may have arisen between States.<br>2. The recommendations made by the Inter-State Council are advisory in nature and are not binding on the Union or the States.<br>3. The function of investigating and discussing subjects of common interest between the Union and the States is vested exclusively in NITI Aayog and not in the Inter-State Council.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 0,
+        exp: "Article 263 empowers the Inter-State Council to inquire into and advise on inter-state disputes, and its recommendations, like those of most such bodies, are advisory and non-binding. Investigating and discussing subjects of common interest is itself one of the Inter-State Council's own functions under Article 263(b), not an exclusive preserve of NITI Aayog, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to current developments (2025-2026) in Centre-State financial relations in India, consider the following statements: <br> 1. The 16th Finance Commission, in its report submitted in November 2025, retained the States' share of the divisible pool of central taxes at 41 percent, unchanged from the recommendation of the 15th Finance Commission.<br>2. The compensation cess levied under the GST (Compensation to States) Act, 2017 was permanently discontinued with effect from September 2025, following the move to the two-slab GST structure.<br>3. As part of the Union Budget 2025-26, the Union Government transferred full ownership of all cess and surcharge collections in the Consolidated Fund of India to the States.<br>Which one of the statements given above is correct?",
+        opts: [
+            "1 and 2 only",
+            "2 only",
+            "1 only",
+            "3 only"
+        ],
+        ans: 2,
+        exp: "The 16th Finance Commission did retain the vertical devolution share at 41 percent, the same as recommended by the 15th Finance Commission. The GST compensation cess was not discontinued in September 2025; its collection was continued to service the loans taken to compensate States during the pandemic period, making statement 2 incorrect. No such transfer of cess and surcharge collections to the States has occurred; these continue to remain outside the divisible pool and under Union control, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to cooperative and competitive federalism in India, consider the following statements: <br> 1. The GST Council under Article 279A functions on a weighted voting system in which the Union has one-third of the total votes and all States together have two-thirds.<br>2. The Governing Council of NITI Aayog is chaired by the Prime Minister and includes the Chief Ministers of all States.<br>3. Under Article 252, a law made by Parliament at the request of two or more States applies only to the States that adopted the resolution, and to any other State that later adopts it.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "3 only",
+            "Both 1 and 3",
+            "All of the statements are correct"
+        ],
+        ans: 3,
+        exp: "The GST Council's voting structure gives the Union one-third and the States two-thirds of the votes, with decisions requiring a three-fourth majority. NITI Aayog's Governing Council, chaired by the Prime Minister, includes all State Chief Ministers, embodying cooperative federalism. Article 252 correctly limits the applicability of such Union legislation to consenting and subsequently adopting States only."
+    },
+    {
+        q: "With reference to the functions and powers exercised during a Proclamation of Emergency under the Constitution of India, consider the following statements: <br> 1. Article 358 provides for the automatic suspension of the six freedoms guaranteed under Article 19, without any separate Presidential order, regardless of the ground on which the National Emergency is proclaimed.<br>2. During the operation of a Proclamation of President's Rule under Article 356, Parliament acquires legislative power over the Union List, a power it does not otherwise possess.<br>3. A Proclamation of Financial Emergency under Article 360, once approved by both Houses of Parliament, remains in force indefinitely until revoked, without requiring periodic parliamentary reapproval every six months, unlike Articles 352 and 356.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "Exactly two of the statements are correct",
+            "Both 1 and 2",
+            "3 only"
+        ],
+        ans: 3,
+        exp: "Since the 44th Amendment, the automatic suspension of Article 19 freedoms under Article 358 applies only when the Emergency is proclaimed on the ground of war or external aggression, not armed rebellion, making statement 1 incorrect. Parliament already possesses full legislative power over the Union List irrespective of any Emergency, so statement 2 is meaningless and incorrect. A Financial Emergency under Article 360, unlike Articles 352 and 356, has no prescribed maximum duration or renewal requirement once approved by Parliament, making statement 3 the only correct one."
+    },
+    {
+        q: "With reference to the Supreme Court's advisory opinion on the Presidential Reference concerning assent to Bills, consider the following statements: <br> 1. The opinion was delivered by a Constitution Bench headed by the Chief Justice of India.<br>2. The Supreme Court held that it can prescribe binding timelines for a Governor to act on a Bill under Article 200.<br>3. The Reference was made to the Supreme Court under Article 143 of the Constitution.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "The advisory opinion, delivered in November 2025 by a Constitution Bench led by CJI B.R. Gavai, was rendered on a Presidential Reference made under Article 143. The Court held it cannot impose binding timelines on a Governor for granting assent under Article 200, citing separation of powers and Article 361 immunity, so statement 2 is incorrect."
+    },
+    {
+        q: "With reference to the features and characteristics of the Finance Commission of India, consider the following statements: <br> 1. The Finance Commission is not a permanent body; it is constituted by the President every five years or at such earlier time as the President considers necessary.<br>2. The recommendations of the Finance Commission are legally binding on the Union Government under Article 280.<br>3. Being an ad hoc body, the Finance Commission's recommendations lapse automatically without needing to be laid before Parliament.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1 only",
+            "1, 2 and 3",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "The Finance Commission is indeed an ad hoc body reconstituted every five years or earlier at the President's discretion. Its recommendations are only recommendatory, not legally binding, though conventionally accepted, making statement 2 incorrect. Far from lapsing automatically, Article 281 mandates that every recommendation be laid before each House of Parliament along with an explanatory memorandum on the action taken, making statement 3 incorrect."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-62 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>

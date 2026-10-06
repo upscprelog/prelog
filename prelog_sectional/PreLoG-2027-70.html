@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSC LoG — Prelims Booster</title>
+<style>
+  :root{
+    --bg: #F3F4F1;
+    --paper: #FFFFFF;
+    --ink: #1D2A35;
+    --ink-soft: #5B6873;
+    --rule: #D8DCD6;
+    --navy: #1B3A5C;
+    --navy-deep: #12283F;
+    --gold: #B8862E;
+    --gold-soft: #EFDFB8;
+    --answered: #2F7D5A;
+    --answered-bg: #E4F3EC;
+    --skipped: #B8862E;
+    --skipped-bg: #FBF1DE;
+    --current-ring: #1B3A5C;
+    --wrong: #B23A2E;
+    --wrong-bg: #FBEAE7;
+    --shadow: 0 1px 2px rgba(20,30,40,0.06), 0 6px 20px rgba(20,30,40,0.05);
+    --serif: Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'Courier New', ui-monospace, monospace;
+  }
+  [data-theme="dark"]{
+    --bg: #0F1A24;
+    --paper: #17232E;
+    --ink: #E7ECEF;
+    --ink-soft: #97A5AF;
+    --rule: #2A3846;
+    --navy: #3E6E9E;
+    --navy-deep: #2A4E70;
+    --gold: #D9A441;
+    --gold-soft: #3A3220;
+    --answered: #4CAF7D;
+    --answered-bg: #163227;
+    --skipped: #D9A441;
+    --skipped-bg: #332A16;
+    --current-ring: #D9A441;
+    --wrong: #E07A6C;
+    --wrong-bg: #3A1E1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+    html, body{
+    overflow-x: hidden;
+    width: 100%;
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    transition:background .3s ease, color .3s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header.topbar{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:0;
+    box-shadow:var(--shadow);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; gap:20px;
+    padding:14px 28px;
+  }
+  .logo-slot{
+    width:52px; height:52px;
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    overflow:hidden;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .logo-slot img{
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+  .logo-slot:hover{border-color:rgba(244,241,234,0.75); color:#F4F1EA;}
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-soft, #D9A441);
+    opacity:0.85;
+  }
+  .title-block h1{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:400;
+    margin:2px 0 0 0;
+    letter-spacing:0.01em;
+  }
+  .subnote{
+    font-family:var(--mono);
+    font-size:11px;
+    color:rgba(244,241,234,0.65);
+    margin-top:6px;
+    letter-spacing:0.02em;
+  }
+  .subnote a{color:var(--gold-soft); text-decoration:none;}
+  .subnote a:hover{text-decoration:underline;}
+  .topbar-right{
+    display:flex; align-items:center; gap:18px; flex-shrink:0;
+  }
+  .timer{
+    font-family:var(--mono);
+    font-size:13px;
+    color:#F4F1EA;
+    border:1px solid rgba(244,241,234,0.3);
+    padding:6px 12px;
+    border-radius:6px;
+    background:rgba(0,0,0,0.12);
+    transition:background .2s ease;
+  }
+  .timer.urgent{background:var(--wrong); border-color:var(--wrong);}
+
+  /* dark mode switch */
+  .mode-switch{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:rgba(244,241,234,0.85);
+  }
+  .switch{
+    position:relative; width:44px; height:24px;
+    background:rgba(244,241,234,0.2);
+    border-radius:20px; cursor:pointer;
+    border:1px solid rgba(244,241,234,0.35);
+    flex-shrink:0;
+  }
+  .switch .knob{
+    position:absolute; top:2px; left:2px;
+    width:18px; height:18px; border-radius:50%;
+    background:#F4F1EA;
+    transition:transform .25s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .switch .knob{
+    transform:translateX(20px);
+    background:var(--gold);
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    max-width:1280px; margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:23px;
+    padding:32px 28px 60px;
+    align-items:start;
+  }
+
+  /* ---------- Question paper ---------- */
+  .paper{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:36px 44px 32px;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .paper-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px; margin-bottom:28px;
+  }
+  .q-index{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+  .q-index b{color:var(--navy); font-size:15px;}
+  [data-theme="dark"] .q-index b{color:var(--gold);}
+  .q-status-tag{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:7px 16px;
+    border-radius:20px;
+    border:2px solid transparent;
+  }
+  .q-status-tag.answered{background:var(--answered-bg); color:var(--answered); border-color:var(--answered);}
+  .q-status-tag.unanswered{background:var(--skipped-bg); color:var(--skipped); border-color:var(--skipped);}
+
+  .q-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 32px 0;
+  }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .option{
+    display:flex; align-items:flex-start; gap:14px;
+    padding:18px 18px;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    background:transparent;
+  }
+  .option:hover{border-color:var(--navy); background:rgba(27,58,92,0.04);}
+  [data-theme="dark"] .option:hover{background:rgba(217,164,65,0.06); border-color:var(--gold);}
+  .option.selected{
+    border-color:var(--navy);
+    background:rgba(27,58,92,0.07);
+  }
+  [data-theme="dark"] .option.selected{
+    border-color:var(--gold);
+    background:rgba(217,164,65,0.1);
+  }
+  .option .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:bold;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+  .option.selected .tag{
+    border-color:var(--navy);
+    background:var(--navy);
+    color:#fff;
+  }
+  [data-theme="dark"] .option.selected .tag{
+    border-color:var(--gold);
+    background:var(--gold);
+    color:#17232E;
+  }
+  .option .opt-text{
+    font-size:15.5px; line-height:1.5; padding-top:1px;
+  }
+  .option.locked{cursor:default;}
+  .option.correct{
+    border-color:var(--answered);
+    background:var(--answered-bg);
+  }
+  .option.correct .tag{
+    border-color:var(--answered);
+    background:var(--answered);
+    color:#fff;
+  }
+  .option.incorrect{
+    border-color:var(--wrong);
+    background:var(--wrong-bg);
+  }
+  .option.incorrect .tag{
+    border-color:var(--wrong);
+    background:var(--wrong);
+    color:#fff;
+  }
+  .option.locked:hover{background:inherit; border-color:inherit;}
+  .q-status-tag.correct{background:var(--answered-bg); color:var(--answered); border-color:var(--answered); box-shadow:0 0 0 1px var(--answered) inset;}
+  .q-status-tag.incorrect{background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong); box-shadow:0 0 0 1px var(--wrong) inset;}
+  .q-status-tag.review-unanswered{
+    background:var(--wrong-bg);
+    color:var(--wrong);
+    border-color:var(--wrong);
+    box-shadow:0 0 0 1px var(--wrong) inset;
+  }
+
+  /* ---------- Explanation (review mode) ---------- */
+  .explain-box{
+    margin-top:26px;
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:16px 20px;
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink);
+  }
+  [data-theme="dark"] .explain-box{background:rgba(217,164,65,0.08);}
+  .explain-box b{color:var(--navy);}
+  [data-theme="dark"] .explain-box b{color:var(--gold);}
+  .explain-box .exp-label{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-bottom:8px;
+  }
+
+  .paper-foot{
+    display:flex; justify-content:space-between;
+    margin-top:32px; padding-top:20px;
+    border-top:1px solid var(--rule);
+  }
+  button{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:7px;
+    border:1px solid var(--rule);
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button:hover:not(:disabled){border-color:var(--navy); color:var(--navy);}
+  [data-theme="dark"] button:hover:not(:disabled){border-color:var(--gold); color:var(--gold);}
+  button:disabled{opacity:0.35; cursor:not-allowed;}
+  button.primary{
+    background:var(--navy); color:#F4F1EA; border-color:var(--navy);
+  }
+  button.primary:hover{filter:brightness(1.1); color:#F4F1EA;}
+  button.clear{background:transparent; border-color:transparent; color:var(--ink-soft); font-weight:500;}
+  .nav-group{display:flex; gap:10px;}
+
+  /* ---------- Sidebar palette ---------- */
+  .sidebar{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    padding:24px;
+    position:sticky;
+    top:96px;
+  }
+  .sidebar h2{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .sidebar .sub{
+    font-size:12px; color:var(--ink-soft); margin-bottom:18px;
+  }
+  .legend{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:20px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .legend span{display:flex; align-items:center; gap:8px;}
+  .dot{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+  .dot.answered{background:var(--answered);}
+  .dot.unanswered{background:var(--rule); border:1px solid var(--ink-soft);}
+  .dot.current{background:transparent; border:2px solid var(--current-ring);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .cell{
+    aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    border-radius:6px;
+    border:1px solid var(--rule);
+    background:transparent;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cell:hover{border-color:var(--navy);}
+  [data-theme="dark"] .cell:hover{border-color:var(--gold);}
+  .cell.answered{
+    background:var(--answered-bg); color:var(--answered); border-color:var(--answered);
+    font-weight:bold;
+  }
+  .cell.incorrect{
+    background:var(--wrong-bg); color:var(--wrong); border-color:var(--wrong);
+    font-weight:bold;
+  }
+  .cell.current{
+    outline:2px solid var(--current-ring); outline-offset:2px;
+  }
+
+  .tally{
+    padding-top:16px; border-top:1px solid var(--rule);
+    color:var(--ink-soft);
+  }
+  .tally-plain{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-plain > div{flex:1; text-align:left;}
+  .tally b{color:var(--ink); font-size:16px; display:block; font-family:var(--sans);}
+  .tally b.stat-correct{color:var(--answered);}
+  .tally b.stat-incorrect{color:var(--wrong);}
+  .tally b.stat-unattempted{color:var(--skipped);}
+
+  .marks-line{
+    text-align:center;
+    background:var(--gold-soft);
+    border:1.5px solid var(--gold);
+    border-radius:8px;
+    padding:12px 10px;
+    margin-bottom:14px;
+  }
+  [data-theme="dark"] .marks-line{background:rgba(217,164,65,0.12);}
+  .marks-line b{
+    font-size:26px; color:var(--navy); font-family:var(--serif); font-weight:700;
+  }
+  [data-theme="dark"] .marks-line b{color:var(--gold);}
+  .marks-line span{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); display:block; margin-top:2px;
+  }
+  .tally-grid{
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:12px;
+    gap:8px;
+  }
+  .tally-grid > div{flex:1; text-align:left;}
+
+  .score-breakdown{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+  }
+  .score-breakdown .stat{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:14px 10px;
+  }
+  .score-breakdown .stat b{
+    display:block; font-size:24px; font-family:var(--sans); margin-bottom:4px;
+  }
+  .score-breakdown .stat span{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft);
+  }
+  .score-breakdown .stat.correct{border-color:var(--answered); background:var(--answered-bg);}
+  .score-breakdown .stat.correct b{color:var(--answered);}
+  .score-breakdown .stat.incorrect{border-color:var(--wrong); background:var(--wrong-bg);}
+  .score-breakdown .stat.incorrect b{color:var(--wrong);}
+  .score-breakdown .stat.unattempted{border-color:var(--skipped); background:var(--skipped-bg);}
+  .score-breakdown .stat.unattempted b{color:var(--skipped);}
+
+  #submitBtn{width:100%; margin-top:20px;}
+
+  /* ---------- Result overlay ---------- */
+  .result-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px;
+    box-shadow:var(--shadow); padding:44px; text-align:center;
+  }
+  .result-card .score{
+    font-family:var(--serif); font-size:52px; color:var(--navy); margin:8px 0;
+  }
+  [data-theme="dark"] .result-card .score{color:var(--gold);}
+  .result-card .percent{
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.04em; margin-top:-4px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- Confirm submit modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,25,0.55);
+    display:flex; align-items:center; justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 24px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .modal-box .modal-icon{
+    font-size:26px;
+    margin-bottom:6px;
+  }
+  .modal-box p{
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .modal-box p b{color:var(--navy);}
+  [data-theme="dark"] .modal-box p b{color:var(--gold);}
+  .modal-box .modal-warn{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--skipped);
+    background:var(--skipped-bg);
+    border:1px solid var(--skipped);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:0 0 18px;
+    text-align:left;
+    line-height:1.5;
+  }
+  .modal-actions{
+    display:flex; gap:12px;
+  }
+  .modal-actions button{
+    flex:1;
+    padding:12px 10px;
+  }
+  #modalGoBack{color:var(--ink);}
+  #modalConfirm{background:var(--navy); color:#F4F1EA; border-color:var(--navy);}
+  #modalConfirm:hover{filter:brightness(1.1); color:#F4F1EA;}
+
+  /* ---------- Start-test modal ---------- */
+  .start-box{
+    max-width:420px;
+    text-align:left;
+  }
+  .start-box .modal-icon{font-size:30px; margin-bottom:2px;}
+  .start-title{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    text-align:center;
+    margin:2px 0 4px;
+  }
+  .start-sub{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 20px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .stat-grid .stat-box{
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:11px 12px;
+    background:var(--bg);
+  }
+  .stat-grid .stat-box .k{
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); display:block; margin-bottom:4px;
+  }
+  .stat-grid .stat-box .v{
+    font-family:var(--sans); font-size:16px; font-weight:700; color:var(--navy);
+  }
+  [data-theme="dark"] .stat-grid .stat-box .v{color:var(--gold);}
+  .start-rules{
+    list-style:none; margin:0 0 22px; padding:0;
+    display:flex; flex-direction:column; gap:7px;
+  }
+  .start-rules li{
+    font-size:13px; line-height:1.5; color:var(--ink-soft);
+    padding-left:18px; position:relative;
+  }
+  .start-rules li::before{
+    content:"—"; position:absolute; left:0; color:var(--gold);
+  }
+  .start-field label{
+    display:block;
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .start-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14.5px;
+    padding:11px 14px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+    margin-bottom:20px;
+  }
+  .start-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .start-field input:focus{ border-color:var(--gold); }
+  #startTestBtn{
+    width:100%; padding:13px 10px; font-size:15px;
+  }
+
+  @media (max-width: 430px){
+    .start-box{ padding:24px 20px 20px; max-width:100%; }
+    .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .start-title{ font-size:18px; }
+  }
+
+  /* small name field inside submit-confirm modal */
+  .modal-name-field{ text-align:left; margin:-6px 0 18px; }
+  .modal-name-field label{
+    display:block;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .modal-name-field input{
+    width:100%;
+    font-family:var(--sans); font-size:14px;
+    padding:10px 13px;
+    border:1px solid var(--rule); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .modal-name-field input:focus{ outline:none; border-color:var(--navy); }
+  [data-theme="dark"] .modal-name-field input:focus{ border-color:var(--gold); }
+
+  :root{
+    --desktop-width: 1440;
+}
+
+@media (max-width: 1024px){
+  .layout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar{
+    position: static;      /* was sticky at top:96px — no longer needed once stacked */
+    top: auto;
+  }
+}
+@media (max-width: 600px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .topbar-right{
+    flex-shrink: 1;        /* was 0 before — this is what caused the overflow */
+    flex-basis: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .subnote{
+    white-space: normal;
+  }
+}
+@media (max-width: 430px){
+  .layout{
+    padding: 20px 12px 40px;
+  }
+  .paper{
+    padding: 24px 18px 22px;
+  }
+  .sidebar{
+    padding: 18px;
+  }
+  .paper-head{
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-status-tag{
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px){
+  .title-block h1{
+    font-size: 17px;
+  }
+  .eyebrow{
+    font-size: 9.5px;
+  }
+  .subnote{
+    font-size: 10px;
+  }
+  .timer{
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+  .mode-switch{
+    font-size: 11px;
+  }
+}
+@media (max-width: 430px){
+  .result-card{
+    padding: 24px 18px;
+  }
+  .score-breakdown{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 100%;
+  }
+  .score-breakdown .stat{
+    padding: 10px 6px;
+  }
+  .score-breakdown .stat b{
+    font-size: 19px;
+  }
+  .result-card .score{
+    font-size: 38px;
+  }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <!-- <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">UPSC<br>LOGO</a> -->
+    <a class="logo-slot" href="https://upsclog.github.io/upsclog/" target="_blank" rel="noopener">
+  <img src="logo.png" alt="UPSC LoG" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+</a>
+    <div class="title-block">
+      <div class="eyebrow">UPSC LoG · Prelims Booster 2027</div>
+      <h1>PreLoG-2027-70</h1>
+      <div class="subnote" style="font-size: 12px;">
+        <span id="qTotalNote">7</span> Questions · +2 Correct / −0.67 Incorrect ·
+        <a href="https://t.me/upsclog" target="_blank" rel="noopener"> Join UPSC-LoG Telegram ↗</a>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="timer" id="timer">60:00</div>
+      <div class="mode-switch">
+        <span>Light</span>
+        <div class="switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+          <div class="knob"></div>
+        </div>
+        <span>Dark</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <div class="paper" id="paperView">
+    <div class="paper-head">
+      <div class="q-index">Question <b id="qNum">1</b> of <span id="qTotal">7</span></div>
+      <div class="q-status-tag unanswered" id="qStatusTag">Not Answered</div>
+    </div>
+
+    <p class="q-text" id="qText">Loading question…</p>
+
+    <div class="options" id="optionsList"></div>
+
+    <div class="explain-box hidden" id="explainBox">
+      <span class="exp-label">Explanation</span>
+      <div id="explainText"></div>
+    </div>
+
+    <div class="paper-foot">
+      <div class="nav-group">
+        <button id="prevBtn">← Previous</button>
+        <button class="clear" id="clearBtn">Clear response</button>
+      </div>
+      <button id="nextBtn" class="primary">Next →</button>
+    </div>
+  </div>
+
+  <div class="result-card hidden" id="resultView">
+    <div class="eyebrow" style="color:var(--ink-soft); letter-spacing:0.14em; font-family:var(--mono); font-size:11px; text-transform:uppercase;">Marks Sent for rank PDF</div>
+    <div class="score" id="scoreText">0.00 / 14.00</div>
+    <div class="percent" id="scorePercent">0.00%</div>
+    <div class="score-breakdown" id="scoreBreakdown"></div>
+    <p style="color:var(--ink-soft); font-size:14px; margin:20px 0 24px;">You can review your answers and explanations using the palette on the right.</p>
+    <h2>Check <a href="https://upsclog.github.io/upsclog/ranks_tests/daily_rankings.html" target="_blank">[RANKINGS]</a> - for Daily Rankings [PDF]</h2>
+    <button class="primary" id="reviewBtn">Review Answers</button>
+  </div>
+
+  <aside class="sidebar">
+    <h2>* Explanations attached for each question after you submit the test<br><br></h2>
+    <h2>* Auto-Submission in 30 minutes</h2>
+    <h2>* Dark <-> Bright modes for ease</h2>
+    <div class="sub"></div>
+
+    <div class="legend">
+      <span><span class="dot answered"></span> Answered / Correct</span>
+      <span><span class="dot" style="background:var(--wrong);"></span> Incorrect</span>
+      <span><span class="dot unanswered"></span> Not answered</span>
+      <span><span class="dot current"></span> Currently viewing</span>
+    </div>
+
+    <div class="grid" id="paletteGrid"></div>
+
+    <div class="tally" id="tallyRow">
+      <div class="tally-plain">
+        <div><b id="answeredCount">0</b>Answered</div>
+        <div><b id="skippedCount">7</b>Remaining</div>
+      </div>
+    </div>
+
+    <button class="primary" id="submitBtn">Submit Test</button>
+  </aside>
+
+</div>
+
+<div class="modal-overlay hidden" id="confirmModal">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon">📝</div>
+    <p id="modalMessage">Submit test?</p>
+    <div class="modal-name-field">
+      <label for="modalUserName">Name for rank (optional)</label>
+      <input type="text" id="modalUserName" placeholder="Enter your name" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button id="modalGoBack">Go Back</button>
+      <button id="modalConfirm" class="primary">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="startModal">
+  <div class="modal-box start-box">
+    <div class="modal-icon">🖋️</div>
+    <div class="start-title" id="startTitle">Loading…</div>
+    <div class="start-sub">UPSC LoG · Prelims Booster</div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><span class="k">Questions</span><span class="v" id="startQCount">–</span></div>
+      <div class="stat-box"><span class="k">Max Marks</span><span class="v" id="startMaxMarks">–</span></div>
+      <div class="stat-box"><span class="k">Correct</span><span class="v" id="startCorrectMarks">–</span></div>
+      <div class="stat-box"><span class="k">Incorrect</span><span class="v" id="startIncorrectMarks">–</span></div>
+    </div>
+
+    <ul class="start-rules">
+      <li>Total duration: <span id="startDuration">60</span> minutes. The test auto-submits when time runs out.</li>
+      <li>Explanations for every question unlock after you submit.</li>
+      <li>Use the palette on the right to jump between questions anytime.</li>
+    </ul>
+
+    <div class="start-field">
+      <label for="userName">Your name (for the rankings)</label>
+      <input type="text" id="userName" placeholder="Enter your name" maxlength="40">
+    </div>
+
+    <button class="primary" id="startTestBtn">Start Test →</button>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0TWFwlWS2gtewXNVd74gBlzorgsZ0QM8",
+    authDomain: "upsc-log.firebaseapp.com",
+    projectId: "upsc-log",
+    storageBucket: "upsc-log.firebasestorage.app",
+    messagingSenderId: "792972564483",
+    appId: "1:792972564483:web:7ce74be546e9fe06c6d636",
+    measurementId: "G-ZBT6XYHCCQ"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "https://upscprelog.github.io/prelog/index.html";
+    }
+  });
+</script>
+<script>
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbyamXySn2AagAN935BcpYuf6oTJNuIkLMuAby7CqWJ20rgdNgdWypVNTjMyWJBxW9OObw/exec";
+const QUESTIONS = [
+    {
+        q: "With reference to the challenges associated with cryptocurrency, consider the following statements: <br> 1. India currently has a comprehensive, dedicated law that specifically regulates and licenses private cryptocurrency exchanges.<br>2. The energy-intensive nature of \"Proof of Work\" based cryptocurrency mining has raised environmental concerns globally.<br>3. All G20 member countries have adopted a uniform, legally binding framework banning private cryptocurrencies, following India's G20 Presidency in 2023.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "3 only",
+            "1 only",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "The high energy consumption of \"Proof of Work\" based cryptocurrency mining has been widely criticised for its environmental impact, making statement 2 correct. India does not yet have a comprehensive dedicated law regulating or licensing private cryptocurrency exchanges, and the G20, during India's 2023 Presidency, only endorsed a non-binding IMF-FSB synthesis paper calling for a coordinated regulatory approach, not a uniform legally binding ban."
+    },
+    {
+        q: "The Forward Markets Commission (FMC), which earlier regulated the commodity derivatives market in India, was merged in September 2015 with which of the following regulatory bodies?",
+        opts: [
+            "Securities and Exchange Board of India",
+            "Insurance Regulatory and Development Authority of India",
+            "Pension Fund Regulatory and Development Authority",
+            "Reserve Bank of India"
+        ],
+        ans: 0,
+        exp: "The Forward Markets Commission was merged with the Securities and Exchange Board of India in September 2015, bringing the regulation of the commodity derivatives market under SEBI's ambit alongside the securities market. This consolidation was aimed at ensuring more unified and effective regulation of India's derivatives markets and forms an important milestone in SEBI's institutional evolution."
+    },
+    {
+        q: "With reference to the functions and powers exercised during the passage of the Union Budget in Parliament, consider the following statements: <br> 1. Demands for Grants are voted upon only by the Lok Sabha; the Rajya Sabha can discuss them but cannot vote on them.<br>2. A \"Cut Motion\" is a device used by Rajya Sabha members to seek a reduction in any Demand for Grant presented by the government.<br>3. The practice by which the Speaker puts all outstanding Demands for Grants to vote together, without further discussion, once the allotted time expires, is known as the \"Guillotine\".<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "1 only",
+            "Both 1 and 2",
+            "Exactly one of the statements is correct"
+        ],
+        ans: 0,
+        exp: "Since only the Lok Sabha votes on Demands for Grants, Cut Motions to reduce a Demand can be moved only by Lok Sabha members, not by Rajya Sabha members, making statement 2 incorrect. Once the time allotted for discussion of the Demands for Grants expires, the Speaker applies the \"Guillotine\" to put all remaining demands to vote together without further debate."
+    },
+    {
+        q: "With reference to the background and evolution of cryptocurrency, consider the following statements: <br> 1. Ethereum was the first-ever cryptocurrency, launched in 2009, and is best known for introducing the concept of \"smart contracts\".<br>2. Bitcoin, the first cryptocurrency, was created in 2009 by an individual or group operating under the pseudonym \"Satoshi Nakamoto\".<br>3. El Salvador was the first country in the world to declare Bitcoin as legal tender, and its example was subsequently followed by a majority of United Nations member states.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "3 only",
+            "None of the statements is correct",
+            "1 only"
+        ],
+        ans: 0,
+        exp: "Bitcoin, created in 2009 by the pseudonymous \"Satoshi Nakamoto\", was the first cryptocurrency, making statement 2 correct. Ethereum, which introduced smart contracts, was actually launched later in 2015, not 2009, and while El Salvador was indeed the first country to adopt Bitcoin as legal tender in 2021, this step was not followed by a majority of UN member states."
+    },
+    {
+        q: "Consider the following statements regarding the background of India's FinTech ecosystem: <br> Assertion (A): The Unified Payments Interface (UPI) has been a major driver of FinTech-led financial inclusion in India. <br> Reason (R): UPI was launched by the National Payments Corporation of India in 2016 to enable real-time fund transfers between bank accounts through a single mobile application. <br> Which one of the following is correct in respect of the above Assertion (A) and Reason (R)?",
+        opts: [
+            "A is false, but R is true",
+            "Both A and R are true, but R is not the correct explanation of A",
+            "Both A and R are true and R is the correct explanation of A",
+            "A is true, but R is false"
+        ],
+        ans: 2,
+        exp: "UPI, launched by the NPCI in 2016, allows instant, round-the-clock inter-bank transfers through a single mobile application linked to multiple bank accounts, and this ease of access has been central to expanding digital financial inclusion across India. Since the mechanism described in R directly accounts for the outcome stated in A, R is the correct explanation of A."
+    },
+    {
+        q: "With reference to the challenges associated with NITI Aayog, consider the following statements: <br> 1. NITI Aayog's recommendations to State Governments are legally binding and enforceable, similar to the Finance Commission's recommendations on tax devolution.<br>2. NITI Aayog retains the same fund-allocation powers to States that were earlier exercised by the Planning Commission.<br>3. Unlike the Finance Commission, NITI Aayog has no role in determining the statutory devolution of tax revenue between the Centre and the States.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "3 only",
+            "1 only",
+            "None of the statements is correct"
+        ],
+        ans: 1,
+        exp: "Since NITI Aayog is only an advisory think tank, it has no role, unlike the Finance Commission under Article 280, in determining the statutory devolution of tax revenue between the Centre and the States, making statement 3 correct. Its recommendations to States are not legally binding, and unlike the erstwhile Planning Commission, it does not possess any power to allocate funds to States."
+    },
+    {
+        q: "With reference to the Unified Pension Scheme (UPS), consider the following statements: <br> 1. The UPS became effective from 1st April 2025 as an option under the National Pension System for Central Government employees.<br>2. Under the UPS, only the Government contributes to the pension corpus, and employees are not required to make any contribution.<br>3. The UPS guarantees a minimum assured pension of Rs. 10,000 per month for employees completing at least 10 years of qualifying service.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "The UPS came into effect on 1st April 2025 as an option under the NPS, and it assures a minimum pension of Rs. 10,000 per month to employees with at least 10 years of qualifying service. However, employees are also required to contribute 10% of their Basic Pay plus Dearness Allowance, matched by the Government, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to the functions and powers exercised in India's FinTech ecosystem, consider the following statements: <br> 1. Under the Payment and Settlement Systems Act, 2007, the RBI has the power to call for information and returns from payment system operators and to impose penalties for non-compliance with its directions.<br>2. The National Payments Corporation of India (NPCI) is a for-profit government department directly functioning as a wing of the Reserve Bank of India.<br>3. The Reserve Bank of India has no authority to regulate non-bank entities operating digital wallets or prepaid payment instruments; such entities fall exclusively under the jurisdiction of the Ministry of Corporate Affairs.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "None of the statements is correct",
+            "2 only",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "Under the Payment and Settlement Systems Act, 2007, the RBI can call for information and returns from payment system operators and impose penalties for non-compliance, making statement 1 correct. NPCI is a not-for-profit Section 8 company promoted by the RBI and banks rather than a government department, and non-bank entities issuing digital wallets or prepaid payment instruments are in fact regulated by the RBI, not exclusively by the Ministry of Corporate Affairs."
+    },
+    {
+        q: "With reference to challenges facing the insurance sector in India, consider the following statements: <br> 1. India's insurance penetration (insurance premium as a percentage of GDP) is currently among the highest in the world, exceeding that of most developed economies.<br>2. Mis-selling of insurance products by agents and intermediaries has been identified as a recurring consumer protection challenge in India.<br>3. Insurance awareness and penetration are uniformly high across both rural and urban India, with no significant regional or rural-urban disparity.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1 only",
+            "None of the statements is correct",
+            "3 only"
+        ],
+        ans: 0,
+        exp: "Mis-selling of insurance products by agents and intermediaries has been repeatedly flagged by IRDAI as a persistent consumer protection challenge, making statement 2 correct. India's insurance penetration remains relatively low compared to the global average rather than among the highest, and rural areas continue to show significantly lower insurance awareness and penetration compared to urban India."
+    },
+    {
+        q: "With reference to the structure and composition of the Union Budget in India, consider the following statements: <br> 1. Under the FRBM Act, 2003, presenting a separate \"Macro-Economic Framework Statement\" along with the Budget is optional and left to the discretion of the Finance Minister.<br>2. The Union Budget comprises documents such as the Annual Financial Statement, Demands for Grants, the Finance Bill, and the Appropriation Bill.<br>3. The Budget is structured into a Revenue Budget, comprising revenue receipts and expenditure, and a Capital Budget, comprising capital receipts and expenditure.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 and 3 only",
+            "None of the statements are correct",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "The Union Budget comprises documents such as the Annual Financial Statement, Demands for Grants, the Finance Bill, and the Appropriation Bill, and it is structured into a Revenue Budget and a Capital Budget. However, presenting a Macro-Economic Framework Statement is mandatory, not optional, under the FRBM Act, 2003, making statement 1 incorrect."
+    },
+    {
+        q: "The subjects of Banking and Currency, coinage, legal tender and foreign exchange, which form the constitutional basis for the Reserve Bank of India's oversight of FinTech-related payment systems in India, fall under which List of the Seventh Schedule to the Constitution?",
+        opts: [
+            "Union List",
+            "Residuary powers of Parliament",
+            "Concurrent List",
+            "State List"
+        ],
+        ans: 0,
+        exp: "Banking and Currency, coinage, legal tender and foreign exchange are entries in the Union List of the Seventh Schedule, giving Parliament exclusive legislative competence over these subjects. This constitutional allocation underpins Union-level legislation such as the Payment and Settlement Systems Act, 2007, which forms the legal backbone for regulating FinTech-based payment systems through the RBI."
+    },
+    {
+        q: "With reference to important Acts and amendments concerning the Securities and Exchange Board of India (SEBI), consider the following statements: <br> 1. The Securities Laws (Amendment) Act, 2014 empowered SEBI to regulate collective money-pooling schemes with a corpus of Rs. 100 crore or more.<br>2. The Securities Appellate Tribunal (SAT), originally constituted under the SEBI Act, 1992, has also been empowered to hear appeals against orders passed by the Insurance Regulatory and Development Authority of India (IRDAI).<br>3. SEBI's power to conduct search and seizure operations requires prior approval from the Reserve Bank of India in every instance.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "Only statement 1",
+            "1 and 2 only",
+            "Only statement 2"
+        ],
+        ans: 2,
+        exp: "The Securities Laws (Amendment) Act, 2014 gave SEBI powers to regulate large collective investment schemes of Rs. 100 crore or more and to attach assets of defaulters, and a government notification later extended SAT's jurisdiction to appeals against IRDAI's orders as well. SEBI's Chairman is empowered to order search and seizure operations directly under the SEBI Act framework, with no requirement of RBI approval, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to important policy ideas and reforms introduced through the Economic Survey of India, consider the following statements: <br> 1. The Economic Survey is legally required under the Insolvency and Bankruptcy Code, 2016 to review corporate insolvency resolution trends within a fixed statutory timeline.<br>2. The Economic Survey of 2016-17 introduced and elaborated upon the concept of Universal Basic Income (UBI) as a possible policy option for India.<br>3. The Economic Survey of 2019-20 popularised the concept of \"Thalinomics\" to track the affordability of vegetarian and non-vegetarian thalis across Indian states.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 2 only",
+            "1 and 3 only"
+        ],
+        ans: 1,
+        exp: "The Economic Survey 2016-17 devoted an entire chapter to discussing Universal Basic Income as a potential policy alternative to existing welfare schemes, and the Economic Survey 2019-20 introduced \"Thalinomics\" to measure the affordability of thalis over time. There is no statutory provision under the Insolvency and Bankruptcy Code, 2016 that obligates the Economic Survey to review insolvency trends within a fixed timeline, making statement 1 incorrect."
+    },
+    {
+        q: "With reference to provisions concerning the Union Budget in India, consider the following statements: <br> 1. The Contingency Fund of India is at the disposal of the President of India and is used to meet unforeseen expenditure pending its authorisation by Parliament.<br>2. The corpus of the Contingency Fund of India was increased from Rs. 500 crore to Rs. 30,000 crore through an amendment enacted in 2021.<br>3. A \"Vote on Account\" empowers the government to incur expenditure as well as to raise fresh taxation, pending the passage of the complete Budget.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "The Contingency Fund of India, established under Article 267 and placed at the disposal of the President, is used to meet unforeseen expenditure pending Parliament's approval, and its corpus was raised from Rs. 500 crore to Rs. 30,000 crore through a 2021 amendment. A Vote on Account, however, deals only with the expenditure side of the Budget and does not empower the government to introduce fresh taxation proposals, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the evolution of the insurance sector in India, consider the following statements: <br> 1. The life insurance business was nationalised in 1956 through the enactment of the Life Insurance Corporation Act.<br>2. The general insurance business was nationalised in 1972 through the General Insurance Business (Nationalisation) Act.<br>3. The Malhotra Committee (1994) recommended opening up the insurance sector to private sector participation.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only one of the statements is correct",
+            "Only statement 2",
+            "None of the statements are correct",
+            "All of the statements are correct"
+        ],
+        ans: 3,
+        exp: "Life insurance was nationalised in 1956 with the formation of the LIC, and general insurance was nationalised in 1972, leading to the creation of the GIC and its four subsidiaries. The Malhotra Committee of 1994 subsequently recommended reversing this trend by permitting private and foreign participation, a recommendation that culminated in the IRDA Act, 1999."
+    },
+    {
+        q: "Under the Pradhan Mantri MUDRA Yojana (PMMY), which loan category was newly introduced, with the Union Budget 2024-25 raising its limit, to provide credit of up to Rs. 20 lakh to entrepreneurs who have successfully repaid loans under the previous category?",
+        opts: [
+            "Shishu",
+            "Tarun",
+            "Tarun Plus",
+            "Kishore"
+        ],
+        ans: 2,
+        exp: "The \"Tarun Plus\" category was newly introduced under PMMY, with the Union Budget 2024-25 raising its loan limit to between Rs. 10 lakh and Rs. 20 lakh for entrepreneurs who have successfully repaid loans under the Tarun category. The other three categories - Shishu (up to Rs. 50,000), Kishore (Rs. 50,000 to Rs. 5 lakh), and Tarun (Rs. 5 lakh to Rs. 10 lakh) - are the earlier, pre-existing slabs of the scheme."
+    },
+    {
+        q: "Which Article of the Constitution of India empowers Parliament to authorise the withdrawal of money from the Consolidated Fund of India through an Appropriation Act?",
+        opts: [
+            "Article 117",
+            "Article 114",
+            "Article 112",
+            "Article 113"
+        ],
+        ans: 1,
+        exp: "Article 114 provides for the Appropriation Bill, which, once enacted, authorises the withdrawal of funds from the Consolidated Fund of India to meet the grants voted and the charged expenditure. Article 112 merely mandates the presentation of the Annual Financial Statement, while Article 113 deals with the procedure for Demands for Grants, and Article 117 concerns Financial Bills in general."
+    },
+    {
+        q: "With reference to challenges facing the pension sector in India, consider the following statements: <br> 1. Low pension coverage among workers in the informal/unorganised sector remains a major challenge.<br>2. Returns under the National Pension System (NPS) are guaranteed and fixed by the Government, insulating subscribers from market volatility.<br>3. Persistent demand from several state governments and employee unions for restoration of the Old Pension Scheme (OPS) has been one of the pressures behind the introduction of the Unified Pension Scheme.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 2,
+        exp: "Low pension coverage in the informal sector remains a persistent structural challenge, and demands from several states and employee unions for restoring the Old Pension Scheme were among the key pressures behind the introduction of the Unified Pension Scheme. However, returns under the NPS are market-linked rather than guaranteed or fixed, exposing subscribers to market volatility, which makes statement 2 incorrect."
+    },
+    {
+        q: "With reference to India's Balance of Payments, consider the following statements: <br> 1. A surplus in the Current Account necessarily indicates that a country's external debt is decreasing.<br>2. Foreign Direct Investment (FDI) and Foreign Portfolio Investment (FPI) are recorded under the Capital/Financial Account of the Balance of Payments.<br>3. Remittances sent home by Non-Resident Indians (NRIs) are recorded under the Current Account of India's Balance of Payments.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "1 and 2 only",
+            "2 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 2,
+        exp: "FDI and FPI inflows are recorded under the Capital/Financial Account, while remittances sent by NRIs are recorded under the Current Account as part of secondary income. A Current Account surplus does not necessarily mean that external debt is falling, since debt levels are also influenced by capital account borrowings, valuation effects, and reserve accumulation, making statement 1 incorrect."
+    },
+    {
+        q: "With reference to the constitutional and legal provisions concerning the Goods and Services Tax (GST) Council, consider the following statements: <br> 1. In the GST Council, while taking a decision, the vote of the Central Government has a weightage of one-third of the total votes cast, and the votes of all the State Governments together have a weightage of two-thirds.<br>2. The GST Council is a non-constitutional, purely advisory body set up through an executive order of the Union Cabinet.<br>3. The GST Council is chaired by the Prime Minister of India, with the Union Finance Minister acting as Vice-Chairperson.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "3 only",
+            "2 only",
+            "None of the statements is correct",
+            "1 only"
+        ],
+        ans: 3,
+        exp: "As per Article 279A, inserted by the 101st Constitutional Amendment Act, 2016, the Central Government's vote in the GST Council carries a weightage of one-third, while all State Governments together carry two-thirds, making statement 1 correct. The GST Council is a constitutional body, not merely an executive creation, and it is chaired by the Union Finance Minister, not the Prime Minister, with a State Finance Minister acting as Vice-Chairperson."
+    },
+    {
+        q: "Under the Prevention of Money Laundering Act (PMLA), 2002, entities such as cryptocurrency exchanges and custodian wallet providers dealing in Virtual Digital Assets were brought under the definition of \"reporting entities\" through a notification issued in which year?",
+        opts: [
+            "2018",
+            "2020",
+            "2025",
+            "2023"
+        ],
+        ans: 3,
+        exp: "In March 2023, the Central Government issued a notification under the PMLA, 2002 bringing entities dealing in Virtual Digital Assets, including cryptocurrency exchanges and custodian wallet providers, within the definition of \"reporting entities\". This subjects such entities to anti-money laundering obligations like customer due diligence and suspicious transaction reporting, similar to other regulated financial intermediaries."
+    },
+    {
+        q: "Which of the following statements best describes the constitutional or legal status of the Economic Survey of India?",
+        opts: [
+            "It is presented under a special provision of the FRBM Act, 2003.",
+            "It is mandated under the Reserve Bank of India Act, 1934.",
+            "It has no specific constitutional or statutory backing and is presented as a matter of established practice.",
+            "It is mandated under Article 112 of the Constitution, the same Article that provides for the Annual Financial Statement."
+        ],
+        ans: 2,
+        exp: "Unlike the Union Budget, which is constitutionally mandated as the \"Annual Financial Statement\" under Article 112, the Economic Survey has no specific constitutional or statutory backing; it is presented as a matter of long-standing practice rather than legal obligation. Consequently, it is also not put to a vote in Parliament, unlike the Budget's financial proposals."
+    },
+    {
+        q: "Which of the following best describes the primary function of the Economic Survey of India?",
+        opts: [
+            "It serves as a review and analytical document that provides the economic backdrop and rationale for the Union Budget, without being an enforceable authority in itself.",
+            "It functions as the legal instrument through which the RBI's Monetary Policy Committee sets the repo rate.",
+            "It is a legally enforceable document through which the Ministry of Finance directly implements new taxation measures.",
+            "It grants the Chief Economic Adviser statutory powers to override budgetary allocations made by Parliament."
+        ],
+        ans: 0,
+        exp: "The Economic Survey functions as a review and analytical document, presenting an assessment of the economy's performance, outlining challenges, and providing the backdrop against which the Union Budget's proposals are framed. It has no enforceable legal authority of its own; its recommendations become effective only if adopted through separate legislative or executive action, such as via the Finance Bill."
+    },
+    {
+        q: "With reference to the regulatory treatment of cryptocurrency in India, consider the following statements: <br> 1. Cryptocurrencies are recognised as legal tender in India.<br>2. Under Section 115BBH of the Income Tax Act, income from the transfer of Virtual Digital Assets is taxed at a flat rate of 30%, and losses from such transfers cannot be set off against any other income.<br>3. The Supreme Court, in 2020, upheld the Reserve Bank of India's 2018 circular restricting banks from providing services to cryptocurrency exchanges.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "1 and 2 only",
+            "3 only",
+            "1 only"
+        ],
+        ans: 0,
+        exp: "Section 115BBH, inserted by the Finance Act, 2022, taxes gains from Virtual Digital Assets at a flat 30% and disallows set-off of losses from such transfers against other income, making statement 2 correct. Cryptocurrencies do not have legal tender status in India, and the Supreme Court, in the Internet and Mobile Association of India vs RBI case (2020), actually struck down the RBI's 2018 circular rather than upholding it."
+    },
+    {
+        q: "With reference to the structure and composition of cryptocurrency systems, consider the following statements: <br> 1. In cryptocurrency systems, the \"private key\" of a wallet is meant to be shared publicly so that others can send funds to that address.<br>2. A blockchain ledger is maintained and updated exclusively by a single centralised server operated by the cryptocurrency's founding organisation.<br>3. Proof of Stake is a consensus mechanism where validators are chosen to confirm transactions based on the quantity of cryptocurrency they hold and are willing to \"stake\" as collateral.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "None of the statements is correct",
+            "3 only",
+            "1 only"
+        ],
+        ans: 2,
+        exp: "Proof of Stake is indeed a consensus mechanism in which validators are selected to confirm transactions based on the amount of cryptocurrency they hold and stake as collateral, making statement 3 correct. It is actually the public key/address, not the private key, that is meant to be shared, and a blockchain ledger is distributed across a network of many nodes rather than maintained by a single centralised server."
+    },
+    {
+        q: "With reference to the features of the current phase of India's economic growth, consider the following statements: <br> 1. India has remained the fastest-growing major economy in the world for several consecutive years.<br>2. India's economic growth is driven primarily by domestic consumption and government capital expenditure rather than by export demand.<br>3. A revised Consumer Price Index (CPI) series with 2024 as the base year has been introduced to better capture current consumption patterns.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 3,
+        exp: "India has continued to be recognised as the fastest-growing major economy for several years, with growth driven mainly by domestic consumption and government capital expenditure rather than exports, distinguishing it from export-led or commodity-driven economies. A revised CPI series with 2024 as the base year has also been introduced to better reflect current consumption patterns, making all three statements correct."
+    },
+    {
+        q: "With reference to features and characteristics of the pension sector in India, consider the following statements: <br> 1. The Atal Pension Yojana guarantees subscribers a fixed monthly pension ranging between Rs. 1,000 and Rs. 5,000 after the age of 60, backed by a Government guarantee.<br>2. Under the National Pension System (NPS), Tier II accounts are mandatory for all subscribers and carry the same withdrawal restrictions as Tier I accounts.<br>3. The Pension Fund Regulatory and Development Authority (PFRDA) was established as a statutory body through an amendment to the Reserve Bank of India Act, 1934.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements is correct",
+            "1 only",
+            "2 only",
+            "3 only"
+        ],
+        ans: 1,
+        exp: "The Atal Pension Yojana provides a Government-guaranteed fixed monthly pension of between Rs. 1,000 and Rs. 5,000 after the subscriber turns 60, making statement 1 correct. NPS Tier II accounts are voluntary savings accounts with no withdrawal restrictions, unlike Tier I, and PFRDA was established as a statutory body through its own dedicated PFRDA Act, 2013, not through any amendment to the RBI Act."
+    },
+    {
+        q: "With reference to recent developments in India's FinTech sector, consider the following statements: <br> 1. In September 2025, the RBI issued new directions consolidating and superseding the earlier regulatory framework governing Payment Aggregators.<br>2. The transaction limit for UPI payments made for education and healthcare purposes has been reduced to Rs. 1 lakh.<br>3. The RBI has undertaken pilot initiatives to integrate the Unified Payments Interface (UPI) with the Central Bank Digital Currency (e₹).<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "1 only",
+            "Exactly two of the statements are correct",
+            "Statement 2 alone"
+        ],
+        ans: 2,
+        exp: "In September 2025, the RBI notified fresh directions consolidating the regulatory framework for Payment Aggregators, and it has also piloted integration between UPI and the e₹ (Central Bank Digital Currency). However, the UPI transaction limit for education and healthcare payments was actually raised to Rs. 5 lakh, not reduced to Rs. 1 lakh, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to NITI Aayog, consider the following statements: <br> 1. NITI Aayog was established through an executive resolution of the Union Government, and not through an Act of Parliament or a constitutional amendment.<br>2. NITI Aayog replaced the Planning Commission, which had been in existence since 1950.<br>3. Unlike the erstwhile Planning Commission, NITI Aayog has the power to allocate central funds and grants directly to State Governments.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "Statement 3 alone",
+            "Exactly two of the statements are correct",
+            "Statement 1 alone"
+        ],
+        ans: 2,
+        exp: "NITI Aayog was set up on 1st January 2015 through a Cabinet resolution, replacing the Planning Commission that had existed since 1950, making it neither a constitutional nor a statutory body. Unlike the Planning Commission, NITI Aayog does not have the power to allocate funds to State Governments, as that responsibility now rests with the Ministry of Finance, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the challenges facing the Indian economy in the current period, consider the following statements: <br> 1. In 2025, the United States imposed additional tariffs on a range of Indian exports, straining bilateral trade ties.<br>2. The Reserve Bank of India's Monetary Policy Committee retained an \"accommodative\" policy stance throughout 2025-26 to counter global uncertainty.<br>3. Volatility in crude oil prices and geopolitical tensions in West Asia have been cited as risks to India's inflation outlook.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 and 3 only",
+            "1 and 3 only",
+            "1, 2 and 3"
+        ],
+        ans: 2,
+        exp: "The United States imposed fresh tariffs on Indian exports in 2025, straining trade relations, and rising crude oil prices along with tensions in West Asia have been flagged as risks to India's inflation trajectory. However, the RBI's Monetary Policy Committee has maintained a \"neutral\" stance rather than an \"accommodative\" one, keeping statement 2 incorrect."
+    },
+    {
+        q: "With reference to recent reforms in India's Goods and Services Tax (GST) regime, consider the following statements: <br> 1. The GST 2.0 reforms replaced the earlier four-slab structure with a simplified two-slab structure of 5% and 18%, along with a separate 40% rate for select demerit and luxury goods.<br>2. The Goods and Services Tax was introduced in India through the 101st Constitutional Amendment Act, 2017.<br>3. Under the GST 2.0 reforms, premiums paid for individual life and health insurance policies were brought under the 18% standard GST slab.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the statements are correct",
+            "1 and 2 only",
+            "1 only",
+            "3 only"
+        ],
+        ans: 1,
+        exp: "GST 2.0, approved by the GST Council and effective from September 2025, rationalised the earlier four-slab structure into two main slabs of 5% and 18%, along with a special 40% rate for sin and luxury goods, and GST itself was introduced through the 101st Constitutional Amendment Act, 2017. Under this reform, individual life and health insurance premiums were fully exempted from GST rather than being taxed at the 18% standard rate, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to important reforms and recommendations put forward through the Economic Survey of India, consider the following statements: <br> 1. The Economic Survey is the document through which all tax reforms recommended by it automatically become legally binding upon presentation to Parliament.<br>2. The Economic Survey recommended the creation of a \"Public Sector Asset Rehabilitation Agency\" (PARA) to address the Twin Balance Sheet problem of stressed corporate debt and bad loans in public sector banks.<br>3. The Economic Survey 2018-19 argued against the use of behavioural economics or \"nudge\" based interventions, stating that such approaches were incompatible with Indian policymaking.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "1 and 2 only",
+            "All three statements are correct",
+            "2 only"
+        ],
+        ans: 3,
+        exp: "The Economic Survey recommended setting up a \"Public Sector Asset Rehabilitation Agency\" to help resolve the Twin Balance Sheet problem afflicting corporates and public sector banks, making statement 2 correct. In contrast, the Economic Survey 2018-19 actually advocated in favour of using behavioural economics and \"nudge\" based interventions to improve policy outcomes, and the Survey's recommendations are not automatically legally binding, making statements 1 and 3 incorrect."
+    },
+    {
+        q: "With reference to FinTech-related reforms in India, consider the following statements: <br> 1. The Reserve Bank of India's Regulatory Sandbox framework for the FinTech sector was introduced in the year 2019.<br>2. The Steering Committee on FinTech-related issues, whose recommendations covered MSME financing, was constituted by the Reserve Bank of India.<br>3. All Self-Regulatory Organisations (SROs) recognised by the RBI in the FinTech space are exclusively mandated to regulate Non-Banking Financial Companies (NBFCs).<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "2 only",
+            "1 only",
+            "None of the statements is correct"
+        ],
+        ans: 2,
+        exp: "The RBI introduced its Regulatory Sandbox framework for FinTech innovation in August 2019, making statement 1 correct. The Steering Committee on FinTech-related issues was actually constituted by the Ministry of Finance's Department of Economic Affairs, not the RBI, and different SROs recognised by the RBI cover different segments, such as FACE for FinTech firms and FIDC for NBFCs, so statement 3 is also incorrect."
+    },
+    {
+        q: "With reference to distinctive features of the Union Budget process in India, consider the following statements: <br> 1. Since 2005-06, the Union Budget has included a Gender Budget Statement indicating allocations made for women-specific and women-related programmes.<br>2. The \"Outcome Budget\", which links financial allocations to measurable performance outcomes of various ministries, has been an accompanying feature of the Union Budget process.<br>3. Under the Constitution, the Union Budget can be presented only after the Governor of the Reserve Bank of India certifies that the estimates are consistent with the country's balance of payments position.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "None of the above",
+            "1 and 2 only",
+            "1, 2 and 3",
+            "3 only"
+        ],
+        ans: 1,
+        exp: "Since 2005-06, a Gender Budget Statement has accompanied the Union Budget, and an Outcome Budget linking allocations to measurable performance has also been a regular accompanying feature. There is, however, no constitutional requirement for the RBI Governor to certify the Budget's consistency with the balance of payments before its presentation, making statement 3 incorrect."
+    },
+    {
+        q: "With reference to the Sabka Bima Sabki Raksha (Amendment of Insurance Laws) Act, 2025, consider the following statements: <br> 1. It raised the Foreign Direct Investment (FDI) limit in Indian insurance companies from 74% to 100% under the automatic route.<br>2. It increased the minimum paid-up share capital requirement for insurance co-operative societies to Rs. 100 crore.<br>3. It reduced the net-owned fund requirement for foreign reinsurance branches operating in India from Rs. 5,000 crore to Rs. 1,000 crore.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only"
+        ],
+        ans: 0,
+        exp: "The Act, passed by Parliament in December 2025, raised the FDI limit in Indian insurance companies to 100% under the automatic route and reduced the net-owned fund requirement for foreign reinsurance branches from Rs. 5,000 crore to Rs. 1,000 crore. It also amended the definition of an insurance co-operative society to remove, rather than increase, the earlier Rs. 100 crore minimum paid-up capital requirement, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to the Economic Survey of India, consider the following statements: <br> 1. It is prepared under the guidance of the Chief Economic Adviser in the Department of Economic Affairs, Ministry of Finance.<br>2. Unlike the Union Budget, the Economic Survey is not put to a vote in Parliament.<br>3. The Economic Survey is typically presented in two volumes, with one containing thematic and analytical chapters and the other providing a review of the year along with statistical data.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only statement 2",
+            "All of the above",
+            "Only one of the statements is correct",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 1,
+        exp: "The Economic Survey is prepared under the guidance of the Chief Economic Adviser within the Department of Economic Affairs, and unlike the Union Budget, it is a review document that is not subjected to a parliamentary vote. It is generally released in two volumes, one offering analytical and thematic discussion and the other providing a review of the preceding year's performance along with statistical appendices, making all three statements correct."
+    },
+    {
+        q: "With reference to the evolution of the Union Budget in India, consider the following statements: <br> 1. The first Budget of independent India was presented by R. K. Shanmukham Chetty in November 1947.<br>2. Since the Budget for 2017-18, the Railway Budget has been merged with the General Budget.<br>3. The term \"Budget\" is explicitly defined in the Constitution of India.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "Both 2 and 3",
+            "All three statements are correct",
+            "Both 1 and 3"
+        ],
+        ans: 0,
+        exp: "R. K. Shanmugham Chetty presented independent India's first Budget in November 1947, and the separate Railway Budget was merged with the General Budget from 2017-18 onward. However, the Constitution does not use the word \"Budget\" at all; it refers instead to the \"Annual Financial Statement\" under Article 112."
+    },
+    {
+        q: "With reference to the functions and powers of NITI Aayog, consider the following statements: <br> 1. NITI Aayog administers the Aspirational Districts Programme, which monitors socio-economic performance indicators of identified underdeveloped districts in India.<br>2. NITI Aayog possesses statutory powers to sanction and release funds directly to State Governments for the implementation of development schemes.<br>3. NITI Aayog's functions are limited only to matters concerning agriculture, and it has no role in monitoring social sector indicators such as health, education, or the Sustainable Development Goals.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "None of the statements is correct",
+            "3 only",
+            "2 only"
+        ],
+        ans: 0,
+        exp: "NITI Aayog administers the Aspirational Districts Programme, tracking socio-economic indicators across health, education, agriculture, and other sectors in identified underdeveloped districts, making statement 1 correct. NITI Aayog has no statutory power to sanction or release funds to States, and its functions extend well beyond agriculture to cover social sector monitoring, including publishing the SDG India Index."
+    },
+    {
+        q: "With reference to the challenges associated with the implementation of Government schemes in India, consider the following statements: <br> 1. Overlapping and duplication of similar schemes across different ministries has historically been identified as a challenge.<br>2. The introduction of Direct Benefit Transfer (DBT) has completely and permanently eliminated all instances of leakage or diversion of welfare benefits in India.<br>3. Multiplicity of Centrally Sponsored Schemes led to their rationalisation into a smaller number of schemes based on the recommendations of a Sub-Group of Chief Ministers.<br>How many of the statements given above are correct?",
+        opts: [
+            "None of the statements is correct",
+            "All three",
+            "Only two",
+            "Only one"
+        ],
+        ans: 2,
+        exp: "Overlapping schemes across ministries and the resulting rationalisation of Centrally Sponsored Schemes based on a Sub-Group of Chief Ministers' recommendations have both been well-documented aspects of scheme implementation in India, making statements 1 and 3 correct. However, the claim that DBT has completely and permanently eliminated all leakage is an overstatement, as challenges of exclusion errors and last-mile delivery persist even under DBT."
+    },
+    {
+        q: "With reference to the functions and powers of the Securities and Exchange Board of India (SEBI), consider the following statements: <br> 1. SEBI's protective functions include prohibiting insider trading and fraudulent or unfair trade practices relating to the securities market.<br>2. SEBI's regulatory functions include the registration and regulation of the working of stock brokers, sub-brokers, and merchant bankers.<br>3. SEBI does not perform any developmental function, such as investor education or training of intermediaries, as this falls exclusively within the mandate of the Ministry of Finance.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "Only two of the statements are correct",
+            "Only one of the statements is correct",
+            "2 and 3 only",
+            "None of the above"
+        ],
+        ans: 0,
+        exp: "SEBI's functions are broadly classified into protective functions, such as curbing insider trading and unfair trade practices, and regulatory functions, such as registering and regulating stock brokers, sub-brokers, and merchant bankers. SEBI also performs developmental functions, including investor education and training of market intermediaries, so it is incorrect to say this lies exclusively with the Ministry of Finance."
+    },
+    {
+        q: "With reference to the Securities and Exchange Board of India (SEBI), consider the following statements: <br> 1. It is SEBI, and not the Reserve Bank of India, that mandates the submission of a Business Responsibility and Sustainability Report (BRSR) by listed companies.<br>2. Disclosures made under the BRSR framework are almost entirely financial in nature.<br>3. SEBI functions as a body accountable to the Reserve Bank of India for its regulatory decisions.<br>How many of the statements given above are correct?",
+        opts: [
+            "None of the statements is correct",
+            "Only one",
+            "Only two",
+            "All three"
+        ],
+        ans: 1,
+        exp: "SEBI, not the RBI, mandates the BRSR for listed companies, making statement 1 correct. BRSR disclosures are largely non-financial, covering environmental, social and governance (ESG) parameters rather than financial data, and SEBI functions under the Ministry of Finance rather than being accountable to the RBI, so statements 2 and 3 are both incorrect."
+    },
+    {
+        q: "With reference to the Fiscal Responsibility and Budget Management (FRBM) Act, 2003, consider the following statements: <br> 1. The Act, as originally enacted, set targets for the reduction of both the fiscal deficit and the revenue deficit as a percentage of GDP.<br>2. The N. K. Singh Committee recommended the complete abolition of any fiscal deficit target, replacing it entirely with a revenue deficit target.<br>3. The escape clause under the Act permits the government to permanently do away with fiscal deficit targets once invoked, without any obligation to revert to the original glide path.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 2 only",
+            "1 only",
+            "3 only",
+            "2 only"
+        ],
+        ans: 1,
+        exp: "The FRBM Act, 2003 originally mandated a reduction in both the fiscal deficit and revenue deficit as a percentage of GDP, making statement 1 correct. The N. K. Singh Committee instead recommended using the public debt-to-GDP ratio as the medium-term fiscal anchor rather than replacing the fiscal deficit target with a revenue deficit target, and the escape clause permits only a temporary, capped deviation in specified circumstances, not a permanent departure from the glide path."
+    },
+    {
+        q: "With reference to the structure and composition of Government schemes in India, consider the following statements: <br> 1. Central Sector Schemes are funded entirely by the Union Government, whereas Centrally Sponsored Schemes are funded jointly by the Centre and the States in a specified ratio.<br>2. Centrally Sponsored Schemes are typically implemented by agencies of the Union Government, while Central Sector Schemes are implemented by the State Governments.<br>3. Centrally Sponsored Schemes have been classified into categories such as \"Core of the Core\", \"Core\", and \"Optional\" schemes, based on the recommendations of a Sub-Group of Chief Ministers constituted by NITI Aayog.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 and 3 only",
+            "1 and 2 only",
+            "1, 2 and 3",
+            "1 and 3 only"
+        ],
+        ans: 3,
+        exp: "Central Sector Schemes are wholly funded by the Union Government and implemented through central agencies, whereas Centrally Sponsored Schemes involve joint funding by the Centre and States and are implemented by State Governments, making statement 2 a reversal of the actual arrangement. A NITI Aayog Sub-Group of Chief Ministers recommended rationalising and classifying Centrally Sponsored Schemes into \"Core of the Core\", \"Core\", and \"Optional\" categories."
+    },
+    {
+        q: "With reference to important Acts underlying Government schemes in India, consider the following statements: <br> 1. The PM-KISAN scheme, providing direct income support to farmers, is backed by a dedicated Act of Parliament.<br>2. The Mahatma Gandhi National Rural Employment Guarantee Act, 2005 provides a legal guarantee of at least 100 days of wage employment per financial year to rural households.<br>3. The National Food Security Act, 2013 gives legal entitlement to subsidised foodgrains to a specified proportion of the population under the Public Distribution System.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All three statements are correct",
+            "Only two of the statements are correct",
+            "Statement 3 alone",
+            "Only statement 2"
+        ],
+        ans: 1,
+        exp: "The MGNREGA, 2005 legally guarantees at least 100 days of wage employment per year to rural households, and the National Food Security Act, 2013 legally entitles a specified proportion of the population to subsidised foodgrains under the PDS. In contrast, PM-KISAN is a Central Sector Scheme implemented through executive decision rather than through a dedicated Act of Parliament, making statement 1 incorrect."
+    },
+    {
+        q: "With reference to the Securities and Exchange Board of India (SEBI), consider the following statements: <br> 1. SEBI was initially constituted in 1988 as a non-statutory body and was later conferred statutory status through the SEBI Act, 1992.<br>2. SEBI functions under the administrative control of the Reserve Bank of India.<br>3. SEBI exercises quasi-legislative, quasi-executive and quasi-judicial functions.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 only",
+            "1 and 3 only",
+            "2 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 1,
+        exp: "SEBI was set up in 1988 as a non-statutory body and gained statutory powers under the SEBI Act, 1992, and it is empowered to make regulations, adjudicate disputes and enforce orders, giving it quasi-legislative, quasi-executive and quasi-judicial character. SEBI functions under the Ministry of Finance, not under the administrative control of the RBI, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to global reforms and recommendations concerning cryptocurrency, consider the following statements: <br> 1. The Financial Action Task Force (FATF) has recommended a complete, universal ban on all forms of cryptocurrency trading and mining across its member countries.<br>2. India's crypto-asset regulatory approach has been solely determined by recommendations of the World Trade Organization (WTO), which has direct rule-making authority over India's domestic virtual asset policy.<br>3. The Financial Action Task Force (FATF) has recommended that countries apply anti-money laundering \"Travel Rule\" requirements to Virtual Asset Service Providers, mandating the sharing of originator and beneficiary information for crypto-asset transfers above a threshold.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "None of the statements is correct",
+            "1 only",
+            "3 only"
+        ],
+        ans: 3,
+        exp: "FATF has recommended applying the anti-money laundering \"Travel Rule\" to Virtual Asset Service Providers, requiring the sharing of originator and beneficiary information above a threshold, making statement 3 correct. FATF has not called for a universal ban on cryptocurrency, and the WTO has no direct rule-making authority over India's domestic virtual asset policy."
+    },
+    {
+        q: "With reference to challenges concerning the Union Budget process in India, consider the following statements: <br> 1. The Budget always overestimates tax revenue collections, and hence there has been no instance of actual revenue falling short of the Budget Estimate in any year.<br>2. Off-budget/extra-budgetary borrowings, previously used to fund items like food subsidies outside the formal fiscal deficit calculation, were criticised by the Comptroller and Auditor General (CAG) for understating the true fiscal deficit.<br>3. Since Independence, India's Union Budget has never faced any challenge in meeting its fiscal deficit target as originally budgeted.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "2 only",
+            "3 only",
+            "None of the statements is correct",
+            "1 only"
+        ],
+        ans: 0,
+        exp: "The CAG has criticised the earlier practice of routing expenditure such as food subsidy payments through off-budget/extra-budgetary borrowings, which understated the actual fiscal deficit, making statement 2 correct. Revenue shortfalls relative to Budget Estimates have occurred in several years, and India has faced repeated challenges in meeting its originally budgeted fiscal deficit targets, making statements 1 and 3 incorrect."
+    },
+    {
+        q: "With reference to the Digital Rupee (e₹), India's Central Bank Digital Currency, consider the following statements: <br> 1. It represents a direct liability of the Reserve Bank of India, similar to physical currency notes issued by it.<br>2. Being a digital form of currency, the Digital Rupee is inherently insured against inflation and cannot lose its real value over time.<br>3. Unlike the Digital Rupee, the Unified Payments Interface (UPI) does not itself constitute money; it merely functions as an interface for transferring funds already held in bank accounts.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "All of the above",
+            "Only statement 3",
+            "None of the above",
+            "Exactly two of the statements are correct"
+        ],
+        ans: 3,
+        exp: "The Digital Rupee is a sovereign currency and, like physical banknotes, represents a direct liability of the RBI, whereas UPI is merely a payment interface that moves money already held in bank accounts rather than being money itself. However, the Digital Rupee is not inherently insured against inflation; its real value is subject to the same inflationary dynamics as any other form of the rupee, making statement 2 incorrect."
+    },
+    {
+        q: "With reference to the features and characteristics of the insurance sector in India, consider the following statements: <br> 1. \"Insurance\" is a subject placed in the Union List of the Seventh Schedule to the Constitution, giving Parliament exclusive power to legislate on it.<br>2. The Indian insurance sector broadly comprises two categories - life insurance and general (non-life) insurance.<br>3. The Insurance Regulatory and Development Authority of India (IRDAI) mandates a minimum solvency margin requirement for insurers to ensure they can meet their claim obligations.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1 and 3 only",
+            "2 and 3 only",
+            "1, 2 and 3",
+            "1 and 2 only"
+        ],
+        ans: 2,
+        exp: "\"Insurance\" is listed as Entry 47 of the Union List, placing it under Parliament's exclusive legislative domain, and the Indian insurance industry is broadly divided into life insurance and general (non-life) insurance. IRDAI also mandates a minimum solvency margin for insurers as a prudential safeguard to ensure they remain capable of honouring policyholder claims, making all three statements correct."
+    },
+    {
+        q: "With reference to the structure and composition of the Securities and Exchange Board of India (SEBI), consider the following statements: <br> 1. The Board of SEBI, including its Chairman, is appointed by the Central Government.<br>2. As per the SEBI Act, 1992, one member of the SEBI Board must be an official nominated from the Reserve Bank of India.<br>3. The Chairman of SEBI is elected by the whole-time members of the Board from amongst themselves.<br>Which of the statements given above is/are correct?",
+        opts: [
+            "1, 2 and 3",
+            "2 and 3 only",
+            "1 and 3 only",
+            "1 and 2 only"
+        ],
+        ans: 3,
+        exp: "Under the SEBI Act, 1992, the entire Board of SEBI, including its Chairman, is appointed by the Central Government, and the Act requires that one member be nominated from among officials of the Reserve Bank of India. The Chairman is not internally elected by the other members but is directly appointed by the Central Government, making statement 3 incorrect."
+    }
+];
+
+
+
+
+const CORRECT_MARKS = 2;
+const NEGATIVE_MARKS = 2 / 3;
+
+let current = 0;
+const responses = new Array(QUESTIONS.length).fill(null);
+let submitted = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTotalEl = document.getElementById('qTotal');
+const qTotalNoteEl = document.getElementById('qTotalNote');
+const qTextEl = document.getElementById('qText');
+const optionsListEl = document.getElementById('optionsList');
+const qStatusTag = document.getElementById('qStatusTag');
+const explainBox = document.getElementById('explainBox');
+const explainText = document.getElementById('explainText');
+const paletteGrid = document.getElementById('paletteGrid');
+const answeredCountEl = document.getElementById('answeredCount');
+const skippedCountEl = document.getElementById('skippedCount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const clearBtn = document.getElementById('clearBtn');
+const submitBtn = document.getElementById('submitBtn');
+const paperView = document.getElementById('paperView');
+const resultView = document.getElementById('resultView');
+const reviewBtn = document.getElementById('reviewBtn');
+const scoreText = document.getElementById('scoreText');
+const scorePercent = document.getElementById('scorePercent');
+
+const confirmModal = document.getElementById('confirmModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalIcon = document.getElementById('modalIcon');
+const modalGoBack = document.getElementById('modalGoBack');
+const modalConfirm = document.getElementById('modalConfirm');
+
+qTotalEl.textContent = QUESTIONS.length;
+qTotalNoteEl.textContent = QUESTIONS.length;
+skippedCountEl.textContent = QUESTIONS.length;
+
+function buildPalette(){
+  paletteGrid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.textContent = i + 1;
+    cell.addEventListener('click', () => { current = i; render(); });
+    paletteGrid.appendChild(cell);
+  });
+}
+
+function render(){
+  const item = QUESTIONS[current];
+  qNumEl.textContent = current + 1;
+  qTextEl.innerHTML = item.q;
+
+  optionsListEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  const userChoice = responses[current];
+  item.opts.forEach((opt, idx) => {
+    const div = document.createElement('div');
+    let cls = 'option';
+    if (submitted){
+      cls += ' locked';
+      if (idx === item.ans) cls += ' correct';
+      else if (idx === userChoice) cls += ' incorrect';
+    } else if (userChoice === idx){
+      cls += ' selected';
+    }
+    div.className = cls;
+    div.innerHTML = `<span class="tag">${letters[idx]}</span><span class="opt-text"></span>`;
+    div.querySelector('.opt-text').textContent = opt;
+    div.addEventListener('click', () => {
+      if (submitted) return;
+      responses[current] = idx;
+      render();
+    });
+    optionsListEl.appendChild(div);
+  });
+
+  if (submitted){
+    if (userChoice === null){
+      qStatusTag.textContent = '⚠ Not Answered · Correct answer shown';
+      qStatusTag.className = 'q-status-tag review-unanswered';
+    } else if (userChoice === item.ans){
+      qStatusTag.textContent = '✓ Correct';
+      qStatusTag.className = 'q-status-tag correct';
+    } else {
+      qStatusTag.textContent = '✗ Incorrect';
+      qStatusTag.className = 'q-status-tag incorrect';
+    }
+    explainBox.classList.remove('hidden');
+    explainText.innerHTML = '<b>Correct Answer:</b> ' + letters[item.ans] + '. ' + item.opts[item.ans] + '<br><br>' + item.exp;
+  } else {
+    const answered = userChoice !== null;
+    qStatusTag.textContent = answered ? 'Answered' : 'Not Answered';
+    qStatusTag.className = 'q-status-tag ' + (answered ? 'answered' : 'unanswered');
+    explainBox.classList.add('hidden');
+  }
+
+  prevBtn.disabled = current === 0;
+  if (submitted){
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Back to Result' : 'Next →';
+    clearBtn.style.visibility = 'hidden';
+  } else {
+    nextBtn.textContent = current === QUESTIONS.length - 1 ? 'Finish' : 'Next →';
+    clearBtn.style.visibility = 'visible';
+  }
+
+  // palette
+  const cells = paletteGrid.children;
+  for (let i = 0; i < cells.length; i++){
+    cells[i].classList.toggle('current', i === current);
+    if (submitted){
+      const isIncorrect = responses[i] !== null && responses[i] !== QUESTIONS[i].ans;
+      const isCorrect = responses[i] === QUESTIONS[i].ans;
+      cells[i].classList.toggle('incorrect', isIncorrect);
+      cells[i].classList.toggle('answered', isCorrect);
+    } else {
+      cells[i].classList.toggle('answered', responses[i] !== null);
+      cells[i].classList.remove('incorrect');
+    }
+  }
+
+  const answeredTotal = responses.filter(r => r !== null).length;
+  if (submitted){
+    let correct = 0, incorrect = 0;
+    QUESTIONS.forEach((q, i) => {
+      if (responses[i] === null) return;
+      if (responses[i] === q.ans) correct++; else incorrect++;
+    });
+    const unattempted = QUESTIONS.length - answeredTotal;
+    const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+    document.getElementById('tallyRow').innerHTML = `
+      <div class="marks-line"><b>${marks.toFixed(2)}</b><span>Marks Scored</span></div>
+      <div class="tally-grid">
+        <div><b class="stat-correct">${correct}</b>Correct</div>
+        <div><b class="stat-incorrect">${incorrect}</b>Incorrect</div>
+        <div><b class="stat-unattempted">${unattempted}</b>Unattempted</div>
+      </div>
+    `;
+  } else {
+    answeredCountEl.textContent = answeredTotal;
+    skippedCountEl.textContent = QUESTIONS.length - answeredTotal;
+  }
+}
+
+prevBtn.addEventListener('click', () => { if (current > 0){ current--; render(); }});
+nextBtn.addEventListener('click', () => {
+  if (current < QUESTIONS.length - 1){ current++; render(); }
+  else if (submitted){
+    paperView.classList.add('hidden');
+    resultView.classList.remove('hidden');
+  } else {
+    openConfirmModal();
+  }
+});
+clearBtn.addEventListener('click', () => { responses[current] = null; render(); });
+
+submitBtn.addEventListener('click', openConfirmModal);
+
+/* ---------- Confirmation modal logic ---------- */
+function openConfirmModal(){
+  const nameVal = document.getElementById('userName').value.trim();
+  document.getElementById('modalUserName').value = nameVal;
+  refreshConfirmModalText();
+  confirmModal.classList.remove('hidden');
+}
+
+function refreshConfirmModalText(){
+  const nameVal = document.getElementById('modalUserName').value.trim();
+  if (nameVal){
+    modalIcon.textContent = '📝';
+    modalMessage.innerHTML = `Submit test : <b>${escapeHtml(nameVal)}</b> ?`;
+  } else {
+    modalIcon.textContent = '⚠️';
+    modalMessage.innerHTML = `You have not set your name, your rank will be set as: <b>Anonymous</b>`;
+  }
+}
+
+document.getElementById('modalUserName').addEventListener('input', refreshConfirmModalText);
+
+function closeConfirmModal(){
+  confirmModal.classList.add('hidden');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+modalGoBack.addEventListener('click', closeConfirmModal);
+modalConfirm.addEventListener('click', () => {
+  closeConfirmModal();
+  doSubmit();
+});
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeConfirmModal();
+});
+
+function doSubmit(){
+  submitted = true;
+  clearInterval(countdown);
+  let correct = 0, incorrect = 0;
+  QUESTIONS.forEach((q, i) => {
+    if (responses[i] === null) return;
+    if (responses[i] === q.ans) correct++; else incorrect++;
+  });
+  const unattempted = QUESTIONS.length - (correct + incorrect);
+  const maxMarks = QUESTIONS.length * CORRECT_MARKS;
+  const marks = (correct * CORRECT_MARKS) - (incorrect * NEGATIVE_MARKS);
+  const percentage = (marks / maxMarks) * 100;
+
+  scoreText.textContent = marks.toFixed(2) + ' / ' + maxMarks.toFixed(2);
+  scorePercent.textContent = percentage.toFixed(2) + '%';
+  document.getElementById('scoreBreakdown').innerHTML = `
+    <div class="stat correct"><b>${correct}</b><span>Correct</span></div>
+    <div class="stat incorrect"><b>${incorrect}</b><span>Incorrect</span></div>
+    <div class="stat unattempted"><b>${unattempted}</b><span>Unattempted</span></div>
+  `;
+  const userName = document.getElementById('modalUserName').value.trim() || "Anonymous"; 
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      name: userName,
+      marks: marks.toFixed(2),
+      correct: correct,
+      incorrect: incorrect,
+      unattempted: unattempted,
+      testCode: "PreLoG-2027-70 LoG-Batch"
+    })
+  }); 
+  submitBtn.style.display = 'none';
+  paperView.classList.add('hidden');
+  resultView.classList.remove('hidden');
+  render();
+}
+
+reviewBtn.addEventListener('click', () => {
+  resultView.classList.add('hidden');
+  paperView.classList.remove('hidden');
+  current = 0;
+  render();
+});
+
+// theme toggle
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click', () => {
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// countdown timer — only ticks once the test has been started
+let seconds = 60 * 60;
+let testStarted = false;
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+  if (!testStarted || seconds <= 0 || submitted) return;
+  seconds--;
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  timerEl.textContent = `${m}:${s}`;
+  timerEl.classList.toggle('urgent', seconds <= 60);
+  if (seconds === 0){
+    timerEl.textContent = 'Time Up!';
+    doSubmit();
+  }
+}, 1000);
+
+/* ---------- Start-test modal logic ---------- */
+const startModal = document.getElementById('startModal');
+const startTestBtn = document.getElementById('startTestBtn');
+const startNameInput = document.getElementById('userName');
+
+// populate the start screen dynamically so this same code works
+// no matter how many questions / what marking scheme this file has
+document.getElementById('startTitle').textContent =
+  document.querySelector('.title-block h1').textContent;
+document.getElementById('startQCount').textContent = QUESTIONS.length;
+document.getElementById('startMaxMarks').textContent = (QUESTIONS.length * CORRECT_MARKS).toFixed(0);
+document.getElementById('startCorrectMarks').textContent = '+' + CORRECT_MARKS.toFixed(2);
+document.getElementById('startIncorrectMarks').textContent = '−' + NEGATIVE_MARKS.toFixed(2);
+document.getElementById('startDuration').textContent = Math.round(seconds / 60);
+
+startTestBtn.addEventListener('click', () => {
+  testStarted = true;
+  startModal.classList.add('hidden');
+});
+
+// pressing Enter in the name field on the start screen also starts the test
+startNameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startTestBtn.click();
+});
+
+buildPalette();
+render();
+
+window.addEventListener('beforeunload', function(e){
+  const hasProgress = !submitted && responses.some(r => r !== null);
+  if (hasProgress){
+    e.preventDefault();
+    e.returnValue = 'Your answers have not been submitted. If you leave or refresh this page, all marked answers will be lost.';
+    return e.returnValue;
+  }
+});
+
+</script>
+
+</body>
+</html>
